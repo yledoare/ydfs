@@ -1,0 +1,18 @@
+#!/busybox/bin/sh
+
+mount /proc /proc -t proc
+mount /sys /sys -t sysfs
+
+echo "OK!"
+
+export ARCH=`uname -m`
+echo -n "Creating "
+for device in `ls /sys/class/block/`
+do
+	if [ ! -e /dev/$device ]
+	then
+		echo -n "$device "
+		mknod /dev/$device b `cat /sys/class/block/$device/dev | cut -d ':' -f1` `cat /sys/class/block/$device/dev | cut -d ':' -f2`
+	fi
+done
+echo

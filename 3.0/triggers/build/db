@@ -1,0 +1,2 @@
+cd build_unix
+make LIBSO_LIBS=-lpthread

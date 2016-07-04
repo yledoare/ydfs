@@ -1,0 +1,24 @@
+#!/bin/sh
+if [ "$1"  = "" ]
+then
+  echo $0 needs directory as argument
+  exit 1
+fi
+. ./config.ini
+cd $HOME/dibab/packages/$1 || exit $?
+find | while read file 
+do
+  echo $file
+  [ -f "/"$file ] && echo "Remove /$file" && rm "/"$file
+  [ -h "/"$file ] && echo "Remove /$file" && rm "/"$file
+done
+
+cd home/*
+find | while read file 
+do
+  [ -f "$HOME/dibab/modules/"$file ] && echo "Remove $HOME/dibab/modules/"$file && rm "$HOME/dibab/modules/"$file
+  [ -h "$HOME/dibab/modules/"$file ] && echo "Remove $HOME/dibab/modules/"$file && rm "$HOME/dibab/modules/"$file
+done
+
+rm -fR $HOME/dibab/packages/$1
+rm $HOME/dibab/src/$1-*/*.done

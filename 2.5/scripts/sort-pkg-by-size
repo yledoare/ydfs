@@ -1,0 +1,13 @@
+rm $HOME/dibab/list-pkg
+ls /home/linuxconsole24/dibab/packages-x86_64 | while read pkg
+do
+  SIZE=$(du -s /home/linuxconsole24/dibab/packages-x86_64/$pkg | cut -d '/' -f1)
+  echo -n $SIZE
+  echo " $pkg "
+  echo -n $SIZE >> $HOME/dibab/list-pkg
+  echo " $pkg " >> $HOME/dibab/list-pkg
+done
+
+sort $HOME/dibab/list-pkg
+
+echo "Read $HOME/dibab/list-pkg"

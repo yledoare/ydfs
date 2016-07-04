@@ -1,0 +1,50 @@
+--- hw/mini2440.c.orig	2011-09-26 19:55:33.000000000 +0200
++++ hw/mini2440.c	2011-09-26 20:06:43.000000000 +0200
+@@ -256,36 +256,26 @@
+ static void mini2440_reset(void *opaque)
+ {
+     struct mini2440_board_s *s = (struct mini2440_board_s *) opaque;
+-    uint32_t image_size;
++    int32_t image_size;
+ 
+ 	/*
+-	 * Normally we would load 4 KB of nand to SRAM and jump there, but
+-	 * it is not working perfectly as expected, so we cheat and load
+-	 * it from nand directly relocated to 0x33f80000 and jump there
+-	 */
++	 * We load 4 KB of nand to SRAM and jump there */
+ 	if (mini2440_load_from_nand(s->nand, 0, S3C_RAM_BASE | 0x03f80000, 256*1024)> 0) {
+ 		mini2440_printf("loaded default u-boot from NAND\n");
+ 		s->cpu->env->regs[15] = S3C_RAM_BASE | 0x03f80000; /* start address, u-boot already relocated */
+ 	}
+-#if 0 && defined(LATER)
+-	if (mini2440_load_from_nand(s->nand, 0, S3C_SRAM_BASE_NANDBOOT, S3C_SRAM_SIZE) > 0) {
+-	    s->cpu->env->regs[15] = S3C_SRAM_BASE_NANDBOOT;	/* start address, u-boot relocating code */
+-	    mini2440_printf("4KB SteppingStone loaded from NAND\n");
+-	}
+-#endif
+-	/*
+-	 * if a u--boot is available as a file, we always use it
+-	 */
+ 	{
+ 	    image_size = load_image("mini2440/u-boot.bin", qemu_get_ram_ptr(0x03f80000));
+-	    if (image_size < 0)
++	    if (image_size < 0) {
+ 		    image_size = load_image("u-boot.bin", qemu_get_ram_ptr(0x03f80000));
+-	   	if (image_size > 0) {
+-	   		if (image_size & (512 -1))	/* round size to a NAND block size */
+-	   			image_size = (image_size + 512) & ~(512-1);
+-	   		mini2440_printf("loaded override u-boot (size %x)\n", image_size);
+-		    s->cpu->env->regs[15] = S3C_RAM_BASE | 0x03f80000;	/* start address, u-boot already relocated */
+-	   	}
++		 }
++           if (image_size > 0) {
++                   if (image_size & (512 -1)) {        /* round size to a NAND block size */
++                           image_size = (image_size + 512) & ~(512-1);
++                   }
++                   mini2440_printf("loaded override bootloader (size %x)\n", image_size);
++                   s->cpu->env->regs[15] = S3C_RAM_BASE | 0x03f80000;  /* start address, u-boot already relocated */
++
+ 	}
+ 	/*
+ 	 * if a kernel was explicitly specified, we load it too

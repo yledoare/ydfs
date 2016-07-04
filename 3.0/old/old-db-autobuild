@@ -1,0 +1,1263 @@
+#!/bin/bash
+export SDLDIR=$HOME/$ARCH
+MYPWD=`pwd`
+#basename extrait le dernier répertoire sans les sous répertoires ou les suffixes de noms de fichiers
+MYDIR=`basename $MYPWD`
+#$MYDIR est donc le répertoire courant sans le chemin complet,en fait ici c'est le répertoire du package qu'on essaie de compiler
+#MYSHORTDIR=version raccourcie de $MYDIR:sert à avoir le nom sans les N° de version,est-ce bien cela?
+MYSHORTDIR=`echo $MYDIR | cut -d'-' -f1`
+DIALOG=Xdialog
+[ "$DISPLAY" = "" ] && DIALOG=dialog
+echo -n "Package source : $MYDIR " 
+[ -d $HOME/dibab/packages-$ARCH/$MYDIR ] && [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
+[ "$FORCEBUILD" != "OK" ] && [ -d $HOME/dibab/packages-$ARCH/$MYDIR ] && [ ! -e build-twice ] && [ ! -e $HOME/dibab/build-$MODULE/$MYDIR/build-twice ] && echo -n "built OK ($HOME/dibab/packages-$ARCH/$MYDIR)" && exit 0
+
+SHORTNAME=$(basename $MYPWD | cut -d'-' -f1)
+
+echo $MYPWD | grep lightdm-gtk-greeter && SHORTNAME=lightdm-gtk-greeter
+echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
+echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
+
+[ "$FORCEBUILD" != "OK" ] && ls $HOME/dibab/opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
+
+[ "$FORCEBUILD" != "OK" ] && [ -e buildok-$ARCH ] && echo -n "built OK ($PWD)" && exit 0
+MYBUILDSCRIPT=""
+
+function dibab-install-package () {
+    #met à jour les dates d'accès et de modification
+    touch $HOME/.dibab-error
+    echo "$HOME/dibab/packages-$ARCH/$MYDIR not found, installing ..."
+    find $PREFIX -newer $HOME/dibab/tmp/.$MYDIR.dibab-start-build | while read FILE
+    do
+      #si_$FILE_est_un_repertoire_alors_on_le_créé
+      [ -d "$FILE" ] && install -d $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && continue
+      #si_$FILE_est_un_fichier_alors_on_le_copie
+      if [ -f "$FILE" ] 
+      then
+        [ ! -e $HOME/dibab/packages-$ARCH/$MYDIR/`dirname $FILE` ] && install -d $HOME/dibab/packages-$ARCH/$MYDIR/`dirname $FILE`
+        cp $FILE $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
+        [ -e $HOME/.dibab-error ] && rm $HOME/.dibab-error
+      fi
+      #si_$FILE_est_un_lien_symbolique_alors
+      [ -h "$FILE" ] && cp -a $FILE $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && echo "link $FILE " && continue
+      [ -e $HOME/dibab/packages-$ARCH/$MYDIR/$FILE ] && continue
+      echo "What is $FILE ?? "
+      rm buildok-$ARCH 
+      exit 24
+    done
+    [ -e $HOME/.dibab-error ] && echo "No file for $MYDIR ???" && exit 25
+  cd $HOME/dibab/packages-$ARCH/$MYDIR
+echo "DEBUG MODULE is $MODULE"
+  if [ "$MODULE" = "opkg" ]
+  then
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+}
+
+touch $HOME/dibab/tmp/.$MYDIR.dibab-start-build && sleep 1 # yes, some packages (re)built in less than one second !
+# echo "Building for $ARCH" # && sleep 2
+
+if [ "$ARCH" = "" ]
+then
+  BUILD_DIR=$HOME/dibab/build/$MYDIR
+else
+  # BUILD_DIR=$HOME/dibab/build-$ARCH/$MYDIR
+  BUILD_DIR=$HOME/dibab/build-$MODULE/$MYDIR
+fi
+
+export MSGFMT="/usr/bin/msgfmt"
+if [ "$CROSS_COMPILE" = "" ] && [ -e "$HOME/$ARCH/bin/msgfmt" ] 
+then
+  export MSGFMT="$HOME/$ARCH/bin/msgfmt"
+fi
+
+[ -e $DIBAB_PREFIX/$ARCH/bin/perl ] && export PERL=$DIBAB_PREFIX/$ARCH/bin/perl
+[ -e /usr/bin/pkg-config ] && export PKG_CONFIG=/usr/bin/pkg-config
+[ -e $DIBAB_PREFIX/$ARCH/bin/pkg-config ] && [ "$ARCH" != "arm" ] && export PKG_CONFIG=$DIBAB_PREFIX/$ARCH/bin/pkg-config
+[ "$ARCH" = "arm" ] && export  XGETTEXT=/usr/bin/xgettext
+[ -e $DIBAB_PREFIX/$ARCH/bin/python ] && [ "$ARCH" != "arm" ] && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python
+export SFML_CFLAGS="-I$DIBAB_PREFIX/$ARCH/include"
+[ ! -n "$MYSHORTDIR" ] && exit 0
+if [ -n "$MYBUILDSCRIPT" ] 
+then
+  sh $MYBUILDSCRIPT
+else
+  if [ -n "$1" ] 
+  then
+    PREFIX=$1
+    [ -n "$FORCE_PREFIX" ] && PREFIX=$FORCE_PREFIX
+    pkgdir=$PREFIX
+    echo "CC : $CC, PREFIX : $PREFIX"
+    [ -n "$FORCE_PREFIX" ] && sleep 10
+  else
+    echo "PREFIX MUST BE SET"
+    exit 1
+  fi
+
+  [ -e $PREFIX/bin/groff ] && export GROFF=$PREFIX/bin/groff
+  [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
+  [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
+#  [ -e mad.pc.in ] &&  CFLAGS="$CFLAGS -ftree-vectorize -ftree-vectorizer-verbose=1" && autoconf
+  [ -e src/mame/mame.c ] && cp makefile Makefile
+  [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
+  if [ -e $HOME/.archpatches ]
+  then
+	pwd
+	cat $HOME/.archpatches
+        sleep 2
+	for URL in `cat $HOME/.archpatches`
+	do
+	echo $URL
+	wget $URL --no-check-certificate -O patch
+	patch -Nfp0 -i patch || patch -Nfp1 -i patch # || exit 3
+	sleep 3
+	rm patch
+	done
+   rm $HOME/.archpatches
+  fi
+  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e dibab-patched ]
+  then
+    patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch dibab-patched
+    [ ! -e dibab-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch dibab-patched
+    [ ! -e dibab-patched ] && echo "wrong patch ?" # && exit 2
+  fi
+
+#  [ -e "torcs.desktop" ] && unset CFLAGS
+#  [ -e "torcs.desktop" ] && unset LDFLAGS
+#  [ -e "torcs.desktop" ] && unset CPPFLAGS
+
+. $(dirname $0)/../scripts/includes/mozilla
+. $(dirname $0)/../scripts/includes/gmic
+
+  [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  [ -e SDL_Pango.pc.in ] && [ -e configure ] && rm configure && echo " Forced remake configure " && sleep 5 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+
+  if [ -e generic/include/clc/clc.h ]
+  then
+  [ ! -e $HOME/dibab/llvm-clang/bin/llvm-config ] && echo "Build llvm-clang" && $HOME_DIBAB/scripts/build-llvm-clang
+  echo "Build custom clc"
+  # sed -i 's/"python < $in >/sys.executable + " < $in >/g' configure.py
+  python2 ./configure.py --prefix=$PREFIX --with-llvm-config=$HOME/dibab/llvm-clang/bin/llvm-config
+#  sed -i 's|/usr/lib/llvm-3.4|/usr|' Makefile
+  fi
+
+. $(dirname $0)/../scripts/includes/login
+
+  if [ -e doc/examples/etc/init.d/atieventsd.sh ]
+  then
+    DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst.sh || exit $?
+    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+    exit 0
+  fi
+
+  if [ -e  Scratch.image ]
+  then
+        pkgname=scratch
+	install -d /usr/lib/$pkgname
+	echo "Install  Scratch"
+        sed -i 's/-xshm //' src/$pkgname
+        make build || exit $?
+  install -Dm755 src/$pkgname $PREFIX/bin/$pkgname || exit $?
+  install -Dm644 Scratch.image $PREFIX/lib/$pkgname/Scratch.image
+  install -m644 Scratch.ini $PREFIX/lib/$pkgname/Scratch.ini
+  install -Dm644 src/$pkgname.desktop $PREFIX/share/applications/$pkgname.desktop || exit $?
+  install -Dm644 src/$pkgname.xml PREFIX/share/mime/packages/$pkgname.xml
+  install -dm755 $PREFIX/share/{$pkgname,icons/hicolor}
+
+  cp -rp Help locale Media Projects README $PREFIX/share/$pkgname/
+  cp -rp Plugins $PREFIX/lib/$pkgname/
+
+  for res in 32 48 128; do
+    install -D -m644 src/icons/${res}x${res}/$pkgname.png \
+      $PREFIX/share/icons/hicolor/${res}x${res}/apps/$pkgname.png
+  done
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+#==============================================Games===============================================
+#traitement du jeu Oad------------------------  
+. $(dirname $0)/../scripts/includes/0ad
+
+#traitement de Box2D(Linuxfr.org)------------------------  
+  if [ -e Box2D ]
+  then
+    cd Box2D
+  fi
+#correction pour libes(linuxfr.org)nécessaire pour le jeu GeneticInvasion------------------------  
+  if [ -e src/libes0.pc.in  ]
+  then
+	cd src
+  fi
+#correction pour libtmx(linuxfr.org)nécessaire pour le jeu Akagoria------------------------  
+  if [ -e src/libtmx0.pc.in  ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/pkgconfig/tinyxml2.pc $HOME/$ARCH/lib/pkgconfig/
+	cd src
+  fi
+#correction pour le jeu Akagoria(linuxfr.org) ------------------------  
+  if [ -e src/games/akagoria.cc ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/* $HOME/$ARCH/lib
+	cd src
+  fi
+#correction pour le jeu hedgewars ------------------------  
+  if [ -e hedgewars ]
+  then
+      export PATH=$HOME/fpc-2.6.4/bin:$PATH
+      if [ ! -e $HOME/fpc-2.6.4/bin/fpc ]
+      then
+	cd $HOME
+	FILE=fpc-2.6.4.x86_64
+	[ "$ARCH" = "x86" ] && FILE=fpc-2.6.4.i386
+        TAR=$FILE-linux.tar
+	[ ! -e "$TAR" ] && wget http://heanet.dl.sourceforge.net/project/freepascal/Linux/2.6.4/"$TAR"
+	[ ! -e $FILE-linux ] && tar xvf $TAR
+	cd $FILE-linux
+	sh install.sh
+	cd $HOME/dibab/src/$MYDIR
+      fi
+      [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
+      #cp misc/libphysfs/physfs.h misc/libphyslayer
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc -DNOSERVER=1 -DPHYSFS_SYSTEM=0"
+      install -d $PREFIX/share/applications/
+      install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
+      install -d $PREFIX/share/pixmaps/
+      wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/hedgewars.png?h=packages/hedgewars
+      mv hedgewars.png?h=packages%2Fhedgewars $PREFIX/share/pixmaps/hedgewars.png || exit 1
+    
+  fi
+
+  if [ -e source/x265cli.h ]
+  then
+    cd build/linux
+    CXXFLAGS="-I$PWD./../../source/common $CXXFLAGS" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/$PREFIX ../../source
+    fi
+  if [ -e syslinux.spec ]
+  then
+	LDFLAGS="" make
+	exit 10
+  fi
+
+. $(dirname $0)/../scripts/includes/pam
+
+  if [ -e mozilla/nsprpub/ ]
+  then
+    cd mozilla/nsprpub/
+  fi
+  if [ -e generic/tclStubInit.c ]
+  then
+     pwd && sleep 10
+     cd unix
+  fi
+
+  if [ -e source/Irrlicht ]
+  then
+  	cp $HOME/$ARCH/include/GL/glext.h source/Irrlicht/glext.h
+  	cp $HOME/$ARCH/include/GL/glxext.h source/Irrlicht/glxext.h
+  	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
+	cd source/Irrlicht
+	make NDEBUG=1 sharedlib	 || exit 2
+	make install || exit 3
+  	cd ../../
+	touch buildok-$ARCH
+  	exit 0
+  fi
+if [ -e data/supertuxkart_32.png ]
+then
+  cp $HOME/$ARCH/include/GL/glext.h lib/irrlicht/source/Irrlicht/glext.h
+  cp $HOME/$ARCH/include/GL/glxext.h lib/irrlicht/source/Irrlicht/glxext.h
+  cp $HOME/$ARCH/include/GL/wglext.h lib/irrlicht/source/Irrlicht/wglext.h
+
+  [[ -d build ]] && rm -r build
+  mkdir build && cd build
+
+  cmake .. \
+    -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DIRRLICHT_DIR="$srcdir/irrlicht" \
+    -DUSE_WIIUSE=OFF -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DCMAKE_CXX_FLAGS="-lpthread -lm -ldl $CXXFLAGS"
+
+  # make
+fi
+
+if [ -e bam.lua ]
+then
+  pkgname=teeworlds
+
+  sed -i "s@/opt/teeworlds/data@$pkgdir/share/$pkgname/data@" src/engine/shared/storage.cpp
+  bam -v server_release client_release || exit $?
+  mkdir -p ${pkgdir}//share/${pkgname}/data
+  cp -r data/* ${pkgdir}/share/${pkgname}/data || exit $?
+  
+  install -Dm755 ${pkgname} ${pkgdir}/bin/${pkgname}
+  install -Dm755 ${pkgname}_srv ${pkgdir}/bin/${pkgname}_srv
+  echo "[Desktop Entry]
+Name=$pkgname
+GenericName=$pkgname
+Comment=
+Exec=$pkgname
+Icon=$pkgname.png
+Type=Application
+Categories=Game;" > $pkgname.desktop
+  
+  install -Dm644 ${pkgname}.desktop ${pkgdir}/share/applications/${pkgname}.desktop || exit $?
+  convert other/icons/Teeworlds.ico ${pkgname}.png
+  cp ${pkgname}-0.png  ${pkgdir}/share/pixmaps/${pkgname}.png || exit $?
+  
+  install -Dm644 license.txt ${pkgdir}/share/licenses/${pkgname}/license.txt
+  dibab-install-package
+  touch buildok-$ARCH
+  exit 0
+fi
+
+. $(dirname $0)/../scripts/includes/os-prober
+. $(dirname $0)/../scripts/includes/libreoffice
+
+  if [ -e makefile.linux_amd64_asm ]
+  then
+    cp makefile.linux_amd64_asm makefile.machine
+    [ "$ARCH" = "x86" ] && cp makefile.linux_x86_asm_gcc_4.X makefile.machine
+    make all3 OPTFLAGS="$CFLAGS"
+    sed -i "s@/usr/local@$PREFIX@" makefile
+    make install || exit $?
+    touch buildok-$ARCH
+    exit 0
+  fi
+
+  if [ -e lutris.desktop.in ]
+  then
+    # sed -i 's|^#!.*python$|#!/$HOME/$ARCH/bin/python2|' $(grep -rl '^#!.*python')
+    python setup.py install --prefix=$PREFIX || exit $?
+    install -d $PREFIX/data/
+    cp -fR data/* $PREFIX/data/
+    dibab-install-package 
+    touch buildok-$ARCH
+    exit 0
+  fi
+  [ -e source/icudefs.mk.in ] && cd source
+  [ -e Imakefile ] && [ ! -e Makefile ]  && [ ! -e configure ] && [ ! -e autogen.sh ] && xmkmf -a
+  [ -e gtk-sharp.snk ] &&  ./bootstrap-2.12 --prefix=$PREFIX --sysconfdir=/$PREFIX/etc --disable-static
+  if [ -e autogen.sh ] && [ ! -e configure ] 
+  then
+    pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+    echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
+    sh autogen.sh  || exit 3
+    make distclean && sleep 5
+  fi
+
+  if [ -e zip30.ann ]
+  then
+    sh unix/configure 
+    make -f unix/Makefile generic
+    install -d $PREFIX/bin
+    cp zip $PREFIX/bin
+    touch buildok-$ARCH
+  fi
+  if [ -e Makefile.PL ] && [ ! -e Makefile ] && [ ! -e configure ] # CPAN
+  then
+	perl Makefile.PL PREFIX=$PREFIX
+	make || exit $?
+	make install || exit $?
+        touch buildok-$ARCH
+  fi
+  if [ -e songs/Rondino-Rameau.mid ]
+  then
+	 autoconf -f
+  fi
+  if [ -e rtmidi-config.in ] # || [ -e src/age/include/ ]
+  then
+	 echo "Force automake" && pwd && sleep 2
+	 libtoolize --force
+	 aclocal
+	 autoheader
+	 automake --force-missing --add-missing
+	 autoconf
+  fi
+
+  if [ -e xmoto.6 ]
+  then
+	echo "FIX xmoto build" && sleep 5
+   #export LDFLAGS="$LDFLAGS -llua"
+   echo "aclocal -Im4 -I$HOME/$ARCH/share/aclocal --force" > compile
+   chmod +x ./compile
+	./compile
+    autoconf 
+    #autoheader -f
+    #automake -a -c -f 
+    export am__append_6="-llua"
+  fi
+if [ -e readline.c ]
+then
+	echo "FIX readline build" && sleep 5
+	if [ "$ARCH" = "arm" ]
+	then
+		rm configure
+    aclocal --force
+    autoconf -f
+    autoheader -f
+    automake -a -c -f 
+     ./configure --prefix=$PREFIX  --target=$CROSS_PREFIX --host=arm-linux-gnueabi --build=i486-linux-gnu
+	else
+CFLAGS="$CFLAGS -fPIC" ./configure --prefix=$PREFIX
+	fi
+	  make SHLIB_LIBS=-lncursesw || exit $?
+	  make SHLIB_LIBS=-lncursesw install || exit $?
+    touch buildok-$ARCH
+		exit 0
+fi
+
+  if [ -e unix/npsqueak ]
+  then
+	install -d $HOME/opkg/lib/squeak
+	[ ! -e Squeak4.6-13700.zip ] && wget http://ftp.squeak.org/4.6alpha/Squeak4.6-13700.zip && unzip -d $HOME/opkg/lib/squeak Squeak4.6-13700.zip 
+	./unix/cmake/configure --prefix=$PREFIX --without-quartz --with-x --enable-mpg-mmx
+  fi
+
+  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX linux-elf shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX linux-x86_64 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
+  if [ -e src/mesa ] && [ "$ARCH" != "arm" ]
+  then
+	./configure --prefix=$DIBAB_PREFIX/$MODULE \
+    --with-dri-driverdir=$DIBAB_PREFIX/$MODULE/lib/dri \
+    --with-dri-drivers=unichrome,i810,mach64,mga,r128,savage,sis,tdfx \
+    --with-gallium-drivers= \
+    --disable-gallium-llvm \
+    --enable-glx-tls \
+    --with-driver=dri \
+    --enable-xcb \
+    --disable-glut \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-egl \
+    --enable-texture-float \
+    --disable-shared-dricore
+    make 
+    make -C src/mesa/drivers/dri/unichrome install || exit 45
+    make -C src/mesa/drivers/dri/i810 install || exit 45
+    make -C src/mesa/drivers/dri/mach64 install || exit 45
+    make -C src/mesa/drivers/dri/mga install || exit 45
+    make -C src/mesa/drivers/dri/r128 install || exit 45
+    make -C src/mesa/drivers/dri/savage install || exit 45
+    make -C src/mesa/drivers/dri/sis install || exit 45
+    make -C src/mesa/drivers/dri/tdfx install || exit 45
+    touch buildok-$ARCH 
+    exit 0
+  fi
+  if [ -n "`basename $PWD | grep xorg-server`" ]
+  then
+    export CPPFLAGS=" -I""$PWD""/include $CFLAGS"
+    if [ ! -e Mesa ] && [ "$ARCH" != "arm" ]
+    then
+    MESA=10.4.7 && MESALIB=MesaLib
+    MESA=10.5.4 && MESALIB=mesa
+    [ ! -e $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME/dibab/tarballs ftp://ftp.freedesktop.org/pub/mesa/$MESA/$MESALIB-$MESA.tar.xz 
+    [ ! -e $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
+    tar xJvf $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz || exit $?
+    mv Mesa-$MESA Mesa || mv mesa-$MESA Mesa
+    fi
+    echo "look $PREFIX/lib/libGL.so" # && sleep 20
+    if [ ! -e $PREFIX/lib/libGL.so ] && [ "$ARCH" != "arm" ]
+    then
+    cd Mesa
+    sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
+#	sh autogen.sh
+    ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+# ?	[ "$ARCH" = "x86" ] && GLXTS="--enable-glx-tls"
+./configure --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
+   --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
+    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
+    --with-egl-platforms=x11,drm \
+    --enable-llvm-shared-libs \
+    --enable-egl \
+    --disable-gallium-egl \
+    --disable-gallium-gbm \
+    --enable-gbm \
+    --enable-gallium-llvm \
+    --enable-shared-glapi \
+    --enable-glx-tls \
+    --enable-dri \
+    --enable-glx \
+    --enable-osmesa \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-texture-float \
+    --enable-xa \
+    --enable-vdpau \
+    --enable-dri3 \
+    --enable-omx \
+    --enable-opencl --enable-opencl-icd \
+    --with-clang-libdir=$HOME/dibab/llvm-clang/lib/ || exit 5
+    make || exit 6
+    make install || exit 7
+    cd ..
+    fi
+    # cvs -z3 -d:pserver:anonymous@anoncvs.freedesktop.org:/cvs/mesa co Mesa
+  fi
+  for XORG_TOOLS in x11-apps x11-xkb-utils x11-xserver-utils x11-utils
+  do
+    basename $PWD | grep $XORG_TOOLS || continue
+    echo "Building into $PWD" && sleep 1
+    for APP in `ls`
+    do
+      cd $APP || continue
+      echo $APP | grep xedit && cd .. && continue
+      echo $APP | grep luit && cd .. && continue
+      echo $APP | grep xgc && cd .. && continue
+      echo $APP | grep xman && cd .. && continue
+      echo $APP | grep xload && cd .. && continue
+      echo $APP | grep debian && cd .. && continue
+      echo $APP | grep xmore && cd .. && continue
+      echo $APP | grep xcursorgen && cd .. && continue
+      # PNG15 fix
+      if [ -n "`echo $APP | grep xcursorgen`" ]
+      then
+        cd ..
+        rm -fR xcursorgen 
+        git clone git://anongit.freedesktop.org/xorg/app/xcursorgen || exit 8
+        cd xcursorgen 
+        db-autobuild $PREFIX 
+        touch ../buildok-$ARCH 
+        cd .. && continue
+      fi
+      echo "$PWD : db-autobuild $PREFIX"
+      db-autobuild $PREFIX || exit 9
+      cd ..
+    done
+    touch buildok-$ARCH
+    exit 0
+  done
+  SOURCEDIR=$PWD
+  [ -e data/lxinput.desktop.in ] && [ ! -e lxinput.desktop.in ] && cp data/lxinput.desktop.in lxinput.desktop.in
+  [ -e build/generic ] && cd build/generic && BUILD_DIR=$SOURCEDIR/build/generic && SOURCEDIR=$SOURCEDIR/build/generic && echo "Xvidcore detected" && sleep 2 # xvidcore
+  [ "$BUILDME" = "OK" ] && echo "Build yourself" && bash # xterm 
+  if [ -e runToBuild ] 
+  then
+	  sh runToBuild || exit $?
+  fi
+#games=====================================================================
+
+  if [ -e src/Egoboo.workspace ]
+  then
+    ln -s src egoboo
+    cd egoboo
+  fi
+
+  if [ -e src/openttd.cpp ]
+  then
+    pkgname=openttd
+    echo "install $PREFIX/share/openttd/data"
+    sed -i "s@/mingw/include@$HOME/$ARCH/include@" config.lib
+    sed -i "s@/mingw/lib@$HOME/$ARCH/lib@" config.lib
+    install -d $PREFIX/share/games/openttd/data
+    [ ! -e opensfx-0.2.3.zip ] && wget http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip && unzip opensfx-0.2.3.zip  && mv opensfx-0.2.3/* $PREFIX/share/games/openttd/data
+    [ ! -e opengfx-0.5.0.zip ] && wget http://bundles.openttdcoop.org/opengfx/releases/0.5.0/opengfx-0.5.0.zip && unzip opengfx-0.5.0.zip && tar xvf opengfx-0.5.0.tar &&  mv opengfx-0.5.0/* $PREFIX/share/games/openttd/data
+    ./configure \
+    --prefix=$PREFIX \
+    --binary-dir=bin \
+    --menu-name="OpenTTD" \
+    --personal-dir=.${pkgname}||exit $?
+    make || exit $?
+    make install || exit $?
+    touch  $PREFIX/share/games/openttd/data/*
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0 
+  fi
+  if [ -e wpa_supplicant ]
+  then
+     cd wpa_supplicant 
+     cp $HOME_DIBAB/config/wpa_supplicant .config
+     BINDIR=$PREFIX/bin LIBDIR=$PREFIX/lib:$PREFIX/lib64 LDFLAGS="-L$HOME/$ARCH/lib64 -L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" make 
+     BINDIR=$PREFIX/bin LIBDIR=$PREFIX/lib:$PREFIX/lib64 LDFLAGS="-L$HOME/$ARCH/lib64 -L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" make install || exit $?
+     cp dbus/fi.*.service $PREFIX/share/dbus-1/system-services/
+     cp dbus/dbus-wpa_supplicant.conf $PREFIX/etc/dbus-1/system.d/wpa_supplicant.conf
+     dibab-install-package
+     touch buildok-$ARCH
+     exit 0
+  fi
+  if [ -e foobillardplus.desktop ]
+  then
+    pkgdir=$PREFIX
+    aclocal --force
+    autoconf -f
+    autoheader -f
+    automake -a -c -f 
+     ./configure --prefix=$PREFIX 
+    make
+    pkgname=foobillardplus
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="${pkgdir}"/foobillardplus/bin/foobillardplus ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > ${pkgname}.desktop
+    # to install it into packages dirs
+    find . | while read file
+    do
+      touch $file
+    done
+    make install
+    install -d "${pkgdir}"/{bin,share/{applications,pixmaps}}
+    mv "${pkgdir}"/foobillardplus/foobillardplus.desktop "${pkgdir}"/share/applications
+    mv "${pkgdir}"/foobillardplus/foobillardplus.{png,xbm} "${pkgdir}"/share/pixmaps
+    #install -d "${pkgdir}"/bin
+    #ln -s "${pkgdir}"/foobillardplus/bin/foobillardplus "${pkgdir}"/bin/foobillardplus
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0 
+  fi
+  [ -e src/gltron.c ] && export CPPFLAGS="-I$PWD/lua/include  $CPPFLAGS"
+  [ -e ./bootstrap ] && [ -e tecnoballz.conf ] && [ ! -e configure ] && ./bootstrap
+  [ -e ./bootstrap ] && [ -e libfaad ] && [ ! -e configure ] && autoreconf --force --install
+    if [ -e CMakeLists.txt ] && [ -e Scribus.pro ] 
+    then
+    install -d $PREFIX/share/pixmaps
+    install -d $PREFIX/share/applications
+    sed 's|Icon=scribus|Icon=scribus.png|' -i scribus.desktop || exit $?
+    cp resources/icons/scribus.png $PREFIX/share/pixmaps || exit $?
+    cp scribus.desktop $PREFIX/share/applications
+	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
+        VERBOSE=1 make || exit $?
+        make install || exit $?
+        dibab-install-package
+        touch buildok-$ARCH
+       	exit 0
+    fi 
+
+    if [ -e include/lame.def ]
+    then
+	case $(uname -m) in
+ 	  i?86) sed -i -e '/xmmintrin\.h/d' configure ;;
+	esac
+    fi
+
+    pwd | grep mysql-5.1 && [ -e CMakeLists.txt ] && rm CMakeLists.txt
+    if [ -e CMakeLists.txt ] \
+ && [ ! -e raptor2.pc.in ] \
+ && [ ! -e src/gd.h ] \
+ && [ ! -e sdl2.pc.in ] \
+ && [ ! -e include/AL/alut.h ] \
+ && [ ! -e glew.pc.in ] \
+ && [ ! -e include/freetype.h ] \
+ && [ ! -e midori ] \
+ && [ ! -e libarchive ] \
+ && [ ! -e doc/pcre.3 ] \
+ && [ ! -e portaudio-2.0.pc.in ] \
+ && [ ! -e libpng.3 ] \
+ && [ ! -e poppler-glib.pc.in ] \
+ && [ ! -e curl-config.in ] \
+ && [ ! -e gc_cpp.cc ]
+    then
+      [ -e CMakeCache.txt ] && rm CMakeCache.txt 
+      #[ -e cmake/FindSDL2.cmake ] && export SDL2DIR=$HOME/opkg && echo "SDL2DIR is $SDL2DIR" && sleep 4
+      export SDL2DIR=$HOME/$ARCH
+      #[ -e cmake/FindLua.cmake ] && export LUA_DIR=$HOME/opkg # && echo "SDL2DIR is $SDL2DIR" && sleep 4
+      # [ -e cmake/FindSDL2.cmake ] && export SDL2DIR=$PREFIX && echo "SDL2DIR is $SDL2DIR" && sleep 4
+      install -d build
+      cd build
+      CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
+      pwd | grep spring_98  && CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS"
+	pwd | grep mysql-5  && CMAKEOPTIONS="-DCMAKE_INSTALL_PREFIX=$PREFIX"
+        pwd | grep mysql-5 && echo "Preparing mysql ssl ..." &&  CXXFLAGS="" CFLAGS="" cmake $CMAKEOPTIONS .. && make 
+	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS"
+	cmake $CMAKEOPTIONS .. || exit 12
+	VERBOSE=1 make || exit 13
+      if [ -e ../build/AstroMenace ]
+      then
+	cd ..
+	./build/AstroMenace --pack --rawdata=./RAW_VFS_DATA --dir=build
+	 install -Dm755 build/AstroMenace $pkgdir/bin/astromenace || exit $?
+         install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit $?
+	 install -d $pkgdir/share/applications
+	 echo "[Desktop Entry]
+Encoding=UTF-8
+Name=Astromenace
+Comment=Space shooter
+Exec=astromenace --dir=$PREFIX/share/astromenace
+Icon=astromenace.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromenace.desktop
+	 install -d $pkgdir/share/pixmaps
+         wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/astromenace.png?h=packages/astromenace -O $pkgdir/share/pixmaps/astromenace.png
+         touch buildok-$ARCH
+	 exit 0
+      fi
+    fi
+  [ -e gnu/stdio.in.h ] && sed -i -e '/gets is a/d' gnu/stdio.in.h
+  if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
+  then
+    [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
+    for SKIP_DIR in rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c -e ghostscript.vcproj debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    do
+      [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
+    done
+    [ "$MODULE" != "$ARCH" ] && SKIP_DIR=""
+    MYPREFIX="--prefix=$PREFIX"
+    [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
+    if [ "$SKIP_DIR" != "" ]
+    then
+      install -d $BUILD_DIR
+      cd $BUILD_DIR
+	echo "build into $BUILD_DIR"
+    else
+	echo "Skip $BUILD_DIR"
+    fi
+    [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
+    [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
+    [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/dibab/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/dibab/src/SDL2-2.0.3/include $CFLAGS"
+[ -e "torcs.desktop" ] && unset MODULE
+    [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
+echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
+echo "CFLAGS: $CFLAGS"
+echo "Run $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS "
+    if [ "$ARCH" = "arm" ]
+    then
+	grep enable-malloc0returnsnull $SOURCEDIR/configure && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --enable-malloc0returnsnull=yes"
+      if [ -n "`echo $BUILD_DIR | grep glib-2.`" ]
+      then
+	export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=$CROSS_PREFIX --disable-modular-tests --disable-gtk-doc glib_cv_stack_grows=no glib_cv_stack_grows=no glib_cv_uscore=no ac_cv_func_posix_getgrgid_r=yes ac_cv_func_posix_getpwuid_r=yes
+ "
+      CXX=$CROSS_PREFIX-g++ CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS || exit
+      fi
+      if [ -n "`echo $BUILD_DIR | grep Python-2.7`" ]
+      then
+	echo "Special $CROSS_PREFIX build for $SOURCEDIR" && sleep 10
+	cd $SOURCEDIR
+	if [ ! -e hostpython ]
+	then
+	 CC=gcc CROSS_COMPILE="" CFLAGS="" LDFLAGS="" ./configure || exit
+	  make python Parser/pgen || exit
+	  mv python hostpython
+	  mv Parser/pgen Parser/hostpgen
+	  make distclean || exit
+ 	  patch -p1 < $HOME_DIBAB/packages/patches/Python-2.7.3-xcompile.patch || exit	
+	fi
+	echo 'ac_cv_file__dev_ptmx=no
+ac_cv_file__dev_ptc=no' >  config.site
+        [ ! -e Makefile ] && CONFIG_SITE=config.site CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib $SOURCEDIR/configure $MYPREFIX --disable-ipv6 --host=arm-linux --build=x86_64-linux-gnu # --build=x86-linux-gnu
+	make HOSTARCH=arm-linux HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="$CROSS_PREFIX-gcc -shared" CROSS_COMPILE_TARGET=yes || exit
+	make HOSTARCH=arm-linux HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="$CROSS_PREFIX-gcc -shared" CROSS_COMPILE_TARGET=yes install || exit
+	make distclean
+ 	patch -p1 -R < $HOME_DIBAB/packages/patches/Python-2.7.3-xcompile.patch || exit	
+      else
+	ls $SOURCEDIR | grep dbus-glib-0 && cd $SOURCEDIR && patch -p1 < $HOME_DIBAB/packages/patches/dbus-glib-0.92-arm.diff && cd $BUILD_DIR
+	[ -e $HOME/$SUBARCH/bin/glib-genmarshal ] && [ ! -e $HOME/$SUBARCH/bin/glib-genmarshal.cross ] && mv $HOME/$SUBARCH/bin/glib-genmarshal $HOME/$SUBARCH/bin/glib-genmarshal.cross && cp /usr/bin/glib-genmarshal $HOME/$SUBARCH/bin/glib-genmarshal
+        FCCACHE=/usr/bin/fc-cache UCS2ANY=/usr/bin/ucs2any MKFONTDIR=/usr/bin/mkfontdir MKFONTSCALE=/usr/bin/mkfontscale XCURSORGEN=/usr/bin/xcursorgen XGETTEXT=/usr/bin/xgettext XMLTO=/usr/bin/xmlto XSLTPROC=/usr/bin/xsltproc XMLLINT=/usr/bin/xmllint NM=nm ac_cv_have_abstract_sockets=yes ac_cv_func_malloc_0_nonnull=yes gio_can_sniff=yes  $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS
+      fi
+    else
+      $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS
+    fi
+    if [ $? != 0 ]
+    then 
+	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
+	then
+	  echo $SOURCEDIR $PWD
+	  exit 10
+        else
+ 	  exit 11
+	fi
+     fi
+  else
+    if [ -e locale/fr/LC_MESSAGES/arkanae3.mo ]
+    then
+      sed -i "s@/usr@$PREFIX@" setup.cfg
+    fi
+    if [ -e setup.py ] 
+    then
+      echo "Run Python setup.py" 
+      python setup.py build || exit $?
+    fi
+    [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+		[ -e source/Irrlicht ] && cd source/Irrlicht && make sharedlib && cp libIrrlicht.so.1.7.3 $HOME/$ARCH/lib/libIrrlicht.so.1.7a && touch ../../buildok-$ARCH && exit 0
+    if [ -e QupZilla.pro ]
+    then
+      echo "Building QUPZILLA"
+      QUPZILLA_PREFIX=$PREFIX qmake || exit $?
+      QUPZILLA_PREFIX=$PREFIX make || exit $?
+      QUPZILLA_PREFIX=$PREFIX make install || exit $?
+      touch buildok-$ARCH
+      exit 0
+    fi
+    #test_Catchchallenger;mais s'il y a un autre jeu avec un sous rep datapack ça ne va pas marcher
+    if [ -e datapack ]
+    then
+      install -d $PREFIX/share
+      cp -fR datapack $PREFIX/share
+    fi
+    if [ -e server/catchchallenger-server-gui.pro ]
+      then
+      cd server/
+      #qmake catchchallenger-server-gui.pro || exit $?
+      #make || exit $?
+      cd ../client/single-player
+      qmake *.pro || exit $?
+      install -d $PREFIX/bin
+      cp catchchallenger-single-player $PREFIX/bin
+    fi
+. $(dirname $0)/../scripts/includes/linuxfr.org
+    #Kitsune_game
+    if [ -e kitsune.pro ]
+    then
+      pkgname=kitsune
+      qmake
+      lrelease kitsune.pro
+      make
+      install -d $PREFIX/bin
+      cp bin/kitsune $PREFIX/bin || exit $?
+      install -d $PREFIX/share/applications
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=$pkgname ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+      dibab-install-package
+      touch buildok-$ARCH
+      exit 0
+    fi
+    if [ -e scripts/2H4U_win.cbp ]
+    then
+      pkgname=2H4U
+      install -d $PREFIX/bin
+echo "cd $HOME
+install -d .2H4U
+cd .2H4U
+ln -sf $PREFIX/share/data .
+ln -sf $PREFIX/bin/2H4U .
+./2H4U " > $PREFIX/bin/dbstart-"$pkgname"
+      chmod +x $PREFIX/bin/dbstart-"$pkgname"
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=dbstart-"$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+    fi
+  fi
+
+  if [ -e dist/configure ]
+  then
+    echo "Run ./dist/configure --prefix=$PREFIX $LC_CONFIGURE_OPTS"
+    ./dist/configure --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 14
+  fi
+  if [ -e GNUmakefile ] && [ -e midori ]
+  then
+    make ||exit $?
+    make install ||exit $?
+	DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+    #dibab-install-package
+    touch buildok-$ARCH
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+    exit 0
+  fi
+  if [ -e unzip.c ]
+  then
+    CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -DACORN_FTYPE_NFS \
+  -DWILD_STOP_AT_DIR -DLARGE_FILE_SUPPORT -DUNICODE_SUPPORT \
+  -DUNICODE_WCHAR -DUTF8_MAYBE_NATIVE -DNO_LCHMOD -DDATE_FORMAT=DF_YMD \
+  -DNATIVE" make -f unix/Makefile prefix=$PREFIX unzips || exit $?
+    make -f unix/Makefile prefix=$PREFIX install || exit $?
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e Source/WebKit2 ]
+  then
+    make all || exit $?
+    make install || exit $?
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e netsurf ]
+  then
+ make PREFIX=$HOME/$ARCH \
+    TARGET=gtk \
+    NETSURF_USE_VIDEO=NO || exit $?
+    PREFIX=$HOME/$ARCH make install || exit $?
+    DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR PREFIX=$HOME/$ARCH make install || exit $?
+    pkgname="netsurf"
+    install -d $PREFIX/share/pixmaps
+    wget http://ubuntu.allmyapps.com/data/n/e/netsurf-netsurf-web-browser/icon_48x48_netsurf.png
+    mv icon_48x48_netsurf.png $PREFIX/share/pixmaps/netsurf.png
+    install -d $PREFIX/share/applications
+    NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="netsurf" ICON=$pkgname.png CATEGORIES="Internet;" \
+    $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e ./configure.gnu ]
+  then
+    # install -d $BUILD_DIR
+    # cd $BUILD_DIR || exit $?
+	# FIXME : build perl outside source dir
+    echo "Run $SOURCEDIR/configure.gnu --prefix=$PREFIX"
+    # build miniperl on LinuxConsole
+	echo $PATH
+    $SOURCEDIR/configure.gnu --prefix=$PREFIX 
+    [ $? != 0 ] && exit 15
+  fi
+  if [ -e bin/frozen-bubble ]
+	then
+	  perl Build.PL||exit $?
+	  perl Build install destdir=$HOME/frozen-bubble ||exit $?
+	  install -d $PREFIX/bin
+	  install -d $PREFIX/lib
+          install -d $PREFIX/share/applications
+          install -d $PREFIX/share/pixmaps
+	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin
+	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib
+	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+  	  FBBIN=$HOME/frozen-bubble/$HOME/$ARCH/bin/
+	  FBLIB=$HOME/frozen-bubble/$HOME/$ARCH/lib/ #perl5/site_perl/5.20.0/x86_64-linux/
+	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
+	  cp -fR $FBBIN/* $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin || exit $?
+	  cp -fR $FBLIB/* $PREFIX/lib | exit $?
+	  cp -fR $FBLIB/* $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
+        cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
+        cp share/icons/frozen-bubble-icon-64x64.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
+	echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.20.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
+	chmod +x $PREFIX/bin/start-frozen-bubble
+	cp $PREFIX/bin/start-frozen-bubble $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
+echo '
+[Desktop Entry]
+Type=Application
+Version=1.0
+Encoding=UTF-8
+Name=Frozen Bubble
+Icon=frozen-bubble.png
+Exec=start-frozen-bubble
+Terminal=false
+Categories=Game;
+' > $PREFIX/share/applications/frozen-bubble.desktop
+	cp $PREFIX/share/applications/frozen-bubble.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	touch buildok-$ARCH
+	fi
+  if [ -e Build.PL ] && [ ! -e bin/frozen-bubble ]
+	then
+		if [ -e bin/sdl-config.pl ]
+	        then
+		  echo "Alien SDL custom build" && sleep 5
+		  #sed -i '/^GetOptions/d' Build.PL
+		  echo "Dirty copy SDL includes at $HOME/$ARCH/include" && cp $HOME/$ARCH/include/SDL/* $HOME/$ARCH/include
+		  cp $HOME/$ARCH/bin/sdl-config $HOME/$ARCH/bin/dibab-sdl-config
+		  sed -i "s@-lpthread@-lpthread -lpango-1.0 -lSDL_Pango -lpangoft2-1.0@g" $HOME/$ARCH/bin/dibab-sdl-config
+		  SDL_LIB=$HOME/$ARCH/lib SDL_INC=$HOME/$ARCH/include SDL_INST_DIR=$HOME/$ARCH perl Build.PL --with-sdl-config=$HOME/$ARCH/bin/dibab-sdl-config ||exit $?
+		  echo "Clear HOME/$ARCH/include/SDL*" 
+                  rm $HOME/$ARCH/include/SDL* 
+                  cp $HOME/dibab/packages-$ARCH/SDL_Pango-0.1.2/$HOME/$ARCH/include/SDL_Pango.h $HOME/$ARCH/include/SDL
+		else
+		  perl Build.PL||exit $?
+		fi
+# perl Build blib/arch/auto/SDL/Pango/Context/Context.so
+echo "At BUILDPERL"
+#xterm
+		perl Build||exit $?
+		#perl Build test||exit $?
+		#perl Build install destdir="$PREFIX" || exit $?
+		perl Build install || exit $?
+	  touch buildok-$ARCH
+		exit 0
+	fi
+  if [ -e darkplaces-sdl.dev ]
+  then
+	  SDLCONFIG_UNIXCFLAGS_X11="-I$HOME/$ARCH/include" make sdl-release || exit $?
+	  install -d $PREFIX/bin
+	  install darkplaces-sdl $PREFIX/bin/darkplaces && touch buildok-$ARCH
+  fi
+  if [ -e bin/java ] # OpenJDK
+  then
+	  install java into $PREFIX
+	  install -d $PREFIX
+	  cp -fR * $PREFIX
+  fi
+  if [ -e SConstruct ] || [ -e Sconstruct ] # && [ "$ARCH" != "arm" ]
+  then
+	  SCONS_OPT=""
+	  [ -e src/fceu.cpp ] && SCONS_OPT="--prefix $PREFIX"
+          echo "Run scons PREFIX=$PREFIX $SCONS_OPT"
+          scons -c PREFIX=$PREFIX $SCONS_OPT || exit 23
+          scons PREFIX=$PREFIX $SCONS_OPT install
+	  # scons PREFIX=$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX install
+  fi
+  if [ -e ./bootstrap.sh ]  # boost
+  then
+     if [ -e boost.css ]
+     then
+     echo "Run ./bootstrap.sh "
+       ./bootstrap.sh --prefix=$PREFIX && sed -i "s@using gcc@using gcc : $ARCH : $CROSS_PREFIX-g++ -I$HOME/$SUBARCH/include -L$HOME/$SUBARCH/lib @g" project-config.jam 
+       ./bjam 
+       ./bjam install && touch buildok-$ARCH
+     fi
+     if [ -e ./b2 ]
+     then
+     echo "Run ./bootstrap.sh "
+       ./bootstrap.sh --prefix=$PREFIX
+     ./b2 
+     ./b2 install && touch buildok-$ARCH
+     fi
+  fi
+  if [ -e ghostscript.vcproj ] 
+  then
+	echo ghostscript.vcproj
+    #sed -i 's/ZLIBDIR=src/ZLIBDIR=$includedir/' configure.ac configure &&
+    #rm -rf expat freetype lcms2 jpeg libpng
+    #rm -rf freetype
+  fi
+  if [ -e waf ]
+  then
+      echo "Run ./waf "
+	 if [ -e src/plugins/avcodec ]
+	   then
+     ./waf configure --prefix=$PREFIX --without-plugins avcodec
+		 else
+     ./waf configure --prefix=$PREFIX $LC_CONFIGURE_OPTS
+     fi
+     ./waf || exit $?
+     ./waf install || exit $?
+     touch buildok-$ARCH
+     if [ -e ardour.1 ] 
+     then
+       ./waf install --destdir=$HOME/dibab/packages-$ARCH/$MYDIR
+       cd $HOME/dibab/packages-$ARCH/$MYDIR
+      install -d $PREFIX/share/applications/
+echo "[Desktop Entry]
+Name=Ardour 4
+Comment=Multitrack hard disk recorder
+Exec=ardour4
+Icon=$PREFIX/share/ardour4/icons/ardour_icon_256px.png
+Terminal=false
+Type=Application
+X-MultipleArgs=false
+Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applications/ardour.desktop
+	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+       cp $PREFIX/share/applications/ardour.desktop  $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+       $HOME_DIBAB/scripts/make_opkg || exit $?
+       exit 0
+     fi
+  fi
+  # Fix building CUPS
+  if [ -e cups-config.in ]
+  then
+    for lib in `ls -l $PREFIX/lib/*.so`
+    do
+	    #FIXME
+		  break
+	    ln -s $lib cups
+    done
+  fi
+  if [ -e Makefile-libbz2_so ]
+  then
+     sed -i "s@PREFIX=/usr/local@PREFIX=$PREFIX@g" Makefile
+     sed -i "s@CC=gcc@@" Makefile
+     sed -i "s@CC=gcc@@" Makefile-libbz2_so
+     sed -i "s@AR=ar@@" Makefile
+     sed -i "s@AR=ar@@" Makefile-libbz2_so
+     sed -i "s@RANLIB=ranlib@@" Makefile
+     sed -i "s@RANLIB=ranlib@@" Makefile-libbz2_so
+     if [ "$CROSS_PREFIX" = "" ]
+     then
+       make install || exit 16
+       make -f Makefile-libbz2_so || exit 17
+     else
+       CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib make install || exit 16
+       CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib make -f Makefile-libbz2_so || exit 17
+     fi
+     cp libbz2.so.1.0 $PREFIX/lib/ || exit 18
+     sed -i "s@PREFIX=$PREFIX@PREFIX=$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX@g" Makefile
+     make install || exit 19
+     cp libbz2.so.1.0 $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib/ || exit 20
+  fi
+
+  if [ -e wxPython ]
+  then
+    cd wxPython
+    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 build || exit $?
+    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$PREFIX" || exit $?
+    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 install || exit $?
+    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX" || exit $?
+    touch ../buildok-$ARCH
+    exit 0
+  fi
+
+  if [ -e genMakefiles ] # live555
+  then
+  sed \
+      -e 's/$(INCLUDES) -I. -O2 -DSOCKLEN_T/$(INCLUDES) -I. -O2 -I. -fPIC -DRTSPCLIENT_SYNCHRONOUS_INTERFACE=1 -DSOCKLEN_T/g' \
+      -i config.linux
+  ./genMakefiles linux
+	make || exit $?
+      for dir in BasicUsageEnvironment groupsock liveMedia UsageEnvironment; do
+    install -dm755 ${PREFIX}/{bin,lib,include/${dir}}
+    install -m644 ${dir}/*.a "${PREFIX}/lib" || exit ?
+    install -m644 ${dir}/include/*.h* "${PREFIX}/include/${dir}"  || exit $?
+    # Mplayer
+    install -dm755 ${PREFIX}/lib/live/include/${dir}
+    install -m644 ${dir}/include/*.h*  ${PREFIX}/lib/live/include/${dir}  || exit $?
+    cp ${dir}/*.a ${PREFIX}/lib/live/include/${dir}
+  done
+    # cp ${PREFIX}/include/UsageEnvironment/UsageEnvironment.hh ${PREFIX}/include/
+  install -d $PREFIX/lib/pkgconfig
+  echo "
+Name: live555
+Description: multimedia RTSP streaming library
+Version: 555
+Cflags: -I${PREFIX}/include/liveMedia -I${PREFIX}/include/groupsock -I${PREFIX}/include/BasicUsageEnvironment -I${PREFIX}/include/UsageEnvironment
+Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment
+  " > $PREFIX/lib/pkgconfig/live555.pc
+
+    dibab-install-package
+    touch buildok-$ARCH
+    exit 0
+
+  for testprog in `find testProgs -type f -perm 755`; do
+    install ${testprog} "${PREFIX}/bin"
+  done 
+  fi
+  if [ -e  $SOURCEDIR/src/aisleriot.schemas.in ]
+  then
+	echo 'libtool $@' > libtool
+  fi
+  [ "$CLEARENV" = "OK" ] && $HOME_DIBAB/scripts/clear-env && . /tmp/env
+  [ "$FIRSTENV" = "OK" ] && [ -e /tmp/firstenv ] && . /tmp/firstenv
+  # echo "Looking for Makefile at $PWD"
+  if [ -e Makefile ] 
+  then
+      echo "Run make "
+      OLDARCH=$ARCH # Fix vlc bug
+      [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
+      #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
+      make DBM_INCLUDE=$HOME/$OLDARCH/include 
+      if [ $? != 0 ]
+      then
+	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
+	then
+	  exit 21
+        else
+ 	  exit 22
+	fi
+      fi
+. $(dirname $0)/../scripts/includes/warsow
+. $(dirname $0)/../scripts/includes/mame
+
+
+   if [ -e "wx-config.in" ]
+   then
+	#make -C locale allmo
+	 make install || exit $?
+	 if [ -e contrib/src ] # wx2
+	 then
+	   make -C contrib/src || exit $?
+	   make -C contrib/src install || exit $?
+	 fi
+         touch buildok-$ARCH
+         exit 0
+   fi    
+
+      [ -e "Source/Swig/swig.h" ] && make && make install
+	echo "DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install" 
+	DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+
+      if [ -e qtquickcontrols ]
+      then
+	for QTDIR in `ls`
+	do
+	  cd $QTDIR || continue
+	  make make install
+	  DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+	  cd ..
+	done
+      fi
+      
+      [ -e liblightdm-gobject ] && make DESTDIR="$HOME/dibab/packages-$ARCH" -C liblightdm-gobject install
+      [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
+      if [ "$MAKE_INSTALL" != "OFF" ]
+      then
+        echo "Run make install inside $PWD"
+	  make install
+	  # echo "DESTDIR=$PREFIX make install"
+	  # DESTDIR=$PREFIX make install
+	return=$?
+	[ -e "libxvidcore.def" ] && return=0
+	if [ $return != "0" ]
+	then
+	  echo "Return is $return"
+	  exit 23
+	fi
+	# export ARCH=$OLDARCH
+	[ -e liblightdm-gobject ] && make -C liblightdm-gobject install
+	[ -e ghostscript.vcproj ] && make so && make soinstall
+	[ -e getfattr/getfattr.c ] && make install-lib install-dev
+	[ -e getfacl/getfacl.c ] && make install-lib install-dev
+        MAKE_INSTALL=""
+      fi
+      if [ -e data/apps.lutris.gschema.xml ]
+      then
+	cp -fR data $PREFIX
+      fi
+      # Glibc
+      [ -e $SOURCEDIR/Makefile ] && grep install_root $SOURCEDIR/Makefile && make install_root=$HOME/dibab/packages-$ARCH/$MYDIR install
+      [ -e Makefile ] && grep INSTALL_ROOT Makefile && make INSTALL_ROOT=$HOME/dibab/packages-$ARCH/$MYDIR install
+      [ -e share/vlc.desktop.in ] && export ARCH=$OLDARCH
+      touch buildok-$ARCH
+  fi
+. $(dirname $0)/../scripts/includes/games
+. $(dirname $0)/../scripts/includes/xbmc
+  echo $HOME/dibab/packages-$ARCH/$MYDIR
+  if [ ! -e $HOME/dibab/packages-$ARCH/$MYDIR ] 
+  then 
+    echo "Run dibab-install-package"
+    dibab-install-package
+  fi
+  if [ "$BUILD_TWICE" = "yes" ]
+  then
+    rm buildok-$ARCH
+    if [ -e  build-twice ]
+    then
+      unset BUILD_TWICE
+      rm build-twice
+    else
+      echo "Building $MYDIR again"
+      touch build-twice 
+    fi 
+  fi
+  echo "Try make clean"
+  make clean # Save some space
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+  TESTDIRNAME=$(pwd | grep lightdm)
+  if [ -n "$TESTDIRNAME" ]
+  then
+	echo "Post Build Lightdm" && sleep 10
+	for file in Xsession lightdm.service lightdm.tmpfiles lightdm.pam lightdm-autologin.pam lightdm.rules lightdm-default-config.patch
+	do
+	  [ ! -e $file ] && wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/$file?h=packages/lightdm --output-document=$file
+	done
+	 install -m 755 Xsession "${pkgdir}"/etc/lightdm/Xsession
+
+  install -dm 755 "${pkgdir}"/var/cache/lightdm
+  install -dm 770 "${pkgdir}"/var/lib/lightdm{,-data}
+  install -dm 711 "${pkgdir}"/var/log/lightdm
+  chmod +t "${pkgdir}"/var/{cache/lightdm,lib/lightdm{,-data}}
+  echo 'GDK_CORE_DEVICE_EVENTS=true' > "${pkgdir}"/var/lib/lightdm/.pam_environment
+  chmod 644 "${pkgdir}"/var/lib/lightdm/.pam_environment
+  #chown 620:620 -R "${pkgdir}"/var/lib/lightdm{,-data}
+  #chgrp 620 "${pkgdir}"/var/log/lightdm
+
+# PAM
+  install -m 644 lightdm.pam "${pkgdir}"/etc/pam.d/lightdm
+  install -m 644 lightdm-autologin.pam "${pkgdir}"/etc/pam.d/lightdm-autologin
+
+# PolicyKit
+  install -d "${pkgdir}"/share/polkit-1/rules.d
+  install -m 644 lightdm.rules "${pkgdir}"/share/polkit-1/rules.d/lightdm.rules
+
+# Systemd
+  install -d "${pkgdir}"/lib/{systemd/system,tmpfiles.d}
+  install -m 644 lightdm.service "${pkgdir}"/lib/systemd/system/lightdm.service
+  install -m 644 lightdm.tmpfiles "${pkgdir}"/lib/tmpfiles.d/lightdm.conf
+  fi
+  echo
+fi

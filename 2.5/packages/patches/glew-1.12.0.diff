@@ -1,0 +1,35 @@
+diff --git a/Makefile b/Makefile
+index 6a9803c..4b7542e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -40,8 +40,8 @@ else
+ $(error "Platform '$(SYSTEM)' not supported")
+ endif
+ 
+-GLEW_PREFIX ?= /usr
+-GLEW_DEST ?= /usr
++GLEW_PREFIX = $(HOME)/$(ARCH)
++GLEW_DEST = $(HOME)/$(ARCH)
+ BINDIR    ?= $(GLEW_DEST)/bin
+ LIBDIR    ?= $(GLEW_DEST)/lib
+ INCDIR    ?= $(GLEW_DEST)/include/GL
+diff --git a/config/Makefile.linux b/config/Makefile.linux
+index 55e4a23..f715e0e 100644
+--- a/config/Makefile.linux
++++ b/config/Makefile.linux
+@@ -16,13 +16,13 @@ else
+   LDFLAGS.EXTRA = -L/usr/X11R6/lib -L/usr/lib
+   LIBDIR = $(GLEW_DEST)/lib
+ endif
+-LDFLAGS.GL = -lGL -lX11
++LDFLAGS.GL = -lGL -lX11 -L$(GLEW_DEST)/lib
+ LDFLAGS.STATIC = -Wl,-Bstatic
+ LDFLAGS.DYNAMIC = -Wl,-Bdynamic
+ NAME = GLEW
+ WARN = -Wall -W
+ POPT = -O2
+-CFLAGS.EXTRA += -fPIC
++CFLAGS.EXTRA += -fPIC -L$(GLEW_DEST)/lib -I$(GLEW_DEST)/include
+ CFLAGS.EXTRA += -Wcast-qual
+ BIN.SUFFIX =
+ LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)

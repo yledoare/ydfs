@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Fix Dibab"
+if [ -e /root/.dibab/fixdibab ]
+then
+ls /root/.dibab/fixdibab |while read file
+  do
+    echo /root/.dibab/fixdibab/$file
+    bash /root/.dibab/fixdibab/$file
+  done
+fi
+echo

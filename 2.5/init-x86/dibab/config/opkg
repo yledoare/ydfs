@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#ans=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose packages source" --radiolist  --column "Choice" --column "Type" TRUE "Internet" FALSE "USB Disk" FALSE CD/DVD FALSE "Custom Directory" FALSE "Custom URL")
+ans=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose packages source" --radiolist  --column "Choice" --column "Type" TRUE "Internet" FALSE "Custom Directory")
+
+[ -e /etc/opkg/dibab.conf ] && rm /etc/opkg/dibab.conf
+
+if [ "$ans" = "USB Disk" ]
+then
+  #FIXME
+  echo "src linuxconsole file://$dir" > /etc/opkg/dibab.conf
+fi
+if [ "$ans" = "Custom Directory" ]
+then
+  dir=$(zenity --file-selection --directory)
+  echo "src linuxconsole file://$dir" > /etc/opkg/dibab.conf
+fi
+if [ "$ans" = "Internet" ]
+then
+  RELEASE=`cat /dibab-release`
+  MODULE=`cat /dibab-name`
+  echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
+  # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
+fi
+[ ! -e /etc/opkg/dibab.conf ] && zenity --text="Error \n please run $0 from lxterminal !" --error

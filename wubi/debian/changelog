@@ -1,0 +1,542 @@
+wubi (14.04) trusty; urgency=low
+
+  * Bump to 14.04
+
+ -- Dmitrijs Ledkovs <xnox@ubuntu.com>  Fri, 18 Oct 2013 16:26:21 +0100
+
+wubi (13.10) saucy; urgency=low
+
+  * Specify vmlinuz.efi for Edubuntu.
+  * Bump to 13.10
+  * Bump cdimage fallback URLs & preseeds to saucy
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:59:05 +0100
+
+wubi (13.04) raring; urgency=low
+
+  [ bcbc ]
+  * Use vmlinuz.efi kernel on the amd64 Ubuntu ISO (LP: #1134770)
+  * Suppress use of disk images (LP: #1155704)
+  
+  [ Howard Chan ]
+  * Added Ubuntu Studio option into Wubi (LP: #1070682)
+  * Changed code in /src/wubi/backends/common/distro.py to make Wubi not
+    replacing the correct distro name with the wrong one (LP: #1080090)  
+
+  [ Colin Watson ]
+  * Bump to 13.04.
+
+  [ Howard Chan ]
+  * Changed image files so that Ubuntu Studio is installable. Also added
+    back the original code in distro.py (LP: #1080090)
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 21 Aug 2013 17:56:06 +0100
+
+wubi (12.10) quantal; urgency=low
+
+  [ Evan Dandrea ]
+  * Version bump to 12.10 (Quantal).
+  * Drop Wubi for Xubuntu at the request of Pasi Lallinaho.
+
+  [ Colin Watson ]
+  * Update translations from Launchpad.
+  * Adjust isolist.ini to reflect the move of Kubuntu releases to
+    cdimage.ubuntu.com in 12.04.
+  * Add support for Tibetan.
+
+ -- Evan Dandrea <ev@ubuntu.com>  Wed, 06 Jun 2012 14:54:06 +0100
+
+wubi (12.04) precise; urgency=low
+
+  [ bcbc ]
+  * Correct NameError exceptions on missing attributes
+    when running CD boot helper or a CD is rejected (LP: #876154).
+  * Ignore Permission denied when copying wubildr everywhere
+    (LP: #862003)
+  * Don't fail if Windows' startup folder is missing or mis-
+    configured (LP: #910948)
+  * If bcdedit fails when uninstalling, it shouldn't be fatal
+    (LP: #925779)
+  * Don't use the diskimage download when the target 
+    partition is FAT32 (LP: #882393).
+  * Suppress "No Disk" popup errors for unsupported devices.
+    Thanks to William Bass for the patch (LP: #365881).
+
+  [ Evan Dandrea ]
+  * Remove partially downloaded files that Windows does not consider
+    files when the bit torrent tracker falls over (LP: #873268).
+  * Don't assume success if the disk image download fails without
+    raising an exception (LP: #924752).
+  * Hide Wubi from the autorun page, per LP: #975251.
+  * Do not use the CD by default if we are not running Wubi from that
+    same CD.
+  * Remove the minimum ISO size check. This will fail on USB disks
+    written into ISOs as part of the CD boot helper. It's not entirely
+    clear why this was added in the first place (LP: #987402).
+
+  [ Stéphane Graber ]
+  * Add Edubuntu support.
+
+  [ Colin Watson ]
+  * Bump to 12.04.
+  * Add Lubuntu support (LP: #907524).
+
+ -- Evan Dandrea <ev@ubuntu.com>  Wed, 01 Feb 2012 16:31:48 +0000
+
+wubi (11.10) oneiric; urgency=low
+
+  [ Colin Watson ]
+  * Bump to 11.10.
+  * Remove Ubuntu Netbook option, which is no longer a separate CD
+    (LP: #772941).
+  * Switch to rootflags=sync for all filesystems.  ntfs-3g in oneiric now
+    has syncio only as a compatibility synonym for sync.
+  * Use grub-ntldr-img rather than our own copy of grubinst.
+  * Declare --size as taking an int argument (LP: #799780).
+  * Add the gzio module to the wubildr image, since normal.mod loads it
+    unconditionally nowadays.
+  * Remove grub-installer/bootdev_directory preseeding, only relevant for
+    GRUB Legacy.
+
+  [ Evan Dandrea ]
+  * In Vista and newer versions of Windows, boot straight into the
+    second stage of the installer.
+  * Merge with the diskimage branch. Wubi now downloads and expands a
+    ext3 disk image by default, negating the need for a second stage.
+  * Update Wubi icon. Still need to figure out why it's fuzzy in the
+    Windows 7 taskbar.
+  * Pre-allocate the swap file in disk image installs.
+  * Add unit tests to wubi.
+  * Properly parse the output of 7z's iso listing (LP: #856340).
+  * Removed unused Ubuntu Netbook images (symlinks).
+  * Use the Plymouth splash (LP: #862007).
+  * Handle filesystem corruption when trying to uninstall Wubi
+    (LP: #869014).
+  * Add support for disk image installation (LP: #859696). Thanks
+    Jean-Baptiste Lallement!
+  * Correctly define cd_path (LP: #861702).
+  * Drop vt.handoff for 11.10.  We'll fix this by including the correct
+    GRUB modules in 12.04.
+
+ -- Evan Dandrea <ev@ubuntu.com>  Thu, 13 Oct 2011 10:28:10 +0100
+
+wubi (11.04) UNRELEASED; urgency=low
+
+  [ Colin Watson ]
+  * Bump to 11.04.
+  * Sync up checks for permitted characters in usernames with user-setup
+    (LP: #397129).
+  * Don't strip underscores from the host username.
+  * Update translations from Launchpad.
+  * Switch to new keyboard-configuration/* names for console-setup
+    preseeding.
+  * Add the true, vbe, vga, video_bochs, and video_cirrus modules to the
+    wubildr image, to support our default configuration file.
+
+  [ Jonathan Riddell ]
+  * Remove Kubuntu Netbook option, no longer a separate CD
+  * Update Kubuntu artwork
+
+  [ Evan Dandrea ]
+  * Update translations from Launchpad.
+  * Remove Wubi from the Windows Startup folder, if found.
+  * Catch IO errors around trying to remove Wubi from the startup folder
+    (LP: #771517).
+  * Only ever schedule the wubi binary for removal later (LP: #771517).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
+
+wubi (10.10) UNRELEASED; urgency=low
+
+  [ Colin Watson ]
+  * Bump to 10.10.
+  * GRUB no longer has a 'sh' module; use 'normal' instead.
+  * Pass '-O i386-pc' to grub-mkimage, required by GRUB snapshots from
+    2010-05-17 onwards.
+  * wubildr.cfg needs to be run using GRUB's normal parser rather than its
+    rescue parser.  Rather than embedding it directly as a configuration
+    file, embed it as a memdisk and add wubildr-bootstrap.cfg which invokes
+    it using normal mode (LP: #600578).
+  * Import KEY_SET_VALUE in win32 registry module.
+  * Remove some unused or duplicate imports.
+  * Add the font, gfxterm, and gettext modules to the wubildr image, to
+    support our default configuration file (LP: #653134).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 30 Jun 2010 11:44:43 +0100
+
+wubi (10.04) UNRELEASED; urgency=low
+
+  [ Agostino Russo ]
+  * Fixed country and keymap detection (LP: #428575)
+  * Added Chinese to language selector (LP: #468457)
+  * The amd64 URL for Kubuntu was pointing to the i386 ISO (LP: #465936)
+  * Boot.ini is not restored if drive letter is in upper case (LP:
+    #400936)
+  * Added traditional chinese to language list (LP: #468457)
+  * Default to English if translations are not available (LP: #469131)
+  * Better embedded grub.cfg, previous version was a workaround for a 
+    grub2 bug that didn't allow us to test for the existance of a 
+    file. That grub bug (rev 1724) has now been fixed.  
+  * Bumped preseed suite to lucid
+  * Avoid error due to null cd_path (LP: #552357)
+  * Fixed CD menu reboot (LP: #543032)
+  * Safe graphic mode boot option was disabled (LP: #550539)
+
+  [ Colin Watson ]
+  * Handle separate /boot in embedded grub.cfg (idea from Mark Abene in LP
+    #477169).
+  * Fall back to searching for /ubuntu/install/boot/grub/grub.cfg even if
+    /ubuntu/disks/root.disk exists but is unusable (LP: #541607).
+  * Skip " LTS" in .disk/info when comparing versions (see LP #558488).
+  * Build-depend on gcc-multilib on amd64, so that 'gcc -m32' works.
+
+  [ Evan Dandrea ]
+  * Bump to 10.04
+  * Ubuntu Netbook Remix is now the Ubuntu Netbook Edition (LP: #541881).
+  * Update translations from Launchpad.
+  * Updated Ubuntu branding.  Thanks Michael Forrest!
+  * str.replace() does not do in place modification of the string
+    (LP: #567969).
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Wed, 07 Apr 2010 23:42:08 +0100
+
+wubi (9.10) karmic; urgency=low
+
+  [ Agostino Russo ]
+  * Upped references to 9.10/karmic
+  * Synched grubutil branch with upstream
+  * Do not show original absolute path of bytecompiled modules in error
+    logs (LP: #389424)
+  * Use sys.exc_info() in error logs as suggested by Colin J. Watson
+    (LP: #389424)
+  * Use --locale to select locale when starting wubi, thanks Adi Roiban
+    (LP: #376890)
+  * Fixed i18n errors in progress_page.py, thanks Adi Roiban (LP: #376925)
+  * Fixed untranslatable string, thanks Adi Roiban (LP: #376457)
+  * Spin-off of pypack, which turns a script into a self-contained
+    directory with all required dependencies, might be useful to others
+  * Now using grub2
+  * Fixed typos in pypack
+  * Updated grubutil to rev 31
+  * Add grub modules in correct order
+  * Fixed grub.cfg files
+  * Ignore '-' in distro name (thanks Evan Dandrea)
+  * Fixed typos in tasklist
+  * Grub modules have been renamed upstream
+  * Allow booting via the grub2 loopmount module
+  * Modified embedded grub cfg since root.disk is available at
+    installation time
+  * Added back syncio mount option
+  * Use ext4 by default (lp: #444214)
+  * Support Japanese-multibyte usernames, patch provided by Jun
+    Kobayashi, (LP: #452348)
+  * Updated translations, syncing from Rosetta
+
+  [ Michael Casadevall ]
+  * Added support for UNR
+  * Modified isolist.ini to represent new casper filename; capser.lz for lzma
+    compressed initramfses
+
+  [ Evan Dandrea ]
+  * Add support for Kubuntu Netbook Edition (LP: #402850).
+  * Fix typos for netbook images in data/isolist.ini.
+  * Support dashes in project names.  Thanks Steve Kowalik!
+  * Factor in free space on the source device when calculating whether
+    it's too big to use Wubi with.  This fixes using Wubi on
+    sufficiently large USB disks.
+  * Kubuntu Netbook Edition is now Kubuntu Netbook.
+  * Use i386 if an amd64 version of the selected distribution does not
+    exist.
+  * Use the correct syntax for grub2 (elif does not exist).  Thanks to
+    Colin Watson for the tip.
+  * Use $default_filesystem in place of ext4.
+
+  [ Colin Watson ]
+  * Use "new" simplified partman preseeding (actually available since
+    hardy).
+  * Pass rootflags= rather than ROOTFLAGS=, since as far as I can tell
+    initramfs-tools ignores the latter.
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Sat, 24 Oct 2009 10:38:22 +0100
+
+wubi (9.04) jaunty; urgency=low
+
+  [ Agostino Russo ]
+  * Initial revision
+  * Hello world, we have a window showing
+  * Fixed loop on quit
+  * Fixed tools
+  * Added logging support
+  * Reorganized commandline arguments
+  * Improved progress object
+  * Added data dir
+  * Added win32 wizard base page class
+  * Added mappings
+  * Initial win32 page layout
+  * Using basic window as panel
+  * Refactored shared_backend.py into common/backend.py & friends
+  * Added metalink parser
+  * Removed testing metalink code
+  * Added progress page
+  * Improved quit mechanism
+  * Added tasklist as a more general replacement of the progress object
+  * Revised tool scripts
+  * Added windows system info detection
+  * Added installation page (partially implemented)
+  * Minor GUI layout changes
+  * Added installation finish page
+  * Modified code to support Python 2.3 (for licensing and size reasons)
+  * Added bittornado source importer
+  * Added ipython setup
+  * Bumped version to 9.04
+  * Added required binaries (will be compiled at a later stage)
+  * Added uninstallation page
+  * Added pylauncher
+  * Added BitTorrent source
+  * Added documentation and licenses
+  * Connected download managers
+  * Fixed download status updates
+  * Added more information to the README
+  * Made the tasklist thread daemonic so that it does not prevent the
+    main application from quitting
+  * Reformatted the README file
+  * Modified urlgrabber to make the download terminate if so
+    instructed by the controlling thread via the update callback
+  * Improved the tasklist module to allow for nested backend jobs
+  * Refined tasklist
+  * Added a stubs for username and timezone
+  * Fixed installation finsih page, since reboot was executed before
+    showing the page
+  * Added cd menu page, to be completed
+  * Modified log formatting
+  * Completed cd menu page
+  * Added mythbuntu to isolist.ini
+  * Slight simplification of the frontend
+  * Fixed ISO backup during uninstallation
+  * Added finish pages
+  * Added preliminary code to generate virtual disk files, to be completed
+  * Added timezone detection
+  * Allocate disk space for virtual disks, to be tested
+  * Added wubizip compilation mode, to create a debugger friendly
+    environment
+  * More robust copytree
+  * Use regex to parse .disk/info
+  * Fixed task progress callback
+  * Have a different uninstallation message when the installer is run
+    and a previous installation is detected
+  * Path joining whith a drive as first item whitout trailing slash was
+    returning the user home directory
+  * Improved download manager
+  * Added mirror selection
+  * Fixed MD5 calculation which was limited to files less than 100MB
+  * Refactoring of ISO retrieval code
+  * Fixed bootloader modification code
+  * Added keyboard layout detection
+  * Fixed generation of pressed and menu.lst as the templating was
+    incomplete
+  * Added wunui functionality that might help with transparent widgets
+  * Fixed formatting of the partitioning section in the preseed file
+  * Do not show the console when running pylauncher (thanks Hampus
+    Wessman)
+  * Added memory and size checks
+  * Added tabstops to controls in winui
+  * When checking the version string, be less strict and allow
+    for subversions (thanks Evan Dandrea)
+  * Fixed typo in the grub menu template
+  * Run the uninstaller if the binary name begings with 'uninstall-'
+  * Make sure that the backup dir is named after the target dir
+  * Typo, it is preseed.cfg and not preseed.conf
+  * Cleaned up custom installation hooks
+  * Trailing white space does not get along well with line continuations
+    in preseed.cfg
+  * Improved arch detection
+  * Strip cpuid binary to reduce size
+  * Set the version and revision via the makefile
+  * Verify metalink md5 signature using openpgp and python-crypto
+  * Check md5 of blobs installed within wine during compilation
+  * Skip console logging when running as a packaged executable (pythonw)
+  * Use a local 32 bit CD/ISO even if the CPU arch is 64 bit
+  * Added license to source files
+  * More precise progress reporting
+  * Fixed automatic version string generation
+  * Preseed user-setup/encrypt-home (thanks Evan Dandrea)
+  * Use the old uninstaller, if available, to remove an old installation
+  * Editing an existing registry item requires opening the key with a
+    special flag
+  * Modified uninstaller behaviour, it now uninstalls the directory
+    specified in the registry
+  * Make sure that the uninstallers of previous versions can be launched
+  * Only show the subtask progressbar when the progress is non-zero
+  * ConfigParser is not adequate for editing boot.ini, replaced with ad
+    hoc implementation
+  * Added more registry information, to be displayed in the Control
+    Panel
+  * Renamed a few variables for code style consistency
+  * Fixed typo preventing partial zeroing in virtual disk space
+    allocation
+  * Stopped console windows from popping up when running commands
+  * Added salt to the password hashing algorithm
+  * Fixed regression, a premature deletion of the temporary folder was
+    preventing a correct startup
+  * Factored out code that looks for archive start
+  * Compile grub4dos from source as opposed to using precompiled
+    binaries
+  * Added source files for grub4dos and grubutil
+  * Updated mythbuntu and cdmenu preseed templates
+  * Added CD-boot-helper functionality
+  * Reverted grub4dos to revision 63, since revision 64 had issues when
+    displaying the menu
+  * Trap unhandled exceptions and log/notify the user
+  * Fixed CD-boot helper which was failing when extracting CD content
+  * Added installation directory as one of the isolist.ini settings
+  * Fixed unhandled exception message, which wasn't showing properly
+  * Extract ISO from CD instead of copying the files (the latter
+    approach is blocked by #243105)
+  * Fixed target drive selection in CD-boot helper mode, which wasn't
+    checking available free space
+  * Set file attributes to normal before recursively removing a
+    directory
+  * Updated Wubi Icon
+  * Added UI support for Windows themes (LP: #325207)
+  * Fixed uninstaller, that was not being shown when launched by another
+    Wubi instance
+  * Fixed show-info, it was using an incorrect distro instance for the
+    URL
+  * No need to use a second temp directory
+  * Display controls with transparent background without artifacts
+  * Preliminary gettext support (to be completed)
+  * Completed gettext support
+  * Merged old translations
+  * Use previous distro name in strings during uninstallation progress
+  * Provide an option to hide wubi installation in CD menu (LP: #338015)
+  * Reverted previous changes as suggested by Evan Dandrea and instead
+    will hide Wubi option in CD menu if the drive is larger than
+    max_iso_size unless a --force-wubi argument is used (LP: #338015)
+  * Modified English strings to make them less technical and added
+    missing ones
+  * More text string edits
+  * Ask for confirmation before quitting
+  * Some text edits
+  * No need to set the title of the message boxes
+  * Updated gettext template and translations
+  * Fixed typo (LP: #340400)
+  * Fixed CD eject issue due to wrong path (LP: #339907)
+  * Made btdownloader progress strings consistent with the ones used in the
+    standard downloader
+  * Fixed typo in translatable string (LP: #341680)
+  * No need to make a log message translatable
+  * Replaced _ssl.py with a stub since we do not really need ssl
+    functionality, so we save over 150KB compressed
+  * Wubi pot is generated (make pot) and there is no need to include it
+    within the source files
+  * Make path comparisons all in upper case
+  * Merged umenu and wubi translations
+  * Use unicode by default in gettext translations (LP: #344151)
+  * Unicode win api call was using non-unicode argument preventing CD
+    from ejecting (LP: 339907)
+  * The full URL does not fit in the dialog, only show the filename
+  * Avoid division by zero when calculating bittorrent download progress
+  * Remove partially downloaded files before attempting a new download
+  * Cache ISO md5 calculations to avoid recalculating the md5 for the
+    same file (LP: 342250)
+  * Ensure that the local ISO path is stored upon successful download
+  * Point isolist.ini to beta release (only for Ubuntu ISO)
+  * Had the wrong URL for beta in isolist.ini (thanks Colin Watson!)
+  * Added beta URL for Kubuntu
+  * Fixed Kubuntu package name and URLs
+  * Disabled ISO backup because download resume is not fully supported
+    at the moment
+  * Isolist.ini now points to the final release URLs
+  * Allow the uninstaller to delete the directory containing itself by
+    running the python code from a different process/location (LP:
+    #341605)
+  * Added a separate python launcher process, pyrun, in order to support
+    XP windows theming, which was a regression from previous commit
+    (LP: #341065)
+  * Make sure that arguments are properly quoted (thanks Colin Watson!)
+  * Before deleting the temp directory, make sure to move out of there
+    (LP: #341607)
+  * Avoid removing the bcd boot menu multiple times (LP: #354882)
+  * Remove wubildr files from each drive
+  * Check that file extraction from ISO is successful before trying to
+    parse the file (LP: #351966)
+  * The path of the original executable is now quoted, but the quotes
+    have to be stripped out within python (LP: #341605)
+  * Updated translations from rosetta
+  * Set the application icon (LP: #341631)
+  * Fixed typo (LP: #355923)
+  * Make enough space for translated subtitle (LP: #351519)
+  * Fixed typo (LP: #355928)
+  * Ubpdated translations from rosetta
+  * Ensure that the installation directory is not compressed (LP:
+    #359716)
+  * Need to create the installation dir before uncompressing it (LP:
+    #359716)
+  * Fixed variable scope in previous patch (LP: #359716)
+  * When checking the username use the same regex as in user-setup,
+    thanks Evan Dandrea
+  * Properly sanitize host username to avoid UnicodeDecodeError (LP:
+    #344151)
+  * Uncompress all target subdirectories (LP: #359716)
+  * If the target directory already exists, quit with an error message
+    (LP: #364166)
+  * Avoid non-ascii chars in username and volume name (lp: #365648)
+  * Mixed up encode/decode str methods, again
+  * Encode unicode translations to avoid file write failures (LP:
+    #365642)
+  * Do not quit if there are ISO extraction problems, try to download
+    instead (LP: #371264)
+  * Do not quit if there are ISO info parsing errors due to file
+    corruption (LP: #366009)
+  * Avoid white spaces in ISO name (LP: #365829)
+  * Fixed vfat filesystem detection (LP: #369225)
+  * More robust ISO check to avoid failures when the ISO file is
+    corrupted
+  * Change the locale according to the language selector (LP: #373421)
+  * The compact command is not supported on a vfat filesystems
+  * Fixed translatable strings, thanks Adi Roiban (LP: #376457)
+  * Added update-po to makefile, thanks Adi Roiban (LP: #376463)
+  * Kubuntu metalink URL does not start with 'http' (LP: #383752)
+  * Fixed i18n errors in progress_page.py (thanks Adi Roiban)
+
+  [ Hampus Wessman ]
+  * Added a new metalink parser
+  * Fixed the check for wine so that it looks in additonal places
+  * Added tools/wine to the branch
+  * Fixed a bug in virtualdisk.py
+  * Added deletion of temporary directory
+  * Fixed archive signature search in unpack.c
+  * Removed some debugging code
+
+  [ Evan Dandrea ]
+  * Fixed a typo in the translation template.
+  * Require adminstrator privileges (LP: #340400).  Thanks Agostino Russo!
+  * os.environ is a dictionary, not a callable method.
+  * Only uncompress files in the boot directory (LP: #341640).  Thanks Agostino
+    Russo!
+  * Call the correct bootloader installation method for each version of
+    Windows.
+  * Use registry.{get,set}_value not the nonexistent
+    registry.{get,set}_key.
+  * Fix typo where a bcdedit command was accidentally created using
+    concatenation.
+  * subprocess.Popen takes a list of string arguments.
+  * Bcdedit requires absolute paths.
+  * There's no need to quote arguments to commands when using Popen.  It
+    passes them straight through, so you'll get "Ubuntu Linux" instead of
+    Ubuntu Linux.
+  * Removed an erroneous closing parentheses in the use_cd check.
+  * Ignore any failure in delete_directory as it is just working with temporary
+    directories.
+  * Ensure that vista boot menu entry points to the correct wubildr file
+    (LP: #358356)
+  * Remove the /S flag from compact calls.  It forces compact to run
+    against the current directory.
+
+  [ Mario Limonciello ]
+  * Update mythbuntu.preseed to use the latest strings available in
+    ubiquity-frontend-mythbuntu.
+  * Check for preseed.$(distro) in the data directory before assuming that
+    preseed.lupin should be used. (LP: #359834)
+
+ -- Agostino Russo <agostino.russo@gmail.com>  Fri, 12 Jun 2009 01:23:22 +0100

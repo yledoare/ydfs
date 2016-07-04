@@ -1,0 +1,1 @@
+make prefix=$PREFIX RAISE_SETFCAP=no install

@@ -1,0 +1,5 @@
+echo '
+#!/bin/sh
+killall Xorg' > /sbin/shutdown
+chmod +x /sbin/shutdown
+XBMC_HOME=/dibab/modules/module/share/xbmc /dibab/modules/module/bin/xbmc

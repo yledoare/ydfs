@@ -1,0 +1,1 @@
+cp $HOME/$CARCH/lib/libffi-*/include/* $HOME/$CARCH/include

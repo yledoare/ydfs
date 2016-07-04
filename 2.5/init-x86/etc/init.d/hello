@@ -1,0 +1,10 @@
+#!/busybox/bin/ash
+
+WELCOME="Welcome into Dibab"
+[ "$lang" = "fr" ] && WELCOME="Bienvenue sur Dibab"
+[ "$lang" = "bzh" ] && WELCOME="Deger mad Dibab"
+[ "$lang" = "de" ] && WELCOME="Willkommen in Dibab"
+[ "$lang" = "it" ] && WELCOME="Benvenuto in Dibab"
+[ "$lang" = "nl" ] && WELCOME="Onthaal in Dibab"
+
+echo -e "\033[33m$WELCOME - (c) 2001-2014 Yann Le Doare\033[39m" 

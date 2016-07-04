@@ -1,0 +1,85 @@
+#!/bin/bash
+
+echo "$2" | grep 'curl' > /dev/null && exit 0
+
+if [ "$1" != "install" ]
+then
+ echo "usage : apt-get install package_name"
+ exit 1
+fi
+
+cd $HOME
+[ -e download ] && rm download
+if [ "$ARCH" = "x86" ]
+then
+  wget https://packages.debian.org/jessie/i386/$2/download  
+else
+  wget https://packages.debian.org/jessie/amd64/$2/download  
+fi
+
+URL=$(grep ftp.fr.debian.org download | cut -d '"' -f2)
+if [ "$URL" = "" ]
+then
+  URL=$( grep http://security.debian.org/debian-security/ download  | cut -d '"' -f2)
+fi
+
+if [ "$URL" = "" ]
+then
+  zenity --info --text="Error : deb not found for $2"
+  exit 1
+fi
+
+DEB=$(basename $URL)
+[ -e "$DEB" ] && rm $DEB  
+
+# get .deb
+wget $URL
+if [ "$?" != 0 ]
+then
+  zenity --info --text="Error when downloading $URL"
+  exit 1
+fi
+cd /
+#extract
+dpkg -x $HOME/$DEB .
+
+# look for dep
+
+install -d $HOME/tmp/$2
+cd $HOME/tmp/$2
+ar -x $HOME/$DEB control.tar.gz
+
+# extract control
+
+tar xzvf control.tar.gz 
+DEPS=$(grep Depends control | cut -d: -f2,3,4,5)
+
+echo "Dep list : $DEPS"
+# list inside array
+IFS=', ' read -a array <<< $DEPS
+
+for element in "${array[@]}"
+do
+  echo "$element" | grep 'debconf' > /dev/null && continue
+  echo "$element" | grep 'curl' > /dev/null && continue
+  echo "$element" | grep 'lib' > /dev/null && continue
+  echo "$element" | grep 'freeglut3' > /dev/null && continue
+  echo "$element" | grep 'install-info' > /dev/null && continue
+  echo "$element" | grep 'dpkg' > /dev/null && continue
+  echo "$element" | grep 'multiarch-support' > /dev/null && continue
+  [ "$element" = '1' ] && continue
+  [ "$element" = '4' ] && continue
+  echo "$element" | grep '|' > /dev/null && continue
+  echo "$element" | grep ')' > /dev/null && continue
+  echo "$element" | grep '(' > /dev/null && continue
+  #echo "DEP : $element"
+  if [ ! -e "$HOME/tmp/$element" ]
+  then
+	echo "Running apt-get install $element"
+  	echo "$element" | grep 'data' > /dev/null && /fix/apt-get install $element && exit 0
+  	echo "$element" | grep 'common' > /dev/null && /fix/apt-get install $element && exit 0
+	zenity --question --text="Install $element ?" && /fix/apt-get install $element
+  fi
+done
+rm $HOME/$DEB
+# zenity --info --text="$DEB installed"

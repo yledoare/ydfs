@@ -1,0 +1,30 @@
+ # Temporary workaround for FS#22322
+  # See http://bugs.python.org/issue10835 for upstream report
+  sed -i "/progname =/s/python/python${_pybasever}/" Python/pythonrun.c
+
+  # Enable built-in SQLite module to load extensions (fix FS#22122)
+  sed -i "/SQLITE_OMIT_LOAD_EXTENSION/d" setup.py
+
+  # FS#23997
+  sed -i -e "s|^#.* /usr/local/bin/python|#!$PREFIX/bin/python2|" Lib/cgi.py
+
+  sed -i "s/python2.3/python2/g" Lib/distutils/tests/test_build_scripts.py \
+    Lib/distutils/tests/test_install_scripts.py
+
+  # TODO: Still not passed
+  # Silent test_gdb failures on 'no symbol table loaded'.
+  #sed -i '/ignore_patterns = (/a "No symbol table is loaded.  Use the \\"file\\" command.",' \
+  #  Lib/test/test_gdb.py
+
+  # Ensure that we are using the system copy of various libraries (expat, zlib and libffi),
+  # rather than copies shipped in the tarball
+  rm -r Modules/expat
+  rm -r Modules/zlib
+  rm -r Modules/_ctypes/{darwin,libffi}*
+
+  # clean up #!s
+  find . -name '*.py' | \
+    xargs sed -i "s|#[ ]*![ ]*/usr/bin/env python$|#!/usr/bin/env python2|"
+
+  # Workaround asdl_c.py error after we touched the shebangs
+  touch Include/Python-ast.h Python/Python-ast.c

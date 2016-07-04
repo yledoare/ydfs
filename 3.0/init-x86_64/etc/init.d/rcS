@@ -1,0 +1,151 @@
+#!/busybox/bin/ash
+
+[ -e /dibab/boot/options/debug01  ] && sh
+. /etc/profile
+
+mount -a
+mount /sys sys -t sysfs
+mkdir /dev/pts
+mount /dev/pts -t devpts
+
+loadkmap < azerty.kmap
+
+mount cgroup /sys/fs/cgroup -t cgroup
+
+echo "NAME=linuxconsole" > /etc/os-release
+echo "linuxconsole" > /etc/hostname
+
+ln -s /proc/mounts /etc/mtab # For Gparted
+
+if [ -e /dibab/boot/options/ash  ]; then
+/busybox/bin/ash 
+else
+. /dibab/detect/boot_options
+
+[ -e /dibab/boot/options/debug02  ] && sh
+
+echo "Detect media"
+echo -n "5" > /dev/tty1
+. /dibab/detect/media
+
+[ -e /dibab/boot/options/debug03  ] && sh
+
+echo "Mount dibab modules"
+. /dibab/detect/modules
+
+echo -n " 4" > /dev/tty1
+[ -e /dibab/boot/options/debug04  ] && sh
+fc-cache
+echo -n " 3" > /dev/tty1
+
+[ -e /dibab/boot/options/debug1  ] && sh
+echo "Detect hardware"
+. /dibab/detect/hardware
+echo "Detect Network"
+. /dibab/detect/network & #> /dev/tty2 2>/dev/tty2
+echo "Set up sound mixer"
+echo -n " 2" > /dev/tty1
+. /dibab/detect/mixer # &
+
+# remove this later
+ln -s /usr/lib/libgnutls.so.28 /lib/libgnutls.so.26
+
+. /dibab/enable/swap &
+. /dibab/detect/cups &
+
+[ -e /dibab/boot/options/debug2  ] && sh
+
+. /dibab/start/automount
+. /dibab/start/fixdibab
+
+if [ -e /dibab/boot/options/fixusb  ]; then 
+echo "FIXUSB mode, looking into usb disks ..." && sleep 9
+. /dibab/start/fixusb || ash
+fi
+
+
+if [ -e /dibab/boot/options/fixme  ]; then 
+echo "FIXME mode" && sleep 5
+. /dibab/start/fixme || ash
+fi
+
+if [ -e /dibab/boot/options/benchmark  ]; then 
+echo "Benchmark" && sleep 5
+. /dibab/start/benchmark || ash
+fi
+
+echo -n " 1" > /dev/tty1
+/fix/libs
+
+[ -e /media/dibab/pkg ] && echo "Opkg update" && opkg-cl update
+
+if [ -e /dibab/boot/options/text  ]; then
+sh
+echo "You can now start /dibab/start/xorg"
+else
+echo "Start Xorg"
+/dibab/start/xorg
+fi
+fi
+
+/dibab/start/save-persistant-data
+
+[ -e /dibab/boot/options/debug3  ] && sh
+
+busybox sh /dibab/stop/all
+# persistant data
+#if [ -e /root/lost+found ]
+#then
+#  umount /root 
+#fi
+
+echo "Stoping all process ... "
+killall NetworkManager
+killall ModemManager
+killall dbus-launch
+killall5 
+
+[ -e /dibab/boot/options/debug4  ] && sh
+echo -n "Stoping network interfaces ... "
+
+ls /sys/class/net/| while read NET
+do
+echo -n "$NET "
+ifconfig $NET down 1>/dev/null 2>/dev/null
+done
+
+/sbin/swapoff -a
+sync
+sleep 2
+echo
+/busybox/bin/umount /usr/var
+/busybox/bin/umount -a
+lsof | grep usr
+if [ $? = 0 ] 
+then
+ echo "Error when umounting all" > /dev/tty1
+ lsof | grep usr > /dev/tty1 
+ sleep 10
+ # [ ! -e /dibab/boot/options/fastpoweroff ] && echo "please umount yourself, use fastpoweroff boot option to force poweroff nexte time" && /busybox/bin/ash
+ [ -e /dibab/boot/options/debugpoweroff ] && echo "debugpoweroff mode on" && /busybox/bin/ash
+else
+ echo "umounting : done" > /dev/tty1
+fi
+#echo "DEBUG : changes "
+#find /usr
+
+[ -e /dibab/boot/options/debug5  ] && sh
+
+# [ -e /media/dibab/modules ] && mount && echo "error while umount, run poweroff yourself" && /busybox/bin/ash
+[ -e /media/dibab/modules ] && [ -e /dibab/boot/options/debugpoweroff ] && mount && echo "error while umount, run poweroff yourself" && /busybox/bin/ash
+
+if [ -e /var/dibab/boot/media/cdrom/ ]
+then
+  echo "Ejecting cdrom, 5 seconds before poweroff" > /dev/tty1
+  eject /dev/`ls /var/dibab/boot/media/cdrom/`
+  sleep 5
+fi
+
+[ -e /dibab/boot/options/debug6  ] && sh
+[ -e /run-before-poweroof  ] && sh /run-before-poweroof
+poweroff

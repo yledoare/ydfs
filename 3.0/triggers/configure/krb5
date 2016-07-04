@@ -1,0 +1,11 @@
+   cd src
+   export CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all"
+   ./configure --prefix=$PREFIX \
+               --enable-shared \
+               --with-system-et \
+               --with-system-ss \
+               --disable-rpath \
+               --without-tcl \
+               --enable-dns-for-realm \
+               --with-ldap \
+               --without-system-verto

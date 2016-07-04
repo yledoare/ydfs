@@ -1,0 +1,62 @@
+#dual boot
+if [ -e /disk/root.ext3 ] || [ -e /disk/$DISTRONAME/disks/root.disk ]
+then
+if [ ! -e /disk/root.ext3 ] && [ -e /disk/$DISTRONAME/disks/root.disk ]
+then
+  mv /disk/$DISTRONAME/disks/root.disk /disk/root.ext3
+  echo "#################### RUN MKE2FS ###############"
+  mke2fs -F -j /disk/root.ext3
+  echo "#################### MKE2FS OK ###############"
+fi
+mount /disk/root.ext3 /root
+  if [ ! -e /root/opkg ]
+  then
+    install -d /root/opkg
+  fi
+  ln -s /root/opkg $HOME_DIBAB/opkg
+  install -d /root/usr
+  install -d /root/etc
+  install -d /root/tmp
+fi
+
+#liveusb
+if [ -e /media/dibab/syslinux.cfg ]
+then
+  ln -s /tmp /media/dibab/test-tmp || sleep 10
+  # sleep 1
+  [ ! -e /media/dibab/test-tmp ] &&  echo "Error, please use a NTFS or EXT4 filesystem to store data" && sleep 5
+fi
+
+if [ -e /media/dibab/syslinux.cfg ] && [ -e /media/dibab/test-tmp ]
+then
+  # Persistant data on disk
+  rm /media/dibab/test-tmp
+  install -d /media/dibab/root
+  install -d /media/dibab/home
+  install -d /media/dibab/opt
+
+  mkdir /opt
+  mount /media/dibab/opt /opt -o bind
+  if [ ! -e /media/dibab/opkg ]
+  then
+    install -d /media/dibab/opkg
+  fi
+  ln -s /media/dibab/opkg $HOME_DIBAB/opkg
+  rmdir /root
+  ln -s /media/dibab/root /root
+  ls /media/dibab/home | while read home
+  do
+    ln -s /media/dibab/home/$home /home/$home
+  done
+  install -d /root/usr
+  install -d /root/etc
+  install -d /root/tmp
+fi
+
+if [ -e /root/.config/dibab/backup.tar.gz ]
+then
+cd /
+tar xzvf /root/.config/dibab/backup.tar.gz
+fi
+
+install -d $HOME_DIBAB/opkg/share/applications

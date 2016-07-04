@@ -1,0 +1,17 @@
+#liste_pour_CD_AntiVirus
+#voir_la_modif_a_faire_dans_le_bug_tracker
+#librairie_indispensable_apparemment
+#http://ftp.de.debian.org/debian/pool/main/libt/libtool/libtool_2.4.2-1.1.dsc
+#pageweb:http://www.clamav.net/lang/en/download/sources/
+http://downloads.sourceforge.net/clamav/clamav-0.98.tar.gz
+#rajouter_la_base_main_comme_ça_a_chaque_fois_qu'on_compile_on_a_la_dernière_mise_a_jour
+#on_pourrait_rajouter_chkrootkit,snort,et_des_petits_jeux_pour_patienter
+#l'interface_graphique:necessite_perl
+https://bitbucket.org/dave_theunsub/clamtk/downloads/clamtk-5.02.tar.gz
+#base_virale
+http://db.local.clamav.net/main.cvd
+#ça-doit_servir_a_quelque_chose
+#http://db.local.clamav.net/bytecode.cvd
+#base_de_site_a_eviter_fournie_par_google:a_utiliser_avec_precautions
+#voir_https://github.com/vrtadmin/clamav-faq/blob/master/faq/faq-safebrowsing.md
+#http://db.local.clamav.net/safebrowsing.cvd

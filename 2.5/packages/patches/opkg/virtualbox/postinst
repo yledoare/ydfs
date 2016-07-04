@@ -1,0 +1,16 @@
+echo "Postinst"
+
+install -d /root/.dibab/fixdibab/
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxdrv.ko" > /root/.dibab/fixdibab/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetadp.ko" >> /root/.dibab/fixdibab/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetflt.ko" >> /root/.dibab/fixdibab/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxpci.ko" >> /root/.dibab/fixdibab/virtualboxdrv
+echo 'mkdir /dev/vboxusb
+chmod 770 /dev/vbox*
+chown root:vboxusers /dev/vbox*' >> /root/.dibab/fixdibab/virtualboxdrv
+
+sh /root/.dibab/fixdibab/virtualboxdrv
+
+mkdir /opt
+ln -s $HOME_DIBAB/opkg/lib/virtualbox /usr/lib
+cp -fR $HOME_DIBAB/opkg/lib/virtualbox /opt/VirtualBox

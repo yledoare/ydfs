@@ -1,0 +1,6 @@
+if [ -e configure ]
+then
+  ./configure --prefix=$PREFIX
+else
+  [ -e Makefile.PL ] && echo Makefile.PL
+fi

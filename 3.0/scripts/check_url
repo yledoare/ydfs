@@ -1,0 +1,13 @@
+cd packages
+for URL in `cat list-$CARCH | cut -d '#' -f1`
+do
+  test "$URL" = "" && continue
+  echo -n "**  Look for $URL : "
+  echo $URL | grep "git://" && continue
+  echo $URL | grep "archlinux:" && continue
+  echo $URL | grep "CPAN:/" && continue
+  wget -q $URL || ERROR="$ERROR $URL not found !"
+  echo $ERROR
+done 
+echo
+echo "$ERROR"

@@ -1,0 +1,11 @@
+RELEASE=`cat /dibab-release`
+MODULE=`cat /dibab-name`
+cd /
+
+while [ 1 ]
+do
+  sleep 22
+  wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.tar.gz && break
+done
+
+tar xzvf desktop-install-menus.tar.gz

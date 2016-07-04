@@ -1,0 +1,1 @@
+make ETCDIR=${PREFIX}/etc/ SHAREDIR=${PREFIX}/share/keyutils MANDIR=${PREFIX}/man/ SBINDIR=${PREFIX}/sbin/ BINDIR=${PREFIX}/bin/ LIBDIR=${PREFIX}/lib USRLIBDIR=${PREFIX}/lib/ INCLUDEDIR=${PREFIX}/include install

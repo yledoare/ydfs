@@ -1,0 +1,10 @@
+export OPT="${CFLAGS}"
+  ./configure --prefix=$PREFIX \
+              --enable-shared \
+              --with-threads \
+              --enable-ipv6 \
+              --enable-unicode=ucs4 \
+              --with-system-expat \
+              --with-system-ffi \
+              --with-dbmliborder=gdbm:ndbm \
+              --without-ensurepip

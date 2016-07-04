@@ -1,0 +1,33 @@
+echo $HOME_DIBAB
+echo $PATH
+cd $HOME
+cd dibab || exit 1
+
+
+BUSYBOX=$1
+
+[ ! -e $HOME/dibab/tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --directory-prefix=$HOME/dibab/tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
+[ ! -e $HOME/dibab/src/busybox-$BUSYBOX ] && tar xjvf  $HOME/dibab/tarballs/busybox-$BUSYBOX.tar.bz2 --directory=$HOME/dibab/src
+
+install -d  $HOME/dibab/build/busybox-$ARCH-$BUSYBOX
+if [ $ARCH = "x86" ] || [ $ARCH = "x86_64" ]
+then
+[ ! -e  $HOME/dibab/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config  $HOME/dibab/build/busybox-$ARCH-$BUSYBOX/.config
+else
+[ ! -e  $HOME/dibab/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-arm/config  $HOME/dibab/build/busybox-$ARCH-$BUSYBOX/.config
+fi
+cd  $HOME/dibab/src/busybox-$BUSYBOX 
+
+patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.24.2.diff
+#echo FIXME & sleep 10 && rm $HOME/dibab/build/busybox-$ARCH-$BUSYBOX/.config
+[ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$ARCH-$BUSYBOX
+if [ $ARCH = "x86" ]
+then
+ export PATH=/$HOME/dibab/x-tools/i386-unknown-linux-uclibc/bin/:$PATH
+ make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc || exit 1
+ make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc install
+else
+  make O=../../build/busybox-$ARCH-$BUSYBOX || exit 1
+  make O=../../build/busybox-$ARCH-$BUSYBOX install
+fi
+

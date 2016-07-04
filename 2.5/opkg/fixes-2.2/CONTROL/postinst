@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Fix Dibab"
+/dibab/start/fixdibab
+/dibab/detect/kbd
+echo

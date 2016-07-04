@@ -1,0 +1,50 @@
+diff -rupN squashfs4.2.orig/Makefile squashfs4.2/Makefile
+--- squashfs4.2.orig/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ squashfs4.2/Makefile	2011-05-07 14:36:00.772999850 +0200
+@@ -0,0 +1,4 @@
++all:
++	cd squashfs-tools/ && make
++install:
++	cd squashfs-tools/ && make install
+diff -rupN squashfs4.2.orig/squashfs-tools/Makefile squashfs4.2/squashfs-tools/Makefile
+--- squashfs4.2.orig/squashfs-tools/Makefile	2011-02-28 21:04:15.000000000 +0100
++++ squashfs4.2/squashfs-tools/Makefile	2011-05-07 14:37:17.671999850 +0200
+@@ -15,7 +15,7 @@
+ # Obviously, you must select at least one of the available gzip, lzma, lzo
+ # compression types.
+ #
+-GZIP_SUPPORT = 1
++ GZIP_SUPPORT = 1
+ 
+ ########### Building XZ support #############
+ #
+@@ -26,8 +26,8 @@ GZIP_SUPPORT = 1
+ # To build using XZ Utils liblzma - install the library and uncomment
+ # the XZ_SUPPORT line below.
+ #
+-#XZ_SUPPORT = 1
+ 
++XZ_SUPPORT = 1
+ 
+ ############ Building LZO support ##############
+ #
+@@ -67,7 +67,7 @@ GZIP_SUPPORT = 1
+ # in Mksquashfs.  Obviously the compression algorithm must have been
+ # selected to be built
+ #
+-COMP_DEFAULT = gzip
++COMP_DEFAULT = xz
+ 
+ ###############################################
+ #  Extended attribute (XATTRs) build options  #
+@@ -93,8 +93,8 @@ XATTR_DEFAULT = 1
+ #        End of BUILD options section         #
+ ###############################################
+ 
+-INCLUDEDIR = -I.
+-INSTALL_DIR = /usr/local/bin
++INCLUDEDIR = -I. -I/usr/linuxconsole/gtk2/include
++INSTALL_DIR = ${MYPREFIX}/bin
+ 
+ MKSQUASHFS_OBJS = mksquashfs.o read_fs.o sort.o swap.o pseudo.o compressor.o
+ 

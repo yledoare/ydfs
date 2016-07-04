@@ -1,0 +1,18 @@
+export DBPACKAGE=$(basename $PWD | cut -d'-' -f1)
+echo $PWD | grep gnu-efi && export DBPACKAGE=gnu-efi
+echo $PWD | grep Linux-PAM && export DBPACKAGE=Linux-PAM
+echo -n "Building $DBPACKAGE ..."
+
+for STEP in prepare configure post-configure build install distinstall
+do
+[ -e $STEP.done ] && echo -n "$STEP:done " && continue
+if [ -e $HOME_DIBAB/triggers/$STEP/$DBPACKAGE ]
+then
+  echo $HOME_DIBAB/triggers/$STEP/$DBPACKAGE && sleep 2
+  bash $HOME_DIBAB/triggers/$STEP/$DBPACKAGE || exit $?
+else
+  echo "$HOME_DIBAB/triggers/$STEP/$DBPACKAGE not found, using $HOME_DIBAB/scripts/$STEP"
+  bash $HOME_DIBAB/scripts/$STEP || exit $?
+fi
+touch $STEP.done
+done

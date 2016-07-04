@@ -1,0 +1,7 @@
+cd $HOME/dibab/build-$CARCH
+ls | while read PKG
+do
+  echo $PKG
+  echo "Clean $PKG"
+  rm -fR $PKG/*
+done

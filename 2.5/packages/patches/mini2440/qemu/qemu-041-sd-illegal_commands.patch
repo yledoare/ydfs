@@ -1,0 +1,31 @@
+--- a/hw/sd.c	2011-10-07 17:11:18.000000000 +0200
++++ b/hw/sd.c	2011-10-08 14:38:41.000000000 +0200
+@@ -648,6 +648,10 @@
+             break;
+         }
+         break;
++        
++    case 5: /* CMD5: reserved for SDIO cards / SLEEP_AWAKE (MMC) */
++        sd->card_status |= ILLEGAL_COMMAND;
++        return sd_r0;
+ 
+     case 6:	/* CMD6:   SWITCH_FUNCTION */
+         if (sd->spi)
+@@ -1074,6 +1078,17 @@
+         }
+         break;
+ 
++    case 52:
++    case 53:
++        /* CMD52, CMD53: reserved for SDIO cards
++         * (see the SDIO Simplified Specification V2.0)
++         * Handle as illegal command but do not complain
++         * on stderr, as some OSes may use these in their
++         * probing for presence of an SDIO card.
++         */
++         sd->card_status |= ILLEGAL_COMMAND;
++         return sd_r0;
++         
+     /* Application specific commands (Class 8) */
+     case 55:	/* CMD55:  APP_CMD */
+         if (sd->rca != rca)

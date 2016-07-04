@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index af7920f..833ca51 100644
+--- a/Makefile
++++ b/Makefile
+@@ -31,7 +31,7 @@ dist:
+ upload:
+ 	python setup.py sdist $(SDIST_ARGS) upload -s
+ 
+-install:	install-rpmhook
++install:
+ 	ROOT= ; \
+ 	if [ -n "$$DESTDIR" ]; then ROOT="--root $$DESTDIR"; fi; \
+ 	python setup.py install --skip-build $$ROOT

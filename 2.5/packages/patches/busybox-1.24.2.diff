@@ -1,0 +1,44 @@
+diff --git a/include/platform.h b/include/platform.h
+index 1706b18..d8a404f 100644
+--- a/include/platform.h
++++ b/include/platform.h
+@@ -561,10 +561,6 @@ extern char *strsep(char **stringp, const char *delim) FAST_FUNC;
+ # define strsignal(sig) get_signame(sig)
+ #endif
+ 
+-#ifndef HAVE_USLEEP
+-extern int usleep(unsigned) FAST_FUNC;
+-#endif
+-
+ #ifndef HAVE_VASPRINTF
+ extern int vasprintf(char **string_ptr, const char *format, va_list p) FAST_FUNC;
+ #endif
+diff --git a/libbb/platform.c b/libbb/platform.c
+index 03bbb79..c19da1f 100644
+--- a/libbb/platform.c
++++ b/libbb/platform.c
+@@ -17,24 +17,6 @@ char* FAST_FUNC strchrnul(const char *s, int c)
+ }
+ #endif
+ 
+-#ifndef HAVE_USLEEP
+-int FAST_FUNC usleep(unsigned usec)
+-{
+-	struct timespec ts;
+-	ts.tv_sec = usec / 1000000u;
+-	ts.tv_nsec = (usec % 1000000u) * 1000u;
+-	/*
+-	 * If a signal has non-default handler, nanosleep returns early.
+-	 * Our version of usleep doesn't return early
+-	 * if interrupted by such signals:
+-	 *
+-	 */
+-	while (nanosleep(&ts, &ts) != 0)
+-		continue;
+-	return 0;
+-}
+-#endif
+-
+ #ifndef HAVE_VASPRINTF
+ int FAST_FUNC vasprintf(char **string_ptr, const char *format, va_list p)
+ {

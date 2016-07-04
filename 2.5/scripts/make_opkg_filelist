@@ -1,0 +1,9 @@
+cd $HOME/dibab/opkg
+$HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
+[ -e /var/www/opkg/ ] && cp -fR $HOME/dibab/opkg/* /var/www/opkg/$DISTRONAME
+HOME_DIST=`basename $HOME_DIBAB`
+[ -e /home/linuxconsole25/dibab/opkg ] && rsync --size-only -vr /home/linuxconsole25/dibab/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
+[ -e /home/linuxconsole25/dibab/opkg ] && rsync -vr /home/linuxconsole25/dibab/opkg/Packages.stamps opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
+[ -e /home/linuxconsole25/dibab/opkg ] && rsync -vr /home/linuxconsole25/dibab/opkg/Packages opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
+[ -e /home/linuxconsole25/dibab/opkg ] && rsync -vr /home/linuxconsole25/dibab/opkg/flash_* opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
+echo "OK"

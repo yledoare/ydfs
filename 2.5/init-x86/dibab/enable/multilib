@@ -1,0 +1,16 @@
+cd /root
+install -d multilib
+cd multilib
+URL=http://mirrors.kernel.org/ubuntu/pool/main/e/eglibc/libc6-i386_2.17-93ubuntu4_amd64.deb
+LIBC=$(basename $URL)
+[ ! -e $LIBC ] && wget $URL
+
+dpkg -x $LIBC .
+
+find |sed s@./@/@| while read file 
+do
+  test -d .$file && [ ! -e $file ] && mkdir $file && echo "install -d $file"
+  test -d .$file && continue
+  # [ ! -e $file.old ] && echo "Install $file" && mv $file $file.old && 
+  cp -a .$file $file 
+done

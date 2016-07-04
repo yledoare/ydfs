@@ -1,0 +1,139 @@
+Dibab is a tool to build a linux distribution 
+
+Features :
+
+* Buildt from user account (no root or sudo needed)
+* Fast boot
+* Support x86, x86_64 (and maybe arm ARCH)
+* applications must be buildt from source
+
+== Install debootstrap for 32 bit release ==
+
+You can build 32 and 64 bit on one computer
+
+$MY_CHROOT=/home/debian-jessie-32
+
+install -d $MY_CHROOT
+debootstrap --arch i386 jessie $MY_CHROOT http://http.debian.net/debian/
+echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
+mount proc $MY_CHROOT/proc -t proc
+echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
+mount sysfs $MY_CHROOT/sys -t sysfs
+cp /etc/hosts $MY_CHROOT/etc/hosts
+cp /proc/mounts $MY_CHROOT/etc/mtab
+chroot $MY_CHROOT /bin/bash
+
+== Build dibab ==
+
+To build dibab ISO
+
+{{{
+cd $HOME
+install -d src
+cd src
+git clone https://yledoare@bitbucket.org/yledoare/dibab.git
+cd dibab
+cd 2.5
+make # it will take more thant 10 hours !
+}}}
+
+  * You can run ./configure as root to verify that all needed development tools are installed (optional)
+  * Select arch to build
+  * all packages form packages/list-$ARCH are downloaded then build
+  * kernel is build
+  * modules and iso are created
+  * you can run "make test"
+
+== Build Windows installer ==
+
+{{{
+bzr branch lp:wubi
+cd wubi
+wget https://bitbucket.org/yledoare/dibab/raw/master/2.3/packages/patches/wubi5.diff
+patch -p0 < wubi5.diff
+cp $HOME/dibab/src/2.3/logos/LinuxConsole.ico ./data/images/Wubi.ico
+cp $HOME/dibab/src/2.3/logos/LinuxConsole.ico ./data/images/
+echo "Makes some changes into data/isolist.ini"
+make
+}}}
+
+== Alternatives ==
+
+See inside "config.ini" (written when selected ARCH)
+
+You can :
+
+  * Use crosstool-ng instead of host toolchain
+  * build your own toolchain
+  * enable MENUCONFIG=YES to select your kernel options
+
+== Add locales ==
+
+  * sudo vim /var/lib/locales/supported.d/local (ubuntu)
+  * sudo vim /etc/locale.gen (debian)
+
+Ex:
+
+br_FR.UTF-8 UTF-8
+de_DE.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8
+fr_CA.UTF-8 UTF-8
+fr_FR.UTF-8 UTF-8
+pt_BR.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+zh_CN.UTF-8 UTF-8
+cs_CZ.UTF-8 UTF-8
+pl_PL.UTF-8 UTF-8
+
+  * sudo dpkg-reconfigure locales
+  * or locale-gen
+
+== Host Needed ==
+
+  * Debian 8.3 (amd64,x86)
+
+= Why Dibab ? =
+
+LinuxConsole 1.0 works quite fine, bus was designed in 2004 (then released in 2007,2008,2009,2010).
+
+Dibab has been written to build LinuxConsole 2.0. Full documentation should be written here before first announcement.
+
+Lacks of LinuxConsole 1.0: 
+
+  * Build modules updates is not enough simple.
+  * Too much modules
+  * Not enough communication
+  * Only One developer
+  * Linux Games are not popular like Windows ones
+  * Low Community  
+
+Good things :
+
+  * One release every year
+  * Easy install from windows
+  * Home made configuration tool
+  
+= Dibab Documentation =
+
+The name "Dibab" (means "choice" in [http://en.wikipedia.org/wiki/Brezhoneg Brezhoneg]). With Dibab, you could write your own distro, not only for x86, without be root, and for any desktop (lxde,gnome2,gnome3,KDE,...)  
+
+Goals
+
+  * Fast
+  * Low disk space used (modules into squashfs/lzma)
+  * Can Build from many systems (mageia, debian, scratch) 
+
+Installs
+
+  * On liveUSB (with unetbootlin)
+  * On Hard disk (from Windows or liveUSB)
+
+Boot
+
+  * From initramfs
+  * From Hard disk (to be faster) TODO
+
+Targets
+
+  * x86,x86_64,arm

@@ -1,0 +1,9 @@
+./configure      --enable-lz4 \
+      --enable-compat-libs \
+      --enable-gnuefi \
+      --disable-audit \
+      --disable-ima \
+      --disable-kdbus \
+      --with-sysvinit-path= \
+      --with-sysvrcnd-path= \
+      --prefix=$PREFIX --with-efi-libdir=$PREFIX/lib --with-efi-ldsdir=$PREFIX/lib --with-efi-includedir=$PREFIX/include

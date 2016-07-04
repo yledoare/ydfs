@@ -1,0 +1,17 @@
+LIST=""
+for BACKUP in `cat /etc/dibab/backup.list`
+do
+  [ -e $BACKUP ] && LIST="$BACKUP"
+done 
+
+echo "Saving $LIST"
+install -d /root/.config/dibab
+cd /
+echo tar czvf /root/.config/dibab/backup.tar.gz $LIST
+
+if [ ! -e "$HOME_DIBAB/$ARCH/var/lib/alsa" ] 
+then
+  install -d $HOME_DIBAB/$ARCH/var/lib/alsa
+  ln -s $HOME_DIBAB/$ARCH/var/lib $HOME_DIBAB/var/lib
+fi
+alsactl store

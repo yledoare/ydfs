@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Install Dibab on disk
+GenericName=Install Dibab on disk
+Comment=
+Exec=lxterminal -e /usr/bin/install-dibab-ondisk
+Icon=hd
+Type=Application
+Categories=System

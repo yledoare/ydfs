@@ -1,0 +1,4 @@
+cd opkg/fixes
+sh install-missing-libs
+rm $HOME/dibab/opkg/fixes*
+$HOME_DIBAB/scripts/make_opkg

@@ -1,0 +1,3 @@
+rm ${HOME}/dibab/opkg/thunderbird*
+cd opkg/thunderbird
+$HOME_DIBAB/scripts/make_opkg

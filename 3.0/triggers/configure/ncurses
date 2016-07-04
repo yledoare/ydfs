@@ -1,0 +1,8 @@
+ cd ncursesw-build
+ ../configure --prefix=$PREFIX --with-shared --with-normal --without-debug --without-ada --enable-widec --enable-pc-files --with-cxx-binding --with-cxx-shared
+ 
+ cd ../ncurses-build
+ [[ $CARCH = "x86_64" ]] && CONFIGFLAG="--with-chtype=long"
+ ../configure --prefix=$PREFIX --with-shared --with-normal --without-debug --without-ada $CONFIGFLAG --with-cxx-binding --with-cxx-shared 
+
+ cd ..

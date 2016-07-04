@@ -1,0 +1,66 @@
+diff --git a/plasma/servicejob.h b/plasma/servicejob.h
+index b55b70e..d167a0c 100644
+--- a/plasma/servicejob.h
++++ b/plasma/servicejob.h
+@@ -26,7 +26,7 @@
+ #include <kservice.h>
+ 
+ #include <plasma/plasma_export.h>
+-#include "credentials.h"
++#include <plasma/remote/credentials.h>
+ 
+ namespace Plasma
+ {
+diff --git a/plasma/private/authorizationmanager_p.h b/plasma/private/authorizationmanager_p.h
+index 9437e48..bd4c442 100644
+--- a/plasma/private/authorizationmanager_p.h
++++ b/plasma/private/authorizationmanager_p.h
+@@ -32,7 +32,7 @@
+ #include <kconfiggroup.h>
+ 
+ #include <authorizationmanager.h>
+-#include <credentials.h>
++#include <plasma/remote/credentials.h>
+ 
+ class QByteArray;
+ 
+diff --git a/plasma/remote/authorizationmanager.cpp b/plasma/remote/authorizationmanager.cpp
+index 660eef1..9537224 100644
+--- a/plasma/remote/authorizationmanager.cpp
++++ b/plasma/remote/authorizationmanager.cpp
+@@ -22,7 +22,7 @@
+ 
+ #include "authorizationinterface.h"
+ #include "authorizationrule.h"
+-#include "credentials.h"
++#include <plasma/remote/credentials.h>
+ #include "service.h"
+ #include "servicejob.h"
+ 
+diff --git a/plasma/remote/authorizationrule.cpp b/plasma/remote/authorizationrule.cpp
+index 148517f..1b0bd30 100644
+--- a/plasma/remote/authorizationrule.cpp
++++ b/plasma/remote/authorizationrule.cpp
+@@ -20,7 +20,7 @@
+ #include "authorizationrule.h"
+ 
+ #include "authorizationmanager.h"
+-#include "credentials.h"
++#include <plasma/remote/credentials.h>
+ #include "private/authorizationmanager_p.h"
+ #include "private/authorizationrule_p.h"
+ 
+diff --git a/plasma/private/trustedonlyauthorization.cpp b/plasma/private/trustedonlyauthorization.cpp
+index 4fe84cd..8cd7d52 100644
+--- a/plasma/private/trustedonlyauthorization.cpp
++++ b/plasma/private/trustedonlyauthorization.cpp
+@@ -23,8 +23,7 @@
+ #include "pinpairingdialog_p.h"
+ 
+ #include <kdebug.h>
+-#include <credentials.h>
+-
++#include <plasma/remote/credentials.h>
+ 
+ namespace Plasma
+ {

@@ -1,0 +1,3 @@
+#!/bin/bash
+opkg-gui
+# cp $HOME_DIBAB/opkg/share/applications/* /share/applications

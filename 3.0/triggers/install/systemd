@@ -1,0 +1,9 @@
+echo "FIX"
+DESTDIR=$HOME/tmp/systemd
+install -d $DESTDIR
+DESTDIR=$HOME/tmp/systemd make install
+
+cp -fR $HOME/tmp/systemd/usr/* $HOME/tmp/systemd/$HOME/$CARCH
+
+cp -fR $HOME/tmp/systemd/$HOME/$CARCH/* $HOME/$CARCH
+rm -fR $HOME/tmp/systemd

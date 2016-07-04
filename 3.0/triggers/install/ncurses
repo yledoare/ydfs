@@ -1,0 +1,6 @@
+cd ncursesw-build
+make install
+cd ..
+cd ncurses-build
+make install
+cd ..

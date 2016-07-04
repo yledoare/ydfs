@@ -1,0 +1,214 @@
+#!/bin/bash
+export DIBAB_PREFIX=$HOME
+export SRC_PATH=$PWD
+
+export TMPDIR=$HOME/tmp
+
+install -d $HOME/tmp
+install -d $HOME/$CARCH/share/aclocal
+[ ! -e $HOME/$MODULE/share/aclocal ] && install -d $HOME/$MODULE/share/aclocal
+install -d $HOME/dibab/src
+install -d $HOME/dibab/tarballs
+
+install -d $HOME/dibab/CFLAGS
+install -d $HOME/dibab/CPPFLAGS
+install -d $HOME/dibab/CPPFLAGS
+
+[ "$CARCH" = "x86_64" ] && [ ! -e $HOME/$CARCH/lib64 ] && install -d $HOME/$CARCH/lib && ln -s $HOME/$CARCH/lib $HOME/$CARCH/lib64
+
+MODULE=$1
+echo $SRC_PATH/list-$MODULE
+
+
+# destruction des variables d'environnement citées
+unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD_LIBRARY_PATH PYTHONPATH PERL PYTHON
+
+# $1 est supposée être une ISO particulière demandée passée en paramètre, lanpower, par exemple: pourquoi est-ce "uclib" ici ? 
+# Sinon, La ligne 14 "echo $SRC_PATH/list-$1" donne n'importe quoi
+[ "$1" = "uclib" ] && export CC=$HOME/dibab/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
+# initialisation du chemin pour le compilateur C x86
+[ "$CARCH" = "x86" ] && [ "$CC" = "" ] && export CC=`which gcc`
+
+# initialisation de variables
+export ACLOCAL="aclocal"
+
+export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$CARCH/share/aclocal/"
+# création d'un répertoire
+# initialisations des variables utilisées 
+export CXX="g++"
+export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/$HOME/$MODULE/lib:$HOME/$CARCH/lib CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:$HOME/$MODULE/include:$HOME/$CARCH/include
+export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include -I$HOME/dibab/CFLAGS"
+export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include -I$HOME/dibab/CPPFLAGS"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include -I$HOME/dibab/CXXFLAGS"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/include"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/include/AL"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/irrlicht"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/include/freetype2"
+export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib "
+export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib64 "
+export GTKMM_BASEPATH=$HOME/$CARCH
+# autres initialisations selon les architectures(processeurs)
+[ "$CARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$CARCH/lib -Wl,-rpath-link,/home/raspi/dibab/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME
+[ "$CARCH" = "x86" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib"
+[ "$CARCH" = "x86_64" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib64 -Wl,-rpath-link,$HOME/$MODULE/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/$MODULE/lib"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/$MODULE/lib/pkgconfig/:$HOME/$MODULE/share/pkgconfig/"
+MODULEPATH="$HOME/$MODULE/bin/:$HOME/$MODULE/sbin/:$MODULEPATH"
+export XDG_DATA_DIRS="$HOME/$MODULE/share/:$XDG_DATA_DIRS"
+
+# echo "SET PATH"
+if [ "$CARCH" = "arm" ]
+then
+PATH=$PWD:$PATH
+else
+PATH=$PWD:$HOME/Qt5/5.4/gcc/bin:$MODULEPATH:$PATH:
+fi
+PATH=$HOME/dibab/llvm-clang/bin/:$PATH
+# build tar
+whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
+
+# initialisation de différents variables pour la compilation
+export PYTHONPATH=$DIBAB_PREFIX/$CARCH/lib/python2.7/site-packages:$DIBAB_PREFIX/$MODULE/lib/python2.7/site-packages
+export MAKE=`which make` MSGFMT=`which msgfmt` MSGMERGE=`which msgmerge` XGETTEXT=`which xgettext`
+
+export PYTHON_PREFIX=$DIBAB_PREFIX/$MODULE/
+export LIB_CUPS=$DIBAB_PREFIX/$CARCH/lib
+export CUPS_ETC=$DIBAB_PREFIX/$CARCH/etc
+
+[ -e $HOME/dibab-error ] && rm $HOME/dibab-error
+
+#$HOME_DIBAB/scripts/first-env
+LIST=$SRC_PATH/$MODULE.list
+readarray -t PACKAGE < $LIST || exit $?
+COUNT=0
+for i in ${!PACKAGE[*]}
+do 
+  PKGURL=${PACKAGE[i]}
+  COUNT=`echo $((COUNT + 1))`
+  [ $COUNT = 1 ] && MAX=`cat $LIST|wc -l`
+  echo 
+  echo -n "$COUNT / $MAX : "
+  echo "$PKGURL" | grep "#END-$DISTRONAME" && break
+  echo "$PKGURL" | grep "#SKIP-$DISTRONAME" && continue
+  echo "$PKGURL" | grep "#SKIP-""$CARCH""#" && continue
+  echo "$PKGURL" | grep "#Games" && export DBEXTRA="games"
+  echo "$PKGURL" | grep "#Education" && export DBEXTRA="education"
+  echo "$PKGURL" | grep "#Office" && export DBEXTRA="office"
+  echo "$PKGURL" | grep "#Drivers" && export DBEXTRA="drivers"
+  echo "$PKGURL" | grep "#Libs" && export DBEXTRA="libs"
+  echo "$PKGURL" | grep "#Emulators" && export DBEXTRA="emulators"
+  echo "$PKGURL" | grep "#Network" && export DBEXTRA="network"
+  echo "$PKGURL" | grep "#Printer" && export DBEXTRA="printer"
+  echo "$PKGURL" | grep "#Multimedia" && export DBEXTRA="multimedia"
+  echo "$PKGURL" | grep "#System" && export DBEXTRA="system"
+  echo "$PKGURL" | grep "#Misc" && export DBEXTRA="misc"
+  PKGURL_URL=`echo $PKGURL | cut -d'#' -f1`
+  [ "$PKGURL_URL" = "" ] && continue
+  if [  -n "`echo $PKGURL | grep 'archsource:'`" ] 
+then
+  PKG=`echo $PKGURL | cut -d':' -f2`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/dibab/packages/$PKG ] && echo "$HOME/dibab/packages/$PKG exists" && continue
+  $HOME_DIBAB/scripts/get-archpkg $PKG
+  $HOME_DIBAB/scripts/build-archpkg || exit $?
+  exit 0
+fi
+  if [  -n "`echo $PKGURL | grep 'archlinuxpatched:'`" ] 
+then
+  PKG=`echo $PKGURL | cut -d':' -f2`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/dibab/packages/$PKG ] && echo "$HOME/dibab/packages/$PKG exists" && continue
+  $HOME_DIBAB/scripts/get-archpkg $PKG
+  PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+  echo "Arch linux source for $PKG : $PKGURL_URL"
+fi
+  if [  -n "`echo $PKGURL | grep 'archlinux:'`" ] 
+then
+  PKG=`echo $PKGURL | cut -d':' -f2`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/dibab/packages/$PKG ] && echo "$HOME/dibab/packages/$PKG exists" && continue
+  PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+  echo "Arch linux source for $PKG : $PKGURL_URL"
+fi
+  PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/dibab/packages/$PKGNAME ] && echo "$HOME/dibab/packages/$PKGNAME exists" && continue
+  DIRNAME=`basename $PKGURL_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/dibab/src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
+  FIRST=`echo $PKGURL | head -c1`
+  [ "$FIRST" = '#' ] && continue
+  PKGURL=`echo $PKGURL|cut -d'#' -f1`
+  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/_i386.deb/_amd64.deb/"`
+  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/i586.deb/amd64.deb/"`
+  export PKGSRC=$PKGURL
+  echo " $PKGURL "
+  export PREFIX=$DIBAB_PREFIX/$MODULE/
+  if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
+  then
+    cd $HOME/dibab/src
+    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
+    [ ! -e $SOURCE_DIR ] && svn co $PKGURL
+    cd $SOURCE_DIR
+    [ -e libc ] && cd libc # eglibc
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || exit $?
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'lp:'`" ] 
+  then
+    cd $HOME/dibab/src
+    SOURCE_DIR=`echo $PKGURL | cut -d':' -f2`
+    [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $PKGURL
+    cd $SOURCE_DIR
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/dibab-error
+    [ -e $HOME/dibab-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] 
+  then
+    cd $HOME/dibab/src
+    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
+    [ ! -e $SOURCE_DIR ] && git clone $PKGURL
+    cd $SOURCE_DIR
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/dibab-error
+    [ -e $HOME/dibab-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
+  then
+    modperl=`echo $PKGURL | cut -d '/' -f2` 
+    echo "Run  db-build-modperl $modperl" 
+	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/dibab-error
+    [ -e $HOME/dibab-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [ -e $HOME/dibab/tarballs/`basename $PKGURL` ]
+  then
+    test -s $HOME/dibab/tarballs/`basename $PKGURL` || rm $HOME/dibab/tarballs/`basename $PKGURL`
+  fi
+  [ -e $HOME/dibab/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/dibab/tarballs/`basename $PKGURL` ] && rm $HOME/dibab/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/dibab/tarballs/`basename $PKGURL` ] && touch $HOME/dibab/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/dibab/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/dibab/tarballs/`basename $PKGURL`.start
+  test -s $HOME/dibab/tarballs/`basename $PKGURL` || rm $HOME/dibab/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/dibab/tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/dibab-error
+  [ -e $HOME/dibab-error ] && echo "Exit $PKGURL " && break
+  # ? DBKVER=$KERNEL3 
+  $HOME_DIBAB/scripts/build_archive $HOME/dibab/tarballs/`basename $PKGURL` || touch $HOME/dibab-error
+  [ -e $HOME/dibab-error ] && tail -100 $(cat $HOME/dibab/.last-error) && echo -n "full log is " && cat $HOME/dibab/.last-error
+  [ -e $HOME/dibab-error ] && echo "Exit $0 $PKGURL " && break
+done
+
+[ -e $HOME/dibab-error ] && exit 1
+
+if [ ! -e /$HOME/$CARCH/include/ladspa.h ] && [ "$CARCH" != "arm" ]
+then
+    cd $HOME/dibab/src
+    cp -fR $HOME_DIBAB/ladspa_sdk .
+    cd ladspa_sdk/src
+    mkdir ../plugins
+    mkdir ../bin
+    make
+fi
+
+echo > $HOME/$CARCH/buildenv
+for ENV in LD_LIBRARY_PATH LIB_CUPS PATH CUPS_ETC XDG_DATA_DIRS PYTHONPATH
+do
+  echo 'echo $'"$ENV" > $HOME/.printenv
+  echo "export $ENV=`sh $HOME/.printenv`" >> $HOME/$CARCH/buildenv
+done
+[ ! -e $HOME/$MODULE/buildok ] && touch $HOME/$MODULE/buildok # usefull to know which file can be wrotten into $HOME/$MODULE/ after last package build
+echo "Build packages OK"

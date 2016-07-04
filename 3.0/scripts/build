@@ -1,0 +1,6 @@
+if [ -e Makefile.PL ]
+then
+  perl Makefile.PL INSTALLDIRS=vendor
+else
+  make
+fi

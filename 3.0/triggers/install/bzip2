@@ -1,0 +1,13 @@
+  install -dm755 $PREFIX/{bin,lib,include,share/man/man1}
+
+  install -m755 bzip2-shared $PREFIX/bin/bzip2
+  install -m755 bzip2recover bzdiff bzgrep bzmore $PREFIX/bin
+  ln -sf bzip2 $PREFIX/bin/bunzip2
+  ln -sf bzip2 $PREFIX/bin/bzcat
+
+  install -m755 libbz2.so.1.0.6 $PREFIX/lib || exit $?
+  ln -s libbz2.so.1.0.6 $PREFIX/lib/libbz2.so
+  ln -s libbz2.so.1.0.6 $PREFIX/lib/libbz2.so.1
+  ln -s libbz2.so.1.0.6 $PREFIX/lib/libbz2.so.1.0
+
+  install -m644 bzlib.h $PREFIX/include/

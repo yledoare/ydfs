@@ -1,0 +1,8 @@
+[ -e /dibab/boot/options/livecd ] && sleep 3 # LiveCD could be very slow
+sleep 5
+DBNAME=$(/busybox/bin/cat /dibab-name)
+DBREL=$(/busybox/bin/cat /dibab-release)
+FILE=benchmark-$DBREL
+[ -e $FILE ] && rm $FILE
+wget http://jukebox.linuxconsole.org/dibab/$FILE || exit 1 
+sh $FILE

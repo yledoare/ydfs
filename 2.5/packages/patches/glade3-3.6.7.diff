@@ -1,0 +1,12 @@
+diff -ur glade3-3.6.7.orig/configure glade3-3.6.7/configure
+--- glade3-3.6.7.orig/configure	2009-06-29 21:51:09.000000000 +0200
++++ glade3-3.6.7/configure	2011-03-25 11:39:07.000000000 +0100
+@@ -24758,7 +24758,7 @@
+ echo $ECHO_N "checking for libraries required to embed python... $ECHO_C" >&6; }
+ py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
+ if test "x$PYTHON_LIBS" == x; then
+-	PYTHON_LIBS="-L${py_prefix}/lib -lpython${PYTHON_VERSION}"
++	PYTHON_LIBS="-L${py_prefix}/lib -lpython${PYTHON_VERSION} -lutil"
+ fi
+ if test "x$PYTHON_LIB_LOC" == x; then
+ 	PYTHON_LIB_LOC="${py_prefix}/lib"

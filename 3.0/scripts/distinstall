@@ -1,0 +1,3 @@
+DESTDIR=$HOME/dibab/packages/$DBPACKAGE make install
+
+echo "ok"

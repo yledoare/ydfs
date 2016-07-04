@@ -1,0 +1,1 @@
+sed -i 's/shared/shared -L${PREFIX}\/lib/g' Make.Rules

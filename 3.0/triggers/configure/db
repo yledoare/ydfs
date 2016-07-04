@@ -1,0 +1,4 @@
+ cd build_unix
+  ../dist/configure --prefix=$PREFIX --enable-compat185 \
+    --enable-shared --enable-static --enable-cxx --enable-dbm \
+    --enable-stl

@@ -1,0 +1,12 @@
+. ./config.ini
+[ ! -e $HOME/dibab/modules/$CARCH/bin/mksquashfs ] && echo "cannot found $HOME/dibab/modules/$CARCH/bin/mksquashfs" && exit 0
+export LD_LIBRARY_PATH=$HOME/x86/lib
+rm $LCMBUILD/drivers-$CARCH.squashfs
+if [ "$CARCH" = "x86_64" ]
+then
+export LD_LIBRARY_PATH=$HOME/x86_64/lib
+else
+export LD_LIBRARY_PATH=$HOME/x86/lib
+fi
+$HOME/dibab/modules/$CARCH/bin/mksquashfs $HOME/dibab/kernel-$CARCH/modules/$KERNEL3/lib/modules $LCMBUILD/drivers-$CARCH.squashfs
+echo

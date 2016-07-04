@@ -1,0 +1,22 @@
+#!/bin/bash
+install -d $HOME/archpkg
+URL=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages
+URL2=https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages
+PKG=$1
+SHORT=${PKG:0:2}
+URL3=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
+ERROR=0
+if [ ! -e $HOME/archpkg/$PKG ]
+then
+wget --no-check-certificate -q "$URL""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL3" -O $HOME/archpkg/$PKG || ERROR=1
+fi
+
+[ "$ERROR" = 1 ] && exit 1
+
+source $HOME/archpkg/$PKG
+
+for i in ${!source[*]}
+do 
+ echo ${source[i]}
+ break
+done

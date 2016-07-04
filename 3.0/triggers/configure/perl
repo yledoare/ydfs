@@ -1,0 +1,26 @@
+if [ "${CARCH}" = "x86_64" ]; then
+    # for x86_64
+    arch_opts="-Dcccdlflags='-fPIC'"
+  else
+    # for i686
+    arch_opts=""
+  fi
+
+
+  ./Configure -des -Dusethreads -Duseshrplib -Doptimize="-I/usr/include ${CFLAGS}" \
+    -Dprefix=$PREFIX -Dvendorprefix=$PREFIX \
+    -Dprivlib=$PREFIX/g/share/perl5/core_perl \
+    -Darchlib=$PREFIX/g/lib/perl5/core_perl \
+    -Dsitelib=$PREFIX/g/share/perl5/site_perl \
+    -Dsitearch=$PREFIX/g/lib/perl5/site_perl \
+    -Dvendorlib=$PREFIX/g/share/perl5/vendor_perl \
+    -Dvendorarch=$PREFIX/g/lib/perl5/vendor_perl \
+    -Dscriptdir=$PREFIX/g/bin/core_perl \
+    -Dsitescript=$PREFIX/g/bin/site_perl \
+    -Dvendorscript=$PREFIX/g/bin/vendor_perl \
+    -Dinc_version_list=none \
+    -Dman1ext=1perl -Dman3ext=3perl ${arch_opts} \
+    -Dlddlflags="-shared ${LDFLAGS}" -Dldflags="${LDFLAGS}"
+ 
+    rm -f dist/IO/poll.h 
+    cp /usr/include/poll.h dist/IO

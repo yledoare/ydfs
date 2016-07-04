@@ -1,0 +1,13 @@
+diff --git a/source/main.cpp b/source/main.cpp
+index 4d90e76..2ebab8c 100644
+--- a/source/main.cpp
++++ b/source/main.cpp
+@@ -546,7 +546,7 @@ extern "C" int main(int argc, char* argv[])
+ 				  << "(You received this message because you were either      \n"
+ 				  <<"  logged in as root or used e.g. the 'sudo' command.)    \n"
+ 				  << "********************************************************\n\n";
+-		return EXIT_FAILURE;
++		// return EXIT_FAILURE;
+ 	}
+ #endif // OS_UNIX
+ 

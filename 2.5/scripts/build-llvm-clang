@@ -1,0 +1,17 @@
+RELEASE=3.6.0
+cd $HOME
+install -d src
+cd src
+[ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
+[ ! -e llvm-$RELEASE.src ] && tar -xJf llvm-$RELEASE.src.tar.xz
+cd llvm-$RELEASE.src/tools || exit 1
+
+[ ! -e cfe-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/cfe-$RELEASE.src.tar.xz
+[ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
+[ ! -e clang ] && mv cfe-$RELEASE.src clang 
+
+cd ..
+
+./configure --enable-experimental-targets=R600 --enable-targets=x86 --enable-shared --prefix=$HOME/dibab/llvm-clang
+
+make -j3 && make install
