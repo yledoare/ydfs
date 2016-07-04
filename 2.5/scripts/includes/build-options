@@ -118,6 +118,7 @@
 	--with-system-libtiff \
 	--with-libpaper \
 	--disable-compile-inits"
+	echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--host=i586-linux-gnu"
 	echo $ARCHIVE | grep nspr && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $ARCHIVE | grep wine && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
 	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/dibab/src/wxGTK-2.8.12/wx-config
