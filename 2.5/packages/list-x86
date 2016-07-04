@@ -54,8 +54,8 @@ http://p11-glue.freedesktop.org/releases/p11-kit-0.22.1.tar.gz
 http://ftp.gnu.org/gnu/libidn/libidn-1.22.tar.gz
 http://www.lysator.liu.se/~nisse/archive/nettle-2.7.tar.gz
 ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.12.tar.gz 
-ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.3.tar.bz2 # Old libgcrypt for google chrome
-ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.1.tar.bz2 
+ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.5.tar.bz2 # Old libgcrypt for google chrome
+ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.5.tar.bz2 
 ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/gnutls-3.2.15.tar.xz 
 http://curl.haxx.se/download/curl-7.37.0.tar.gz 
 CPAN:/YAML 

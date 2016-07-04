@@ -9,6 +9,7 @@
 	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && export CFLAGS="-I/$HOME/dibab/src/supertuxkart-0.9.1/lib/irrlicht/include/ $CFLAGS" && export CXXFLAGS=$CFLAGS
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
 	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
 	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
