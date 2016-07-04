@@ -16,7 +16,7 @@ cd $HOME
 
  install -d src
  cd src
- git clone https://bitbucket.org/yledoare/ydfs.git
+ git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
  cd ydfs
  cd 2.5
  sudo sh configure
