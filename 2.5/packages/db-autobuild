@@ -417,9 +417,11 @@ fi
     if [ ! -e $PREFIX/lib/libGL.so ] && [ "$ARCH" != "arm" ]
     then
     cd Mesa
+    BUILDOPT=""
+    [ "$ARCH" = "x86" ] && BUILDOPT=" --host=i586-linux-gnu "
     sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
     ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
-./configure --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
+./configure $BUILDOPT --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
     --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
     --with-egl-platforms=x11,drm \
