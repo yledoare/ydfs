@@ -282,6 +282,13 @@ else
     exit 0
   fi
 
+  # Fix kimsufi bug
+  echo "Run /configure --prefix=$PREFIX" && sleep 5
+  [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
+  [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O0/-O2/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && make
 
   [ -e source/icudefs.mk.in ] && cd source
   [ -e Imakefile ] && [ ! -e Makefile ]  && [ ! -e configure ] && [ ! -e autogen.sh ] && xmkmf -a
