@@ -335,7 +335,8 @@ http://ftp.kernel.org/pub/software/utils/pciutils/pciutils-3.2.0.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
 ftp://ftp.gnome.org/pub/gnome/sources/gnome-menus/2.30/gnome-menus-2.30.5.tar.bz2
 ftp://ftp.gnome.org/pub/gnome/sources/glib-networking/2.38/glib-networking-2.38.2.tar.xz
-ftp://ftp.gnome.org/pub/gnome/sources/libsoup/2.42/libsoup-2.42.3.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/vala/0.24/vala-0.24.0.tar.xz
+https://download.gnome.org/sources/libsoup/2.54/libsoup-2.54.1.tar.xz
 http://www.carisma.slowglass.com/~tgr/libnl/files/libnl-3.2.24.tar.gz
 http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.9.5/src/nspr-4.9.5.tar.gz
 http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_14_3_RTM/src/nss-3.14.3.tar.gz
@@ -376,7 +377,6 @@ http://ftp.de.debian.org/debian/pool/main/l/lxmenu-data/lxmenu-data_0.1.2-2.dsc
 http://ftp.de.debian.org/debian/pool/main/l/lxinput/lxinput_0.3.2-1.dsc
 http://freefr.dl.sourceforge.net/project/lxde/menu-cache/menu-cache%200.5.x/menu-cache-0.5.1.tar.gz
 http://ftp.de.debian.org/debian/pool/main/l/lxrandr/lxrandr_0.1.2-3.dsc
-ftp://ftp.gnome.org/pub/gnome/sources/vala/0.24/vala-0.24.0.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/libgee/0.10/libgee-0.10.4.tar.xz
 http://freefr.dl.sourceforge.net/project/lxde/LXSession%20%28session%20manager%29/LXSession%200.4.6.1/lxsession-0.4.6.1.tar.gz
 http://freefr.dl.sourceforge.net/project/lxde/LXPolkit/lxpolkit-0.1.0.tar.gz
