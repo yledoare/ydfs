@@ -33,9 +33,9 @@ bakcyn='\e[46m'   # Cyan
 bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 echo
-DBNAME=$(/busybox/bin/cat /dibab-name)
-DBREL=$(/busybox/bin/cat /dibab-release)
-DBDATE=$(/busybox/bin/cat /dibab-date)
+DBNAME=$(/busybox/bin/cat /ydfs-name)
+DBREL=$(/busybox/bin/cat /ydfs-release)
+DBDATE=$(/busybox/bin/cat /ydfs-date)
 echo -n -e '\e[33m'
 echo -n $DBNAME
 echo -n -e '\e[0m'

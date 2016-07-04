@@ -92,7 +92,7 @@ EOF
 
   # but we keep newgrp, as sg is really an alias to it
   mv "$pkgdir"/bin/{newgrp,sg}
-  dibab-install-package
+  ydfs-install-package
   touch buildok-$ARCH
   exit 0
   fi

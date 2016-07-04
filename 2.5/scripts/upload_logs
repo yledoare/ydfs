@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Looking into $HOME/$ARCH"
-find $HOME/dibab/build-$ARCH -name config.log | while read file 
+find $HOME/ydfs/build-$ARCH -name config.log | while read file 
 do
   DIRNAME=`dirname $file`
   name=`basename $DIRNAME`

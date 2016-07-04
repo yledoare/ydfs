@@ -52,7 +52,7 @@ _EOT
 
   # set unix_chkpwd uid
   chmod +s $pkgdir/bin/unix_chkpwd
-  dibab-install-package
+  ydfs-install-package
   touch buildok-$ARCH
   exit 0
   fi

@@ -1,5 +1,5 @@
 . ./config.ini
-[ ! -e $HOME/dibab/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/dibab/modules/$ARCH/bin/mksquashfs" && exit 0
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 echo "Strip "
 find $HOME/$1 |while read file 
@@ -29,7 +29,7 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-echo -n "$HOME/dibab/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT -e "> $HOME/.mksquasfs-script
+echo -n "$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT -e "> $HOME/.mksquasfs-script
 cat $HOME_DIBAB/packages/exclude-data |while read file
 do
   echo -n " $file" >> $HOME/.mksquasfs-script

@@ -4,7 +4,7 @@ SOFT=$1
 if [ "$SOFT" == "steam" ]
 then
   URL=https://steamcdn-a.akamaihd.net/client/installer/steam.deb
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
@@ -74,7 +74,7 @@ URL=https://www.playonlinux.com/script_files/PlayOnLinux/4.2.8/PlayOnLinux_4.2.8
 ARCHIVE=$(basename $URL)
 if [ ! -e $HOME/playonlinux/ ]
 then
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   cd $HOME
   tar xzvf $ARCHIVE
   if [ $? != 0 ]
@@ -95,14 +95,14 @@ fi
 if [ "$SOFT" == "teamviewer" ]
 then
   URL=http://download.teamviewer.com/download/teamviewer_i386.deb
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
-  install -d /root/.dibab/fixdibab
-  echo "/opt/teamviewer/tv_bin/teamviewerd" > /root/.dibab/fixdibab/teamviewerd
-  chmod +x /root/.dibab/fixdibab/teamviewerd
-  /root/.dibab/fixdibab/teamviewerd
+  install -d /root/.ydfs/fixydfs
+  echo "/opt/teamviewer/tv_bin/teamviewerd" > /root/.ydfs/fixydfs/teamviewerd
+  chmod +x /root/.ydfs/fixydfs/teamviewerd
+  /root/.ydfs/fixydfs/teamviewerd
   teamviewer
   exit 0
 fi
@@ -110,7 +110,7 @@ fi
 if [ "$SOFT" == "dropbox" ]
 then
   URL=https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.02.12_i386.deb
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
@@ -121,7 +121,7 @@ fi
 if [ "$SOFT" == "google-earth" ]
 then
   URL=https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
@@ -132,7 +132,7 @@ fi
 if [ "$SOFT" == "skype" ]
 then
   URL=http://download.skype.com/linux/skype-debian_4.3.0.37-1_i386.deb
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
@@ -144,7 +144,7 @@ if [ "$SOFT" == "thunderbird" ]
 then
 LANG=en-US
 
-[ -e $HOME/.config/dibab/lang ] && . $HOME/.config/dibab/lang
+[ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
 
 [ "$lang" = "russian" ] && LANG=ru
 [ "$lang" = "chinese" ] && LANG=zh-CN
@@ -173,7 +173,7 @@ cd $HOME
 
 if [ ! -e $HOME/thunderbird ]
 then
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   tar xjvf thunderbird-"$FIREFOX".tar.bz2 && rm thunderbird-"$FIREFOX".tar.bz2
 fi
 $HOME/thunderbird/thunderbird
@@ -184,7 +184,7 @@ if [ "$SOFT" == "firefox" ]
 then
 LANG=en-US
 
-[ -e $HOME/.config/dibab/lang ] && . $HOME/.config/dibab/lang
+[ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
 
 [ "$lang" = "russian" ] && LANG=ru
 [ "$lang" = "chinese" ] && LANG=zh-CN
@@ -213,7 +213,7 @@ cd $HOME
 
 if [ ! -e $HOME/firefox ]
 then
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   tar xjvf firefox-"$FIREFOX".tar.bz2 && rm firefox-"$FIREFOX".tar.bz2
 fi
 
@@ -229,7 +229,7 @@ then
   else
     URL=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   fi
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   chmod 755 /
   rm $HOME/`basename $URL`
@@ -254,7 +254,7 @@ wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?
 pkgver=$(grep pkgver= lib32-flashplugin | cut -d'=' -f2)
 rm lib32-flashplugin
 URL=http://fpdownload.macromedia.com/get/flashplayer/pdc/$pkgver/install_flash_player_11_linux.$ARCH.tar.gz
-DEST=/usr/lib/mozilla/plugins /dibab/start/download $URL 
+DEST=/usr/lib/mozilla/plugins /ydfs/start/download $URL 
 tar xzvf $(basename $URL)
 rm $(basename $URL)
 cd $HOME

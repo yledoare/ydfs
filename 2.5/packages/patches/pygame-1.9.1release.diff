@@ -22,15 +22,15 @@ index 39abd48..bb02a37 100644
      else:
          incdirs = []
          libdirs = []
-+    dibabarch = os.environ['ARCH']
-+    dibabhome = os.environ['HOME']
-+    dibabinc = os.environ['HOME']+'/'+os.environ['ARCH']
++    ydfsarch = os.environ['ARCH']
++    ydfshome = os.environ['HOME']
++    ydfsinc = os.environ['HOME']+'/'+os.environ['ARCH']
      incdirs += ["/usr"+d for d in origincdirs]
      libdirs += ["/usr"+d for d in origlibdirs]
 -    incdirs += ["/usr/local"+d for d in origincdirs]
 -    libdirs += ["/usr/local"+d for d in origlibdirs]
-+    incdirs += [dibabinc+d for d in origincdirs]
-+    libdirs += [dibabinc+d for d in origlibdirs]
++    incdirs += [ydfsinc+d for d in origincdirs]
++    libdirs += [ydfsinc+d for d in origlibdirs]
  
      for arg in DEPS[0].cflags.split():
          if arg[:2] == '-I':

@@ -3,10 +3,10 @@ install -d $HOME/Desktop
 # echo $HOME | grep root && cp /share/applications/opkg.desktop $HOME/Desktop
 # echo $HOME | grep root && cp /usr/share/applications/lutris.desktop $HOME/Desktop
 # echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root
-echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/$DISTRONAME/grub ] && cp /share/applications/install-dibab-ondisk.desktop $HOME/Desktop
+echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/$DISTRONAME/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
 
 # Fix wine startup
-# [ -e /dibab/modules/module/share/applications/wine.desktop ] && cp /dibab/modules/module/share/applications/wine.desktop /share/applications/
+# [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
 sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
 
 install -d $HOME/.local/share/applications
@@ -15,19 +15,19 @@ which midori && ln -s `which midori` /fix/w3m
 
 pulseaudio &
 
-if [ -e /dibab/modules/module/bin/xbmc ] && [ ! -e /dibab/boot/options/lxde ]
+if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
 then
  xbmc || lxterminal
 else
- /dibab/config/lxde
- /dibab/config/gtk2
- if [ -e $HOME/dibab/mysession ] 
+ /ydfs/config/lxde
+ /ydfs/config/gtk2
+ if [ -e $HOME/ydfs/mysession ] 
  then
-   $HOME/dibab/mysession
+   $HOME/ydfs/mysession
  else
    if [ -e /usr/bin/mate-session ]
    then
-	gsettings set org.mate.background picture-filename '/etc/dibab.png'
+	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
    	dbus-launch mate-session
    else
  	pcmanfm --desktop &

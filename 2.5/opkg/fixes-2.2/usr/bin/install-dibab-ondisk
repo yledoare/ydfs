@@ -1,5 +1,5 @@
 # mke2fs -L albatros /dev/sda1
-# sh /dibab/start/automount
+# sh /ydfs/start/automount
 
 if [ ! -e /dev/sda ]
 then
@@ -39,7 +39,7 @@ zenity --info --text="Please create a parition named albatros \n\nClose this, gp
 echo > /usr/libexec/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
 gpartedbin
-sh /dibab/start/automount
+sh /ydfs/start/automount
   if [ ! -e /media/albatros ]
   then
 	  zenity --error --text="Please format an ext4 partition with albatros lablel !"
@@ -57,21 +57,21 @@ echo "Installing kernel and initramfs"
 
 mkdir /media/albatros/rootfs
 KVER=`uname -r`
-cp /media/dibab/isolinux/k3* /boot/kernel-$KVER
-cp /media/dibab/isolinux/3* /boot/initramfs-genkernel-$KVER
+cp /media/ydfs/isolinux/k3* /boot/kernel-$KVER
+cp /media/ydfs/isolinux/3* /boot/initramfs-genkernel-$KVER
 cp /proc/config.gz /boot
 gunzip /boot/config.gz
 mv /boot/config /boot/config-$KVER
-sed -i "s/vx/v/" /home/dibab-*/opkg/etc/grub.d/10_linux
+sed -i "s/vx/v/" /home/ydfs-*/opkg/etc/grub.d/10_linux
 sed -i "s/set -e//" `which grub-mkconfig` 
 
 echo "running grub-mkconfig"
 grub-mkconfig -o /media/albatros/grub/grub.cfg
 touch /media/albatros/syslinux.cfg
 echo "Copying module ..."
-ls /media/dibab/modules/ | while read file
+ls /media/ydfs/modules/ | while read file
 do
 	echo $file
 	install -d /media/albatros/modules
-  cp /media/dibab/modules/$file /media/albatros/modules
+  cp /media/ydfs/modules/$file /media/albatros/modules
 done

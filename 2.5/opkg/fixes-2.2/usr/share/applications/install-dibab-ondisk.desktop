@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Install Dibab on disk
-GenericName=Install Dibab on disk
+Name=Install Ydfs on disk
+GenericName=Install Ydfs on disk
 Comment=
-Exec=lxterminal -e /usr/bin/install-dibab-ondisk
+Exec=lxterminal -e /usr/bin/install-ydfs-ondisk
 Icon=hd
 Type=Application
 Categories=System

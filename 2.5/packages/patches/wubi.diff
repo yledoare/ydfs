@@ -5,13 +5,13 @@
  	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
  	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
  	mv build/application.exe build/wubi.exe
-+	cp build/wubi.exe build/dibab.exe
++	cp build/wubi.exe build/ydfs.exe
  
  wubizip: wubi-pre-build
  	PYTHONPATH=src tools/pywine src/pypack/pypack --verbose --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
 
-=== added file 'data/images/Dibab.ico'
-Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dibab.ico	2012-10-10 07:11:55 +0000 differ
+=== added file 'data/images/Ydfs.ico'
+Binary files data/images/Ydfs.ico	1970-01-01 00:00:00 +0000 and data/images/Ydfs.ico	2012-10-10 07:11:55 +0000 differ
 === modified file 'data/isolist.ini'
 --- data/isolist.ini	2012-09-28 11:50:01 +0000
 +++ data/isolist.ini	2012-10-10 11:22:13 +0000
@@ -39,7 +39,7 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
 +min_disk_space_mb=1000
 +min_memory_mb=128
 +support=http://support.linuxconsole.org
-+installation_dir=dibab
++installation_dir=ydfs
  #NOTE: installation_dir must also be changed in data/wubildr.cfg
  
 -[Ubuntu-i386]
@@ -145,23 +145,23 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
 -metalink2=http://cdimage.ubuntu.com/lubuntu/daily-live/current/quantal-desktop-amd64.metalink
 -website=http://lubuntu.net
 -ordering=7
-+[Dibab-i386]
++[Ydfs-i386]
 +min_disk_space_mb=100
 +arch=i386
-+name=Dibab
-+packages=dibab-standard
-+metalink=http://jukebox.linuxconsole.org/dibab/dibab-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/dibab/dibab-i386.metalink
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/ydfs-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
-+[Dibab-amd64]
++[Ydfs-amd64]
 +min_disk_space_mb=100
 +arch=amd64
-+name=Dibab
-+packages=dibab-standard
-+metalink=http://jukebox.linuxconsole.org/dibab/dibab-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/dibab/dibab-amd64.metalink
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/ydfs-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
@@ -174,8 +174,8 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
  
 -if search -s -f -n /ubuntu/disks/root.disk; then
 -    if loopback loop0 /ubuntu/disks/root.disk; then
-+if search -s -f -n /dibab/disks/root.disk; then
-+    if loopback loop0 /dibab/disks/root.disk; then
++if search -s -f -n /ydfs/disks/root.disk; then
++    if loopback loop0 /ydfs/disks/root.disk; then
          set root=(loop0)
          if [ -e /boot/grub/grub.cfg ]; then
              if configfile /boot/grub/grub.cfg; then
@@ -185,8 +185,8 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
          else
 -            if search -s -f -n /ubuntu/install/wubildr-disk.cfg; then
 -                if configfile /ubuntu/install/wubildr-disk.cfg; then
-+            if search -s -f -n /dibab/install/wubildr-disk.cfg; then
-+                if configfile /dibab/install/wubildr-disk.cfg; then
++            if search -s -f -n /ydfs/install/wubildr-disk.cfg; then
++                if configfile /ydfs/install/wubildr-disk.cfg; then
                      set show_panic_message=false
                  fi
              fi
@@ -196,8 +196,8 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
  if [ ${show_panic_message} = true ]; then
 -    if search -s -f -n /ubuntu/install/boot/grub/grub.cfg; then
 -        if configfile /ubuntu/install/boot/grub/grub.cfg; then
-+    if search -s -f -n /dibab/install/boot/grub/grub.cfg; then
-+        if configfile /dibab/install/boot/grub/grub.cfg; then
++    if search -s -f -n /ydfs/install/boot/grub/grub.cfg; then
++        if configfile /ydfs/install/boot/grub/grub.cfg; then
              set show_panic_message=false
          fi
      else
@@ -210,12 +210,12 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
 +    <files>
 +      <file name=\"test.iso\">
 +      <resources>
-+        <url type=\"http\">http://jukebox.linuxconsole.org/dibab/test.iso</url> 
++        <url type=\"http\">http://jukebox.linuxconsole.org/ydfs/test.iso</url> 
 +      </resources>
 +      </file>
 +    </files>
 +  </metalink>
-+" > dibab-i386.metalink
++" > ydfs-i386.metalink
 +md5sum *.metalink > MD5SUMS-metalink
 
 === modified file 'src/wubi/frontends/win32/installation_page.py'
@@ -241,7 +241,7 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
               'Z:\\tmp\\uninstall-wubi.exe'),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'InstallationDir', '/tmp'),
 -            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ubuntu'),
-+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Dibab'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ydfs'),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayIcon',
               os.path.join(os.getcwd(), 'build\\wubi\\data\\images\\Wubi.ico')),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayVersion',
@@ -251,7 +251,7 @@ Binary files data/images/Dibab.ico	1970-01-01 00:00:00 +0000 and data/images/Dib
 -             'http://www.ubuntu.com'),
 -            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink',
 -             'http://www.ubuntu.com/support')]
-+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Dibab'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Ydfs'),
 +            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout', 'http://www.linuxconsole.org'),
 +            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink', 'http://support.linuxconsole.org')]
          # Python2.3 doesn't have addCleanup (2.7), so we need to manage

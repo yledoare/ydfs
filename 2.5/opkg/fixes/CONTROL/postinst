@@ -1,11 +1,11 @@
 #!/bin/bash
-echo "Fix Dibab"
-if [ -e /root/.dibab/fixdibab ]
+echo "Fix Ydfs"
+if [ -e /root/.ydfs/fixydfs ]
 then
-ls /root/.dibab/fixdibab |while read file
+ls /root/.ydfs/fixydfs |while read file
   do
-    echo /root/.dibab/fixdibab/$file
-    bash /root/.dibab/fixdibab/$file
+    echo /root/.ydfs/fixydfs/$file
+    bash /root/.ydfs/fixydfs/$file
   done
 fi
 echo

@@ -1,15 +1,15 @@
 #!/bin/sh
 . ./config.ini
 
-install -d /$HOME/dibab/src/
-install -d /$HOME/dibab/tarballs/
-install -d /$HOME/dibab/build/
-cd /$HOME/dibab
+install -d /$HOME/ydfs/src/
+install -d /$HOME/ydfs/tarballs/
+install -d /$HOME/ydfs/build/
+cd /$HOME/ydfs
 if [ "$SUBARCH" = "raspi" ]
 then
   echo $SUBARCH
-  install -d $HOME/dibab/build/linux-$ARCH-"$KERNEL3"
-  BUILD_DIR=$HOME/dibab/build/linux-$ARCH-"$KERNEL3"
+  install -d $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+  BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
   [ ! -e tarballs/$KERNEL3.zip ] && wget --directory-prefix=tarballs https://github.com/raspberrypi/linux/archive/$KERNEL3.zip
   [ ! -e src/linux-$KERNEL3 ] && unzip tarballs/$KERNEL3.zip -d src
   cd src/linux-$KERNEL3
@@ -72,8 +72,8 @@ fi
 [ "$ARCH" = "arm" ] && [ -e drivers/tty/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/tty/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/tty/serial/samsung.c
 [ "$ARCH" = "arm" ] && [ -e drivers/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/serial/samsung.c
 
-install -d $HOME/dibab/build/linux-$ARCH-"$KERNEL3"
-BUILD_DIR=$HOME/dibab/build/linux-$ARCH-"$KERNEL3"
+install -d $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
 #BUILD_DIR=.
 
 [ "$SUBARCH" = "raspi-qemu" ] && [ ! -e $BUILD_DIR/.config ] && cp $HOME_DIBAB/config/kernel-raspi-qemu/config  $BUILD_DIR/.config
@@ -109,8 +109,8 @@ git add /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
   if [ $? != 0 ]
   then
     make modules O=$BUILD_DIR || exit 0
-    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/dibab/kernel-$ARCH/modules/$KERNEL3 || exit 1
-    /sbin/depmod -b $HOME/dibab/kernel-$ARCH/modules/"$KERNEL3" -m "$KERNEL3"
-    [ ! -e $HOME/dibab/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/dibab/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
+    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
+    /sbin/depmod -b $HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3" -m "$KERNEL3"
+    [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
   fi
   echo buildt

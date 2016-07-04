@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Google Chrome
-Exec=/dibab/add/software google-chrome-stable
+Exec=/ydfs/add/software google-chrome-stable
 Terminal=false
 Icon=chrome
 Type=Application

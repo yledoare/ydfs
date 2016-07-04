@@ -152,7 +152,7 @@ CT_TOOLCHAIN_BUGURL=""
 #
 # Tuple completion and aliasing
 #
-CT_TARGET_VENDOR="dibab"
+CT_TARGET_VENDOR="ydfs"
 CT_TARGET_ALIAS_SED_EXPR=""
 CT_TARGET_ALIAS=""
 
@@ -404,4 +404,4 @@ CT_LIBELF_VERSION="0.8.13"
 # Companion libraries common options
 #
 # CT_COMPLIBS_CHECK is not set
-CT_PREFIX_DIR="${HOME}/dibab/x-tools/${CT_TARGET}"
+CT_PREFIX_DIR="${HOME}/ydfs/x-tools/${CT_TARGET}"

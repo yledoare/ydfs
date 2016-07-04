@@ -16,7 +16,7 @@ then
   chmod 500 /etc/NetworkManager/system-connections/*
 fi
 
-mount /etc/NetworkManager/ /home/dibab-32/x86/etc/NetworkManager -o bind
+mount /etc/NetworkManager/ /home/ydfs-32/x86/etc/NetworkManager -o bind
 
 install -d /disk/system-connections/
-echo "cp /etc/NetworkManager/system-connections/* /disk/system-connections/" >> /dibab/start/xorg
+echo "cp /etc/NetworkManager/system-connections/* /disk/system-connections/" >> /ydfs/start/xorg

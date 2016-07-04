@@ -183,17 +183,17 @@ print_grub_options()
 {
   echo "timeout 5" 
   
-  echo "title Dibab " 
+  echo "title Ydfs " 
   echo "root (hd0,0)"                 
   echo "kernel /boot/$KERNEL36 $COMMON"             
   echo "initrd /boot/$INITRD26"     
   
-  echo "title Dibab  Partition 2" 
+  echo "title Ydfs  Partition 2" 
   echo "root (hd0,1)"                 
   echo "kernel /boot/$KERNEL36 $COMMON"             
   echo "initrd /boot/$INITRD26"     
   
-  echo "title Dibab  failsafe" 
+  echo "title Ydfs  failsafe" 
   echo "root (hd0,0)"                 
   echo "kernel /boot/$KERNEL36 $COMMON acpi=off noacpi noapic nocapic"             
   echo "initrd /boot/$INITRD26"     
@@ -247,10 +247,10 @@ install -d $ISOTMP/iso/modules
 if [ "$MEDIA" = "DVD" ]
 then
 install -d /$ISOTMP/iso/pkg
-ls $HOME/dibab/opkg/ | while read PKG
+ls $HOME/ydfs/opkg/ | while read PKG
 do
   echo "$PKG"
-  ln -s $HOME/dibab/opkg/$PKG /$ISOTMP/iso/pkg
+  ln -s $HOME/ydfs/opkg/$PKG /$ISOTMP/iso/pkg
 done
 fi
 
@@ -293,11 +293,11 @@ cp boot/menu.c32 /$ISOTMP/iso/isolinux
 cp boot/vesamenu.c32 /$ISOTMP/iso/isolinux
 if [ "$ARCH" = "x86" ]
 then
-cp /$HOME/dibab/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
 else
-cp /$HOME/dibab/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
 fi
-cp /$HOME/dibab/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
+cp /$HOME/ydfs/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
 
 echo "
 [autorun]
@@ -323,7 +323,7 @@ gunzip memtest86+-5.01.bin.gz || exit $?
 fi
 cp memtest86+-5.01.bin /$ISOTMP/iso/isolinux/memtest
 
-[ -e $HOME/dibab/wineprogs ] && cp -fR $HOME/dibab/wineprogs $ISOTMP/iso/
+[ -e $HOME/ydfs/wineprogs ] && cp -fR $HOME/ydfs/wineprogs $ISOTMP/iso/
 
 # For unetbootin
 cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/initramfs
@@ -374,7 +374,7 @@ done
 
 # more /$ISOTMP/iso/md5sum.txt
 
-ISONAME="Dibab-$LCBUILD"
+ISONAME="Ydfs-$LCBUILD"
 
 CPUARCH="amd64"
 [ "$ARCH" = "x86" ] && CPUARCH="i386"

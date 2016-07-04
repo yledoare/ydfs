@@ -16,7 +16,7 @@ index 29d88f7..5c1baf7 100644
 +	{
 +		cpuarch = "x86";
 +	}
-+  downloadfile(QString("http://jukebox.linuxconsole.org/official/albatros/%1/dibab-%2.iso").arg(relname,cpuarch), isotmpf);
++  downloadfile(QString("http://jukebox.linuxconsole.org/official/albatros/%1/ydfs-%2.iso").arg(relname,cpuarch), isotmpf);
 +  extractiso(isotmpf);
 +}
 +

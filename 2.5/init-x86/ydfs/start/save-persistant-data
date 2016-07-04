@@ -1,13 +1,13 @@
 LIST=""
-for BACKUP in `cat /etc/dibab/backup.list`
+for BACKUP in `cat /etc/ydfs/backup.list`
 do
   [ -e $BACKUP ] && LIST="$BACKUP"
 done 
 
 echo "Saving $LIST"
-install -d /root/.config/dibab
+install -d /root/.config/ydfs
 cd /
-echo tar czvf /root/.config/dibab/backup.tar.gz $LIST
+echo tar czvf /root/.config/ydfs/backup.tar.gz $LIST
 
 if [ ! -e "$HOME_DIBAB/$ARCH/var/lib/alsa" ] 
 then

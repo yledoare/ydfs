@@ -1,1 +1,1 @@
-echo 'setxkbmap $MAP' >> /dibab/detect/kbd
+echo 'setxkbmap $MAP' >> /ydfs/detect/kbd

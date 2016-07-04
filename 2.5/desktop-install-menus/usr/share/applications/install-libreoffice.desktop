@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=LibreOffice
-Exec=/dibab/add/software libreoffice
+Exec=/ydfs/add/software libreoffice
 Terminal=false
 Icon=libreoffice
 Type=Application

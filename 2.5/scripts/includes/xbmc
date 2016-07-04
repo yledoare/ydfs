@@ -32,11 +32,11 @@
      cd ../..	
      make || exit $?
      make install || exit $?
-     DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
      rm Makefile
   if [ "$MODULE" = "opkg" ]
   then
-    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
     $HOME_DIBAB/scripts/make_opkg || exit $?
   fi
      touch buildok-$ARCH

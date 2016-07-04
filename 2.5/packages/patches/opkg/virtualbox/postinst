@@ -1,15 +1,15 @@
 echo "Postinst"
 
-install -d /root/.dibab/fixdibab/
-echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxdrv.ko" > /root/.dibab/fixdibab/virtualboxdrv
-echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetadp.ko" >> /root/.dibab/fixdibab/virtualboxdrv
-echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetflt.ko" >> /root/.dibab/fixdibab/virtualboxdrv
-echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxpci.ko" >> /root/.dibab/fixdibab/virtualboxdrv
+install -d /root/.ydfs/fixydfs/
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxdrv.ko" > /root/.ydfs/fixydfs/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetadp.ko" >> /root/.ydfs/fixydfs/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxnetflt.ko" >> /root/.ydfs/fixydfs/virtualboxdrv
+echo "insmod $HOME_DIBAB/opkg/lib/modules/vboxpci.ko" >> /root/.ydfs/fixydfs/virtualboxdrv
 echo 'mkdir /dev/vboxusb
 chmod 770 /dev/vbox*
-chown root:vboxusers /dev/vbox*' >> /root/.dibab/fixdibab/virtualboxdrv
+chown root:vboxusers /dev/vbox*' >> /root/.ydfs/fixydfs/virtualboxdrv
 
-sh /root/.dibab/fixdibab/virtualboxdrv
+sh /root/.ydfs/fixydfs/virtualboxdrv
 
 mkdir /opt
 ln -s $HOME_DIBAB/opkg/lib/virtualbox /usr/lib

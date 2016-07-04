@@ -1,6 +1,6 @@
 LANG=en-US
 
-[ -e $HOME/.config/dibab/lang ] && . $HOME/.config/dibab/lang
+[ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
 
 [ "$lang" = "french" ] && LANG=fr
 [ "$lang" = "spanish" ] && LANG=es-ES
@@ -17,7 +17,7 @@ fi
 if [ ! -e $HOME/thunderbird ]
 then
   cd $HOME
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   tar xjvf thunderbird-"$THUNDERBIRD".tar.bz2 && rm thunderbird-"$THUNDERBIRD".tar.bz2
 fi
 

@@ -10,7 +10,7 @@ then
   grep 7 /etc/debian_version && apt-get install $DEBIAN $COMMON
   grep 8 /etc/debian_version && apt-get install $DEBIAN $COMMON $DEBIAN8
 else
-  echo "Dibab is used to be build from debian/ubuntu"
+  echo "Ydfs is used to be build from debian/ubuntu"
   exit 1
 fi
 

@@ -15,8 +15,8 @@ Type=Application
 Categories=Game;" > $HOME/$1/usr/share/applications/dangerdeep.desktop
 fi
 # Old etracer, disabled
-  # cp $HOME/dibab/src/extremetuxracer-0.4/debian/etracer.xpm $HOME/$1/usr/share/pixmaps
-  # cp $HOME/dibab/src/extremetuxracer-0.4/debian/extremetuxracer.desktop $HOME/$1/usr/share/applications
+  # cp $HOME/ydfs/src/extremetuxracer-0.4/debian/etracer.xpm $HOME/$1/usr/share/pixmaps
+  # cp $HOME/ydfs/src/extremetuxracer-0.4/debian/extremetuxracer.desktop $HOME/$1/usr/share/applications
 
 # Cultivation apport du manuel+sous-menu
   if [ -e $HOME/$1/Cultivation ] && [ ! -e $HOME/$1/Cultivation/manuel_fr.txt ]
@@ -41,16 +41,16 @@ fi
 
 
 # XMOTO
-	cp $HOME/dibab/src/xmoto-0.5.10/extra/xmoto.desktop $HOME/$1/usr/share/applications
-  cp $HOME/dibab/src/xmoto-0.5.10/extra/xmoto.xpm $HOME/$1/usr/share/pixmaps
+	cp $HOME/ydfs/src/xmoto-0.5.10/extra/xmoto.desktop $HOME/$1/usr/share/applications
+  cp $HOME/ydfs/src/xmoto-0.5.10/extra/xmoto.xpm $HOME/$1/usr/share/pixmaps
 
 # FCEUX
-  if [ -e $HOME/dibab/src/fceux-2.2.2/fceux.desktop ]
+  if [ -e $HOME/ydfs/src/fceux-2.2.2/fceux.desktop ]
   then
-    cp $HOME/dibab/src/fceux-2.2.2/fceux.desktop $HOME/$1/usr/share/applications
+    cp $HOME/ydfs/src/fceux-2.2.2/fceux.desktop $HOME/$1/usr/share/applications
     sed -i "s@/usr/bin/fceux@fceux@" $HOME/$1/usr/share/applications/fceux.desktop 
     sed -i "s@/usr/share/pixmaps/fceux.png@fceux.png@" $HOME/$1/usr/share/applications/fceux.desktop 
-    cp $HOME/dibab/src/fceux-2.2.2/fceux.png $HOME/$1/usr/share/pixmaps
+    cp $HOME/ydfs/src/fceux-2.2.2/fceux.png $HOME/$1/usr/share/pixmaps
   fi
 
 # FREECRAFT , now in /fix
@@ -73,7 +73,7 @@ fi
   cp $HOME/$1/usr/share/pixmaps/openttd.32.xpm $HOME/$1/usr/share/pixmaps/openttd.xpm
 
 # BZFLAG
-  cp $HOME/dibab/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/usr/share/pixmaps
+  cp $HOME/ydfs/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/usr/share/pixmaps
   echo "[Desktop Entry]
 Name=BZFlag
 GenericName=Tank Battle Game
@@ -88,7 +88,7 @@ Categories=Game;ActionGame;" > $HOME/$1/usr/share/applications/bzflag.desktop
 Name=2H4U
 GenericName=2H4U
 Comment=Too Hard For You
-Exec=/dibab/start/2H4U
+Exec=/ydfs/start/2H4U
 Icon=2H4U
 Type=Application
 Categories=Game;PuzzleGame;" > $HOME/$1/usr/share/applications/2H4U.desktop
@@ -139,7 +139,7 @@ Categories=Game;Gunroar;" > $HOME/$1/usr/share/applications/manuel_frGunroar.des
   cp $HOME/$1/share/pixmaps/openttd.32.xpm $HOME/$1/share/pixmaps/openttd.xpm
 
 # BZFLAG
-  cp $HOME/dibab/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/share/pixmaps
+  cp $HOME/ydfs/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/share/pixmaps
   echo "[Desktop Entry]
 Name=BZFlag
 GenericName=Tank Battle Game

@@ -1,4 +1,4 @@
-Seulement dans lua-5.1.5.fix: dibab-patched
+Seulement dans lua-5.1.5.fix: ydfs-patched
 diff -ur lua-5.1.5/Makefile lua-5.1.5.fix/Makefile
 --- lua-5.1.5/Makefile	2012-02-10 10:50:23.000000000 +0100
 +++ lua-5.1.5.fix/Makefile	2013-09-24 18:37:44.642370995 +0200

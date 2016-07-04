@@ -1,5 +1,5 @@
-RELEASE=`cat /dibab-release`
-MODULE=`cat /dibab-name`
+RELEASE=`cat /ydfs-release`
+MODULE=`cat /ydfs-name`
 cd /
 
 while [ 1 ]

@@ -50,7 +50,7 @@ then
   fi
   echo "
 # lxpanel config file. Manually editing is not recommended.
-# build from /dibab/config/lxde
+# build from /ydfs/config/lxde
 
 Global {
     edge=bottom
@@ -235,7 +235,7 @@ autorun=1
 [desktop]
 wallpaper_mode=3
 wallpaper_common=1
-wallpaper=/etc/dibab.png
+wallpaper=/etc/ydfs.png
 desktop_bg=#ffffff
 desktop_fg=#ffffff
 desktop_shadow=#000000

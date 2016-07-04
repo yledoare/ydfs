@@ -30,7 +30,7 @@ else
   grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
 fi
 
-[ "$NAME" = "fixes" ] && DBEXTRA=FixBugs && PKGVER=`date +"%Y-%m-%d"` && PKGSRC="http://bugtracker.linuxconsole.org" && LISTFIX=$(ls -x $HOME_DIBAB/opkg/fixes/root/.dibab/fixdibab/) && PKGDESC="Fix all dibab known bugs : $LISTFIX"
+[ "$NAME" = "fixes" ] && DBEXTRA=FixBugs && PKGVER=`date +"%Y-%m-%d"` && PKGSRC="http://bugtracker.linuxconsole.org" && LISTFIX=$(ls -x $HOME_DIBAB/opkg/fixes/root/.ydfs/fixydfs/) && PKGDESC="Fix all ydfs known bugs : $LISTFIX"
 [ "$NAME" = "thunderbird" ] && DBEXTRA=Internet && PKGVER="31.2" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Mail client"
 [ "$NAME" = "firefox" ] && DBEXTRA=Internet && PKGVER="latest" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Firefox Web browser"
 [ "$NAME" = "flash" ] && DBEXTRA=Internet && PKGVER="latest" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Adobe Flash plugin"
@@ -83,13 +83,13 @@ Source: $PKGSRC
 Section: $SECTION
 Description: $PKGDESC " > CONTROL/control 
 
-install -d $HOME/dibab/opkg
+install -d $HOME/ydfs/opkg
 
 [ -e $PWD/$HOME/opkg/share/info/dir ] && echo "Delete $PWD/$HOME/opkg/share/info/dir" && rm $PWD/$HOME/opkg/share/info/dir
 
 echo "Look at $HOME_DIBAB/packages/patches/opkg/$NAME/postinst"
 [ -e $HOME_DIBAB/packages/patches/opkg/$NAME/postinst ] && echo OK && cp $HOME_DIBAB/packages/patches/opkg/$NAME/postinst CONTROL
 
-$HOME_DIBAB/tools/opkg-utils/opkg-build -o root -g root . $HOME/dibab/opkg || exit $?
-[ -e /var/www/opkg/ ] && cp -fR $HOME/dibab/opkg/* /var/www/opkg/$DISTRONAME
+$HOME_DIBAB/tools/opkg-utils/opkg-build -o root -g root . $HOME/ydfs/opkg || exit $?
+[ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
 echo "Buildt"

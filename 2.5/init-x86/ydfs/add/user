@@ -13,11 +13,11 @@ zenity --warning --text="Please set $user password" 2>/dev/null
 passwd $user
 zenity --warning --text="You will need to logout to use $user account" 2>/dev/null
 
-if [ -e /media/dibab/home ]
+if [ -e /media/ydfs/home ]
 then
-  install -d /media/dibab/home/$user
-  ln -s /media/dibab/home/$user /home/$user
-  chown $user  /media/dibab/home/$user
+  install -d /media/ydfs/home/$user
+  ln -s /media/ydfs/home/$user /home/$user
+  chown $user  /media/ydfs/home/$user
 else
   install -d /home/$user
   chown $user  /home/$user

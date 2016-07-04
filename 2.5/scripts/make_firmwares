@@ -1,5 +1,5 @@
 . ./config.ini
-[ ! -e $HOME/dibab/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/dibab/modules/$ARCH/bin/mksquashfs" && exit 0
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 rm $LCMBUILD/firmware-$ARCH.squashfs
 if [ "$ARCH" = "x86_64" ]
@@ -8,8 +8,8 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-install -d $HOME/dibab/kernel-$ARCH/modules/$KERNEL3
-cd $HOME/dibab/kernel-$ARCH/modules/$KERNEL3
+install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
+cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 
 DEBVER=_0.44_all.deb
 DEBVER=_0.44~bpo8+1_all.deb
@@ -24,5 +24,5 @@ done
 tar xJvf firmware-nonfree_20160110.orig.tar.xz
 cp -fR firmware-nonfree*/* lib/firmware || exit 3
 ls lib/firmware/radeon/R600* || exit 1
-$HOME/dibab/modules/$ARCH/bin/mksquashfs $HOME/dibab/kernel-$ARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
 echo

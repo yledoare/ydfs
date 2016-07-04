@@ -16,4 +16,4 @@ Source: http://download.qt.io/official_releases/qt/5.4/5.4.2/qt-opensource-linux
 Section: libs
 Description: QT5
 
-/home/linuxconsole24/src/dibab/2.4/tools/opkg-utils/opkg-build -o root -g root . $HOME/dibab/opkg
+/home/linuxconsole24/src/ydfs/2.4/tools/opkg-utils/opkg-build -o root -g root . $HOME/ydfs/opkg

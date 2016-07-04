@@ -2,7 +2,7 @@
 Version=1.0
 Name=Add user
 Name[fr]=Ajouter un utilisateur
-Exec=lxterminal -e /dibab/add/user
+Exec=lxterminal -e /ydfs/add/user
 Terminal=false
 Icon=users
 Type=Application

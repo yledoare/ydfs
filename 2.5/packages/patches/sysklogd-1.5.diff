@@ -1,5 +1,5 @@
 Seulement dans sysklogd-1.5.new/: buildok-x86
-Seulement dans sysklogd-1.5.new/: dibab-patched
+Seulement dans sysklogd-1.5.new/: ydfs-patched
 Seulement dans sysklogd-1.5.new/: klogd
 diff -ur sysklogd-1.5/Makefile sysklogd-1.5.new//Makefile
 --- sysklogd-1.5/Makefile	2007-05-30 17:28:48.000000000 +0200

@@ -4,14 +4,14 @@ mkdir /tmp
 
 #install -d $HOME/$ARCH
 
-install -d /dibab/modules/$ARCH
+install -d /ydfs/modules/$ARCH
 
-mount /media/dibab/modules/$ARCH.squashfs /dibab/modules/$ARCH || ash
+mount /media/ydfs/modules/$ARCH.squashfs /ydfs/modules/$ARCH || ash
 
 install -d /lib/modules
-mount /media/dibab/modules/drivers-$ARCH.squashfs /lib/modules
+mount /media/ydfs/modules/drivers-$ARCH.squashfs /lib/modules
 install -d /lib/firmware
-mount /media/dibab/modules/firmware-$ARCH.squashfs /lib/firmware
+mount /media/ydfs/modules/firmware-$ARCH.squashfs /lib/firmware
 
 #ls /media/modules/ | while read MODULE
 #do
@@ -19,35 +19,35 @@ mount /media/dibab/modules/firmware-$ARCH.squashfs /lib/firmware
 #  [ "$MODULE" = "drivers-$ARCH.squashfs" ] && continue 
 #  [ "$MODULE" = "firmware-$ARCH.squashfs" ] && continue 
 #  MODULE_NAME=`echo $MODULE|cut -d'.' -f1`
-#  install -d /dibab/modules/$MODULE_NAME
-#  mount /media/modules/$MODULE /dibab/modules/$MODULE_NAME
-#  ln -s /dibab/modules/$MODULE_NAME
-#  MODULE_LIST="$MODULE_LIST:/dibab/modules/$MODULE_NAME"
+#  install -d /ydfs/modules/$MODULE_NAME
+#  mount /media/modules/$MODULE /ydfs/modules/$MODULE_NAME
+#  ln -s /ydfs/modules/$MODULE_NAME
+#  MODULE_LIST="$MODULE_LIST:/ydfs/modules/$MODULE_NAME"
 #done
 
-cp -fR /dibab/modules/$ARCH/var /
+cp -fR /ydfs/modules/$ARCH/var /
 
-/dibab/start/restore-persistant-data
+/ydfs/start/restore-persistant-data
 
-if [ -e /media/dibab/mount-myusr ] 
+if [ -e /media/ydfs/mount-myusr ] 
 then
-  /media/dibab/mount-myusr
+  /media/ydfs/mount-myusr
 else
   mkdir /usr
   ln -s /usr $HOME/$ARCH
 fi
 
-#sachant que dibab-name est créé par le fichier 
-#scripts/make_initramfs et la commande:echo "$DISTRONAME" > $INITRAMFS/dibab-name
+#sachant que ydfs-name est créé par le fichier 
+#scripts/make_initramfs et la commande:echo "$DISTRONAME" > $INITRAMFS/ydfs-name
 #et la variable DISTRONAME est définie dans config.ini (attention,vérifier ce fichier,car cette variable peut-être restée à "linuxconsole")
-MODULE=`cat /dibab-name`
-if [ -e /media/dibab/modules/$MODULE-$ARCH.squashfs ] && [ ! -e /dibab/modules/module ]
+MODULE=`cat /ydfs-name`
+if [ -e /media/ydfs/modules/$MODULE-$ARCH.squashfs ] && [ ! -e /ydfs/modules/module ]
 then
  echo " $MODULE "
- install -d /dibab/modules/$MODULE
- ln -s /dibab/modules/$MODULE $HOME
- ln -s /dibab/modules/$MODULE /dibab/modules/module
- mount /media/dibab/modules/$MODULE-$ARCH.squashfs /dibab/modules/$MODULE
+ install -d /ydfs/modules/$MODULE
+ ln -s /ydfs/modules/$MODULE $HOME
+ ln -s /ydfs/modules/$MODULE /ydfs/modules/module
+ mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
  if [ -e /root/usr ]
  then
 	DBDATADIR=/root
@@ -60,28 +60,28 @@ then
  install -d $DBDATADIR/updir-module
  install -d $DBDATADIR/work-etc
  install -d $DBDATADIR/updir-etc
- mount -t overlay overlay -olowerdir=/dibab/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
- mount -t overlay overlay -olowerdir=/dibab/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /dibab/modules/module 
+ mount -t overlay overlay -olowerdir=/ydfs/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
+ mount -t overlay overlay -olowerdir=/ydfs/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /ydfs/modules/module 
  mount -t overlay overlay -olowerdir=/etc,upperdir=$DBDATADIR/updir-etc,workdir=$DBDATADIR/work-etc /etc || ash
 fi
 
-[ -e /dibab/modules/$MODULE/logo.png ] && cp /dibab/modules/$MODULE/logo.png /etc/dibab.png
+[ -e /ydfs/modules/$MODULE/logo.png ] && cp /ydfs/modules/$MODULE/logo.png /etc/ydfs.png
 
 if [ ! -e /usr/lib/opkg ]
 then
   install -d /etc/opkg
   install -d /usr/lib/opkg
-  RELEASE=`cat /dibab-release`
-  if [ ! -e /etc/opkg/dibab.conf ]
+  RELEASE=`cat /ydfs-release`
+  if [ ! -e /etc/opkg/ydfs.conf ]
   then
-    if [ -e /media/dibab/pkg ]
+    if [ -e /media/ydfs/pkg ]
     then
       # local
-      echo "src linuxconsole file:///media/dibab/pkg" > /etc/opkg/dibab.conf
+      echo "src linuxconsole file:///media/ydfs/pkg" > /etc/opkg/ydfs.conf
     else
       # Network
-      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
-      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
+      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
     fi
   fi
 fi
@@ -98,10 +98,10 @@ ln -s /busybox/sbin /
 
 chmod u+s /usr/libexec/dbus-daemon-launch-helper
 
-/dibab/start/syslog
+/ydfs/start/syslog
 
 #udevd --daemon --debug
-if [ -e /dibab/boot/options/debug ]
+if [ -e /ydfs/boot/options/debug ]
 then
   udevd --daemon --debug
 else

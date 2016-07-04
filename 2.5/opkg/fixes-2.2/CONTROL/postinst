@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Fix Dibab"
-/dibab/start/fixdibab
-/dibab/detect/kbd
+echo "Fix Ydfs"
+/ydfs/start/fixydfs
+/ydfs/detect/kbd
 echo

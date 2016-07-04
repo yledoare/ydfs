@@ -1,8 +1,8 @@
 [ $USER = "USER" ] && exit 0
 
-[ ! -e $HOME/dibab/.child-limits ] && exit 0
+[ ! -e $HOME/ydfs/.child-limits ] && exit 0
 
-cd $HOME/dibab/.child-limits
+cd $HOME/ydfs/.child-limits
 
 while [ 1 ]
 do

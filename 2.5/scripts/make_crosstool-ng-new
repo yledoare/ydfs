@@ -1,5 +1,5 @@
-	install -d $HOME/dibab/src
-	cd $HOME/dibab
+	install -d $HOME/ydfs/src
+	cd $HOME/ydfs
         if [ ! -e "crosstool-bin/bin/ct-ng" ]
         then
           [ ! -e tarballs/crosstool-ng-$CROSSTOOL.tar.gz ] && wget  --directory-prefix=tarballs https://github.com/crosstool-ng/crosstool-ng/archive/crosstool-ng-$CROSSTOOL.tar.gz
@@ -9,7 +9,7 @@
 	  cd src/crosstool-ng-crosstool-ng-$CROSSTOOL
           . /etc/profile
 	  ./bootstrap
-          # ../../src/crosstool-ng-$CROSSTOOL/configure --prefix=/$HOME/dibab/crosstool-bin && make && make install && cd ../..
-	  CC=gcc ./configure --prefix=/$HOME/dibab/crosstool-bin && make && make install && cd ../.. 
+          # ../../src/crosstool-ng-$CROSSTOOL/configure --prefix=/$HOME/ydfs/crosstool-bin && make && make install && cd ../..
+	  CC=gcc ./configure --prefix=/$HOME/ydfs/crosstool-bin && make && make install && cd ../.. 
           [ $? != 0 ] && exit $?
         fi

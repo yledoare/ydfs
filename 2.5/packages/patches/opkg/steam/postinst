@@ -1,3 +1,3 @@
 echo "Postinst"
 sed -i "s@id -u@echo@g" /usr/bin/steam
-#[ $ARCH = "x86_64" ] && /dibab/enable/multilib
+#[ $ARCH = "x86_64" ] && /ydfs/enable/multilib

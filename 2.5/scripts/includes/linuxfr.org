@@ -64,7 +64,7 @@ Type=Application
 Categories=Application;Game;Stories;" >> $pkgdir/share/applications/la_routedesvins.desktop
     touch  $PREFIX/usr/games/route_des_vins/*
     #fin install des histoires interactives=======================================================
-    dibab-install-package
+    ydfs-install-package
     touch buildok-$ARCH
     exit 0 
   fi
@@ -94,7 +94,7 @@ Categories=Application;Game;Stories;" >> $pkgdir/share/applications/la_routedesv
   if [ -e lutris.desktop.in ]
   then
     python setup.py install --prefix=$PREFIX || exit $?
-    dibab-install-package 
+    ydfs-install-package 
     touch buildok-$ARCH
     exit 0
   fi

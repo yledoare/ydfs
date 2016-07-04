@@ -2,7 +2,7 @@
 [Desktop Entry]
 Version=1.0
 Name=skype
-Exec=/dibab/add/software skype
+Exec=/ydfs/add/software skype
 Terminal=false
 Icon=skype
 Type=Application

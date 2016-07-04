@@ -3,8 +3,8 @@
 {
 	install -d $PREFIX/share/pixmaps
 	install -d $PREFIX/share/applications
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
 }
 
     if [ -e src/vegastrike.h ]
@@ -28,7 +28,7 @@
   cp -rf ${_pkgname}-music-${pkgver}/* ${pkgdir}/share/${_pkgname}/
   cp -rf ${_pkgname}-speech-${pkgver}/* ${pkgdir}/share/${_pkgname}/
 
- 	pkgdir=$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX
+ 	pkgdir=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX
 	install -d ${pkgdir}/share/${_pkgname}/
   cp -rf ${_pkgname}-data-${pkgver}/* ${pkgdir}/share/${_pkgname}/ || exit $?
   cp -rf ${_pkgname}-data-${pkgver}/\.vegastrike ${pkgdir}/share/${_pkgname}/
@@ -39,27 +39,27 @@
 	install_desktop_dirs
 	cp ${_pkgname}-data-${pkgver}/vegastrike.desktop $PREFIX/share/applications
 	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $PREFIX/share/pixmaps
-	cp ${_pkgname}-data-${pkgver}/vegastrike.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	cp ${_pkgname}-data-${pkgver}/vegastrike.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
     fi
 
     if [ -e ../bin/minetest ]
     then
       echo "Install libjsoncpp.so"
       install -d $PREFIX/lib
-      install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib
+      install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib
       cp ./src/json/libjsoncpp.so $PREFIX/lib
-      cp ./src/json/libjsoncpp.so $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
+      cp ./src/json/libjsoncpp.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
       cp ./src/cguittfont/libcguittfont.so $PREFIX/lib
-      cp ./src/cguittfont/libcguittfont.so $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
+      cp ./src/cguittfont/libcguittfont.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
     fi
  
     if [ -e src/komat/Berusky3d_castice.h ]
     then
 	install_desktop_dirs
- 	pkgdir=$HOME/dibab/packages-$ARCH/$MYDIR/usr
-	cp data/berusky2.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/berusky2.png || exit $?
-        cp data//berusky2.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications/ || exit $?
+ 	pkgdir=$HOME/ydfs/packages-$ARCH/$MYDIR/usr
+	cp data/berusky2.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/berusky2.png || exit $?
+        cp data//berusky2.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/ || exit $?
 	[ ! -e berusky2-data-0.9.tar.bz2 ] && wget http://downloads.sourceforge.net/project/berusky2/berusky2-data-0.9/berusky2-data-0.9.tar.bz2
 	tar xjvf berusky2-data-0.9.tar.bz2 || exit $?
 	cd berusky2-data-0.9 || exit $?
@@ -82,18 +82,18 @@
     then
 	install_desktop_dirs
 	# from debian/rules
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/abe
-	cp -fR images $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/abe
-	cp -fR sounds $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/abe
-	cp -fR maps $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/abe
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/usr/games
-	cp src/abe $HOME/dibab/packages-$ARCH/$MYDIR/usr/games
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR images $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR sounds $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR maps $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/games
+	cp src/abe $HOME/ydfs/packages-$ARCH/$MYDIR/usr/games
 	tar xf images/images.tar tom4.bmp	
 	convert -resize 24x32 tom4.bmp tom4.xpm
 	sed -e "s/#000000/None/" < tom4.xpm > abe.xpm
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/usr/share/pixmaps/
-	cp abe.xpm $HOME/dibab/packages-$ARCH/$MYDIR/usr/share/pixmaps/
-	cp ./debian/abe.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/share/pixmaps/
+	cp abe.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/usr/share/pixmaps/
+	cp ./debian/abe.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
 
     if [ -e game/egoboo-2.x ]
@@ -101,10 +101,10 @@
 	install_desktop_dirs
 	pkgname="egoboo"
         convert ../egoboo1.ico $PREFIX/share/pixmaps/egoboo.png
-        cp $PREFIX/share/pixmaps/egoboo.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+        cp $PREFIX/share/pixmaps/egoboo.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
         NAME="$pkgname" GENERICNAME="$pkgname" EXEC="$PREFIX/games/egoboo-2.x" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
-        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
 
     if [ -e build/linux/dangerdeep  ]
@@ -114,17 +114,17 @@
 	pkgname="dangerdeep"
         [ ! -e dangerdeep-data-0.3.0.zip ] && wget http://freefr.dl.sourceforge.net/project/dangerdeep/danger_from_the_deep-data/0.3.0/dangerdeep-data-0.3.0.zip
         install -d $PREFIX/share/dangerdeep
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
         install -d $PREFIX/bin
         cp build/linux/dangerdeep $PREFIX/bin
-        cp build/linux/dangerdeep $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
-        unzip dangerdeep-data-0.3.0.zip -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
+        cp build/linux/dangerdeep $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
+        unzip dangerdeep-data-0.3.0.zip -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
 	cp dftd_icon.png $PREFIX/share/pixmaps/${pkgname}.png
-        cp dftd_icon.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+        cp dftd_icon.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
         NAME="$pkgname" GENERICNAME="$pkgname " EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
-        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
 
     if [ -e xonotic.exe ]
@@ -135,50 +135,50 @@
 	# Icon
 
 	cp ./misc/logos/icons_png/xonotic_64.png $PREFIX/share/pixmaps/xonotic.png
-	cp ./misc/logos/icons_png/xonotic_64.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/xonotic.png
+	cp ./misc/logos/icons_png/xonotic_64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/xonotic.png
 
 	# Desktop launcher	
 	
         BIN=$pkgname-glx
         NAME="$pkgname (GLX)" GENERICNAME="$pkgname (GLX)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
 	
         BIN=$pkgname-sdl
         NAME="$pkgname (SDL)" GENERICNAME="$pkgname (SDL)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
 
     if [ -e src/tuxpaint.desktop ]
     then
 	install_desktop_dirs
        cp src/tuxpaint.desktop $PREFIX/share/applications
-       cp src/tuxpaint.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
+       cp src/tuxpaint.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
     fi
     if [ -e dossizola/jeu.c ]
     then
 	install_desktop_dirs
 	cp $HOME_DIBAB/logos/dossizola.png $PREFIX/share/pixmaps || exit 4
-	cp $HOME_DIBAB/logos/dossizola.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	cp $HOME_DIBAB/logos/dossizola.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
 	cp $HOME_DIBAB/desktop/dossizola.desktop $PREFIX/share/applications || exit 5
-	cp $HOME_DIBAB/desktop/dossizola.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $HOME_DIBAB/desktop/dossizola.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
   if [ -e xmoto.6 ]
   then
 	install_desktop_dirs
-    cp extra/xmoto.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications || exit 1
+    cp extra/xmoto.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications || exit 1
     cp extra/xmoto.desktop $PREFIX/share/applications || exit 1
 
-    cp extra/xmoto.xpm $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/ || exit 1
+    cp extra/xmoto.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/ || exit 1
     cp extra/xmoto.xpm $PREFIX/share/pixmaps/ || exit 1
   fi
   if [ -e hedgewars ]
   then
       install_desktop_dirs
       cd ..
-      install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications/hedgewars.desktop || exit 1
-      cp misc/hedgewars.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/hedgewars.png || exit 1
+      install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/hedgewars.desktop || exit 1
+      cp misc/hedgewars.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/hedgewars.png || exit 1
   fi
     if [ -e pacman.cc ]
     then
@@ -202,8 +202,8 @@
 	cp data/bzflag-48x48.png $PREFIX/share/pixmaps/$pkgname.png
         NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
-	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-	cp $PREFIX/share/pixmaps/$pkgname.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/$pkgname.png
+	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/pixmaps/$pkgname.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/$pkgname.png
     fi  
     if [ -e src/gltron.c ]
     then
@@ -211,7 +211,7 @@
 	pkgname="gltron"
         NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
         $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
-	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi 
   
   if [ -e src/Egoboo.workspace ]
@@ -237,7 +237,7 @@
     make || exit $?
     make install || exit $?
     touch  $PREFIX/share/games/openttd/data/*
-    dibab-install-package
+    ydfs-install-package
     touch buildok-$ARCH
     exit 0 
   fi
@@ -264,7 +264,7 @@
     mv "${pkgdir}"/foobillardplus/foobillardplus.{png,xbm} "${pkgdir}"/share/pixmaps
     #install -d "${pkgdir}"/bin
     #ln -s "${pkgdir}"/foobillardplus/bin/foobillardplus "${pkgdir}"/bin/foobillardplus
-    dibab-install-package
+    ydfs-install-package
     touch buildok-$ARCH
     exit 0 
   fi
@@ -322,7 +322,7 @@ Categories=Game;" > $pkgname.desktop
   cp ${pkgname}-0.png  ${pkgdir}/share/pixmaps/${pkgname}.png || exit $?
   
   install -Dm644 license.txt ${pkgdir}/share/licenses/${pkgname}/license.txt
-  dibab-install-package
+  ydfs-install-package
   touch buildok-$ARCH
   exit 0
 fi
@@ -349,7 +349,7 @@ fi
     python setup.py install --prefix=$PREFIX || exit $?
     install -d $PREFIX/data/
     cp -fR data/* $PREFIX/data/
-    dibab-install-package 
+    ydfs-install-package 
     touch buildok-$ARCH
     exit 0
   fi

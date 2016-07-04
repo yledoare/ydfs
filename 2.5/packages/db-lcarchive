@@ -4,14 +4,14 @@
 
 build_the_archive()
 {  
-  echo $PWD/dibab-error > $HOME/dibab/.last-error
-  echo $PWD/dibab-log > $HOME/dibab/.last-log
+  echo $PWD/ydfs-error > $HOME/ydfs/.last-error
+  echo $PWD/ydfs-log > $HOME/ydfs/.last-log
   if [ "$MODULE" = "opkg" ] || [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
   db-autobuild $MYPREFIX || exit $?
   else
-  echo -n "Log in $PWD/dibab-log , Error in $PWD/dibab-error , Building in progress.... "     
-  db-autobuild $MYPREFIX 2>dibab-error 1>dibab-log || exit $?
+  echo -n "Log in $PWD/ydfs-log , Error in $PWD/ydfs-error , Building in progress.... "     
+  db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log || exit $?
   echo "OK"
   fi
 }
@@ -22,7 +22,7 @@ then
 fi
 
 #création et initialisation du répertoire temporaire
-install -d /$HOME/dibab/tmp
+install -d /$HOME/ydfs/tmp
 
 FILE=$1
 if [ -n "`echo $1 | grep ftp`" ] || [ -n "`echo $1 | grep http`" ]
@@ -30,13 +30,13 @@ then
   #si c'est un .dsc(Debian source) alors
   if [ -n "`echo $1 | grep '.dsc'`" ] 
   then
-    # FIXME [ -e $HOME/dibab/tarballs/`basename $1` ] && echo -n "$HOME/dibab/tarballs/`basename $1` exists" && exit 0
+    # FIXME [ -e $HOME/ydfs/tarballs/`basename $1` ] && echo -n "$HOME/ydfs/tarballs/`basename $1` exists" && exit 0
     db-build-debian-dsc $1 || exit 1
     exit 0
   fi
   #sinon, on le télécharge par wget+initialisations et changement de répertoire
   echo "wget $1 inside $0"
-  install -d $HOME/dibab/tarballs && cd $HOME/dibab/tarballs && FILE=$PWD/`basename $1` && [ ! -e `basename $1` ] && wget $1
+  install -d $HOME/ydfs/tarballs && cd $HOME/ydfs/tarballs && FILE=$PWD/`basename $1` && [ ! -e `basename $1` ] && wget $1
 fi
 
 if [ -n "$LCARCHIVE_CHOICE" ]
@@ -119,31 +119,31 @@ echo "$FILE" |grep  "pa_stable" && DIR2=portaudio && FORCED=1
 case "$ARCHIVE" in
   RUN)
     echo "$FILE"  
-        [ -e $HOME/dibab/src/$DIR/buildok-$ARCH ] && exit 0
-	# [ -e $HOME/dibab/src/$DIR/nvidia.ko ] && echo Build && exit 0
-	if [ ! -e $HOME/dibab/src/$DIR/nvidia.ko ]
+        [ -e $HOME/ydfs/src/$DIR/buildok-$ARCH ] && exit 0
+	# [ -e $HOME/ydfs/src/$DIR/nvidia.ko ] && echo Build && exit 0
+	if [ ! -e $HOME/ydfs/src/$DIR/nvidia.ko ]
         then
-	cd $HOME/dibab/src/linux-$KERNEL3/
+	cd $HOME/ydfs/src/linux-$KERNEL3/
 	make mrproper
 	cp ../../build/linux-$ARCH-$KERNEL3/.config .
 	make oldconfig && make prepare
 	make init || exit $?
 	fi
-      cd $HOME/dibab/src/
+      cd $HOME/ydfs/src/
       [ ! -e $DIR ] && sh $FILE --extract-only
       cd $DIR
       if [ ! -e nvidia.ko ]
       then
         cd kernel
-        make SYSSRC="$HOME/dibab/src/linux-$KERNEL3/" module || exit $?
+        make SYSSRC="$HOME/ydfs/src/linux-$KERNEL3/" module || exit $?
         mv nvidia.ko ..
         cd ..
       fi
       rm -fR kernel
-      install -d $HOME/dibab/packages-$ARCH/$DIR/usr/$DIR
-      cp -fR * $HOME/dibab/packages-$ARCH/$DIR/usr/$DIR
+      install -d $HOME/ydfs/packages-$ARCH/$DIR/usr/$DIR
+      cp -fR * $HOME/ydfs/packages-$ARCH/$DIR/usr/$DIR
       touch buildok-$ARCH
-      cd $HOME/dibab/packages-$ARCH/$DIR
+      cd $HOME/ydfs/packages-$ARCH/$DIR
       $HOME_DIBAB/scripts/make_opkg ||exit $?
       exit 0
     ;;
@@ -158,14 +158,14 @@ case "$ARCHIVE" in
   TARGZ)
     if [ "$CHOICE" = "installfromsrc" ]
     then
-      install -d $HOME/dibab/src/
-      cd $HOME/dibab/src/
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
       if [ ! -e $DIR2 ]
       then
         echo $FILE
-        tar xzvf "$FILE" 1> $HOME/dibab/tmp/tar.$$.log || exit $?
+        tar xzvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
-      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/dibab/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
+      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
       cd $DIR2
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
@@ -176,20 +176,20 @@ case "$ARCHIVE" in
   ZIP)
     if [ "$CHOICE" = "installfromsrc" ]
     then
-      install -d $HOME/dibab/src/
-      cd $HOME/dibab/src/
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
       #echo "$FILE" |grep  "wxWidgets-3" && DIR2="wxWidgets-3" && install -d $DIR2 && cd $DIR2
       echo "$FILE" |grep  "wxWidgets-3" && DIR2="wxWidgets"
-      [ ! -e $DIR2 ] && unzip -o "$FILE" 1>/$HOME/dibab/tmp/zip.$$.log && tail -10 /$HOME/dibab/tmp/zip.$$.log
+      [ ! -e $DIR2 ] && unzip -o "$FILE" 1>/$HOME/ydfs/tmp/zip.$$.log && tail -10 /$HOME/ydfs/tmp/zip.$$.log
       if [ "$DIR2" = "amd-driver-installer-catalyst-13.1-legacy-linux-x86.x86_64" ]
       then
-        DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst13.sh || exit $?
-        cd $HOME/dibab/packages-$ARCH/catalyst13
+        DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst13.sh || exit $?
+        cd $HOME/ydfs/packages-$ARCH/catalyst13
         $HOME_DIBAB/scripts/make_opkg || exit $?
         exit 0
       fi
-      # [ ! -e $DIR2 ] && DIR2=`cat $HOME/dibab/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
-      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/dibab/tmp/zip.$$.log  | cut -d':' -f2 | cut -d'/' -f1 | sort -u | tac | head -1`
+      # [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/zip.$$.log  | cut -d':' -f2 | cut -d'/' -f1 | sort -u | tac | head -1`
       cd $DIR2
       export DIR2
       export MYPREFIX=$MYPREFIX
@@ -204,12 +204,12 @@ case "$ARCHIVE" in
   DEB)
     install -d "$DIR" && cd "$DIR"
     PKGNAME=`basename $DIR|cut -d'+' -f1`
-    #if [ ! -e $HOME/dibab/packages-$ARCH/$PKGNAME ]
-    if [ ! -e $HOME/dibab/packages-$ARCH/$PKGNAME ]
+    #if [ ! -e $HOME/ydfs/packages-$ARCH/$PKGNAME ]
+    if [ ! -e $HOME/ydfs/packages-$ARCH/$PKGNAME ]
     then
-      install -d $HOME/dibab/packages-$ARCH/$PKGNAME
-      dpkg -x "$FILE" $HOME/dibab/packages-$ARCH/$PKGNAME
-      cd $HOME/dibab/packages-$ARCH/$PKGNAME
+      install -d $HOME/ydfs/packages-$ARCH/$PKGNAME
+      dpkg -x "$FILE" $HOME/ydfs/packages-$ARCH/$PKGNAME
+      cd $HOME/ydfs/packages-$ARCH/$PKGNAME
       $HOME_DIBAB/scripts/make_opkg || exit $?
       echo "Prefix is $MYPREFIX"
       install -d $MYPREFIX
@@ -221,10 +221,10 @@ case "$ARCHIVE" in
   SEVENZ)
     if [ "$CHOICE" = "installfromsrc" ]
     then
-      install -d $HOME/dibab/src/
-      cd $HOME/dibab/src/
-      [ ! -e $DIR2 ] && 7z x "$FILE" 1> $HOME/dibab/tmp/tar.$$.log
-      [ ! -e $DIR2 ] && DIR2=`cat $HOME/dibab/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
+      [ ! -e $DIR2 ] && 7z x "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log
+      [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
       cd $DIR2 
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
@@ -235,10 +235,10 @@ case "$ARCHIVE" in
   TARXZ)
     if [ "$CHOICE" = "installfromsrc" ]
     then
-      install -d $HOME/dibab/src/
-      cd $HOME/dibab/src/
-      [ ! -e $DIR2 ] && tar xJvf "$FILE" 1> $HOME/dibab/tmp/tar.$$.log
-      [ ! -e $DIR2 ] && DIR2=`cat $HOME/dibab/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
+      [ ! -e $DIR2 ] && tar xJvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log
+      [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
       cd $DIR2 
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
@@ -249,11 +249,11 @@ case "$ARCHIVE" in
   TARBZ)
     if [ "$CHOICE" = "installfromsrc" ]
     then
-      install -d $HOME/dibab/src/
-      cd $HOME/dibab/src/
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
       echo "$FILE" |grep  "midori" && DIR2="midori" && install -d $DIR2 && cd $DIR2
-      [ ! -e $DIR2 ] && echo "tar xjvf $FILE" && tar xjvf "$FILE" 1> $HOME/dibab/tmp/tar.$$.log
-      [ ! -e $DIR2 ] && DIR2=`cat $HOME/dibab/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      [ ! -e $DIR2 ] && echo "tar xjvf $FILE" && tar xjvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log
+      [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
       [ "$DIR2" != "midori" ] && cd $DIR2 
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
@@ -263,7 +263,7 @@ case "$ARCHIVE" in
     ;;
   DSC)
     export MYPREFIX=$MYPREFIX
-    # FIXME [ -e $HOME/dibab/tarballs/`basename $1` ] && echo -n "$HOME/dibab/tarballs/`basename $1` exists" && exit 0
+    # FIXME [ -e $HOME/ydfs/tarballs/`basename $1` ] && echo -n "$HOME/ydfs/tarballs/`basename $1` exists" && exit 0
     db-build-debian-dsc $1 || exit $?
     ;;
   *)

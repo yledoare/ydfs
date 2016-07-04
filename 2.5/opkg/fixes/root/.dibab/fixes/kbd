@@ -1,9 +1,9 @@
-if [ -e $HOME/.config/dibab/kbd ] 
+if [ -e $HOME/.config/ydfs/kbd ] 
 then
-. $HOME/.config/dibab/kbd 
+. $HOME/.config/ydfs/kbd 
 setxkbmap $kbd 
 echo '
-# from /dibab/detect/kbd 1
+# from /ydfs/detect/kbd 1
 Section "InputClass"
 	Identifier "Keyboard Layout"
  	MatchIsKeyboard "yes"
@@ -28,7 +28,7 @@ if [ "$MAP" = "ca" ]
 then
   setxkbmap $MAP -variant fr
 echo '
-# from /dibab/detect/kbd 2
+# from /ydfs/detect/kbd 2
 Section "InputClass"
 	Identifier "Keyboard Layout"
  	MatchIsKeyboard "yes"
@@ -40,7 +40,7 @@ EndSection
 else
   setxkbmap $MAP
 echo '
-# from /dibab/detect/kbd 3
+# from /ydfs/detect/kbd 3
 Section "InputClass"
 	Identifier "Keyboard Layout"
  	MatchIsKeyboard "yes"
@@ -51,7 +51,7 @@ EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
 fi
 [ "$KBDMAP" != "" ] && setxkbmap $KBDMAP && echo '
-# from /dibab/detect/kbd 4
+# from /ydfs/detect/kbd 4
 Section "InputClass"
 	Identifier "Keyboard Layout"
  	MatchIsKeyboard "yes"

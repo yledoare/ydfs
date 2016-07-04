@@ -1,11 +1,11 @@
 	chmod -R 777 ${HOME}/${ARCH}/share/doc/p7zip
 	rm -fR ${HOME}/${ARCH}
-	rm -fR ${HOME}/dibab/build-${ARCH}/*
-	rm -fR ${HOME}/dibab/src/*
+	rm -fR ${HOME}/ydfs/build-${ARCH}/*
+	rm -fR ${HOME}/ydfs/src/*
 	rm -fR ${HOME}/.cpan
-	rm -fR ${HOME}/dibab/modules/*
-#	rm -fR ${HOME}/dibab/kernel-${ARCH}/modules
-	rm -fR ${HOME}/dibab/build/modules/*
-	rm -fR ${HOME}/dibab/src/notify-python*
-	rm ${HOME}/dibab/src/*/buildok-${ARCH}
-	rm -fR ${HOME}/dibab/packages-${ARCH}/*
+	rm -fR ${HOME}/ydfs/modules/*
+#	rm -fR ${HOME}/ydfs/kernel-${ARCH}/modules
+	rm -fR ${HOME}/ydfs/build/modules/*
+	rm -fR ${HOME}/ydfs/src/notify-python*
+	rm ${HOME}/ydfs/src/*/buildok-${ARCH}
+	rm -fR ${HOME}/ydfs/packages-${ARCH}/*

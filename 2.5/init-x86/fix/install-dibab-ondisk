@@ -1,7 +1,7 @@
 # mke2fs -L $DISTRONAME /dev/sda1
-# sh /dibab/start/automount
+# sh /ydfs/start/automount
 
-DISTRONAME=`cat /dibab-name`
+DISTRONAME=`cat /ydfs-name`
 if [ ! -e /dev/sda ]
 then
   zenity --info --text="You need a /dev/sda disk for this !" &>/dev/null
@@ -25,7 +25,7 @@ zenity --info --text="Please create a parition named $DISTRONAME \n\nClose this,
 echo > /usr/libexec/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
 $HOME_DIBAB/$ARCH/sbin/gpartedbin
-sh /dibab/start/automount
+sh /ydfs/start/automount
 sleep 1
   if [ ! -e /media/$DISTRONAME ]
   then
@@ -41,8 +41,8 @@ echo "Installing kernel and initramfs"
 
 mkdir /media/$DISTRONAME/rootfs
 KVER=`uname -r`
-cp /media/dibab/isolinux/k4* /boot/kernel-$KVER
-cp /media/dibab/isolinux/4* /boot/initramfs-genkernel-$KVER
+cp /media/ydfs/isolinux/k4* /boot/kernel-$KVER
+cp /media/ydfs/isolinux/4* /boot/initramfs-genkernel-$KVER
 cp /proc/config.gz /boot
 gunzip /boot/config.gz
 mv /boot/config /boot/config-$KVER
@@ -56,20 +56,20 @@ LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
 sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
 touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
 echo "Copying module ..."
-ls /media/dibab/modules/ | while read file
+ls /media/ydfs/modules/ | while read file
 do
 	echo $file
 	install -d /media/$DISTRONAME/modules
-  cp /media/dibab/modules/$file /media/$DISTRONAME/modules
+  cp /media/ydfs/modules/$file /media/$DISTRONAME/modules
 done
-if [ -e /media/dibab/pkg/ ]
+if [ -e /media/ydfs/pkg/ ]
 then
 echo "Copying packages ..."
-ls /media/dibab/pkg/ | while read file
+ls /media/ydfs/pkg/ | while read file
 do
 	echo $file
 	install -d /media/$DISTRONAME/pkg
-  cp /media/dibab/pkg/$file /media/$DISTRONAME/pkg
+  cp /media/ydfs/pkg/$file /media/$DISTRONAME/pkg
 done
 fi
   zenity --info --text="Installation finished, you can reboot now" &>/dev/null

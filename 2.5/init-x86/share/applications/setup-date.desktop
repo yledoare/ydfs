@@ -2,7 +2,7 @@
 Version=1.0
 Name=Setup Date and time
 Name[fr]=Régler la date et l'heure
-Exec=/dibab/config/date
+Exec=/ydfs/config/date
 Terminal=false
 Icon=calendar
 Type=Application

@@ -1,4 +1,4 @@
-diff -ur /home/yann/dibab/src/glew-1.10.0.orig/config/Makefile.linux /home/yann/dibab/src/glew-1.10.0/config/Makefile.linux
+diff -ur /home/yann/ydfs/src/glew-1.10.0.orig/config/Makefile.linux /home/yann/ydfs/src/glew-1.10.0/config/Makefile.linux
 --- a/config/Makefile.linux	2013-07-22 16:11:22.000000000 +0200
 +++ b/config/Makefile.linux	2013-09-13 05:42:45.395385592 +0200
 @@ -9,20 +9,13 @@
@@ -24,8 +24,8 @@ diff -ur /home/yann/dibab/src/glew-1.10.0.orig/config/Makefile.linux /home/yann/
  BIN.SUFFIX =
  LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
  LIB.DEVLNK = lib$(NAME).so
-Seulement dans /home/yann/dibab/src/glew-1.10.0.orig/: lib
-diff -ur /home/yann/dibab/src/glew-1.10.0.orig/Makefile /home/yann/dibab/src/glew-1.10.0/Makefile
+Seulement dans /home/yann/ydfs/src/glew-1.10.0.orig/: lib
+diff -ur /home/yann/ydfs/src/glew-1.10.0.orig/Makefile /home/yann/ydfs/src/glew-1.10.0/Makefile
 --- a/Makefile	2013-07-22 16:11:22.000000000 +0200
 +++ b/Makefile	2013-09-13 05:41:40.879390962 +0200
 @@ -29,7 +29,7 @@
@@ -37,4 +37,4 @@ diff -ur /home/yann/dibab/src/glew-1.10.0.orig/Makefile /home/yann/dibab/src/gle
  SHELL = /bin/sh
  SYSTEM ?= $(shell config/config.guess | cut -d - -f 3 | sed -e 's/[0-9\.]//g;')
  SYSTEM.SUPPORTED = $(shell test -f config/Makefile.$(SYSTEM) && echo 1)
-Seulement dans /home/yann/dibab/src/glew-1.10.0.orig/: tmp
+Seulement dans /home/yann/ydfs/src/glew-1.10.0.orig/: tmp

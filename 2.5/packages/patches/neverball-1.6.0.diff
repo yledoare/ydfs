@@ -45,7 +45,7 @@ index 815e50c..e9776e2 100644
  endif
  
 +install :
-+	bash dibab.install
++	bash ydfs.install
 +ifdef DESTDIR
 +	echo ${DESTDIR}
 +	echo install -d ${DESTDIR}
@@ -53,9 +53,9 @@ index 815e50c..e9776e2 100644
 +
 +
  #------------------------------------------------------------------------------
-diff -ur --new-file a/dibab.install b/dibab.install
---- a/dibab.install	1970-01-01 01:00:00.000000000 +0100
-+++ b/dibab.install	2014-03-23 15:48:04.395068864 +0100
+diff -ur --new-file a/ydfs.install b/ydfs.install
+--- a/ydfs.install	1970-01-01 01:00:00.000000000 +0100
++++ b/ydfs.install	2014-03-23 15:48:04.395068864 +0100
 @@ -0,0 +1,16 @@
 +install -d "${MYPREFIX}//bin"
 +install -d "${MYPREFIX}"//share/{neverball,locale,applications,doc/neverball}

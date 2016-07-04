@@ -5,7 +5,7 @@ echo "
 [Desktop Entry]
 Version=1.0
 Name=$NAME
-Exec=/dibab/add/software $NAME
+Exec=/ydfs/add/software $NAME
 Terminal=false
 Icon=$NAME
 Type=Application

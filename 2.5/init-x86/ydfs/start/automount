@@ -88,4 +88,4 @@ udevadm trigger --action=add
 install -d /root/firmware 
 # /bin/mountsfsrw /root/firmware /lib/firmware # echo "Firmwares mounted rw"
 
-/dibab/start/umountuser-daemon &
+/ydfs/start/umountuser-daemon &

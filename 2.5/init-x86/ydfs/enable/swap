@@ -14,7 +14,7 @@ done
 
 for PARTITION in `ls /media`
 do
-  for SWAPFILE in dibab/disks/swap.disk pagefile.sys
+  for SWAPFILE in ydfs/disks/swap.disk pagefile.sys
   do
     if [ -e /media/$PARTITION/$SWAPFILE ]
     then

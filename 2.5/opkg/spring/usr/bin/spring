@@ -10,7 +10,7 @@ fi
 ARCHIVE=$(basename $URL)
 if [ ! -e $HOME/spring/spring ]
 then
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   cd $HOME
   mkdir spring
   cd spring

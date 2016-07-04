@@ -1,4 +1,4 @@
-cd $HOME/dibab/build-$ARCH
+cd $HOME/ydfs/build-$ARCH
 ls | while read PKG
 do
   echo $PKG

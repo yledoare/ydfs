@@ -25,7 +25,7 @@ index 03cd1d7..f4a138a 100644
    // naughty usage of an internal ffmpeg function
 -  if (m_pFormatContext)
 -    av_read_frame_flush(m_pFormatContext);
-+// BUG into Dibab if (m_pFormatContext)
++// BUG into Ydfs if (m_pFormatContext)
 +//   av_read_frame_flush(m_pFormatContext);
  
    m_iCurrentPts = DVD_NOPTS_VALUE;

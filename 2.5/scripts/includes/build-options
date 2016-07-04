@@ -6,7 +6,7 @@
 	echo $ARCHIVE | grep v4l-utils && export LC_CONFIGURE_OPTS="--with-udevdir=$HOME/$MODULE/lib/udev" 
 	echo $ARCHIVE | grep abe_1.1 && export LC_CONFIGURE_OPTS="--with-data-dir=$HOME/$MODULE/share/abe" 
 	echo $ARCHIVE | grep apr-util && export LC_CONFIGURE_OPTS="--with-apr=$HOME/$MODULE" 
-	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && export CFLAGS="-I/$HOME/dibab/src/supertuxkart-0.9.1/lib/irrlicht/include/ $CFLAGS" && export CXXFLAGS=$CFLAGS
+	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && export CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.1/lib/irrlicht/include/ $CFLAGS" && export CXXFLAGS=$CFLAGS
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
@@ -121,7 +121,7 @@
 	echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--host=i586-linux-gnu"
 	echo $ARCHIVE | grep nspr && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $ARCHIVE | grep wine && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
-	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/dibab/src/wxGTK-2.8.12/wx-config
+	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/ydfs/src/wxGTK-2.8.12/wx-config
 	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
@@ -184,7 +184,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
             -no-openvg         \
             -nomake demos      \
             -nomake examples   \
-            -optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/dibab/build-$ARCH/`basename $ARCHIVE | cut -d'.' -f1,2,3`/lib"
+            -optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/ydfs/build-$ARCH/`basename $ARCHIVE | cut -d'.' -f1,2,3`/lib"
 
 	echo $ARCHIVE | grep mysql-5.6 && LC_CONFIGURE_OPTS="-DENABLED_LOCAL_INFILE=ON -DWITH_SSL=$HOME/$ARCH "
 	echo $ARCHIVE | grep httpd && LC_CONFIGURE_OPTS="--enable-so"

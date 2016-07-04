@@ -5,7 +5,7 @@
  	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
  	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
  	mv build/application.exe build/wubi.exe
-+	cp build/wubi.exe build/dibab.exe
++	cp build/wubi.exe build/ydfs.exe
  
  wubizip: wubi-pre-build
  	PYTHONPATH=src tools/pywine src/pypack/pypack --verbose --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
@@ -179,24 +179,24 @@
 +min_disk_space_mb=1000
 +min_memory_mb=128
 +support=http://support.linuxconsole.org
-+installation_dir=dibab
-+[Dibab-i386]
++installation_dir=ydfs
++[Ydfs-i386]
 +min_disk_space_mb=100
 +arch=i386
-+name=Dibab
-+packages=dibab-standard
-+metalink=http://jukebox.linuxconsole.org/dibab/wubi/dibab-i386.metalink
-+metalink2=http://jukebox.linuxconsole.org/dibab/wubi/dibab-i386.metalink
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
 +
-+[Dibab-amd64]
++[Ydfs-amd64]
 +min_disk_space_mb=100
 +arch=amd64
-+name=Dibab
-+packages=dibab-standard
-+metalink=http://jukebox.linuxconsole.org/dibab/wubi/dibab-amd64.metalink
-+metalink2=http://jukebox.linuxconsole.org/dibab/wubi/dibab-amd64.metalink
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
 +website=http://www.linuxconsole.org
 +ordering=1
  
@@ -209,8 +209,8 @@
  
 -if search -s -f -n /ubuntu/disks/root.disk; then
 -    if loopback loop0 /ubuntu/disks/root.disk; then
-+if search -s -f -n /dibab/disks/root.disk; then
-+    if loopback loop0 /dibab/disks/root.disk; then
++if search -s -f -n /ydfs/disks/root.disk; then
++    if loopback loop0 /ydfs/disks/root.disk; then
          set root=(loop0)
          if [ -e /boot/grub/grub.cfg ]; then
              if configfile /boot/grub/grub.cfg; then
@@ -220,8 +220,8 @@
          else
 -            if search -s -f -n /ubuntu/install/wubildr-disk.cfg; then
 -                if configfile /ubuntu/install/wubildr-disk.cfg; then
-+            if search -s -f -n /dibab/install/wubildr-disk.cfg; then
-+                if configfile /dibab/install/wubildr-disk.cfg; then
++            if search -s -f -n /ydfs/install/wubildr-disk.cfg; then
++                if configfile /ydfs/install/wubildr-disk.cfg; then
                      set show_panic_message=false
                  fi
              fi
@@ -231,8 +231,8 @@
  if [ ${show_panic_message} = true ]; then
 -    if search -s -f -n /ubuntu/install/boot/grub/grub.cfg; then
 -        if configfile /ubuntu/install/boot/grub/grub.cfg; then
-+    if search -s -f -n /dibab/install/boot/grub/grub.cfg; then
-+        if configfile /dibab/install/boot/grub/grub.cfg; then
++    if search -s -f -n /ydfs/install/boot/grub/grub.cfg; then
++        if configfile /ydfs/install/boot/grub/grub.cfg; then
              set show_panic_message=false
          fi
      else
@@ -254,7 +254,7 @@
              rootflags = rootflags,
 -            title1 = "Completing the Ubuntu installation.",
 -            title2 = "For more installation boot options, press `ESC' now...",
-+            title1 = " Dibab is booting ...",
++            title1 = " Ydfs is booting ...",
 +						title2 = " Press ESC very quickly for boot options ",
              normal_mode_title = "Normal mode",
              safe_graphic_mode_title = "Safe graphic mode",
@@ -283,7 +283,7 @@
               'Z:\\tmp\\uninstall-wubi.exe'),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'InstallationDir', '/tmp'),
 -            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ubuntu'),
-+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Dibab'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ydfs'),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayIcon',
               os.path.join(os.getcwd(), 'build\\wubi\\data\\images\\Wubi.ico')),
              ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayVersion',
@@ -293,7 +293,7 @@
 -             'http://www.ubuntu.com'),
 -            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink',
 -             'http://www.ubuntu.com/support')]
-+            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Dibab'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Ydfs'),
 +            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout', 'http://www.linuxconsole.org'),
 +            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink', 'http://support.linuxconsole.org')]
          # Python2.3 doesn't have addCleanup (2.7), so we need to manage
@@ -308,7 +308,7 @@
  
  #Compiled modules
 -pycrypto_url="http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=pycrypto-2.0.1.win32-py2.3.zip"
-+pycrypto_url="http://jukebox.linuxconsole.org/dibab/wubi/pycrypto-2.0.1.win32-py2.3.zip"
++pycrypto_url="http://jukebox.linuxconsole.org/ydfs/wubi/pycrypto-2.0.1.win32-py2.3.zip"
  pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
  
  #2.3 modules (not needed in python 2.4+)

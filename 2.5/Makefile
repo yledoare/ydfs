@@ -39,14 +39,14 @@ export GNU=gnueabi
 export TOOLCHAIN_PREFIX=arm
 export VENDOR=unknown
   ifeq ($(TOOLCHAIN),FriendlyARM)
-    GCCPATH = ${HOME}/dibab/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/bin/
+    GCCPATH = ${HOME}/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/bin/
     export PATH := ${PATH}:${GCCPATH}
     export CROSS_PREFIX=arm-linux
     export CROSS_COMPILE=arm-linux-
     export CC=${CROSS_COMPILE}gcc -march=armv4t -mtune=arm920t
   endif
   ifeq ($(TOOLCHAIN),buildroot)
-    GCCPATH = ${HOME}/dibab/buildroot-2011.08/output/host/usr/bin/
+    GCCPATH = ${HOME}/ydfs/buildroot-2011.08/output/host/usr/bin/
     export PATH := ${PATH}:${GCCPATH}
     export PATH
     export CROSS_PREFIX=arm-linux
@@ -54,7 +54,7 @@ export VENDOR=unknown
     export CC=${CROSS_COMPILE}gcc -march=armv4t -mtune=arm920t
   endif
   ifeq ($(TOOLCHAIN),crosstool-ng)
-    GCCPATH = ${HOME}/dibab/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
+    GCCPATH = ${HOME}/ydfs/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
     export PATH := ${PATH}:${GCCPATH}
     export PATH
     export CROSS_PREFIX=arm-${VENDOR}-linux-${GNU}
@@ -63,15 +63,15 @@ export VENDOR=unknown
   endif
   ifeq ($(SUBARCH),$(filter $(SUBARCH),raspi raspi-qemu))
   ifeq ($(TOOLCHAIN),crosstool-ng)
-     GCCPATH = ${HOME}/dibab/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
+     GCCPATH = ${HOME}/ydfs/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
      export CROSS_COMPILE=${TOOLCHAIN_PREFIX}-${VENDOR}-linux-${GNU}-
      export CROSS_PREFIX=${TOOLCHAIN_PREFIX}-${VENDOR}-linux-${GNU}
   else
      # export VENDOR=bcm2708
-     # GCCPATH = ${HOME}/dibab/tools-master/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/
+     # GCCPATH = ${HOME}/ydfs/tools-master/arm-bcm2708/arm-bcm2708-linux-gnueabi/bin/
      #export VENDOR=tools6h
      #export GNUPATH=gnueabihf
-     #GCCPATH=${HOME}/dibab/x-tools6h/arm-unknown-linux-gnueabihf/bin
+     #GCCPATH=${HOME}/ydfs/x-tools6h/arm-unknown-linux-gnueabihf/bin
      #export CROSS_COMPILE=${ARCH}-unknown-linux-${GNU}-
      #export CROSS_PREFIX=${ARCH}-unknown-linux-${GNU}
      #export CC=${CROSS_COMPILE}gcc  -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
@@ -79,7 +79,7 @@ export VENDOR=unknown
      TOOLCHAIN_PREFIX=gcc
      export GNU=gnueabihf
      export GNUPATH=gnueabihf-raspbian
-     GCCPATH=${HOME}/dibab/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/
+     GCCPATH=${HOME}/ydfs/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/
      export CROSS_COMPILE=${ARCH}-linux-${GNU}-
      export CROSS_PREFIX=${ARCH}-linux-${GNU}
      export CC=${CROSS_COMPILE}gcc -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
@@ -93,9 +93,9 @@ else
 KNAME=bzImage
 export LIST=${ARCH}
   ifeq ($(TOOLCHAIN),crosstool-ng)
-    export CROSS_PREFIX=${CPU}-dibab-linux-gnu
+    export CROSS_PREFIX=${CPU}-ydfs-linux-gnu
     export CROSS_COMPILE=${CROSS_PREFIX}-
-    GCCPATH = ${HOME}/dibab/x-tools/${CROSS_PREFIX}/bin/
+    GCCPATH = ${HOME}/ydfs/x-tools/${CROSS_PREFIX}/bin/
     export PATH := ${PATH}:${GCCPATH}
     export CC=${CROSS_COMPILE}gcc 
     export MENUCONFIG
@@ -105,28 +105,28 @@ INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
 all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers opkg fixopkg iso
-${HOME}/dibab/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
+${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
-busybox-toolchain: ${HOME}/dibab/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
+busybox-toolchain: ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
 
-busybox: busybox-toolchain ${HOME}/dibab/build/busybox-${ARCH}-${BUSYBOX}/_install
+busybox: busybox-toolchain ${HOME}/ydfs/build/busybox-${ARCH}-${BUSYBOX}/_install
 
-${HOME}/dibab/build/busybox-${ARCH}-${BUSYBOX}/_install:
+${HOME}/ydfs/build/busybox-${ARCH}-${BUSYBOX}/_install:
 	./scripts/make_busybox ${BUSYBOX}
 
-${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config:
+${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config:
 	./scripts/make_linux
 
-${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/make_linux # ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config config/kernel-${ARCH}/config
-	echo "build " ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}
+${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/make_linux # ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config config/kernel-${ARCH}/config
+	echo "build " ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}
 	./scripts/make_linux
 
-linux: ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
+linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
 
-${HOME}/dibab/build-${ARCH}/${INITRAMFS}: config.ini init-${ARCH}/dibab/detect/media init-${ARCH}/dibab/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
+${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
 	./scripts/make_initramfs
 
-initramfs: ${HOME}/dibab/build-${ARCH}/${INITRAMFS}
+initramfs: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}
 
 crosstool-ng-x86_64:
 	echo Bug with recursion
@@ -139,10 +139,10 @@ iso: ${ISOPATH}
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/dibab/build-${ARCH}/${INITRAMFS} ${LCMBUILD} config.ini #  ${LCMBUILD}/${ARCH}.squashfs
+${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD} config.ini #  ${LCMBUILD}/${ARCH}.squashfs
 	./scripts/make_iso
 synciso: initramfs iso
-	scp /home/linuxconsole25/dibab/iso/linuxconsole.iso yann@192.168.1.47:.
+	scp /home/linuxconsole25/ydfs/iso/linuxconsole.iso yann@192.168.1.47:.
 
 config.ini:
 	./scripts/make_config_ini
@@ -176,21 +176,21 @@ endif
 ${HOME}/${ARCH}/buildenv: packages/list-${LIST}
 	./scripts/make_packages ${LIST}
 modules: ${LCMBUILD}/${ARCH}.squashfs 
-drivers: ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${ARCH}.squashfs
-firmware: ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${ARCH}.squashfs
+drivers: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${ARCH}.squashfs
+firmware: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${ARCH}.squashfs
 
-${LCMBUILD}/firmware-${ARCH}.squashfs: ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config
+${LCMBUILD}/firmware-${ARCH}.squashfs: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config
 	./scripts/make_firmwares
-${LCMBUILD}/drivers-${ARCH}.squashfs: ${HOME}/dibab/build/linux-${ARCH}-${KERNEL3}/.config
+${LCMBUILD}/drivers-${ARCH}.squashfs: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config
 	./scripts/make_drivers
 ${LCMBUILD}/${ARCH}.squashfs: packages/list-${LIST} scripts/make_modules
 	./scripts/make_modules
 
 check:
 	./scripts/check_url
-archives: ${HOME}/dibab/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2
+archives: ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2
 
-${HOME}/dibab/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
+${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 video: packages/list-video
 	./scripts/make_packages video
@@ -216,7 +216,7 @@ ${LCMBUILD}new-${ARCH}.squashfs : packages/list-new
 #	./scripts/make_module new
 
 clean-linuxconsole:
-	# rm ${HOME}/dibab/build/modules/linuxconsole-${ARCH}.squashfs
+	# rm ${HOME}/ydfs/build/modules/linuxconsole-${ARCH}.squashfs
 	rm -fR ${HOME}/linuxconsole/
 	FORCEBUILD=OK make linuxconsole
 linuxconsole: ${LCMBUILD}linuxconsole-${ARCH}.squashfs
@@ -237,8 +237,8 @@ fixopkg:
 #	./scripts/make_custom_opkg spring
 #	./scripts/make_chrome
 	./scripts/make_opkg_filelist opkg
-opkg: ${HOME}/dibab/opkg/Packages
-${HOME}/dibab/opkg/Packages : packages/list-opkg-${DISTRONAME}
+opkg: ${HOME}/ydfs/opkg/Packages
+${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
@@ -257,7 +257,7 @@ ${LCMBUILD}lanpower-${ARCH}.squashfs : packages/list-lanpower
 
 clean-lanpower:
   #pour mettre à zéro la compil lanpower
-	# rm ${HOME}/dibab/build/modules/lanpower-${ARCH}.squashfs
+	# rm ${HOME}/ydfs/build/modules/lanpower-${ARCH}.squashfs
 	rm -fR ${HOME}/lanpower/
 	FORCEBUILD=OK make lanpower
    

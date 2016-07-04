@@ -2,7 +2,7 @@
   then
     if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
 	then
-	./configure --with-linux=$HOME/dibab/src/linux-$KERNEL3/ \
+	./configure --with-linux=$HOME/ydfs/src/linux-$KERNEL3/ \
         --with-qt-dir=$HOME/$ARCH --disable-docs \
         --enable-vde \
         --disable-kmods  --disable-java --disable-hardening --disable-devmapper || exit $?
@@ -14,8 +14,8 @@
 	for DRIVER in vboxdrv vboxnetadp  vboxnetflt  vboxpci
 	do
 	  cd $DRIVER	
-	  # make KERN_DIR="$HOME/dibab/src/linux-$KERNEL3/" || exit $?
-	  make KERN_DIR="$HOME/dibab/build/linux-x86_64-$KERNEL3/" || exit $?
+	  # make KERN_DIR="$HOME/ydfs/src/linux-$KERNEL3/" || exit $?
+	  make KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
 	  cd ..
 	done
 	cd ..
@@ -95,5 +95,5 @@
     # install module reloading shortcut
     install -Dm755 vboxreload "$pkgdir//bin"
 
-    dibab-install-package
+    ydfs-install-package
   fi

@@ -14,7 +14,7 @@ wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?
 pkgver=$(grep pkgver= lib32-flashplugin | cut -d'=' -f2)
 rm lib32-flashplugin
 URL=http://fpdownload.macromedia.com/get/flashplayer/pdc/$pkgver/install_flash_player_11_linux.$ARCH.tar.gz
-DEST=$PLUGPATH /dibab/start/download $URL 
+DEST=$PLUGPATH /ydfs/start/download $URL 
 tar xzvf $(basename $URL)
 rm $(basename $URL)
 cd $HOME

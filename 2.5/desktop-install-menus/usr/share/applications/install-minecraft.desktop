@@ -2,7 +2,7 @@
 [Desktop Entry]
 Version=1.0
 Name=minecraft
-Exec=/dibab/add/software minecraft
+Exec=/ydfs/add/software minecraft
 Terminal=false
 Icon=minecraft
 Type=Application

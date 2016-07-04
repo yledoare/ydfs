@@ -1,5 +1,5 @@
-mv /dibab/add/software /
-echo 'cd $HOME' > /dibab/add/software
-chmod +x /dibab/add/software
-cat /software >> /dibab/add/software
+mv /ydfs/add/software /
+echo 'cd $HOME' > /ydfs/add/software
+chmod +x /ydfs/add/software
+cat /software >> /ydfs/add/software
 rm /software

@@ -1,4 +1,4 @@
-pkgdir=$HOME/dibab/packages-$ARCH/catalyst13
+pkgdir=$HOME/ydfs/packages-$ARCH/catalyst13
 pkgname=catalyst13
 pkgver=13.1
 pkgrel=26
@@ -36,9 +36,9 @@ fi
       cp ${srcdir}/ati-catalyst-13/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a .
       cp 2.6.x/Makefile .
       CFLAGS_MODULE="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions"
-#	make -C /home/dibab-amd64/dibab/build/linux-x86_64-3.14.8 SUBDIRS="`pwd`" modules
+#	make -C /home/ydfs-amd64/ydfs/build/linux-x86_64-3.14.8 SUBDIRS="`pwd`" modules
 #     exit 0
- make -C $HOME/dibab/build/linux-x86_64-${_kernver}/ $HOME/dibab/build/linux-x86_64-${_kernver} SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+ make -C $HOME/ydfs/build/linux-x86_64-${_kernver}/ $HOME/ydfs/build/linux-x86_64-${_kernver} SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
       MODFLAGS="$CFLAGS_MODULE" \
       CFLAGS_MODULE="$CFLAGS_MODULE" \
       PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules V=1

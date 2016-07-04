@@ -7,17 +7,17 @@ cat /proc/cmdline | grep locale=it >/dev/null && lang="italian"
 cat /proc/cmdline | grep locale=de >/dev/null && lang="german"
 cat /proc/cmdline | grep locale=pt >/dev/null && lang="portuguese"
 
-if [ ! -e $HOME/.config/dibab/lang ] || [ "$1" = "reconfigure" ]
+if [ ! -e $HOME/.config/ydfs/lang ] || [ "$1" = "reconfigure" ]
 then
   if [ "$lang" = "" ] || [ "$1" = "reconfigure" ]
   then
     ans=$(zenity  --height 350 --list --hide-header  --text "Choose lang" --radiolist  --column "Choice" --column "Lang" TRUE English FALSE French FALSE Spanish FALSE Italian FALSE German FALSE Portuguese FALSE Polska FALSE Czech FALSE Breton FALSE Quebec FALSE Russian FALSE Chinese)
     lang=$(echo $ans| tr '[:upper:]' '[:lower:]')
   fi
-  install -d $HOME/.config/dibab
-  echo lang=$lang > $HOME/.config/dibab/lang
+  install -d $HOME/.config/ydfs
+  echo lang=$lang > $HOME/.config/ydfs/lang
 else
-. $HOME/.config/dibab/lang
+. $HOME/.config/ydfs/lang
 fi
 
 

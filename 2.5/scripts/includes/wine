@@ -7,15 +7,15 @@ then
 
 	echo "Run scripts from $WINEBUILD"
 
-	mkdir $HOME/dibab/build-wine32
-	cd $HOME/dibab/build-wine32
+	mkdir $HOME/ydfs/build-wine32
+	cd $HOME/ydfs/build-wine32
 
 	export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig/
 	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
 	export LDFLAGS="-L $HOME/multilib/lib"
 
 	echo "Configure Win32"
-	$HOME/dibab/src/$WINEVER/configure --prefix=$PREFIX --with-x --libdir=$HOME/multilib/lib/ --with-wine64=$HOME/dibab/build-x86_64/$WINEVER || exit 1
+	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --libdir=$HOME/multilib/lib/ --with-wine64=$HOME/ydfs/build-x86_64/$WINEVER || exit 1
 	echo "Make Win32"
 	make || exit 1
 	echo "Make install Win32"

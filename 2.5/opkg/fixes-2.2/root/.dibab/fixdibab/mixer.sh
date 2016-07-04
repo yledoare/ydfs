@@ -9,4 +9,4 @@ else
   alsactl restore
 fi
 
-echo "alsactl store" >> /dibab/start/save-persistant-data
+echo "alsactl store" >> /ydfs/start/save-persistant-data

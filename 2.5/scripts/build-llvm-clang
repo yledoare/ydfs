@@ -12,6 +12,6 @@ cd llvm-$RELEASE.src/tools || exit 1
 
 cd ..
 
-./configure --enable-experimental-targets=R600 --enable-targets=x86 --enable-shared --prefix=$HOME/dibab/llvm-clang
+./configure --enable-experimental-targets=R600 --enable-targets=x86 --enable-shared --prefix=$HOME/ydfs/llvm-clang
 
 make -j3 && make install

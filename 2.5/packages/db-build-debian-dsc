@@ -4,7 +4,7 @@ echo "into $0"
 if [ "$1" != "" ]
 then
 FILE=$1
-install -d $HOME/dibab/src && cd $HOME/dibab/src
+install -d $HOME/ydfs/src && cd $HOME/ydfs/src
 if [ -e "`basename $1`" ] 
 then
   echo "$1 exists" # && exit 0
@@ -29,8 +29,8 @@ else
 fi
 PACKAGE=`echo $DSC_NAME | cut -d'_' -f1`
 URL="$DEB_REPO/$SNAME/$PACKAGE/"
-install -d ~/dibab/src
-cd ~/dibab/src
+install -d ~/ydfs/src
+cd ~/ydfs/src
 
 if [ ! -e $ORIG ] 
 then

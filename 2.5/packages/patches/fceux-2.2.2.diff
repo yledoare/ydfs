@@ -1,4 +1,4 @@
-diff -ur /home/dibab-32/dibab/src/fceux-2.2.2.orig/SConstruct /home/dibab-32/dibab/src/fceux-2.2.2/SConstruct
+diff -ur /home/ydfs-32/ydfs/src/fceux-2.2.2.orig/SConstruct /home/ydfs-32/ydfs/src/fceux-2.2.2/SConstruct
 --- fceux-2.2.2.orig/SConstruct	2013-09-23 21:49:16.000000000 +0200
 +++ fceux-2.2.2/SConstruct	2013-09-24 17:41:47.585084336 +0200
 @@ -33,7 +33,9 @@

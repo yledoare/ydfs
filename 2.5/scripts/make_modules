@@ -7,7 +7,7 @@ GUI_PATH=$HOME/$ARCH
 
 # $HOME/$ARCH/bin/fc-cache
 
-install -d $HOME/dibab/modules/$ARCH
+install -d $HOME/ydfs/modules/$ARCH
 
 DOC_FILES="25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
 # ICONS_FILES="icons/handhelds icons/nuoveXT2  icons/redglass icons/ whiteglass"
@@ -30,29 +30,29 @@ do
 	echo "DEBUG $file 1" >> /tmp/debug
     test "$file" = "./bin/ls" && echo "Skip ./bin/ls" && continue
 	echo "DEBUG $file 2" >> /tmp/debug
-    test -f "$file" && test ! -e `dirname $HOME/dibab/modules/$MOD/"$file"` && install -d `dirname $HOME/dibab/modules/$MOD/"$file"` 
+    test -f "$file" && test ! -e `dirname $HOME/ydfs/modules/$MOD/"$file"` && install -d `dirname $HOME/ydfs/modules/$MOD/"$file"` 
 	echo "DEBUG $file 3" >> /tmp/debug
-	  test $HOME/$ARCH/"$file" -nt $HOME/dibab/modules/$MOD/"$file" && echo "Update $HOME/dibab/modules/$MOD/$file" && cp $HOME/$ARCH/"$file" $HOME/dibab/modules/$MOD/"$file" && continue
+	  test $HOME/$ARCH/"$file" -nt $HOME/ydfs/modules/$MOD/"$file" && echo "Update $HOME/ydfs/modules/$MOD/$file" && cp $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" && continue
 	echo "DEBUG $file 4" >> /tmp/debug
-    test -e $HOME/dibab/modules/$MOD/"$file" && continue
+    test -e $HOME/ydfs/modules/$MOD/"$file" && continue
 	echo "DEBUG $file 5" >> /tmp/debug
     echo -n $(basename "$file")
 	echo "DEBUG $file 6" >> /tmp/debug
     echo -n " "
 	echo "DEBUG $file 7" >> /tmp/debug
-    test -d "$file" && test ! -e $HOME/dibab/modules/$MOD/"$file" && install -d $HOME/dibab/modules/$MOD/"$file" && continue
+    test -d "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && install -d $HOME/ydfs/modules/$MOD/"$file" && continue
 	echo "DEBUG $file 8" >> /tmp/debug
-    test -f "$file" && test ! -e $HOME/dibab/modules/$MOD/"$file" && cp -a $HOME/$ARCH/"$file" $HOME/dibab/modules/$MOD/"$file" 
+    test -f "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && cp -a $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" 
 	echo "DEBUG $file 9" >> /tmp/debug
     echo $file|grep 'grub/i386-pc' >/dev/null && continue
     echo $file|grep 'mysql-test' >/dev/null && continue
     echo $file|grep 'sql-bench' >/dev/null && continue
     echo $file|grep 'share/doc' >/dev/null && continue
     echo $file|grep 'share/icons' >/dev/null && continue
-    [ "$MKSQUASHFS_OPT" = "" ] && test -f $HOME/dibab/modules/$MOD/$file && strip $HOME/dibab/modules/$MOD/$file
- 	  test -f $HOME/dibab/modules/$MOD/"$file" && continue
- 	  test -L $HOME/dibab/modules/$MOD/"$file" && continue
-    echo "What is wrong with $HOME/dibab/modules/$MOD/$file ?"
+    [ "$MKSQUASHFS_OPT" = "" ] && test -f $HOME/ydfs/modules/$MOD/$file && strip $HOME/ydfs/modules/$MOD/$file
+ 	  test -f $HOME/ydfs/modules/$MOD/"$file" && continue
+ 	  test -L $HOME/ydfs/modules/$MOD/"$file" && continue
+    echo "What is wrong with $HOME/ydfs/modules/$MOD/$file ?"
     break
     exit 5
   done
@@ -63,9 +63,9 @@ done
 
 cd $GUI_PATH
 
-install -d $HOME/dibab/modules
-[ ! -e ../dibab/modules/gui-list ] && find > $HOME/dibab/modules/gui-list
-[ ! -e ../dibab/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/dibab/modules/gui-list-dev
+install -d $HOME/ydfs/modules
+[ ! -e ../ydfs/modules/gui-list ] && find > $HOME/ydfs/modules/gui-list
+[ ! -e ../ydfs/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/ydfs/modules/gui-list-dev
 
 SKIP="find . ! -name '*.la' -a ! -name '*.a' ! -name '*.h' ! -name '*.c'"
 for file in oxygen/256x256 oxygen/128x128 var/cache/fontconfig share/help share/gir-1.0 sql-bench mysql-test smbtorture _embedded $SAMBA_SKIP_FILES $MYSQL_SKIP_FILES src.zip $ICONS_FILES $DOC_FILES $DEV_FILES lib/pkgconfig include $LOCALE_FILES bin/mount bin/umount bin/df
@@ -73,14 +73,14 @@ do
   SKIP="$SKIP | grep -v '$file'" 
 done
 
-echo $SKIP > $HOME/dibab/modules/run-find && sh $HOME/dibab/modules/run-find > $HOME/dibab/modules/gui-list-all
-LIST=$HOME/dibab/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module
+echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HOME/ydfs/modules/gui-list-all
+LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module
 LDLINUX=ld-linux.so.2
 test -e /lib64/ld-linux-x86-64.so.2 && LDLINUX=ld-linux-x86-64.so.2
 LIBLLVM=3.5
-[ -e $HOME/dibab/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
-[ -e $HOME/dibab/llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
-[ -e $HOME/dibab/llvm-clang/lib/libLLVM-3.0.so ] && LIBLLVM=3.0
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.0.so ] && LIBLLVM=3.0
 LIBBOOST=55
 LIBICU=52
 
@@ -92,52 +92,52 @@ GLIBC_BIN="ldd"
 
 if [ "$TOOLCHAIN" = "crosstool-ng" ]
 then
-  cp -a $HOME/dibab/x-tools/$CROSS_PREFIX/$CROSS_PREFIX/sysroot/lib/* $HOME/dibab/modules/$ARCH/lib
+  cp -a $HOME/ydfs/x-tools/$CROSS_PREFIX/$CROSS_PREFIX/sysroot/lib/* $HOME/ydfs/modules/$ARCH/lib
 else
   for file in $GLIBC_BIN
   do
-	  install -d $HOME/dibab/modules/$ARCH/bin
-	  cp /usr/bin/$file $HOME/dibab/modules/$ARCH/bin || exit $?
+	  install -d $HOME/ydfs/modules/$ARCH/bin
+	  cp /usr/bin/$file $HOME/ydfs/modules/$ARCH/bin || exit $?
   done
   for file in $GLIBC_LIBS
   do
-    for directory in /usr/lib/gcc/x86_64-linux-gnu/4.9/ /usr/lib/llvm-3.5/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/dibab/llvm-clang/lib/ /lib/i386-linux-gnu/
+    for directory in /usr/lib/gcc/x86_64-linux-gnu/4.9/ /usr/lib/llvm-3.5/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/
     do
-	[ -e $directory/$file ] && cp $directory/$file $HOME/dibab/modules/$ARCH/lib
+	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
     done
-    [ ! -e $HOME/dibab/modules/$ARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
+    [ ! -e $HOME/ydfs/modules/$ARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
   done
 fi
 
-cd $HOME/dibab/modules/$ARCH/share/doc
-ls $HOME/dibab/modules/$ARCH/share/doc | while read file
+cd $HOME/ydfs/modules/$ARCH/share/doc
+ls $HOME/ydfs/modules/$ARCH/share/doc | while read file
 do
   test "$file" = "cups" && continue
   echo "Delete $file"
-  rm -fR $HOME/dibab/modules/$ARCH/share/doc/$file
+  rm -fR $HOME/ydfs/modules/$ARCH/share/doc/$file
 done
  
-[ "$ARCH" = "x86" ] && [ -e /usr/lib/i386-linux-gnu/gconv ] && install -d $HOME/dibab/modules/$ARCH/lib/i386-linux-gnu && cp -fR /usr/lib/i386-linux-gnu/gconv $HOME/dibab/modules/$ARCH/lib/i386-linux-gnu
-[ "$ARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME/dibab/modules/$ARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME/dibab/modules/$ARCH/lib/x86_64-linux-gnu
-[ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME/dibab/modules/$ARCH/lib/
-install -d $HOME/dibab/modules/$ARCH/share/locale 
-cp -fR $HOME/$ARCH/share/locale/br $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/fr $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/es $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/it $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/de $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/pt $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/cs $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/pl $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/zh_CN $HOME/dibab/modules/$ARCH/share/locale
-cp -fR $HOME/$ARCH/share/locale/ru $HOME/dibab/modules/$ARCH/share/locale
+[ "$ARCH" = "x86" ] && [ -e /usr/lib/i386-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu && cp -fR /usr/lib/i386-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu
+[ "$ARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu
+[ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME/ydfs/modules/$ARCH/lib/
+install -d $HOME/ydfs/modules/$ARCH/share/locale 
+cp -fR $HOME/$ARCH/share/locale/br $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/fr $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/es $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/it $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/de $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/pt $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/cs $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/pl $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/zh_CN $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/ru $HOME/ydfs/modules/$ARCH/share/locale
 # Enable wanted locales like es_ES.UTF-8 with 'dpkg-reconfigure locales' on debian
-install -d $HOME/dibab/modules/$ARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME/dibab/modules/$ARCH/lib/locale
-install -d $HOME/dibab/modules/$ARCH/include/python2.7 && cp $HOME/$ARCH/include/python2.7/pyconfig.h $HOME/dibab/modules/$ARCH/include/python2.7
-ln -sf libcurl.so.4 $HOME/dibab/modules/$ARCH/lib/libcurl-gnutls.so.4
-ln -sf $HOME/$ARCH/bin/gpg2 $HOME/dibab/modules/$ARCH/bin/gpg
-ln -sf $HOME/$ARCH/bin/gpgv $HOME/dibab/modules/$ARCH/bin/gpgv
-cp -a /etc/ssl/ $HOME/dibab/modules/$ARCH/etc
+install -d $HOME/ydfs/modules/$ARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME/ydfs/modules/$ARCH/lib/locale
+install -d $HOME/ydfs/modules/$ARCH/include/python2.7 && cp $HOME/$ARCH/include/python2.7/pyconfig.h $HOME/ydfs/modules/$ARCH/include/python2.7
+ln -sf libcurl.so.4 $HOME/ydfs/modules/$ARCH/lib/libcurl-gnutls.so.4
+ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
+ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
+cp -a /etc/ssl/ $HOME/ydfs/modules/$ARCH/etc
 if [ "$ARCH" = "x86_64" ]
 then
 export LD_LIBRARY_PATH=$HOME/x86_64/lib
@@ -146,8 +146,8 @@ export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
 install -d $LCMBUILD
 # rm $LCMBUILD/devtools-$ARCH.squashfs
-MKSQUASHFS="$HOME/dibab/modules/$ARCH/bin/mksquashfs "
+MKSQUASHFS="$HOME/ydfs/modules/$ARCH/bin/mksquashfs "
 MKSQUASHFS="$HOME/$ARCH/bin/mksquashfs "
 [ "$ARCH" = "arm" ] && MKSQUASHFS=mksquashfs
 rm $LCMBUILD/$ARCH.squashfs
-$MKSQUASHFS $HOME/dibab/modules/$ARCH $LCMBUILD/$ARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE
+$MKSQUASHFS $HOME/ydfs/modules/$ARCH $LCMBUILD/$ARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE

@@ -13,7 +13,7 @@ fi
 
 if [ ! -e /opt/google/chrome/chrome ]
 then
-  DEST=$HOME /dibab/start/download  $URL
+  DEST=$HOME /ydfs/start/download  $URL
   dpkg -x $HOME/`basename $URL` /
   rm $HOME/`basename $URL`
   rm /usr/share/applications/google-chrome.desktop

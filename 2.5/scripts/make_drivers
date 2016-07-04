@@ -1,5 +1,5 @@
 . ./config.ini
-[ ! -e $HOME/dibab/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/dibab/modules/$ARCH/bin/mksquashfs" && exit 0
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 rm $LCMBUILD/drivers-$ARCH.squashfs
 if [ "$ARCH" = "x86_64" ]
@@ -8,5 +8,5 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-$HOME/dibab/modules/$ARCH/bin/mksquashfs $HOME/dibab/kernel-$ARCH/modules/$KERNEL3/lib/modules $LCMBUILD/drivers-$ARCH.squashfs
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules $LCMBUILD/drivers-$ARCH.squashfs
 echo
