@@ -282,6 +282,9 @@ else
     exit 0
   fi
 
+  # inetutils
+  [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
+
   # Fix kimsufi bug
   echo "Run /configure --prefix=$PREFIX" && sleep 5
   [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
