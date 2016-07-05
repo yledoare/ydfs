@@ -286,7 +286,7 @@ else
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
 
   # Fix kimsufi bug
-  echo "Run /configure --prefix=$PREFIX" && sleep 5
+  [ -e src/mp4atom.cpp ] && echo "Run /configure --prefix=$PREFIX" && sleep 5
   [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
   [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
   # [ -e src/mp4atom.cpp ] && sed -i "s/-O0/-O2/g" GNUmakefile && make
