@@ -557,6 +557,7 @@ fi
 
     if [ -e pm_linux/pmlinux.c ]
     then
+	cp $HOME/$ARCH/bin/../jre/lib/amd64/jli/libjli.so $HOME/$ARCH/lib
 	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
 	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
 	install -d pm_java/Release
