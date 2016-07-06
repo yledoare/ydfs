@@ -233,4 +233,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep libdv-1 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep x264 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep gst-plugins && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	fi
