@@ -286,11 +286,11 @@ else
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
 
   # Fix kimsufi bug
-  [ -e src/mp4atom.cpp ] && echo "Run /configure --prefix=$PREFIX" && sleep 5
-  [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
-  [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
-  [ -e src/mp4atom.cpp ] && sed -i "s/-O0/-O2/g" GNUmakefile && make
-  [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && echo "Run /configure --prefix=$PREFIX" && sleep 5
+  # [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O0/-O2/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
   # [ -e src/mp4atom.cpp ] && make
 
   [ -e source/icudefs.mk.in ] && cd source
@@ -558,6 +558,7 @@ fi
     if [ -e pm_linux/pmlinux.c ]
     then
 	cp $HOME/$ARCH/bin/../jre/lib/amd64/jli/libjli.so $HOME/$ARCH/lib
+	cp $HOME/$ARCH/bin/../jre/lib/i386/jli/libjli.so $HOME/$ARCH/lib
 	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
 	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
 	install -d pm_java/Release
