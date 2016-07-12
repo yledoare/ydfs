@@ -1,5 +1,7 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
 # apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
+
+
 export PYTHON=/usr/bin/python
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
 export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig
@@ -7,10 +9,15 @@ export LD_LIBRARY_PATH=$HOME/multilib/lib:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
 export CPPFLAGS="-I$HOME/multilib/include"
+#export CFLAGS="-I/usr/src/linux-headers-3.16.0-4-common/include/"
 export LDFLAGS="-L$HOME/multilib/lib -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
 
 install -d $HOME/multilib
 install -d $HOME/$ARCH/lib32 || exit 1
+
+install -d $HOME/multilib/include
+#FIXME !
+ln -s /usr/src/linux-headers-3.16.0-4-common/include/uapi/ $HOME/multilib/include/
 
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
@@ -52,6 +59,7 @@ libxshmfence-1  pcre libffi dbus openssl-1 qt-everywhere-opensource-src-4
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
+
   [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
