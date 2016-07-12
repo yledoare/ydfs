@@ -632,12 +632,12 @@ http://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 http://freefr.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.20/libusb-1.0.20.tar.bz2 
-http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz
+http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86#
 http://mirrors.ibiblio.org/wine/source/1.9/wine-1.9.7.tar.bz2 #SKIP-x86#
 https://github.com/libfuse/libfuse/archive/fuse_2_9_5.tar.gz
 git://github.com/relan/exfat
 http://get.videolan.org/vlc/2.2.2/vlc-2.2.2.tar.xz
-archlinux:strace
+archlinux:strace #SKIP-x86#
 archlinux:mesa-demos
 http://sourceforge.net/projects/pyqt/files/sip/sip-4.18/sip-4.18.tar.gz
 http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt-x11-gpl-4.11.4.tar.gz
