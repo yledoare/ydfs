@@ -566,6 +566,8 @@ fi
 	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
 	echo PORTMIDI
     fi
+ 
+    [ -e glew.pc.in ] && sed -i 's|lib64|lib|' config/Makefile.linux
 
     # Do not build with cmake
 
