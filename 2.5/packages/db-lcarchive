@@ -93,8 +93,7 @@ echo "$FILE" |grep  "EO-1.2" && DIR2="eo" && FORCED=1
 echo "$FILE" |grep  "spring" && DIR2="spring_98.0" && FORCED=1
 echo "$FILE" |grep  "vim-7.4" && DIR2=vim74 && FORCED=1
 echo "$FILE" |grep  "dossizola" && DIR2=dossizola-1.0 && FORCED=1
-echo "$FILE" |grep  "SFML-2.1-sources" && DIR2=SFML-2.1 && FORCED=1
-echo "$FILE" |grep  "SFML-2.2-sources" && DIR2=SFML-2.2 && FORCED=1
+echo "$FILE" |grep  "SFML-2.3.2-sources" && DIR2=SFML-2.3.2 && FORCED=1
 echo "$FILE" |grep  "astromenace-src-1.3.2" && DIR2=AstroMenace && FORCED=1
 echo "$FILE" |grep  "warsow" && DIR2=source/source && FORCED=1 && export LOCALBASE=$HOME/$ARCH
 echo "$FILE" |grep  "usbutils_005" && DIR2=usbutils-005 && FORCED=1
