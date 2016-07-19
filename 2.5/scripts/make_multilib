@@ -17,15 +17,17 @@ install -d $HOME/$ARCH/lib32 || exit 1
 
 install -d $HOME/multilib/include
 #FIXME !
-ln -s /usr/src/linux-headers-3.16.0-4-common/include/uapi/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/uapi/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/linux/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/asm-generic/ $HOME/multilib/include/
 
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
 
 # libFS-1 libdmx- \
 
-for PKG in alsa-lib ncurses readline sqlite zlib-1 libpng libffi glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
-util-linux xproto-7 libXau xcb-proto libxcb xtrans-1 \
+for PKG in util-linux alsa-lib ncurses readline sqlite zlib-1 libpng libffi glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+xproto-7 libXau xcb-proto libxcb xtrans-1 \
 libX11-1 \
 libXext-1 \
 libICE-1 \
@@ -69,6 +71,7 @@ do
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
 	;;
     qt-everywhere-opensource-src-4 )
+	patch -p1 < $HOME_DIBAB/packages/patches/qt-everywhere-opensource-src-build32.diff 
 	# make
 	# From https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/lib32-qt4
   sed -i "/^QMAKE_LINK\s/s|g++|g++ -m32|g" mkspecs/common/g++-base.conf
@@ -82,7 +85,7 @@ do
       -e "/^QMAKE_LINK\s/s|g++|g++ -m32|g" \
       -e "/^QMAKE_LFLAGS\s/s|+=|+= $LDFLAGS|g" \
       -i mkspecs/common/g++.conf
-	./configure -confirm-license -opensource -v -platform linux-g++-32 \
+	ARCH=multilib ./configure -confirm-license -opensource -v -platform linux-g++-32 \
     -prefix $HOME/multilib -system-sqlite \
     -no-phonon \
     -no-phonon-backend \
