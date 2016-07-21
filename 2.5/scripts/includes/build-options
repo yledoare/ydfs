@@ -237,5 +237,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep gst-plugins && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep mpg123 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep babl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep gimp && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep gegl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	fi

@@ -104,7 +104,7 @@ endif
 INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
-all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers opkg fixopkg iso
+all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers $(DISTRONAME) iso opkg fixopkg
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
 busybox-toolchain: ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
