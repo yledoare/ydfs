@@ -495,8 +495,9 @@ http://freefr.dl.sourceforge.net/project/mpg123/mpg123/1.18.0/mpg123-1.18.0.tar.
 http://www.webdav.org/neon/neon-0.30.1.tar.gz
 http://distfiles.audacious-media-player.org/audacious-3.5.1.tar.bz2 
 http://distfiles.audacious-media-player.org/audacious-plugins-3.5.1.tar.bz2 
-http://ftp.gimp.org/pub/babl/0.1/babl-0.1.14.tar.bz2 
-http://ftp.gimp.org/pub/gegl/0.2/gegl-0.2.0.tar.bz2 #Gimp
+http://ftp.gimp.org/pub/babl/0.1/babl-0.1.14.tar.bz2
+#GEGL-0.2-for-Gimp 
+http://ftp.gimp.org/pub/gegl/0.2/gegl-0.2.0.tar.bz2
 http://ftp.gimp.org/pub/gegl/0.3/gegl-0.3.6.tar.bz2 
 http://pkgs.fedoraproject.org/repo/pkgs/community-mysql/mysql-5.6.25.tar.gz/37664399c91021abe070faa700ecd0ed/mysql-5.6.25.tar.gz
 http://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.33.tar.gz 
