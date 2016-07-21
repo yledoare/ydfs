@@ -169,7 +169,7 @@ fi
   export PKGSRC=$ARCHIVE
   echo " $ARCHIVE "
   export MYPREFIX=$DIBAB_PREFIX/$MODULE/
-  echo $ARCHIVE | grep grub && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
+  echo $ARCHIVE | grep grub && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
   echo $ARCHIVE | grep warzone && export CLEARENV="OK"
   echo $ARCHIVE | grep lxpanel && install -d $HOME/ydfs/build-$ARCH/lxpanel/data/ui # FIXME
   if [  -n "`echo $ARCHIVE | grep 'svn://'`" ] 
@@ -310,31 +310,31 @@ then
   mv dejavu-fonts-ttf-2.29 $HOME/$ARCH/share/fonts
 fi
 
-if [ ! -e $HOME/$ARCH/share/fonts/truetype/ukai ]
-then
-  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
-  mkdir ukai
-  cd ukai
-  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
-  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/ukai
-  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/ukai
-  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
-  cd $HOME/$ARCH/etc/fonts/conf.d
-  cp ../conf.avail/*-ttf-arphic-ukai-*.conf . 
-fi
+#if [ ! -e $HOME/$ARCH/share/fonts/truetype/ukai ]
+#then
+#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+#  mkdir ukai
+#  cd ukai
+#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/ukai
+#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/ukai
+#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
+#  cd $HOME/$ARCH/etc/fonts/conf.d
+#  cp ../conf.avail/*-ttf-arphic-ukai-*.conf . 
+#fi
 
-if [ ! -e $HOME/$ARCH/share/fonts/truetype/uming ]
-then
-  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
-  mkdir uming
-  cd uming
-  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
-  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/uming
-  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/uming
-  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
-  cd $HOME/$ARCH/etc/fonts/conf.d
-  cp ../conf.avail/*-ttf-arphic-uming-*.conf . 
-fi
+#if [ ! -e $HOME/$ARCH/share/fonts/truetype/uming ]
+#then
+#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+#  mkdir uming
+#  cd uming
+#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/uming
+#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/uming
+#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
+#  cd $HOME/$ARCH/etc/fonts/conf.d
+#  cp ../conf.avail/*-ttf-arphic-uming-*.conf . 
+#fi
 
 echo > $HOME/$ARCH/buildenv
 for ENV in LD_LIBRARY_PATH LIB_CUPS PATH CUPS_ETC XDG_DATA_DIRS PYTHONPATH
