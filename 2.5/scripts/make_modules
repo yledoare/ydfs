@@ -76,7 +76,7 @@ done
 echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HOME/ydfs/modules/gui-list-all
 LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module
 LDLINUX=ld-linux.so.2
-test -e /lib64/ld-linux-x86-64.so.2 && LDLINUX=ld-linux-x86-64.so.2
+[ "$ARCH" = "x86_64" ] && LDLINUX=ld-linux-x86-64.so.2
 LIBLLVM=3.5
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
