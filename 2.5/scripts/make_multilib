@@ -125,7 +125,7 @@ do
     util-linux* )
 	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
 	autoreconf
-  	./configure --prefix=$HOME/multilib --without-ncurses --disable-makeinstall-chown || exit $?
+  	./configure --prefix=$HOME/multilib --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
     dbus* )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
