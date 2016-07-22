@@ -24,7 +24,9 @@ echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
         # [ ! -e configure ] && 
         ./autogen.sh # --with-parallelism=2
-	PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" ./configure --with-system-nss --prefix=$PREFIX --with-lang="en-US fr" --with-build-version="for $ARCH"   --with-vendor="Ydfs" --disable-verbose --enable-release-build --without-help --without-krb5 --without-gssapi --disable-gstreamer-0-10 \
+	CONFIGURE_OPTS=""
+        [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --host=i586-linux-gnu"
+	PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" ./configure $CONFIGURE_OPTS --with-system-nss --prefix=$PREFIX  --with-lang="en-US fr" --with-build-version="for $ARCH"   --with-vendor="Ydfs" --disable-verbose --enable-release-build --without-help --without-krb5 --without-gssapi --disable-gstreamer-0-10 \
 	     --with-system-libpng	\
 	     --with-system-glew  \
 	     --with-system-icu --without-java  \
