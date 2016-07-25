@@ -1,1 +1,0 @@
-rmmod snd_pcsp

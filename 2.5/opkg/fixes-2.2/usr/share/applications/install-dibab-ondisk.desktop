@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Install Ydfs on disk
-GenericName=Install Ydfs on disk
-Comment=
-Exec=lxterminal -e /usr/bin/install-ydfs-ondisk
-Icon=hd
-Type=Application
-Categories=System

@@ -1,5 +1,0 @@
-#!/bin/bash
-echo "Fix Ydfs"
-/ydfs/start/fixydfs
-/ydfs/detect/kbd
-echo

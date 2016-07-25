@@ -48,6 +48,9 @@ then
   VBoxSDL -fullscreenresize -vm $NAME
   #VBoxManage unregistervm $NAME -delete 
   VBoxManage closemedium dvd $ISO 
+  #VBoxManage modifyvm $NAME --vrde on
+  #BoxManage startvm $NAME --type headless
+
 fi
 fi # end x86
 
