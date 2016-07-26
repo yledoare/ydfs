@@ -7,4 +7,6 @@
 	rm -fR ${HOME}/ydfs/build/*
 	rm -fR ${HOME}/ydfs/build/modules/*
 	rm -fR ${HOME}/ydfs/packages-${ARCH}/*
+	rm -fR ${HOME}/opkg
+	rm -fR ${HOME}/ydfs/opkg
 	rm -fR ${HOME}/multilib
