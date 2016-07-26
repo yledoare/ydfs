@@ -729,7 +729,6 @@ ac_cv_file__dev_ptc=no' >  config.site
       python setup.py build || exit $?
     fi
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
-		[ -e source/Irrlicht ] && cd source/Irrlicht && make sharedlib && cp libIrrlicht.so.1.7.3 $HOME/$ARCH/lib/libIrrlicht.so.1.7a && touch ../../buildok-$ARCH && exit 0
     if [ -e QupZilla.pro ]
     then
       echo "Building QUPZILLA"
