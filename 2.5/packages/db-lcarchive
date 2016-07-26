@@ -87,8 +87,8 @@ echo "$FILE" |grep 4.0.2 && DIR2=dolphin-4.0.2 && FORCED=1
 echo "$FILE" |grep xbmc-13.1 && DIR2=xbmc-13.1-Gotham && FORCED=1
 echo "$FILE" |grep xonotic && DIR2=Xonotic && FORCED=1
 echo "$FILE" |grep  "supertuxkart-0.8.1-src.tar.bz2" && DIR2=SuperTuxKart-0.8.1 && FORCED=1
-echo "$FILE" |grep  "supertuxkart-0.9" && DIR2=supertuxkart-0.9 && FORCED=1
 echo "$FILE" |grep  "supertuxkart-0.9.1" && DIR2=supertuxkart-0.9.1 && FORCED=1
+echo "$FILE" |grep  "supertuxkart-0.9.2" && DIR2=supertuxkart-0.9.2 && FORCED=1
 echo "$FILE" |grep  "EO-1.2" && DIR2="eo" && FORCED=1
 echo "$FILE" |grep  "spring" && DIR2="spring_98.0" && FORCED=1
 echo "$FILE" |grep  "vim-7.4" && DIR2=vim74 && FORCED=1
