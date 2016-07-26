@@ -15,6 +15,7 @@ if [ -e /ydfs/boot/options/ash  ]; then
 else
 . /ydfs/detect/boot_options
 
+ln -s /ydfs /dibab
 [ -e /ydfs/boot/options/debug02  ] && sh
 
 echo "Detect media"
