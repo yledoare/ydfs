@@ -201,6 +201,7 @@ fi
     [ ! -e $SOURCE_DIR ] && git clone $ARCHIVE
     cd $SOURCE_DIR
     [ ! -n "$REVISION" ] && git reset --hard $REVISION 
+  . $HOME_DIBAB/scripts/includes/build-options
     db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     continue

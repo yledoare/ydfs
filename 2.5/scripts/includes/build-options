@@ -10,6 +10,7 @@
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
+	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
 	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
 	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
