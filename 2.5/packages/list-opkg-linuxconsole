@@ -1,4 +1,5 @@
 #Games
+ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-0.16/freedroidRPG-0.16.1.tar.gz
 http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #Multimedia
 https://github.com/LMMS/lmms/archive/v1.1.3.tar.gz
@@ -7,8 +8,8 @@ https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-0.91.tar.bz
 http://download.gimp.org/pub/gimp/v2.8/gimp-2.8.18.tar.bz2
 http://download.documentfoundation.org/libreoffice/src/4.4.7/libreoffice-4.4.7.2.tar.xz
 #Misc
-#http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
-#archlinux:ncftp
+http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+archlinux:ncftp
 http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
 http://gcompris.net/download/gcompris-15.10.tar.bz2
@@ -17,9 +18,7 @@ http://download.gna.org/hedgewars/hedgewars-src-0.9.22.tar.bz2
 archlinux:frozen-bubble
 http://neverball.org/neverball-1.6.0.tar.gz
 archlinux:armagetronad
-#https://steamcdn-a.akamaihd.net/client/installer/steam.deb
 http://ftp.gnome.org/pub/gnome/sources/aisleriot/3.16/aisleriot-3.16.1.tar.xz
-#ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-0.16/freedroidRPG-0.16rc1.tar.gz
 #http://downloads.sourceforge.net/sourceforge/pokerth/PokerTH-1.1.1-src.tar.bz2
 #archsource:tarotclub
 #Multimedia
@@ -44,7 +43,7 @@ http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-
 #https://github.com/dolphin-emu/dolphin/archive/4.0.2.tar.gz
 #Games
 archlinux:astromenace 
-http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.5/wesnoth-1.12.5.tar.bz2
+http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.6/wesnoth-1.12.6.tar.bz2
 archlinux:torcs
 #https://downloads.teeworlds.com/teeworlds-0.6.3-src.tar.gz
 #Internet
