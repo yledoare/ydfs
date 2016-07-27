@@ -38,7 +38,8 @@
 	echo $ARCHIVE | grep freetuxtv && LC_CONFIGURE_OPTS="--with-gtk=3.0"
 	echo $ARCHIVE | grep armagetronad && LC_CONFIGURE_OPTS="--enable-uninstall=no"
 	echo $ARCHIVE | grep lxdm && LC_CONFIGURE_OPTS="--sysconfdir=$HOME/$ARCH/etc --enable-gtk3"
-	echo $ARCHIVE | grep gcompris && LC_CONFIGURE_OPTS="--enable-sdlmixer"
+	unset LIBS
+	echo $ARCHIVE | grep gcompris && LC_CONFIGURE_OPTS="--enable-sdlmixer" && export LIBS="-lgmodule-2.0"
 	echo $ARCHIVE | grep squeak-vm && LC_CONFIGURE_OPTS="--without-quartz --with-x --enable-mpg-mmx"
 	echo $ARCHIVE | grep inkscape && LC_CONFIGURE_OPTS="--disable-strict-build"
 	echo $ARCHIVE | grep libomxil-bellagio && LC_CONFIGURE_OPTS="-disable-static"
