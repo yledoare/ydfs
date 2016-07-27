@@ -1,5 +1,4 @@
 #Games
-http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #Office
 https://inkscape.global.ssl.fastly.net/media/resources/file/inkscape-0.91.tar.bz2
@@ -11,8 +10,7 @@ http://download.documentfoundation.org/libreoffice/src/4.4.7/libreoffice-4.4.7.2
 #https://github.com/LMMS/lmms/archive/v1.1.3.tar.gz
 http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
-http://gcompris.net/download/gtk/src/gcompris-15.02.tar.bz2
-#http://gcompris.net/download/gcompris-15.10.tar.bz2
+http://gcompris.net/download/gcompris-15.10.tar.bz2
 #Games
 http://download.gna.org/hedgewars/hedgewars-src-0.9.22.tar.bz2
 archlinux:frozen-bubble
