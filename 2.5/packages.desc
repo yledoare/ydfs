@@ -171,3 +171,4 @@ sord;Sord is a lightweight C library for storing RDF data in memory
 sratom;Sratom is a library for serialising LV2 atoms to/from RDF
 lilv;Lilv is a C library to make the use of LV2 plugins as simple as possible for applications
 megaglest;A cross-platform 3-d game
+openarena;A violent, sexy, multiplayer first person shooter based on the ioquake3 engine
