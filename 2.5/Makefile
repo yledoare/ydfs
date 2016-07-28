@@ -163,6 +163,8 @@ test2:
 #	@echo ${KERNEL3} | tr -d '.'
 distclean:
 	./scripts/make_distclean
+clean-opkg:
+	./scripts/make_clean_opkg
 clean:
 	./scripts/make_clean
 ifeq ($(ARCH),x86)
@@ -194,6 +196,8 @@ ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 video: packages/list-video
 	./scripts/make_packages video
+qt5: packages/list-qt5
+	./scripts/make_packages qt5
 qt: packages/list-qt
 	./scripts/make_packages qt
 elementary: packages/list-elementary

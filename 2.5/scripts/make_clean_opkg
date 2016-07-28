@@ -1,0 +1,6 @@
+	rm -fR ${HOME}/ydfs/build-${ARCH}/*
+	rm -fR ${HOME}/ydfs/src/*
+	rm -fR ${HOME}/ydfs/modules/*
+	rm -fR ${HOME}/ydfs/packages-${ARCH}/*
+	rm -fR ${HOME}/opkg
+	rm -fR ${HOME}/ydfs/opkg

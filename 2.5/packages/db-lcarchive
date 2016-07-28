@@ -117,34 +117,10 @@ echo "$FILE" |grep  "pa_stable" && DIR2=portaudio && FORCED=1
 #actions à mener selon le type d'ARCHIVE et le type d'installation
 case "$ARCHIVE" in
   RUN)
-    echo "$FILE"  
-        [ -e $HOME/ydfs/src/$DIR/buildok-$ARCH ] && exit 0
-	# [ -e $HOME/ydfs/src/$DIR/nvidia.ko ] && echo Build && exit 0
-	if [ ! -e $HOME/ydfs/src/$DIR/nvidia.ko ]
-        then
-	cd $HOME/ydfs/src/linux-$KERNEL3/
-	make mrproper
-	cp ../../build/linux-$ARCH-$KERNEL3/.config .
-	make oldconfig && make prepare
-	make init || exit $?
-	fi
-      cd $HOME/ydfs/src/
-      [ ! -e $DIR ] && sh $FILE --extract-only
-      cd $DIR
-      if [ ! -e nvidia.ko ]
-      then
-        cd kernel
-        make SYSSRC="$HOME/ydfs/src/linux-$KERNEL3/" module || exit $?
-        mv nvidia.ko ..
-        cd ..
-      fi
-      rm -fR kernel
-      install -d $HOME/ydfs/packages-$ARCH/$DIR/usr/$DIR
-      cp -fR * $HOME/ydfs/packages-$ARCH/$DIR/usr/$DIR
-      touch buildok-$ARCH
-      cd $HOME/ydfs/packages-$ARCH/$DIR
-      $HOME_DIBAB/scripts/make_opkg ||exit $?
-      exit 0
+    echo "$FILE" |grep -i nvidia && DIR=$DIR $HOME_DIBAB/scripts/includes/nvidia && exit 0
+    echo "$FILE" |grep -i qt-opensource && DIR=$DIR FILE=$FILE $HOME_DIBAB/scripts/includes/qt5 && exit 0
+	echo "How extract $FILE ?"
+      exit 1
     ;;
   BZ)
     bzip2 -d "$FILE"  

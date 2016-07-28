@@ -1,7 +1,7 @@
-wget wget http://download.qt.io/official_releases/qt/5.4/5.4.2/qt-opensource-linux-x86-5.4.2.run
-chmod +x qt-opensource-linux-x86-5.4.2.run
-./qt-opensource-linux-x86-5.4.2.run
-bash scripts/uninstall-package qt-everywhere-opensource-src-4.8.6
+wget wget http://download.qt.io/official_releases/qt/5.6/5.6.1/qt-opensource-linux-x86-5.6.1.run
+chmod +x qt-opensource-linux-x86-5.6.1.run
+./qt-opensource-linux-x86-5.6.1.run
+bash scripts/uninstall-package qt-everywhere-opensource-src-4.8.7
 
 ...
 
