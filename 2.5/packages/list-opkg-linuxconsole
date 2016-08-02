@@ -1,3 +1,5 @@
+#Libs
+#http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.xz
 #Games
 http://download.tuxfamily.org/openarena/rel/088/openarena-0.8.8.zip
 git://github.com/MegaGlest/megaglest-source.git
@@ -13,7 +15,7 @@ http://download.documentfoundation.org/libreoffice/src/4.4.7/libreoffice-4.4.7.2
 archlinux:ncftp
 http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
-http://gcompris.net/download/gcompris-15.10.tar.bz2
+http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 #Games
 http://download.gna.org/hedgewars/hedgewars-src-0.9.22.tar.bz2
 archlinux:frozen-bubble
@@ -56,7 +58,6 @@ archlinuxpatched:tuxpaint
 #Network
 #Printer
 #Libs
-#http://download.qt-project.org/official_releases/qt/5.4/5.4.2/single/qt-everywhere-opensource-src-5.4.2.tar.xz
 #Education
 #http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.13.3/stellarium-0.13.3.tar.gz
 #archlinuxpatched:celestia
