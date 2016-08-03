@@ -1,7 +1,18 @@
 diff --git a/configure.in b/configure.in
-index 452f196..1f96de8 100644
+index 452f196..8b67101 100644
 --- a/configure.in
 +++ b/configure.in
+@@ -120,8 +120,8 @@ then
+   AC_SDL_CHECK_LIB(SDL_net, SDLNet_TCP_Open, [], [AC_MSG_ERROR(SDL_net required)])
+ 
+   dnl sdl_ttf
+-  #AC_CHECK_HEADERS([SDL/SDL_ttf.h],[],[AC_MSG_ERROR(SDL_ttf headers required)])
+-  AC_SDL_CHECK_LIB(SDL_ttf, TTF_OpenFont, [], [AC_MSG_ERROR(SDL_ttf lib required)])
++  AC_CHECK_HEADERS([SDL/SDL_ttf.h],[],[AC_MSG_ERROR(SDL_ttf headers required)])
++  #AC_SDL_CHECK_LIB(SDL_ttf, TTF_OpenFont, [], [AC_MSG_ERROR(SDL_ttf lib required)])
+ fi
+ 
+ dnl openGl
 @@ -157,9 +157,6 @@ AM_CONDITIONAL([USE_SDLGFX], test "$USE_SDLGFX" = "1")
  # m
  AC_CHECK_LIB(m, floor, , AC_MSG_ERROR(No math library found))
