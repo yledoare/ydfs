@@ -46,7 +46,7 @@ index 5ea9e81..6b68c84 100644
  common_SOURCES += $(thread_SOURCES)
  
 -common_LDADD = $(GL_LIBS) $(SDL_LIBS) $(LIBINTL)
-+common_LDADD = $(GL_LIBS) $(SDL_LIBS) $(LIBINTL) -llua
++common_LDADD = $(GL_LIBS) $(SDL_LIBS) $(LIBINTL) -llua -lSDL_ttf
  if WIN32
  common_LDADD += $(MINGW32_LIBS)
  endif
