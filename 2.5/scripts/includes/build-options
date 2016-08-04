@@ -37,6 +37,7 @@
         echo $ARCHIVE | grep guile && LC_CONFIGURE_OPTS="--disable-static  --disable-error-on-warning"
 	echo $ARCHIVE | grep wxsvg && LC_CONFIGURE_OPTS="--disable-static --enable-static=no"
 	echo $ARCHIVE | grep freetuxtv && LC_CONFIGURE_OPTS="--with-gtk=3.0"
+	echo $ARCHIVE | grep freetype && LC_CONFIGURE_OPTS="--without-bzip2"
 	echo $ARCHIVE | grep armagetronad && LC_CONFIGURE_OPTS="--enable-uninstall=no"
 	echo $ARCHIVE | grep lxdm && LC_CONFIGURE_OPTS="--sysconfdir=$HOME/$ARCH/etc --enable-gtk3"
 	unset LIBS
