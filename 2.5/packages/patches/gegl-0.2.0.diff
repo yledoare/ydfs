@@ -1,3 +1,42 @@
+diff --git a/Makefile.in b/Makefile.in
+index 56c06bd..13ddd12 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-@ENABLE_DOCS_TRUE@am__append_1 = docs
++@ENABLE_DOCS_TRUE@am__append_1 = 
+ subdir = .
+ DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
+ 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
+diff --git a/bin/Makefile.am b/bin/Makefile.am
+index c85ecbd..77d11a9 100644
+--- a/bin/Makefile.am
++++ b/bin/Makefile.am
+@@ -23,7 +23,7 @@ AM_CFLAGS = \
+ 
+ AM_LDFLAGS =  \
+ 	$(no_undefined) ../gegl/libgegl-$(GEGL_API_VERSION).la \
+-	$(DEP_LIBS) $(BABL_LIBS) $(PNG_LIBS) $(LIBSPIRO)
++	$(DEP_LIBS) $(BABL_LIBS) $(PNG_LIBS) $(LIBSPIRO) -lm
+ 
+ bin_PROGRAMS = gegl
+ 
+diff --git a/bin/Makefile.in b/bin/Makefile.in
+index 6bd791b..ac977bf 100644
+--- a/bin/Makefile.in
++++ b/bin/Makefile.in
+@@ -83,7 +83,7 @@ am__v_at_0 = @
+ CCLD = $(CC)
+ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
++	$(AM_LDFLAGS) -lm $(LDFLAGS) -o $@
+ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
+ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+ am__v_CCLD_0 = @echo "  CCLD  " $@;
 diff --git a/operations/external/ff-load.c b/operations/external/ff-load.c
 index 442ec5f..e78cefd 100644
 --- a/operations/external/ff-load.c
@@ -57,7 +96,7 @@ index 442ec5f..e78cefd 100644
        if (p->fourcc)
          g_free (p->fourcc);
 diff --git a/operations/external/ppm-load.c b/operations/external/ppm-load.c
-index efe6d56..e22521c 100644
+index efe6d56..2a50b95 100644
 --- a/operations/external/ppm-load.c
 +++ b/operations/external/ppm-load.c
 @@ -36,6 +36,7 @@ gegl_chant_file_path (path, _("File"), "", _("Path of file to load."))
@@ -126,7 +165,7 @@ index efe6d56..e22521c 100644
  
      if ((maxval != 255) && (maxval != 65535))
        {
-@@ -109,6 +131,16 @@ ppm_load_read_header(FILE       *fp,
+@@ -109,6 +131,26 @@ ppm_load_read_header(FILE       *fp,
        g_warning ("%s: Programmer stupidity error", G_STRLOC);
      }
  
@@ -140,10 +179,20 @@ index efe6d56..e22521c 100644
 +      }
 +    img->numsamples = img->width * img->height * CHANNEL_COUNT;
 +
++    /* Later on, img->numsamples is multiplied with img->bpc to allocate
++     * memory. Ensure it doesn't overflow. */
++    if (!img->width || !img->height ||
++        G_MAXSIZE / img->width / img->height / CHANNEL_COUNT < img->bpc)
++      {
++        g_warning ("Illegal width/height: %ld/%ld", img->width, img->height);
++        return FALSE;
++      }
++    img->numsamples = img->width * img->height * CHANNEL_COUNT;
++
      return TRUE;
  }
  
-@@ -229,12 +261,24 @@ process (GeglOperation       *operation,
+@@ -229,12 +271,24 @@ process (GeglOperation       *operation,
    if (!ppm_load_read_header (fp, &img))
      goto out;
  
@@ -367,16 +416,3 @@ index e309594..d36cbc2 100644
  operations/generated/subtract.c
  operations/generated/svg-multiply.c
  operations/generated/xor.c
-diff --git a/Makefile.in b/Makefile.in
-index 56c06bd..13ddd12 100644
---- a/Makefile.in
-+++ b/Makefile.in
-@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
- POST_UNINSTALL = :
- build_triplet = @build@
- host_triplet = @host@
--@ENABLE_DOCS_TRUE@am__append_1 = docs
-+@ENABLE_DOCS_TRUE@am__append_1 = 
- subdir = .
- DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
- 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
