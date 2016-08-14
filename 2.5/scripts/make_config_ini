@@ -73,7 +73,7 @@ BOOT=NAND
       else
         if [ "$arch" = "x86" ]
 	    then
-          echo "KERNEL3=4.1.29" >> config.ini
+          echo "KERNEL3=4.1.30" >> config.ini
 	    else
           echo "KERNEL3=4.4.16" >> config.ini
 	    fi
