@@ -1,4 +1,3 @@
-https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
 http://mp4v2.googlecode.com/files/mp4v2-2.0.0.tar.bz2
 http://download.icu-project.org/files/icu4c/55.1/icu4c-55_1-src.tgz
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz
@@ -638,6 +637,7 @@ http://freefr.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.20/libusb-
 http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86#
 http://mirrors.ibiblio.org/wine/source/1.9/wine-1.9.7.tar.bz2 #SKIP-x86#
 https://github.com/libfuse/libfuse/archive/fuse_2_9_5.tar.gz
+https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git
 git://github.com/relan/exfat
 http://get.videolan.org/vlc/2.2.2/vlc-2.2.2.tar.xz
