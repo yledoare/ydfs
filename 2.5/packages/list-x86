@@ -546,6 +546,7 @@ ftp://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_1.65.tar.xz
 http://mirror0.sfml-dev.org/files/SFML-1.6-sdk-linux-32.tar.gz
 https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
+https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz
 http://freefr.dl.sourceforge.net/project/openil/DevIL/1.7.8/DevIL-1.7.8.tar.gz
 http://www.cabextract.org.uk/cabextract-1.4.tar.gz # playonlinux
 http://savannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
