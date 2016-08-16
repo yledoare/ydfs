@@ -24,8 +24,14 @@ then
   install -Dm 644 openarena/openarena{,-server}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
 
   install -Dm 755 openarena/openarena-runner.sh $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena/openarena-runner.sh
-  ln -s $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena/openarena-runner.sh $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
-  ln -s $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena/openarena-runner.sh $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+
+  BIN=openarena.i386
+  [ "$ARCH" == "x86_64" ] && BIN=openarena.x86_64
+  SERVER=oa_ded.i386
+  [ "$ARCH" == "x86_64" ] && SERVER=oa_ded.x86_64
+
+  ln -s $PREFIX/openarena/$BIN $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+  ln -s $PREFIX/openarena/$SERVER $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
   mv * $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena
 fi
 
