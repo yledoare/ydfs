@@ -26,7 +26,7 @@ echo > /usr/libexec/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
 $HOME_DIBAB/$ARCH/sbin/gpartedbin
 sh /ydfs/start/automount
-sleep 1
+sleep 3
   if [ ! -e /media/$DISTRONAME ]
   then
 	  zenity --error --text="Please format an ext4 partition with $DISTRONAME lablel !" &>/dev/null
