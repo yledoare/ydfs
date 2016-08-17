@@ -1,6 +1,10 @@
 #Misc
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+#Libs
+http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
+archlinux:lib32-libtxc_dxtn
 #Games
+https://steamcdn-a.akamaihd.net/client/installer/steam.deb
 https://github.com/SuperTux/supertux/releases/download/v0.4.0/supertux-0.4.0.tar.bz2
 http://download.tuxfamily.org/openarena/rel/088/openarena-0.8.8.zip
 git://github.com/MegaGlest/megaglest-source.git
@@ -36,15 +40,13 @@ http://heanet.dl.sourceforge.net/project/rosegarden/rosegarden/16.02/rosegarden-
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.3.13.tar.gz
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 #http://garr.dl.sourceforge.net/project/guvcview/source/guvcview-src-2.0.1.tar.gz
-#Libs
-#archlinux:lib32-libtxc_dxtn
 #Emulators
 #Games
 archlinux:astromenace 
 http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.6/wesnoth-1.12.6.tar.bz2
 archlinux:torcs
 #Internet
-http://softlayer-ams.dl.sourceforge.net/project/filezilla/FileZilla_Client/3.10.0.1/FileZilla_3.10.0.1_src.tar.bz2
+http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
 #Education
 https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubuntu_all.deb
 archlinuxpatched:tuxpaint

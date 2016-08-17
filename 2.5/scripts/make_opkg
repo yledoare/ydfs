@@ -27,7 +27,12 @@ if [ "$NAME" = "mc" ]
 then
   PKGDESC="Midnight Commander is a text based filemanager/shell that emulates Norton Command"
 else
-  grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
+  if [ "$NAME" = "filezilla" ]
+  then
+    PKGDESC="FTP Client"
+  else
+    grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
+  fi
 fi
 
 [ "$NAME" = "fixes" ] && DBEXTRA=FixBugs && PKGVER=`date +"%Y-%m-%d"` && PKGSRC="http://bugtracker.linuxconsole.org" && LISTFIX=$(ls -x $HOME_DIBAB/opkg/fixes/root/.ydfs/fixydfs/) && PKGDESC="Fix all ydfs known bugs : $LISTFIX"
@@ -49,7 +54,8 @@ echo "Extra is $DBEXTRA, name is $NAME"
 [ "$DBEXTRA" != "" ] && SECTION=$DBEXTRA
 
 [ "$NAME" = "gbrainy" ] && DEPENDS="mono, gtk-sharp"
-# [ "$NAME" = "steam" ] && DEPENDS="libtxc, mesa-demos"
+[ "$NAME" = "filezilla" ] && DEPENDS="libfilezilla"
+[ "$NAME" = "steam" ] && DEPENDS="libtxc"
 [ "$NAME" = "advancemame" ] && DEPENDS="mame"
 [ "$NAME" = "firefox" ] && DEPENDS="flash"
 [ "$NAME" = "torcs" ] && DEPENDS="plib"

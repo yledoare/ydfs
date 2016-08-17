@@ -16,6 +16,7 @@
 	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
 	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep lxpanel && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep FileZilla && export LC_CONFIGURE_OPTS="--with-pugixml=builtin"
 	echo $ARCHIVE | grep apt-1 && export LC_CONFIGURE_OPTS="--enable-nonportable-atomics"
 	echo $ARCHIVE | grep calf && export LC_CONFIGURE_OPTS="--enable-experimental --enable-sse"
 	echo $ARCHIVE | grep mbedtls && export LC_CONFIGURE_OPTS="-DUSE_SHARED_MBEDTLS_LIBRARY=On -DCMAKE_C_FLAGS='-fPIC'"
