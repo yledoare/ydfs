@@ -17,7 +17,7 @@ http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz
 ftp://sourceware.org/pub/libffi/libffi-3.0.9.tar.gz 
 http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.1-src.tar.gz
 http://www.sqlite.org/2014/sqlite-autoconf-3080600.tar.gz
-http://www.cpan.org/src/5.0/perl-5.22.0.tar.gz 
+http://www.cpan.org/src/5.0/perl-5.24.0.tar.xz
 https://www.openssl.org/source/openssl-1.0.2g.tar.gz
 http://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz 
 http://ftp.gnome.org/pub/gnome/sources/glib/2.44/glib-2.44.1.tar.xz 
