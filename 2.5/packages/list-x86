@@ -650,6 +650,7 @@ http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt-x11-gpl-4.11.4
 http://www.sfml-dev.org/files/SFML-2.3.2-sources.zip
 http://xwax.org/releases/xwax-1.6.tar.gz
 http://freefr.dl.sourceforge.net/project/extremetuxracer/releases/0.7.2/etr-0.7.2.tar.xz
+http://www.rsyslog.com/download/files/download/rsyslog/rsyslog-7.6.6.tar.gz
 #http://freefr.dl.sourceforge.net/project/hplip/hplip/3.16.3/hplip-3.16.3.tar.gz
 #Warning, unset LDFLAGS for building grub
 git://git.savannah.gnu.org/grub.git
