@@ -179,6 +179,16 @@ else
     exit 0
   fi
 
+  if [ -e dssi-vst_gui.cpp ]
+  then
+	echo "dssi-vst_gui.cpp" # && sleep 5
+  	# [x86_64] use /usr/lib32/dssi
+  	#if [[ $CARCH = x86_64 ]]; then
+    	#sed -i '/\/dssi-vst/s|DSSIDIR|&32|' Makefile
+    	#sed -i '/DSSI_PATH/s|\(/usr/lib\)\(/dssi\)|&:\132\2|' remotevstclient.cpp
+  	#fi
+  fi
+
   if [ -e qtbase/configure ]
   then
 	echo "Fix for QT5" #&& sleep 3
