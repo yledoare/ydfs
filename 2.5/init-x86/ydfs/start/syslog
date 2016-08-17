@@ -29,4 +29,5 @@ daemon.*;mail.*;\
 	*.=notice;*.=warn	|/dev/xconsole
 ' > /etc/rsyslog.conf
 
-rsyslogd
+#rsyslogd
+syslogd
