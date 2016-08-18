@@ -2,12 +2,12 @@ cd packages
 for URL in `cat list-$ARCH | cut -d '#' -f1`
 do
   test "$URL" = "" && continue
-  echo -n "**  Look for $URL : "
-  echo $URL | grep "git://" && continue
-  echo $URL | grep "archlinux:" && continue
-  echo $URL | grep "CPAN:/" && continue
-  wget -q $URL || ERROR="$ERROR $URL not found !"
-  echo $ERROR
+  printf "\r**  Look for $URL .. "
+  echo $URL | grep "git://" >/dev/null && continue
+  echo $URL | grep "archlinux:" >/dev/null && continue
+  echo $URL | grep "CPAN:/" >/dev/null && continue
+  wget -q $URL || ERROR="$URL not found !"
+  test -n "$ERROR" && echo && echo $ERROR  && ERROR=""
 done 
 echo
 echo "$ERROR"
