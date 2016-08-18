@@ -11,7 +11,7 @@ Features :
 
 You can build 32 and 64 bit on one computer
 
-$MY_CHROOT=/home/debian-jessie-32
+MY_CHROOT=/home/debian-jessie-32
 
 install -d $MY_CHROOT
 debootstrap --arch i386 jessie $MY_CHROOT http://http.debian.net/debian/
@@ -27,11 +27,27 @@ chroot $MY_CHROOT /bin/bash
 
 To build ydfs ISO
 
+Install packages
+
 {{{
+wget https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.5/configure
+sh configure
+}}}
+
+Add user
+{{{
+useradd linuxconsole
+mkdir /home/linuxconsole
+chown linuxconsole /home/linuxconsole
+}}}
+
+Log in as user
+{{{
+su - linuxconsole
 cd $HOME
 install -d src
 cd src
-git clone https://yledoare@bitbucket.org/yledoare/ydfs.git
+git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs
 cd 2.5
 make # it will take more thant 10 hours !
