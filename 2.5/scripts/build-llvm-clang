@@ -1,4 +1,4 @@
-RELEASE=3.6.0
+RELEASE=3.8.1
 cd $HOME
 install -d src
 cd src
@@ -12,6 +12,10 @@ cd llvm-$RELEASE.src/tools || exit 1
 
 cd ..
 
-./configure --enable-experimental-targets=R600 --enable-targets=x86 --enable-shared --prefix=$HOME/ydfs/llvm-clang
+# ./configure --enable-experimental-targets=R600 --enable-targets=x86 --enable-shared --prefix=$HOME/ydfs/llvm-clang
+# make -j3 && make install
 
+install -d build
+cd build
+../configure --enable-shared --prefix=$HOME/ydfs/llvm-clang
 make -j3 && make install

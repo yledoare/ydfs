@@ -1,6 +1,6 @@
 http://mp4v2.googlecode.com/files/mp4v2-2.0.0.tar.bz2
 http://download.icu-project.org/files/icu4c/55.1/icu4c-55_1-src.tgz
-ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz
+ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
 http://ftp.gnu.org/gnu/cpio/cpio-2.11.tar.gz
 http://miniupnp.free.fr/files/miniupnpc-1.9.20150430.tar.gz
 http://ftp.gnu.org/gnu/libunistring/libunistring-0.9.2.1.tar.gz
@@ -124,7 +124,7 @@ http://xcb.freedesktop.org/dist/xcb-util-0.3.9.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/lib/libX11-1.6.3.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/util/makedepend-1.0.2.tar.gz 
 http://xorg.freedesktop.org/archive/individual/lib/libpciaccess-0.13.1.tar.gz
-http://dri.freedesktop.org/libdrm/libdrm-2.4.64.tar.bz2 
+http://dri.freedesktop.org/libdrm/libdrm-2.4.70.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/lib/libICE-1.0.8.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libxkbfile-1.0.8.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libSM-1.2.2.tar.bz2 
@@ -410,7 +410,7 @@ http://www.freedesktop.org/software/libqmi/libqmi-1.8.0.tar.xz
 http://www.freedesktop.org/software/ModemManager/ModemManager-1.4.0.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/NetworkManager-0.9.8.10.tar.xz
 ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-0.9.8.10.tar.xz
-http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.4.tar.xz
+http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
 https://bitbucket.org/libgd/gd-libgd/downloads/libgd-2.1.0.tar.xz 
 http://ftp.acc.umu.se/pub/gnome/sources/polkit-gnome/0.102/polkit-gnome-0.102.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
@@ -570,7 +570,7 @@ http://pkgs.fedoraproject.org/repo/pkgs/libkdegames/libkdegames-14.12.3.tar.xz/a
 http://invisible-island.net/datafiles/release/xterm.tar.gz
 http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
-http://www.imagemagick.org/download/ImageMagick-6.9.4-4.tar.xz
+http://www.imagemagick.org/download/ImageMagick-6.9.5-7.tar.xz
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
 http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src_all.tar.bz2
 http://linuxtv.org/downloads/v4l-utils/v4l-utils-1.6.3.tar.bz2
@@ -590,7 +590,7 @@ http://pkgs.fedoraproject.org/repo/pkgs/oxygen-icon-theme/oxygen-icons-15.04.1.t
 ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2
 http://pypi.python.org/packages/source/P/PyOpenGL/PyOpenGL-3.1.0.tar.gz
 https://launchpad.net/python-distutils-extra/trunk/2.38/+download/python-distutils-extra-2.38.tar.gz
-http://www.jwz.org/xscreensaver/xscreensaver-5.33.tar.gz
+http://www.jwz.org/xscreensaver/xscreensaver-5.35.tar.gz
 http://www.greenwoodsoftware.com/less/less-479.tar.gz
 ftp://ftp.astron.com/pub/file/file-5.24.tar.gz
 ftp://ftp.gnu.org/gnu/a2ps/a2ps-4.14.tar.gz
