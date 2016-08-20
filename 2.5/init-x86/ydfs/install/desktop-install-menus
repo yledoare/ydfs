@@ -4,8 +4,9 @@ cd /
 
 while [ 1 ]
 do
-  sleep 22
+  busybox sleep 5
   wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.tar.gz && break
 done
 
 tar xzvf desktop-install-menus.tar.gz
+opkg-cl update
