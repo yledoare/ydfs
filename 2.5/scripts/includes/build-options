@@ -182,7 +182,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
     -no-rpath \
     -reduce-relocations -v " && export QMAKE_LDFLAGS="$CFLAGS" && export QMAKE_CFLAGS="$CFLAGS"
 
-	echo $ARCHIVE | grep qt-everywhere-opensource-src-4 && LC_CONFIGURE_OPTS="-no-pch -icu -release -webkit -javascript-jit  -no-qt3support -openssl -opengl -v -make libs -opensource -dbus-linked       \
+	echo $ARCHIVE | grep qt-everywhere-opensource-src-4 && LC_CONFIGURE_OPTS="-headerdir $HOME/$ARCH/include/qt4 -no-pch -icu -release -webkit -javascript-jit  -no-qt3support -openssl -opengl -v -make libs -opensource -dbus-linked       \
             -openssl-linked    \
             -system-sqlite     \
             -no-phonon         \
