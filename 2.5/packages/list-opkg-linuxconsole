@@ -18,6 +18,7 @@ http://download.gimp.org/pub/gimp/v2.8/gimp-2.8.18.tar.bz2
 http://download.documentfoundation.org/libreoffice/src/4.4.7/libreoffice-4.4.7.2.tar.xz
 #Misc
 archlinux:ncftp
+#http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1.4.tar.bz2 #SKIP-x86#
 http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
 http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
@@ -53,9 +54,9 @@ archlinuxpatched:tuxpaint
 #Libs
 #http://download.qt.io/official_releases/qt/5.7/5.7.0/single/qt-everywhere-opensource-src-5.7.0.tar.xz
 #Multimedia
-#http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
+http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
 #Education
-#http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.13.3/stellarium-0.13.3.tar.gz
+http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.14.3/stellarium-0.14.3.tar.gz
 #archlinuxpatched:celestia
 #http://download.scratch.mit.edu/scratch-1.4.0.7.src.tar.gz
 #Drivers
