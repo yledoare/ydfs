@@ -57,7 +57,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  pcre libffi dbus openssl-1 qt-everywhere-opensource-src-4
+libxshmfence-1  pcre libffi dbus openssl-1 xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
@@ -67,6 +67,23 @@ do
   [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
   pwd
   case $PKG in
+    xorg-server* )
+	  ./configure \
+    --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
+    --prefix=$HOME/multilib \
+    --with-dri-driverdir=/usr/lib32/xorg/modules/dri \
+    --enable-glx-tls \
+    --enable-egl \
+    --enable-glx \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-gbm \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-texture-float \
+    --enable-nine 
+
+	;;
     alsa-lib )
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
 	;;

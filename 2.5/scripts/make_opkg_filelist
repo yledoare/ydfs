@@ -2,8 +2,13 @@ cd $HOME/ydfs/opkg
 $HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
 [ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
 HOME_DIST=`basename $HOME_DIBAB`
-[ -e /home/linuxconsole25/ydfs/opkg ] && rsync --size-only -vr /home/linuxconsole25/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
-[ -e /home/linuxconsole25/ydfs/opkg ] && rsync -vr /home/linuxconsole25/ydfs/opkg/Packages.stamps opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
-[ -e /home/linuxconsole25/ydfs/opkg ] && rsync -vr /home/linuxconsole25/ydfs/opkg/Packages opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
-[ -e /home/linuxconsole25/ydfs/opkg ] && rsync -vr /home/linuxconsole25/ydfs/opkg/flash_* opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/2.5/$ARCH
+if [ -e $HOME/ydfs/opkg ]
+then
+	find $HOME/ydfs/opkg/ -type f -size -500k | while read file
+	do
+		echo "Send $file"
+		rsync -vr $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+	done
+	rsync --size-only -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+fi
 echo "OK"
