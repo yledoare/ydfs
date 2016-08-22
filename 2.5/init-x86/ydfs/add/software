@@ -1,3 +1,5 @@
+cd $HOME
+
 . /etc/profile
 export PATH=$PATH:$HOME/firefox:$HOME/thunderbird
 

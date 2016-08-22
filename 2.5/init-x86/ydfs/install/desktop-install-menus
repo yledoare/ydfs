@@ -10,3 +10,4 @@ done
 
 tar xzvf desktop-install-menus.tar.gz
 opkg-cl update
+opkg-cl install fixes

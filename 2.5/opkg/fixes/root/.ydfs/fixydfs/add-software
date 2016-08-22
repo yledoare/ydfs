@@ -1,5 +1,0 @@
-mv /ydfs/add/software /
-echo 'cd $HOME' > /ydfs/add/software
-chmod +x /ydfs/add/software
-cat /software >> /ydfs/add/software
-rm /software
