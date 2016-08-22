@@ -47,9 +47,9 @@ then
   then
     install -d /media/ydfs/opkg
   fi
-  if [ ! -e /media/ydfs/qt5 ]
+  if [ ! -e $HOME_DIBAB/qt5 ]
   then
-    install -d /media/ydfs//qt5
+    install -d /media/ydfs/qt5
     install -d $HOME_DIBAB/qt5
     mount /media/ydfs/qt5 $HOME_DIBAB/qt5 -o bind
   fi
