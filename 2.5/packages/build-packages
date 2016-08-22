@@ -28,11 +28,18 @@ fi
 
 if [ "$MODULE" == "qt5" ]
 then
-  TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5-x86.tar.gz
-  [ "$ARCH" = "x86_64" ] && TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
-  [ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf $(basename $TARBALL)
+
+  if [ "$ARCH" = "x86_64" ]
+  then
+	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
+  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
 	OPKGARCH=x86_64
-	[ "$ARCH" = "x86" ] && OPKGARCH=i686
+  else
+  	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5-x86.tar.gz
+  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5-x86.tar.gz && mv qt5-x86 qt5
+	OPKGARCH=i686
+  fi
+
   if [ ! -e $HOME/ydfs/opkg/qt5_5_$OPKGARCH.ipk ]
   then
 	mkdir $HOME/ydfs/packages-$ARCH/qt5

@@ -174,10 +174,10 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
 	echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
 	#QT5 
-	[ -e $HOME/$ARCH/include-Qt ] && mv $HOME/$ARCH/include-Qt/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include-Qt
-	echo $ARCHIVE | grep qtractor && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
-	echo $ARCHIVE | grep stellarium && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
-	echo $ARCHIVE | grep qt-everywhere-opensource-src-5 && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	#[ -e $HOME/$ARCH/include-Qt ] && mv $HOME/$ARCH/include-Qt/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep qtractor && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep stellarium && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep qt-everywhere-opensource-src-5 && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
 	echo $ARCHIVE | grep qt-everywhere-opensource-src-5 && LC_CONFIGURE_OPTS="-icu -confirm-license -opensource \
     -system-sqlite \
     -openssl-linked \
