@@ -12,9 +12,7 @@ Section "InputClass"
 # 	Option "XkbVariant" "latin9" 
 EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
-exit 0
-fi
-
+else
 MAP=us
 echo "$LC_ALL" | grep "es_ES" && MAP=es
 echo "$LC_ALL" | grep "fr_FR" && MAP=fr
@@ -62,3 +60,4 @@ Section "InputClass"
 # 	Option "XkbVariant" "latin9"
 EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
+fi
