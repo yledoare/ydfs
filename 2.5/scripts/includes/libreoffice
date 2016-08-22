@@ -1,6 +1,11 @@
 #!/bin/bash
   if [ -e librelogo ] 
   then
+	# ?? depuis que include qt4 est actif
+	ls $HOME/$ARCH/lib/libicu* |while read file
+do
+	ln -sf $file $HOME/$ARCH/opkg/lib
+done
 	# for correct file install into package dir
         [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
 	# mount / -o remount,noatime
