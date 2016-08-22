@@ -198,7 +198,8 @@ else
 
   if [ -e pyqtconfig.py.in ]
   then
-	python configure-ng.py  --confirm-license --no-sip-files --qsci-api 
+	ln -sf $PREFIX/include/phonon $PREFIX/include/qt4/phonon || exit 1
+	python configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
