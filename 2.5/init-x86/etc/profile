@@ -5,3 +5,4 @@ export PYTHONPATH=/ydfs/modules/module/lib/python2.7/site-packages/:$HOME/opkg/l
 export DISTRONAME=`cat /ydfs-name`
 export HOME_DIBAB=$HOME
 export JAVA_HOME=$HOME/opkg
+export QT_QPA_PLATFORM_PLUGIN_PATH=$HOME/qt5/plugins/platforms/
