@@ -85,8 +85,11 @@ then
     fi
   fi
 fi
-mount /var /usr/var -o bind
 
+install -d /usr/persistant/fontconfig
+mount /var /usr/var -o bind
+install -d /usr/var/cache/fontconfig/
+mount /usr/persistant/fontconfig /usr/var/cache/fontconfig/ -o bind
 
 #ln -s $HOME/$ARCH /usr
 
