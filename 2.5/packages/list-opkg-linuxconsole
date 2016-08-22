@@ -1,6 +1,7 @@
 #Misc
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 #Libs
+archlinux:drumstick
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
 #Games
@@ -53,9 +54,10 @@ https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubu
 archlinuxpatched:tuxpaint
 #Libs
 #Multimedia
+archlinux:vmpk
 http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
 #Education
-http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.14.3/stellarium-0.14.3.tar.gz
+http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
 #archlinuxpatched:celestia
 #http://download.scratch.mit.edu/scratch-1.4.0.7.src.tar.gz
 #Drivers

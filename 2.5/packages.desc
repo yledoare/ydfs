@@ -175,3 +175,5 @@ openarena;A violent, sexy, multiplayer first person shooter based on the ioquake
 supertux;A classic 2D jump'n run sidescroller game in a style similar to the original SuperMario games
 libfilezilla;Small and modern C++ library, offering some basic functionality to build high-performing, platform-independent programs
 qtractor;An Audio/MIDI multi-track sequencer
+drumstick;MIDI libraries
+vmpk;Virtual MIDI Piano Keyboard

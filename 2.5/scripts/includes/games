@@ -30,8 +30,14 @@ then
   SERVER=oa_ded.i386
   [ "$ARCH" == "x86_64" ] && SERVER=oa_ded.x86_64
 
-  ln -s $PREFIX/openarena/$BIN $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
-  ln -s $PREFIX/openarena/$SERVER $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+  echo "cd $PREFIX/openarena" > $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+  echo "$PREFIX/openarena/$BIN" >> $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+  chmod +x $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+
+  echo "cd $PREFIX/openarena" >  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+  echo "$PREFIX/openarena/$SERVER" >> $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+  chmod +x  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+
   mv * $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena
 fi
 
