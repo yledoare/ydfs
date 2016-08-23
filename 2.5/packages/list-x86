@@ -564,7 +564,8 @@ https://launchpad.net/libdbusmenu-qt/trunk/0.9.2/+download/libdbusmenu-qt-0.9.2.
 http://download.kde.org/stable/applications/15.12.3/src/kdelibs-4.14.18.tar.xz
 archlinuxpatched:system-tools-backends
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
-http://download.kde.org/stable/applications/15.12.3/src/libkdegames-15.12.3.tar.xz
+http://download.kde.org/stable/frameworks/5.19/extra-cmake-modules-5.19.0.tar.xz
+http://pkgs.fedoraproject.org/repo/pkgs/libkdegames/libkdegames-4.12.5.tar.xz/746e265b9d8ee5e3dbc0ed9635fa3f5d/libkdegames-4.12.5.tar.xz
 #https://lutris.net/releases/lutris_0.3.7.5.tar.xz
 # For PlayOnLinux
 http://invisible-island.net/datafiles/release/xterm.tar.gz
