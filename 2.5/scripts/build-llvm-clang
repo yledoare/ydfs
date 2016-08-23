@@ -1,7 +1,7 @@
 RELEASE=3.8.1
 cd $HOME
-install -d src
-cd src
+install -d ydfs/src
+cd ydfs/src
 [ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
 [ ! -e llvm-$RELEASE.src ] && tar -xJf llvm-$RELEASE.src.tar.xz
 cd llvm-$RELEASE.src/tools || exit 1
