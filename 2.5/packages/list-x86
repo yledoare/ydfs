@@ -561,10 +561,10 @@ http://www.vandenoever.info/software/strigi/strigi-0.7.8.tar.bz2
 http://download.kde.org/stable/attica/attica-0.4.2.tar.bz2
 http://downloads.sourceforge.net/sourceforge/giflib/giflib-5.1.1.tar.bz2
 https://launchpad.net/libdbusmenu-qt/trunk/0.9.2/+download/libdbusmenu-qt-0.9.2.tar.bz2
-http://download.kde.org/stable/applications/15.08.0/src/kdelibs-4.14.11.tar.xz #SKIP-x86#
+http://download.kde.org/stable/applications/15.12.3/src/kdelibs-4.14.18.tar.xz
 archlinuxpatched:system-tools-backends
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
-http://pkgs.fedoraproject.org/repo/pkgs/libkdegames/libkdegames-14.12.3.tar.xz/a17f866a85fd7daac61abd5d0aab2b12/libkdegames-14.12.3.tar.xz #SKIP-x86#
+http://download.kde.org/stable/applications/15.12.3/src/libkdegames-15.12.3.tar.xz
 #https://lutris.net/releases/lutris_0.3.7.5.tar.xz
 # For PlayOnLinux
 http://invisible-island.net/datafiles/release/xterm.tar.gz

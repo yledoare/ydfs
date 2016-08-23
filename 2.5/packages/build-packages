@@ -322,7 +322,7 @@ fi
 	if [ -e $HOME/ydfs-error ]
         then
 	   echo "Exit db-lcarchive $ARCHIVE " 
-		# [ -e $HOME/ydfs/.last-error ] && tail -100 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error && break
+		# [ -e $HOME/ydfs/.last-error ] && tail -200 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error && break
 		exit 1	
 	fi
 	# Build twice

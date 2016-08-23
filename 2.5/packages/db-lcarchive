@@ -10,7 +10,8 @@ build_the_archive()
   then
   db-autobuild $MYPREFIX || exit $?
   else
-  echo -n "Log in $PWD/ydfs-log , Error in $PWD/ydfs-error , Building in progress.... "     
+  echo "Log : $PWD/ydfs-log "
+  echo -n "Building in progress ... "     
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log || exit $?
   echo "OK"
   fi
