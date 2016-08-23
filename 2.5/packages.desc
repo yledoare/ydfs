@@ -177,3 +177,24 @@ libfilezilla;Small and modern C++ library, offering some basic functionality to 
 qtractor;An Audio/MIDI multi-track sequencer
 drumstick;MIDI libraries
 vmpk;Virtual MIDI Piano Keyboard
+granatier;A clone of the classic Bomberman game
+kapman;A clone of the well known game Pac-Man
+katomic;A fun and educational game built around molecular geometry
+kblackbox;A game of hide and seek played on a grid of boxes
+kblocks;The classic falling blocks game
+kbounce;A single player arcade game with the elements of puzzle
+kbreakout;A Breakout-like game
+kdiamond;A single player puzzle game
+kfourinline;A four-in-a-row game
+killbots;A simple game of evading killer robots
+kiriki;An addictive and fun dice game
+kjumpingcube;A simple tactical game
+klickety;An adaptation of the Clickomania game
+klines;A simple but highly addictive, one player game
+kmines;The classic Minesweeper game
+knetwalk;Connect all the terminals to the server, in as few turns as possible
+kollision;A simple ball dodging game
+kshisen;A solitaire-like game played using the standard set of Mahjong tiles
+ksquares;A modeled after the well known pen and paper based game of Dots and Boxes
+ktuberling;A simple constructor game suitable for children and adults alike
+picmi;A nonogram logic game for KDE
