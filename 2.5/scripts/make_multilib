@@ -1,6 +1,8 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
 # apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
 
+cd $HOME_DIBAB
+sh scripts/build-llvm-clang
 
 export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
@@ -70,10 +72,10 @@ do
   pwd
   case $PKG in
     xorg-server* )
-	  ./configure \
+PYTHON2=/usr/bin/python ./configure \
     --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
     --prefix=$HOME/multilib \
-    --with-dri-driverdir=/usr/lib32/xorg/modules/dri \
+    --with-dri-driverdir=$HOME/lib32/xorg/modules/dri \
     --enable-glx-tls \
     --enable-egl \
     --enable-glx \
@@ -175,7 +177,13 @@ do
     llvm )
 	mkdir build
 	cd build
-  	../configure --prefix=$HOME/multilib || exit $?
+  	../configure --prefix=$HOME/multilib --enable-shared || exit $?
+    ;;
+    cairo )
+  	./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf || exit $?
+    ;;
+    poppler )
+  	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
     ;;
     * )
   	./configure --prefix=$HOME/multilib || exit $?
@@ -195,6 +203,10 @@ do
 	
   make || exit $?
   case $PKG in
+    llvm* )
+  	make install || exit $?
+	cd ..
+	;;
     * )
   	make install || exit $?
 	;;

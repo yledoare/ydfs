@@ -1,13 +1,14 @@
   if [ -e src/VBox/Storage/ ]
   then
-    QTDIR=$HOME/$ARCH
-    [ -e $HOME/qt5 ] && QTDIR=$HOME/qt5
+    # QTDIR=$HOME/$ARCH
+    # [ -e $HOME/qt5 ] && QTDIR=$HOME/qt5
+    #    --with-qt-dir=$QTDIR --disable-docs \
     if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
 	then
 	./configure --with-linux=$HOME/ydfs/src/linux-$KERNEL3/ \
-        --with-qt-dir=$QTDIR --disable-docs \
         --enable-vde \
-        --disable-kmods  --disable-java --disable-hardening --disable-devmapper || exit $?
+        --disable-docs --disable-java \
+        --disable-kmods --disable-hardening --disable-devmapper || exit $?
     		source ./env.sh
 		kmk || exit $?
 	fi
