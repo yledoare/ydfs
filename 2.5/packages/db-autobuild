@@ -962,8 +962,9 @@ echo "At BUILDPERL"
   then
 	if [ -e src/mixxx.cpp ] 
         then
+	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
   	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
-	  scons $SCONS_OPT build=release optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1
+	  scons $SCONS_OPT build=release optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT
 	  scons $SCONS_OPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
 	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
 	else
