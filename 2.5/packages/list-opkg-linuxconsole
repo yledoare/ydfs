@@ -56,7 +56,7 @@ archlinux:armagetronad
 http://ftp.gnome.org/pub/gnome/sources/aisleriot/3.16/aisleriot-3.16.1.tar.xz
 #archsource:tarotclub
 #Multimedia
-http://freetuxtv.googlecode.com/files/freetuxtv-0.6.6.tar.gz
+https://github.com/freetuxtv/freetuxtv/archive/freetuxtv-0.6.8.tar.gz
 http://freefr.dl.sourceforge.net/project/zynaddsubfx/zynaddsubfx/2.5.1/zynaddsubfx-2.5.1.tar.gz
 http://audacity.googlecode.com/files/audacity-minsrc-2.0.5.tar.xz
 #Games
