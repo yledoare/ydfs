@@ -1,3 +1,11 @@
 echo "Postinst"
 sed -i "s@id -u@echo@g" /usr/bin/steam
-#[ $ARCH = "x86_64" ] && /ydfs/enable/multilib
+if [ -e /usr/lib32/dri/ ] && [ ! -e /usr/fix/steam ]
+then
+  mkdir /usr/fix/
+  mv /usr/bin/steam /usr/fix/ 
+  echo "#!/bin/sh" > /usr/bin/steam
+  echo "export LIBGL_DRIVERS_PATH=/usr/lib32/dri/" >> /usr/bin/steam
+  echo "/usr/fix/steam" >> /usr/bin/steam
+  chmod +x /usr/bin/steam
+fi 

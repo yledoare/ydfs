@@ -136,3 +136,4 @@ mount tmpfs /dev/shm -t tmpfs -o 'defaults,noexec,nosuid,nodev'
 
 install -d $HOME/var/log # Xorg log
 install -d /var/run # Xorg optimus
+ln -sf $HOME/$ARCH $HOME/multilib

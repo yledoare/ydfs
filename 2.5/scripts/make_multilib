@@ -75,7 +75,6 @@ do
 PYTHON2=/usr/bin/python ./configure \
     --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
     --prefix=$HOME/multilib \
-    --with-dri-driverdir=$HOME/lib32/xorg/modules/dri \
     --enable-glx-tls \
     --enable-egl \
     --enable-glx \
