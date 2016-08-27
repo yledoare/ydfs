@@ -1,0 +1,4 @@
+unset CPPFLAGS
+  cd js/src
+  ./configure --prefix=$PREFIX --with-system-nspr --with-system-ffi \
+     --enable-readline --enable-threadsafe

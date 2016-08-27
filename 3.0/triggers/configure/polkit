@@ -1,0 +1,4 @@
+  ./configure --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
+      --localstatedir=$PREFIX/var --libexecdir=$PREFIX/lib/polkit-1 \
+      --enable-libsystemd-login=yes --disable-static \
+      --disable-gtk-doc --with-os-type=redhat --with-systemdsystemunitdir=$PREFIX/lib/systemd/system

@@ -1,0 +1,3 @@
+ patch -Np1 -i $HOME_DIBAB/packages/patches/libomxil-bellagio-fedora-fixes.patch
+ pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$CARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+ autoreconf -fiv
