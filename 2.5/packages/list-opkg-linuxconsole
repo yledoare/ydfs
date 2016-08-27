@@ -1,5 +1,8 @@
 #Misc
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+#Multimedia
+#https://github.com/xbmc/xbmc/archive/14.2-Helix.tar.gz
+#https://github.com/xbmc/xbmc/archive/15.2-Isengard.tar.gz
 #Libs
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
@@ -68,7 +71,7 @@ http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 http://heanet.dl.sourceforge.net/project/rosegarden/rosegarden/16.02/rosegarden-16.02.tar.bz2
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.3.13.tar.gz
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
-#http://garr.dl.sourceforge.net/project/guvcview/source/guvcview-src-2.0.1.tar.gz
+http://downloads.sourceforge.net/project/guvcview/source/guvcview-src-2.0.4.tar.gz
 #Emulators
 #Games
 archlinux:astromenace 
