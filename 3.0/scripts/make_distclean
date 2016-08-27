@@ -1,4 +1,4 @@
-cd $HOME/dibab/build-$CARCH
+cd $HOME/ydfs/build-$CARCH
 ls | while read PKG
 do
   echo $PKG

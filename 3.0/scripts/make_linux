@@ -1,15 +1,15 @@
 #!/bin/sh
 . ./config.ini
 
-install -d /$HOME/dibab/src/
-install -d /$HOME/dibab/tarballs/
-install -d /$HOME/dibab/build/
-cd /$HOME/dibab
+install -d /$HOME/ydfs/src/
+install -d /$HOME/ydfs/tarballs/
+install -d /$HOME/ydfs/build/
+cd /$HOME/ydfs
 if [ "$SUBCARCH" = "raspi" ]
 then
   echo $SUBCARCH
-  install -d $HOME/dibab/build/linux-$CARCH-"$KERNEL3"
-  BUILD_DIR=$HOME/dibab/build/linux-$CARCH-"$KERNEL3"
+  install -d $HOME/ydfs/build/linux-$CARCH-"$KERNEL3"
+  BUILD_DIR=$HOME/ydfs/build/linux-$CARCH-"$KERNEL3"
   [ ! -e tarballs/$KERNEL3.zip ] && wget --directory-prefix=tarballs https://github.com/raspberrypi/linux/archive/$KERNEL3.zip
   [ ! -e src/linux-$KERNEL3 ] && unzip tarballs/$KERNEL3.zip -d src
   cd src/linux-$KERNEL3
@@ -47,31 +47,9 @@ cd src/linux-"$KERNEL3"
 grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && sed -i "s@select SND_DYNAMIC_MINORS@@" sound/pci/hda/Kconfig
 grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && exit 1
 
-if [ ! -e aufs4-kbuild.patch.ok ]
-then
-  echo "Aufs patch ..."
-  KERNEL_MAJOR=`echo $KERNEL3|cut -d'.' -f1,2`
-  [ "$KERNEL_MAJOR" = "3.14" ] && KERNEL_MAJOR="3.14.21+" && echo "Using $KERNEL_MAJOR patches" && sleep 10
-  [ "$KERNEL_MAJOR" = "3.18" ] && KERNEL_MAJOR="3.18.1+" && echo "Using $KERNEL_MAJOR patches" && sleep 10
-  # echo $KERNEL3 | grep 2.6.32 && KERNEL_MAJOR=2.6
-  git clone git://github.com/sfjro/aufs4-standalone.git aufs-aufs4-standalone || exit 2
-  cd aufs-aufs4-standalone || exit 3
-# git branch -a
-  git checkout origin/aufs$KERNEL_MAJOR || exit 4
-#  echo "Press a key" && read key  
-  cd ..
-  PATCHES="aufs4-kbuild.patch aufs4-base.patch aufs4-mmap.patch"
-  #[ "$KERNEL_MAJOR" = "3.14" ] && PATCHES="aufs4-kbuild.patch aufs4-base.patch"
-  for PATCH in $PATCHES
-  do
-    [ ! -e "$PATCH".ok ] && [ -e aufs-aufs4-standalone/"$PATCH" ] && patch -p1 < aufs-aufs4-standalone/$PATCH && sleep 3 && touch "$PATCH".ok
-  done
-  for SUBDIR in Documentation fs include
-  do 
-    cp -fR aufs-aufs4-standalone/$SUBDIR/* $SUBDIR
-  done
-  grep 'nr = 255' drivers/block/loop.c || sed -i "s@nr = 8;@nr = 255;@" drivers/block/loop.c
-fi
+grep 'nr = 255' drivers/block/loop.c || sed -i "s@nr = 8;@nr = 255;@" drivers/block/loop.c
+[ ! -e fs/exfat ] && patch -p1 < $HOME_DIBAB/packages/patches/exfat.diff
+cp -fR $HOME_DIBAB/tools/src/exfat fs/exfat
 
 if [ "$SUBCARCH" = "raspi-qemu" ] && [ ! -e linux-raspi-qemu-arm.patch.ok ]
 then
@@ -94,8 +72,8 @@ fi
 [ "$CARCH" = "arm" ] && [ -e drivers/tty/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/tty/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/tty/serial/samsung.c
 [ "$CARCH" = "arm" ] && [ -e drivers/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/serial/samsung.c
 
-install -d $HOME/dibab/build/linux-$CARCH-"$KERNEL3"
-BUILD_DIR=$HOME/dibab/build/linux-$CARCH-"$KERNEL3"
+install -d $HOME/ydfs/build/linux-$CARCH-"$KERNEL3"
+BUILD_DIR=$HOME/ydfs/build/linux-$CARCH-"$KERNEL3"
 #BUILD_DIR=.
 
 [ "$SUBCARCH" = "raspi-qemu" ] && [ ! -e $BUILD_DIR/.config ] && cp $HOME_DIBAB/config/kernel-raspi-qemu/config  $BUILD_DIR/.config
@@ -131,9 +109,8 @@ git add /$HOME_DIBAB/config/kernel-$CARCH/linux-"$KERNEL3"/
   if [ $? != 0 ]
   then
     make modules O=$BUILD_DIR || exit 0
-    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/dibab/kernel-$CARCH/modules/$KERNEL3 || exit 1
-    /sbin/depmod -b $HOME/dibab/kernel-$CARCH/modules/$KERNEL3 -m $KERNEL3
-#    [ ! -e $HOME/dibab/kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.pcimap ] && echo "modules.pcimap not found " && exit 1
-    [ ! -e $HOME/dibab/kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.dep ] && echo "$HOME/dibab/kernel-$CARCH/modules/$KERNEL3/modules.dep not found" && exit 2
+    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$CARCH/modules/$KERNEL3 || exit 1
+    /sbin/depmod -b $HOME/ydfs/kernel-$CARCH/modules/"$KERNEL3" -m "$KERNEL3"
+    [ ! -e $HOME/ydfs/kernel-$CARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$CARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
   fi
   echo buildt

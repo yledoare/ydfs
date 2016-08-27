@@ -1,0 +1,2 @@
+[ $CARCH == "x86_64" ] && CFLAGS="$CFLAGS -fPIC"
+LDFLAGS="$LDFLAGS -lncurses " ./configure --prefix=$PREFIX

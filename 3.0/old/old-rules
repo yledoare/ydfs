@@ -13,7 +13,7 @@
 	echo $PKGURL | grep ghostscript && LC_CONFIGURE_OPTS="--enable-dynamic --with-ijs --with-jbig2dec --with-omni --with-x --with-drivers=ALL --with-fontpath=/usr/share/fonts/Type1:/usr/share/fonts --enable-fontconfig --enable-freetype --enable-openjpeg --without-luratech --without-omni --with-system-libtiff --with-libpaper --disable-compile-inits"
 	echo $PKGURL | grep nspr && [ "$CARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $PKGURL | grep wine && [ "$CARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64"
-	echo $PKGURL | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/dibab/src/wxGTK-2.8.12/wx-config
+	echo $PKGURL | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/ydfs/src/wxGTK-2.8.12/wx-config
 	echo $PKGURL | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $PKGURL | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $PKGURL | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$CARCH/lib"
@@ -31,13 +31,13 @@
 	echo $PKGURL | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $PKGURL | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
 	echo $PKGURL | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown"
-	echo $PKGURL | grep kino && export CFLAGS=" -I/$HOME/dibab/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS" # && LC_CONFIGURE_OPTS="--disable-ffmpeg"
+	echo $PKGURL | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS" # && LC_CONFIGURE_OPTS="--disable-ffmpeg"
 	echo $PKGURL | grep fftw && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
-	echo $PKGURL | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/dibab/build-x86/gtk+-2.24.9/gdk/.libs/"
-	echo $PKGURL | grep udev-164 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/dibab/build-x86/udev-164/libudev/.libs/"
-	echo $PKGURL | grep gst-plugins-base-0.10.35 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/dibab/build-x86/gst-plugins-base-0.10.35/gst-libs/gst/interfaces/.libs/"
+	echo $PKGURL | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gtk+-2.24.9/gdk/.libs/"
+	echo $PKGURL | grep udev-164 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/udev-164/libudev/.libs/"
+	echo $PKGURL | grep gst-plugins-base-0.10.35 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gst-plugins-base-0.10.35/gst-libs/gst/interfaces/.libs/"
 	echo $PKGURL | grep qt-everywhere-opensource-src-5 && LC_CONFIGURE_OPTS="-icu -confirm-license -opensource -system-sqlite -openssl-linked -nomake examples -no-rpath -reduce-relocations -v " && export QMAKE_LDFLAGS="$CFLAGS" && export QMAKE_CFLAGS="$CFLAGS"
-	echo $PKGURL | grep qt-everywhere-opensource-src-4 && LC_CONFIGURE_OPTS="-icu -release -webkit -javascript-jit  -no-qt3support -openssl -opengl -v -make libs -opensource -dbus-linked -openssl-linked -system-sqlite -no-phonon -no-phonon-backend -no-nis -no-openvg -nomake demos -nomake examples-optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/dibab/build-$CARCH/`basename $PKGURL | cut -d'.' -f1,2,3`/lib"
+	echo $PKGURL | grep qt-everywhere-opensource-src-4 && LC_CONFIGURE_OPTS="-icu -release -webkit -javascript-jit  -no-qt3support -openssl -opengl -v -make libs -opensource -dbus-linked -openssl-linked -system-sqlite -no-phonon -no-phonon-backend -no-nis -no-openvg -nomake demos -nomake examples-optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/ydfs/build-$CARCH/`basename $PKGURL | cut -d'.' -f1,2,3`/lib"
 	echo $PKGURL | grep mysql-5.6 && LC_CONFIGURE_OPTS="-DENABLED_LOCAL_INFILE=ON -DWITH_SSL=$HOME/$CARCH "
   echo $PKGURL | grep grub && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
   echo $PKGURL | grep warzone && export CLEARENV="OK"
@@ -112,7 +112,7 @@
 	echo $PKGURL | grep glibc && unset MAKE_INSTALL
 	echo $PKGURL | grep mysql-5 && install -d  $MYPREFIX/include/mysql && cp $MYPREFIX/include/errmsg.h $MYPREFIX/include/mysql/ && cp $MYPREFIX/include/mysql.h  $MYPREFIX/include/mysql/
 	echo $PKGURL | grep Linux-PAM && [ ! -e $HOME/$MODULE/include/security ] && ln -s $HOME/$MODULE/include/ $HOME/$MODULE/include/security
-	echo $PKGURL | grep netpbm && [ ! -e $DIBAB_PREFIX/$MODULE/bin/pnmtops ] && cd $HOME/dibab/src/netpbm* && make package pkgdir=/tmp/netpbm && cp -fR /tmp/netpbm/* $DIBAB_PREFIX/$MODULE/
+	echo $PKGURL | grep netpbm && [ ! -e $DIBAB_PREFIX/$MODULE/bin/pnmtops ] && cd $HOME/ydfs/src/netpbm* && make package pkgdir=/tmp/netpbm && cp -fR /tmp/netpbm/* $DIBAB_PREFIX/$MODULE/
 	echo $PKGURL | grep httpd && LC_CONFIGURE_OPTS="--enable-so"
 	echo $PKGURL | grep wxGTK && LC_CONFIGURE_OPTS="--enable-xrc --enable-graphics_ctx --enable-mediactrl --enable-unicode --disable-optimize --disable-precomp-headers --with-regex=builtin --with-gtk=2 --with-opengl --with-sdl"
 	echo $PKGURL | grep neon-0 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --with-ssl=openssl"
@@ -154,4 +154,4 @@
 	echo $PKGURL | grep sqlite && export AM_CPPFLAGS="-DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_SECURE_DELETE"
 	echo $PKGURL | grep sqlite || unset AM_CPPFLAGS
 	echo $PKGURL | grep ghostscript && export CPPFLAGS="$CPPFLAGS -Ijpeg/ -Ilibpng -I./freetype/include/freetype" # -I$HOME/$CARCH/include/freetype $CPPFLAGS"
-	echo $PKGURL | grep zlib && unset LC_CONFIGURE_OPTS && LCPKGURL_CHOICE=installfromsrc db-lcarchive $HOME/dibab/tarballs/`basename $PKGURL` && continue
+	echo $PKGURL | grep zlib && unset LC_CONFIGURE_OPTS && LCPKGURL_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $PKGURL` && continue

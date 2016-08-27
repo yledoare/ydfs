@@ -9,9 +9,9 @@ CROSSTOOL=1.15.3
 LCBUILD=`date +"%Y-%m-%d"`
 #MEDIA=DVD
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
-LCMBUILD=${HOME}/dibab/build/modules/
+LCMBUILD=${HOME}/ydfs/build/modules/
 
-ISOTMP=${HOME}/dibab/iso
+ISOTMP=${HOME}/ydfs/iso
 # MODULES="${CARCH}"
 MODULES="${CARCH} linuxconsole-${CARCH} drivers-${CARCH} firmware-${CARCH}"
 
@@ -71,7 +71,7 @@ BOOT=NAND
         echo "#TOOLCHAIN=crosstool-ng" >> config.ini
         echo "#CROSSTOOL=1.15.3" >> config.ini
       else
-        echo "KERNEL3=4.0.5" >> config.ini
+        echo "KERNEL3=4.7.2" >> config.ini
         echo "CARCH=$arch" >> config.ini
       fi
     fi

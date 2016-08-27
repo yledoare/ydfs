@@ -1,0 +1,4 @@
+install -d GL
+#SRC=/home/linuxconsole/ydfs/src/mesa-12.0.1/include/
+SRC=$HOME_DIBAB/tools/src/mesa/include/
+cp $SRC/GL/*.h GL

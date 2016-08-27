@@ -251,10 +251,10 @@ install -d $ISOTMP/iso/modules
 if [ "$MEDIA" = "DVD" ]
 then
 install -d /$ISOTMP/iso/pkg
-ls $HOME/dibab/opkg/ | while read PKG
+ls $HOME/ydfs/opkg/ | while read PKG
 do
   echo "$PKG"
-  ln -s $HOME/dibab/opkg/$PKG /$ISOTMP/iso/pkg
+  ln -s $HOME/ydfs/opkg/$PKG /$ISOTMP/iso/pkg
 done
 fi
 
@@ -297,11 +297,11 @@ cp boot/menu.c32 /$ISOTMP/iso/isolinux
 cp boot/vesamenu.c32 /$ISOTMP/iso/isolinux
 if [ "$CARCH" = "x86" ]
 then
-cp /$HOME/dibab/build/linux-$CARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+cp /$HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
 else
-cp /$HOME/dibab/build/linux-$CARCH-$KERNEL3/arch/$CARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+cp /$HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/$CARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
 fi
-cp /$HOME/dibab/build-$CARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
+cp /$HOME/ydfs/build-$CARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
 
 echo "
 [autorun]

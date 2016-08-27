@@ -1,0 +1,24 @@
+diff --git a/fs/Kconfig b/fs/Kconfig
+index 6ce72d8..ff6e573 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -101,6 +101,7 @@ if BLOCK
+ menu "DOS/FAT/NT Filesystems"
+ 
+ source "fs/fat/Kconfig"
++source "fs/exfat/Kconfig"
+ source "fs/ntfs/Kconfig"
+ 
+ endmenu
+diff --git a/fs/Makefile b/fs/Makefile
+index 79f5225..00143cb 100644
+--- a/fs/Makefile
++++ b/fs/Makefile
+@@ -76,6 +76,7 @@ obj-$(CONFIG_HUGETLBFS)		+= hugetlbfs/
+ obj-$(CONFIG_CODA_FS)		+= coda/
+ obj-$(CONFIG_MINIX_FS)		+= minix/
+ obj-$(CONFIG_FAT_FS)		+= fat/
++obj-$(CONFIG_EXFAT_FS)  	+= exfat/
+ obj-$(CONFIG_BFS_FS)		+= bfs/
+ obj-$(CONFIG_ISO9660_FS)	+= isofs/
+ obj-$(CONFIG_HFSPLUS_FS)	+= hfsplus/ # Before hfs to find wrapped HFS+

@@ -5,7 +5,7 @@
 #
 # ****************************************************************************
 
-install -d /dibab/boot/options
+install -d /ydfs/boot/options
 for OPTION in `cat /proc/cmdline`
 do
   case $OPTION in 
@@ -14,8 +14,8 @@ do
   esac
 	#grep fr_FR.UTF-8 /proc/cmdline && install -d 
 	echo $OPTION | grep "=" >/dev/null && continue
-	install -d /dibab/boot/options/$OPTION
+	install -d /ydfs/boot/options/$OPTION
 done
 
 cat /proc/cmdline | grep layoutcode=fr >/dev/null && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap
-[ -e /dibab/boot/options/fr ] && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap
+[ -e /ydfs/boot/options/fr ] && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap

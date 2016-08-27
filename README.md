@@ -35,7 +35,7 @@ chroot $MY_CHROOT /bin/bash
 ```
 #!shell
 
-wget https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.5/configure
+wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.5/configure
 sh configure
 ```
 

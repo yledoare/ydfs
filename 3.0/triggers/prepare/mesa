@@ -1,0 +1,4 @@
+sed -i "s@/etc/OpenCL/vendors@$PREFIX/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
+echo "done fix src/gallium/targets/opencl/Makefile.am" && sleep 5
+pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$CARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+autoreconf -fiv

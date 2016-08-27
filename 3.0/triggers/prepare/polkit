@@ -1,0 +1,1 @@
+[ -e $PREFIX/lib/pkgconfig/mozjs-..pc ] && cp $PREFIX/lib/pkgconfig/mozjs-..pc $PREFIX/lib/pkgconfig/mozjs-17.0.pc

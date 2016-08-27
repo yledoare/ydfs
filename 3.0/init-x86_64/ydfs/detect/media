@@ -13,11 +13,11 @@ do
 done
 echo
 
-install -d /media/dibab
+install -d /media/ydfs
 
-[ -e /dibab/boot/options/liveusb  ] && echo "LiveUsb mode" && sleep 5
+[ -e /ydfs/boot/options/liveusb  ] && echo "LiveUsb mode" && sleep 5
 
-if [ ! -e /dibab/boot/options/livecd ] # look only on cdrom drive
+if [ ! -e /ydfs/boot/options/livecd ] # look only on cdrom drive
 then
 echo "search into hard/usb disks"
 mkdir /disk
@@ -31,7 +31,7 @@ do
 	fi
 	echo $device | grep sd >/dev/null || continue
 	echo -n "$device ? "
-        if [ -e /dibab/boot/options/liveusb  ]
+        if [ -e /ydfs/boot/options/liveusb  ]
         then
           find /sys |grep $device|grep usb >/dev/null || continue
           echo "is removable"
@@ -40,25 +40,25 @@ do
         fi
 	/ntfs-3g  /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
-	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/dibab && break
-	#[ -e /disk/$DISTRONAME/install/dibab-"$ARCH".iso ] && mount /disk/$DISTRONAME/install/dibab-"$ARCH".iso /media/dibab && break
-	#[ -e /disk/$DISTRONAME/install/test.iso ] && mount /disk/$DISTRONAME/install/test.iso /media/dibab && break
+	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
+	#[ -e /disk/$DISTRONAME/install/ydfs-"$ARCH".iso ] && mount /disk/$DISTRONAME/install/ydfs-"$ARCH".iso /media/ydfs && break
+	#[ -e /disk/$DISTRONAME/install/test.iso ] && mount /disk/$DISTRONAME/install/test.iso /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
           umount /disk 
-          /ntfs-3g /dev/$device /media/dibab 2>/dev/null || mount /dev/$device /media/dibab -o rw && break
+          /ntfs-3g /dev/$device /media/ydfs 2>/dev/null || mount /dev/$device /media/ydfs -o rw && break
         fi
         umount /disk
 done
 fi
 
-if [ ! -e /media/dibab/modules/$ARCH.squashfs ]
+if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 then
 	echo -n "livecd ? "
 	for CDROM in sr0 sr1 sr2 sr3 sr4 sr5 sr6
 	do
-	  [ -e /dev/$CDROM ] && mount /dev/$CDROM /media/dibab && echo "$CDROM" && install -d /var/dibab/boot/media/cdrom/$CDROM && break
+	  [ -e /dev/$CDROM ] && mount /dev/$CDROM /media/ydfs && echo "$CDROM" && install -d /var/ydfs/boot/media/cdrom/$CDROM && break
 	done
 fi
 

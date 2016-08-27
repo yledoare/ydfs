@@ -1,0 +1,10 @@
+ if [ "$CARCH" = "x86_64" ]; then
+    _confflags="--enable-64bit"
+  else
+    _confflags=""
+  fi
+
+  ./nspr/configure --prefix=$PREFIX --libdir=$PREFIX/lib \
+      --includedir=$PREFIX/include/nspr \
+      --enable-optimize \
+      --disable-debug ${_confflags}
