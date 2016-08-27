@@ -1,15 +1,15 @@
 #!/bin/sh
 . ./config.ini
 
-install -d /$HOME/dibab/src/
-install -d /$HOME/dibab/tarballs/
-install -d /$HOME/dibab/build/
-cd /$HOME/dibab
+install -d /$HOME//src/
+install -d /$HOME//tarballs/
+install -d /$HOME//build/
+cd /$HOME/
 if [ "$SUBCARCH" = "raspi" ]
 then
   echo $SUBCARCH
-  install -d $HOME/dibab/build/linux-$CARCH-"$KERNEL3"
-  BUILD_DIR=$HOME/dibab/build/linux-$CARCH-"$KERNEL3"
+  install -d $HOME//build/linux-$CARCH-"$KERNEL3"
+  BUILD_DIR=$HOME//build/linux-$CARCH-"$KERNEL3"
   [ ! -e tarballs/$KERNEL3.zip ] && wget --directory-prefix=tarballs https://github.com/raspberrypi/linux/archive/$KERNEL3.zip
   [ ! -e src/linux-$KERNEL3 ] && unzip tarballs/$KERNEL3.zip -d src
   cd src/linux-$KERNEL3
@@ -94,8 +94,8 @@ fi
 [ "$CARCH" = "arm" ] && [ -e drivers/tty/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/tty/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/tty/serial/samsung.c
 [ "$CARCH" = "arm" ] && [ -e drivers/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/serial/samsung.c
 
-install -d $HOME/dibab/build/linux-$CARCH-"$KERNEL3"
-BUILD_DIR=$HOME/dibab/build/linux-$CARCH-"$KERNEL3"
+install -d $HOME//build/linux-$CARCH-"$KERNEL3"
+BUILD_DIR=$HOME//build/linux-$CARCH-"$KERNEL3"
 #BUILD_DIR=.
 
 [ "$SUBCARCH" = "raspi-qemu" ] && [ ! -e $BUILD_DIR/.config ] && cp $HOME_DIBAB/config/kernel-raspi-qemu/config  $BUILD_DIR/.config
@@ -131,9 +131,9 @@ git add /$HOME_DIBAB/config/kernel-$CARCH/linux-"$KERNEL3"/
   if [ $? != 0 ]
   then
     make modules O=$BUILD_DIR || exit 0
-    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/dibab/kernel-$CARCH/modules/$KERNEL3 || exit 1
-    /sbin/depmod -b $HOME/dibab/kernel-$CARCH/modules/$KERNEL3 -m $KERNEL3
-#    [ ! -e $HOME/dibab/kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.pcimap ] && echo "modules.pcimap not found " && exit 1
-    [ ! -e $HOME/dibab/kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.dep ] && echo "$HOME/dibab/kernel-$CARCH/modules/$KERNEL3/modules.dep not found" && exit 2
+    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME//kernel-$CARCH/modules/$KERNEL3 || exit 1
+    /sbin/depmod -b $HOME//kernel-$CARCH/modules/$KERNEL3 -m $KERNEL3
+#    [ ! -e $HOME//kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.pcimap ] && echo "modules.pcimap not found " && exit 1
+    [ ! -e $HOME//kernel-$CARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.dep ] && echo "$HOME//kernel-$CARCH/modules/$KERNEL3/modules.dep not found" && exit 2
   fi
   echo buildt

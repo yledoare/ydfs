@@ -9,8 +9,8 @@ MYSHORTDIR=`echo $MYDIR | cut -d'-' -f1`
 DIALOG=Xdialog
 [ "$DISPLAY" = "" ] && DIALOG=dialog
 echo -n "Package source : $MYDIR " 
-[ -d $HOME/dibab/packages-$ARCH/$MYDIR ] && [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
-[ "$FORCEBUILD" != "OK" ] && [ -d $HOME/dibab/packages-$ARCH/$MYDIR ] && [ ! -e build-twice ] && [ ! -e $HOME/dibab/build-$MODULE/$MYDIR/build-twice ] && echo -n "built OK ($HOME/dibab/packages-$ARCH/$MYDIR)" && exit 0
+[ -d $HOME//packages-$ARCH/$MYDIR ] && [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
+[ "$FORCEBUILD" != "OK" ] && [ -d $HOME//packages-$ARCH/$MYDIR ] && [ ! -e build-twice ] && [ ! -e $HOME//build-$MODULE/$MYDIR/build-twice ] && echo -n "built OK ($HOME//packages-$ARCH/$MYDIR)" && exit 0
 
 SHORTNAME=$(basename $MYPWD | cut -d'-' -f1)
 
@@ -18,35 +18,35 @@ echo $MYPWD | grep lightdm-gtk-greeter && SHORTNAME=lightdm-gtk-greeter
 echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
 
-[ "$FORCEBUILD" != "OK" ] && ls $HOME/dibab/opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
+[ "$FORCEBUILD" != "OK" ] && ls $HOME//opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
 
 [ "$FORCEBUILD" != "OK" ] && [ -e buildok-$ARCH ] && echo -n "built OK ($PWD)" && exit 0
 MYBUILDSCRIPT=""
 
-function dibab-install-package () {
+function -install-package () {
     #met à jour les dates d'accès et de modification
-    touch $HOME/.dibab-error
-    echo "$HOME/dibab/packages-$ARCH/$MYDIR not found, installing ..."
-    find $PREFIX -newer $HOME/dibab/tmp/.$MYDIR.dibab-start-build | while read FILE
+    touch $HOME/.-error
+    echo "$HOME//packages-$ARCH/$MYDIR not found, installing ..."
+    find $PREFIX -newer $HOME//tmp/.$MYDIR.-start-build | while read FILE
     do
       #si_$FILE_est_un_repertoire_alors_on_le_créé
-      [ -d "$FILE" ] && install -d $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && continue
+      [ -d "$FILE" ] && install -d $HOME//packages-$ARCH/$MYDIR/$FILE && continue
       #si_$FILE_est_un_fichier_alors_on_le_copie
       if [ -f "$FILE" ] 
       then
-        [ ! -e $HOME/dibab/packages-$ARCH/$MYDIR/`dirname $FILE` ] && install -d $HOME/dibab/packages-$ARCH/$MYDIR/`dirname $FILE`
-        cp $FILE $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
-        [ -e $HOME/.dibab-error ] && rm $HOME/.dibab-error
+        [ ! -e $HOME//packages-$ARCH/$MYDIR/`dirname $FILE` ] && install -d $HOME//packages-$ARCH/$MYDIR/`dirname $FILE`
+        cp $FILE $HOME//packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
+        [ -e $HOME/.-error ] && rm $HOME/.-error
       fi
       #si_$FILE_est_un_lien_symbolique_alors
-      [ -h "$FILE" ] && cp -a $FILE $HOME/dibab/packages-$ARCH/$MYDIR/$FILE && echo "link $FILE " && continue
-      [ -e $HOME/dibab/packages-$ARCH/$MYDIR/$FILE ] && continue
+      [ -h "$FILE" ] && cp -a $FILE $HOME//packages-$ARCH/$MYDIR/$FILE && echo "link $FILE " && continue
+      [ -e $HOME//packages-$ARCH/$MYDIR/$FILE ] && continue
       echo "What is $FILE ?? "
       rm buildok-$ARCH 
       exit 24
     done
-    [ -e $HOME/.dibab-error ] && echo "No file for $MYDIR ???" && exit 25
-  cd $HOME/dibab/packages-$ARCH/$MYDIR
+    [ -e $HOME/.-error ] && echo "No file for $MYDIR ???" && exit 25
+  cd $HOME//packages-$ARCH/$MYDIR
 echo "DEBUG MODULE is $MODULE"
   if [ "$MODULE" = "opkg" ]
   then
@@ -54,15 +54,15 @@ echo "DEBUG MODULE is $MODULE"
   fi
 }
 
-touch $HOME/dibab/tmp/.$MYDIR.dibab-start-build && sleep 1 # yes, some packages (re)built in less than one second !
+touch $HOME//tmp/.$MYDIR.-start-build && sleep 1 # yes, some packages (re)built in less than one second !
 # echo "Building for $ARCH" # && sleep 2
 
 if [ "$ARCH" = "" ]
 then
-  BUILD_DIR=$HOME/dibab/build/$MYDIR
+  BUILD_DIR=$HOME//build/$MYDIR
 else
-  # BUILD_DIR=$HOME/dibab/build-$ARCH/$MYDIR
-  BUILD_DIR=$HOME/dibab/build-$MODULE/$MYDIR
+  # BUILD_DIR=$HOME//build-$ARCH/$MYDIR
+  BUILD_DIR=$HOME//build-$MODULE/$MYDIR
 fi
 
 export MSGFMT="/usr/bin/msgfmt"
@@ -115,11 +115,11 @@ else
 	done
    rm $HOME/.archpatches
   fi
-  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e dibab-patched ]
+  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e -patched ]
   then
-    patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch dibab-patched
-    [ ! -e dibab-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch dibab-patched
-    [ ! -e dibab-patched ] && echo "wrong patch ?" # && exit 2
+    patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch -patched
+    [ ! -e -patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch -patched
+    [ ! -e -patched ] && echo "wrong patch ?" # && exit 2
   fi
 
 #  [ -e "torcs.desktop" ] && unset CFLAGS
@@ -134,10 +134,10 @@ else
 
   if [ -e generic/include/clc/clc.h ]
   then
-  [ ! -e $HOME/dibab/llvm-clang/bin/llvm-config ] && echo "Build llvm-clang" && $HOME_DIBAB/scripts/build-llvm-clang
+  [ ! -e $HOME//llvm-clang/bin/llvm-config ] && echo "Build llvm-clang" && $HOME_DIBAB/scripts/build-llvm-clang
   echo "Build custom clc"
   # sed -i 's/"python < $in >/sys.executable + " < $in >/g' configure.py
-  python2 ./configure.py --prefix=$PREFIX --with-llvm-config=$HOME/dibab/llvm-clang/bin/llvm-config
+  python2 ./configure.py --prefix=$PREFIX --with-llvm-config=$HOME//llvm-clang/bin/llvm-config
 #  sed -i 's|/usr/lib/llvm-3.4|/usr|' Makefile
   fi
 
@@ -145,8 +145,8 @@ else
 
   if [ -e doc/examples/etc/init.d/atieventsd.sh ]
   then
-    DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst.sh || exit $?
-    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    DESTDIR=$HOME//packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst.sh || exit $?
+    cd $HOME//packages-$ARCH/$MYDIR
     $HOME_DIBAB/scripts/make_opkg || exit $?
     exit 0
   fi
@@ -172,7 +172,7 @@ else
     install -D -m644 src/icons/${res}x${res}/$pkgname.png \
       $PREFIX/share/icons/hicolor/${res}x${res}/apps/$pkgname.png
   done
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0
   fi
@@ -216,7 +216,7 @@ else
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
 	sh install.sh
-	cd $HOME/dibab/src/$MYDIR
+	cd $HOME//src/$MYDIR
       fi
       [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
       #cp misc/libphysfs/physfs.h misc/libphyslayer
@@ -306,7 +306,7 @@ Categories=Game;" > $pkgname.desktop
   cp ${pkgname}-0.png  ${pkgdir}/share/pixmaps/${pkgname}.png || exit $?
   
   install -Dm644 license.txt ${pkgdir}/share/licenses/${pkgname}/license.txt
-  dibab-install-package
+  -install-package
   touch buildok-$ARCH
   exit 0
 fi
@@ -331,7 +331,7 @@ fi
     python setup.py install --prefix=$PREFIX || exit $?
     install -d $PREFIX/data/
     cp -fR data/* $PREFIX/data/
-    dibab-install-package 
+    -install-package 
     touch buildok-$ARCH
     exit 0
   fi
@@ -454,9 +454,9 @@ fi
     then
     MESA=10.4.7 && MESALIB=MesaLib
     MESA=10.5.4 && MESALIB=mesa
-    [ ! -e $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME/dibab/tarballs ftp://ftp.freedesktop.org/pub/mesa/$MESA/$MESALIB-$MESA.tar.xz 
-    [ ! -e $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
-    tar xJvf $HOME/dibab/tarballs/$MESALIB-$MESA.tar.xz || exit $?
+    [ ! -e $HOME//tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME//tarballs ftp://ftp.freedesktop.org/pub/mesa/$MESA/$MESALIB-$MESA.tar.xz 
+    [ ! -e $HOME//tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
+    tar xJvf $HOME//tarballs/$MESALIB-$MESA.tar.xz || exit $?
     mv Mesa-$MESA Mesa || mv mesa-$MESA Mesa
     fi
     echo "look $PREFIX/lib/libGL.so" # && sleep 20
@@ -490,7 +490,7 @@ fi
     --enable-dri3 \
     --enable-omx \
     --enable-opencl --enable-opencl-icd \
-    --with-clang-libdir=$HOME/dibab/llvm-clang/lib/ || exit 5
+    --with-clang-libdir=$HOME//llvm-clang/lib/ || exit 5
     make || exit 6
     make install || exit 7
     cd ..
@@ -563,7 +563,7 @@ fi
     make || exit $?
     make install || exit $?
     touch  $PREFIX/share/games/openttd/data/*
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0 
   fi
@@ -575,7 +575,7 @@ fi
      BINDIR=$PREFIX/bin LIBDIR=$PREFIX/lib:$PREFIX/lib64 LDFLAGS="-L$HOME/$ARCH/lib64 -L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" make install || exit $?
      cp dbus/fi.*.service $PREFIX/share/dbus-1/system-services/
      cp dbus/dbus-wpa_supplicant.conf $PREFIX/etc/dbus-1/system.d/wpa_supplicant.conf
-     dibab-install-package
+     -install-package
      touch buildok-$ARCH
      exit 0
   fi
@@ -602,7 +602,7 @@ fi
     mv "${pkgdir}"/foobillardplus/foobillardplus.{png,xbm} "${pkgdir}"/share/pixmaps
     #install -d "${pkgdir}"/bin
     #ln -s "${pkgdir}"/foobillardplus/bin/foobillardplus "${pkgdir}"/bin/foobillardplus
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0 
   fi
@@ -619,7 +619,7 @@ fi
 	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
         VERBOSE=1 make || exit $?
         make install || exit $?
-        dibab-install-package
+        -install-package
         touch buildok-$ARCH
        	exit 0
     fi 
@@ -706,7 +706,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
     fi
     [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
     [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
-    [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/dibab/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/dibab/src/SDL2-2.0.3/include $CFLAGS"
+    [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME//src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME//src/SDL2-2.0.3/include $CFLAGS"
 [ -e "torcs.desktop" ] && unset MODULE
     [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
 echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
@@ -809,7 +809,7 @@ ac_cv_file__dev_ptc=no' >  config.site
       install -d $PREFIX/share/applications
       NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=$pkgname ICON=$pkgname.png CATEGORIES="Game;" \
       $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
-      dibab-install-package
+      -install-package
       touch buildok-$ARCH
       exit 0
     fi
@@ -838,12 +838,12 @@ ln -sf $PREFIX/bin/2H4U .
   then
     make ||exit $?
     make install ||exit $?
-	DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
-    #dibab-install-package
+	DESTDIR=$HOME//packages-$ARCH/$MYDIR make install
+    #-install-package
     touch buildok-$ARCH
   if [ "$MODULE" = "opkg" ]
   then
-    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    cd $HOME//packages-$ARCH/$MYDIR
     $HOME_DIBAB/scripts/make_opkg || exit $?
   fi
     exit 0
@@ -855,7 +855,7 @@ ln -sf $PREFIX/bin/2H4U .
   -DUNICODE_WCHAR -DUTF8_MAYBE_NATIVE -DNO_LCHMOD -DDATE_FORMAT=DF_YMD \
   -DNATIVE" make -f unix/Makefile prefix=$PREFIX unzips || exit $?
     make -f unix/Makefile prefix=$PREFIX install || exit $?
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0
   fi
@@ -863,7 +863,7 @@ ln -sf $PREFIX/bin/2H4U .
   then
     make all || exit $?
     make install || exit $?
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0
   fi
@@ -873,7 +873,7 @@ ln -sf $PREFIX/bin/2H4U .
     TARGET=gtk \
     NETSURF_USE_VIDEO=NO || exit $?
     PREFIX=$HOME/$ARCH make install || exit $?
-    DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR PREFIX=$HOME/$ARCH make install || exit $?
+    DESTDIR=$HOME//packages-$ARCH/$MYDIR PREFIX=$HOME/$ARCH make install || exit $?
     pkgname="netsurf"
     install -d $PREFIX/share/pixmaps
     wget http://ubuntu.allmyapps.com/data/n/e/netsurf-netsurf-web-browser/icon_48x48_netsurf.png
@@ -903,21 +903,21 @@ ln -sf $PREFIX/bin/2H4U .
 	  install -d $PREFIX/lib
           install -d $PREFIX/share/applications
           install -d $PREFIX/share/pixmaps
-	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin
-	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib
-	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
-	  install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	  install -d $HOME//packages-$ARCH/$MYDIR/$PREFIX/bin
+	  install -d $HOME//packages-$ARCH/$MYDIR/$PREFIX/lib
+	  install -d $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	  install -d $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/applications
   	  FBBIN=$HOME/frozen-bubble/$HOME/$ARCH/bin/
 	  FBLIB=$HOME/frozen-bubble/$HOME/$ARCH/lib/ #perl5/site_perl/5.20.0/x86_64-linux/
 	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
-	  cp -fR $FBBIN/* $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin || exit $?
+	  cp -fR $FBBIN/* $HOME//packages-$ARCH/$MYDIR/$PREFIX/bin || exit $?
 	  cp -fR $FBLIB/* $PREFIX/lib | exit $?
-	  cp -fR $FBLIB/* $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
+	  cp -fR $FBLIB/* $HOME//packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
         cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
-        cp share/icons/frozen-bubble-icon-64x64.png $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
+        cp share/icons/frozen-bubble-icon-64x64.png $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
 	echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.20.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
 	chmod +x $PREFIX/bin/start-frozen-bubble
-	cp $PREFIX/bin/start-frozen-bubble $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
+	cp $PREFIX/bin/start-frozen-bubble $HOME//packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
 echo '
 [Desktop Entry]
 Type=Application
@@ -929,7 +929,7 @@ Exec=start-frozen-bubble
 Terminal=false
 Categories=Game;
 ' > $PREFIX/share/applications/frozen-bubble.desktop
-	cp $PREFIX/share/applications/frozen-bubble.desktop $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/applications/frozen-bubble.desktop $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/applications
 	touch buildok-$ARCH
 	fi
   if [ -e Build.PL ] && [ ! -e bin/frozen-bubble ]
@@ -939,12 +939,12 @@ Categories=Game;
 		  echo "Alien SDL custom build" && sleep 5
 		  #sed -i '/^GetOptions/d' Build.PL
 		  echo "Dirty copy SDL includes at $HOME/$ARCH/include" && cp $HOME/$ARCH/include/SDL/* $HOME/$ARCH/include
-		  cp $HOME/$ARCH/bin/sdl-config $HOME/$ARCH/bin/dibab-sdl-config
-		  sed -i "s@-lpthread@-lpthread -lpango-1.0 -lSDL_Pango -lpangoft2-1.0@g" $HOME/$ARCH/bin/dibab-sdl-config
-		  SDL_LIB=$HOME/$ARCH/lib SDL_INC=$HOME/$ARCH/include SDL_INST_DIR=$HOME/$ARCH perl Build.PL --with-sdl-config=$HOME/$ARCH/bin/dibab-sdl-config ||exit $?
+		  cp $HOME/$ARCH/bin/sdl-config $HOME/$ARCH/bin/-sdl-config
+		  sed -i "s@-lpthread@-lpthread -lpango-1.0 -lSDL_Pango -lpangoft2-1.0@g" $HOME/$ARCH/bin/-sdl-config
+		  SDL_LIB=$HOME/$ARCH/lib SDL_INC=$HOME/$ARCH/include SDL_INST_DIR=$HOME/$ARCH perl Build.PL --with-sdl-config=$HOME/$ARCH/bin/-sdl-config ||exit $?
 		  echo "Clear HOME/$ARCH/include/SDL*" 
                   rm $HOME/$ARCH/include/SDL* 
-                  cp $HOME/dibab/packages-$ARCH/SDL_Pango-0.1.2/$HOME/$ARCH/include/SDL_Pango.h $HOME/$ARCH/include/SDL
+                  cp $HOME//packages-$ARCH/SDL_Pango-0.1.2/$HOME/$ARCH/include/SDL_Pango.h $HOME/$ARCH/include/SDL
 		else
 		  perl Build.PL||exit $?
 		fi
@@ -977,7 +977,7 @@ echo "At BUILDPERL"
           echo "Run scons PREFIX=$PREFIX $SCONS_OPT"
           scons -c PREFIX=$PREFIX $SCONS_OPT || exit 23
           scons PREFIX=$PREFIX $SCONS_OPT install
-	  # scons PREFIX=$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX install
+	  # scons PREFIX=$HOME//packages-$ARCH/$MYDIR/$PREFIX install
   fi
   if [ -e ./bootstrap.sh ]  # boost
   then
@@ -1017,8 +1017,8 @@ echo "At BUILDPERL"
      touch buildok-$ARCH
      if [ -e ardour.1 ] 
      then
-       ./waf install --destdir=$HOME/dibab/packages-$ARCH/$MYDIR
-       cd $HOME/dibab/packages-$ARCH/$MYDIR
+       ./waf install --destdir=$HOME//packages-$ARCH/$MYDIR
+       cd $HOME//packages-$ARCH/$MYDIR
       install -d $PREFIX/share/applications/
 echo "[Desktop Entry]
 Name=Ardour 4
@@ -1029,8 +1029,8 @@ Terminal=false
 Type=Application
 X-MultipleArgs=false
 Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applications/ardour.desktop
-	install -d $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-       cp $PREFIX/share/applications/ardour.desktop  $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	install -d $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/applications
+       cp $PREFIX/share/applications/ardour.desktop  $HOME//packages-$ARCH/$MYDIR/$PREFIX/share/applications
        $HOME_DIBAB/scripts/make_opkg || exit $?
        exit 0
      fi
@@ -1063,9 +1063,9 @@ Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applic
        CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib make -f Makefile-libbz2_so || exit 17
      fi
      cp libbz2.so.1.0 $PREFIX/lib/ || exit 18
-     sed -i "s@PREFIX=$PREFIX@PREFIX=$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX@g" Makefile
+     sed -i "s@PREFIX=$PREFIX@PREFIX=$HOME//packages-$ARCH/$MYDIR/$PREFIX@g" Makefile
      make install || exit 19
-     cp libbz2.so.1.0 $HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX/lib/ || exit 20
+     cp libbz2.so.1.0 $HOME//packages-$ARCH/$MYDIR/$PREFIX/lib/ || exit 20
   fi
 
   if [ -e wxPython ]
@@ -1074,7 +1074,7 @@ Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applic
     CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 build || exit $?
     #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$PREFIX" || exit $?
     CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 install || exit $?
-    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$HOME/dibab/packages-$ARCH/$MYDIR/$PREFIX" || exit $?
+    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$HOME//packages-$ARCH/$MYDIR/$PREFIX" || exit $?
     touch ../buildok-$ARCH
     exit 0
   fi
@@ -1105,7 +1105,7 @@ Cflags: -I${PREFIX}/include/liveMedia -I${PREFIX}/include/groupsock -I${PREFIX}/
 Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment
   " > $PREFIX/lib/pkgconfig/live555.pc
 
-    dibab-install-package
+    -install-package
     touch buildok-$ARCH
     exit 0
 
@@ -1154,8 +1154,8 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
    fi    
 
       [ -e "Source/Swig/swig.h" ] && make && make install
-	echo "DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install" 
-	DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+	echo "DESTDIR=$HOME//packages-$ARCH/$MYDIR make install" 
+	DESTDIR=$HOME//packages-$ARCH/$MYDIR make install
 
       if [ -e qtquickcontrols ]
       then
@@ -1163,12 +1163,12 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	do
 	  cd $QTDIR || continue
 	  make make install
-	  DESTDIR=$HOME/dibab/packages-$ARCH/$MYDIR make install
+	  DESTDIR=$HOME//packages-$ARCH/$MYDIR make install
 	  cd ..
 	done
       fi
       
-      [ -e liblightdm-gobject ] && make DESTDIR="$HOME/dibab/packages-$ARCH" -C liblightdm-gobject install
+      [ -e liblightdm-gobject ] && make DESTDIR="$HOME//packages-$ARCH" -C liblightdm-gobject install
       [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
       if [ "$MAKE_INSTALL" != "OFF" ]
       then
@@ -1195,18 +1195,18 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	cp -fR data $PREFIX
       fi
       # Glibc
-      [ -e $SOURCEDIR/Makefile ] && grep install_root $SOURCEDIR/Makefile && make install_root=$HOME/dibab/packages-$ARCH/$MYDIR install
-      [ -e Makefile ] && grep INSTALL_ROOT Makefile && make INSTALL_ROOT=$HOME/dibab/packages-$ARCH/$MYDIR install
+      [ -e $SOURCEDIR/Makefile ] && grep install_root $SOURCEDIR/Makefile && make install_root=$HOME//packages-$ARCH/$MYDIR install
+      [ -e Makefile ] && grep INSTALL_ROOT Makefile && make INSTALL_ROOT=$HOME//packages-$ARCH/$MYDIR install
       [ -e share/vlc.desktop.in ] && export ARCH=$OLDARCH
       touch buildok-$ARCH
   fi
 . $(dirname $0)/../scripts/includes/games
 . $(dirname $0)/../scripts/includes/xbmc
-  echo $HOME/dibab/packages-$ARCH/$MYDIR
-  if [ ! -e $HOME/dibab/packages-$ARCH/$MYDIR ] 
+  echo $HOME//packages-$ARCH/$MYDIR
+  if [ ! -e $HOME//packages-$ARCH/$MYDIR ] 
   then 
-    echo "Run dibab-install-package"
-    dibab-install-package
+    echo "Run -install-package"
+    -install-package
   fi
   if [ "$BUILD_TWICE" = "yes" ]
   then
@@ -1224,7 +1224,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   make clean # Save some space
   if [ "$MODULE" = "opkg" ]
   then
-    cd $HOME/dibab/packages-$ARCH/$MYDIR
+    cd $HOME//packages-$ARCH/$MYDIR
     $HOME_DIBAB/scripts/make_opkg || exit $?
   fi
   TESTDIRNAME=$(pwd | grep lightdm)

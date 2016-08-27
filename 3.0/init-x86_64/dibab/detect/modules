@@ -4,14 +4,14 @@ mkdir /tmp
 
 #install -d $HOME/$ARCH
 
-install -d /dibab/modules/$ARCH
+install -d //modules/$ARCH
 
-mount /media/dibab/modules/$ARCH.squashfs /dibab/modules/$ARCH || ash
+mount /media//modules/$ARCH.squashfs //modules/$ARCH || ash
 
 install -d /lib/modules
-mount /media/dibab/modules/drivers-$ARCH.squashfs /lib/modules
+mount /media//modules/drivers-$ARCH.squashfs /lib/modules
 install -d /lib/firmware
-mount /media/dibab/modules/firmware-$ARCH.squashfs /lib/firmware
+mount /media//modules/firmware-$ARCH.squashfs /lib/firmware
 
 #ls /media/modules/ | while read MODULE
 #do
@@ -19,80 +19,80 @@ mount /media/dibab/modules/firmware-$ARCH.squashfs /lib/firmware
 #  [ "$MODULE" = "drivers-$ARCH.squashfs" ] && continue 
 #  [ "$MODULE" = "firmware-$ARCH.squashfs" ] && continue 
 #  MODULE_NAME=`echo $MODULE|cut -d'.' -f1`
-#  install -d /dibab/modules/$MODULE_NAME
-#  mount /media/modules/$MODULE /dibab/modules/$MODULE_NAME
-#  ln -s /dibab/modules/$MODULE_NAME
-#  MODULE_LIST="$MODULE_LIST:/dibab/modules/$MODULE_NAME"
+#  install -d //modules/$MODULE_NAME
+#  mount /media/modules/$MODULE //modules/$MODULE_NAME
+#  ln -s //modules/$MODULE_NAME
+#  MODULE_LIST="$MODULE_LIST://modules/$MODULE_NAME"
 #done
 
-cp -fR /dibab/modules/$ARCH/var /
+cp -fR //modules/$ARCH/var /
 
-/dibab/start/restore-persistant-data
+//start/restore-persistant-data
 
-if [ -e /media/dibab/mount-myusr ] 
+if [ -e /media//mount-myusr ] 
 then
-  /media/dibab/mount-myusr
+  /media//mount-myusr
 else
   mkdir /usr
   ln -s /usr $HOME/$ARCH
 fi
 
-#sachant que dibab-name est créé par le fichier 
-#scripts/make_initramfs et la commande:echo "$DISTRONAME" > $INITRAMFS/dibab-name
+#sachant que -name est créé par le fichier 
+#scripts/make_initramfs et la commande:echo "$DISTRONAME" > $INITRAMFS/-name
 #et la variable DISTRONAME est définie dans config.ini (attention,vérifier ce fichier,car cette variable peut-être restée à "linuxconsole")
-MODULE=`cat /dibab-name`
-if [ -e /media/dibab/modules/$MODULE-$ARCH.squashfs ] && [ ! -e /dibab/modules/module ]
+MODULE=`cat /-name`
+if [ -e /media//modules/$MODULE-$ARCH.squashfs ] && [ ! -e //modules/module ]
 then
  echo " $MODULE "
- install -d /dibab/modules/$MODULE
- ln -s /dibab/modules/$MODULE $HOME
- ln -s /dibab/modules/$MODULE /dibab/modules/module
- mount /media/dibab/modules/$MODULE-$ARCH.squashfs /dibab/modules/$MODULE
+ install -d //modules/$MODULE
+ ln -s //modules/$MODULE $HOME
+ ln -s //modules/$MODULE //modules/module
+ mount /media//modules/$MODULE-$ARCH.squashfs //modules/$MODULE
  if [ -e /root/usr ]
  then
    USR=/root/usr
-   [ -e /dibab/modules/$MODULE/usr ] && USR=/root/usr:/dibab/modules/$MODULE/usr
+   [ -e //modules/$MODULE/usr ] && USR=/root/usr://modules/$MODULE/usr
    #aufs permet de fusionner plusieurs points de montage
-   mount -t aufs -o dirs=$USR:/dibab/modules/$ARCH aufs /usr || ash
+   mount -t aufs -o dirs=$USR://modules/$ARCH aufs /usr || ash
    export PATH=$HOME/$MODULE/bin:$HOME/$MODULE/usr/games:$PATH
    mount -t aufs -o dirs=/root/etc:/etc aufs /etc || ash
  else
    USR=/usr
-   [ -e /dibab/modules/$MODULE/usr ] && USR=/usr:/dibab/modules/$MODULE/usr
-   mount -t aufs -o dirs=$USR:/dibab/modules/$ARCH aufs /usr || ash
+   [ -e //modules/$MODULE/usr ] && USR=/usr://modules/$MODULE/usr
+   mount -t aufs -o dirs=$USR://modules/$ARCH aufs /usr || ash
    export PATH=$HOME/$MODULE/bin:$PATH
  fi
- [ -e /dibab/modules/$MODULE/logo.png ] && cp /dibab/modules/$MODULE/logo.png /etc/dibab.png
+ [ -e //modules/$MODULE/logo.png ] && cp //modules/$MODULE/logo.png /etc/.png
 fi
 
-if [ ! -e /dibab/modules/module ] # No module
+if [ ! -e //modules/module ] # No module
 then
  if [ -e /root/usr ]
  then
-   mount -t aufs -o dirs=/root/usr:/dibab/modules/$ARCH aufs /usr || ash
+   mount -t aufs -o dirs=/root/usr://modules/$ARCH aufs /usr || ash
    export PATH=$HOME/$MODULE/bin:$HOME/$MODULE/usr/games:$PATH
    mount -t aufs -o dirs=/root/etc:/etc aufs /etc || ash
   else
-   mount -t aufs -o dirs=/usr:/dibab/modules/$ARCH aufs /usr || ash
+   mount -t aufs -o dirs=/usr://modules/$ARCH aufs /usr || ash
   fi
-  #MODULE=dibab
+  #MODULE=
 fi
 
 if [ ! -e /usr/lib/opkg ]
 then
   install -d /etc/opkg
   install -d /usr/lib/opkg
-  RELEASE=`cat /dibab-release`
-  if [ ! -e /etc/opkg/dibab.conf ]
+  RELEASE=`cat /-release`
+  if [ ! -e /etc/opkg/.conf ]
   then
-    if [ -e /media/dibab/pkg ]
+    if [ -e /media//pkg ]
     then
       # local
-      echo "src linuxconsole file:///media/dibab/pkg" > /etc/opkg/dibab.conf
+      echo "src linuxconsole file:///media//pkg" > /etc/opkg/.conf
     else
       # Network
-      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
-      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/dibab.conf
+      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/.conf
+      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/.conf
     fi
   fi
 fi
@@ -109,10 +109,10 @@ ln -s /busybox/sbin /
 
 chmod u+s /usr/libexec/dbus-daemon-launch-helper
 
-/dibab/start/syslog
+//start/syslog
 
 #udevd --daemon --debug
-if [ -e /dibab/boot/options/debug ]
+if [ -e //boot/options/debug ]
 then
   udevd --daemon --debug
 else

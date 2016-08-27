@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Looking into $HOME/$CARCH"
-find $HOME/dibab/build-$CARCH -name config.log | while read file 
+find $HOME//build-$CARCH -name config.log | while read file 
 do
   DIRNAME=`dirname $file`
   name=`basename $DIRNAME`

@@ -1,3 +1,3 @@
-install -d $HOME/dibab/archives/
-cd $HOME/dibab/x-tools
-tar cjvf $HOME/dibab/archives/$CPU-$VENDOR-linux-toolchain.tar.bz2 $CPU-$VENDOR-linux-$GNU
+install -d $HOME//archives/
+cd $HOME//x-tools
+tar cjvf $HOME//archives/$CPU-$VENDOR-linux-toolchain.tar.bz2 $CPU-$VENDOR-linux-$GNU

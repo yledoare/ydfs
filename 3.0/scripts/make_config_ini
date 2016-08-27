@@ -9,9 +9,9 @@ CROSSTOOL=1.15.3
 LCBUILD=`date +"%Y-%m-%d"`
 #MEDIA=DVD
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
-LCMBUILD=${HOME}/dibab/build/modules/
+LCMBUILD=${HOME}//build/modules/
 
-ISOTMP=${HOME}/dibab/iso
+ISOTMP=${HOME}//iso
 # MODULES="${CARCH}"
 MODULES="${CARCH} linuxconsole-${CARCH} drivers-${CARCH} firmware-${CARCH}"
 

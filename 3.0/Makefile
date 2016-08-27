@@ -33,14 +33,14 @@ export GNU=gnueabi
 export TOOLCHAIN_PREFIX=arm
 export VENDOR=unknown
   ifeq ($(TOOLCHAIN),FriendlyARM)
-    GCCPATH = ${HOME}/dibab/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/bin/
+    GCCPATH = ${HOME}//toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/bin/
     export PATH := ${PATH}:${GCCPATH}
     export CROSS_PREFIX=arm-linux
     export CROSS_COMPILE=arm-linux-
     export CC=${CROSS_COMPILE}gcc -march=armv4t -mtune=arm920t
   endif
   ifeq ($(TOOLCHAIN),buildroot)
-    GCCPATH = ${HOME}/dibab/buildroot-2011.08/output/host/usr/bin/
+    GCCPATH = ${HOME}//buildroot-2011.08/output/host/usr/bin/
     export PATH := ${PATH}:${GCCPATH}
     export PATH
     export CROSS_PREFIX=arm-linux
@@ -48,7 +48,7 @@ export VENDOR=unknown
     export CC=${CROSS_COMPILE}gcc -march=armv4t -mtune=arm920t
   endif
   ifeq ($(TOOLCHAIN),crosstool-ng)
-    GCCPATH = ${HOME}/dibab/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
+    GCCPATH = ${HOME}//x-tools/arm-${VENDOR}-linux-${GNU}/bin/
     export PATH := ${PATH}:${GCCPATH}
     export PATH
     export CROSS_PREFIX=arm-${VENDOR}-linux-${GNU}
@@ -57,7 +57,7 @@ export VENDOR=unknown
   endif
   ifeq ($(SUBCARCH),$(filter $(SUBCARCH),raspi raspi-qemu))
   ifeq ($(TOOLCHAIN),crosstool-ng)
-     GCCPATH = ${HOME}/dibab/x-tools/arm-${VENDOR}-linux-${GNU}/bin/
+     GCCPATH = ${HOME}//x-tools/arm-${VENDOR}-linux-${GNU}/bin/
      export CROSS_COMPILE=${TOOLCHAIN_PREFIX}-${VENDOR}-linux-${GNU}-
      export CROSS_PREFIX=${TOOLCHAIN_PREFIX}-${VENDOR}-linux-${GNU}
   else
@@ -65,7 +65,7 @@ export VENDOR=unknown
      TOOLCHAIN_PREFIX=gcc
      export GNU=gnueabihf
      export GNUPATH=gnueabihf-raspbian
-     GCCPATH=${HOME}/dibab/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/
+     GCCPATH=${HOME}//tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/bin/
      export CROSS_COMPILE=${CARCH}-linux-${GNU}-
      export CROSS_PREFIX=${CARCH}-linux-${GNU}
      export CC=${CROSS_COMPILE}gcc -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s
@@ -78,9 +78,9 @@ export VENDOR=unknown
 else
 KNAME=bzImage
   ifeq ($(TOOLCHAIN),crosstool-ng)
-    export CROSS_PREFIX=${CPU}-dibab-linux-gnu
+    export CROSS_PREFIX=${CPU}--linux-gnu
     export CROSS_COMPILE=${CROSS_PREFIX}-
-    GCCPATH = ${HOME}/dibab/x-tools/${CROSS_PREFIX}/bin/
+    GCCPATH = ${HOME}//x-tools/${CROSS_PREFIX}/bin/
     export PATH := ${PATH}:${GCCPATH}
     export CC=${CROSS_COMPILE}gcc 
     export MENUCONFIG
@@ -90,31 +90,31 @@ INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(CARCH)$(MEDIA).iso)
 export ISOPATH
 all: config.ini toolchain ${HOME}/${CARCH}/buildenv busybox initramfs linux modules firmware drivers iso # opkg fixopkg iso
-${HOME}/dibab/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
+${HOME}//x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
-busybox-toolchain: ${HOME}/dibab/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
+busybox-toolchain: ${HOME}//x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
 
-busybox: busybox-toolchain ${HOME}/dibab/build/busybox-${CARCH}-${BUSYBOX}/_install
+busybox: busybox-toolchain ${HOME}//build/busybox-${CARCH}-${BUSYBOX}/_install
 
-${HOME}/dibab/build/busybox-${CARCH}-${BUSYBOX}/.config:
+${HOME}//build/busybox-${CARCH}-${BUSYBOX}/.config:
 	./scripts/make_busybox ${BUSYBOX}
 
-${HOME}/dibab/build/busybox-${CARCH}-${BUSYBOX}/_install: ${HOME}/dibab/build/busybox-${CARCH}-${BUSYBOX}/.config
+${HOME}//build/busybox-${CARCH}-${BUSYBOX}/_install: ${HOME}//build/busybox-${CARCH}-${BUSYBOX}/.config
 	./scripts/make_busybox ${BUSYBOX}
 
-${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/.config:
+${HOME}//build/linux-${CARCH}-${KERNEL3}/.config:
 	./scripts/make_linux
 
-${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME}: scripts/make_linux 
-	echo "build " ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME}
+${HOME}//build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME}: scripts/make_linux 
+	echo "build " ${HOME}//build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME}
 	./scripts/make_linux
 
-linux: ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME} 
+linux: ${HOME}//build/linux-${CARCH}-${KERNEL3}/arch/${CARCH}/boot/${KNAME} 
 
-${HOME}/dibab/build_${CARCH}/${INITRAMFS}: config.ini init-${CARCH}/dibab/detect/media init-${CARCH}/dibab/detect/modules init-${CARCH} init-${CARCH}/etc/init.d/rcS init-${CARCH}/etc/profile scripts/make_initramfs
+${HOME}//build_${CARCH}/${INITRAMFS}: config.ini init-${CARCH}//detect/media init-${CARCH}//detect/modules init-${CARCH} init-${CARCH}/etc/init.d/rcS init-${CARCH}/etc/profile scripts/make_initramfs
 	./scripts/make_initramfs
 
-initramfs: ${HOME}/dibab/build_${CARCH}/${INITRAMFS}
+initramfs: ${HOME}//build_${CARCH}/${INITRAMFS}
 
 ${GCCPATH}: 
 	./scripts/make_toolchain
@@ -123,7 +123,7 @@ iso: ${ISOPATH}
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/dibab/build_${CARCH}/${INITRAMFS} ${LCMBUILD} config.ini 
+${ISOPATH}: ${HOME}//build_${CARCH}/${INITRAMFS} ${LCMBUILD} config.ini 
 	./scripts/make_iso
 
 config.ini:
@@ -142,19 +142,19 @@ distclean:
 	./scripts/make_distclean
 clean:
 	rm -fR ${HOME}/${CARCH}
-	rm -fR ${HOME}/dibab/build_${CARCH}/*
-	rm -fR ${HOME}/dibab/src/bzip2-1.0.6/
-	rm -fR ${HOME}/dibab/src/libmad-0.15.*
-	rm -fR ${HOME}/dibab/src/libomxil-bellagio-*
-	rm -fR ${HOME}/dibab/src/perl*/
-	rm -fR ${HOME}/dibab/src/SDL_Pango-0.1.2/
-	rm -fR ${HOME}/dibab/src/vim*/
+	rm -fR ${HOME}//build_${CARCH}/*
+	rm -fR ${HOME}//src/bzip2-1.0.6/
+	rm -fR ${HOME}//src/libmad-0.15.*
+	rm -fR ${HOME}//src/libomxil-bellagio-*
+	rm -fR ${HOME}//src/perl*/
+	rm -fR ${HOME}//src/SDL_Pango-0.1.2/
+	rm -fR ${HOME}//src/vim*/
 	rm -fR ${HOME}/.cpan
-	rm -fR ${HOME}/dibab/modules/*
-	rm -fR ${HOME}/dibab/build/modules/*
-	rm -fR ${HOME}/dibab/packages/
-	rm -fR ${HOME}/dibab/src/notify-python*
-	rm -fR ${HOME}/dibab/packages-${CARCH}/*
+	rm -fR ${HOME}//modules/*
+	rm -fR ${HOME}//build/modules/*
+	rm -fR ${HOME}//packages/
+	rm -fR ${HOME}//src/notify-python*
+	rm -fR ${HOME}//packages-${CARCH}/*
 ifeq ($(CARCH),x86)
 	rm ${ISOPATH}
 	rm ${LCMBUILD}/*
@@ -166,21 +166,21 @@ endif
 ${HOME}/${CARCH}/buildenv: core/${CARCH}.list
 	cd core && ../scripts/build_core ${CARCH}
 modules: ${LCMBUILD}/${CARCH}.squashfs 
-drivers: ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${CARCH}.squashfs
-firmware: ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${CARCH}.squashfs
+drivers: ${HOME}//build/linux-${CARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${CARCH}.squashfs
+firmware: ${HOME}//build/linux-${CARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${CARCH}.squashfs
 
-${LCMBUILD}/firmware-${CARCH}.squashfs: ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/.config
+${LCMBUILD}/firmware-${CARCH}.squashfs: ${HOME}//build/linux-${CARCH}-${KERNEL3}/.config
 	./scripts/make_firmwares
-${LCMBUILD}/drivers-${CARCH}.squashfs: ${HOME}/dibab/build/linux-${CARCH}-${KERNEL3}/.config
+${LCMBUILD}/drivers-${CARCH}.squashfs: ${HOME}//build/linux-${CARCH}-${KERNEL3}/.config
 	./scripts/make_drivers
 ${LCMBUILD}/${CARCH}.squashfs: core/${CARCH}.list scripts/make_modules
 	./scripts/make_modules
 
 check:
 	./scripts/check_url
-archives: ${HOME}/dibab/archives/${CARCH}-${VENDOR}-linux-toolchain.tar.bz2
+archives: ${HOME}//archives/${CARCH}-${VENDOR}-linux-toolchain.tar.bz2
 
-${HOME}/dibab/archives/${CARCH}-${VENDOR}-linux-toolchain.tar.bz2:
+${HOME}//archives/${CARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 video: packages/list-video
 	./scripts/make_packages video
@@ -214,8 +214,8 @@ dist:
 fixopkg:
 	./scripts/make_fixes
 	./scripts/make_opkg_filelist opkg
-opkg: ${HOME}/dibab/opkg/Packages
-${HOME}/dibab/opkg/Packages : packages/list-opkg-${DISTRONAME}
+opkg: ${HOME}//opkg/Packages
+${HOME}//opkg/Packages : packages/list-opkg-${DISTRONAME}
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg

@@ -1,7 +1,7 @@
-export PATH="/fix:/usr/bin:/usr/sbin:/usr/games:/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/:$HOME/opkg/bin:$HOME/opkg/sbin:/dibab/modules/module/bin:/dibab/modules/module/games:/dibab/modules/module/usr/bin:/dibab/modules/module/usr/games"
-export LD_LIBRARY_PATH=/fix:/usr/lib:/lib:/usr/lib64:/dibab/modules/module/lib:/dibab/modules/module/lib/i386-linux-gnu:$HOME/opkg/lib:$HOME/opkg/lib/i386-linux-gnu:/dibab/modules/module/usr/lib:/dibab/modules/module/usr/lib64
-export XDG_DATA_DIRS=/share:/usr/share:/dibab/modules/module/share:$HOME/opkg/share:$HOME/opkg/lib/libreoffice/share/xdg/:/dibab/modules/module/usr/share
-export PYTHONPATH=/dibab/modules/module/lib/python2.7/site-packages/:$HOME/opkg/lib/python2.7/site-packages
-export DISTRONAME=`cat /dibab-name`
+export PATH="/fix:/usr/bin:/usr/sbin:/usr/games:/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/:$HOME/opkg/bin:$HOME/opkg/sbin://modules/module/bin://modules/module/games://modules/module/usr/bin://modules/module/usr/games"
+export LD_LIBRARY_PATH=/fix:/usr/lib:/lib:/usr/lib64://modules/module/lib://modules/module/lib/i386-linux-gnu:$HOME/opkg/lib:$HOME/opkg/lib/i386-linux-gnu://modules/module/usr/lib://modules/module/usr/lib64
+export XDG_DATA_DIRS=/share:/usr/share://modules/module/share:$HOME/opkg/share:$HOME/opkg/lib/libreoffice/share/xdg/://modules/module/usr/share
+export PYTHONPATH=//modules/module/lib/python2.7/site-packages/:$HOME/opkg/lib/python2.7/site-packages
+export DISTRONAME=`cat /-name`
 export HOME_DIBAB=$HOME
 export JAVA_HOME=$HOME/opkg

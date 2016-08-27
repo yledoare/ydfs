@@ -1,1 +1,1 @@
-attr
+make install install-lib install-dev

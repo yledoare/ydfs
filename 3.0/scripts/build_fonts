@@ -2,17 +2,17 @@
 if [ ! -e $HOME/$CARCH/share/fonts/dejavu-fonts-ttf-2.29 ] && [ "$CARCH" != "arm" ]
 then
   install -d $HOME/$CARCH/share
-  [ ! -e $HOME/dibab/tarballs/dejavu-fonts-ttf-2.29.tar.bz2 ] && wget --directory-prefix=$HOME/dibab/tarballs http://freefr.dl.sourceforge.net/sourceforge/dejavu/dejavu-fonts-ttf-2.29.tar.bz2
-  tar xjvf $HOME/dibab/tarballs/dejavu-fonts-ttf-2.29.tar.bz2
+  [ ! -e $HOME//tarballs/dejavu-fonts-ttf-2.29.tar.bz2 ] && wget --directory-prefix=$HOME//tarballs http://freefr.dl.sourceforge.net/sourceforge/dejavu/dejavu-fonts-ttf-2.29.tar.bz2
+  tar xjvf $HOME//tarballs/dejavu-fonts-ttf-2.29.tar.bz2
   mv dejavu-fonts-ttf-2.29 $HOME/$CARCH/share/fonts
 fi
 
 if [ ! -e $HOME/$CARCH/share/fonts/truetype/ukai ]
 then
-  [ ! -e $HOME/dibab/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/dibab/tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+  [ ! -e $HOME//tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME//tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
   mkdir ukai
   cd ukai
-  tar xzvf $HOME/dibab/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+  tar xzvf $HOME//tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
   install -v -d -m755 $HOME/$CARCH/share/fonts/truetype/ukai
   cp *.ttc fonts.* $HOME/$CARCH/share/fonts/truetype/ukai
   cp *.conf $HOME/$CARCH/etc/fonts/conf.avail/
@@ -22,10 +22,10 @@ fi
 
 if [ ! -e $HOME/$CARCH/share/fonts/truetype/uming ]
 then
-  [ ! -e $HOME/dibab/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/dibab/tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+  [ ! -e $HOME//tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME//tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
   mkdir uming
   cd uming
-  tar xzvf $HOME/dibab/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+  tar xzvf $HOME//tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
   install -v -d -m755 $HOME/$CARCH/share/fonts/truetype/uming
   cp *.ttc fonts.* $HOME/$CARCH/share/fonts/truetype/uming
   cp *.conf $HOME/$CARCH/etc/fonts/conf.avail/
