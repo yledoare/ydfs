@@ -1,0 +1,7 @@
+ ./configure --prefix=$PREFIX --enable-unicode-properties \
+    --enable-pcre16 \
+    --enable-pcre32 \
+    --enable-jit \
+    --enable-pcregrep-libz \
+    --enable-pcregrep-libbz2 \
+    --enable-pcretest-libreadline

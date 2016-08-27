@@ -7,13 +7,13 @@ GUI_PATH=$HOME/$CARCH
 
 # $HOME/$CARCH/bin/fc-cache
 
-install -d $HOME//modules/$CARCH
+install -d $HOME/ydfs/modules/$CARCH
 
 DOC_FILES="25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
 # ICONS_FILES="icons/handhelds icons/nuoveXT2  icons/redglass icons/ whiteglass"
 LOCALE_FILES="share/locale"
 DEV_FILES="lib/scons lib/tcl8.5 python2.7/test pygame/tests"
-#ls /home/linuxconsole24//packages-x86_64/mysql-5.6.23/home/linuxconsole24/x86_64/bin/ | while read file; do echo -n "bin/$file " ; done
+#ls /home/linuxconsole24/ydfs/packages-x86_64/mysql-5.6.23/home/linuxconsole24/x86_64/bin/ | while read file; do echo -n "bin/$file " ; done
 
 MYSQL_SKIP_FILES="mysql-test bin/innochecksum bin/msql2mysql bin/myisamchk bin/myisam_ftdump bin/myisamlog bin/myisampack bin/my_print_defaults bin/mysql bin/mysqlaccess bin/mysqlaccess.conf bin/mysqladmin bin/mysqlbinlog bin/mysqlbug bin/mysqlcheck bin/mysql_client_test bin/mysql_client_test_embedded bin/mysql_config bin/mysql_config_editor bin/mysql_convert_table_format bin/mysqld bin/mysqld_multi bin/mysqld_safe bin/mysqldump bin/mysqldumpslow bin/mysql_embedded bin/mysql_find_rows bin/mysql_fix_extensions bin/mysqlhotcopy bin/mysqlimport bin/mysql_plugin bin/mysql_secure_installation bin/mysql_setpermission bin/mysqlshow bin/mysqlslap bin/mysqltest bin/mysqltest_embedded bin/mysql_tzinfo_to_sql bin/mysql_upgrade bin/mysql_waitpid bin/mysql_zap bin/perror bin/replace bin/resolveip bin/resolve_stack_dump"
 
@@ -30,19 +30,19 @@ do
 	echo "DEBUG $file 1" >> /tmp/debug
     test "$file" = "./bin/ls" && echo "Skip ./bin/ls" && continue
 	echo "DEBUG $file 2" >> /tmp/debug
-    test -f $file && test ! -e `dirname $HOME//modules/$MOD/$file` && install -d `dirname $HOME//modules/$MOD/$file` 
+    test -f $file && test ! -e `dirname $HOME/ydfs/modules/$MOD/$file` && install -d `dirname $HOME/ydfs/modules/$MOD/$file` 
 	echo "DEBUG $file 3" >> /tmp/debug
-	  test $HOME/$CARCH/$file -nt $HOME//modules/$MOD/$file && echo "Update $HOME//modules/$MOD/$file" && cp $HOME/$CARCH/$file $HOME//modules/$MOD/$file && continue
+	  test $HOME/$CARCH/$file -nt $HOME/ydfs/modules/$MOD/$file && echo "Update $HOME/ydfs/modules/$MOD/$file" && cp $HOME/$CARCH/$file $HOME/ydfs/modules/$MOD/$file && continue
 	echo "DEBUG $file 4" >> /tmp/debug
-    test -e $HOME//modules/$MOD/$file && continue
+    test -e $HOME/ydfs/modules/$MOD/$file && continue
 	echo "DEBUG $file 5" >> /tmp/debug
     echo -n $(basename $file)
 	echo "DEBUG $file 6" >> /tmp/debug
     echo -n " "
 	echo "DEBUG $file 7" >> /tmp/debug
-    test -d $file && test ! -e $HOME//modules/$MOD/$file && install -d $HOME//modules/$MOD/$file && continue
+    test -d $file && test ! -e $HOME/ydfs/modules/$MOD/$file && install -d $HOME/ydfs/modules/$MOD/$file && continue
 	echo "DEBUG $file 8" >> /tmp/debug
-    test -f $file && test ! -e $HOME//modules/$MOD/$file && cp -a $HOME/$CARCH/$file $HOME//modules/$MOD/$file 
+    test -f $file && test ! -e $HOME/ydfs/modules/$MOD/$file && cp -a $HOME/$CARCH/$file $HOME/ydfs/modules/$MOD/$file 
 	echo "DEBUG $file 9" >> /tmp/debug
     echo $file|grep 'grub/i386-pc' >/dev/null && continue
     echo $file|grep 'mysql-test' >/dev/null && continue
@@ -50,10 +50,10 @@ do
     echo $file|grep 'share/doc' >/dev/null && continue
     echo $file|grep 'share/icons' >/dev/null && continue
     echo $file|grep 'systemd' >/dev/null && continue
-    test -f $HOME//modules/$MOD/$file && strip $HOME//modules/$MOD/$file
- 	  test -f $HOME//modules/$MOD/$file && continue
- 	  test -L $HOME//modules/$MOD/$file && continue
-    echo "What is wrong with $HOME//modules/$MOD/$file ?"
+    test -f $HOME/ydfs/modules/$MOD/$file && strip $HOME/ydfs/modules/$MOD/$file
+ 	  test -f $HOME/ydfs/modules/$MOD/$file && continue
+ 	  test -L $HOME/ydfs/modules/$MOD/$file && continue
+    echo "What is wrong with $HOME/ydfs/modules/$MOD/$file ?"
     # break
     exit 5
   done
@@ -64,9 +64,9 @@ done
 
 cd $GUI_PATH
 
-install -d $HOME//modules
-[ ! -e ..//modules/gui-list ] && find > $HOME//modules/gui-list
-[ ! -e ..//modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME//modules/gui-list-dev
+install -d $HOME/ydfs/modules
+[ ! -e ../ydfs/modules/gui-list ] && find > $HOME/ydfs/modules/gui-list
+[ ! -e ../ydfs/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/ydfs/modules/gui-list-dev
 
 SKIP="find . ! -name '*.la' -a ! -name '*.a' ! -name '*.h' ! -name '*.c'"
 for file in oxygen/256x256 oxygen/128x128 var/cache/fontconfig share/help share/gir-1.0 sql-bench mysql-test smbtorture _embedded $SAMBA_SKIP_FILES $MYSQL_SKIP_FILES src.zip $ICONS_FILES $DOC_FILES $DEV_FILES lib/pkgconfig include $LOCALE_FILES bin/mount bin/umount bin/df
@@ -74,16 +74,16 @@ do
   SKIP="$SKIP | grep -v '$file'" 
 done
 
-echo $SKIP > $HOME//modules/run-find && sh $HOME//modules/run-find > $HOME//modules/gui-list-all
-LIST=$HOME//modules/gui-list-all MOD=$CARCH FIND_FILES="/" link_module
+echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HOME/ydfs/modules/gui-list-all
+LIST=$HOME/ydfs/modules/gui-list-all MOD=$CARCH FIND_FILES="/" link_module
 LDLINUX=ld-linux.so.2
 test -e /lib64/ld-linux-x86-64.so.2 && LDLINUX=ld-linux-x86-64.so.2
 
 LIBICU=52
 [ -e /usr/lib/$CARCH-linux-gnu/libicui18n.so.48 ] && LIBICU=48
-[ -e $HOME//llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
-[ -e $HOME//llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
-[ -e $HOME//llvm-clang/lib/libLLVM-3.0.so ] && LIBLLVM=3.0
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.0.so ] && LIBLLVM=3.0
 LIBBOOST=55
 LIBBOOST=54
 [ -e /usr/lib/libboost_filesystem.so.1.49.0 ] && LIBBOOST=49
@@ -94,49 +94,49 @@ GLIBC_BIN="ldd"
 
 if [ "$TOOLCHAIN" = "crosstool-ng" ]
 then
-  cp -a $HOME//x-tools/$CROSS_PREFIX/$CROSS_PREFIX/sysroot/lib/* $HOME//modules/$CARCH/lib
+  cp -a $HOME/ydfs/x-tools/$CROSS_PREFIX/$CROSS_PREFIX/sysroot/lib/* $HOME/ydfs/modules/$CARCH/lib
 else
   for file in $GLIBC_BIN
   do
-	  install -d $HOME//modules/$CARCH/bin
-	  cp /usr/bin/$file $HOME//modules/$CARCH/bin || exit $?
+	  install -d $HOME/ydfs/modules/$CARCH/bin
+	  cp /usr/bin/$file $HOME/ydfs/modules/$CARCH/bin || exit $?
   done
   for file in $GLIBC_LIBS
   do
-    for directory in /lib64/ /lib/x86_64-linux-gnu /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME//llvm-clang/lib/ 
+    for directory in /lib64/ /lib/x86_64-linux-gnu /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ 
     do
-	[ -e $directory/$file ] && cp $directory/$file $HOME//modules/$CARCH/lib
+	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$CARCH/lib
     done
-    [ ! -e $HOME//modules/$CARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
+    [ ! -e $HOME/ydfs/modules/$CARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
   done
 fi
 
-cd $HOME//modules/$CARCH/share/doc
-ls $HOME//modules/$CARCH/share/doc | while read file
+cd $HOME/ydfs/modules/$CARCH/share/doc
+ls $HOME/ydfs/modules/$CARCH/share/doc | while read file
 do
   test "$file" = "cups" && continue
   echo "Delete $file"
-  rm -fR $HOME//modules/$CARCH/share/doc/$file
+  rm -fR $HOME/ydfs/modules/$CARCH/share/doc/$file
 done
  
-[ "$CARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME//modules/$CARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME//modules/$CARCH/lib/x86_64-linux-gnu
-[ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME//modules/$CARCH/lib/
-install -d $HOME//modules/$CARCH/share/locale 
-cp -fR $HOME/$CARCH/share/locale/br $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/fr $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/es $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/it $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/de $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/pt $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/zh_CN $HOME//modules/$CARCH/share/locale
-cp -fR $HOME/$CARCH/share/locale/ru $HOME//modules/$CARCH/share/locale
+[ "$CARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$CARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME/ydfs/modules/$CARCH/lib/x86_64-linux-gnu
+[ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME/ydfs/modules/$CARCH/lib/
+install -d $HOME/ydfs/modules/$CARCH/share/locale 
+cp -fR $HOME/$CARCH/share/locale/br $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/fr $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/es $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/it $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/de $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/pt $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/zh_CN $HOME/ydfs/modules/$CARCH/share/locale
+cp -fR $HOME/$CARCH/share/locale/ru $HOME/ydfs/modules/$CARCH/share/locale
 # Enable wanted locales like es_ES.UTF-8 with 'dpkg-reconfigure locales' on debian
-install -d $HOME//modules/$CARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME//modules/$CARCH/lib/locale
-install -d $HOME//modules/$CARCH/include/python2.7 && cp $HOME/$CARCH/include/python2.7/pyconfig.h $HOME//modules/$CARCH/include/python2.7
-ln -sf libcurl.so.4 $HOME//modules/$CARCH/lib/libcurl-gnutls.so.4
-ln -sf $HOME/$CARCH/bin/gpg2 $HOME//modules/$CARCH/bin/gpg
-ln -sf $HOME/$CARCH/bin/gpgv $HOME//modules/$CARCH/bin/gpgv
-cp -a /etc/ssl/ $HOME//modules/$CARCH/etc
+install -d $HOME/ydfs/modules/$CARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME/ydfs/modules/$CARCH/lib/locale
+install -d $HOME/ydfs/modules/$CARCH/include/python2.7 && cp $HOME/$CARCH/include/python2.7/pyconfig.h $HOME/ydfs/modules/$CARCH/include/python2.7
+ln -sf libcurl.so.4 $HOME/ydfs/modules/$CARCH/lib/libcurl-gnutls.so.4
+ln -sf $HOME/$CARCH/bin/gpg2 $HOME/ydfs/modules/$CARCH/bin/gpg
+ln -sf $HOME/$CARCH/bin/gpgv $HOME/ydfs/modules/$CARCH/bin/gpgv
+cp -a /etc/ssl/ $HOME/ydfs/modules/$CARCH/etc
 if [ "$CARCH" = "x86_64" ]
 then
 export LD_LIBRARY_PATH=$HOME/x86_64/lib
@@ -145,8 +145,8 @@ export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
 install -d $LCMBUILD
 # rm $LCMBUILD/devtools-$CARCH.squashfs
-MKSQUASHFS="$HOME//modules/$CARCH/bin/mksquashfs "
+MKSQUASHFS="$HOME/ydfs/modules/$CARCH/bin/mksquashfs "
 MKSQUASHFS="$HOME/$CARCH/bin/mksquashfs "
 [ "$CARCH" = "arm" ] && MKSQUASHFS=mksquashfs
 rm $LCMBUILD/$CARCH.squashfs
-$MKSQUASHFS $HOME//modules/$CARCH $LCMBUILD/$CARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE
+$MKSQUASHFS $HOME/ydfs/modules/$CARCH $LCMBUILD/$CARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE

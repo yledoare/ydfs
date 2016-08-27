@@ -1,3 +1,5 @@
+./configure --prefix=$PREFIX || exit 1
+exit 0
 ./configure      --enable-lz4 \
       --enable-compat-libs \
       --enable-gnuefi \

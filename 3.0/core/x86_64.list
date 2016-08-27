@@ -25,6 +25,8 @@ archlinux:pkg-config
 archlinux:glib2
 archlinux:libxau
 archlinux:libxdmcp
+archlinux:libmnl
+archlinux:libnftnl
 archlinux:iptables
 archlinux:cracklib
 archlinux:util-linux
@@ -32,7 +34,7 @@ archlinux:e2fsprogs
 archlinux:keyutils
 #archlinux:libsasl
 archlinux:openldap
-http://pkgs.fedoraproject.org/repo/pkgs/krb5/krb5-1.13.2.tar.gz/f9b9275c6ceb9e6c39fabecc00c6a059/krb5-1.13.2.tar.gz
+archlinux:krb5
 archlinux:libtirpc
 archlinux:perl-xml-parser
 archlinux:gmp
@@ -45,6 +47,6 @@ archlinux:gnu-efi-libs
 archlinux:libxml2
 archlinux:pam
 archlinux:dbus
-#http://freefr.dl.sourceforge.net/project/libcg/libcgroup/v0.41/libcgroup-0.41.tar.bz2
 archlinux:strace
-http://www.freedesktop.org/software/systemd/systemd-221.tar.xz
+archlinux:intltool
+https://github.com/systemd/systemd/archive/v231.tar.gz

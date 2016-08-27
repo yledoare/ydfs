@@ -1,6 +1,6 @@
-cd $HOME//opkg
+cd $HOME/ydfs/opkg
 $HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
-[ -e /var/www/opkg/ ] && cp -fR $HOME//opkg/* /var/www/opkg/$DISTRONAME
+[ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
 HOME_DIST=`basename $HOME_DIBAB`
-[ -e /home/linuxconsole24//opkg ] && rsync --size-only -vr /home/linuxconsole24//opkg/ opkg@opkg.linuxconsole.org:www/linuxconsole/2.4/x86
+[ -e /home/linuxconsole24/ydfs/opkg ] && rsync --size-only -vr /home/linuxconsole24/ydfs/opkg/ opkg@opkg.linuxconsole.org:www/linuxconsole/2.4/x86
 echo "OK"

@@ -5,7 +5,7 @@ then
   exit 1
 fi
 . ./config.ini
-cd $HOME//packages/$1 || exit $?
+cd $HOME/ydfs/packages/$1 || exit $?
 find | while read file 
 do
   echo $file
@@ -16,9 +16,9 @@ done
 cd home/*
 find | while read file 
 do
-  [ -f "$HOME//modules/"$file ] && echo "Remove $HOME//modules/"$file && rm "$HOME//modules/"$file
-  [ -h "$HOME//modules/"$file ] && echo "Remove $HOME//modules/"$file && rm "$HOME//modules/"$file
+  [ -f "$HOME/ydfs/modules/"$file ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
+  [ -h "$HOME/ydfs/modules/"$file ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
 done
 
-rm -fR $HOME//packages/$1
-rm $HOME//src/$1-*/*.done
+rm -fR $HOME/ydfs/packages/$1
+rm $HOME/ydfs/src/$1-*/*.done

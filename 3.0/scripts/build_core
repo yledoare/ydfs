@@ -7,12 +7,12 @@ export TMPDIR=$HOME/tmp
 install -d $HOME/tmp
 install -d $HOME/$CARCH/share/aclocal
 [ ! -e $HOME/$MODULE/share/aclocal ] && install -d $HOME/$MODULE/share/aclocal
-install -d $HOME//src
-install -d $HOME//tarballs
+install -d $HOME/ydfs/src
+install -d $HOME/ydfs/tarballs
 
-install -d $HOME//CFLAGS
-install -d $HOME//CPPFLAGS
-install -d $HOME//CPPFLAGS
+install -d $HOME/ydfs/CFLAGS
+install -d $HOME/ydfs/CPPFLAGS
+install -d $HOME/ydfs/CPPFLAGS
 
 [ "$CARCH" = "x86_64" ] && [ ! -e $HOME/$CARCH/lib64 ] && install -d $HOME/$CARCH/lib && ln -s $HOME/$CARCH/lib $HOME/$CARCH/lib64
 
@@ -25,7 +25,7 @@ unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD
 
 # $1 est supposée être une ISO particulière demandée passée en paramètre, lanpower, par exemple: pourquoi est-ce "uclib" ici ? 
 # Sinon, La ligne 14 "echo $SRC_PATH/list-$1" donne n'importe quoi
-[ "$1" = "uclib" ] && export CC=$HOME//x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
+[ "$1" = "uclib" ] && export CC=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
 # initialisation du chemin pour le compilateur C x86
 [ "$CARCH" = "x86" ] && [ "$CC" = "" ] && export CC=`which gcc`
 
@@ -37,9 +37,9 @@ export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$CARCH/share/ac
 # initialisations des variables utilisées 
 export CXX="g++"
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/$HOME/$MODULE/lib:$HOME/$CARCH/lib CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:$HOME/$MODULE/include:$HOME/$CARCH/include
-export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include -I$HOME//CFLAGS"
-export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include -I$HOME//CPPFLAGS"
-export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include -I$HOME//CXXFLAGS"
+export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include -I$HOME/ydfs/CFLAGS"
+export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include -I$HOME/ydfs/CPPFLAGS"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include -I$HOME/ydfs/CXXFLAGS"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/include"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/include/AL"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$CARCH/irrlicht"
@@ -48,7 +48,7 @@ export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib "
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib64 "
 export GTKMM_BASEPATH=$HOME/$CARCH
 # autres initialisations selon les architectures(processeurs)
-[ "$CARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$CARCH/lib -Wl,-rpath-link,/home/raspi//tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME
+[ "$CARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$CARCH/lib -Wl,-rpath-link,/home/raspi/ydfs/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME
 [ "$CARCH" = "x86" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib"
 [ "$CARCH" = "x86_64" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib64 -Wl,-rpath-link,$HOME/$MODULE/lib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/$MODULE/lib"
@@ -63,7 +63,7 @@ PATH=$PWD:$PATH
 else
 PATH=$PWD:$HOME/Qt5/5.4/gcc/bin:$MODULEPATH:$PATH:
 fi
-PATH=$HOME//llvm-clang/bin/:$PATH
+PATH=$HOME/ydfs/llvm-clang/bin/:$PATH
 # build tar
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
@@ -75,7 +75,7 @@ export PYTHON_PREFIX=$DIBAB_PREFIX/$MODULE/
 export LIB_CUPS=$DIBAB_PREFIX/$CARCH/lib
 export CUPS_ETC=$DIBAB_PREFIX/$CARCH/etc
 
-[ -e $HOME/-error ] && rm $HOME/-error
+[ -e $HOME/ydfs-error ] && rm $HOME/ydfs-error
 
 #$HOME_DIBAB/scripts/first-env
 LIST=$SRC_PATH/$MODULE.list
@@ -107,7 +107,7 @@ do
   if [  -n "`echo $PKGURL | grep 'archsource:'`" ] 
 then
   PKG=`echo $PKGURL | cut -d':' -f2`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME//packages/$PKG ] && echo "$HOME//packages/$PKG exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   $HOME_DIBAB/scripts/get-archpkg $PKG
   $HOME_DIBAB/scripts/build-archpkg || exit $?
   exit 0
@@ -115,7 +115,7 @@ fi
   if [  -n "`echo $PKGURL | grep 'archlinuxpatched:'`" ] 
 then
   PKG=`echo $PKGURL | cut -d':' -f2`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME//packages/$PKG ] && echo "$HOME//packages/$PKG exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   $HOME_DIBAB/scripts/get-archpkg $PKG
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL"
@@ -123,14 +123,14 @@ fi
   if [  -n "`echo $PKGURL | grep 'archlinux:'`" ] 
 then
   PKG=`echo $PKGURL | cut -d':' -f2`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME//packages/$PKG ] && echo "$HOME//packages/$PKG exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL"
 fi
   PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME//packages/$PKGNAME ] && echo "$HOME//packages/$PKGNAME exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKGNAME ] && echo "$HOME/ydfs/packages/$PKGNAME exists" && continue
   DIRNAME=`basename $PKGURL_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME//src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
   FIRST=`echo $PKGURL | head -c1`
   [ "$FIRST" = '#' ] && continue
   PKGURL=`echo $PKGURL|cut -d'#' -f1`
@@ -141,7 +141,7 @@ fi
   export PREFIX=$DIBAB_PREFIX/$MODULE/
   if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
   then
-    cd $HOME//src
+    cd $HOME/ydfs/src
     SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
     [ ! -e $SOURCE_DIR ] && svn co $PKGURL
     cd $SOURCE_DIR
@@ -151,52 +151,52 @@ fi
   fi
   if [  -n "`echo $PKGURL | grep 'lp:'`" ] 
   then
-    cd $HOME//src
+    cd $HOME/ydfs/src
     SOURCE_DIR=`echo $PKGURL | cut -d':' -f2`
     [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $PKGURL
     cd $SOURCE_DIR
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/-error
-    [ -e $HOME/-error ] && echo "Exit $PKGURL " && break
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
   if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] 
   then
-    cd $HOME//src
+    cd $HOME/ydfs/src
     SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
     [ ! -e $SOURCE_DIR ] && git clone $PKGURL
     cd $SOURCE_DIR
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/-error
-    [ -e $HOME/-error ] && echo "Exit $PKGURL " && break
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
   if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
   then
     modperl=`echo $PKGURL | cut -d '/' -f2` 
     echo "Run  db-build-modperl $modperl" 
-	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/-error
-    [ -e $HOME/-error ] && echo "Exit $PKGURL " && break
+	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
-  if [ -e $HOME//tarballs/`basename $PKGURL` ]
+  if [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ]
   then
-    test -s $HOME//tarballs/`basename $PKGURL` || rm $HOME//tarballs/`basename $PKGURL`
+    test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
   fi
-  [ -e $HOME//tarballs/`basename $PKGURL`.start ] && [ -e $HOME//tarballs/`basename $PKGURL` ] && rm $HOME//tarballs/`basename $PKGURL`
-  [ ! -e $HOME//tarballs/`basename $PKGURL` ] && touch $HOME//tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME//tarballs/`basename $PKGURL` $PKGURL && rm $HOME//tarballs/`basename $PKGURL`.start
-  test -s $HOME//tarballs/`basename $PKGURL` || rm $HOME//tarballs/`basename $PKGURL`
-  [ ! -e $HOME//tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/-error
-  [ -e $HOME/-error ] && echo "Exit $PKGURL " && break
+  [ -e $HOME/ydfs/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && rm $HOME/ydfs/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
+  test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/ydfs-error
+  [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
   # ? DBKVER=$KERNEL3 
-  $HOME_DIBAB/scripts/build_archive $HOME//tarballs/`basename $PKGURL` || touch $HOME/-error
-  [ -e $HOME/-error ] && tail -100 $(cat $HOME//.last-error) && echo -n "full log is " && cat $HOME//.last-error
-  [ -e $HOME/-error ] && echo "Exit $0 $PKGURL " && break
+  $HOME_DIBAB/scripts/build_archive $HOME/ydfs/tarballs/`basename $PKGURL` || touch $HOME/ydfs-error
+  [ -e $HOME/ydfs-error ] && tail -100 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error
+  [ -e $HOME/ydfs-error ] && echo "Exit $0 $PKGURL " && break
 done
 
-[ -e $HOME/-error ] && exit 1
+[ -e $HOME/ydfs-error ] && exit 1
 
 if [ ! -e /$HOME/$CARCH/include/ladspa.h ] && [ "$CARCH" != "arm" ]
 then
-    cd $HOME//src
+    cd $HOME/ydfs/src
     cp -fR $HOME_DIBAB/ladspa_sdk .
     cd ladspa_sdk/src
     mkdir ../plugins

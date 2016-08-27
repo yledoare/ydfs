@@ -1,5 +1,5 @@
 . ./config.ini
-[ ! -e $HOME//modules/$CARCH/bin/mksquashfs ] && echo "cannot found $HOME//modules/$CARCH/bin/mksquashfs" && exit 0
+[ ! -e $HOME/ydfs/modules/$CARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$CARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 rm $LCMBUILD/firmware-$CARCH.squashfs
 if [ "$CARCH" = "x86_64" ]
@@ -8,8 +8,8 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-install -d $HOME//kernel-$CARCH/modules/$KERNEL3
-cd $HOME//kernel-$CARCH/modules/$KERNEL3
+install -d $HOME/ydfs/kernel-$CARCH/modules/$KERNEL3
+cd $HOME/ydfs/kernel-$CARCH/modules/$KERNEL3
 
 DEBVER=_0.43_all.deb
 for FIRMWARE in firmware-iwlwifi firmware-realtek firmware-libertas firmware-brcm80211 firmware-atheros firmware-ralink firmware-netxen firmware-ipw2x00 firmware-linux firmware-myricom firmware-qlogic
@@ -23,5 +23,5 @@ tar xzvf firmware-nonfree_0.43.tar.gz
 cp -fR firmware-nonfree/* lib/firmware || exit 3
 cp -fR lib/firmware/linux-nonfree/* lib/firmware || exit 3
 ls lib/firmware/radeon/R600*
-$HOME//modules/$CARCH/bin/mksquashfs $HOME//kernel-$CARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$CARCH.squashfs
+$HOME/ydfs/modules/$CARCH/bin/mksquashfs $HOME/ydfs/kernel-$CARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$CARCH.squashfs
 echo

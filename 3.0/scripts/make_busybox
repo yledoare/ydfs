@@ -1,27 +1,27 @@
 echo $HOME_DIBAB
 echo $PATH
 cd $HOME
-cd  || exit 1
+cd ydfs || exit 1
 
 
 BUSYBOX=$1
 
-[ ! -e $HOME//tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --directory-prefix=$HOME//tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
-[ ! -e $HOME//src/busybox-$BUSYBOX ] && tar xjvf  $HOME//tarballs/busybox-$BUSYBOX.tar.bz2 --directory=$HOME//src
+[ ! -e $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --directory-prefix=$HOME/ydfs/tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
+[ ! -e $HOME/ydfs/src/busybox-$BUSYBOX ] && tar xjvf  $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 --directory=$HOME/ydfs/src
 
-install -d  $HOME//build/busybox-$CARCH-$BUSYBOX
+install -d  $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX
 if [ $CARCH = "x86" ] || [ $CARCH = "x86_64" ]
 then
-[ ! -e  $HOME//build/busybox-$CARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config  $HOME//build/busybox-$CARCH-$BUSYBOX/.config
+[ ! -e  $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config  $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/.config
 else
-[ ! -e  $HOME//build/busybox-$CARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-arm/config  $HOME//build/busybox-$CARCH-$BUSYBOX/.config
+[ ! -e  $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-arm/config  $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/.config
 fi
-cd  $HOME//src/busybox-$BUSYBOX 
-#echo FIXME & sleep 10 && rm $HOME//build/busybox-$CARCH-$BUSYBOX/.config
+cd  $HOME/ydfs/src/busybox-$BUSYBOX 
+#echo FIXME & sleep 10 && rm $HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/.config
 [ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$CARCH-$BUSYBOX
 if [ $CARCH = "x86" ]
 then
- export PATH=/$HOME//x-tools/i386-unknown-linux-uclibc/bin/:$PATH
+ export PATH=/$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/:$PATH
  make O=../../build/busybox-$CARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc || exit 1
  make O=../../build/busybox-$CARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc install
 else
