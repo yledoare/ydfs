@@ -48,7 +48,6 @@ http://download.gimp.org/pub/gimp/v2.8/gimp-2.8.18.tar.bz2
 http://www.xsane.org/download/xsane-0.999.tar.gz
 http://download.documentfoundation.org/libreoffice/src/4.4.7/libreoffice-4.4.7.2.tar.xz
 #Misc
-archlinux:ncftp
 #http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1.4.tar.bz2 #SKIP-x86#
 http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
@@ -78,6 +77,8 @@ archlinux:astromenace
 http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.6/wesnoth-1.12.6.tar.bz2
 archlinux:torcs
 #Network
+archlinux:git
+archlinux:ncftp
 http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
 #Education
 https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubuntu_all.deb
