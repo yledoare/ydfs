@@ -1208,7 +1208,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
       [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
-      if [ "$MAKE_INSTALL" != "OFF" ]
+      if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"
 	  make install
