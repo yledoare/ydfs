@@ -1,4 +1,6 @@
 #Misc
+archlinux:cabextract
+archlinux:winetricks
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 #Multimedia
 #https://github.com/xbmc/xbmc/archive/14.2-Helix.tar.gz
@@ -35,7 +37,7 @@ http://download.kde.org/stable/4.14.3/src/picmi-4.14.3.tar.xz
 https://steamcdn-a.akamaihd.net/client/installer/steam.deb
 https://github.com/SuperTux/supertux/releases/download/v0.4.0/supertux-0.4.0.tar.bz2
 http://download.tuxfamily.org/openarena/rel/088/openarena-0.8.8.zip
-git://github.com/MegaGlest/megaglest-source.git
+#git://github.com/MegaGlest/megaglest-source.git
 ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-0.16/freedroidRPG-0.16.1.tar.gz
 http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #Multimedia
