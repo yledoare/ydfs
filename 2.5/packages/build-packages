@@ -175,6 +175,8 @@ do
   echo "$ARCHIVE" | grep "#Printer" && export DBEXTRA="printer"
   echo "$ARCHIVE" | grep "#Multimedia" && export DBEXTRA="multimedia"
   echo "$ARCHIVE" | grep "#System" && export DBEXTRA="system"
+  echo "$ARCHIVE" | grep "#KDE" && export DBEXTRA="KDE"
+  echo "$ARCHIVE" | grep "#Development" && export DBEXTRA="development"
   echo "$ARCHIVE" | grep "#Misc" && export DBEXTRA="misc"
   ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
   [ "$ARCHIVE_URL" = "" ] && continue
