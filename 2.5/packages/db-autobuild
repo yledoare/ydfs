@@ -708,6 +708,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
     [ "$MODULE" != "$ARCH" ] && SKIP_DIR=""
     MYPREFIX="--prefix=$PREFIX"
     [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
+    [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
     if [ "$SKIP_DIR" != "" ]
     then
       install -d $BUILD_DIR

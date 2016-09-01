@@ -5,7 +5,9 @@
 #archlinux:libmpc
 #ftp://ftp.uvsq.fr/pub/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.bz2
 #Misc
+http://pub.mate-desktop.org/releases/1.12/mate-media-1.12.0.tar.xz #SKIP-x86#
 archlinux:recordmydesktop
+archlinux:gtk-recordmydesktop
 archlinux:cabextract
 archlinux:winetricks
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
