@@ -43,6 +43,8 @@ fi
 [ "$NAME" = "playonlinux" ] && DBEXTRA=games && PKGVER="4.2.5" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Play Linux Games with Wine"
 [ "$NAME" = "spring" ] && DBEXTRA=games && PKGVER="98.0" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="RTS Game"
 
+
+[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
 [ "$PKGDESC" = "" ] && echo "What is DESC for $NAME ?" && read PKGDESC && echo "$NAME;$PKGDESC" >> $HOME_DIBAB/packages.desc
 
 echo "FIXME : NAME $NAME VERSION $PKGVER"

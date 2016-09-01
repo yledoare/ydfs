@@ -235,7 +235,7 @@ dist:
 fixopkg:
 	./scripts/make_thunderbird
 	./scripts/make_fixes
-	./scripts/make_firefox
+#	./scripts/make_firefox
 #	./scripts/make_custom_opkg playonlinux
 	./scripts/make_custom_opkg flash
 #	./scripts/make_custom_opkg spring

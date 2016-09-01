@@ -23,7 +23,12 @@
 	echo $ARCHIVE | grep fluidsynth && export LC_CONFIGURE_OPTS="-Denable-ladspa=ON"
 	echo $ARCHIVE | grep zynaddsubfx && export LC_CONFIGURE_OPTS=" -DGuiModule=fltk -DDefaultOutput=jack -DDefaultInput=jack "
 	echo $ARCHIVE | grep lxappearance && export LC_CONFIGURE_OPTS="--enable-man"
-	echo $ARCHIVE | grep minetest && export LC_CONFIGURE_OPTS="-DBUILD_SERVER=0 -DIRRLICHT_INCLUDE_DIR=$HOME/include/irrlicht -DIRRLICHT_LIBRARY=$HOME/$ARCH/lib"
+	echo $ARCHIVE | grep minetest && export LC_CONFIGURE_OPTS="-DBUILD_SERVER=0 -DIRRLICHT_INCLUDE_DIR=$HOME/include/irrlicht -DIRRLICHT_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE \
+    -DBUILD_CLIENT=1 \
+    -DENABLE_GETTEXT=1 \
+    -DENABLE_FREETYPE=1 \
+    -DENABLE_LEVELDB=0 \
+    -DENABLE_REDIS=0"
 	echo $ARCHIVE | grep jack- && export LC_CONFIGURE_OPTS="--alsa"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"

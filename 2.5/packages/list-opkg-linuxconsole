@@ -1,7 +1,11 @@
 #Development
-archlinux:make
-FAIL
+#archlinux:make
+#archlinux:gmp
+#archlinux:mpfr
+#archlinux:libmpc
+#ftp://ftp.uvsq.fr/pub/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.bz2
 #Misc
+archlinux:recordmydesktop
 archlinux:cabextract
 archlinux:winetricks
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
@@ -12,6 +16,7 @@ http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
 #Games
+https://github.com/minetest/minetest/archive/0.4.14.tar.gz
 http://download.kde.org/stable/4.14.3/src/bomber-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/bovo-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/granatier-4.14.3.tar.xz

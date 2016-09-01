@@ -680,6 +680,15 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
       fi
     fi
   [ -e gnu/stdio.in.h ] && sed -i -e '/gets is a/d' gnu/stdio.in.h
+  if [ -e libgcc/libgcov-driver.c ]
+  then
+	install -d host-$ARCH-unknown-linux-gnu/zlib
+	echo libgcc/libgcov-driver.c
+	ls $HOME/opkg/lib| while read file
+	do
+		ln -s $file host-$ARCH-unknown-linux-gnu/zlib
+	done
+  fi
       #if [ -e data/apps.lutris.gschema.xml ]
       if [ -e share/lutris/ui ]
       then
