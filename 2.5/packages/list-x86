@@ -67,7 +67,8 @@ CPAN:/YAML
 CPAN:/Net::FTP 
 CPAN:/Net::DBus 
 CPAN:/XML::Parser 
-CPAN:/Date::Manip 
+#CPAN:/Date::Manip 
+http://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.54.tar.gz
 CPAN:/HTML::Entities 
 CPAN:/HTML::TreeBuilder 
 CPAN:/XML::SAX 
