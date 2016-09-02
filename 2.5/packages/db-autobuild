@@ -1221,7 +1221,12 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"
+	if [ -e libminiupnpc.so ]
+	then
+	 DESTDIR=$PREFIX make install
+	else
 	  make install
+	fi
 	  # echo "DESTDIR=$PREFIX make install"
 	  # DESTDIR=$PREFIX make install
 	return=$?
@@ -1305,5 +1310,5 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   install -m 644 lightdm.service "${pkgdir}"/lib/systemd/system/lightdm.service
   install -m 644 lightdm.tmpfiles "${pkgdir}"/lib/tmpfiles.d/lightdm.conf
   fi
-  echo
+  echo "packages/db-autobuild done !"
 fi
