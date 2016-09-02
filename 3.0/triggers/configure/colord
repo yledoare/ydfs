@@ -1,0 +1,7 @@
+  ./configure --prefix=$PREFIX \
+	--sysconfdir=$PREFIX/etc --localstatedir=$PREFIX/var \
+    --libexecdir=$PREFIX/lib/$pkgname --disable-static \
+    --with-systemdsystemunitdir=$PREFIX/lib/systemd/system \
+    --disable-static -with-udevrulesdir=$PREFIX/lib/udev/rules.d \
+    --enable-vala --enable-sane --with-daemon-user=colord --disable-introspection
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
