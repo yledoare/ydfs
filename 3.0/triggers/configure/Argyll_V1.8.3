@@ -1,0 +1,6 @@
+sed -i "s@/usr/X11R6/include@$HOME/$CARCH/include@" Jamtop
+sed -i "s@/usr/X11R6/lib@b$HOME/$CARCH/lib@" Jamtop
+sed -i "s@/usr/local@$HOME/$CARCH@g" Jamtop
+sed -i "s@/usr/local@$HOME/$CARCH@g" Jambase
+echo "LINKFLAGS += ${LDFLAGS} ;" >> Jamtop
+echo "STDLIBS += -ldl -lssl -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss -ltiff -ljpeg ;" >> Jamtop
