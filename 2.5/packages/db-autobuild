@@ -1226,6 +1226,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	  DESTDIR=$PREFIX make install
 	return=$?
 	[ -e "libxvidcore.def" ] && return=0
+	[ -e "x265_config.h" ] && return=0
 	if [ $return != "0" ]
 	then
 	  echo "Return is $return"
