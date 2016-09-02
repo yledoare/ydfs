@@ -1221,14 +1221,9 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"
-	if [ -e libminiupnpc.so ]
-	then
-	 DESTDIR=$PREFIX make install
-	else
 	  make install
-	fi
-	  # echo "DESTDIR=$PREFIX make install"
-	  # DESTDIR=$PREFIX make install
+	  echo "DESTDIR=$PREFIX make install"
+	  DESTDIR=$PREFIX make install
 	return=$?
 	[ -e "libxvidcore.def" ] && return=0
 	if [ $return != "0" ]
