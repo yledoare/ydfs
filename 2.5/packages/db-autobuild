@@ -618,6 +618,7 @@ fi
     if [ -e CMakeLists.txt ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e src/gd.h ] \
+ && [ ! -e zlib.pc.in ] \
  && [ ! -e sdl2.pc.in ] \
  && [ ! -e include/AL/alut.h ] \
  && [ ! -e glew.pc.in ] \
