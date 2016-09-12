@@ -1203,7 +1203,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	exit 10     
    fi
 
-      [ -e "Source/Swig/swig.h" ] && make && make install
+      	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
 
@@ -1229,6 +1229,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	return=$?
 	[ -e "libxvidcore.def" ] && return=0
 	[ -e "x265_config.h" ] && return=0
+	[ -e "pm_common" ] && return=0
 	if [ $return != "0" ]
 	then
 	  echo "Return is $return"
