@@ -44,7 +44,7 @@ fi
 [ "$NAME" = "spring" ] && DBEXTRA=games && PKGVER="98.0" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="RTS Game"
 
 
-[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
+#[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
 [ "$PKGDESC" = "" ] && echo "What is DESC for $NAME ?" && read PKGDESC && echo "$NAME;$PKGDESC" >> $HOME_DIBAB/packages.desc
 
 echo "FIXME : NAME $NAME VERSION $PKGVER"
@@ -74,6 +74,7 @@ echo "Extra is $DBEXTRA, name is $NAME"
 
 OPKGARCH=x86_64
 [ "$ARCH" = "x86" ] && OPKGARCH=i686
+[ "$PKGSRC" = "" ] && PKGSRC="http://linuxconsole.org"
 
 echo "
 Package: $NAME

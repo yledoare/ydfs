@@ -4,7 +4,12 @@
 #archlinux:mpfr
 #archlinux:libmpc
 #ftp://ftp.uvsq.fr/pub/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.bz2
+#Network
+#https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
+https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
 #Misc
+http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
+archlinux:cdrdao
 http://pub.mate-desktop.org/releases/1.12/mate-media-1.12.0.tar.xz #SKIP-x86#
 archlinux:recordmydesktop
 archlinux:gtk-recordmydesktop
@@ -12,6 +17,7 @@ archlinux:cabextract
 archlinux:winetricks
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 #Multimedia
+https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
 #https://github.com/xbmc/xbmc/archive/14.2-Helix.tar.gz
 #https://github.com/xbmc/xbmc/archive/15.2-Isengard.tar.gz
 #Libs

@@ -173,6 +173,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	# echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--with-contrib=$DIBAB_PREFIX/$MODULE --enable-live555 --disable-lua --enable-run-as-root --disable-silent-rules --enable-realrtsp"
 	echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--enable-live555 --disable-lua --enable-run-as-root --disable-silent-rules --enable-realrtsp"
 	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
+	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
 	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
 	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown"

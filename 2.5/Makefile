@@ -238,6 +238,7 @@ fixopkg:
 #	./scripts/make_firefox
 #	./scripts/make_custom_opkg playonlinux
 	./scripts/make_custom_opkg flash
+	./scripts/make_custom_opkg arabic
 #	./scripts/make_custom_opkg spring
 #	./scripts/make_chrome
 	./scripts/make_opkg_filelist opkg
