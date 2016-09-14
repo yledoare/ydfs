@@ -24,6 +24,7 @@ HOME_DIBAB=${PWD}
 
 # récupération de l'architecture par défaut(type de processeur)
 def_arch=`uname -m | sed -e s/i.86/x86/`
+[ -e /lib/i386-linux-gnu/ ] && def_arch=x86
 # grep -q "^flags.*\blm\b" /proc/cpuinfo && def_arch=x86_64
 # saisie par l'utilisateur de l'architecture demandée pour la compilation
 echo -n  "Arch ? (x86,x86_64,i586,mini2440,raspi,raspi-qemu) : $def_arch : "

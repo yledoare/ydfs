@@ -271,7 +271,7 @@ fi
   echo
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo -n "Get $ARCHIVE ..." && wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
     test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
-  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " && touch $HOME/ydfs-error
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " 
 
   # Second pass, go into LinuxConsole reposotory
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo && echo -n "Now trying http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) ..." && wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start

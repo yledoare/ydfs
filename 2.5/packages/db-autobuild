@@ -1,4 +1,5 @@
 #!/bin/bash
+
 MYPWD=`pwd`
 #basename extrait le dernier répertoire sans les sous répertoires ou les suffixes de noms de fichiers
 MYDIR=`basename $MYPWD`
@@ -18,8 +19,6 @@ echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
 echo $MYPWD | grep file && SHORTNAME=file-
 echo $MYPWD | grep gc- && SHORTNAME=gc-
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
-      
-CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
 
 [ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
 
@@ -248,6 +247,7 @@ else
     exit 0
   fi
 
+  [ -e scripts/onto2cpp.py ] &&  sed -i 's|/usr/bin/env python|/usr/bin/env python2|'  scripts/onto2cpp.py && echo "scripts/onto2cpp.py patched" && sleep 3
   if [ -e source/x265cli.h ]
   then
     cd build/linux
@@ -563,7 +563,7 @@ fi
     cp scribus.desktop $PREFIX/share/applications
 	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
         VERBOSE=1 make || exit $?
-        make install || exit $?
+        make install || exit $?
         ydfs-install-package
         touch buildok-$ARCH
        	exit 0
@@ -614,10 +614,10 @@ fi
 
     # Do not build with cmake
 
-    pwd | grep mysql-5.1 && [ -e CMakeLists.txt ] && rm CMakeLists.txt
     if [ -e CMakeLists.txt ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e src/gd.h ] \
+ && [ ! -e zlib.pc.in ] \
  && [ ! -e sdl2.pc.in ] \
  && [ ! -e include/AL/alut.h ] \
  && [ ! -e glew.pc.in ] \
@@ -640,10 +640,11 @@ fi
       export SDL2DIR=$HOME/$ARCH
       install -d build
       cd build
+CMAKEOPTIONS="--debug-output -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
       pwd | grep spring_98  && CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS"
-	pwd | grep mysql-5  && CMAKEOPTIONS="-DCMAKE_INSTALL_PREFIX=$PREFIX"
-        pwd | grep mysql-5 && echo "Preparing mysql ssl ..." &&  CXXFLAGS="" CFLAGS="" cmake $CMAKEOPTIONS .. && make 
-	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS"
+	pwd | grep mysql-5 && CXXFLAGS="$CXXFLAGS -L$HOME/$ARCH/lib/ -lssl"
+	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
+	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS, CXXFLAGS=$CXXFLAGS"
 	cmake $CMAKEOPTIONS .. || exit 12
 	if [ -e ../include/mbedtls/ssl.h ]
 	then
@@ -698,6 +699,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 	exit 0
 	# cp -fR data $PREFIX
       fi
+
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
@@ -1201,7 +1203,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	exit 10     
    fi
 
-      [ -e "Source/Swig/swig.h" ] && make && make install
+      	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
 
@@ -1222,10 +1224,12 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       then
         echo "Run make install inside $PWD"
 	  make install
-	  # echo "DESTDIR=$PREFIX make install"
-	  # DESTDIR=$PREFIX make install
+	  echo "DESTDIR=$PREFIX make install"
+	  DESTDIR=$PREFIX make install
 	return=$?
 	[ -e "libxvidcore.def" ] && return=0
+	[ -e "x265_config.h" ] && return=0
+	[ -e "pm_common" ] && return=0
 	if [ $return != "0" ]
 	then
 	  echo "Return is $return"
@@ -1305,5 +1309,5 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   install -m 644 lightdm.service "${pkgdir}"/lib/systemd/system/lightdm.service
   install -m 644 lightdm.tmpfiles "${pkgdir}"/lib/tmpfiles.d/lightdm.conf
   fi
-  echo
+  echo "packages/db-autobuild done !"
 fi
