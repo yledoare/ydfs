@@ -208,3 +208,5 @@ arabic;Arabic locale for LinuxConsole
 rdesktop;Unix client for Microsoft Remote Desktop Services
 brasero;CD/DVD mastering tool
 cdrdao;Records audio/data CD-Rs in disk-at-once (DAO) mode
+cdrkit;Suite of programs for CD/DVD recording, ISO image creation, and audio CD extraction
+cdparanoia-iii;Compact Disc Digital Audio extraction tool
