@@ -10,7 +10,7 @@ https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar
 #Misc
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 archlinux:cdrdao
-archlinux:cdparanoia
+archlinux:cdparanoia #SKIP-x86#
 http://pub.mate-desktop.org/releases/1.12/mate-media-1.12.0.tar.xz #SKIP-x86#
 archlinux:recordmydesktop
 archlinux:gtk-recordmydesktop
@@ -25,7 +25,7 @@ https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
 #Games
-https://github.com/minetest/minetest/archive/0.4.14.tar.gz
+https://github.com/minetest/minetest/archive/0.4.14.tar.gz #SKIP-x86#
 http://download.kde.org/stable/4.14.3/src/bomber-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/bovo-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/granatier-4.14.3.tar.xz
