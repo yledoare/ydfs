@@ -61,7 +61,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  pcre libffi dbus openssl-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+libxshmfence-1  pcre libffi dbus openssl-1 pixman cairo-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
@@ -178,8 +178,12 @@ PYTHON2=/usr/bin/python ./configure \
 	cd build
   	../configure --prefix=$HOME/multilib --enable-shared || exit $?
     ;;
-    cairo )
-  	./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf || exit $?
+    cairo-1* )
+	# echo "Disable Test .." && sleep 2
+  	# sed -i "s| test perf| perf|g" Makefile.am
+	# echo "Done" && sleep 2
+  	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
+  	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
     ;;
     poppler )
   	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
