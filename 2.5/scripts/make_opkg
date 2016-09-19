@@ -31,7 +31,12 @@ else
   then
     PKGDESC="FTP Client"
   else
-    grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
+    if [ "$NAME" = "recordmydesktop" ]
+    then
+    	PKGDESC="Record desktop session"
+    else
+    	grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
+    fi
   fi
 fi
 
