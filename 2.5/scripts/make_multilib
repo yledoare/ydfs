@@ -9,7 +9,7 @@ export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
 export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig
-export LD_LIBRARY_PATH=$HOME/multilib/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
 export CPPFLAGS="-I$HOME/multilib/include"
@@ -187,7 +187,7 @@ PYTHON2=/usr/bin/python ./configure \
     ;;
     cairo-1* )
 	# echo "Disable Test .." && sleep 2
-  	# sed -i "s| test perf| perf|g" Makefile.am
+  	sed -i "s| test perf| perf|g" Makefile.am
 	# echo "Done" && sleep 2
   	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
   	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
@@ -200,13 +200,14 @@ PYTHON2=/usr/bin/python ./configure \
     ;;
   esac
 
+  echo "Run make clean" && sleep 5
   make clean
-
   case $PKG in
     readline )
 	make SHLIB_LIBS=-lncurses
 	;;
     * )
+  	echo "Run make " && sleep 5
   	make || exit $?
 	;;
   esac
