@@ -102,16 +102,11 @@ http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZ
 #Education
 https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubuntu_all.deb
 archlinuxpatched:tuxpaint
-#QT5
+#QT5 : Run make qt5 brefore building after this step
 #Libs
-archlinux:drumstick
+#archlinux:drumstick
 #Multimedia
-archlinux:vmpk
-http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
+#archlinux:vmpk
+#http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
 #Education
-http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
-#archlinuxpatched:celestia
-#http://download.scratch.mit.edu/scratch-1.4.0.7.src.tar.gz
-#Drivers
-#ftp://download.nvidia.com/XFree86/Linux-x86/340.96/NVIDIA-Linux-x86-340.96.run #SKIP-x86_64#
-#ftp://download.nvidia.com/XFree86/Linux-x86_64/340.96/NVIDIA-Linux-x86_64-340.96-no-compat32.run #SKIP-x86#
+#http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
