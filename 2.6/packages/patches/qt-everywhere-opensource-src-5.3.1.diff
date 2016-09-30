@@ -1,0 +1,83 @@
+diff --git a/qtbase/mkspecs/common/linux.conf b/qtbase/mkspecs/common/linux.conf
+index e10ab71..e87d3af 100644
+--- a/qtbase/mkspecs/common/linux.conf
++++ b/qtbase/mkspecs/common/linux.conf
+@@ -7,13 +7,15 @@ QMAKE_PLATFORM         += linux
+ QMAKE_CFLAGS_THREAD    += -D_REENTRANT
+ QMAKE_CXXFLAGS_THREAD  += $$QMAKE_CFLAGS_THREAD
+ QMAKE_LFLAGS_GCSECTIONS = -Wl,--gc-sections
+-
+-QMAKE_INCDIR            =
+-QMAKE_LIBDIR            =
+-QMAKE_INCDIR_X11        =
+-QMAKE_LIBDIR_X11        =
+-QMAKE_INCDIR_OPENGL     =
+-QMAKE_LIBDIR_OPENGL     =
++QMAKE_INCDIR          = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR          = ${HOME}/${ARCH}/lib
++QMAKE_INCDIR_QT       = $$[QT_INSTALL_HEADERS]
++QMAKE_LIBDIR_QT       = $$[QT_INSTALL_LIBS]
++
++QMAKE_INCDIR_X11      = ${HOME}/${ARCH}/include 
++QMAKE_LIBDIR_X11      = ${HOME}/${ARCH}/lib
++QMAKE_INCDIR_OPENGL   = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR_OPENGL   = ${HOME}/${ARCH}/lib
+ QMAKE_INCDIR_OPENGL_ES2 = $$QMAKE_INCDIR_OPENGL
+ QMAKE_LIBDIR_OPENGL_ES2 = $$QMAKE_LIBDIR_OPENGL
+ QMAKE_INCDIR_EGL        =
+diff --git a/qtimageformats/src/plugins/imageformats/jp2/qjp2handler.pri b/qtimageformats/src/plugins/imageformats/jp2/qjp2handler.pri
+index 539daaa..09c03f8 100644
+--- a/qtimageformats/src/plugins/imageformats/jp2/qjp2handler.pri
++++ b/qtimageformats/src/plugins/imageformats/jp2/qjp2handler.pri
+@@ -4,7 +4,7 @@ HEADERS += $$PWD/qjp2handler_p.h
+ SOURCES += $$PWD/qjp2handler.cpp
+ config_jasper {
+     msvc: LIBS += libjasper.lib
+-    else: LIBS += -ljasper
++    else: LIBS += -ljasper -ljpeg
+ } else {
+     include($$PWD/../../../3rdparty/jasper.pri)
+ }
+diff --git a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
+index 1015923..0c9b02e 100644
+--- a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
++++ b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
+@@ -1396,11 +1396,6 @@ void jitCompileRegex(JSGlobalData* globalData, RegexCodeBlock& jitObject, const
+     RegexGenerator generator(pattern);
+     generator.compile(globalData, jitObject);
+ 
+-    if (generator.generationFailed()) {
+-        JSRegExpIgnoreCaseOption ignoreCaseOption = ignoreCase ? JSRegExpIgnoreCase : JSRegExpDoNotIgnoreCase;
+-        JSRegExpMultilineOption multilineOption = multiline ? JSRegExpMultiline : JSRegExpSingleLine;
+-        jitObject.setFallback(jsRegExpCompile(reinterpret_cast<const UChar*>(patternString.data()), patternString.size(), ignoreCaseOption, multilineOption, &numSubpatterns, &error));
+-    }
+ }
+ 
+ }}
+diff --git a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
+index 5ead00f..b22a9ee 100644
+--- a/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
++++ b/qtscript/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
+@@ -59,12 +59,6 @@ public:
+     {
+     }
+ 
+-    ~RegexCodeBlock()
+-    {
+-        if (m_fallback)
+-            jsRegExpFree(m_fallback);
+-    }
+-
+     JSRegExp* getFallback() { return m_fallback; }
+     void setFallback(JSRegExp* fallback) { m_fallback = fallback; }
+ 
+@@ -85,9 +79,6 @@ void jitCompileRegex(JSGlobalData* globalData, RegexCodeBlock& jitObject, const
+ 
+ inline int executeRegex(RegexCodeBlock& jitObject, const UChar* input, unsigned start, unsigned length, int* output, int outputArraySize)
+ {
+-    if (JSRegExp* fallback = jitObject.getFallback())
+-        return (jsRegExpExecute(fallback, input, length, start, output, outputArraySize) < 0) ? -1 : output[0];
+-
+     return jitObject.execute(input, start, length, output);
+ }
+ 

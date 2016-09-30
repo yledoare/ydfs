@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 81256ef..56181aa 100644
+--- a/Makefile
++++ b/Makefile
+@@ -22,7 +22,7 @@ SHELL := sh -e
+ LANGUAGES = $(shell cd manpages/po && ls)
+ 
+ DESTDIR =
+-PREFIX = /usr/local
++PREFIX = $(HOME)/$(ARCH)
+ SBINDIR = $(PREFIX)/sbin
+ DOCDIR = $(PREFIX)/share/doc
+ MANDIR = $(PREFIX)/share/man

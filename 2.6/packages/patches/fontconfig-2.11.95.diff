@@ -1,0 +1,34 @@
+diff --git a/Makefile.am b/Makefile.am
+index 2b949e4..7989c59 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -25,7 +25,6 @@ SUBDIRS=fontconfig fc-case fc-lang fc-glyphname src \
+ 	fc-cache fc-cat fc-list fc-match fc-pattern fc-query fc-scan \
+ 	fc-validate conf.d test
+ if ENABLE_DOCS
+-SUBDIRS += doc
+ endif
+ 
+ ACLOCAL_AMFLAGS = -I m4
+diff --git a/Makefile.in b/Makefile.in
+index 26a535a..eec0083 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -101,7 +101,7 @@ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-@ENABLE_DOCS_TRUE@am__append_1 = doc
++@ENABLE_DOCS_TRUE@am__append_1 = 
+ subdir = .
+ DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
+ 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
+@@ -213,7 +213,7 @@ CTAGS = ctags
+ CSCOPE = cscope
+ DIST_SUBDIRS = fontconfig fc-case fc-lang fc-glyphname src fc-cache \
+ 	fc-cat fc-list fc-match fc-pattern fc-query fc-scan \
+-	fc-validate conf.d test doc
++	fc-validate conf.d test 
+ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ distdir = $(PACKAGE)-$(VERSION)
+ top_distdir = $(distdir)

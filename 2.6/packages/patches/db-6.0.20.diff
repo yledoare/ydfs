@@ -1,0 +1,19 @@
+diff --git a/Makefile b/Makefile
+index 7c7761f..cfa3f62 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1169,14 +1169,8 @@ DOCLIST=api_reference articles bdb-sql collections csharp \
+ 
+ install_docs:
+ 	@echo "Installing documentation: $(DESTDIR)$(docdir) ..."
+-	@test -d $(DESTDIR)$(docdir) || \
+-	    ($(MKDIR) -p $(DESTDIR)$(docdir) && \
+-	    $(CHMOD) $(dmode) $(DESTDIR)$(docdir))
+-	@cd $(DESTDIR)$(docdir) && $(RM) -r $(DOCLIST)
+-	@cd $(topdir)/docs && $(CP) -pr $(DOCLIST) $(DESTDIR)$(docdir)/
+ 
+ uninstall_docs:
+-	@cd $(DESTDIR)$(docdir) && $(RM) -r $(DOCLIST)
+ 
+ ##################################################
+ # Remaining standard Makefile targets.

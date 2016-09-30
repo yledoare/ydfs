@@ -1,0 +1,31 @@
+if [ -e loader/wine64 ]
+then
+	$HOME_DIBAB/scripts/make_multilib || exit 1
+	WINEBUILD=$PWD
+
+	WINEVER=$(basename $PWD)
+
+	echo "Run scripts from $WINEBUILD"
+
+	mkdir $HOME/ydfs/build-wine32
+	cd $HOME/ydfs/build-wine32
+
+	export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig/
+	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
+	export LDFLAGS="-L $HOME/multilib/lib"
+
+	echo "Configure Win32"
+	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --libdir=$HOME/multilib/lib/ --with-wine64=$HOME/ydfs/build-x86_64/$WINEVER || exit 1
+	echo "Make Win32"
+	make || exit 1
+	echo "Make install Win32"
+	make prefix="$PREFIX" libdir=$PREFIX/lib32 dlldir=$PREFIX/lib32/wine install || exit 1
+    
+	cd $WINEBUILD
+	echo "Make install Win64"
+	make install || exit 1
+	# make prefix="$PREFIX" libdir="$PREFIX/lib" dlldir="$PREFIX/lib/wine" install || exit 1
+	touch buildok-$ARCH
+        exit 0
+
+fi

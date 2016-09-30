@@ -1,0 +1,47 @@
+# wubi
+cat /proc/cmdline | grep locale=pl >/dev/null && lang="polska"
+cat /proc/cmdline | grep locale=cs >/dev/null && lang="czech"
+cat /proc/cmdline | grep locale=fr >/dev/null && lang="french"
+cat /proc/cmdline | grep locale=es >/dev/null && lang="spanish"
+cat /proc/cmdline | grep locale=it >/dev/null && lang="italian"
+cat /proc/cmdline | grep locale=de >/dev/null && lang="german"
+cat /proc/cmdline | grep locale=pt >/dev/null && lang="portuguese"
+
+if [ ! -e $HOME/.config/ydfs/lang ] || [ "$1" = "reconfigure" ]
+then
+  if [ "$lang" = "" ] || [ "$1" = "reconfigure" ]
+  then
+    ans=$(zenity  --height 350 --list --hide-header  --text "Choose lang" --radiolist  --column "Choice" --column "Lang" TRUE English FALSE French FALSE Spanish FALSE Italian FALSE German FALSE Portuguese FALSE Polska FALSE Czech FALSE Breton FALSE Quebec FALSE Russian FALSE Chinese)
+    lang=$(echo $ans| tr '[:upper:]' '[:lower:]')
+  fi
+  install -d $HOME/.config/ydfs
+  echo lang=$lang > $HOME/.config/ydfs/lang
+else
+. $HOME/.config/ydfs/lang
+fi
+
+
+[ "$lang" = "chinese" ] && cat >>~/.Xresources <<"EOF"
+lxterminal*faceName:AR PL Uming CN
+lxterminal*faceSize:12
+EOF
+
+[ "$lang" = "polska" ] && export LC_ALL=pl_PL.UTF-8 && export LANG=pl_PL.UTF-8
+[ "$lang" = "czech" ] && export LC_ALL=cs_CZ.UTF-8 && export LANG=cs_CZ.UTF-8
+[ "$lang" = "chinese" ] && export LC_ALL=zh_CN.UTF-8 && export LANG=zh_CN.UTF-8
+[ "$lang" = "russian" ] && export LC_ALL=ru_RU.UTF8 && export LANG=ru_RU.UTF8
+[ "$lang" = "french" ] && export LC_ALL=fr_FR.UTF8 && export LANG=fr_FR.UTF8
+[ "$lang" = "quebec" ] && export LC_ALL=fr_CA.UTF8 && export LANG=fr_CA.UTF8
+[ "$lang" = "breton" ] && export LC_ALL=br_FR.UTF8 && export LANG=br_FR.UTF8
+[ "$lang" = "spanish" ] && export LC_ALL=es_ES.UTF8 && export LANG=es_ES.UTF8
+[ "$lang" = "italian" ] && export LC_ALL=it_IT.UTF8 && export LANG=it_IT.UTF8
+[ "$lang" = "german" ] && export LC_ALL=de_DE.UTF8 && export LANG=de_DE.UTF8
+[ "$lang" = "portuguese" ] && export LC_ALL=pt_PT.UTF8 && export LANG=pt_PT.UTF8
+[ "$lang" = "english" ] && export LC_ALL=en_US.UTF8
+
+if [ "$ans" != "" ]
+then
+ killall openbox
+ openbox &
+fi
+[ "$1" = "reconfigure" ] && touch $HOME/reconfigure-lang && zenity --warning --text="log out to enable $lang for locale !"

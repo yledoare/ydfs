@@ -1,0 +1,108 @@
+#!/bin/bash
+
+if [ "$1" != "install" ]
+then
+ echo "usage : apt-get install package_name"
+ exit 1
+fi
+
+cd $HOME
+[ -e download ] && rm download
+if [ "$ARCH" = "x86" ]
+then
+  wget https://packages.debian.org/wheezy/i386/$2/download  
+else
+  wget https://packages.debian.org/wheezy/amd64/$2/download  
+fi
+
+URL=$(grep ftp.fr.debian.org download | cut -d '"' -f2)
+if [ "$URL" = "" ]
+then
+  URL=$( grep http://security.debian.org/debian-security/ download  | cut -d '"' -f2)
+fi
+
+if [ "$URL" = "" ]
+then
+  zenity --info --text="Error : deb not found for $2"
+  exit 1
+fi
+
+DEB=$(basename $URL)
+[ -e "$DEB" ] && rm $DEB  
+
+# get .deb
+wget $URL
+if [ "$?" != 0 ]
+then
+  zenity --info --text="Error when downloading $URL"
+  exit 1
+fi
+cd /
+#extract
+dpkg -x $HOME/$DEB .
+
+# look for dep
+
+install -d $HOME/tmp/$2
+cd $HOME/tmp/$2
+ar -x $HOME/$DEB control.tar.gz
+
+# extract control
+
+tar xzvf control.tar.gz 
+DEPS=$(grep Depends control | cut -d: -f2,3,4,5)
+
+echo "Dep list : $DEPS"
+# list inside array
+IFS=', ' read -a array <<< $DEPS
+
+for element in "${array[@]}"
+do
+  echo "$element" | grep 'libsdl-ttf2.0-0' > /dev/null && continue
+  echo "$element" | grep 'libsdl1.2debian' > /dev/null && continue
+  echo "$element" | grep 'libgcc1' > /dev/null && continue
+  echo "$element" | grep 'libx11' > /dev/null && continue
+  echo "$element" | grep 'libxml' > /dev/null && continue
+  echo "$element" | grep 'libfribidi0' > /dev/null && continue
+  echo "$element" | grep 'libpng12' > /dev/null && continue
+  echo "$element" | grep 'libsdl' > /dev/null && continue
+  echo "$element" | grep 'libcurl3' > /dev/null && continue
+  echo "$element" | grep 'libasound2' > /dev/null && continue
+  echo "$element" | grep 'libfftw' > /dev/null && continue
+  echo "$element" | grep 'libfontconfig' > /dev/null && continue
+  echo "$element" | grep 'libfreetype' > /dev/null && continue
+  echo "$element" | grep 'libsamplerate' > /dev/null && continue
+  echo "$element" | grep 'libreadline' > /dev/null && continue
+  echo "$element" | grep 'libjack-0' > /dev/null && continue
+  echo "$element" | grep 'libogg' > /dev/null && continue
+  echo "$element" | grep 'libportaudio' > /dev/null && continue
+  echo "$element" | grep 'libdbus' > /dev/null && continue
+  echo "$element" | grep 'libglib' > /dev/null && continue
+  echo "$element" | grep 'libsndfile' > /dev/null && continue
+  echo "$element" | grep 'libpulse' > /dev/null && continue
+  echo "$element" | grep 'libqt' > /dev/null && continue
+  echo "$element" | grep 'freeglut3' > /dev/null && continue
+  echo "$element" | grep 'install-info' > /dev/null && continue
+  echo "$element" | grep 'libgl1-mesa-glx' > /dev/null && continue
+  echo "$element" | grep 'libgl1' > /dev/null && continue
+  echo "$element" | grep 'libglu1-mesa' > /dev/null && continue
+  echo "$element" | grep 'libglu1' > /dev/null && continue
+  echo "$element" | grep 'zlib1g' > /dev/null && continue
+  echo "$element" | grep 'dpkg' > /dev/null && continue
+  echo "$element" | grep 'libc6' > /dev/null && continue
+  echo "$element" | grep 'multiarch-support' > /dev/null && continue
+  echo "$element" | grep 'libstdc++6' > /dev/null && continue
+  [ "$element" = '1' ] && continue
+  [ "$element" = '4' ] && continue
+  echo "$element" | grep '|' > /dev/null && continue
+  echo "$element" | grep ')' > /dev/null && continue
+  echo "$element" | grep '(' > /dev/null && continue
+  #echo "DEP : $element"
+  if [ ! -e "$HOME/tmp/$element" ]
+  then
+	echo "Running apt-get install $element"
+	zenity --question --text="Install $element ?" && /fix/apt-get install $element
+  fi
+done
+rm $HOME/$DEB
+zenity --info --text="$DEB installed"

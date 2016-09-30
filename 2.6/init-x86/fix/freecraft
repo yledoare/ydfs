@@ -1,0 +1,2 @@
+#!/bin/sh
+/ydfs/modules/games/usr/games/freecraft -d /ydfs/modules/games/usr/share/games/freecraft/fcmp

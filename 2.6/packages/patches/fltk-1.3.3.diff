@@ -1,0 +1,22 @@
+diff --git a/configure b/configure
+index 3114615..ad3837b 100755
+--- a/configure
++++ b/configure
+@@ -3843,7 +3843,7 @@ if test x$enable_shared = xyes; then
+             GLDSONAME="libfltk_gl.so.$FL_API_VERSION"
+             IMGDSONAME="libfltk_images.so.$FL_API_VERSION"
+             CAIRODSONAME="libfltk_cairo.so.$FL_API_VERSION"
+-            DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared -fPIC $DEBUGFLAG -o"
++            DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared \$(LDFLAGS) -fPIC $DEBUGFLAG -o"
+ 
+             # See if the compiler supports -fvisibility...
+ 
+@@ -8153,7 +8153,7 @@ if test -n "$GCC"; then
+ 
+     # Generate position-independent code when needed...
+     if test $PICFLAG = 1; then
+-    	OPTIM="$OPTIM -fPIC"
++    	OPTIM="$OPTIM  $(LDFLAGS) -fPIC"
+     fi
+ 
+     # See if GCC supports -fno-exceptions...

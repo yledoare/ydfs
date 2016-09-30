@@ -1,0 +1,20 @@
+diff -ur util-linux-2.20.orig//term-utils/Makefile.am util-linux-2.20//term-utils/Makefile.am
+--- util-linux-2.20.orig//term-utils/Makefile.am	2011-08-12 11:13:00.000000000 +0200
++++ util-linux-2.20//term-utils/Makefile.am	2012-01-10 21:17:02.000000000 +0100
+@@ -70,12 +70,12 @@
+ if MAKEINSTALL_DO_CHOWN
+ install-exec-hook::
+ if BUILD_WALL
+-	chgrp tty $(DESTDIR)$(usrbin_execdir)/wall
+-	chmod g+s $(DESTDIR)$(usrbin_execdir)/wall
++	echo chgrp tty $(DESTDIR)$(usrbin_execdir)/wall
++	echo chmod g+s $(DESTDIR)$(usrbin_execdir)/wall
+ endif
+ if BUILD_WRITE
+-	chgrp tty $(DESTDIR)$(usrbin_execdir)/write
+-	chmod g+s $(DESTDIR)$(usrbin_execdir)/write
++	echo chgrp tty $(DESTDIR)$(usrbin_execdir)/write
++	echo chmod g+s $(DESTDIR)$(usrbin_execdir)/write
+ endif
+ endif
+ endif

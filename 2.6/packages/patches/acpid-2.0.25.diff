@@ -1,0 +1,15 @@
+diff --git a/log.c b/log.c
+index 36974f9..7af6cb1 100644
+--- a/log.c
++++ b/log.c
+@@ -47,9 +47,7 @@ acpid_log(int level, const char *fmt, ...)
+             fprintf(stderr, "\n");
+ 		}
+ 	} else {
+-		va_start(args, fmt);
+-		vsyslog(level, fmt, args);
+-		va_end(args);
++		// No log
+ 	}
+ 
+ 	return 0;

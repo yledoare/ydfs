@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+    LoadModule proxy_module modules/mod_proxy.so
+    LoadModule proxy_http_module modules/mod_proxy_http.so
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+    ServerName www.myserver
+</VirtualHost>

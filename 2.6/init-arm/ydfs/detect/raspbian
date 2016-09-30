@@ -1,0 +1,25 @@
+mkdir /disk
+mount /dev/sda2 /disk
+for file in `ls /disk/lib`
+do
+  ln -s /disk/lib/$file /lib
+done
+ln -s /disk/etc/apt/ /etc/
+ln -s /disk/etc/alternatives/ /etc/
+ln -s /disk/sbin /
+ln -s /disk/bin /
+ln -s /disk/usr /
+ln -s /disk/var /
+ln -s /disk/etc/X11 /etc
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin
+mkdir /tmp
+ifconfig eth0 up
+dhclient eth0
+echo "
+openbox 
+" > /Xsession
+
+echo "xinit /Xsession"
+
+bash
+# Xorg

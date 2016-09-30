@@ -1,0 +1,231 @@
+--- src/widgets/desktop-widget.h~	2011-07-08 13:25:09.000000000 -0500
++++ src/widgets/desktop-widget.h	2013-02-15 16:04:45.806910365 -0600
+@@ -239,7 +239,7 @@
+ private:
+     GtkWidget *tool_toolbox;
+     GtkWidget *aux_toolbox;
+-    GtkWidget *commands_toolbox,;
++    GtkWidget *commands_toolbox;
+     GtkWidget *snap_toolbox;
+ 
+     static void init(SPDesktopWidget *widget);
+--- inkscape-0.48.4/src/gc-core.h.old	2013-12-31 01:22:38.976653890 +0400
++++ inkscape-0.48.4/src/gc-core.h	2013-12-31 01:22:48.525653608 +0400
+@@ -57,7 +57,7 @@
+                                            CleanupFunc *old_func,
+                                            void **old_data);
+     int (*general_register_disappearing_link)(void **p_ptr,
+-                                              void *base);
++                                              const void *base);
+     int (*unregister_disappearing_link)(void **p_ptr);
+     std::size_t (*get_heap_size)();
+     std::size_t (*get_free_bytes)();
+--- inkscape-0.48.4/src/gc.cpp.old	2013-12-31 01:23:50.462651778 +0400
++++ inkscape-0.48.4/src/gc.cpp	2013-12-31 01:40:37.718622017 +0400
+@@ -70,8 +70,8 @@
+     return base + debug_base_fixup();
+ }
+ 
+-int debug_general_register_disappearing_link(void **p_ptr, void *base) {
+-    char *real_base=reinterpret_cast<char *>(base) - debug_base_fixup();
++int debug_general_register_disappearing_link(void **p_ptr, const void *base) {
++    char *real_base=const_cast<char *>(reinterpret_cast<const char *>(base)) - debug_base_fixup();
+     return GC_general_register_disappearing_link(p_ptr, real_base);
+ }
+ 
+@@ -90,7 +90,7 @@
+     }
+ }
+ 
+-int dummy_general_register_disappearing_link(void **, void *) { return false; }
++int dummy_general_register_disappearing_link(void **, const void *) { return false; }
+ 
+ int dummy_unregister_disappearing_link(void **/*link*/) { return false; }
+ 
+@@ -112,7 +112,11 @@
+     &GC_malloc_atomic_uncollectable,
+     &GC_base,
+     &GC_register_finalizer_ignore_self,
++#if (GC_MAJOR_VERSION >= 7 && GC_MINOR_VERSION >= 4)
+     &GC_general_register_disappearing_link,
++#else
++    (int (*)(void**, const void*))(&GC_general_register_disappearing_link),
++#endif
+     &GC_unregister_disappearing_link,
+     &GC_get_heap_size,
+     &GC_get_free_bytes,
+@@ -202,7 +206,7 @@
+     die_because_not_initialized();
+ }
+ 
+-int stub_general_register_disappearing_link(void **, void *) {
++int stub_general_register_disappearing_link(void **, const void *) {
+     die_because_not_initialized();
+     return 0;
+ }
+--- src/extension/internal/pdfinput/pdf-parser.cpp.orig	2014-04-28 13:42:17.843140695 +0000
++++ src/extension/internal/pdfinput/pdf-parser.cpp	2014-04-28 14:05:10.646106685 +0000
+@@ -861,7 +861,7 @@
+ 	  isolated = knockout = gFalse;
+ 	  if (!obj4.dictLookup(const_cast<char*>("CS"), &obj5)->isNull()) {
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+-	    blendingColorSpace = GfxColorSpace::parse(&obj5, NULL);
++	    blendingColorSpace = GfxColorSpace::parse(&obj5, NULL, NULL);
+ #else
+ 	    blendingColorSpace = GfxColorSpace::parse(&obj5);
+ #endif
+@@ -1085,9 +1085,9 @@
+   res->lookupColorSpace(args[0].getName(), &obj);
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+   if (obj.isNull()) {
+-    colorSpace = GfxColorSpace::parse(&args[0], NULL);
++    colorSpace = GfxColorSpace::parse(&args[0], NULL, NULL);
+   } else {
+-    colorSpace = GfxColorSpace::parse(&obj, NULL);
++    colorSpace = GfxColorSpace::parse(&obj, NULL, NULL);
+   }
+ #else
+   if (obj.isNull()) {
+@@ -1120,9 +1120,9 @@
+   res->lookupColorSpace(args[0].getName(), &obj);
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+   if (obj.isNull()) {
+-    colorSpace = GfxColorSpace::parse(&args[0], NULL);
++    colorSpace = GfxColorSpace::parse(&args[0], NULL, NULL);
+   } else {
+-    colorSpace = GfxColorSpace::parse(&obj, NULL);
++    colorSpace = GfxColorSpace::parse(&obj, NULL, NULL);
+   }
+ #else
+   if (obj.isNull()) {
+@@ -1213,7 +1213,7 @@
+     }
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+     if (args[numArgs-1].isName() &&
+-	(pattern = res->lookupPattern(args[numArgs-1].getName(), NULL))) {
++	(pattern = res->lookupPattern(args[numArgs-1].getName(), NULL, NULL))) {
+       state->setFillPattern(pattern);
+       builder->updateStyle(state);
+     }
+@@ -1273,7 +1273,7 @@
+     }
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+     if (args[numArgs-1].isName() &&
+-	(pattern = res->lookupPattern(args[numArgs-1].getName(), NULL))) {
++	(pattern = res->lookupPattern(args[numArgs-1].getName(), NULL, NULL))) {
+       state->setStrokePattern(pattern);
+       builder->updateStyle(state);
+     }
+@@ -1711,7 +1711,7 @@
+   GBool savedState = gFalse;
+ 
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+-  if (!(shading = res->lookupShading(args[0].getName(), NULL))) {
++  if (!(shading = res->lookupShading(args[0].getName(), NULL, NULL))) {
+     return;
+   }
+ #else
+@@ -2727,7 +2727,7 @@
+     }
+     if (!obj1.isNull()) {
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+-      colorSpace = GfxColorSpace::parse(&obj1, NULL);
++      colorSpace = GfxColorSpace::parse(&obj1, NULL, NULL);
+ #else
+       colorSpace = GfxColorSpace::parse(&obj1);
+ #endif
+@@ -2816,7 +2816,7 @@
+ 	}
+       }
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+-      maskColorSpace = GfxColorSpace::parse(&obj1, NULL);
++      maskColorSpace = GfxColorSpace::parse(&obj1, NULL, NULL);
+ #else
+       maskColorSpace = GfxColorSpace::parse(&obj1);
+ #endif
+@@ -3007,7 +3007,7 @@
+       transpGroup = gTrue;
+       if (!obj1.dictLookup(const_cast<char*>("CS"), &obj3)->isNull()) {
+ #if defined(POPPLER_NEW_COLOR_SPACE_API) || defined(POPPLER_NEW_ERRORAPI)
+-	blendingColorSpace = GfxColorSpace::parse(&obj3, NULL);
++	blendingColorSpace = GfxColorSpace::parse(&obj3, NULL, NULL);
+ #else
+ 	blendingColorSpace = GfxColorSpace::parse(&obj3);
+ #endif
+=== modified file 'src/libnrtype/FontFactory.h'
+--- src/libnrtype/FontFactory.h	2010-04-15 19:00:11 +0000
++++ src/libnrtype/FontFactory.h	2013-11-28 05:54:34 +0000
+@@ -31,7 +31,8 @@
+ #include <pango/pangowin32.h>
+ #else
+ #include <pango/pangoft2.h>
+-#include <freetype/freetype.h>
++#include <ft2build.h>
++#include FT_FREETYPE_H
+ #endif
+ 
+ namespace Glib
+
+
+diff -aur old/src/text-context.cpp new/src/text-context.cpp
+--- old/src/text-context.cpp	2011-07-08 08:25:09.468790000 -1000
++++ new/src/text-context.cpp	2014-04-21 14:48:22.668759004 -1000
+@@ -684,6 +684,17 @@
+                     // articifically here, for the text object does not exist yet:
+                     double cursor_height = sp_desktop_get_font_size_tool(desktop);
+                     sp_ctrlline_set_coords(SP_CTRLLINE(tc->cursor), dtp, dtp + Geom::Point(0, cursor_height));
++                    if (tc->imc) {
++                        GdkRectangle im_cursor;
++                        Geom::Point const top_left = SP_EVENT_CONTEXT(tc)->desktop->get_display_area().corner(3);
++                        Geom::Point const cursor_size(0, cursor_height);
++                        Geom::Point const im_position = SP_EVENT_CONTEXT(tc)->desktop->d2w(dtp + cursor_size - top_left);
++                        im_cursor.x = (int) floor(im_position[Geom::X]);
++                        im_cursor.y = (int) floor(im_position[Geom::Y]);
++                        im_cursor.width = 0;
++                        im_cursor.height = (int) -floor(SP_EVENT_CONTEXT(tc)->desktop->d2w(cursor_size)[Geom::Y]);
++                        gtk_im_context_set_cursor_location(tc->imc, &im_cursor);
++                    }
+                     event_context->_message_context->set(Inkscape::NORMAL_MESSAGE, _("Type text; <b>Enter</b> to start new line.")); // FIXME:: this is a copy of a string from _update_cursor below, do not desync
+ 
+                     event_context->within_tolerance = false;
+@@ -1560,8 +1571,6 @@
+ static void
+ sp_text_context_update_cursor(SPTextContext *tc,  bool scroll_to_see)
+ {
+-    GdkRectangle im_cursor = { 0, 0, 1, 1 };
+-
+     // due to interruptible display, tc may already be destroyed during a display update before
+     // the cursor update (can't do both atomically, alas)
+     if (!tc->desktop) return;
+@@ -1586,10 +1595,17 @@
+         sp_ctrlline_set_coords(SP_CTRLLINE(tc->cursor), d0, d1);
+ 
+         /* fixme: ... need another transformation to get canvas widget coordinate space? */
+-        im_cursor.x = (int) floor(d0[Geom::X]);
+-        im_cursor.y = (int) floor(d0[Geom::Y]);
+-        im_cursor.width = (int) floor(d1[Geom::X]) - im_cursor.x;
+-        im_cursor.height = (int) floor(d1[Geom::Y]) - im_cursor.y;
++        if (tc->imc) {
++            GdkRectangle im_cursor = { 0, 0, 1, 1 };
++            Geom::Point const top_left = SP_EVENT_CONTEXT(tc)->desktop->get_display_area().corner(3);
++            Geom::Point const im_d0 = SP_EVENT_CONTEXT(tc)->desktop->d2w(d0 - top_left);
++            Geom::Point const im_d1 = SP_EVENT_CONTEXT(tc)->desktop->d2w(d1 - top_left);
++            im_cursor.x = (int) floor(im_d0[Geom::X]);
++            im_cursor.y = (int) floor(im_d1[Geom::Y]);
++            im_cursor.width = (int) floor(im_d1[Geom::X]) - im_cursor.x;
++            im_cursor.height = (int) floor(im_d0[Geom::Y]) - im_cursor.y;
++            gtk_im_context_set_cursor_location(tc->imc, &im_cursor);
++        }
+ 
+         tc->show = TRUE;
+         tc->phase = 1;
+@@ -1631,9 +1647,6 @@
+         }
+     }
+ 
+-    if (tc->imc) {
+-        gtk_im_context_set_cursor_location(tc->imc, &im_cursor);
+-    }
+     SP_EVENT_CONTEXT(tc)->desktop->emitToolSubselectionChanged((gpointer)tc);
+ }
+ 

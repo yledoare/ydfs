@@ -1,0 +1,5 @@
+DBVER=$(basename $PWD)
+cd desktop-install-menus/
+#tar czvf /home/opkg.linuxconsole.org/www/$DISTRONAME/$DBVER/desktop-install-menus.tar.gz etc usr
+tar czvf /tmp/desktop-install-menus.tar.gz usr # etc
+scp /tmp/desktop-install-menus.tar.gz opkg.linuxconsole.org@opkg.linuxconsole.org:/home/opkg.linuxconsole.org/www/$DISTRONAME/$DBVER/desktop-install-menus.tar.gz

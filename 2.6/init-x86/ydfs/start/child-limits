@@ -1,0 +1,36 @@
+[ $USER = "USER" ] && exit 0
+
+[ ! -e $HOME/ydfs/.child-limits ] && exit 0
+
+cd $HOME/ydfs/.child-limits
+
+while [ 1 ]
+do
+
+DATE=$(date +%d%m%y)
+echo $DATE
+
+if [ -e .child-limits/$DATE ] 
+then
+ LAST=$(cat .child-limits/$DATE)
+else
+ LAST=1
+fi
+
+NEXT=$(expr $LAST + 1)
+echo $NEXT > .child-limits/$DATE
+echo $NEXT
+
+if [ $NEXT -gt 120 ]
+then
+  killall lxsession || killall mate-session
+fi
+
+if [ $NEXT = "115" ]
+then
+  zenity  --info --text="Arrêt dans 5 minutes" &
+fi
+
+sleep 60
+
+done

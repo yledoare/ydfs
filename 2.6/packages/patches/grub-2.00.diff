@@ -1,0 +1,14 @@
+diff --git a/grub-core/script/yylex.l b/grub-core/script/yylex.l
+index f6a39c5..a27c239 100644
+--- a/grub-core/script/yylex.l
++++ b/grub-core/script/yylex.l
+@@ -29,7 +29,8 @@
+ #pragma GCC diagnostic ignored "-Wmissing-prototypes"
+ #pragma GCC diagnostic ignored "-Wmissing-declarations"
+ #pragma GCC diagnostic ignored "-Wunsafe-loop-optimizations"
+-
++#pragma GCC diagnostic ignored "-Wsign-compare"
++#pragma GCC diagnostic ignored "-Wunused-function"
+ #define yyfree    grub_lexer_yyfree
+ #define yyalloc   grub_lexer_yyalloc
+ #define yyrealloc grub_lexer_yyrealloc

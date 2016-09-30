@@ -1,0 +1,22 @@
+LANG=en-US
+[ "$lang" = "french" ] && LANG=fr
+[ "$lang" = "spanish" ] && LANG=es-ES
+
+cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
+
+if [ "$ARCH" = "x86" ]
+then
+  URL=https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
+else
+  URL=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+fi
+
+if [ ! -e /opt/google/chrome/chrome ]
+then
+  DEST=$HOME /ydfs/start/download  $URL
+  dpkg -x $HOME/`basename $URL` /
+  rm $HOME/`basename $URL`
+  rm /usr/share/applications/google-chrome.desktop
+fi
+
+/opt/google/chrome/chrome --user-data-dir

@@ -1,0 +1,20 @@
+URL=https://www.playonlinux.com/script_files/PlayOnLinux/4.2.5/PlayOnLinux_4.2.5.tar.gz
+ARCHIVE=$(basename $URL)
+if [ ! -e $HOME/playonlinux/ ]
+then
+  DEST=$HOME /ydfs/start/download  $URL
+  cd $HOME
+  tar xzvf $ARCHIVE
+  if [ $? != 0 ]
+  then
+	rm $ARCHIVE
+	zenity --error --text="Error while tar xzvf $ARCHIVE  !"
+	exit 0
+  fi
+  rm $ARCHIVE
+fi
+
+cd $HOME/playonlinux/
+sed -i "s@id -u@echo@g" lib/sources
+sed -i "s@id -u@echo@g" python/mainwindow.py
+./playonlinux

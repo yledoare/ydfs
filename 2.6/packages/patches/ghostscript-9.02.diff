@@ -1,0 +1,12 @@
+diff -ur ghostscript-9.02.orig/Makefile.in ghostscript-9.02/Makefile.in
+--- ghostscript-9.02.orig/Makefile.in	2011-03-24 18:26:17.000000000 +0100
++++ ghostscript-9.02/Makefile.in	2011-04-20 11:00:43.000000000 +0200
+@@ -342,7 +342,7 @@
+ # defines from autoconf; note that we don't use these at present.
+ ACDEFS=@DEFS@
+ 
+-CFLAGS=$(CFLAGS_STANDARD) $(GCFLAGS) $(XCFLAGS)
++CFLAGS=$(CFLAGS_STANDARD) $(GCFLAGS) $(XCFLAGS) -DHAVE_DIRENT_H -DHAVE_SYS_TIME_H
+ 
+ # Define platform flags for ld.
+ # SunOS 4.n may need -Bstatic.

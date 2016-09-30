@@ -1,0 +1,19 @@
+--- a/hw/sd.c	2011-10-07 17:06:26.000000000 +0200
++++ b/hw/sd.c	2011-10-07 16:01:27.000000000 +0200
+@@ -1142,6 +1142,7 @@
+     case 13:	/* ACMD13: SD_STATUS */
+         switch (sd->state) {
+         case sd_transfer_state:
++            sd->state = sd_sendingdata_state;
+             sd->data_start = 0;
+             sd->data_offset = 0;
+             return sd_r1;
+@@ -1155,7 +1156,7 @@
+         switch (sd->state) {
+         case sd_transfer_state:
+             *(uint32_t *) sd->data = sd->blk_written;
+-
++            sd->state = sd_sendingdata_state;
+             sd->data_start = 0;
+             sd->data_offset = 0;
+             return sd_r1;

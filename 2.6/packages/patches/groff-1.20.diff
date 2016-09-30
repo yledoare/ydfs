@@ -1,0 +1,51 @@
+diff -ur groff-1.20.orig/Makefile.in groff-1.20/Makefile.in
+--- groff-1.20.orig/Makefile.in	2009-01-05 21:45:13.000000000 +0100
++++ groff-1.20/Makefile.in	2011-04-20 11:33:17.000000000 +0200
+@@ -592,7 +592,6 @@
+   src/utils/afmtodit \
+   src/roff/grog \
+   src/roff/nroff \
+-  doc \
+   contrib/mm \
+   contrib/chem \
+   contrib/pic2graph \
+@@ -600,7 +599,6 @@
+   contrib/grap2graph \
+   contrib/groffer \
+   contrib/mom \
+-  contrib/hdtbl \
+   contrib/pdfmark \
+   contrib/gdiffmk
+ ALLDIRS=$(INCDIRS) $(LIBDIRS) $(PROGDIRS) \
+@@ -609,7 +607,6 @@
+   font/devps/generate \
+   font/devdvi/generate \
+   font/devlj4/generate \
+-  doc
+ NOMAKEDIRS=\
+   m4 \
+   arch/djgpp \
+@@ -617,11 +614,9 @@
+   contrib/chem/examples/122 \
+   contrib/groffer/perl \
+   contrib/groffer/shell \
+-  contrib/hdtbl/examples \
+   contrib/mm/examples \
+   contrib/mm/mm \
+   contrib/mom/examples \
+-  contrib/mom/momdoc \
+   contrib/gdiffmk/tests \
+   src/libs/snprintf \
+   font/devps/old \
+@@ -811,9 +806,9 @@
+ 	  $(tmacdir) $(systemtmacdir) $(localtmacdir) \
+ 	  $(fontdir) $(localfontdir) $(oldfontdir) $(bindir) \
+ 	  $(datasubdir) $(dataprogramdir) $(infodir) \
+-	  $(exampledir) $(htmldocdir) $(pdfdocdir) $(docdir) \
++	  $(exampledir) \
+ 	  $(libprogramdir) $(libdir) \
+-	  $(datadir)/doc/groff $(datadir)/doc $(datadir) 2>/dev/null || :
++	  $(datadir) 2>/dev/null || :
+ 
+ .PHONY: check
+ check:

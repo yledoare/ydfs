@@ -1,0 +1,26 @@
+diff --git a/unix/Makefile.in b/unix/Makefile.in
+index d96c4c6..8b11fa0 100644
+--- a/unix/Makefile.in
++++ b/unix/Makefile.in
+@@ -730,7 +730,7 @@ install-binaries: binaries
+ 	    fi
+ 	@echo "Installing $(LIB_FILE) to $(LIB_INSTALL_DIR)/"
+ 	@@INSTALL_LIB@
+-	mv "$(LIB_INSTALL_DIR)"/$(LIB_FILE) "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0
++	touch "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0 && chmod +w "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0 && mv "$(LIB_INSTALL_DIR)"/$(LIB_FILE) "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0
+ 	ln -sf $(LIB_FILE).0 "$(LIB_INSTALL_DIR)"/$(LIB_FILE)
+ 	ln -sf "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0 ./
+ 	@chmod 555 "$(LIB_INSTALL_DIR)"/$(LIB_FILE).0
+@@ -1742,10 +1742,10 @@ alldist: dist
+ allpatch: dist
+ 	rm -f $(DISTROOT)/$(DISTNAME)-src.tar.gz $(DISTROOT)/$(ZIPNAME)
+ 	mv $(DISTROOT)/tcl${VERSION} $(DISTROOT)/old
+-	mv $(DISTROOT)/$(DISTNAME) $(DISTROOT)/tcl${VERSION}
++	cp $(DISTROOT)/$(DISTNAME) $(DISTROOT)/tcl${VERSION}
+ 	cd $(DISTROOT); tar cf $(DISTNAME)-src.tar tcl${VERSION}; \
+ 		gzip -9 $(DISTNAME)-src.tar; zip -r8 $(ZIPNAME) tcl${VERSION}
+-	mv $(DISTROOT)/tcl${VERSION} $(DISTROOT)/$(DISTNAME)
++	cp $(DISTROOT)/tcl${VERSION} $(DISTROOT)/$(DISTNAME)
+ 	mv $(DISTROOT)/old $(DISTROOT)/tcl${VERSION}
+ 
+ #

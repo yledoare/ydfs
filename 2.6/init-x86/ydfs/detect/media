@@ -1,0 +1,73 @@
+#!/bin/sh
+
+export ARCH=`uname -m`
+[ "$ARCH" = "i686" ] && ARCH=x86 # FIXME : enable sed in busybox
+echo -n "Creating "
+for device in `ls /sys/class/block/`
+do
+	if [ ! -e /dev/$device ]
+	then
+		echo -n "$device "
+		mknod /dev/$device b `cat /sys/class/block/$device/dev | cut -d ':' -f1` `cat /sys/class/block/$device/dev | cut -d ':' -f2`
+	fi
+done
+echo
+
+install -d /media/ydfs
+
+[ -e /ydfs/boot/options/liveusb  ] && echo "LiveUsb mode" && sleep 5
+
+if [ ! -e /ydfs/boot/options/livecd ] # look only on cdrom drive
+then
+echo "search into hard/usb disks"
+mkdir /disk
+for device in `ls /sys/class/block/`
+do
+
+	if [ ! -e /dev/$device ]
+	then
+		echo "Creating $device"
+		mknod /dev/$device b `cat /sys/class/block/$device/dev | cut -d ':' -f1` `cat /sys/class/block/$device/dev | cut -d ':' -f2`
+	fi
+	echo $device | grep sd >/dev/null || continue
+	echo -n "$device ? "
+        if [ -e /ydfs/boot/options/liveusb  ]
+        then
+          find /sys |grep $device|grep usb >/dev/null || continue
+          echo "is removable"
+          #[ -e /sys/class/block/$device/removable ] || continue
+          #grep 1 /sys/class/block/$device/removable >/dev/null || continue
+        fi
+	/ntfs-3g  /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
+	# Wubi
+	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
+	#[ -e /disk/$DISTRONAME/install/ydfs-"$ARCH".iso ] && mount /disk/$DISTRONAME/install/ydfs-"$ARCH".iso /media/ydfs && break
+	#[ -e /disk/$DISTRONAME/install/test.iso ] && mount /disk/$DISTRONAME/install/test.iso /media/ydfs && break
+	# live usb mount read write
+	if [ -e /disk/modules/$ARCH.squashfs ]
+        then
+          umount /disk 
+          /ntfs-3g /dev/$device /media/ydfs 2>/dev/null || mount /dev/$device /media/ydfs -o rw && break
+        fi
+        umount /disk
+done
+fi
+
+if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
+then
+	echo -n "livecd ? "
+	for CDROM in sr0 sr1 sr2 sr3 sr4 sr5 sr6
+	do
+	  [ -e /dev/$CDROM ] && mount /dev/$CDROM /media/ydfs && echo "$CDROM" && install -d /var/ydfs/boot/media/cdrom/$CDROM && break
+	done
+fi
+
+if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
+then
+  echo -n "Network ? "
+  ifconfig eth0 up
+	sleep 1
+  ifconfig eth0 192.168.1.243
+	sleep 1
+  busybox mount -t cifs //192.168.1.25/ydfs-squashfs /media/ydfs/modules -o username=guest
+fi

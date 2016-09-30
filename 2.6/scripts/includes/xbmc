@@ -1,0 +1,44 @@
+#!/bin/sh
+  if [ -e xbmc-xrandr.c ]
+   then
+     [ ! -e configure ] && ACLOCAL="aclocal -I $HOME/$ARCH/share/aclocal/ -I m4" autoreconf --install --force 
+     [ ! -e Makefile ] && ./bootstrap
+     [ ! -e Makefile ] && ./configure --prefix=$PREFIX --disable-debug \
+    --enable-optimizations \
+    --enable-gl \
+    --enable-sdl \
+    --enable-vaapi \
+    --enable-vdpau \
+    --enable-xvba \
+    --enable-joystick \
+    --enable-xrandr \
+    --enable-rsxs \
+    --enable-projectm \
+    --enable-x11 \
+    --enable-samba \
+    --enable-ffmpeg-libvorbis \
+    --enable-dvdcss \
+    --disable-hal \
+    --enable-avahi \
+    --enable-optical-drive \
+    --enable-libbluray \
+    --enable-texturepacker \
+    --enable-udev \
+    --enable-libusb \
+    --enable-external-libraries
+     make
+     cd lib/libsidplay2
+     CXXFLAGS="" CXX="g++" CFLAGS="" make || exit $?
+     cd ../..	
+     make || exit $?
+     make install || exit $?
+     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+     rm Makefile
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+     touch buildok-$ARCH
+     exit 0 
+   fi 

@@ -1,0 +1,17 @@
+diff --git a/filter/pdftoraster.cxx b/filter/pdftoraster.cxx
+index 8da042a..24b31e0 100644
+--- a/filter/pdftoraster.cxx
++++ b/filter/pdftoraster.cxx
+@@ -1803,9 +1803,6 @@ static void setPopplerColorProfile()
+     exit(1);
+     break;
+   }
+-  if (popplerColorProfile != NULL) {
+-    GfxColorSpace::setDisplayProfile(popplerColorProfile);
+-  }
+ }
+ 
+ int main(int argc, char *argv[]) {
+diff --git a/pdftoraster-pdftoraster.o b/pdftoraster-pdftoraster.o
+index 672d02e..c746c16 100644
+Binary files a/pdftoraster-pdftoraster.o and b/pdftoraster-pdftoraster.o differ

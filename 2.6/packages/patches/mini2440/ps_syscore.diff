@@ -1,0 +1,14 @@
+diff -ur linux-3.0.8/arch/arm/mach-s3c2440/s3c2440.c linux-3.0.8-new/arch/arm/mach-s3c2440/s3c2440.c
+--- linux-3.0.8/arch/arm/mach-s3c2440/s3c2440.c	2011-10-25 07:11:12.000000000 +0200
++++ linux-3.0.8-new/arch/arm/mach-s3c2440/s3c2440.c	2011-11-03 23:29:13.000000000 +0100
+@@ -55,10 +55,6 @@
+ 
+ 	/* register suspend/resume handlers */
+ 
+-	register_syscore_ops(&s3c2410_pm_syscore_ops);
+-	register_syscore_ops(&s3c244x_pm_syscore_ops);
+-	register_syscore_ops(&s3c24xx_irq_syscore_ops);
+-
+ 	/* register our system device for everything else */
+ 
+ 	return sysdev_register(&s3c2440_sysdev);

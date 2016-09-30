@@ -1,0 +1,11 @@
+. config.ini
+for pkg in $(ls /home/linuxconsole24/ydfs/packages-$ARCH | grep xorg-server)
+do
+	echo $pkg
+	./scripts/uninstall-package $pkg
+done
+for pkg in $(ls /home/linuxconsole24/ydfs/packages-$ARCH | grep xf86-)
+do
+	echo $pkg
+	./scripts/uninstall-package $pkg
+done

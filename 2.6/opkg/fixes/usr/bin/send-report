@@ -1,0 +1,4 @@
+FILE=/tmp/$(date '+%s').txt
+zenity --forms --width=600 --title="Send report"   --text="Contact LinuxConsole team with this form."   --separator=","   --add-entry="Name"  --add-entry="Email"  --add-entry="Message" > $FILE
+curl -F "uploadedfile=@$FILE" http://linuxconsole.free.fr/2.0/uploader.php && zenity  --info --text="Message sent !" && exit 0
+zenity  --error --text="Error when sending message !"

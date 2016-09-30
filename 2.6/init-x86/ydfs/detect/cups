@@ -1,0 +1,21 @@
+cupsd
+
+exit 0
+
+[ ! -e /opt ] && mkdir /opt && ln -s /usr/opt/epson-inkjet-printer-escpr /opt/epson-inkjet-printer-escpr
+ls /opt/epson-inkjet-printer-escpr/cups/lib/filter/|while read file
+do
+  ln -sf /opt/epson-inkjet-printer-escpr/cups/lib/filter/$file /usr/lib/cups/filter/$file
+done
+
+ls /opt/epson-inkjet-printer-escpr/ppds/Epson/|while read file
+do
+ln -sf /opt/epson-inkjet-printer-escpr/ppds/Epson/$file  /usr/share/cups/model/$file
+done
+
+ln -sf /opt/epson-inkjet-printer-escpr/lib/libescpr.so.1.0.0 /lib/libescpr.so.1.0.0
+
+ls /usr/share/foomatic/db/source/PPD|while read file
+do
+ln -sf /usr/share/foomatic/db/source/PPD/$file /usr/share/cups/model/$file
+done

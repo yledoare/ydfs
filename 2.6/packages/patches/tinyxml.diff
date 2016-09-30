@@ -1,0 +1,103 @@
+diff -ur tinyxml.orig/Makefile tinyxml/Makefile
+--- tinyxml.orig/Makefile	2011-05-15 04:24:57.000000000 +0200
++++ tinyxml/Makefile	2014-01-12 22:19:21.309929452 +0100
+@@ -15,7 +15,7 @@
+ 
+ # TINYXML_USE_STL can be used to turn on STL support. NO, then STL
+ # will not be used. YES will include the STL files.
+-TINYXML_USE_STL := NO
++TINYXML_USE_STL := YES
+ 
+ #****************************************************************************
+ 
+@@ -25,8 +25,11 @@
+ AR     := ar rc
+ RANLIB := ranlib
+ 
++pkgname :=tinyxml
++pkgver  :=2.6.2
++
+ DEBUG_CFLAGS     := -Wall -Wno-format -g -DDEBUG
+-RELEASE_CFLAGS   := -Wall -Wno-unknown-pragmas -Wno-format -O3
++RELEASE_CFLAGS   := $(CXXFLAGS) -fPIC 
+ 
+ LIBS		 :=
+ 
+@@ -128,3 +131,9 @@
+ tinyxmlparser.o: tinyxml.h tinystr.h
+ xmltest.o: tinyxml.h tinystr.h
+ tinyxmlerror.o: tinyxml.h tinystr.h
++
++install:
++	g++ -fPIC $(CXXFLAGS) -shared -o $(HOME)/$(ARCH)/lib/lib$(pkgname).so.0.$(pkgver) -Wl,-soname,lib$(pkgname).so.0 tinystr.o tinyxmlerror.o tinyxml.o tinyxmlparser.o
++	install -m 0644 $(pkgname).h tinystr.h $(HOME)/$(ARCH)/include
++	ln -sf lib$(pkgname).so.0.$(pkgver) $(HOME)/$(ARCH)/lib/lib$(pkgname).so.0
++	ln -sf lib$(pkgname).so.0.$(pkgver) $(HOME)/$(ARCH)/lib/lib$(pkgname).so
+diff -ur tinyxml.orig/tinyxml.cpp tinyxml/tinyxml.cpp
+--- tinyxml.orig/tinyxml.cpp	2011-05-15 04:24:57.000000000 +0200
++++ tinyxml/tinyxml.cpp	2014-01-12 22:00:39.457875409 +0100
+@@ -57,30 +57,7 @@
+ 	{
+ 		unsigned char c = (unsigned char) str[i];
+ 
+-		if (    c == '&' 
+-		     && i < ( (int)str.length() - 2 )
+-			 && str[i+1] == '#'
+-			 && str[i+2] == 'x' )
+-		{
+-			// Hexadecimal character reference.
+-			// Pass through unchanged.
+-			// &#xA9;	-- copyright symbol, for example.
+-			//
+-			// The -1 is a bug fix from Rob Laveaux. It keeps
+-			// an overflow from happening if there is no ';'.
+-			// There are actually 2 ways to exit this loop -
+-			// while fails (error case) and break (semicolon found).
+-			// However, there is no mechanism (currently) for
+-			// this function to return an error.
+-			while ( i<(int)str.length()-1 )
+-			{
+-				outString->append( str.c_str() + i, 1 );
+-				++i;
+-				if ( str[i] == ';' )
+-					break;
+-			}
+-		}
+-		else if ( c == '&' )
++		if ( c == '&' )
+ 		{
+ 			outString->append( entity[0].str, entity[0].strLength );
+ 			++i;
+diff -ur tinyxml.orig/tinyxml.h tinyxml/tinyxml.h
+--- tinyxml.orig/tinyxml.h	2011-05-15 04:24:57.000000000 +0200
++++ tinyxml/tinyxml.h	2014-01-12 22:01:08.897873377 +0100
+@@ -26,6 +26,8 @@
+ #ifndef TINYXML_INCLUDED
+ #define TINYXML_INCLUDED
+ 
++#define TIXML_USE_STL 1
++
+ #ifdef _MSC_VER
+ #pragma warning( push )
+ #pragma warning( disable : 4530 )
+diff -ur tinyxml.orig/xmltest.cpp tinyxml/xmltest.cpp
+--- tinyxml.orig/xmltest.cpp	2011-05-15 04:24:57.000000000 +0200
++++ tinyxml/xmltest.cpp	2014-01-12 22:00:39.461875149 +0100
+@@ -1366,6 +1366,16 @@
+ 		}*/
+ 	}
+ 
++	#ifdef TIXML_USE_STL
++	{
++		TiXmlDocument xml;
++		xml.Parse("<foo>foo&amp;#xa+bar</foo>");
++		std::string str;
++		str << xml;
++		XmlTest( "Entity escaping", "<foo>foo&amp;#xa+bar</foo>", str.c_str() );
++	}
++	#endif
++
+ 	/*  1417717 experiment
+ 	{
+ 		TiXmlDocument xml;
+Seulement dans tinyxml: xmltest.cpp.orig
