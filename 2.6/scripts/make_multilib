@@ -1,6 +1,5 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
 # apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
-
 cd $HOME_DIBAB
 sh scripts/build-llvm-clang
 
@@ -31,7 +30,7 @@ install -d $HOME/multilib/include
 # libFS-1 libdmx- \
 
 for PKG in util-linux alsa-lib ncurses readline sqlite zlib-1 libpng libffi glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
-xproto-7 libXau xcb-proto libxcb xtrans-1 \
+xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb xtrans-1 \
 libX11-1 \
 libXext-1 \
 libICE-1 \
