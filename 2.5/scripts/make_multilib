@@ -7,7 +7,7 @@ export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
-export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconfig
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
