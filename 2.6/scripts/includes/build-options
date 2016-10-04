@@ -1,3 +1,4 @@
+        echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
     --enable-pcre16 \
     --enable-pcre32 \
@@ -102,23 +103,21 @@
 	echo $ARCHIVE | grep gltron && LC_CONFIGURE_OPTS="--disable-warn"
 	echo $ARCHIVE | grep sudo- && LC_CONFIGURE_OPTS="--with-timedir=/tmp --sysconfdir=$DIBAB_PREFIX/$MODULE/etc/sudo"
 	echo $ARCHIVE | grep midori && LC_CONFIGURE_OPTS="--enable-gtk3"
-	echo $ARCHIVE | grep qjackctl && LC_CONFIGURE_OPTS="--with-qt4=$HOME/$ARCH"
 	echo $ARCHIVE | grep rosegarden && LC_CONFIGURE_OPTS="--with-qtdir=$HOME/$ARCH"
 	echo $ARCHIVE | grep dhcpcd && LC_CONFIGURE_OPTS="--dbdir=$DIBAB_PREFIX/$MODULE/var/run"
-	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-qt3 --disable-qt5  --disable-static     \
+	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-qt3 --disable-static     \
             --disable-mono   --disable-libdaemon  \
             --disable-monodoc    \
             --disable-python     \
-	    --disable-gtk3 --disable-gdbm --disable-gtk  --disable-pygtk \
+	    --disable-gtk3 --disable-qt4 --disable-gdbm --disable-gtk  --disable-pygtk \
             --enable-core-docs   \
             --with-distro=none "
 	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" --enable-cairo-output \
       --enable-xpdf-headers \
       --enable-libjpeg --enable-zlib \
-      --enable-poppler-qt4 \
       --enable-poppler-glib"
 	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
-	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--disable-wayland-backend --enable-x11-backend   "
+	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
 	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa "
 	echo $ARCHIVE | grep GConf && LC_CONFIGURE_OPTS="--disable-orbit --disable-static "
 	echo $ARCHIVE | grep ghostscript && LC_CONFIGURE_OPTS="--enable-dynamic \
@@ -148,7 +147,7 @@
 	echo $ARCHIVE | grep libav && LC_CONFIGURE_OPTS="--disable-static --enable-shared"
 	echo $ARCHIVE | grep db-6 && LC_CONFIGURE_OPTS="--enable-compat185 --enable-dbm --disable-static --enable-cxx"
 	echo $ARCHIVE | grep pkg-config && [ "$ARCH" != "arm" ] && LC_CONFIGURE_OPTS="--with-internal-glib"
-	echo $ARCHIVE | grep ffmpeg-2 && LC_CONFIGURE_OPTS="   --disable-debug \
+	echo $ARCHIVE | grep ffmpeg-3 && LC_CONFIGURE_OPTS="   --disable-debug \
     --disable-static \
     --enable-avresample \
     --enable-dxva2 \
@@ -158,7 +157,6 @@
     --enable-libass \
     --enable-libbluray \
     --enable-libfreetype \
-    --enable-libmodplug \
     --enable-libmp3lame \
     --enable-libtheora \
     --enable-libvorbis \

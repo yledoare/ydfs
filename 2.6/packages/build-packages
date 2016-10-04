@@ -28,7 +28,6 @@ fi
 
 if [ "$MODULE" == "qt5" ]
 then
-
   if [ "$ARCH" = "x86_64" ]
   then
 	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
@@ -39,26 +38,7 @@ then
   	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5-x86.tar.gz && mv qt5-x86 qt5
 	OPKGARCH=i686
   fi
-
-  if [ ! -e $HOME/ydfs/opkg/qt5_5_$OPKGARCH.ipk ]
-  then
-	mkdir $HOME/ydfs/packages-$ARCH/qt5
-	cd $HOME/ydfs/packages-$ARCH/qt5
-	mkdir CONTROL
-echo "Package: qt5
-Priority: optional
-Version: 5
-Architecture: $OPKGARCH
-Maintainer: Yann (http://www.linuxconsole.org/contact)
-Depends:
-Source: http://download.qt.io/official_releases/qt/5.4/5.4.2/qt-opensource-linux-x86-5.4.2.run
-Section: libs
-Description: QT5" > CONTROL/control
-	install -d ./$HOME/
-	cp -fR $HOME/qt5 ./$HOME/
-	$HOME_DIBAB/tools/opkg-utils/opkg-build -o root -g root . $HOME/ydfs/opkg
-  fi
-  cd $SRC_PATH
+  exit 0
 fi
 
 # 2 commandes pour Freetype
@@ -84,6 +64,7 @@ export ACLOCAL="aclocal"
 echo " Module list : $MODULE_LIST"
 [ -e $HOME/qt5 ] && ln -sf $HOME/qt5/bin/qmake  $HOME/qt5/bin/qmake-qt5
 [ -e $HOME/qt5 ] && PATH="$HOME/qt5/bin:$PATH"
+PATH="$HOME/ydfs/llvm/bin:$PATH"
 [ -e $HOME/qt5 ] && CXXFLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CXX_FLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"
@@ -290,7 +271,9 @@ fi
   echo $ARCHIVE | grep dssi && export CXX="g++ -fPIC -I$HOME/$ARCH/include"
   echo $ARCHIVE | grep perl-5 && export CFLAGS="-I$HOME/$ARCH/include" && export CXXFLAGS=$CFLAGS && export CPPFLAGS=$CFLAGS
   echo $ARCHIVE | grep SDL_Pango && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
-  echo $ARCHIVE | grep net-snmp && export LDFLAGS="$LDFLAGS -lnl" 
+  echo $ARCHIVE | grep ijs-0 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+  echo $ARCHIVE | grep lzo-2 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+#  echo $ARCHIVE | grep net-snmp && export LDFLAGS="$LDFLAGS -lnl" 
   echo $ARCHIVE | grep fftw && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
   echo $ARCHIVE | grep json-c && export CFLAGS="$CFLAGS -Wno-error"
   echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
@@ -301,7 +284,7 @@ fi
   echo $ARCHIVE | grep gst-plugins-base-0.10.35 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gst-plugins-base-0.10.35/gst-libs/gst/interfaces/.libs/"
   echo $ARCHIVE | grep minetest && export LDFLAGS="$LDFLAGS -lIrrlicht" 
   echo $ARCHIVE | grep dolphin && export CXXFLAGS="$CXXFLAGS "$( pkg-config --cflags gtk+-2.0)
-  echo $ARCHIVE | grep ffmpeg-2 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" 
+  echo $ARCHIVE | grep ffmpeg-3 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export CPPFLAGS="$CPPFLAGS -fPIC" && CXXFLAGS="$CXXFLAGS -fPIC"
   echo $ARCHIVE | grep sqlite && export AM_CPPFLAGS="-DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_SECURE_DELETE"
   echo $ARCHIVE | grep sqlite || unset AM_CPPFLAGS
   echo $ARCHIVE | grep ghostscript && export CPPFLAGS="$CPPFLAGS -Ijpeg/ -Ilibpng -I./freetype/include/freetype" 

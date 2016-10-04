@@ -294,7 +294,7 @@ else
   	cp $HOME/$ARCH/include/GL/glxext.h source/Irrlicht/glxext.h
   	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
 	cd source/Irrlicht
-	make NDEBUG=1 sharedlib	 || exit 2
+	CXXFLAGS="-std=gnu++11 " make NDEBUG=1 sharedlib	 || exit 2
 	make install || exit 3
   	cd ../../
 	touch buildok-$ARCH
@@ -365,6 +365,16 @@ else
          ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   fi
 
+  if [ -e base/gsht.c ] 
+  then
+	echo ghostscript 
+	rm -rfv cups/libs freetype ijs jbig2dec jpeg lcms2 libpng tiff zlib
+	sleep 2
+  	echo autoconf .. 
+  	autoconf -f
+	sleep 2
+  fi
+
   if [ -e calf.desktop.in ] 
   then
 	 rm autogen.sh
@@ -372,6 +382,7 @@ else
 	 echo "Force automake" && pwd && sleep 2
          ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   fi
+
   if [ -e rtmidi-config.in ] # || [ -e src/age/include/ ]
   then
 	 echo "Force automake" && pwd && sleep 2
@@ -382,15 +393,33 @@ else
 	 autoconf
   fi
 
-if [ -e readline.c ]
-then
+  if [ -e mkisofs/mkisofs.c ]
+  then
+	export GMAKE_NOWARN=true
+	make || exit $?
+	export GMAKE_NOWARN=true
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install || exit $?
+
+	cd $HOME/ydfs/packages-$ARCH/$MYDIR/opt/schily/bin || exit $?
+	cp * $HOME/$ARCH/bin ||exit $?
+	cd $HOME/$ARCH/bin
+	ln -s cdrecord wodim
+	ln -s readcd readom
+	ln -s mkisofs genisoimage
+	ln -s cdda2wav icedax
+	touch buildok-$ARCH
+	exit 0
+    fi
+
+   if [ -e readline.c ]
+   then
 	echo "FIX readline build" && sleep 5
 	CFLAGS="$CFLAGS -fPIC" ./configure --prefix=$PREFIX
 	  make SHLIB_LIBS=-lncursesw || exit $?
 	  make SHLIB_LIBS=-lncursesw install || exit $?
-    touch buildok-$ARCH
+    	touch buildok-$ARCH
 		exit 0
-fi
+   fi
 
   if [ -e unix/npsqueak ]
   then
@@ -436,12 +465,15 @@ fi
   fi
   if [ -n "`basename $PWD | grep xorg-server`" ]
   then
-    #mkdir build-llvm
-    #cd build-llvm
-    #  $HOME/ydfs/src/llvm-3.8.1.src/configure --prefix=$HOME/ydfs/llvm --enable-shared || exit $?
-    #  make || exit $?
-    #  make install || exit $?	
-    #cd ..
+    if [ ! -e $HOME/ydfs/llvm ]
+    then
+      mkdir build-llvm
+      cd build-llvm
+      $HOME/ydfs/src/llvm-3.8.1.src/configure --prefix=$HOME/ydfs/llvm --enable-shared || exit $?
+      make || exit $?
+      make install || exit $?	
+      cd ..
+    fi
     cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
     export CPPFLAGS=" -I""$PWD""/include $CFLAGS"
     if [ ! -e Mesa ] && [ "$ARCH" != "arm" ]
@@ -463,7 +495,7 @@ fi
 ./configure $BUILDOPT --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
     --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
-    --with-egl-platforms=x11,drm \
+    --with-egl-platforms=x11,drm,wayland \
     --enable-llvm-shared-libs \
     --enable-egl \
     --enable-gbm \
@@ -480,7 +512,7 @@ fi
     --enable-vdpau \
     --enable-omx \
     --enable-nine \
-    --enable-opencl --enable-opencl-icd 
+    --enable-opencl --enable-opencl-icd \
     --with-clang-libdir=$HOME/ydfs/llvm/lib/ || exit 5
     make || exit 6
     make install || exit 7
@@ -629,6 +661,8 @@ fi
     # Do not build with cmake
 
     if [ -e CMakeLists.txt ] \
+ && [ ! -e src/lzo_crc.c ] \
+ && [ ! -e src/yaml_private.h ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e expat.pc.in ] \
  && [ ! -e src/gd.h ] \
@@ -718,7 +752,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in jsanalyze.cpp xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c -e ghostscript.vcproj debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -807,10 +841,14 @@ ac_cv_file__dev_ptc=no' >  config.site
       echo "Run Python setup.py" 
       python setup.py build || exit $?
     fi
+
+
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     if [ -e QupZilla.pro ]
     then
       echo "Building QUPZILLA"
+	QTDIR=$HOME/qt5
+	QMAKESPEC=$QTDIR/mkspecs/linux-g++ qmake
       QUPZILLA_PREFIX=$PREFIX qmake || exit $?
       QUPZILLA_PREFIX=$PREFIX make || exit $?
       QUPZILLA_PREFIX=$PREFIX make install || exit $?
@@ -1042,13 +1080,6 @@ echo "At BUILDPERL"
      ./b2 install && touch buildok-$ARCH
      fi
   fi
-  if [ -e ghostscript.vcproj ] 
-  then
-	echo ghostscript.vcproj
-    #sed -i 's/ZLIBDIR=src/ZLIBDIR=$includedir/' configure.ac configure &&
-    #rm -rf expat freetype lcms2 jpeg libpng
-    #rm -rf freetype
-  fi
   if [ -e waf ]
   then
       echo "Run ./waf "
@@ -1261,7 +1292,12 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	  exit 23
 	fi
 	[ -e liblightdm-gobject ] && make -C liblightdm-gobject install
-	[ -e ghostscript.vcproj ] && make so && make soinstall
+	if [ -e base/gsht.c ]
+	then
+		echo ghostscript 
+		make so || exit $?
+		make soinstall || exit $?
+	fi
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	[ -e getfacl/getfacl.c ] && make install-lib install-dev
         MAKE_INSTALL=""
