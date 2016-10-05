@@ -17,6 +17,7 @@ DEBVER=_20160110-1_all.deb
 for FIRMWARE in firmware-iwlwifi firmware-realtek firmware-libertas firmware-brcm80211 firmware-atheros firmware-netxen firmware-ipw2x00 firmware-linux firmware-myricom firmware-qlogic
 do
   [ ! -e $FIRMWARE$DEBVER ] && wget http://ftp.us.debian.org/debian/pool/non-free/f/firmware-nonfree/$FIRMWARE$DEBVER
+  [ ! -e $FIRMWARE$DEBVER ] && wget http://jukebox.linuxconsole.org/sources/$FIRMWARE$DEBVER
   [ ! -e $FIRMWARE$DEBVER ] && exit 1
   dpkg -x $FIRMWARE$DEBVER .
 done
