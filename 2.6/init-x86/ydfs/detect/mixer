@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 modprobe snd-pcm-oss
+modprobe snd-seq-midi
 
 echo -n "Mixer : "
 sleep 3 # waiting loading sound modules
