@@ -8,6 +8,7 @@
 #https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
 https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
 #Misc
+https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p8.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 archlinux:cdrdao
 archlinux:cdparanoia
