@@ -53,8 +53,8 @@ echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
              --with-system-openldap      \
              --enable-openssl  --disable-firebird-sdbc \
              --with-system-zlib 
-echo "Run make build"
-	ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build || exit $?
+echo "Run make build-nocheck"
+	ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build-nocheck || exit $?
 	# make distro-pack-install || exit $?	
 echo "Run make install-strip"
 	make install-strip || exit $?	

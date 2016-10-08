@@ -1,0 +1,36 @@
+  if [ -e build/workspaces/update-workspaces.sh ]
+  then
+	echo "Building 0ad"
+	OLDMODULE=$MODULE
+	unset MODULE
+	pkgname=0ad
+  pkgver=0.0.18-alpha
+  install -d "${pkgdir}"/{bin,data,lib,share/"${pkgname}"/}
+ 
+  if [ ! -e ${pkgdir}/data/mods/mod/mod.zip ]
+  then 
+  DATA=0ad-$pkgver-unix-data.tar.xz
+  [ ! -e $HOME/ydfs/tarballs/$DATA ] && wget http://freefr.dl.sourceforge.net/project/zero-ad/releases/$DATA --directory-prefix=$HOME/ydfs/tarballs 
+  install -d $HOME/ydfs/data
+  tar xJvf $HOME/ydfs/tarballs/$DATA --directory=$HOME/ydfs/data
+  cp -fR $HOME/ydfs/data/0ad-$pkgver/binaries/data ${pkgdir}/ || exit 12
+  fi
+	cd build/workspaces
+	./update-workspaces.sh --disable-atlas  || exit $?
+	cd gcc
+	CPPFLAGS="-I$HOME/$ARCH/include/X11 -I$HOME/$ARCH/include" make || exit $?
+  cd "../../.."
+  install -Dm755 binaries/system/pyrogenesis "${pkgdir}/bin" || exit $?
+  install -Dm755 binaries/system/*.so "${pkgdir}/lib/" || exit $?
+#  install -Dm755 binaries/system/*.so.* "${pkgdir}/lib/" || exit $?
+
+  cp -fR binaries/data/l10n/ ${pkgdir}/data || exit $?
+
+  install -Dm755 build/resources/${pkgname}.sh "${pkgdir}/bin/${pkgname}" || exit $?
+  install -Dm644 build/resources/${pkgname}.desktop "${pkgdir}/share/applications/${pkgname}.desktop" || exit $?
+  install -Dm644 build/resources/${pkgname}.png "${pkgdir}/share/pixmaps/${pkgname}.png" || exit $?
+  
+  MODULE=$OLDMODULE ydfs-install-package
+  touch buildok-$ARCH
+  exit 0
+  fi

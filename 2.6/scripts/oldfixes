@@ -1,0 +1,166 @@
+
+if [ -e $HOME/$1/usr/$1/dangerdeep ] && [ ! -e $HOME/$1/usr/share/dangerdeep ]
+then
+  [ ! -e dangerdeep-data-0.3.0.zip ] && wget http://freefr.dl.sourceforge.net/project/dangerdeep/danger_from_the_deep-data/0.3.0/dangerdeep-data-0.3.0.zip
+  install -d $HOME/$1/usr/share/dangerdeep
+  unzip dangerdeep-data-0.3.0.zip -d  $HOME/$1/usr/share/dangerdeep
+# Lien de menu pour 2H4U
+  echo "[Desktop Entry]
+Name=dangerdeep
+GenericName=dangerdeep
+Comment=dangerdeep
+Exec=$HOME/$1/usr/$1/dangerdeep --datadir $HOME/$1/usr/share/dangerdeep/data
+Icon=dangerdeep
+Type=Application
+Categories=Game;" > $HOME/$1/usr/share/applications/dangerdeep.desktop
+fi
+# Old etracer, disabled
+  # cp $HOME/ydfs/src/extremetuxracer-0.4/debian/etracer.xpm $HOME/$1/usr/share/pixmaps
+  # cp $HOME/ydfs/src/extremetuxracer-0.4/debian/extremetuxracer.desktop $HOME/$1/usr/share/applications
+
+# Cultivation apport du manuel+sous-menu
+  if [ -e $HOME/$1/Cultivation ] && [ ! -e $HOME/$1/Cultivation/manuel_fr.txt ]
+  then
+    ARCHIVE=http://download.tuxfamily.org/$1/$1/traductions/cultivation-traduc-fr1-0.zip
+    cd /tmp
+	  [ ! -e $ARCHIVE ] && wget $ARCHIVE	
+	  DIR=`basename $ARCHIVE | cut -d'-' -f1,2`
+	  unzip `basename $ARCHIVE`	
+	  cp ./manuel_fr.txt $HOME/$1/Cultivation/
+# Lien de menu pour Manuel_fr.txt: faudrait déjà que le fichier y soit
+#  echo "[Desktop Entry]
+#Name=Manuel en français
+#GenericName=ManuelfrCultivation
+#Comment=Manuel en français pour Cultivation
+#Exec=leafpad $HOME/$1/Cultivation/manuel_fr.txt
+#Icon=cultivation
+#Type=File
+#Categories=Game;Cultivation;" > $HOME/$1/usr/share/applications/manuel_frCultivation.desktop
+
+  fi
+
+
+# XMOTO
+	cp $HOME/ydfs/src/xmoto-0.5.10/extra/xmoto.desktop $HOME/$1/usr/share/applications
+  cp $HOME/ydfs/src/xmoto-0.5.10/extra/xmoto.xpm $HOME/$1/usr/share/pixmaps
+
+# FCEUX
+  if [ -e $HOME/ydfs/src/fceux-2.2.2/fceux.desktop ]
+  then
+    cp $HOME/ydfs/src/fceux-2.2.2/fceux.desktop $HOME/$1/usr/share/applications
+    sed -i "s@/usr/bin/fceux@fceux@" $HOME/$1/usr/share/applications/fceux.desktop 
+    sed -i "s@/usr/share/pixmaps/fceux.png@fceux.png@" $HOME/$1/usr/share/applications/fceux.desktop 
+    cp $HOME/ydfs/src/fceux-2.2.2/fceux.png $HOME/$1/usr/share/pixmaps
+  fi
+
+# FREECRAFT , now in /fix
+#  echo "$HOME/$1/usr/$1/freecraft -d $HOME/$1/usr/share/$1/freecraft/fcmp" > $HOME/$1/bin/freecraft
+#  chmod +x $HOME/$1/bin/freecraft
+
+# OPENTTD
+  if [ -e $HOME/$1/$1/openttd ] && [ ! -e $HOME/$1/share/$1/openttd/baseset/opensfx.cat ]
+  then
+    for ARCHIVE in http://binaries.openttd.org/extra/opengfx/0.4.7/opengfx-0.4.7-all.zip http://binaries.openttd.org/extra/opensfx/0.2.3/opensfx-0.2.3-all.zip http://binaries.openttd.org/extra/openmsx/0.3.1/openmsx-0.3.1-all.zip
+    do
+	cd /tmp
+	[ ! -e $ARCHIVE ] && wget $ARCHIVE	
+	DIR=`basename $ARCHIVE | cut -d'-' -f1,2`
+	unzip `basename $ARCHIVE`	
+	mv $DIR/* $HOME/$1/share/$1/openttd/baseset/
+    done
+  fi
+  #correction sur l'icone
+  cp $HOME/$1/usr/share/pixmaps/openttd.32.xpm $HOME/$1/usr/share/pixmaps/openttd.xpm
+
+# BZFLAG
+  cp $HOME/ydfs/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/usr/share/pixmaps
+  echo "[Desktop Entry]
+Name=BZFlag
+GenericName=Tank Battle Game
+Comment=Battle enemy tanks
+Exec=bzflag
+Icon=bzflag-48x48
+Type=Application
+Categories=Game;ActionGame;" > $HOME/$1/usr/share/applications/bzflag.desktop
+
+# Lien de menu pour 2H4U
+  echo "[Desktop Entry]
+Name=2H4U
+GenericName=2H4U
+Comment=Too Hard For You
+Exec=/ydfs/start/2H4U
+Icon=2H4U
+Type=Application
+Categories=Game;PuzzleGame;" > $HOME/$1/usr/share/applications/2H4U.desktop
+
+
+# Why lxde overwrite XDG_DATA PATH ? FIXED with lxsession 0.4.4
+  cp $HOME/$1/share/applications/* $HOME/$1/usr/share/applications
+  cp $HOME/$1/share/pixmaps/* $HOME/$1/usr/share/pixmaps
+
+  echo "$HOME/$1/usr/$1/freecraft -d $HOME/$1/usr/share/$1/freecraft/fcmp" > $HOME/$1/bin/freecraft
+  chmod +x $HOME/$1/bin/freecraft
+
+#Gunroar
+# apport du manuel j'espère que $HOME/$1/Gunroar est le bon répertoire
+  if [ -e $HOME/$1/Gunroar ] && [ ! -e $HOME/$1/Gunroar/manuel_fr.txt ]
+  then
+    ARCHIVE=http://download.tuxfamily.org/$1/$1/traductions/gunroar_manuel_fr.zip
+    cd /tmp
+	  [ ! -e $ARCHIVE ] && wget $ARCHIVE	
+	  DIR=`basename $ARCHIVE | cut -d'_' -f1,2`
+	  unzip `basename $ARCHIVE`	
+	  cp ./manuel_fr.txt $HOME/$1/Gunroar/
+# Lien de menu pour manuel_fr.txt: faudrait déjà que le fichier y soit
+  echo "[Desktop Entry]
+Name=Manuel Gunroar en français
+GenericName=Manuelfr Gunroar 
+Comment=Manuel en français pour Gunroar 
+Exec=leafpad $HOME/$1/Gunroar/manuel_fr.txt
+Icon=Gunroar
+Type=File
+Categories=Game;Gunroar;" > $HOME/$1/usr/share/applications/manuel_frGunroar.desktop
+
+  fi
+
+# OPENTTD
+  if [ -e $HOME/$1/$1/openttd ] && [ ! -e $HOME/$1/share/$1/openttd/baseset/opensfx.cat ]
+  then
+    for  ARCHIVE in  http://binaries.openttd.org/extra/opengfx/0.4.7/opengfx-0.4.7-all.zip  http://binaries.openttd.org/extra/opensfx/0.2.3/opensfx-0.2.3-all.zip  http://binaries.openttd.org/extra/openmsx/0.3.1/openmsx-0.3.1-all.zip
+    do
+	cd /tmp
+	[ ! -e $ARCHIVE ] && wget $ARCHIVE	
+	DIR=`basename $ARCHIVE | cut -d'-' -f1,2`
+	unzip `basename $ARCHIVE`	
+	mv $DIR/* $HOME/$1/share/$1/openttd/baseset/
+    done
+  fi
+  #correction sur l'icone
+  cp $HOME/$1/share/pixmaps/openttd.32.xpm $HOME/$1/share/pixmaps/openttd.xpm
+
+# BZFLAG
+  cp $HOME/ydfs/src/bzflag-2.4.2/data/bzflag-48x48.png $HOME/$1/share/pixmaps
+  echo "[Desktop Entry]
+Name=BZFlag
+GenericName=Tank Battle Game
+Comment=Battle enemy tanks
+Exec=bzflag
+Icon=bzflag-48x48
+Type=Application
+Categories=Game;ActionGame;" > $HOME/$1/share/applications/bzflag.desktop
+
+# Maniadrive
+#manque un fichier de pistes pour le serveur, on prend celui du client pour voir
+  cp $HOME/$1/bin/game/mania_tracklist.txt $HOME/$1/bin/game/mania_server_tracks.txt
+  echo "[Desktop Entry]
+Name=Maniadrive_server
+GenericName=Maniadrive_server
+Comment=Maniadrive serveur
+Exec=mania-server.sh
+Icon=
+Type=Application
+Categories=Game;ActionGame;" > $HOME/$1/usr/share/applications/maniaserver.desktop
+
+# Why lxde overwrite XDG_DATA PATH ? FIXED with lxsession 0.4.4
+cp $HOME/$1/share/applications/* $HOME/$1/usr/share/applications
+cp $HOME/$1/share/pixmaps/* $HOME/$1/usr/share/pixmaps

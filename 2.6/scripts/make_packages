@@ -1,0 +1,3 @@
+install -d $HOME/ydfs/tarballs
+cd packages
+bash build-packages $1 || exit $?

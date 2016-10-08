@@ -1,0 +1,26 @@
+diff -ur dbus-glib-0.92.old/dbus/Makefile.in dbus-glib-0.92.new/dbus/Makefile.in
+--- dbus-glib-0.92.old/dbus/Makefile.in	2010-11-10 11:26:02.000000000 +0100
++++ dbus-glib-0.92.new/dbus/Makefile.in	2013-02-08 16:15:36.000000000 +0100
+@@ -367,7 +367,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = . examples
++SUBDIRS =
+ INCLUDES = \
+ 	-I$(top_srcdir)						\
+ 	-I$(top_builddir)					\
+diff -ur dbus-glib-0.92.old/Makefile.in dbus-glib-0.92.new/Makefile.in
+--- dbus-glib-0.92.old/Makefile.in	2010-11-10 11:26:03.000000000 +0100
++++ dbus-glib-0.92.new/Makefile.in	2013-02-08 16:22:21.000000000 +0100
+@@ -333,8 +333,8 @@
+ top_srcdir = @top_srcdir@
+ ACLOCAL_AMFLAGS = -I m4
+ GLIB_PC = dbus-glib-1.pc
+-SUBDIRS = dbus tools test doc
+-DIST_SUBDIRS = dbus tools test doc m4
++SUBDIRS = dbus
++DIST_SUBDIRS = dbus m4
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = $(GLIB_PC)
+ DISTCLEANFILES = \

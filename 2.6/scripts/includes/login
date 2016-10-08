@@ -1,0 +1,98 @@
+#!/bin/sh
+  if [ -e login-utils/su.c ]
+  then
+	echo "Build util-linux"
+	srcdir="."
+	for file in pam-login pam-common pam-su
+	do
+	  [ ! -e $file ] && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/util-linux --output-document=$file
+	done
+	 # install PAM files for login-utils
+echo "Install /etc/pam.d files"
+  install -Dm644 "$srcdir/pam-common" "$pkgdir/etc/pam.d/chfn"
+  install -m644 "$srcdir/pam-common" "$pkgdir/etc/pam.d/chsh"
+  install -m644 "$srcdir/pam-login" "$pkgdir/etc/pam.d/login"
+  install -m644 "$srcdir/pam-su" "${pkgdir}/etc/pam.d/su"
+  install -m644 "$srcdir/pam-su" "${pkgdir}/etc/pam.d/su-l"
+echo "done"
+sleep 4
+  fi
+  if [ -e shadow.spec.in ]
+  then
+	echo "Build Shadow"
+	srcdir="."
+	for file in    chgpasswd chpasswd defaults.pam login.defs newusers passwd shadow.{timer,service} useradd.defaults xstrdup.patch shadow-strncpy-usage.patch lastlog.tmpfiles
+	do
+	[ ! -e $file ] && wget --no-check-certificate  https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/shadow --output-document=$file
+	# echo $file
+	done
+	 patch -Np1 <"$srcdir/xstrdup.patch"
+  patch -Np1 <"$srcdir/shadow-strncpy-usage.patch"
+
+  # supress etc/pam.d/*, we provide our own
+  sed -i '/^SUBDIRS/s/pam\.d//' etc/Makefile.in
+	 ./configure \
+    LIBS="-lcrypt" \
+    --prefix=$PREFIX \
+    --bindir=$PREFIX/bin \
+    --sbindir=$PREFIX/bin \
+    --libdir=$PREFIX/lib \
+    --sysconfdir=$PREFIX/etc \
+    --with-libpam \
+    --with-group-name-max-length=32 \
+    --without-selinux
+  make || exit 6
+	  make install
+cat > $pkgdir/etc/nsswitch.conf << "EOF"
+passwd: files
+group: files
+shadow: files
+hosts: files dns myhostname
+networks: files
+protocols: files
+services: files
+ethers: files
+rpc: files
+EOF
+  # useradd defaults
+  install -Dm644 "$srcdir/useradd.defaults" "$pkgdir/etc/default/useradd"
+
+  # systemd timer
+  install -D -m644 "$srcdir/shadow.timer" "$pkgdir/lib/systemd/system/shadow.timer"
+  install -D -m644 "$srcdir/shadow.service" $pkgdir/lib/systemd/system/shadow.service
+  install -d -m755 "$pkgdir/lib/systemd/system/multi-user.target.wants"
+  ln -s ../shadow.timer "$pkgdir/lib/systemd/system/multi-user.target.wants/shadow.timer"
+
+  # login.defs
+  install -Dm644 "$srcdir/login.defs" "$pkgdir/etc/login.defs"
+
+  # PAM config - custom
+  install -dm755 "$pkgdir/etc/pam.d"
+  install -t "$pkgdir/etc/pam.d" -m644 "$srcdir"/{passwd,chgpasswd,chpasswd,newusers}
+
+  # PAM config - from tarball
+  install -Dm644 etc/pam.d/groupmems "$pkgdir/etc/pam.d/groupmems"
+
+  # we use the 'useradd' PAM file for other similar utilities
+  for file in chage groupadd groupdel groupmod shadow \
+      useradd usermod userdel; do
+    install -Dm644 "$srcdir/defaults.pam" "$pkgdir/etc/pam.d/$file"
+  done
+
+  # lastlog log file creation
+  install -Dm644 "$srcdir/lastlog.tmpfiles" "$pkgdir/lib/tmpfiles.d/lastlog.conf"
+
+  # Remove evil/broken tools
+  rm "$pkgdir"/sbin/logoutd
+
+  # Remove utilities provided by util-linux
+  rm \
+      "$pkgdir"/bin/{login,su,chsh,chfn,sg,nologin} \
+      "$pkgdir"/sbin/{vipw,vigr}
+
+  # but we keep newgrp, as sg is really an alias to it
+  mv "$pkgdir"/bin/{newgrp,sg}
+  ydfs-install-package
+  touch buildok-$ARCH
+  exit 0
+  fi

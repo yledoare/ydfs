@@ -1,0 +1,12 @@
+echo "Postinst"
+sed -i "s@id -u@echo@g" /usr/bin/steam
+if [ -e /usr/lib32/dri/ ] && [ ! -e /usr/fix/steam ]
+then
+  mkdir /usr/fix/
+  mv /usr/bin/steam /usr/fix/ 
+  echo "#!/bin/sh" > /usr/bin/steam
+  echo "export LIBGL_DRIVERS_PATH=/usr/lib32/dri/" >> /usr/bin/steam
+  echo 'sed -i "s@LD_LIBRARY_PATH@DISABLE_LINUXCONSOLE@g" $HOME/.local/share/Steam/steam.sh' >> /usr/bin/steam
+  echo "CPU_MHZ=2000 /usr/fix/steam" >> /usr/bin/steam
+  chmod +x /usr/bin/steam
+fi 

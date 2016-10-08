@@ -1,0 +1,13 @@
+diff --git a/gparted.desktop.in.in b/gparted.desktop.in.in
+index 70b292d..cf3b952 100644
+--- a/gparted.desktop.in.in
++++ b/gparted.desktop.in.in
+@@ -3,7 +3,7 @@ _Name=GParted
+ _GenericName=Partition Editor
+ _X-GNOME-FullName=GParted Partition Editor
+ _Comment=Create, reorganize, and delete partitions
+-Exec=@gksuprog@ @installdir@/gparted %f
++Exec=@installdir@/gpartedbin %f
+ Icon=gparted
+ Terminal=false
+ Type=Application

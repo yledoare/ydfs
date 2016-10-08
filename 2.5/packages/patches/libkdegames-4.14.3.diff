@@ -1,0 +1,15 @@
+diff --git a/audio/kgopenalruntime_p.h b/audio/kgopenalruntime_p.h
+index 41d70f8..ec98b3b 100644
+--- a/audio/kgopenalruntime_p.h
++++ b/audio/kgopenalruntime_p.h
+@@ -22,8 +22,8 @@
+ #include <QtCore/QHash>
+ #include <QtCore/QPointF>
+ //OpenAL includes (without "AL/" include directory; see FindOpenAL.cmake)
+-#include <al.h>
+-#include <alc.h>
++#include <AL/al.h>
++#include <AL/alc.h>
+ 
+ class KgSound;
+ 

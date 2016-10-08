@@ -1,0 +1,2 @@
+[ ! -e $HOME/.vegastrike/vegastrike.config ] && install -d $HOME/.vegastrike && cp /home/linuxconsole25/opkg/share/vegastrike/vegastrike.config $HOME/.vegastrike
+/home/linuxconsole24/opkg/bin/vegastrike -d/home/linuxconsole24/opkg/share/vegastrike

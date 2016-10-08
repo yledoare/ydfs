@@ -1,0 +1,28 @@
+diff -ur jasper-1.900.1/src/libjasper/base/jas_stream.c jasper-1.900.1-local/src/libjasper/base/jas_stream.c
+--- jasper-1.900.1/src/libjasper/base/jas_stream.c	2004-02-09 07:04:40.000000000 +0530
++++ jasper-1.900.1-local/src/libjasper/base/jas_stream.c	2005-10-23 02:08:06.145589016 +0530
+@@ -361,11 +361,11 @@
+ 	}
+ 	obj->fd = -1;
+ 	obj->flags = 0;
+-	obj->pathname[0] = '\0';
++	strncpy(obj->pathname, "jasXXXXXX", sizeof(obj->pathname));
+ 	stream->obj_ = obj;
+ 
+ 	/* Choose a file name. */
+-	tmpnam(obj->pathname);
++	mkstemp(obj->pathname);
+ 
+ 	/* Open the underlying file. */
+ 	if ((obj->fd = open(obj->pathname, O_CREAT | O_EXCL | O_RDWR | O_TRUNC | O_BINARY,
+diff -ur jasper-1.900.1/src/libjasper/jpg/jpg_enc.c jasper-1.900.1-local/src/libjasper/jpg/jpg_enc.c
+--- jasper-1.900.1/src/libjasper/jpg/jpg_enc.c	2004-02-09 07:04:41.000000000 +0530
++++ jasper-1.900.1-local/src/libjasper/jpg/jpg_enc.c	2005-10-23 02:09:02.526017888 +0530
+@@ -331,6 +331,7 @@
+ 	rewind(output_file);
+ 	jpg_copyfiletostream(out, output_file);
+ 	fclose(output_file);
++	jas_matrix_destroy(src_mgr->data);
+ 	output_file = 0;
+ 
+ 	return 0;

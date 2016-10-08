@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Send feedback to LinuxConsole team
+Name[fr]=Envoyer un message à l'équipe LinuxConsole
+Comment=
+Exec=/usr/bin/send-report
+Icon=send
+Type=Application
+Categories=System

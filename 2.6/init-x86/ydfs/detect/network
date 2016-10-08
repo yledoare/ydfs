@@ -1,0 +1,20 @@
+#!/bin/sh
+
+[ ! -e /etc/hosts ] && echo "127.0.0.1	localhost" > /etc/hosts
+
+ifconfig lo 127.0.0.1
+
+#Bug NetworkManager sometimes don't start dhcpd on eth0
+#if [ -e /usr/sbin/NetworkManager ]
+#then
+cat >> /etc/NetworkManager/NetworkManager.conf << "EOF"
+[main]
+plugins=keyfile
+EOF
+  NetworkManager --log-level=ERR
+#else
+  sleep 1 # waiting loading kernel module
+  [ -e /ydfs/boot/options/livecd ] && sleep 3 # LiveCD could be very slow
+  ifconfig eth0 up > /var/log/eth0.log
+  udhcpc -t 5 -q -S -s /etc/udhcpc/simple.script >/dev/null &
+#fi

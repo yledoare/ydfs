@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Google Chrome
+Exec=/ydfs/add/software google-chrome-stable
+Terminal=false
+Icon=chrome
+Type=Application
+Categories=Install

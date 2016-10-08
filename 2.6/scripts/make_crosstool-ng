@@ -1,0 +1,15 @@
+	install -d $HOME/ydfs/src
+	cd $HOME/ydfs
+        if [ ! -e "crosstool-bin/bin/ct-ng" ]
+        then
+          [ ! -e tarballs/crosstool-ng-$CROSSTOOL.tar.bz2 ] && wget  --directory-prefix=tarballs http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-$CROSSTOOL.tar.bz2
+          [ ! -e src/crosstool-ng-$CROSSTOOL ] && tar xjvf tarballs/crosstool-ng-$CROSSTOOL.tar.bz2  --directory=src
+           [ ! -e txt00000.txt ] && wget http://sourceware.org/ml/crossgcc/2011-04/txt00000.txt && patch --directory=src/crosstool-ng-$CROSSTOOL -p1 < txt00000.txt
+           [ ! -e crosstool-ng-000-makefile-recursion.patch ] && wget https://raw.githubusercontent.com/twobob/buildroot-kindle/master/package/crosstool-ng/crosstool-ng-000-makefile-recursion.patch && patch --directory=src/crosstool-ng-$CROSSTOOL -p1 < crosstool-ng-000-makefile-recursion.patch
+          sleep 10
+	  cd src/crosstool-ng-$CROSSTOOL
+          . /etc/profile
+          # ../../src/crosstool-ng-$CROSSTOOL/configure --prefix=/$HOME/ydfs/crosstool-bin && make && make install && cd ../..
+	  CC=gcc ./configure --prefix=/$HOME/ydfs/crosstool-bin && make && make install && cd ../.. 
+          [ $? != 0 ] && exit $?
+        fi

@@ -211,3 +211,5 @@ cdrdao;Records audio/data CD-Rs in disk-at-once (DAO) mode
 cdrkit;Suite of programs for CD/DVD recording, ISO image creation, and audio CD extraction
 cdparanoia-iii;Compact Disc Digital Audio extraction tool
 ntp;keep the time synchronized
+recordmydesktop;Record desktop session
+gtk-recordmydesktop;RecordMydesktop GUI

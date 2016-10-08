@@ -1,0 +1,55 @@
+diff -ur netpbm-10.35.80.orig/configure netpbm-10.35.80/configure
+--- netpbm-10.35.80.orig/configure	2006-08-19 05:12:28.000000000 +0200
++++ netpbm-10.35.80/configure	2011-04-15 15:43:59.000000000 +0200
+@@ -15,4 +15,4 @@
+ # came with their operating system and can't run configure.pl at
+ # /usr/bin/perl, and a good Perl interpreter in /usr/local/bin/perl.
+ 
+-perl `dirname $0`/buildtools/configure.pl $*
++cp Makefile.config.in Makefile.config
+diff -ur netpbm-10.35.80.orig/converter/other/Makefile netpbm-10.35.80/converter/other/Makefile
+--- netpbm-10.35.80.orig/converter/other/Makefile	2009-09-18 21:04:37.000000000 +0200
++++ netpbm-10.35.80/converter/other/Makefile	2011-04-15 15:43:59.000000000 +0200
+@@ -27,20 +27,7 @@
+   endif
+ endif
+ 
+-ifeq ($(shell libpng-config --version),)
+-  ifneq ($(PNGLIB),NONE)
+-    HAVE_PNGLIB = Y
+-    ifneq ($(PNGHDR_DIR)x,x)
+-      INCLUDES += -I$(PNGHDR_DIR)
+-    endif
+-    ifneq ($(ZHDR_DIR)x,x)
+-      INCLUDES += -I$(ZHDR_DIR)
+-    endif
+-  endif
+-else
+-  HAVE_PNGLIB = Y
+-  INCLUDES += $(shell libpng-config --cflags)
+-endif
++# PNG15 Broke it
+ 
+ ifneq ($(JPEGLIB),NONE)
+   ifneq ($(JPEGHDR_DIR)x,x)
+@@ -238,4 +225,4 @@
+ # In October 2005, pamtotiff replaced pnmtotiff
+ 	cd $(PKGDIR)/bin ; \
+ 	$(SYMLINK) pamtotiff$(EXE) pnmtotiff
+-endif
+\ No newline at end of file
++endif
+diff -ur netpbm-10.35.80.orig/Makefile.config.in netpbm-10.35.80/Makefile.config.in
+--- netpbm-10.35.80.orig/Makefile.config.in	2008-12-07 02:58:20.000000000 +0100
++++ netpbm-10.35.80/Makefile.config.in	2011-04-15 15:44:17.000000000 +0200
+@@ -432,9 +432,7 @@
+ #
+ # If you have 'libpng-config' (see above), these are irrelevant.
+ 
+-ZLIB = NONE
+-ZHDR_DIR = 
+-#ZLIB = libz.so
++ZLIB = libz.so
+ 
+ # The JBIG lossless image compression library (aka JBIG-KIT):
+ 

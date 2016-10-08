@@ -1,0 +1,32 @@
+diff --git a/src/Makefile b/src/Makefile
+index f898cd5..1b6e7a5 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -2,7 +2,7 @@
+ 
+ CFLAGS  = -g -Wall $$(sdl-config --cflags) -DHAVE_OPENGL #--coverage #-fprofile-use #-pg
+ LDFLAGS = -O2 #--coverage #-fprofile-use #-pg
+-LDLIBS  = $$(sdl-config --libs) -lSDL_image -lSDL_mixer -lSDL_ttf
++LDLIBS  = $$(sdl-config --libs) -ldl -lSDL_image -lSDL_mixer -lSDL_ttf
+ 
+ OBJS =  graphics.o font.o list.o sprite.o events.o editor_texts.o \
+ 	Splayer.o Sother.o background.o video.o tool.o \
+@@ -22,8 +22,8 @@ WINEXE = ../win/moleinvasion.exe
+ WINEDT = ../win/editor.exe
+ WINEDW = ../win/editworld.exe
+ 
+-FINALEXEDIR=$(DESTDIR)/usr/games
+-FINALDATADIR=$(DESTDIR)/usr/share/games/moleinvasion
++FINALEXEDIR=$(DESTDIR)/$(MYPREFIX)/games
++FINALDATADIR=$(DESTDIR)/$(MYPREFIX)/share/games/moleinvasion
+ 
+ CFLAGS+=-DDATADIR='"$(FINALDATADIR)"'
+ 
+@@ -34,6 +34,7 @@ linux : $(LINEXE) $(LINEDT) $(LINEDW)
+ mgwin : $(WINEXE) $(WINEDT) $(WINEDW)
+ 
+ install:
++	env > env.txt
+ 	mkdir -p $(FINALEXEDIR)
+ 	cp $(LINEXE) $(FINALEXEDIR)/moleinvasion
+ 	cp $(LINEDT) $(FINALEXEDIR)/moleinvasion-editlevel

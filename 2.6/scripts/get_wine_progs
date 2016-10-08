@@ -1,0 +1,8 @@
+install -d $HOME/ydfs/wineprogs
+cat ./packages/list-linuxconsole-wineprogs | while read file
+do
+  echo $file
+  FILE=$(basename $file)
+  cd $HOME/ydfs/wineprogs
+  [ ! -e $FILE ] && wget $file
+done

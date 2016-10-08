@@ -1,0 +1,62 @@
+diff --git a/cmake/FindLua.cmake b/cmake/FindLua.cmake
+index d7c35b1..f1e1b58 100644
+--- a/cmake/FindLua.cmake
++++ b/cmake/FindLua.cmake
+@@ -61,6 +61,7 @@ FIND_PATH(LUA_INCLUDE_DIR lua.h
+   $ENV{LUA_DIR}
+   PATH_SUFFIXES ${_POSSIBLE_LUA_INCLUDE}
+   PATHS
++  /home/linuxconsole/opkg/
+   ~/Library/Frameworks
+   /Library/Frameworks
+   /usr/local
+@@ -78,6 +79,7 @@ FIND_LIBRARY(LUA_LIBRARY
+   $ENV{LUA_DIR}
+   PATH_SUFFIXES lib64 lib
+   PATHS
++  /home/linuxconsole/opkg/
+   ~/Library/Frameworks
+   /Library/Frameworks
+   /usr/local
+@@ -100,21 +102,6 @@ IF(LUA_LIBRARY)
+ ENDIF(LUA_LIBRARY)
+ 
+ # Determine Lua version
+-IF(LUA_INCLUDE_DIR AND EXISTS "${LUA_INCLUDE_DIR}/lua.h")
+-  FILE(STRINGS "${LUA_INCLUDE_DIR}/lua.h" lua_version_str REGEX "^#define[ \t]+LUA_RELEASE[ \t]+\"Lua .+\"")
+-  STRING(REGEX REPLACE "^#define[ \t]+LUA_RELEASE[ \t]+\"Lua ([^\"]+)\".*" "\\1" LUA_VERSION_STRING "${lua_version_str}")
+-
+-  # Lua 5.2
+-  IF(NOT LUA_VERSION_STRING)
+-	FILE(STRINGS "${LUA_INCLUDE_DIR}/lua.h" lua_version_str REGEX "^#define LUA_VERSION_[A-Z]+[ \t]+\"[0-9]+\"")
+-	STRING(REGEX REPLACE ".*#define LUA_VERSION_MAJOR[ \t]+\"([0-9]+)\".*" "\\1" LUA_VERSION_MAJOR ${lua_version_str})
+-	STRING(REGEX REPLACE ".*#define LUA_VERSION_MINOR[ \t]+\"([0-9]+)\".*" "\\1" LUA_VERSION_MINOR ${lua_version_str})
+-	STRING(REGEX REPLACE ".*#define LUA_VERSION_RELEASE[ \t]+\"([0-9]+)\".*" "\\1" LUA_VERSION_RELEASE ${lua_version_str})
+-	SET(LUA_VERSION_STRING ${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}.${LUA_VERSION_RELEASE})
+-  ENDIF()
+-  UNSET(lua_version_str)
+-ENDIF()
+-
+ INCLUDE(FindPackageHandleStandardArgs)
+ # handle the QUIETLY and REQUIRED arguments and set LUA_FOUND to TRUE if
+ # all listed variables are TRUE
+diff --git a/cmake/FindSDL2.cmake b/cmake/FindSDL2.cmake
+index 98be5b5..32b65e3 100644
+--- a/cmake/FindSDL2.cmake
++++ b/cmake/FindSDL2.cmake
+@@ -174,15 +174,6 @@ IF(SDL2_LIBRARY_TEMP)
+ 
+ ENDIF(SDL2_LIBRARY_TEMP)
+ 
+-# Determine SDL2 version
+-IF(SDL2_INCLUDE_DIR AND EXISTS "${SDL2_INCLUDE_DIR}/SDL_version.h")
+-  FILE(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" sdl_version_str REGEX "^#define SDL_([A-Z]*(_VERSION|PATCHLEVEL))[ ]+[0-9]+")
+-  STRING(REGEX REPLACE ".*#define SDL_MAJOR_VERSION[ ]+([0-9]+).*" "\\1" SDL_MAJOR_VERSION ${sdl_version_str})
+-  STRING(REGEX REPLACE ".*#define SDL_MINOR_VERSION[ ]+([0-9]+).*" "\\1" SDL_MINOR_VERSION ${sdl_version_str})
+-  STRING(REGEX REPLACE ".*#define SDL_PATCHLEVEL[ ]+([0-9]+).*" "\\1" SDL_PATCHLEVEL ${sdl_version_str})
+-  SET(SDL2_VERSION_STRING ${SDL_MAJOR_VERSION}.${SDL_MINOR_VERSION}.${SDL_PATCHLEVEL})
+-  UNSET(sdl_version_str)
+-ENDIF()
+ 
+ INCLUDE(FindPackageHandleStandardArgs)
+ # handle the QUIETLY and REQUIRED arguments and set SDL2_FOUND to TRUE if

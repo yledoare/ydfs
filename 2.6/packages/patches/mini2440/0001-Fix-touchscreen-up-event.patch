@@ -1,0 +1,26 @@
+From 47241e1b73e9c22b555620fc5f9ed0cea3160455 Mon Sep 17 00:00:00 2001
+From: Alexandre Belloni <alexandre.belloni@piout.net>
+Date: Thu, 11 Aug 2011 00:45:18 +0200
+Subject: [PATCH 1/2] Fix touchscreen up event
+
+Without that IRQ raised, the kernel doesn't seem to be able to get any
+UP event from the touchscreen.
+---
+ hw/s3c2410.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/hw/s3c2410.c b/hw/s3c2410.c
+index d1e4c92..718e095 100644
+--- a/hw/s3c2410.c
++++ b/hw/s3c2410.c
+@@ -1606,6 +1606,7 @@ static void s3c_adc_done(void *opaque)
+     s->xdata = s->input[s->in_idx] & 0x3ff;
+     s->control |= 1 << 15;
+     qemu_irq_raise(s->irq);
++    qemu_irq_raise(s->tcirq);
+ }
+ 
+ static void s3c_adc_tick(void *opaque)
+-- 
+1.7.4.1
+

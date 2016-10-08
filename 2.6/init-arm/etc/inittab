@@ -1,0 +1,3 @@
+::sysinit:/etc/init.d/rcS
+::respawn:-/busybox/bin/sh
+::ctrlaltdel:/busybox/bin/umount -a -r

@@ -1,0 +1,75 @@
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 9500da9..6c4fdd8 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -14,7 +14,7 @@ lxdm_DATA = \
+ 	config.ui \
+ 	$(NULL)
+ 
+-lxdm_confdir = /etc/lxdm
++lxdm_confdir = ${HOME}/${ARCH}/etc/lxdm
+ lxdm_conf_DATA = \
+ 	PostLogin \
+ 	PostLogout \
+diff --git a/data/Makefile.in b/data/Makefile.in
+index 4cae8a4..8d40857 100644
+--- a/data/Makefile.in
++++ b/data/Makefile.in
+@@ -276,7 +276,7 @@ lxdm_DATA = \
+ 	config.ui \
+ 	$(NULL)
+ 
+-lxdm_confdir = /etc/lxdm
++lxdm_confdir = ${HOME}/${ARCH}/etc/lxdm
+ lxdm_conf_DATA = \
+ 	PostLogin \
+ 	PostLogout \
+@@ -620,14 +620,14 @@ lxdm.conf: lxdm.conf.in
+ 	cat lxdm.conf.in | sed 's,@FULL_LIBEXECDIR@,$(FULL_LIBEXECDIR),' > $@
+ 
+ install-data-hook:
+-	chmod +x $(DESTDIR)/etc/lxdm/Xsession \
+-		$(DESTDIR)/etc/lxdm/PostLogin \
+-		$(DESTDIR)/etc/lxdm/PostLogout \
+-		$(DESTDIR)/etc/lxdm/PreLogin \
+-		$(DESTDIR)/etc/lxdm/PreReboot \
+-		$(DESTDIR)/etc/lxdm/PreShutdown \
+-		$(DESTDIR)/etc/lxdm/LoginReady
+-	chmod 640 $(DESTDIR)/etc/lxdm/lxdm.conf
++	chmod +x $(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/Xsession \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PostLogin \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PostLogout \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreLogin \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreReboot \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreShutdown \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/LoginReady
++	chmod 640 $(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/lxdm.conf
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+diff --git a/pam/Makefile.in b/pam/Makefile.in
+index 489fcfc..0f165e9 100644
+--- a/pam/Makefile.in
++++ b/pam/Makefile.in
+@@ -259,7 +259,7 @@ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ NULL = 
+-lxdm_pamdir = /etc/pam.d
++lxdm_pamdir = ${HOME}/${ARCH}/etc/pam.d
+ lxdm_pam_DATA = \
+ 	lxdm \
+ 	$(NULL)
+diff --git a/configure b/configure
+index 8bad288..a7e8e42 100755
+--- a/configure
++++ b/configure
+@@ -4042,7 +4042,7 @@ if test "x$ac_cv_lib_crypt_crypt" = xyes; then :
+ #define HAVE_LIBCRYPT 1
+ _ACEOF
+ 
+-  LIBS="-lcrypt $LIBS"
++  LIBS="-lcrypt -lpam -L${HOME}/${ARCH}/lib $LIBS"
+ 
+ fi
+ 

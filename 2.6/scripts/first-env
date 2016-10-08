@@ -1,0 +1,10 @@
+echo "Store first env VAR ..."
+
+rm /tmp/firstenv
+env | while read VAR
+do
+  THEENV=$(echo $VAR|cut -d '=' -f1)
+  VALUE=$(echo $VAR|cut -d '=' -f2)
+  echo "$THEENV=\"$VALUE\"" >> /tmp/firstenv
+  # echo "THEENV" $VAR|cut -d '=' -f1 >> /tmp/firstenv
+done

@@ -1,0 +1,38 @@
+. ./config.ini
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
+export LD_LIBRARY_PATH=$HOME/x86/lib
+echo "Strip "
+find $HOME/$1 |while read file 
+do
+  [ "$DISTRONAME" = "hackerOS" ] && break
+  echo $file|grep '.wav' >/dev/null && continue
+  echo $file|grep '.jpg' >/dev/null && continue
+  echo $file|grep '.gif' >/dev/null && continue
+  echo $file|grep '.xml' >/dev/null && continue
+  echo $file|grep '.po' >/dev/null && continue
+  echo $file|grep '.bmp' >/dev/null && continue
+  echo $file|grep '.png' >/dev/null && continue
+  echo $file|grep '.map' >/dev/null && continue
+  echo $file|grep '.ogg' >/dev/null && continue
+  echo $file|grep '.cat' >/dev/null && continue
+  echo " $file ?"
+  file $file |grep 'not stripped' >/dev/null || continue
+  echo "Yes ! "
+  strip $file
+done
+
+[ -e $HOME_DIBAB/logos/$1.png ] && cp $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
+rm $LCMBUILD/$1-$ARCH.squashfs
+if [ "$ARCH" = "x86_64" ]
+then
+export LD_LIBRARY_PATH=$HOME/x86_64/lib
+else
+export LD_LIBRARY_PATH=$HOME/x86/lib
+fi
+echo -n "$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT -e "> $HOME/.mksquasfs-script
+cat $HOME_DIBAB/packages/exclude-data |while read file
+do
+  echo -n " $file" >> $HOME/.mksquasfs-script
+done
+sh $HOME/.mksquasfs-script
+echo

@@ -1,0 +1,46 @@
+#!/bin/sh
+echo 'mount -t aufs -o dirs=/$1:/$2 aufs $2' > /bin/mountsfsrw
+chmod +x /bin/mountsfsrw
+
+install -d /etc/modprobe.d
+echo "blacklist pcspkr" > /etc/modprobe.d/pcspkr
+echo "blacklist snd_pcsp" > /etc/modprobe.d/snd_pcsp
+#echo "options iwlwifi power_level=3" > /etc/modprobe.d/test.conf
+
+INTEL=""
+NVIDIA=""
+lspci | grep VGA | grep -i Intel >/dev/null && INTEL=OK
+lspci | grep VGA | grep -i NVIDIA >/dev/null && NVIDIA=OK
+if [ -n "$INTEL" ] && [ -n "$NVIDIA" ] 
+then
+OPTIMUS=INTEL
+grep optimus=nouveau /proc/cmdline && OPTIMUS=NOUVEAU
+if [ "$OPTIMUS" = "INTEL" ]
+then
+echo "Optimus detected, use optimus=nouveau to enable Nvidia card" > /dev/tty1 
+echo blacklist nouveau >> /etc/modprobe.d/blacklist.conf
+else
+echo "Optimus detected, delete optimus=nouveau to enable Intel card" > /dev/tty1 
+echo blacklist i915 >> /etc/modprobe.d/blacklist.conf
+fi
+fi
+
+echo "Loading kernel modules ..."
+modprobe psmouse
+modprobe evdev
+modprobe analog
+udevadm trigger --subsystem-match=pci --attr-match=modalias --attr-nomatch=driver
+udevadm trigger --subsystem-match=usb --attr-match=modalias --attr-nomatch=driver
+echo -n "udevadm settle ..."
+udevadm settle
+echo "Ok"
+# mkdir /tmp/drivers
+#/bin/mountsfsrw /tmp/drivers /lib/modules/
+#rm /lib/modules/*/kernel/drivers/gpu/drm/i915/i915.ko
+#echo '/busybox/sbin/modprobe -b $@' > /fix/modprobe
+#chmod +x /fix/modprobe
+
+acpid
+echo "killall Xorg" > /fix/lubuntu-logout
+echo "killall lxdm-binary" >> /fix/lubuntu-logout
+chmod +x /fix/lubuntu-logout

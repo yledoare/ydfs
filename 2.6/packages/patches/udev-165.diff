@@ -1,0 +1,67 @@
+Author: Kay Sievers <kay.sievers@vrfy.org>
+Date:   Tue Feb 15 17:24:32 2011 +0100
+
+    v4l_id: kill the v4l1 ioctl
+    
+    Recent kernels do not have v4l1 anymore.
+
+diff --git a/extras/v4l_id/v4l_id.c b/extras/v4l_id/v4l_id.c
+index d530a6d..21cb328 100644
+--- a/extras/v4l_id/v4l_id.c
++++ b/extras/v4l_id/v4l_id.c
+@@ -28,7 +28,6 @@
+ #include <sys/types.h>
+ #include <sys/time.h>
+ #include <sys/ioctl.h>
+-#include <linux/videodev.h>
+ #include <linux/videodev2.h>
+ 
+ int main (int argc, char *argv[])
+@@ -39,7 +38,6 @@ int main (int argc, char *argv[])
+ 	};
+ 	int fd;
+ 	char *device;
+-	struct video_capability v1cap;
+ 	struct v4l2_capability v2cap;
+ 
+ 	while (1) {
+@@ -82,19 +80,6 @@ int main (int argc, char *argv[])
+ 		if ((v2cap.capabilities & V4L2_CAP_RADIO) > 0)
+ 			printf("radio:");
+ 		printf("\n");
+-	} else if (ioctl (fd, VIDIOCGCAP, &v1cap) == 0) {
+-		printf("ID_V4L_VERSION=1\n");
+-		printf("ID_V4L_PRODUCT=%s\n", v1cap.name);
+-		printf("ID_V4L_CAPABILITIES=:");
+-		if ((v1cap.type & VID_TYPE_CAPTURE) > 0)
+-			printf("capture:");
+-		if ((v1cap.type & VID_TYPE_OVERLAY) > 0)
+-			printf("video_overlay:");
+-		if (v1cap.audios > 0)
+-			printf("audio:");
+-		if ((v1cap.type & VID_TYPE_TUNER) > 0)
+-			printf("tuner:");
+-		printf("\n");
+ 	}
+ 
+ 	close (fd);
+--- a/libudev/libudev-util-private.c	2012-08-05 14:47:36.420234087 +0200
++++ b/libudev/libudev-util-private.c	2012-08-05 14:56:13.022134963 +0200
+@@ -21,6 +21,7 @@
+ #include <grp.h>
+ #include <sys/wait.h>
+ #include <sys/param.h>
++#include <sys/resource.h>	/* PRIO_PROCESS */
+ 
+ #include "libudev.h"
+ #include "libudev-private.h"
+--- a/udev/udevd.c	2012-08-05 14:53:23.997716697 +0200
++++ b/udev/udevd.c	2012-08-05 14:55:46.630892576 +0200
+@@ -43,6 +43,7 @@
+ #include <sys/ioctl.h>
+ #include <sys/inotify.h>
+ #include <sys/utsname.h>
++#include <sys/resource.h>	/* PRIO_PROCESS */
+ 
+ #include "udev.h"
+ #include "sd-daemon.h"

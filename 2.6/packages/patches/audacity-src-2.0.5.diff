@@ -1,0 +1,13 @@
+diff --git a/src/AudacityApp.cpp b/src/AudacityApp.cpp
+index 63fb83c..1a37c1f 100644
+--- a/src/AudacityApp.cpp
++++ b/src/AudacityApp.cpp
+@@ -1108,7 +1108,7 @@ bool AudacityApp::OnInit()
+       * The "share" and "share/doc" directories in their install path */
+    #ifdef __WXGTK__
+    /* On Unix systems, the default temp dir is in /var/tmp. */
+-   defaultTempDir.Printf(wxT("/var/tmp/audacity-%s"), wxGetUserId().c_str());
++   defaultTempDir.Printf(wxT("/tmp/audacity-%s"), wxGetUserId().c_str());
+    
+    wxString pathVar = wxGetenv(wxT("AUDACITY_PATH"));
+    if (pathVar != wxT(""))
