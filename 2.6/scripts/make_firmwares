@@ -22,6 +22,7 @@ do
   dpkg -x $FIRMWARE$DEBVER .
 done
 [ ! -e firmware-nonfree_20160110.orig.tar.xz ] && wget http://ftp.us.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-nonfree_20160110.orig.tar.xz
+[ ! -e firmware-nonfree_20160110.orig.tar.xz ] && wget  http://jukebox.linuxconsole.org/sources/firmware-nonfree_20160110.orig.tar.xz
 tar xJvf firmware-nonfree_20160110.orig.tar.xz
 cp -fR firmware-nonfree*/* lib/firmware || exit 3
 ls lib/firmware/radeon/R600* || exit 1
