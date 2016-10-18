@@ -35,7 +35,7 @@ libX11-1 \
 libXext-1 \
 libICE-1 \
 libSM-1 \
-libXScrnSaver-1 \
+scrnsaverproto libXScrnSaver-1 \
 libXt-1 \
 libXmu-1 \
 libXpm-3 \
