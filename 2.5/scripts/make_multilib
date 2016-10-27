@@ -60,7 +60,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  pcre libffi dbus openssl-1 pixman cairo-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+libxshmfence-1  pcre libffi dbus openssl-1 pixman cairo-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  libnl-1 # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
