@@ -1,0 +1,6 @@
+rm $HOME_DIBAB/multilib
+mkdir $HOME_DIBAB/multilib
+ln -s $HOME_DIBAB/$ARCH/lib32 $HOME_DIBAB/multilib
+ln -s $HOME_DIBAB/$ARCH/lib32 $HOME_DIBAB/multilib/lib
+ln -s $HOME_DIBAB/$ARCH/etc $HOME_DIBAB/multilib
+ln -s $HOME_DIBAB/$ARCH/share $HOME_DIBAB/multilib
