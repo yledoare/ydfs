@@ -166,6 +166,7 @@ case "$ARCHIVE" in
         exit 0
       fi
       # [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      # echo "$DIR2" |grep mame && test -e mame.zip && install -d mame && cd mame && unzip ../mame.zip && DIR2="mame" && rm ../mame.zip && cd ..
       [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/zip.$$.log  | cut -d':' -f2 | cut -d'/' -f1 | sort -u | tac | head -1`
       cd $DIR2
       export DIR2

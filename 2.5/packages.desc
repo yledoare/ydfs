@@ -71,7 +71,6 @@ egoboo;three-dimensional dungeon crawling adventure
 pinball;pinball
 pinball-data;pinball-data
 freetds;FreeTDS is a set of libraries for Unix and Linux that allows your programs to natively talk to Microsoft SQL Server and Sybase databases
-advancemame;A MAME and MESS port with an advanced video support for Arcade Monitors
 etlegacy;Open-source team based FPS game compatible with Wolfenstein: Enemy Territory
 mplayer-export;Media player
 gmtk;Library for gnome-mplayer and gecko-mediaplayer
@@ -213,3 +212,5 @@ cdparanoia-iii;Compact Disc Digital Audio extraction tool
 ntp;keep the time synchronized
 recordmydesktop;Record desktop session
 gtk-recordmydesktop;RecordMydesktop GUI
+scummvm;An implementation of LucasArts S.C.U.M.M. interpreter
+dosbox;DOS Emulator

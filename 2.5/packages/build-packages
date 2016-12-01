@@ -84,6 +84,7 @@ export ACLOCAL="aclocal"
 echo " Module list : $MODULE_LIST"
 [ -e $HOME/qt5 ] && ln -sf $HOME/qt5/bin/qmake  $HOME/qt5/bin/qmake-qt5
 [ -e $HOME/qt5 ] && PATH="$HOME/qt5/bin:$PATH"
+[ -e $HOME/qt5 ] && PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/qt5/lib/pkgconfig/"
 [ -e $HOME/qt5 ] && CXXFLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CXX_FLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"

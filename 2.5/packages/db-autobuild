@@ -102,7 +102,17 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
-  [ -e src/mame/mame.c ] && cp makefile Makefile
+  [ -e src/mame/mame.cpp ] && cp makefile Makefile
+  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../..
+  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make NOWERROR=1 \
+  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../..
+  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    USE_QTDEBUG=0 VERBOSE=1 \
+    -j1
+  [ -e src/mame/mame.cpp ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
   then
