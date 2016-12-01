@@ -467,8 +467,14 @@ else
   then
     if [ ! -e $HOME/ydfs/llvm ]
     then
-      mkdir build-llvm
-      cd build-llvm
+	echo "Build $HOME/ydfs/llvm"
+	scripts/build-llvm-clang
+        # mkdir build-llvm
+        # cd build-llvm
+	# wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz
+        # tar xJvf llvm-3.8.1.src.tar.xz
+	# mv llvm-3.8.1.src $HOME/ydfs/src/
+	$HOME_DIBAB/scripts/build-llvm-clang
       $HOME/ydfs/src/llvm-3.8.1.src/configure --prefix=$HOME/ydfs/llvm --enable-shared || exit $?
       make || exit $?
       make install || exit $?	
@@ -478,7 +484,7 @@ else
     export CPPFLAGS=" -I""$PWD""/include $CFLAGS"
     if [ ! -e Mesa ] && [ "$ARCH" != "arm" ]
     then
-    MESA=12.0.3 && MESALIB=mesa
+    MESA=12.0.4 && MESALIB=mesa
     [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME/ydfs/tarballs ftp://ftp.freedesktop.org/pub/mesa/$MESA/$MESALIB-$MESA.tar.xz 
     [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
     tar xJvf $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz || exit $?
