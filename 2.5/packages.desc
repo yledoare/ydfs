@@ -214,3 +214,6 @@ recordmydesktop;Record desktop session
 gtk-recordmydesktop;RecordMydesktop GUI
 scummvm;An implementation of LucasArts S.C.U.M.M. interpreter
 dosbox;DOS Emulator
+libgsf;extensible input/output abstraction layer for structured file formats
+wv;MSWord library can load and parse Word 2000, 97, 95 and 6 file formats
+abiword;An open source (freeware) word processing program

@@ -60,6 +60,7 @@ SECTION=extras
 echo "Extra is $DBEXTRA, name is $NAME"
 [ "$DBEXTRA" != "" ] && SECTION=$DBEXTRA
 
+[ "$NAME" = "abiword" ] && DEPENDS="libgsf,wv"
 [ "$NAME" = "gbrainy" ] && DEPENDS="mono, gtk-sharp"
 [ "$NAME" = "filezilla" ] && DEPENDS="libfilezilla"
 [ "$NAME" = "steam" ] && DEPENDS="libtxc"
