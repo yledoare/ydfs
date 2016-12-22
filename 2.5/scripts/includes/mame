@@ -1,7 +1,7 @@
 if [ -e mame ] || [ -e mame64 ]
 then
   pkgname=sdlmame
-  pkgdir=$HOME/ydfs/packages-$ARCH/$MYPREFIX
+  pkgdir=$HOME/ydfs/packages-$ARCH/$(basename $PWD)/$MYPREFIX
   # Install the applications and the UI font in /share
   install -Dm755 mame $pkgdir/share/${pkgname}/${pkgname} || \
   install -Dm755 mame64 $pkgdir/share/${pkgname}/${pkgname}
@@ -35,7 +35,7 @@ then
   chmod +x sdlmame.sh
   install -d $pkgdir/bin
   mv sdlmame.sh $pkgdir/bin 
-  sed -i 's@usr@$MYPREFIX@g' $pkgdir/bin/sdlmame.sh
+  sed -i "s@usr@$MYPREFIX@g" $pkgdir/bin/sdlmame.sh
   MAKE_INSTALL=OFF
   rm Makefile
 fi
