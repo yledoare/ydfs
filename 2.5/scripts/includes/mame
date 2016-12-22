@@ -1,9 +1,7 @@
 if [ -e mame ] || [ -e mame64 ]
 then
-  pkgname=mame
-# Install the sdlmame script
-  install -Dm755 $srcdir/${pkgname}.sh $pkgdir/bin/${pkgname}
-
+  pkgname=sdlmame
+  pkgdir=$HOME/ydfs/packages-$ARCH/$MYPREFIX
   # Install the applications and the UI font in /share
   install -Dm755 mame $pkgdir/share/${pkgname}/${pkgname} || \
   install -Dm755 mame64 $pkgdir/share/${pkgname}/${pkgname}
@@ -20,11 +18,6 @@ then
 
   # Install the extra bits
   install -d $pkgdir/share/${pkgname}/{artwork,ctrlr,keymaps,shader}
-  install -d $pkgdir/share/man/man1
-  install -d $pkgdir/share/man/man6
-  install -m644 src/osd/sdl/shader/glsl*.*h $pkgdir/share/${pkgname}/shader/
-  install -m644 src/osd/sdl/man/*.1* $pkgdir/share/man/man1/
-  install -m644 src/osd/sdl/man/*.6* $pkgdir/share/man/man6/
 
   install -m644 $srcdir/artwork/* $pkgdir/share/${pkgname}/artwork/
   install -m644 $srcdir/ctrlr/* $pkgdir/share/${pkgname}/ctrlr/
@@ -38,5 +31,11 @@ then
   sed -i 's|KEYCODE_4_PAD|KEYCODE_4PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
   sed -i 's|KEYCODE_6_PAD|KEYCODE_6PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
   sed -i 's|KEYCODE_8_PAD|KEYCODE_8PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
+  wget https://git.archlinux.org/svntogit/community.git/plain/trunk/sdlmame.sh?h=packages/sdlmame -O sdlmame.sh
+  chmod +x sdlmame.sh
+  install -d $pkgdir/bin
+  mv sdlmame.sh $pkgdir/bin 
+  sed -i 's@usr@$MYPREFIX@g' $pkgdir/bin/sdlmame.sh
   MAKE_INSTALL=OFF
+  rm Makefile
 fi

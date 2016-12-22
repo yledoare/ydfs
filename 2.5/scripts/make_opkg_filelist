@@ -9,9 +9,9 @@ then
 		echo "Send $file"
 		#sleep 2
 		echo scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
-		# scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
+		scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
 	done
-	# rsync --size-only -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
-	rsync -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+	rsync --size-only -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+	# rsync -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
 fi
 echo "OK"
