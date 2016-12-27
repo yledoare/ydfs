@@ -36,6 +36,7 @@ then
   install -d $pkgdir/bin
   mv sdlmame.sh $pkgdir/bin 
   sed -i "s@usr@$MYPREFIX@g" $pkgdir/bin/sdlmame.sh
+  sed -i "s@/bin/sh@/bin/bash@g" $pkgdir/bin/sdlmame.sh
   MAKE_INSTALL=OFF
   rm Makefile
 fi

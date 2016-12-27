@@ -32,7 +32,8 @@ https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
 #https://github.com/xbmc/xbmc/archive/15.2-Isengard.tar.gz
 #Libs
 https://www.scummvm.org/frs/scummvm/1.9.0/scummvm-1.9.0.tar.xz
-https://github.com/mamedev/mame/archive/mame0175.tar.gz
+https://github.com/mamedev/mame/archive/mame0161.tar.gz
+#https://github.com/mamedev/mame/archive/mame0175.tar.gz
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
 #Games

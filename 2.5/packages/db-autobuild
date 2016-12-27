@@ -127,18 +127,20 @@ else
     [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
   fi
   
-  [ -e src/mame/mame.cpp ] && cp makefile Makefile && echo "Mame : Step 1"
-  [ -e src/mame/mame.cpp ] && [ $ARCH = x86 ] && MAMETARGET=linux_x86  && echo "Mame : Step 2"
-  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 3"
-  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 4"
-  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+  MAMESRC="src/mame/mame.cpp"
+  MAMESRC="src/mame/mame.c"
+  [ -e $MAMESRC ] && cp makefile Makefile && echo "Mame : Step 1"
+  [ -e $MAMESRC ] && [ $ARCH = x86 ] && MAMETARGET=linux_x86  && echo "Mame : Step 2"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 3"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 4"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ -I/$PWD/3rdparty/lua/src/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=/usr/bin/python2 \
     TOOLS=1 \
     USE_QTDEBUG=0 VERBOSE=1 \
     -j1 # Will fail
-  [ -e src/mame/mame.cpp ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make $MAMETARGET && echo "Mame : Step 5"
-  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+  [ -e $MAMESRC ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make $MAMETARGET && echo "Mame : Step 5"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=/usr/bin/python2 \
     TOOLS=1 \
