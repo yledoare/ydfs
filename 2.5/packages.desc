@@ -217,3 +217,4 @@ dosbox;DOS Emulator
 libgsf;extensible input/output abstraction layer for structured file formats
 wv;MSWord library can load and parse Word 2000, 97, 95 and 6 file formats
 abiword;An open source (freeware) word processing program
+enet;A relatively thin, simple and robust network communication layer on top of UDP
