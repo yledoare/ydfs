@@ -11,11 +11,12 @@ fi
 cd $PLUGPATH
 [ "$ARCH" = "x86" ] && ARCH=i386
 wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages/lib32-flashplugin --output-document=lib32-flashplugin
-#pkgver=$(grep pkgver= lib32-flashplugin | cut -d'=' -f2)
-. lib32-flashplugin
-URL=$(echo $source | cut -d':' -f3,4)
+pkgver=$(grep pkgver= lib32-flashplugin | cut -d'=' -f2)
+#. lib32-flashplugin
+#URL=$(echo $source | cut -d':' -f3,4)
 rm lib32-flashplugin
 #URL=http://fpdownload.macromedia.com/get/flashplayer/pdc/$pkgver/install_flash_player_11_linux.$ARCH.tar.gz
+URL=https://fpdownload.adobe.com/get/flashplayer/pdc/$pkgver/flash_player_npapi_linux.$ARCH.tar.gz
 DEST=$PLUGPATH /ydfs/start/download $URL 
 tar xzvf $(basename $URL)
 rm $(basename $URL)
