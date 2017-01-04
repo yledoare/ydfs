@@ -102,17 +102,6 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
-  [ -e src/mame/mame.cpp ] && cp makefile Makefile
-  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../..
-  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make NOWERROR=1 \
-  [ -e src/mame/mame.cpp ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../..
-  [ -e src/mame/mame.cpp ] && ARCH="" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make NOWERROR=1 \
-    OPTIMIZE=2 \
-    PYTHON_EXECUTABLE=/usr/bin/python2 \
-    TOOLS=1 \
-    USE_QTDEBUG=0 VERBOSE=1 \
-    -j1
-  [ -e src/mame/mame.cpp ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
   then
@@ -137,6 +126,27 @@ else
     [ ! -e ydfs-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
     [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
   fi
+  
+  MAMESRC="src/mame/mame.cpp"
+  MAMESRC="src/mame/mame.c"
+  [ -e $MAMESRC ] && cp makefile Makefile && echo "Mame : Step 1"
+  [ -e $MAMESRC ] && [ $ARCH = x86 ] && MAMETARGET=linux_x86  && echo "Mame : Step 2"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 3"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 4"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ -I/$PWD/3rdparty/lua/src/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    USE_QTDEBUG=0 VERBOSE=1 \
+    -j1 # Will fail
+  [ -e $MAMESRC ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make $MAMETARGET && echo "Mame : Step 5"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    USE_QTDEBUG=0 VERBOSE=1 \
+    -j1  && echo "Mame : Step 6"
+. $(dirname $0)/../scripts/includes/mame
 
 . $(dirname $0)/../scripts/includes/virtualbox
 . $(dirname $0)/../scripts/includes/mozilla
@@ -644,6 +654,7 @@ fi
  && [ ! -e libapr.dsp ] \
  && [ ! -e libaprutil.dsp ] \
  && [ ! -e libhttpd.dsp ] \
+ && [ ! -e include/enet/enet.h ] \
  && [ ! -e gc_cpp.cc ]
     then
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 
@@ -1185,7 +1196,6 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	fi
       fi
 . $(dirname $0)/../scripts/includes/warsow
-. $(dirname $0)/../scripts/includes/mame
 . $(dirname $0)/../scripts/includes/wine
 
 

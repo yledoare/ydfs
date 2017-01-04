@@ -1,0 +1,12 @@
+diff --git a/src/osd/modules/lib/osdlib_unix.cpp b/src/osd/modules/lib/osdlib_unix.cpp
+index 3f3bbb0..a504dec 100644
+--- a/src/osd/modules/lib/osdlib_unix.cpp
++++ b/src/osd/modules/lib/osdlib_unix.cpp
+@@ -15,7 +15,6 @@
+ #include <signal.h>
+ #include <dlfcn.h>
+ 
+-#include <codecvt>
+ #include <iomanip>
+ #include <memory>
+ 
