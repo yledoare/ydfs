@@ -30,9 +30,16 @@ if [ "$MODULE" == "qt5" ]
 then
   if [ "$ARCH" = "x86_64" ]
   then
-	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
-  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
+	#TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
+	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/gcc_64.7z"
+  	#[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
+  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && 7z x gcc_64.7z && mv gcc_64 qt5
 	OPKGARCH=x86_64
+	#LIBICU=57
+	#for LIB in libicuuc.so libicui18n.so libicudata.so libicuuc.so libicui18n.so libicudata.so
+	#do
+	#		ln -s $HOME/$OPKGARCH/lib/$LIB.$LIBICU $HOME/qt5/lib/$LIB.55
+	#done
   else
   	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5-x86.tar.gz
   	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5-x86.tar.gz && mv qt5-x86 qt5
@@ -68,9 +75,10 @@ PATH="$HOME/ydfs/llvm/bin:$PATH"
 [ -e $HOME/qt5 ] && CXXFLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CXX_FLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"
-[ -e $HOME/qt5 ] && CPPFLAGS=" -I$HOME/qt5/include $CPPFLAGS"
+[ -e $HOME/qt5 ] && CPPFLAGS=" -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore $CPPFLAGS"
 [ -e $HOME/qt5 ] && LDFLAGS=" -L$HOME/qt5/lib $LDFLAGS"
 [ -e $HOME/qt5 ] && LD_LIBRARY_PATH="$HOME/qt5/lib:$LD_LIBRARY_PATH"
+[ -e $HOME/qt5 ] && PKG_CONFIG_PATH="$HOME/qt5/lib/pkgconfig:$PKG_CONFIG_PATH"
 # boucle sur l'ensemble des modules 
 for MODULE in $MODULE_LIST
 do

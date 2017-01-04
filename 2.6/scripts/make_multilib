@@ -29,7 +29,7 @@ install -d $HOME/multilib/include
 
 # libFS-1 libdmx- \
 
-for PKG in util-linux alsa-lib ncurses readline sqlite zlib-1 libpng libffi glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+for PKG in util-linux alsa-lib ncurses readline tcl8 sqlite zlib-1 libpng libffi pcre glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
 xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb xtrans-1 \
 libX11-1 \
 libXext-1 \
@@ -60,12 +60,13 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  pcre libffi dbus openssl-1 pixman cairo-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.19.0/Mesa # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
 
   [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e unix/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
   pwd
@@ -76,7 +77,7 @@ PYTHON2=/usr/bin/python ./configure \
     --prefix=$HOME/multilib \
 	--with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl \
     --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
-    --with-egl-platforms=x11,drm,wayland \
+    --with-egl-platforms=x11,drm \
     --enable-gallium-llvm \
     --enable-llvm-shared-libs \
     --enable-shared-glapi \
@@ -91,7 +92,6 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-texture-float \
     --enable-nine \
     --enable-vdpau  --disable-debug
-	 patch -p1 < $HOME_DIBAB/packages/patches/mesa-multilib.diff
 	;;
     alsa-lib )
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
@@ -144,6 +144,16 @@ PYTHON2=/usr/bin/python ./configure \
   ../configure --prefix=$HOME/multilib \
     --with-shared --with-normal --without-debug --without-ada 
     ;;
+    tcl8* )
+	cd unix
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    fontconfig* )
+	./configure --prefix=$HOME/multilib --disable-docs || exit $?
+    ;;
+    pcre* )
+	./configure --prefix=$HOME/multilib --enable-unicode-properties || exit $?
+    ;;
     icu )
 	cd source
   	./configure --prefix=$HOME/multilib || exit $?
@@ -151,7 +161,7 @@ PYTHON2=/usr/bin/python ./configure \
     util-linux* )
 	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
 	autoreconf
-  	./configure --prefix=$HOME/multilib --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
+  	./configure --prefix=$HOME/multilib --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
     dbus* )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?

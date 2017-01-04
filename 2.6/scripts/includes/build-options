@@ -174,8 +174,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="--with-x11"
 #WRITE HERE NEW RULES
 	echo $ARCHIVE | grep clamav && LC_CONFIGURE_OPTS="--with-user=root --with-group=root "
-	# echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--disable-a52 --disable-lua --disable-mad --disable-postproc"
-	# echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--with-contrib=$DIBAB_PREFIX/$MODULE --enable-live555 --disable-lua --enable-run-as-root --disable-silent-rules --enable-realrtsp"
 	echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--enable-live555 --disable-lua --enable-run-as-root --disable-silent-rules --enable-realrtsp"
 	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
@@ -237,6 +235,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep glib-networking && LC_CONFIGURE_OPTS="--without-ca-certificates"
   	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
+  	echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
 	echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	if [ "$ARCH" = "arm" ] 
