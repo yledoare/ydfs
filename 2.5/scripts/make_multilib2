@@ -6,18 +6,31 @@ export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconf
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
-export CPPFLAGS="-I$HOME/multilib/include"
+export CPPFLAGS="-I$HOME/multilib/include -I$HOME/multilib/include/nspr"
 export LDFLAGS="-L$HOME/multilib/lib -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
 
 for PKG in attr acl libusb-0.1.12 udev tiff jpeg-8 gdk-pixbuf libtool json-c flac libogg libvorbis libsndfile speex pulseaudio pango-1 atk-2 avahi libusb-1.0.20 cups-2 gtk+-2 \
-	openal-soft-1.15.1 libepoxy at-spi2-core at-spi2 libcanberra gtk+-3
+	openal-soft-1.15.1 libepoxy at-spi2-core at-spi2 libcanberra gtk+-3 curl dbus-glib ppp nspr SDL2 NetworkManager
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
 
   [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && echo "$PWD/ydfs-multilib-buildt" && cd .. && continue
   [ "$1" != "force" ] && [ -e build/ydfs-multilib-buildt ] && echo "$PWD/ydfs-multilib-buildt" && cd .. && continue
+  [ "$1" != "force" ] && [ -e mozilla/nsprpub/ydfs-multilib-buildt ] && echo "$PWD/ydfs-multilib-buildt" && cd .. && continue
   pwd
+
+  if [ -e mozilla/security/nss/ ]
+  then
+	cd mozilla/security/nss/
+	 make nss_build_all BUILD_OPT=1                 \
+  USE_SYSTEM_ZLIB=1                            \
+  ZLIB_LIBS=-lz                                \
+  OS_TEST=x86                                \
+  NSS_USE_SYSTEM_SQLITE=1 PREFIX=$HOME/multilib HOME=$HOME ARCH=x86_64
+exit 1
+  fi
+
   case $PKG in
     acl )
 	cp -fR $HOME/x86_64/include/attr $HOME/multilib/include
@@ -29,6 +42,13 @@ do
   mkdir build
  cd build
   cmake -D CMAKE_INSTALL_PREFIX=$HOME/multilib -D CMAKE_BUILD_TYPE=Release -D LIB_SUFFIX=32 ../
+	;;
+    nspr )
+	cd mozilla/nsprpub/
+	./configure --prefix=$HOME/multilib
+	;;
+    NetworkManager )
+	./configure --with-crypto=gnutls --prefix=$HOME/multilib
 	;;
     libcanberra )
 	./configure --prefix=$HOME/multilib --disable-gtk3 --disable-gstreamer
