@@ -29,7 +29,7 @@ install -d $HOME/multilib/include
 
 # libFS-1 libdmx- \
 
-for PKG in util-linux alsa-lib ncurses readline tcl8 sqlite zlib-1 libpng libffi pcre glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+for PKG in util-linux alsa-lib ncurses readline tcl8 sqlite zlib-1 libpng libffi pcre elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
 xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb xtrans-1 \
 libX11-1 \
 libXext-1 \
@@ -60,7 +60,9 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.19.0/Mesa # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.19.0/Mesa \
+attr acl libusb-0.1.12 udev \
+ # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
@@ -70,6 +72,11 @@ do
   [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
   pwd
+  case $PKG in
+    acl )
+	cp -fR $HOME/x86_64/include/attr $HOME/multilib/include
+	;;
+  esac
   case $PKG in
     xorg-server* )
 PYTHON2=/usr/bin/python ./configure \
@@ -229,6 +236,8 @@ PYTHON2=/usr/bin/python ./configure \
 	;;
     * )
   	make install || exit $?
+        [ -e getfacl/getfacl.c ] && make install-lib install-dev
+	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	;;
   esac
   touch ydfs-multilib-buildt

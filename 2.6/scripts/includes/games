@@ -360,22 +360,6 @@ Categories=Game;" > $pkgname.desktop
   touch buildok-$ARCH
   exit 0
 fi
-if [ -e data/supertuxkart_32.png ]
-then
-  cp $HOME/$ARCH/include/GL/glext.h lib/irrlicht/source/Irrlicht/glext.h
-  cp $HOME/$ARCH/include/GL/glxext.h lib/irrlicht/source/Irrlicht/glxext.h
-  cp $HOME/$ARCH/include/GL/wglext.h lib/irrlicht/source/Irrlicht/wglext.h
-
-  [[ -d build ]] && rm -r build
-  mkdir build && cd build
-
-  cmake .. \
-    -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DIRRLICHT_DIR="$srcdir/irrlicht" \
-    -DUSE_WIIUSE=OFF -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DCMAKE_CXX_FLAGS="-lpthread -lm -ldl $CXXFLAGS"
-
-  # make
-fi
 
   if [ -e lutris.desktop.in ]
   then
