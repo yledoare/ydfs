@@ -60,7 +60,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.19.0/Mesa \
+libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.18.4/Mesa \
 attr acl libusb-0.1.12 udev \
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do

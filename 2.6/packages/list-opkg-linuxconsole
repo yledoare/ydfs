@@ -1,23 +1,8 @@
-#Development
-#archlinux:make
-#archlinux:gmp
-#archlinux:mpfr
-#archlinux:libmpc
-#ftp://ftp.uvsq.fr/pub/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.bz2
 #Network
 #https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
-https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
 #Misc
-http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
-#archlinux:recordmydesktop
-#archlinux:gtk-recordmydesktop
 http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
-#Multimedia
-https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
-#https://github.com/xbmc/xbmc/archive/14.2-Helix.tar.gz
-#https://github.com/xbmc/xbmc/archive/15.2-Isengard.tar.gz
 #Libs
-http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
 archlinux:lib32-libtxc_dxtn
 #Games
 https://github.com/minetest/minetest/archive/0.4.14.tar.gz #SKIP-x86#
@@ -74,7 +59,6 @@ http://ftp.gnome.org/pub/gnome/sources/aisleriot/3.16/aisleriot-3.16.1.tar.xz
 #Multimedia
 https://github.com/freetuxtv/freetuxtv/archive/freetuxtv-0.6.8.tar.gz
 http://freefr.dl.sourceforge.net/project/zynaddsubfx/zynaddsubfx/2.5.1/zynaddsubfx-2.5.1.tar.gz
-http://audacity.googlecode.com/files/audacity-minsrc-2.0.5.tar.xz
 #Games
 http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #archlinuxpatched:dangerdeep
@@ -82,16 +66,12 @@ http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 http://heanet.dl.sourceforge.net/project/rosegarden/rosegarden/16.02/rosegarden-16.02.tar.bz2
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.3.13.tar.gz
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
-http://downloads.sourceforge.net/project/guvcview/source/guvcview-src-2.0.4.tar.gz
 #Emulators
 #Games
 archlinux:astromenace 
 http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.6/wesnoth-1.12.6.tar.bz2
 archlinux:torcs
 #Network
-archlinux:git
-archlinux:ncftp
-http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
 #Education
 https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubuntu_all.deb
 archlinuxpatched:tuxpaint
@@ -99,7 +79,6 @@ archlinuxpatched:tuxpaint
 #Libs
 archlinux:drumstick
 #Multimedia
-archlinux:vmpk
 http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
 #Education
 http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
