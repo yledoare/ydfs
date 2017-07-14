@@ -1,0 +1,397 @@
+# /bin/sh
+[ "$ARCH" = "arm" ] && exit 0
+
+# functions
+
+print_menu_options()
+{
+  echo "MENU TITLE $DISTRONAME $LCBUILD (c) Yann Le Doare"                                                    
+  echo "MENU BACKGROUND splash.png"
+  echo '
+DEFAULT vesamenu.c32
+MENU VSHIFT 6 
+TIMEOUT 200
+
+ menu color title        0 #757575 #00000000
+ menu color sel          0 #ffffffff #757575
+ menu color unsel        0 #F8E00E #00000000
+ menu color tabmsg       0 #F8E00E #00000000
+ menu color timeout_msg  0 #F8E00E #00000000
+ menu color timeout      0 #F8E00E #00000000
+'
+}
+
+print_options()
+{
+
+print_menu_options
+
+#echo "APPEND $COMMON kbd=azerty lang=french livecd"
+#echo "APPEND $COMMON kbd=azerty lang=spanish livecd"
+
+if [ "$LIVECD" = "1" ]
+then
+  LIVE=livecd
+  echo ONTIMEOUT LiveCD
+
+  echo LABEL LiveCD
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON livecd"
+
+  echo LABEL LiveUSB
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON liveusb"
+else
+  LIVE=liveusb
+  echo ONTIMEOUT LiveUSB
+
+  echo LABEL LiveUSB
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON liveusb"
+
+  echo LABEL LiveCD
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON livecd"
+fi
+
+  echo LABEL FixUSB mode : run scripts from fixusb directory on usb disk
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON fixusb $LIVE"
+
+  echo LABEL Fixme mode : download and run fixme script 
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON fixme $LIVE"
+
+  echo LABEL Text
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON text $LIVE"
+
+echo '
+MENU SEPARATOR
+
+label Other
+ MENU LABEL Other options, help
+ kernel vesamenu.c32
+ append other.cfg
+
+label Rescue
+ MENU LABEL Rescue boot
+ kernel vesamenu.c32
+ append rescue.cfg
+'
+}
+
+
+print_help_fr()
+{
+  print_help
+}
+
+print_help()
+{
+echo "
+ 		HELP
+
+Boot option :
+
+ * livecd : search modules ONLY on CD/DVD
+ * liveusb : search modules ONLY on removable disk
+ * text : do not run Xorg
+ * fr : AZERTY keymap at boot 
+ * debug01 : run ash first
+ * look inside /etc/init.d/rcS for debug02 ... debug6
+
+
+"
+}
+
+
+print_rescue_options()
+{
+echo '
+UI menu.c32
+
+LABEL boot_hd0
+MENU LABEL Boot from first hard drive
+COM32 chain.c32
+APPEND hd0
+
+LABEL boot_hd0
+MENU LABEL Boot from first partition
+COM32 chain.c32
+APPEND hd0 1
+
+LABEL boot_hd1
+MENU LABEL Boot from second hard drive
+COM32 chain.c32
+APPEND hd1
+
+LABEL boot_hd2_2
+MENU LABEL Boot second primary partition from thirth hard drive
+COM32 chain.c32
+APPEND hd2 2
+
+LABEL boot_hd1_5
+MENU LABEL Boot first logical partition from second hard drive
+COM32 chain.c32
+APPEND hd1 5
+
+LABEL boot_hd3_0
+MENU LABEL Boot MBR of fourth hard drive (same as "APPEND hd3")
+COM32 chain.c32
+APPEND hd3 0
+'
+}
+print_other_options()
+{
+print_menu_options
+
+echo  ONTIMEOUT LiveCD
+echo  TIMEOUT 20
+
+  echo LABEL Report-bugs
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON benchmark $LIVE"
+
+  
+  echo LABEL Failsafe
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON noapic nocapic acpi=off noacpi "
+  
+  echo LABEL ash
+  echo KERNEL $KERNEL36
+  echo "APPEND $MINIMAL debug01"
+
+
+echo "
+MENU TABMSG Echap : Return to menu
+
+label memtest86
+  menu Start RAM Memtest86++
+  KERNEL memtest
+
+MENU TABMSG Echap : Return to menu
+
+MENU TABMSG F1 : Help
+F1 help.txt
+MENU TABMSG F2 : Aide
+F2 helpfr.txt
+"
+}
+
+print_grub_options()
+{
+  echo "timeout 5" 
+  
+  echo "title Ydfs " 
+  echo "root (hd0,0)"                 
+  echo "kernel /boot/$KERNEL36 $COMMON"             
+  echo "initrd /boot/$INITRD26"     
+  
+  echo "title Ydfs  Partition 2" 
+  echo "root (hd0,1)"                 
+  echo "kernel /boot/$KERNEL36 $COMMON"             
+  echo "initrd /boot/$INITRD26"     
+  
+  echo "title Ydfs  failsafe" 
+  echo "root (hd0,0)"                 
+  echo "kernel /boot/$KERNEL36 $COMMON acpi=off noacpi noapic nocapic"             
+  echo "initrd /boot/$INITRD26"     
+}
+
+print_isolinux_cfg()
+{
+  echo "PROMPT 1"
+  echo "DISPLAY message.txt"
+  echo "F1 licence.en"
+  echo "F2 options1.en"
+  echo "F3 options2.en"
+  echo "F4 licence.fr"
+  echo "F5 options1.fr"
+  echo "F6 options2.fr"
+}
+
+# end of functions
+
+# NOMD5=OK
+# NOLCM=OK
+. ./config.ini
+
+if [ -n "$1" ]
+then
+  OPTION="$1"
+fi
+
+if [ -n "$2" ]
+then
+  LANG="$2"
+else
+  LANG=
+fi
+
+install -d $LCMBUILD
+[ ! -e "$LCMBUILD" ] && echo "LCMBUILD not found, please check config.ini"
+
+KERNEL36="$KERNEL_PREFIX`echo $KERNEL3 | tr -d '.'`"
+INITRD26="`echo $KERNEL3 | tr -d '.'`"
+
+
+install -d $ISOTMP/iso/isolinux
+install -d $ISOTMP/iso/modules
+
+# for file in `ls $LCMBUILD`
+# do
+#  ln -s $LCMBUILD/$file /$ISOTMP/iso/modules
+# done
+
+if [ "$MEDIA" = "DVD" ]
+then
+install -d /$ISOTMP/iso/pkg
+ls $HOME/ydfs/opkg/ | while read PKG
+do
+  echo "$PKG"
+  ln -s $HOME/ydfs/opkg/$PKG /$ISOTMP/iso/pkg
+done
+fi
+
+for MODULE in $MODULES
+do
+  if [ -e $LCMBUILD/"$MODULE".squashfs ]
+  then
+    echo "$LCMBUILD/"$MODULE".squashfs -> /$ISOTMP/iso/modules"
+    ln -s $LCMBUILD/"$MODULE".squashfs /$ISOTMP/iso/modules 
+  else
+    echo "Error : $MODULE not found" && exit 1
+  fi
+done
+
+OUT=`basename $ISOPATH`
+
+  if [ -e $ISOTMP/$OUT ] 
+  then
+    # if [ ! -e $ISOTMP/$OUT.md5sum ]
+    # then
+    #    echo "md5sum $ISOTMP/$OUT" 
+    #    md5sum $ISOTMP/$OUT > $ISOTMP/$OUT.md5sum
+    # fi
+    # echo "$ISOTMP/$OUT exists" && rm -fR /$ISOTMP/iso && exit 0
+    echo "$ISOTMP/$OUT exists"
+  fi
+
+du -sL /$ISOTMP/iso
+
+[ "$NOLCM" = "OK" ] && rm /$ISOTMP/iso/modules/*
+
+cp boot/isolinux.bin /$ISOTMP/iso/isolinux || exit 1
+cp boot/chain.c32 /$ISOTMP/iso/isolinux || exit 1
+#cp boot/ldlinux.c32 /$ISOTMP/iso/isolinux || exit 1
+#cp boot/libutil.c32 /$ISOTMP/iso/isolinux || exit 1
+#cp boot/liblua.c32 /$ISOTMP/iso/isolinux || exit 1
+#cp boot/libgpl.c32 /$ISOTMP/iso/isolinux || exit 1
+#cp boot/libcom32.c32  /$ISOTMP/iso/isolinux || exit 1
+cp boot/menu.c32 /$ISOTMP/iso/isolinux
+cp boot/vesamenu.c32 /$ISOTMP/iso/isolinux
+if [ "$ARCH" = "x86" ]
+then
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+else
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
+fi
+cp /$HOME/ydfs/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
+
+echo "
+[autorun]
+open=install.bat
+action=Install LinuxConsole
+shell\open\command=install.bat
+" > /$ISOTMP/iso/autorun.inf
+
+echo 'copy wubi\linuxconsole.exe %TEMP%' > /$ISOTMP/iso/install.bat
+echo 'c:' >> /$ISOTMP/iso/install.bat
+echo 'cd %TEMP%' >> /$ISOTMP/iso/install.bat
+echo 'linuxconsole.exe' >> /$ISOTMP/iso/install.bat
+echo 'start www.linuxconsole.org/faq' >> /$ISOTMP/iso/install.bat
+
+mkdir /$ISOTMP/iso/wubi
+[ ! -e linuxconsole.exe ] && wget http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole.exe
+cp linuxconsole.exe /$ISOTMP/iso/wubi || exit $?
+
+if [ ! -e memtest86+-5.01.bin ]
+then
+wget http://www.memtest.org/download/5.01/memtest86+-5.01.bin.gz || exit $?
+gunzip memtest86+-5.01.bin.gz || exit $?
+fi
+cp memtest86+-5.01.bin /$ISOTMP/iso/isolinux/memtest
+
+[ -e $HOME/ydfs/wineprogs ] && cp -fR $HOME/ydfs/wineprogs $ISOTMP/iso/
+
+# For unetbootin
+cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/initramfs
+# For EFI
+[ "$ARCH" = "x86_64" ] && cp /$ISOTMP/iso/isolinux/$INITRD26 /$ISOTMP/iso/isolinux/init
+cp /$ISOTMP/iso/isolinux/$KERNEL36 /$ISOTMP/iso/isolinux/kernel
+
+if [ "$ARCH" = "x86_64" ]
+then 
+  cp -fR boot-efi/* /$ISOTMP/iso/ || exit $?
+fi
+
+CONSOLE="loglevel=0"
+[ "$1" = "realtime" ] && CONSOLE=
+if [ -n "$SHORTINITRD26" ]
+then
+  MINIMAL="initrd=$SHORTINITRD26 "
+else 
+  MINIMAL="initrd=$INITRD26 "
+fi
+
+COMMON="$MINIMAL quiet $CONSOLE"
+COMMON="$MINIMAL $CONSOLE"
+COMMON2="$MINIMAL "
+
+[ -n "$SHORTKERNEL36" ] && KERNEL36=$SHORTKERNEL36
+COMMON="$COMMON "
+
+echo "HELP" > /$ISOTMP/iso/isolinux/help.txt
+export LIVECD=1
+print_options >> /$ISOTMP/iso/isolinux/isolinux.cfg
+export LIVECD=0 
+print_options >> /$ISOTMP/iso/isolinux/syslinux.cfg
+print_other_options > /$ISOTMP/iso/isolinux/other.cfg
+print_rescue_options > /$ISOTMP/iso/isolinux/rescue.cfg
+print_help_fr > /$ISOTMP/iso/isolinux/helpfr.txt
+print_help > /$ISOTMP/iso/isolinux/help.txt
+
+cd /$ISOTMP/iso/
+[ -e /$ISOTMP/iso/md5sum.txt ] && rm /$ISOTMP/iso/md5sum.txt
+find -type f -not -name md5sum.txt |while read FILE 
+do
+  [ "$NOMD5" = "OK" ] && continue
+  echo "$FILE" | grep grub > /dev/null && continue
+  echo "md5sum $FILE"
+  md5sum $FILE >> /$ISOTMP/iso/md5sum.txt
+done
+
+# more /$ISOTMP/iso/md5sum.txt
+
+ISONAME="Ydfs-$LCBUILD"
+
+CPUARCH="amd64"
+[ "$ARCH" = "x86" ] && CPUARCH="i386"
+
+install -d .disk
+echo "LinuxConsole 2.3 LTS \"LinuxConsole\" - Release $CPUARCH (2014)" > .disk/info
+install -d `dirname $ISONAME`
+ISODIR=/$ISOTMP
+[ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
+genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
+#genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -eltorito-alt-boot -e isolinux/efiboot.img -no-emul-boot  -o /$ISODIR/$OUT /$ISOTMP/iso/
+# isohybrid --uefi $ISODIR/linuxconsole.iso
+
+ln -sf $OUT $ISODIR/linuxconsole.iso
+if [ $? != 0 ]
+then
+  echo "Failed !"
+fi
+
+rm -fR /$ISOTMP/iso

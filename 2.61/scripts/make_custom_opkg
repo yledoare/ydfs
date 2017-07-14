@@ -1,0 +1,5 @@
+echo "inside $PWD"
+rm ${HOME}/ydfs/opkg/$1*
+cd opkg/$1
+$HOME_DIBAB/scripts/make_opkg
+cd ../..

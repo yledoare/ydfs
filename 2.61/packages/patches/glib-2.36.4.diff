@@ -1,0 +1,42 @@
+diff --git a/Makefile.am b/Makefile.am
+index b2555ad..9afb60f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6,7 +6,7 @@ include $(top_srcdir)/Makefile.decl
+ 
+ ACLOCAL_AMFLAGS = -I m4macros ${ACLOCAL_FLAGS}
+ 
+-SUBDIRS = . m4macros glib gmodule gthread gobject gio po docs
++SUBDIRS = . m4macros glib gmodule gthread gobject gio po
+ DIST_SUBDIRS = $(SUBDIRS) build
+ if BUILD_MODULAR_TESTS
+ SUBDIRS += tests 
+@@ -121,7 +121,6 @@ files:
+ 
+ release:
+ 	rm -rf .deps */.deps
+-	cd docs && make glib.html
+ 	$(MAKE) distcheck
+ 
+ sanity:
+diff --git a/Makefile.in b/Makefile.in
+index 4a8e169..cf05a99 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -686,7 +686,7 @@ EXTRA_DIST = ChangeLog.pre-2-20 ChangeLog.pre-2-18 ChangeLog.pre-2-16 \
+ 	gio-unix-2.0.pc.in gio-windows-2.0.pc.in check-abis.sh
+ TEST_PROGS = 
+ ACLOCAL_AMFLAGS = -I m4macros ${ACLOCAL_FLAGS}
+-SUBDIRS = . m4macros glib gmodule gthread gobject gio po docs \
++SUBDIRS = . m4macros glib gmodule gthread gobject gio po \
+ 	$(am__append_1)
+ DIST_SUBDIRS = $(SUBDIRS) build $(am__append_2)
+ bin_SCRIPTS = glib-gettextize
+@@ -1568,7 +1568,6 @@ files:
+ 
+ release:
+ 	rm -rf .deps */.deps
+-	cd docs && make glib.html
+ 	$(MAKE) distcheck
+ 
+ sanity:

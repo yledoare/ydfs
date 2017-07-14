@@ -1,0 +1,2 @@
+echo "Postinst"
+cp /home/*/opkg/lib/xorg/modules/drivers/neomagic_drv.so /home/*/x86/lib/xorg/modules/drivers/

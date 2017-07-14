@@ -1,0 +1,15 @@
+diff --git a/gview_v4l2core/uvc_h264.c b/gview_v4l2core/uvc_h264.c
+index 71b12e8..1514ceb 100644
+--- a/gview_v4l2core/uvc_h264.c
++++ b/gview_v4l2core/uvc_h264.c
+@@ -32,7 +32,9 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <assert.h>
+-
++#ifndef LIBUSB_CLASS_VIDEO
++#define LIBUSB_CLASS_VIDEO 0x0e
++#endif
+ #include "gview.h"
+ #include "../config.h"
+ 

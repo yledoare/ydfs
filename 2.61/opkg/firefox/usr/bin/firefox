@@ -1,0 +1,38 @@
+LANG=en-US
+
+[ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
+
+[ "$lang" = "russian" ] && LANG=ru
+[ "$lang" = "chinese" ] && LANG=zh-CN
+[ "$lang" = "french" ] && LANG=fr
+[ "$lang" = "breton" ] && LANG=br
+[ "$lang" = "quebec" ] && LANG=br
+[ "$lang" = "italian" ] && LANG=it
+[ "$lang" = "german" ] && LANG=de
+[ "$lang" = "spanish" ] && LANG=es-ES
+[ "$lang" = "portuguese" ] && LANG=pt-PT
+
+cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
+
+wget https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/firefox -O PKGBUILD
+FIREFOX=$(grep pkgver= PKGBUILD  | cut -d'=' -f2)
+rm PKGBUILD 
+
+# FIREFOX=36.0.4
+
+if [ "$ARCH" = "x86" ]
+then
+  URL=http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$FIREFOX/linux-i686/$LANG/firefox-"$FIREFOX".tar.bz2
+else
+  URL=http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/$FIREFOX/linux-$ARCH/$LANG/firefox-"$FIREFOX".tar.bz2
+fi
+
+cd $HOME
+
+if [ ! -e $HOME/firefox ]
+then
+  DEST=$HOME /ydfs/start/download  $URL
+  tar xjvf firefox-"$FIREFOX".tar.bz2 && rm firefox-"$FIREFOX".tar.bz2
+fi
+
+$HOME/firefox/firefox $@

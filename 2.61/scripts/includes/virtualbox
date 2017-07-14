@@ -1,0 +1,102 @@
+  if [ -e src/VBox/Storage/ ]
+  then
+    # QTDIR=$HOME/$ARCH
+    # [ -e $HOME/qt5 ] && QTDIR=$HOME/qt5
+    #    --with-qt-dir=$QTDIR --disable-docs \
+    if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
+	then
+	./configure --with-linux=$HOME/ydfs/src/linux-$KERNEL3/ \
+        --enable-vde \
+        --disable-docs --disable-java \
+        --disable-kmods --disable-hardening --disable-devmapper || exit $?
+    		source ./env.sh
+		kmk || exit $?
+	fi
+	cd out/linux.amd64/release/bin/src
+	echo "Building drivers .. " && sleep 5
+	for DRIVER in vboxdrv vboxnetadp  vboxnetflt  vboxpci
+	do
+	  cd $DRIVER	
+	  # make KERN_DIR="$HOME/ydfs/src/linux-$KERNEL3/" || exit $?
+	  make KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
+	  cd ..
+	done
+	cd ..
+        install -dm755 "$pkgdir//bin"
+        install -dm755 "$pkgdir//lib/modules/"
+	find . -name *.ko | while read file; do cp $file $pkgdir/lib/modules; done
+    install -m755 VBox.sh "$pkgdir//bin/VBox"
+    for i in VBoxHeadless VBoxManage VBoxSDL VirtualBox vboxwebsrv VBoxBalloonCtrl; do
+        ln -sf VBox "$pkgdir//bin/$i"
+        ln -sf VBox "$pkgdir//bin/${i,,}"
+    done
+    install -m755 VBoxTunctl "$pkgdir//bin"
+    install -m755 rdesktop-vrdp "$pkgdir//bin"
+
+    # libraries
+    install -dm755 "$pkgdir//lib/virtualbox"
+    install -m755 *.so "$pkgdir//lib/virtualbox"
+    install -m644 *.gc *.r0  VBoxEFI*.fd "$pkgdir//lib/virtualbox"
+    ## setuid root binaries
+    install -m4755 VBoxSDL VirtualBox VBoxHeadless VBoxNetDHCP VBoxNetAdpCtl VBoxNetNAT -t "$pkgdir//lib/virtualbox" || exit $?
+    ## other binaries
+    install -m755 VBoxManage VBoxSVC VBoxExtPackHelperApp VBoxXPCOMIPCD VBoxTestOGL VBoxBalloonCtrl vboxwebsrv webtest -t "$pkgdir//lib/virtualbox"
+
+    # components
+    install -dm755 "$pkgdir//lib/virtualbox/components"
+    install -m755 components/* -t "$pkgdir//lib/virtualbox/components"
+
+    # extensions packs
+    ## as virtualbox install itself stuff in this directory, move it to /var and
+    ## trick it with a symlink
+    ## FIXME: trick is disabled for now
+    #install -dm755 "$pkgdir/var/lib/virtualbox/extensions"
+    #install -dm755 "$pkgdir//share/virtualbox/extensions"
+    #ln -s ../../../var/lib/virtualbox/extensions "$pkgdir//lib/virtualbox/ExtensionPacks"
+    install -dm755 "$pkgdir//lib/virtualbox/ExtensionPacks"
+
+    # languages
+    install -dm755 "$pkgdir//share/virtualbox/nls"
+    install -m755 nls/*.qm -t "$pkgdir//share/virtualbox/nls"
+
+    # rdesktop keymaps
+    install -dm755 "$pkgdir//share/virtualbox/rdesktop-vrdp-keymaps"
+    install -m644 rdesktop-vrdp-keymaps/* "$pkgdir//share/virtualbox/rdesktop-vrdp-keymaps"
+
+    # useless scripts
+    install -m755 VBoxCreateUSBNode.sh VBoxSysInfo.sh -t "$pkgdir//share/virtualbox"
+
+    # icons
+    install -Dm644 VBox.png "$pkgdir//share/pixmaps/VBox.png"
+
+    pushd icons
+    for i in *; do
+        install -d "$pkgdir//share/icons/hicolor/$i/mimetypes"
+        cp $i/* "$pkgdir//share/icons/hicolor/$i/mimetypes"
+    done
+    popd
+
+    #desktop
+    install -Dm644 virtualbox.desktop "$pkgdir//share/applications/virtualbox.desktop"
+    install -Dm644 virtualbox.xml "$pkgdir//share/mime/packages/virtualbox.xml"
+
+    #install configuration
+    install -dm755 "$pkgdir/etc/vbox"
+    echo 'INSTALL_DIR=//lib/virtualbox' > "$pkgdir/etc/vbox/vbox.cfg"
+
+    # back to srcdir
+    cd "$srcdir"
+
+    #licence
+    install -Dm644 VirtualBox-$pkgver/COPYING "$pkgdir//share/licenses/$pkgname/LICENSE"
+
+    # install systemd stuff
+    install -Dm644 60-vboxdrv.rules "$pkgdir//lib/udev/rules.d/60-vboxdrv.rules"
+    install -Dm644 vboxweb.service "$pkgdir//lib/systemd/system/vboxweb.service"
+    install -Dm644 virtualbox.sysusers "$pkgdir//lib/sysusers.d/virtualbox.conf"
+
+    # install module reloading shortcut
+    install -Dm755 vboxreload "$pkgdir//bin"
+
+    ydfs-install-package
+  fi

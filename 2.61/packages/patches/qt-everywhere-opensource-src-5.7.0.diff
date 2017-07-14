@@ -1,0 +1,54 @@
+diff --git a/qtbase/configure b/qtbase/configure
+index 745344a..3194657 100755
+--- a/qtbase/configure
++++ b/qtbase/configure
+@@ -3527,7 +3527,7 @@ function normalize(dir)
+ #   #include <...> search starts here:
+ # and
+ #   End of search list.
+-/^\#include </ { yup=1; print "DEFAULT_INCDIRS=\""; next }
++/^\#include </ { yup=1; print "DEFAULT_INCDIRS=\"/home/linuxconsole25/x86_64/include/\n"; next }
+ /^End of search/ { yup=0; print "\"\n" }
+ / \(framework directory\)$/ { next }
+ yup { print normalize(substr($0, 2)) "\n"; ++incs }
+@@ -3535,7 +3535,7 @@ yup { print normalize(substr($0, 2)) "\n"; ++incs }
+ # extract from one line like LIBRARY_PATH=/one/path:/another/path:...
+ $1 == "LIBRARY_PATH" {
+     libs = split($2, library_paths, ":");
+-    print "DEFAULT_LIBDIRS=\"";
++    print "DEFAULT_LIBDIRS=\"/home/linuxconsole25/x86_64/lib/\n";
+     for (lib in library_paths) {
+         dir = normalize(library_paths[lib]);
+         if (!(dir in dirs)) {
+@@ -3589,7 +3589,7 @@ if [ -z "$QT_INSTALL_PREFIX" ]; then
+     if [ "$CFG_DEV" = "yes" ]; then
+         QT_INSTALL_PREFIX="$outpath" # In Development, we use sandboxed builds by default
+     else
+-        QT_INSTALL_PREFIX="/home/linuxconsole25/qt5//Qt-${QT_VERSION}" # the default install prefix is /usr/local/Qt-$QT_VERSION
++        QT_INSTALL_PREFIX="/home/linuxconsole25/qt5//Qt-${QT_VERSION}" # the default install prefix is /home/linuxconsole25/qt5//Qt-$QT_VERSION
+     fi
+ fi
+ QT_INSTALL_PREFIX=`makeabs "$QT_INSTALL_PREFIX"`
+diff --git a/qtbase/mkspecs/common/linux.conf b/qtbase/mkspecs/common/linux.conf
+index 143df70..6916f73 100644
+--- a/qtbase/mkspecs/common/linux.conf
++++ b/qtbase/mkspecs/common/linux.conf
+@@ -13,12 +13,12 @@ QMAKE_LFLAGS_GCSECTIONS = -Wl,--gc-sections
+ QMAKE_LFLAGS_REL_RPATH  = -Wl,-z,origin
+ QMAKE_REL_RPATH_BASE    = $ORIGIN
+ 
+-QMAKE_INCDIR            =
+-QMAKE_LIBDIR            =
+-QMAKE_INCDIR_X11        =
+-QMAKE_LIBDIR_X11        =
+-QMAKE_INCDIR_OPENGL     =
+-QMAKE_LIBDIR_OPENGL     =
++QMAKE_INCDIR            = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR            = ${HOME}/${ARCH}/lib
++QMAKE_INCDIR_X11        = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR_X11        = ${HOME}/${ARCH}/lib
++QMAKE_INCDIR_OPENGL     = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR_OPENGL     = ${HOME}/${ARCH}/lib
+ QMAKE_INCDIR_OPENGL_ES2 = $$QMAKE_INCDIR_OPENGL
+ QMAKE_LIBDIR_OPENGL_ES2 = $$QMAKE_LIBDIR_OPENGL
+ QMAKE_INCDIR_EGL        =

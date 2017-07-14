@@ -1,0 +1,14 @@
+diff --git a/Makefile b/Makefile
+index 6bb1cb8..b2bf2b1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -17,6 +17,9 @@ inplace:
+ build:
+ 	$(PYTHON) setup.py $(SETUPFLAGS) build $(PY2_WITH_CYTHON)
+ 
++install: build
++	$(PYTHON) setup.py install --optimize=1
++
+ test_build: build
+ 	$(PYTHON) test.py $(TESTFLAGS) $(TESTOPTS)
+ 

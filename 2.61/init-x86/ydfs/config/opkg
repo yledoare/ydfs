@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#ans=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose packages source" --radiolist  --column "Choice" --column "Type" TRUE "Internet" FALSE "USB Disk" FALSE CD/DVD FALSE "Custom Directory" FALSE "Custom URL")
+ans=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose packages source" --radiolist  --column "Choice" --column "Type" TRUE "Internet" FALSE "Custom Directory")
+
+[ -e /etc/opkg/ydfs.conf ] && rm /etc/opkg/ydfs.conf
+
+if [ "$ans" = "USB Disk" ]
+then
+  #FIXME
+  echo "src linuxconsole file://$dir" > /etc/opkg/ydfs.conf
+fi
+if [ "$ans" = "Custom Directory" ]
+then
+  dir=$(zenity --file-selection --directory)
+  echo "src linuxconsole file://$dir" > /etc/opkg/ydfs.conf
+fi
+if [ "$ans" = "Internet" ]
+then
+  RELEASE=`cat /ydfs-release`
+  MODULE=`cat /ydfs-name`
+  echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+  # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+fi
+[ ! -e /etc/opkg/ydfs.conf ] && zenity --text="Error \n please run $0 from lxterminal !" --error

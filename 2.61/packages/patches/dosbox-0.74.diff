@@ -1,0 +1,13 @@
+diff --git a/include/dos_inc.h b/include/dos_inc.h
+index 290d76b..2efef9e 100644
+--- a/include/dos_inc.h
++++ b/include/dos_inc.h
+@@ -28,6 +28,8 @@
+ #include "mem.h"
+ #endif
+ 
++#include <stddef.h> //for offsetof
++
+ #ifdef _MSC_VER
+ #pragma pack (1)
+ #endif

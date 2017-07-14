@@ -1,0 +1,40 @@
+diff -ur /home/yann/ydfs/src/glew-1.10.0.orig/config/Makefile.linux /home/yann/ydfs/src/glew-1.10.0/config/Makefile.linux
+--- a/config/Makefile.linux	2013-07-22 16:11:22.000000000 +0200
++++ b/config/Makefile.linux	2013-09-13 05:42:45.395385592 +0200
+@@ -9,20 +9,13 @@
+ ifeq (ppc64,${M_ARCH})
+   ARCH64 = true
+ endif
+-ifeq (${ARCH64},true)
+-  LDFLAGS.EXTRA = -L/usr/X11R6/lib64 -L/usr/lib64
+-  LIBDIR = $(GLEW_DEST)/lib64
+-else
+-  LDFLAGS.EXTRA = -L/usr/X11R6/lib -L/usr/lib
+-  LIBDIR = $(GLEW_DEST)/lib
+-endif
+-LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11
++LDFLAGS.GL = -lXmu -lXi -lGL -lXext -lX11 -L$(GLEW_DEST)/lib
+ LDFLAGS.STATIC = -Wl,-Bstatic
+ LDFLAGS.DYNAMIC = -Wl,-Bdynamic
+ NAME = GLEW
+ WARN = -Wall -W
+ POPT = -O2
+-CFLAGS.EXTRA += -fPIC
++CFLAGS.EXTRA += -fPIC -L$(GLEW_DEST)/lib -I$(GLEW_DEST)/include
+ BIN.SUFFIX =
+ LIB.SONAME = lib$(NAME).so.$(SO_MAJOR)
+ LIB.DEVLNK = lib$(NAME).so
+Seulement dans /home/yann/ydfs/src/glew-1.10.0.orig/: lib
+diff -ur /home/yann/ydfs/src/glew-1.10.0.orig/Makefile /home/yann/ydfs/src/glew-1.10.0/Makefile
+--- a/Makefile	2013-07-22 16:11:22.000000000 +0200
++++ b/Makefile	2013-09-13 05:41:40.879390962 +0200
+@@ -29,7 +29,7 @@
+ ## THE POSSIBILITY OF SUCH DAMAGE.
+ 
+ include config/version
+-
++GLEW_DEST = $(HOME)/$(ARCH)
+ SHELL = /bin/sh
+ SYSTEM ?= $(shell config/config.guess | cut -d - -f 3 | sed -e 's/[0-9\.]//g;')
+ SYSTEM.SUPPORTED = $(shell test -f config/Makefile.$(SYSTEM) && echo 1)
+Seulement dans /home/yann/ydfs/src/glew-1.10.0.orig/: tmp

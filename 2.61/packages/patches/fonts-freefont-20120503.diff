@@ -1,0 +1,11 @@
+diff --git a/Makefile b/Makefile
+index a61475e..2a2f927 100644
+--- a/Makefile
++++ b/Makefile
+@@ -100,3 +100,6 @@ distclean:
+ 	rm -rf $(TMPDIR) 
+ 	rm -f $(ZIPFILE) $(TARFILE) $(SRCTARFILE) $(SIGS)
+ 	( cd sfd; $(MAKE) distclean )
++install:
++	install -d $(HOME)/$(ARCH)/share/fonts/truetype/freefont
++	cp sfd/*.ttf $(HOME)/$(ARCH)/share/fonts/truetype/freefont

@@ -1,0 +1,17 @@
+RELEASE=`cat /ydfs-release`
+MODULE=`cat /ydfs-name`
+cd /
+
+while [ 1 ]
+do
+  busybox sleep 5
+  wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.tar.gz 
+  if [ -x desktop-install-menus.tar.gz ]
+  then
+    tar xzvf desktop-install-menus.tar.gz && break
+    rm desktop-install-menus.tar.gz
+  fi
+done
+
+opkg-cl update
+opkg-cl install fixes

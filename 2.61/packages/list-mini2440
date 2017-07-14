@@ -1,0 +1,8 @@
+##http://ftp.de.debian.org/debian/pool/main/l/lzo2/lzo2_2.03-2.dsc
+http://zlib.net/zlib-1.2.7.tar.gz 
+git://github.com/kergoth/tslib.git
+#http://ftp.de.debian.org/debian/pool/main/t/tslib/tslib_1.0-11.dsc
+#http://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz
+http://www.libsdl.org/release/SDL-1.2.14.tar.gz
+http://download.savannah.gnu.org/releases/freetype/freetype-2.4.4.tar.gz 
+http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.9.tar.gz 

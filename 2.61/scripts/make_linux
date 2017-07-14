@@ -1,0 +1,117 @@
+#!/bin/sh
+. ./config.ini
+
+install -d /$HOME/ydfs/src/
+install -d /$HOME/ydfs/tarballs/
+install -d /$HOME/ydfs/build/
+cd /$HOME/ydfs
+if [ "$SUBARCH" = "raspi" ]
+then
+  echo $SUBARCH
+  install -d $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+  BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+  [ ! -e tarballs/$KERNEL3.zip ] && wget --directory-prefix=tarballs https://github.com/raspberrypi/linux/archive/$KERNEL3.zip
+  [ ! -e src/linux-$KERNEL3 ] && unzip tarballs/$KERNEL3.zip -d src
+  cd src/linux-$KERNEL3
+  [ ! -e $BUILD_DIR/.config ] && cp /$HOME_DIBAB/config/kernel-raspi/config  $BUILD_DIR/.config
+  [ "$MENUCONFIG" = "YES" ] && echo "make menuconfig" && make menuconfig O=$BUILD_DIR && cp $BUILD_DIR/.config /$HOME_DIBAB/config/kernel-raspi/config
+  echo "make kernel"
+  make O=$BUILD_DIR -k -j5 
+  exit $?
+#  make modules  O=$BUILD_DIR || exit 1
+fi
+
+if [ "$ALT_KERNEL" = "FriendlyARM" ]
+then
+  if [ ! -e tarballs/linux-2.6.32.2-mini2440_20110305.tgz ]
+  then
+    wget --directory-prefix=tarballs http://jukebox.linuxconsole.org/mini2440/linux-2.6.32.2-mini2440_20110305.tgz
+  fi
+  [ ! -e src/linux-"$KERNEL3" ] && tar xzvf tarballs/linux-2.6.32.2-mini2440_20110305.tgz  --directory=src 
+else
+  if [ ! -e tarballs/linux-"$KERNEL3".tar.xz ]
+  then
+    wget --directory-prefix=tarballs https://www.kernel.org/pub/linux/kernel/v4.x/linux-"$KERNEL3".tar.xz || wget --directory-prefix=tarballs ftp://ftp.free.fr/mirrors/ftp.kernel.org/linux/kernel/v4.x/linux-"$KERNEL3".tar.xz
+  fi
+fi
+
+if [ ! -e src/linux-"$KERNEL3" ]
+then
+  tar xJvf tarballs/linux-"$KERNEL3".tar.xz  --directory=src || exit 1
+fi
+
+[ ! -e src/linux-"$KERNEL3" ] && exit 1
+
+cd src/linux-"$KERNEL3"
+
+grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && sed -i "s@select SND_DYNAMIC_MINORS@@" sound/pci/hda/Kconfig
+grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && exit 1
+
+grep 'nr = 255' drivers/block/loop.c || sed -i "s@nr = 8;@nr = 255;@" drivers/block/loop.c
+# bug with fs/exfat
+#[ ! -e fs/exfat ] && patch -p1 < $HOME_DIBAB/packages/patches/exfat.diff
+#cp -fR $HOME_DIBAB/tools/src/exfat fs/exfat
+
+if [ "$SUBARCH" = "raspi-qemu" ] && [ ! -e linux-raspi-qemu-arm.patch.ok ]
+then
+    # wget http://xecdesign.com/downloads/linux-qemu/linux-arm.patch
+    patch -p1 < $HOME_DIBAB/packages/patches/linux-raspi-qemu-arm.patch || exit 1
+    touch linux-raspi-qemu-arm.patch.ok || exit 1
+fi
+
+if [ "$ARCH" = "arm" ] && [ "$ALT_KERNEL" != "FriendlyARM" ] &&  [ ! -e patch-mini2440-ok ]
+then
+  patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new-new/linux-0001-mini2440-Add-support-for-new-LCD-panels.patch || patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new/linux-0001-mini2440-Add-support-for-new-LCD-panels.patch
+  patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new-new/linux-0002-mini2440-Add-touchscreen-support-for-mini244.patch || patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new/linux-0002-mini2440-Add-touchscreen-support-for-mini244.patch 
+  patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new-new/linux-0003-mini2440-Select-touchscreen-by-default.patch 
+#  patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new-new/linux-0004-mini2440-Enable-the-backlight-LED-earlier-at.patch
+  patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new-new/linux-0005-mini2440-Add-support-for-new-LCD-W35.patch || patch -p1 < $HOME_DIBAB/packages/patches/mini2440-new/linux-0005-mini2440-Add-support-for-new-LCD-W35.patch || exit 1
+  touch patch-mini2440-ok
+fi
+
+# fixes for mini2440
+[ "$ARCH" = "arm" ] && [ -e drivers/tty/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/tty/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/tty/serial/samsung.c
+[ "$ARCH" = "arm" ] && [ -e drivers/serial/samsung.c ] && grep "EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);" drivers/serial/samsung.c &&  sed -i "s@EXPORT_SYMBOL_GPL(s3c24xx_serial_remove);@@" drivers/serial/samsung.c
+
+install -d $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+#BUILD_DIR=.
+
+[ "$SUBARCH" = "raspi-qemu" ] && [ ! -e $BUILD_DIR/.config ] && cp $HOME_DIBAB/config/kernel-raspi-qemu/config  $BUILD_DIR/.config
+
+if [ ! -e $BUILD_DIR/.config ] 
+then
+  if [ -e /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config ] 
+  then
+   echo "Get "/$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config
+   cp /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config $BUILD_DIR/.config
+  else
+   echo "Get "/$HOME_DIBAB/config/kernel-$ARCH/config
+   cp /$HOME_DIBAB/config/kernel-$ARCH/config $BUILD_DIR/.config
+   [ $? != 0 ] && [ "$MENUCONFIG" != "YES" ] && exit 1
+   fi
+fi
+
+[ "$MENUCONFIG" = "YES" ] && make menuconfig O=$BUILD_DIR
+  install -d $HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
+  DATE=`date +"%Y_%m_%d"`
+  cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/.config.$DATE
+git add /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
+  cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
+  [ "$ARCH" != "arm" ] && cp $BUILD_DIR/.config  /$HOME_DIBAB/config/kernel-$ARCH/config
+[ "$SUBARCH" = "raspi-qemu" ] && cp $BUILD_DIR/.config $HOME_DIBAB/config/kernel-raspi-qemu/config
+  # cp $HOME_DIBAB/config/initramfs-$ARCH.txt $BUILD_DIR 
+
+  make bzImage O=$BUILD_DIR || exit 1
+#   make bzImage CONFIG_DEBUG_SECTION_MISMATCH=y O=$BUILD_DIR || exit 1
+# echo "Bzimage ok, press a key"
+#  make mrproper
+  grep '# CONFIG_MODULES is not set' $BUILD_DIR/.config
+  if [ $? != 0 ]
+  then
+    make modules O=$BUILD_DIR || exit 0
+    make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
+    /sbin/depmod -b $HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3" -m "$KERNEL3"
+    [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
+  fi
+  echo buildt

@@ -1,0 +1,63 @@
+--- a/mkspecs/common/linux.conf	2012-01-04 19:04:22.000000000 +0100
++++ b/mkspecs/common/linux.conf	2012-01-04 19:17:38.000000000 +0100
+@@ -5,14 +5,14 @@
+ QMAKE_CFLAGS_THREAD	+= -D_REENTRANT
+ QMAKE_CXXFLAGS_THREAD	+= $$QMAKE_CFLAGS_THREAD
+ 
+-QMAKE_INCDIR          =
+-QMAKE_LIBDIR          =
+-QMAKE_INCDIR_X11      = /usr/X11R6/include
+-QMAKE_LIBDIR_X11      = /usr/X11R6/lib
++QMAKE_INCDIR          = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR          = ${HOME}/${ARCH}/lib
++QMAKE_INCDIR_X11      = ${HOME}/${ARCH}/include 
++QMAKE_LIBDIR_X11      = ${HOME}/${ARCH}/lib
+ QMAKE_INCDIR_QT       = $$[QT_INSTALL_HEADERS]
+ QMAKE_LIBDIR_QT       = $$[QT_INSTALL_LIBS]
+-QMAKE_INCDIR_OPENGL   = /usr/X11R6/include
+-QMAKE_LIBDIR_OPENGL   = /usr/X11R6/lib
++QMAKE_INCDIR_OPENGL   = ${HOME}/${ARCH}/include
++QMAKE_LIBDIR_OPENGL   = ${HOME}/${ARCH}/lib
+ QMAKE_INCDIR_OPENGL_ES1 = $$QMAKE_INCDIR_OPENGL
+ QMAKE_LIBDIR_OPENGL_ES1 = $$QMAKE_LIBDIR_OPENGL
+ QMAKE_INCDIR_OPENGL_ES2 = $$QMAKE_INCDIR_OPENGL
+diff --git a/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp b/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
+index 1015923..0c9b02e 100644
+--- a/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
++++ b/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.cpp
+@@ -1396,11 +1396,6 @@ void jitCompileRegex(JSGlobalData* globalData, RegexCodeBlock& jitObject, const
+     RegexGenerator generator(pattern);
+     generator.compile(globalData, jitObject);
+ 
+-    if (generator.generationFailed()) {
+-        JSRegExpIgnoreCaseOption ignoreCaseOption = ignoreCase ? JSRegExpIgnoreCase : JSRegExpDoNotIgnoreCase;
+-        JSRegExpMultilineOption multilineOption = multiline ? JSRegExpMultiline : JSRegExpSingleLine;
+-        jitObject.setFallback(jsRegExpCompile(reinterpret_cast<const UChar*>(patternString.data()), patternString.size(), ignoreCaseOption, multilineOption, &numSubpatterns, &error));
+-    }
+ }
+ 
+ }}
+diff --git a/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h b/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
+index 5ead00f..f131dce 100644
+--- a/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
++++ b/src/3rdparty/javascriptcore/JavaScriptCore/yarr/RegexJIT.h
+@@ -61,8 +61,6 @@ public:
+ 
+     ~RegexCodeBlock()
+     {
+-        if (m_fallback)
+-            jsRegExpFree(m_fallback);
+     }
+ 
+     JSRegExp* getFallback() { return m_fallback; }
+@@ -85,8 +83,8 @@ void jitCompileRegex(JSGlobalData* globalData, RegexCodeBlock& jitObject, const
+ 
+ inline int executeRegex(RegexCodeBlock& jitObject, const UChar* input, unsigned start, unsigned length, int* output, int outputArraySize)
+ {
+-    if (JSRegExp* fallback = jitObject.getFallback())
+-        return (jsRegExpExecute(fallback, input, length, start, output, outputArraySize) < 0) ? -1 : output[0];
++ //   if (JSRegExp* fallback = jitObject.getFallback())
++  //      return (jsRegExpExecute(fallback, input, length, start, output, outputArraySize) < 0) ? -1 : output[0];
+ 
+     return jitObject.execute(input, start, length, output);
+ }

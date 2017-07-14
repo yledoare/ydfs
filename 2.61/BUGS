@@ -1,0 +1,11 @@
+2.4 beta3
+
+TO FIX
+
+* locale for user
+* compile_schemas
+* liblocale_boost
+
+LATER
+
+* error font message

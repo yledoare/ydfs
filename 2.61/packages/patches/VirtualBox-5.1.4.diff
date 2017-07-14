@@ -1,0 +1,120 @@
+diff --git a/Config.kmk b/Config.kmk
+index 2d4fa50..823a227 100644
+--- a/Config.kmk
++++ b/Config.kmk
+@@ -1417,7 +1417,7 @@ ASTOOL = $(VBOX_ASTOOL)
+ #
+ # Note! The __SOMETHING__ #defines are deprecated as they violate the C/C++ specs.
+ #
+-INCS += $(PATH_ROOT)/include $(PATH_OUT)
++INCS +=  ${HOME}/qt5/include  ${HOME}/${ARCH}/include $(PATH_ROOT)/include $(PATH_OUT)
+ DEFS += VBOX
+ DEFS.debug := DEBUG DEBUG_$(subst $(subst _, ,_),_,$(USERNAME)) DEBUG_USERNAME=$(subst $(subst _, ,_),_,$(USERNAME))
+ DEFS.dbgopt  = $(DEFS.debug)
+@@ -1942,9 +1942,9 @@ endif
+ 
+ # The X11 LIBPATH. (The amd64 hack is for RHEL4.)
+ ifeq ($(KBUILD_TARGET_ARCH),amd64)
+- VBOX_LIBPATH_X11 ?= /usr/X11R6/lib64 /usr/X11R6/lib
++ VBOX_LIBPATH_X11 ?= ${HOME}/${ARCH}/lib
+ else
+- VBOX_LIBPATH_X11 ?= /usr/X11R6/lib
++ VBOX_LIBPATH_X11 ?= ${HOME}/${ARCH}/lib
+ endif
+ 
+ # 32bit X11 LIBPATH for building 32bit guest additions
+@@ -3719,7 +3719,7 @@ TEMPLATE_VBOXR3EXE_LDFLAGS.x86         = -m32
+ TEMPLATE_VBOXR3EXE_LDFLAGS.amd64       = -m64
+ TEMPLATE_VBOXR3EXE_LDFLAGS.sparc32     = -m32
+ TEMPLATE_VBOXR3EXE_LDFLAGS.sparc64     = -m64
+-TEMPLATE_VBOXR3EXE_LDFLAGS.linux       = -Wl,-z,noexecstack $(VBOX_LD_as_needed)
++TEMPLATE_VBOXR3EXE_LDFLAGS.linux       = -Wl,-z,noexecstack $(VBOX_LD_as_needed) -L${HOME}/${ARCH}/lib
+ TEMPLATE_VBOXR3EXE_LDFLAGS.solaris     = -Wl,-z,ignore # same as VBOX_LD_as_needed
+ 
+  ifeq ($(KBUILD_TARGET),linux)
+@@ -4401,7 +4401,7 @@ TEMPLATE_VBOXMAINEXE_LDFLAGS.x86         = -m32
+ TEMPLATE_VBOXMAINEXE_LDFLAGS.amd64       = -m64
+  ifeq ($(KBUILD_TARGET),linux)
+ TEMPLATE_VBOXMAINEXE_LIBS                = pthread m rt $(LIB_RUNTIME) dl
+-TEMPLATE_VBOXMAINEXE_LDFLAGS.linux       = -Wl,-z,noexecstack $(VBOX_LD_as_needed)
++TEMPLATE_VBOXMAINEXE_LDFLAGS.linux       = -Wl,-z,noexecstack $(VBOX_LD_as_needed) -L${HOME}/${ARCH}/lib
+  else ifeq ($(KBUILD_TARGET),os2)
+ TEMPLATE_VBOXMAINEXE_TOOL                = GXX3OMF
+ TEMPLATE_VBOXMAINEXE_LIBS                = $(LIB_RUNTIME)
+@@ -4862,7 +4862,7 @@ ifdef VBOX_WITH_QTGUI
+ 	$(VBOX_LIB_VMM_LAZY)
+ 
+   ifeq ($(KBUILD_TARGET),linux)
+-   TEMPLATE_VBOXQT4GUIEXE_LDFLAGS += -Wl,-z,noexecstack $(VBOX_LD_as_needed)
++   TEMPLATE_VBOXQT4GUIEXE_LDFLAGS += -Wl,-z,noexecstack $(VBOX_LD_as_needed) -L${HOME}/${ARCH}/lib
+    TEMPLATE_VBOXQT4GUIEXE_LIBS += \
+      $(VBOX_XCURSOR_LIBS) \
+ 	Xext \
+diff --git a/configure b/configure
+index 83fa74c..6f4e693 100755
+--- a/configure
++++ b/configure
+@@ -112,14 +112,14 @@ IASL="iasl"
+ XSLTPROC="xsltproc"
+ GENISOIMAGE="genisoimage"
+ MKISOFS="mkisofs"
+-INCCRYPTO=""
+-LIBCRYPTO="-lssl -lcrypto"
++INCCRYPTO="-I${HOME}/${ARCH}/include"
++LIBCRYPTO="-lssl -lcrypto -L${HOME}/${ARCH}/lib/"
+ LIBPTHREAD="-lpthread"
+ LIBCAP="-lcap"
+ GSOAP=""
+ GSOAP_IMPORT=""
+-INCX11="/usr/local/include"
+-LIBX11="-L/usr/X11R6/lib -L/usr/X11R6/lib64 -L/usr/local/lib -lXext -lX11"
++INCX11="-I${HOME}/qt5/include  -I${HOME}/${ARCH}/include"
++LIBX11="-L${HOME}/${ARCH}/lib/ -lXext -lX11"
+ LIBXCURSOR="-lXcursor"
+ LIBXMU="-lXmu"
+ LIBXINERAMA="-lXinerama"
+@@ -141,10 +141,10 @@ if [ "$OS" = "freebsd" ]; then
+   INCPNG="-I/usr/local/include"
+   LIBPNG="-L/usr/local/lib -lpng"
+ else
+-  INCCURL=""
+-  LIBCURL="-lcurl"
+-  INCPNG=""
+-  LIBPNG="-lpng"
++  INCCURL="-I${HOME}/${ARCH}/include"
++  LIBCURL="-lcurl -L${HOME}/${ARCH}/lib/"
++  INCPNG="-I${HOME}/${ARCH}/include"
++  LIBPNG="-lpng -L${HOME}/${ARCH}/lib/"
+ fi
+ INCVPX=""
+ LIBVPX="-lvpx"
+@@ -279,7 +279,7 @@ test_compile()
+   cat $ODIR.tmp_src.cc >> $LOG
+   echo "using the following command line:" >> $LOG
+   echo "$CXX $CXX_FLAGS -g -O -Wall -o $ODIR.tmp_out $ODIR.tmp_src.cc \"$1\"" >> $LOG
+-  $CXX $CXX_FLAGS -g -O -Wall -o $ODIR.tmp_out $ODIR.tmp_src.cc $1 >> $LOG 2>&1
++  $CXX $CXX_FLAGS -I${HOME}/${ARCH}/include -L${HOME}/${ARCH}/lib -g -O -Wall -o $ODIR.tmp_out $ODIR.tmp_src.cc $1 >> $LOG 2>&1
+   if [ $? -ne 0 ]; then
+     if [ -z "$4" ]; then
+       echo
+diff --git a/src/VBox/Installer/linux/VBox.sh b/src/VBox/Installer/linux/VBox.sh
+index 6201a66..2580aee 100755
+--- a/src/VBox/Installer/linux/VBox.sh
++++ b/src/VBox/Installer/linux/VBox.sh
+@@ -13,7 +13,6 @@
+ # hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
+ #
+ 
+-PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+ CONFIG="/etc/vbox/vbox.cfg"
+ 
+ test -r "${CONFIG}" &&
+@@ -62,7 +61,7 @@ WARNING: The compilation of the vboxdrv.ko kernel module failed during the
+ EOF
+ fi
+ 
+-SERVER_PID=`ps -U \`whoami\` | grep VBoxSVC | awk '{ print $1 }'`
++# SERVER_PID=`ps -U \`whoami\` | grep VBoxSVC | awk '{ print $1 }'`
+ if [ -z "$SERVER_PID" ]; then
+     # Server not running yet/anymore, cleanup socket path.
+     # See IPC_GetDefaultSocketPath()!

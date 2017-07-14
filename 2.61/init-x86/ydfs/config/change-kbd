@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ans=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose keyboard layout" --radiolist  --column "Choice" --column "Type" TRUE "us" FALSE "gb" FALSE "fr" FALSE "es" FALSE "de" FALSE "pt" FALSE "other")
+
+echo "kbd=$ans" > $HOME/.config/ydfs/kbd
+
+[ "$ans" == "other" ] && leafpad $HOME/.config/ydfs/kbd && . $HOME/.config/ydfs/kbd
+
+setxkbmap $ans
+
+echo '
+#from /ydfs/config/change-kbd
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "'$ans'"
+# 	Option "XkbVariant" "latin9"
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf

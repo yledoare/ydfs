@@ -1,0 +1,13 @@
+diff --git a/sdl.c b/sdl.c
+index 178b553..bdf412b 100644
+--- a/sdl.c
++++ b/sdl.c
+@@ -445,6 +445,7 @@ static void sdl_grab_end(void)
+ static void sdl_send_mouse_event(int dx, int dy, int dz, int x, int y, int state)
+ {
+     int buttons;
++    if(width==1 && height==1) return;
+     buttons = 0;
+     if (state & SDL_BUTTON(SDL_BUTTON_LEFT))
+         buttons |= MOUSE_EVENT_LBUTTON;
+

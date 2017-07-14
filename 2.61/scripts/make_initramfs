@@ -1,0 +1,139 @@
+. ./config.ini
+
+if [ "$ARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
+then
+  [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2
+  [ ! -e /$HOME/ydfs/src/lfs-bootscripts-20100627  ] && tar xjvf /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2  --directory=/$HOME/ydfs/src/
+  DESTDIR=/$HOME/ydfs/build/lfs-bootscripts make -C /$HOME/ydfs/src/lfs-bootscripts-20100627
+  [ ! -e /$HOME/ydfs/build/lfs-bootscripts ] && exit 2
+fi
+
+INITRAMFS=/$HOME/ydfs/tmp/initramfs-$ARCH
+[ ! -e init-$ARCH ] && exit 0
+
+if [ -e $INITRAMFS ]
+then
+  rm -fR $INITRAMFS/*
+else
+  install -d $INITRAMFS
+fi
+
+cp -fR init-$ARCH/* $INITRAMFS
+echo "$DISTRONAME" > $INITRAMFS/ydfs-name
+basename $PWD > $INITRAMFS/ydfs-release
+
+# if [ ! -e $HOME/ydfs/src/yaffs2utils-read-only/src/buildok ]
+# then
+# cd $HOME/ydfs/src
+# svn checkout http://yaffs2utils.googlecode.com/svn/trunk/ yaffs2utils-read-only
+# cd yaffs2utils-read-only
+# cd src
+# make && touch buildok 
+# fi
+
+# mknod needs root
+if [ ! -e $HOME_DIBAB/dev-initramfs.cpio ]
+then
+  install -d $INITRAMFS/dev
+  sudo sh /$HOME/ydfs/src/busybox-$BUSYBOX/examples/bootfloppy/mkdevs.sh $INITRAMFS/dev || exit $?
+  sudo sh $HOME_DIBAB/scripts/make_devs $INITRAMFS/dev
+  ls -l $INITRAMFS/dev
+  MYPWD=$PWD
+  cd $INITRAMFS 
+  #find dev -print | grep -v '/[.svn]' |  cpio -o -H newc -F $HOME_DIBAB/dev-initramfs.cpio 
+  find dev -print |  cpio -o -H newc -F $HOME_DIBAB/dev-initramfs.cpio
+  cd $MYPWD
+fi
+
+
+ [ "$ARCH" = "x86" ] && cp -fR /$HOME/ydfs/build/lfs-bootscripts/* $INITRAMFS
+
+KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"     
+KERNEL=$KERNEL3
+
+[ -n "$1" ] && KERNEL=$1 
+  KERNEL_MODULES_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL
+  cp -a /$HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/_install $INITRAMFS/busybox || exit 2
+  install -d $INITRAMFS/share
+  cp -a /$HOME/ydfs/src/busybox-$BUSYBOX/examples/udhcp $INITRAMFS/share || exit 3
+  if [ ! -n "$1" ] 
+  then
+    INITRD="`echo $KERNEL | tr -d '.'`"
+  else
+    INITRD="`echo $1 | tr -d '.'`"
+  fi 
+  install -d $INITRAMFS/lib/modules/$KERNEL/
+  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
+  DEPS=""
+  du -sh $INITRAMFS
+  date "+%Y-%m-%d-%H-%M" > $INITRAMFS/initramfs-build-date
+  date "+%Y-%m-%d" > $INITRAMFS/ydfs-date
+  install -d $HOME/ydfs/build-$ARCH
+  cp $HOME_DIBAB/dev-initramfs.cpio $HOME/ydfs/build-$ARCH/$INITRD
+#  [ -e $HOME/uclib/ ] && cp -fR $HOME/uclib/* $INITRAMFS/
+install -d $INITRAMFS/lib
+cd $INITRAMFS
+
+ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
+ROOTFS=/$HOME/ydfs/tmp/initramfs-$ARCH/
+install -d $ROOTFS/$HOME
+install -d $ROOTFS/proc
+install -d $ROOTFS/sys
+install -d $ROOTFS/etc
+
+
+if [ "$ARCH" = "x86" ] || [ "$ARCH" = "x86_64" ]
+then
+  echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
+  sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/media
+  sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
+  sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
+else
+  if [ "$TOOLCHAIN" = "FriendlyARM" ]
+  then
+    # cp -a $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/* $INITRAMFS/
+    # cp -a $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/lib/*so* $INITRAMFS/lib
+    for LIB in ld-linux.so.3 libc.so.6 libdl.so.2 libpthread.so.0 libm.so.6 libgcc_s.so.1
+    do
+      cp $HOME/ydfs/toolchain/arm/opt/FriendlyARM/toolschain/4.4.3/arm-none-linux-gnueabi/sys-root/lib/$LIB $INITRAMFS/lib
+    done
+  fi
+  if [ "$TOOLCHAIN" = "crosstool-ng" ]
+  then
+    # for LIB in ld-uClibc.so.0 libdl.so.0 libc.so.0 libpthread.so.0 libm.so.0 libgcc_s.so.1
+    for LIB in ld-linux.so.3 libc.so.6 libdl.so.2 libpthread.so.0 libm.so.6 libgcc_s.so.1
+    do
+     cp $HOME/ydfs/x-tools/arm-unknown-linux-"$GNU"/arm-unknown-linux-"$GNU"/sysroot/lib/$LIB $INITRAMFS/lib || sleep 5
+    done
+  fi
+  if [ "$TOOLCHAIN" = "buildroot" ]
+  then
+    for LIB in ld-uClibc.so.0 libdl.so.0 libc.so.0 libpthread.so.0 libm.so.0 libgcc_s.so.1
+    do
+     echo "$HOME/ydfs/buildroot-2011.08/output/target/lib/ld-uClibc.so.0/$LIB -> $INITRAMFS/lib "
+     cp $HOME/ydfs/buildroot-2011.08/output/target/lib/$LIB $INITRAMFS/lib || exit $?
+    done
+  fi
+
+sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
+cd /$HOME/ydfs/tmp/initramfs-$ARCH
+if [ -e /rootfs ] # nfs access
+then
+ # sudo cpio --quiet -i -d < $HOME_DIBAB/dev-initramfs.cpio
+ sudo rm -fR /rootfs/* 
+ sudo cp -fR /$HOME/ydfs/tmp/initramfs-$ARCH/* /rootfs
+fi
+
+fi
+
+[ -e $HOME/$ARCH/bin/ntfs-3g ] && cp $HOME/$ARCH/bin/ntfs-3g /$HOME/ydfs/tmp/initramfs-$ARCH
+
+[ -e $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs ] && rm $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+
+cd /$HOME/ydfs/tmp/initramfs-$ARCH
+find . -print |  grep -v '.svn' | cpio -A -o -H newc -F $HOME/ydfs/build-$ARCH/$INITRD
+ls -lh  $HOME/ydfs/build-$ARCH/$INITRD
+
+[ -e /media/sf_iso/ ] && cp $HOME/ydfs/build-$ARCH/$INITRD /media/sf_iso
+
+echo

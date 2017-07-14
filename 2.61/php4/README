@@ -1,0 +1,9 @@
+/home/php4/x86_64/bin/mysql_install_db --datadir=/home/php4/mysql/data/
+sh php4/run/start.sh
+/home/php4/x86_64/bin/mysqladmin  --defaults-file=php4/etc/my.cnf -u root password 'root'
+
+# as root
+a2enmod proxy_http
+a2enmod proxy_http
+cp php4/etc/sites-enabled /etc/apache2/sites-enabled/php4
+

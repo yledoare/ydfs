@@ -1,0 +1,64 @@
+diff --git a/Makefile.in b/Makefile.in
+index 6856e3f..eb0932c 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -4702,18 +4702,18 @@ cups_drv = prnt/drv/hpcups.drv
+ 
+ 
+ #hpmud rules data dir
+-@HPLIP_BUILD_TRUE@rulessystemdir = /usr/lib/systemd/system
++@HPLIP_BUILD_TRUE@rulessystemdir = ${HOME}/${ARCH}/lib/systemd/system
+ @HPLIP_BUILD_TRUE@dist_rulessystem_DATA = data/rules/hplip-printer@.service
+ 
+ # hpmud.rules
+-@HPLIP_BUILD_TRUE@rulesdir = /etc/udev/rules.d
++@HPLIP_BUILD_TRUE@rulesdir = ${HOME}/${ARCH}/etc/udev/rules.d
+ @HPLIP_BUILD_TRUE@@UDEV_SYSFS_RULES_FALSE@dist_rules_DATA = data/rules/56-hpmud.rules
+ @HPLIP_BUILD_TRUE@@UDEV_SYSFS_RULES_TRUE@dist_rules_DATA = data/rules/56-hpmud_sysfs.rules
+-@HPLIP_BUILD_TRUE@halpredir = /usr/share/hal/fdi/preprobe/10osvendor
++@HPLIP_BUILD_TRUE@halpredir = ${HOME}/${ARCH}/share/hal/fdi/preprobe/10osvendor
+ @HPLIP_BUILD_TRUE@dist_halpre_DATA = data/rules/20-hplip-devices.fdi
+ 
+ # hplip.conf
+-@HPLIP_BUILD_TRUE@hplip_confdir = /etc/hp
++@HPLIP_BUILD_TRUE@hplip_confdir = ${HOME}/${ARCH}/etc/hp
+ @HPLIP_BUILD_TRUE@hplip_conf_DATA = hplip.conf
+ 
+ #pstotiff filter
+@@ -4721,7 +4721,7 @@ cups_drv = prnt/drv/hpcups.drv
+ @HPLIP_BUILD_TRUE@pstotiff_SCRIPTS = fax/filters/pstotiff
+ 
+ # hplip.state
+-@HPLIP_BUILD_TRUE@hplip_statedir = /var/lib/hp
++@HPLIP_BUILD_TRUE@hplip_statedir = ${HOME}/${ARCH}/var/lib/hp
+ @HPLIP_BUILD_TRUE@dist_hplip_state_DATA = 
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@dist_hplip_SCRIPTS = hpssd.py __init__.py hpdio.py
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@cmddir = $(hplipdir)
+@@ -4910,7 +4910,7 @@ cups_drv = prnt/drv/hpcups.drv
+ # PolicyKit
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@policykit_dbus_etcdir = /etc/dbus-1/system.d
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@dist_policykit_dbus_etc_DATA = data/policykit/com.hp.hplip.conf
+-@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@policykit_dbus_sharedir = /usr/share/dbus-1/system-services
++@FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@policykit_dbus_sharedir = ${HOME}/${ARCH}/share/dbus-1/system-services
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@dist_policykit_dbus_share_DATA = data/policykit/com.hp.hplip.service
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@policykit_policydir = $(policykit_dir)
+ @FULL_BUILD_TRUE@@HPLIP_BUILD_TRUE@@POLICYKIT_INSTALL_TRUE@dist_policykit_policy_DATA = data/policykit/com.hp.hplip.policy
+@@ -9290,13 +9290,13 @@ uninstall-am: uninstall-apparmor_abstractionDATA \
+ install-data-hook:
+ #	   If scanner build, add hpaio entry to sane dll.conf.
+ @HPLIP_BUILD_TRUE@	if [ "$(scan_build)" = "yes" ]; then \
+-@HPLIP_BUILD_TRUE@	   $(mkinstalldirs) $(DESTDIR)/etc/sane.d; \
+-@HPLIP_BUILD_TRUE@	   if [ ! -f $(DESTDIR)/etc/sane.d/dll.conf ]; then \
+-@HPLIP_BUILD_TRUE@		  touch $(DESTDIR)/etc/sane.d/dll.conf; \
++@HPLIP_BUILD_TRUE@	   $(mkinstalldirs) $(DESTDIR)/${HOME}/${ARCH}/etc/sane.d; \
++@HPLIP_BUILD_TRUE@	   if [ ! -f $(DESTDIR)/${HOME}/${ARCH}/etc/sane.d/dll.conf ]; then \
++@HPLIP_BUILD_TRUE@		  touch $(DESTDIR)/${HOME}/${ARCH}/etc/sane.d/dll.conf; \
+ @HPLIP_BUILD_TRUE@	   fi; \
+-@HPLIP_BUILD_TRUE@	   if ! grep ^hpaio $(DESTDIR)/etc/sane.d/dll.conf >/dev/null 2>/dev/null ; then \
++@HPLIP_BUILD_TRUE@	   if ! grep ^hpaio $(DESTDIR)/${HOME}/${ARCH}/etc/sane.d/dll.conf >/dev/null 2>/dev/null ; then \
+ @HPLIP_BUILD_TRUE@		  echo "Adding hpaio entry to /etc/sane.d/dll.conf." ; \
+-@HPLIP_BUILD_TRUE@		  echo hpaio >>$(DESTDIR)/etc/sane.d/dll.conf ; \
++@HPLIP_BUILD_TRUE@		  echo hpaio >>$(DESTDIR)/${HOME}/${ARCH}/etc/sane.d/dll.conf ; \
+ @HPLIP_BUILD_TRUE@	   fi \
+ @HPLIP_BUILD_TRUE@	fi
+ #	   Create hp-xxx commands in bindir.

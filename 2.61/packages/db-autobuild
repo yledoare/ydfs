@@ -1,0 +1,1333 @@
+#!/bin/bash
+
+MYPWD=`pwd`
+#basename extrait le dernier répertoire sans les sous répertoires ou les suffixes de noms de fichiers
+MYDIR=`basename $MYPWD`
+#$MYDIR est donc le répertoire courant sans le chemin complet,en fait ici c'est le répertoire du package qu'on essaie de compiler
+#MYSHORTDIR=version raccourcie de $MYDIR:sert à avoir le nom sans les N° de version,est-ce bien cela?
+MYSHORTDIR=`echo $MYDIR | cut -d'-' -f1`
+DIALOG=Xdialog
+[ "$DISPLAY" = "" ] && DIALOG=dialog
+echo -n "Package source : $MYDIR " 
+[ -d $HOME/ydfs/packages-$ARCH/$MYDIR ] && [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
+[ "$FORCEBUILD" != "OK" ] && [ -d $HOME/ydfs/packages-$ARCH/$MYDIR ] && [ ! -e build-twice ] && [ ! -e $HOME/ydfs/build-$MODULE/$MYDIR/build-twice ] && echo -n "built OK ($HOME/ydfs/packages-$ARCH/$MYDIR)" && exit 0
+
+SHORTNAME=$(basename $MYPWD | cut -d'-' -f1)
+
+echo $MYPWD | grep lightdm-gtk-greeter && SHORTNAME=lightdm-gtk-greeter
+echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
+echo $MYPWD | grep file && SHORTNAME=file-
+echo $MYPWD | grep gc- && SHORTNAME=gc-
+echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
+
+[ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
+
+[ "$FORCEBUILD" != "OK" ] && [ -e buildok-$ARCH ] && echo -n "built OK ($PWD)" && exit 0
+MYBUILDSCRIPT=""
+
+function ydfs-install-package () {
+    #met à jour les dates d'accès et de modification
+    touch $HOME/.ydfs-error
+    echo "$HOME/ydfs/packages-$ARCH/$MYDIR not found, installing ..."
+    find $PREFIX -newer $HOME/ydfs/tmp/.$MYDIR.ydfs-start-build | while read FILE
+    do
+      #si_$FILE_est_un_repertoire_alors_on_le_créé
+      [ -d "$FILE" ] && install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && continue
+      #si_$FILE_est_un_fichier_alors_on_le_copie
+      if [ -f "$FILE" ] 
+      then
+        [ ! -e $HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE` ] && install -d $HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`
+        cp $FILE $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
+        [ -e $HOME/.ydfs-error ] && rm $HOME/.ydfs-error
+      fi
+      #si_$FILE_est_un_lien_symbolique_alors
+      [ -h "$FILE" ] && cp -a $FILE $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && echo "link $FILE " && continue
+      [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE ] && continue
+      echo "What is $FILE ?? "
+      rm buildok-$ARCH 
+      exit 24
+    done
+    [ -e $HOME/.ydfs-error ] && echo "No file for $MYDIR ???" && exit 25
+  cd $HOME/ydfs/packages-$ARCH/$MYDIR
+echo "DEBUG MODULE is $MODULE"
+  if [ "$MODULE" = "opkg" ]
+  then
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+}
+
+touch $HOME/ydfs/tmp/.$MYDIR.ydfs-start-build && sleep 1 # yes, some packages (re)built in less than one second !
+
+if [ "$ARCH" = "" ]
+then
+  BUILD_DIR=$HOME/ydfs/build/$MYDIR
+else
+  # BUILD_DIR=$HOME/ydfs/build-$ARCH/$MYDIR
+  BUILD_DIR=$HOME/ydfs/build-$MODULE/$MYDIR
+fi
+
+export MSGFMT="/usr/bin/msgfmt"
+if [ "$CROSS_COMPILE" = "" ] && [ -e "$HOME/$ARCH/bin/msgfmt" ] 
+then
+  export MSGFMT="$HOME/$ARCH/bin/msgfmt"
+fi
+
+# Environement variables
+
+export SDLDIR=$HOME/$ARCH
+[ -e $DIBAB_PREFIX/$ARCH/bin/perl ] && export PERL=$DIBAB_PREFIX/$ARCH/bin/perl
+[ -e /usr/bin/pkg-config ] && export PKG_CONFIG=/usr/bin/pkg-config
+[ -e $DIBAB_PREFIX/$ARCH/bin/pkg-config ] && [ "$ARCH" != "arm" ] && export PKG_CONFIG=$DIBAB_PREFIX/$ARCH/bin/pkg-config
+[ "$ARCH" = "arm" ] && export  XGETTEXT=/usr/bin/xgettext
+[ -e $DIBAB_PREFIX/$ARCH/bin/python ] && [ "$ARCH" != "arm" ] && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python
+export SFML_CFLAGS="-I$DIBAB_PREFIX/$ARCH/include"
+[ -e $PREFIX/bin/groff ] && export GROFF=$PREFIX/bin/groff
+
+[ ! -n "$MYSHORTDIR" ] && exit 0
+if [ -n "$MYBUILDSCRIPT" ] 
+then
+  sh $MYBUILDSCRIPT
+else
+  if [ -n "$1" ] 
+  then
+    PREFIX=$1
+    [ -n "$FORCE_PREFIX" ] && PREFIX=$FORCE_PREFIX
+    pkgdir=$PREFIX
+    echo "CC : $CC, PREFIX : $PREFIX"
+    [ -n "$FORCE_PREFIX" ] && sleep 10
+  else
+    echo "PREFIX MUST BE SET"
+    exit 1
+  fi
+
+  [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
+  [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
+  [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
+  if [ -e $HOME/.archpatches ]
+  then
+	pwd
+	git init
+	git add *
+	cat $HOME/.archpatches
+        sleep 2
+	for URL in `cat $HOME/.archpatches`
+	do
+	  echo $URL
+	  wget $URL --no-check-certificate -O patch
+	  patch -Nfp0 -i patch || patch -Nfp1 -i patch # || exit 3
+	  sleep 3
+	  rm patch
+	done
+   rm $HOME/.archpatches
+  fi
+  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e ydfs-patched ]
+  then
+    patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
+    [ ! -e ydfs-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
+    [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
+  fi
+  
+  MAMESRC="src/mame/mame.cpp"
+  MAMESRC="src/mame/mame.c"
+  [ -e $MAMESRC ] && cp makefile Makefile && echo "Mame : Step 1"
+  [ -e $MAMESRC ] && [ $ARCH = x86 ] && MAMETARGET=linux_x86  && echo "Mame : Step 2"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 3"
+  [ -e $MAMESRC ] && cd 3rdparty/genie && CFLAGS="" CXXFLAGS="" CPPFLAGS="" ARCH="" make && cd ../.. && echo "Mame : Step 4"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ -I/$PWD/3rdparty/lua/src/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    USE_QTDEBUG=0 VERBOSE=1 \
+    -j1 # Will fail
+  [ -e $MAMESRC ] && CPPFLAGS="" CXXFLAGS="" ARCH="" CFLAGS="" make $MAMETARGET && echo "Mame : Step 5"
+  [ -e $MAMESRC ] && ARCH="" CFLAGS="-I/$PWD/3rdparty/lua/src/ $CFLAGS" CXXFLAGS="-I$PWD/src/lib/util -I/$PWD/3rdparty/libjpeg/ $CXXFLAGS" LDFLAGS="" LD_LIBRARY_PATH="" ACLOCAL_FLAGS="" PYTHON="" make $MAMETARGET NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    USE_QTDEBUG=0 VERBOSE=1 \
+    -j1  && echo "Mame : Step 6"
+. $(dirname $0)/../scripts/includes/mame
+
+. $(dirname $0)/../scripts/includes/virtualbox
+. $(dirname $0)/../scripts/includes/mozilla
+. $(dirname $0)/../scripts/includes/gmic
+
+  if [ -e fuse.pc.in ] 
+  then
+     sh makeconf.sh
+     export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
+  fi
+
+  [ -e libexfat ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --install
+  [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  [ -e SDL_Pango.pc.in ] && [ -e configure ] && rm configure && echo " Forced remake configure " && sleep 5 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+
+  if [ -e DISABLE/generic/include/clc/clc.h ]
+  then
+  [ ! -e $HOME/ydfs/llvm-clang/bin/llvm-config ] && echo "Build llvm-clang" && $HOME_DIBAB/scripts/build-llvm-clang
+  echo "Build custom clc"
+  # sed -i 's/"python < $in >/sys.executable + " < $in >/g' configure.py
+  python2 ./configure.py --prefix=$PREFIX --with-llvm-config=$HOME/ydfs/llvm-clang/bin/llvm-config
+#  sed -i 's|/usr/lib/llvm-3.4|/usr|' Makefile
+  fi
+
+. $(dirname $0)/../scripts/includes/login
+
+
+  if [ -e src/SFML ] && [ -e $PREFIX/include/SFML ]
+  then
+	echo "Move $PREFIX/include/SFML into $PREFIX/include/SFML-1"
+	mv $PREFIX/include/SFML $PREFIX/include/SFML-1
+  fi
+
+  if [ -e doc/examples/etc/init.d/atieventsd.sh ]
+  then
+    DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst.sh || exit $?
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+    exit 0
+  fi
+
+  if [ -e sipdistutils.py ]
+  then
+	python configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
+	make || exit $?
+	make install -C sipgen
+	make install -C siplib
+  	install -Dm644 sipconfig.py "$pkgdir"/lib/python2.7/site-packages/sipconfig.py
+  	install -Dm644 sipdistutils.py "$pkgdir"/lib/python2.7/site-packages/sipdistutils.py
+    touch buildok-$ARCH
+    exit 0
+  fi
+
+  if [ -e dssi-vst_gui.cpp ]
+  then
+	echo "dssi-vst_gui.cpp" # && sleep 5
+  	# [x86_64] use /usr/lib32/dssi
+  	#if [[ $CARCH = x86_64 ]]; then
+    	#sed -i '/\/dssi-vst/s|DSSIDIR|&32|' Makefile
+    	#sed -i '/DSSI_PATH/s|\(/usr/lib\)\(/dssi\)|&:\132\2|' remotevstclient.cpp
+  	#fi
+  fi
+
+  [ -e $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
+
+  if [ -e qtbase/configure ]
+  then
+	echo "Fix for QT5" #&& sleep 3
+    	#sed -i "s@/usr/local@$PREFIX@" qtbase/configure
+    	#sed -i "s@/usr/local@$PREFIX@" qtbase/mkspecs/features/*
+  fi
+
+  if [ -e pyqtconfig.py.in ]
+  then
+	ln -sf $PREFIX/include/phonon $PREFIX/include/qt4/phonon || exit 1
+	python configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
+	make install || exit $?
+	make -C pyrcc install || exit $?
+	make -C pylupdate install || exit $?
+    touch buildok-$ARCH
+    exit 0
+  fi
+
+  if [ -e dssi/dssi.h ] # && [ ! -e $HOME/$ARCH/include/ladspa.h ]
+  then
+    #cd $HOME/ydfs/src
+    cp -fR $HOME_DIBAB/ladspa_sdk .
+    cd ladspa_sdk/src
+    mkdir ../plugins
+    mkdir ../bin
+    ARCH="$ARCH" make
+    cd ../..
+  fi
+
+  if [ -e  Scratch.image ]
+  then
+        pkgname=scratch
+	install -d /usr/lib/$pkgname
+	echo "Install  Scratch"
+        sed -i 's/-xshm //' src/$pkgname
+        make build || exit $?
+  install -Dm755 src/$pkgname $PREFIX/bin/$pkgname || exit $?
+  install -Dm644 Scratch.image $PREFIX/lib/$pkgname/Scratch.image
+  install -m644 Scratch.ini $PREFIX/lib/$pkgname/Scratch.ini
+  install -Dm644 src/$pkgname.desktop $PREFIX/share/applications/$pkgname.desktop || exit $?
+  install -Dm644 src/$pkgname.xml PREFIX/share/mime/packages/$pkgname.xml
+  install -dm755 $PREFIX/share/{$pkgname,icons/hicolor}
+
+  cp -rp Help locale Media Projects README $PREFIX/share/$pkgname/
+  cp -rp Plugins $PREFIX/lib/$pkgname/
+
+  for res in 32 48 128; do
+    install -D -m644 src/icons/${res}x${res}/$pkgname.png \
+      $PREFIX/share/icons/hicolor/${res}x${res}/apps/$pkgname.png
+  done
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+
+  [ -e scripts/onto2cpp.py ] &&  sed -i 's|/usr/bin/env python|/usr/bin/env python2|'  scripts/onto2cpp.py && echo "scripts/onto2cpp.py patched" && sleep 3
+  if [ -e source/x265cli.h ]
+  then
+    cd build/linux
+    CXXFLAGS="-I$PWD./../../source/common $CXXFLAGS" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/$PREFIX ../../source
+    fi
+  if [ -e syslinux.spec ]
+  then
+	LDFLAGS="" make
+	exit 10
+  fi
+
+. $(dirname $0)/../scripts/includes/pam
+
+  if [ -e exfat ]
+  then
+    cd exfat
+    autoreconf --install
+  fi
+
+  if [ -e mozilla/nsprpub/ ]
+  then
+    cd mozilla/nsprpub/
+  fi
+  if [ -e generic/tclStubInit.c ]
+  then
+     pwd && sleep 10
+     cd unix
+  fi
+
+  if [ -e source/Irrlicht ]
+  then
+  	cp $HOME/$ARCH/include/GL/glext.h source/Irrlicht/glext.h
+  	cp $HOME/$ARCH/include/GL/glxext.h source/Irrlicht/glxext.h
+  	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
+	cd source/Irrlicht
+	make NDEBUG=1 sharedlib	 || exit 2
+	make install || exit 3
+  	cd ../../
+	touch buildok-$ARCH
+  	exit 0
+  fi
+
+. $(dirname $0)/../scripts/includes/os-prober
+. $(dirname $0)/../scripts/includes/libreoffice
+
+  if [ -e makefile.linux_amd64_asm ]
+  then
+    cp makefile.linux_amd64_asm makefile.machine
+    [ "$ARCH" = "x86" ] && cp makefile.linux_x86_asm_gcc_4.X makefile.machine
+    make all3 OPTFLAGS="$CFLAGS"
+    sed -i "s@/usr/local@$PREFIX@" makefile
+    make install || exit $?
+    touch buildok-$ARCH
+    exit 0
+  fi
+
+  # inetutils
+  [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
+
+  # Fix kimsufi bug
+  # [ -e src/mp4atom.cpp ] && echo "Run /configure --prefix=$PREFIX" && sleep 5
+  # [ -e src/mp4atom.cpp ] && CPPFLAGS="" CXXFLAGS="-O2" ./configure --prefix=$PREFIX && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O0/-O2/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && sed -i "s/-O2/-O0/g" GNUmakefile && make
+  # [ -e src/mp4atom.cpp ] && make
+
+  [ -e source/icudefs.mk.in ] && cd source
+  [ -e Imakefile ] && [ ! -e Makefile ]  && [ ! -e configure ] && [ ! -e autogen.sh ] && xmkmf -a
+  [ -e gtk-sharp.snk ] &&  ./bootstrap-2.12 --prefix=$PREFIX --sysconfdir=/$PREFIX/etc --disable-static
+
+  [ -e xmoto.6 ] && ./bootstrap
+
+  if [ -e autogen.sh ] && [ ! -e configure ] 
+  then
+    pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+    echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
+    sh autogen.sh  || exit 3
+    make distclean && sleep 5
+  fi
+
+  if [ -e zip30.ann ]
+  then
+    sh unix/configure 
+    make -f unix/Makefile generic
+    install -d $PREFIX/bin
+    cp zip $PREFIX/bin
+    touch buildok-$ARCH
+  fi
+  if [ -e Makefile.PL ] && [ ! -e Makefile ] && [ ! -e configure ] # CPAN
+  then
+	perl Makefile.PL PREFIX=$PREFIX
+	make || exit $?
+	make install || exit $?
+        touch buildok-$ARCH
+  fi
+  if [ -e songs/Rondino-Rameau.mid ]
+  then
+	 autoconf -f
+  fi
+
+  if [ -e unique.pc.in ] 
+  then
+         ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  fi
+
+  if [ -e calf.desktop.in ] 
+  then
+	 rm autogen.sh
+	 rm configure
+	 echo "Force automake" && pwd && sleep 2
+         ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  fi
+  if [ -e rtmidi-config.in ] # || [ -e src/age/include/ ]
+  then
+	 echo "Force automake" && pwd && sleep 2
+	 libtoolize --force
+	 aclocal
+	 autoheader
+	 automake --force-missing --add-missing
+	 autoconf
+  fi
+
+if [ -e readline.c ]
+then
+	echo "FIX readline build" && sleep 5
+	CFLAGS="$CFLAGS -fPIC" ./configure --prefix=$PREFIX
+	  make SHLIB_LIBS=-lncursesw || exit $?
+	  make SHLIB_LIBS=-lncursesw install || exit $?
+    touch buildok-$ARCH
+		exit 0
+fi
+
+  if [ -e unix/npsqueak ]
+  then
+	install -d $HOME/opkg/lib/squeak
+	[ ! -e Squeak4.6-13700.zip ] && wget http://ftp.squeak.org/4.6alpha/Squeak4.6-13700.zip && unzip -d $HOME/opkg/lib/squeak Squeak4.6-13700.zip 
+	./unix/cmake/configure --prefix=$PREFIX --without-quartz --with-x --enable-mpg-mmx
+  fi
+
+  [ -e crypto/bio/bio.h ] && install -d include/openssl
+  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX linux-elf shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX linux-x86_64 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
+  
+  if [ -e DISABLE/src/mesa ] && [ "$ARCH" != "arm" ]
+  then
+    ./configure --prefix=$DIBAB_PREFIX/$MODULE \
+    --with-dri-driverdir=$DIBAB_PREFIX/$MODULE/lib/dri \
+    --with-dri-drivers=unichrome,i810,mach64,mga,r128,savage,sis,tdfx \
+    --with-gallium-drivers= \
+    --disable-gallium-llvm \
+    --enable-glx-tls \
+    --with-driver=dri \
+    --enable-xcb \
+    --disable-glut \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-egl \
+    --enable-texture-float \
+    --disable-shared-dricore
+    make 
+    make -C src/mesa/drivers/dri/unichrome install || exit 45
+    make -C src/mesa/drivers/dri/i810 install || exit 45
+    make -C src/mesa/drivers/dri/mach64 install || exit 45
+    make -C src/mesa/drivers/dri/mga install || exit 45
+    make -C src/mesa/drivers/dri/r128 install || exit 45
+    make -C src/mesa/drivers/dri/savage install || exit 45
+    make -C src/mesa/drivers/dri/sis install || exit 45
+    make -C src/mesa/drivers/dri/tdfx install || exit 45
+    touch buildok-$ARCH 
+    exit 0
+  fi
+  if [ -n "`basename $PWD | grep xorg-server`" ]
+  then
+    cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
+    export CPPFLAGS=" -I""$PWD""/include $CFLAGS"
+    if [ ! -e Mesa ] && [ "$ARCH" != "arm" ]
+    then
+    MESA=10.4.7 && MESALIB=MesaLib
+    MESA=10.5.4 && MESALIB=mesa
+    MESA=10.6.5 && MESALIB=mesa
+    # [ "$ARCH" = "x86_64" ] && MESA=11.0.8 && MESALIB=mesa
+    [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME/ydfs/tarballs ftp://ftp.freedesktop.org/pub/mesa/older-versions/10.x/$MESA/$MESALIB-$MESA.tar.xz 
+    [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
+    tar xJvf $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz || exit $?
+    mv Mesa-$MESA Mesa || mv mesa-$MESA Mesa
+    fi
+    echo "look $PREFIX/lib/libGL.so" # && sleep 20
+    if [ ! -e $PREFIX/lib/libGL.so ] && [ "$ARCH" != "arm" ]
+    then
+    cd Mesa
+    BUILDOPT=""
+    [ "$ARCH" = "x86" ] && BUILDOPT=" --host=i586-linux-gnu "
+    sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
+    ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+./configure $BUILDOPT --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
+   --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
+    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
+    --with-egl-platforms=x11,drm \
+    --enable-llvm-shared-libs \
+    --enable-egl \
+    --enable-gbm \
+    --enable-gallium-llvm \
+    --enable-shared-glapi \
+    --enable-glx \
+    --enable-glx-tls \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-texture-float \
+    --enable-xa \
+    --enable-vdpau \
+    --enable-omx \
+    --enable-nine \
+    --enable-opencl --enable-opencl-icd || exit 5
+    # --with-clang-libdir=$HOME/ydfs/llvm-clang/lib/ || exit 5
+    make || exit 6
+    make install || exit 7
+    cd ..
+    fi
+    # cvs -z3 -d:pserver:anonymous@anoncvs.freedesktop.org:/cvs/mesa co Mesa
+  fi
+  for XORG_TOOLS in x11-apps x11-xkb-utils x11-xserver-utils x11-utils
+  do
+    basename $PWD | grep $XORG_TOOLS || continue
+    echo "Building into $PWD" && sleep 1
+    for APP in `ls`
+    do
+      cd $APP || continue
+      echo $APP | grep sessreg && cd .. && continue
+      echo $APP | grep xedit && cd .. && continue
+      echo $APP | grep luit && cd .. && continue
+      echo $APP | grep xgc && cd .. && continue
+      echo $APP | grep xman && cd .. && continue
+      echo $APP | grep xload && cd .. && continue
+      echo $APP | grep debian && cd .. && continue
+      echo $APP | grep xmore && cd .. && continue
+      echo $APP | grep xcursorgen && cd .. && continue
+      # PNG15 fix
+      if [ -n "`echo $APP | grep xcursorgen`" ]
+      then
+        cd ..
+        rm -fR xcursorgen 
+        git clone git://anongit.freedesktop.org/xorg/app/xcursorgen || exit 8
+        cd xcursorgen 
+        db-autobuild $PREFIX 
+        touch ../buildok-$ARCH 
+        cd .. && continue
+      fi
+      echo "$PWD : db-autobuild $PREFIX"
+      db-autobuild $PREFIX || exit 9
+      cd ..
+    done
+    touch buildok-$ARCH
+    exit 0
+  done
+  SOURCEDIR=$PWD
+  [ -e data/lxinput.desktop.in ] && [ ! -e lxinput.desktop.in ] && cp data/lxinput.desktop.in lxinput.desktop.in
+  [ -e build/generic ] && cd build/generic && BUILD_DIR=$SOURCEDIR/build/generic && SOURCEDIR=$SOURCEDIR/build/generic && echo "Xvidcore detected" && sleep 2 # xvidcore
+  [ "$BUILDME" = "OK" ] && echo "Build yourself" && bash # xterm 
+  if [ -e runToBuild ] 
+  then
+	  sh runToBuild || exit $?
+  fi
+  
+  if [ -e wpa_supplicant ]
+  then
+     cd wpa_supplicant 
+     cp $HOME_DIBAB/config/wpa_supplicant .config
+     BINDIR=$PREFIX/bin LIBDIR=$PREFIX/lib:$PREFIX/lib64 LDFLAGS="-L$HOME/$ARCH/lib64 -L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" make 
+     BINDIR=$PREFIX/bin LIBDIR=$PREFIX/lib:$PREFIX/lib64 LDFLAGS="-L$HOME/$ARCH/lib64 -L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" make install || exit $?
+     cp dbus/fi.*.service $PREFIX/share/dbus-1/system-services/
+     cp dbus/dbus-wpa_supplicant.conf $PREFIX/etc/dbus-1/system.d/wpa_supplicant.conf
+     ydfs-install-package
+     touch buildok-$ARCH
+     exit 0
+  fi
+
+  if [ -e hedgewars ]
+  then
+      export PATH=$HOME/fpc-2.6.4/bin:$PATH
+      if [ ! -e $HOME/fpc-2.6.4/bin/fpc ]
+      then
+	cd $HOME
+	FILE=fpc-2.6.4.x86_64
+	[ "$ARCH" = "x86" ] && FILE=fpc-2.6.4.i386
+        TAR=$FILE-linux.tar
+	[ ! -e "$TAR" ] && wget http://heanet.dl.sourceforge.net/project/freepascal/Linux/2.6.4/"$TAR"
+	[ ! -e $FILE-linux ] && tar xvf $TAR
+	cd $FILE-linux
+	sh install.sh
+	cd $HOME/ydfs/src/$MYDIR
+      fi
+      [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
+      install -d $PREFIX/share/applications/
+      # install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
+      install -d $PREFIX/share/pixmaps/
+      # wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/hedgewars.png?h=packages/hedgewars
+      # mv hedgewars.png?h=packages%2Fhedgewars $PREFIX/share/pixmaps/hedgewars.png || exit 1
+  fi
+  [ -e ./bootstrap ] && [ -e libfaad ] && [ ! -e configure ] && autoreconf --force --install
+    if [ -e CMakeLists.txt ] && [ -e Scribus.pro ] 
+    then
+    install -d $PREFIX/share/pixmaps
+    install -d $PREFIX/share/applications
+    sed 's|Icon=scribus|Icon=scribus.png|' -i scribus.desktop || exit $?
+    cp resources/icons/scribus.png $PREFIX/share/pixmaps || exit $?
+    cp scribus.desktop $PREFIX/share/applications
+	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
+        VERBOSE=1 make || exit $?
+        make install || exit $?
+        ydfs-install-package
+        touch buildok-$ARCH
+       	exit 0
+    fi 
+
+    if [ -e include/lame.def ]
+    then
+	case $(uname -m) in
+ 	  i?86) sed -i -e '/xmmintrin\.h/d' configure ;;
+	esac
+    fi
+
+
+    if [ -e pm_linux/pmlinux.c ]
+    then
+	cp $HOME/$ARCH/bin/../jre/lib/amd64/jli/libjli.so $HOME/$ARCH/lib
+	cp $HOME/$ARCH/bin/../jre/lib/i386/jli/libjli.so $HOME/$ARCH/lib
+	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
+	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
+	install -d pm_java/Release
+        install -d build/pm_java/ 
+	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
+	echo PORTMIDI
+    fi
+ 
+if [ -e sssource/glest_game ]
+then
+  [ ! -e megaglest-standalone-data-3.12.0.tar.xz ] && wget https://github.com/MegaGlest/megaglest-data/releases/download/3.12.0/megaglest-standalone-data-3.12.0.tar.xz
+	if [ ! -e data ] 
+	then
+		tar xJvf megaglest-standalone-data-3.12.0.tar.xz 
+	fi
+	mkdir build
+	cd build
+      export SDL2DIR=$HOME/$ARCH
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="-lX11" \
+    -DWANT_GIT_STAMP=0 $CMAKEOPTIONS
+  make VERBOSE=1
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+	echo source/glest_game
+	sleep 5
+	exit 1
+fi
+    [ -e glew.pc.in ] && sed -i 's|lib64|lib|' config/Makefile.linux
+
+    # Do not build with cmake
+
+    if [ -e CMakeLists.txt ] \
+ && [ ! -e raptor2.pc.in ] \
+ && [ ! -e src/gd.h ] \
+ && [ ! -e zlib.pc.in ] \
+ && [ ! -e sdl2.pc.in ] \
+ && [ ! -e include/AL/alut.h ] \
+ && [ ! -e glew.pc.in ] \
+ && [ ! -e include/freetype/freetype.h ] \
+ && [ ! -e midori ] \
+ && [ ! -e libarchive ] \
+ && [ ! -e src/vegastrike.h ] \
+ && [ ! -e fltk-config.in ] \
+ && [ ! -e doc/pcre.3 ] \
+ && [ ! -e portaudio-2.0.pc.in ] \
+ && [ ! -e libpng.3 ] \
+ && [ ! -e poppler-glib.pc.in ] \
+ && [ ! -e curl-config.in ] \
+ && [ ! -e libapr.dsp ] \
+ && [ ! -e libaprutil.dsp ] \
+ && [ ! -e libhttpd.dsp ] \
+ && [ ! -e include/enet/enet.h ] \
+ && [ ! -e gc_cpp.cc ]
+    then
+      [ -e CMakeCache.txt ] && rm CMakeCache.txt 
+      export SDL2DIR=$HOME/$ARCH
+      install -d build
+      cd build
+CMAKEOPTIONS="--debug-output -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
+      pwd | grep spring_98  && CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS"
+	pwd | grep mysql-5 && CXXFLAGS="$CXXFLAGS -L$HOME/$ARCH/lib/ -lssl"
+	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
+	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS, CXXFLAGS=$CXXFLAGS"
+	cmake $CMAKEOPTIONS .. || exit 12
+	if [ -e ../include/mbedtls/ssl.h ]
+	then
+		cd ../
+		sed -i 's|//\(#define MBEDTLS_THREADING_C\)|\1|' include/mbedtls/config.h
+		sed -i 's|//\(#define MBEDTLS_THREADING_PTHREAD\)|\1|' include/mbedtls/config.h
+  		sed -i 's|<time.h>|"platform.h"|' include/mbedtls/ssl.h
+		cd build
+	 make SHARED=1 || exit 13
+	else
+	  VERBOSE=1 make || exit 13
+	fi
+      if [ -e ../build/AstroMenace ]
+      then
+	cd ..
+	./build/AstroMenace --pack --rawdata=./RAW_VFS_DATA --dir=build
+	 install -Dm755 build/AstroMenace $pkgdir/bin/astromenace || exit $?
+         install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit $?
+	 install -d $pkgdir/share/applications
+	 echo "[Desktop Entry]
+Encoding=UTF-8
+Name=Astromenace
+Comment=Space shooter
+Exec=astromenace --dir=$PREFIX/share/astromenace
+Icon=astromenace.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromenace.desktop
+	 install -d $pkgdir/share/pixmaps
+         wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/astromenace.png?h=packages/astromenace -O $pkgdir/share/pixmaps/astromenace.png
+         touch buildok-$ARCH
+	 exit 0
+      fi
+    fi
+  [ -e gnu/stdio.in.h ] && sed -i -e '/gets is a/d' gnu/stdio.in.h
+  if [ -e libgcc/libgcov-driver.c ]
+  then
+	install -d host-$ARCH-unknown-linux-gnu/zlib
+	echo libgcc/libgcov-driver.c
+	ls $HOME/opkg/lib| while read file
+	do
+		ln -s $file host-$ARCH-unknown-linux-gnu/zlib
+	done
+  fi
+      #if [ -e data/apps.lutris.gschema.xml ]
+      if [ -e share/lutris/ui ]
+      then
+	echo "Lutris"
+	python2 setup.py install --optimize='1'
+         touch buildok-$ARCH
+	exit 0
+	# cp -fR data $PREFIX
+      fi
+
+  if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
+  then
+    [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
+    for SKIP_DIR in xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c -e ghostscript.vcproj debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    do
+      [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
+    done
+    [ "$MODULE" != "$ARCH" ] && SKIP_DIR=""
+    MYPREFIX="--prefix=$PREFIX"
+    [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
+    [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
+    if [ "$SKIP_DIR" != "" ]
+    then
+      install -d $BUILD_DIR
+      cd $BUILD_DIR
+	echo "build into $BUILD_DIR"
+    else
+	echo "Skip $BUILD_DIR"
+    fi
+    [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
+    [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
+    [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CFLAGS"
+[ -e "torcs.desktop" ] && unset MODULE
+    [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
+echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
+echo "CFLAGS: $CFLAGS"
+echo "$PWD : Run $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS "
+    if [ "$ARCH" = "arm" ]
+    then
+	grep enable-malloc0returnsnull $SOURCEDIR/configure && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --enable-malloc0returnsnull=yes"
+      if [ -n "`echo $BUILD_DIR | grep glib-2.`" ]
+      then
+	export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=$CROSS_PREFIX --disable-modular-tests --disable-gtk-doc glib_cv_stack_grows=no glib_cv_stack_grows=no glib_cv_uscore=no ac_cv_func_posix_getgrgid_r=yes ac_cv_func_posix_getpwuid_r=yes
+ "
+      CXX=$CROSS_PREFIX-g++ CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS || exit
+      fi
+      if [ -n "`echo $BUILD_DIR | grep Python-2.7`" ]
+      then
+	echo "Special $CROSS_PREFIX build for $SOURCEDIR" && sleep 10
+	cd $SOURCEDIR
+	if [ ! -e hostpython ]
+	then
+	 CC=gcc CROSS_COMPILE="" CFLAGS="" LDFLAGS="" ./configure || exit
+	  make python Parser/pgen || exit
+	  mv python hostpython
+	  mv Parser/pgen Parser/hostpgen
+	  make distclean || exit
+ 	  patch -p1 < $HOME_DIBAB/packages/patches/Python-2.7.3-xcompile.patch || exit	
+	fi
+	echo 'ac_cv_file__dev_ptmx=no
+ac_cv_file__dev_ptc=no' >  config.site
+        [ ! -e Makefile ] && CONFIG_SITE=config.site CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib $SOURCEDIR/configure $MYPREFIX --disable-ipv6 --host=arm-linux --build=x86_64-linux-gnu # --build=x86-linux-gnu
+	make HOSTARCH=arm-linux HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="$CROSS_PREFIX-gcc -shared" CROSS_COMPILE_TARGET=yes || exit
+	make HOSTARCH=arm-linux HOSTPYTHON=./hostpython HOSTPGEN=./Parser/hostpgen BLDSHARED="$CROSS_PREFIX-gcc -shared" CROSS_COMPILE_TARGET=yes install || exit
+	make distclean
+ 	patch -p1 -R < $HOME_DIBAB/packages/patches/Python-2.7.3-xcompile.patch || exit	
+      else
+	ls $SOURCEDIR | grep dbus-glib-0 && cd $SOURCEDIR && patch -p1 < $HOME_DIBAB/packages/patches/dbus-glib-0.92-arm.diff && cd $BUILD_DIR
+	[ -e $HOME/$SUBARCH/bin/glib-genmarshal ] && [ ! -e $HOME/$SUBARCH/bin/glib-genmarshal.cross ] && mv $HOME/$SUBARCH/bin/glib-genmarshal $HOME/$SUBARCH/bin/glib-genmarshal.cross && cp /usr/bin/glib-genmarshal $HOME/$SUBARCH/bin/glib-genmarshal
+        FCCACHE=/usr/bin/fc-cache UCS2ANY=/usr/bin/ucs2any MKFONTDIR=/usr/bin/mkfontdir MKFONTSCALE=/usr/bin/mkfontscale XCURSORGEN=/usr/bin/xcursorgen XGETTEXT=/usr/bin/xgettext XMLTO=/usr/bin/xmlto XSLTPROC=/usr/bin/xsltproc XMLLINT=/usr/bin/xmllint NM=nm ac_cv_have_abstract_sockets=yes ac_cv_func_malloc_0_nonnull=yes gio_can_sniff=yes  $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS
+      fi
+    else
+      $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS
+    fi
+    if [ $? != 0 ]
+    then 
+	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
+	then
+	  echo $SOURCEDIR $PWD
+	  exit 10
+        else
+ 	  exit 11
+	fi
+     fi
+  else
+    if [ -e locale/fr/LC_MESSAGES/arkanae3.mo ]
+    then
+      sed -i "s@/usr@$PREFIX@" setup.cfg
+    fi
+    if [ -e src/pyoggpage.c ]
+    then
+       sed -i "s@/usr/local@$PREFIX@" ./config_unix.py
+       python2 ./config_unix.py || exit $?
+       python2 setup.py install --prefix=$PREFIX || exit $?
+       touch buildok-$ARCH
+       exit 0
+    fi 
+    if [ -e setup.py ] 
+    then
+      echo "Run Python setup.py" 
+      python setup.py build || exit $?
+    fi
+    [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+    if [ -e QupZilla.pro ]
+    then
+      echo "Building QUPZILLA"
+      QUPZILLA_PREFIX=$PREFIX qmake || exit $?
+      QUPZILLA_PREFIX=$PREFIX make || exit $?
+      QUPZILLA_PREFIX=$PREFIX make install || exit $?
+      touch buildok-$ARCH
+      exit 0
+    fi
+    #test_Catchchallenger;mais s'il y a un autre jeu avec un sous rep datapack ça ne va pas marcher
+    if [ -e datapack ]
+    then
+      install -d $PREFIX/share
+      cp -fR datapack $PREFIX/share
+    fi
+    if [ -e server/catchchallenger-server-gui.pro ]
+      then
+      cd server/
+      #qmake catchchallenger-server-gui.pro || exit $?
+      #make || exit $?
+      cd ../client/single-player
+      qmake *.pro || exit $?
+      install -d $PREFIX/bin
+      cp catchchallenger-single-player $PREFIX/bin
+    fi
+. $(dirname $0)/../scripts/includes/linuxfr.org
+    #Kitsune_game
+    if [ -e kitsune.pro ]
+    then
+      pkgname=kitsune
+      qmake
+      lrelease kitsune.pro
+      make
+      install -d $PREFIX/bin
+      cp bin/kitsune $PREFIX/bin || exit $?
+      install -d $PREFIX/share/applications
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=$pkgname ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+      ydfs-install-package
+      touch buildok-$ARCH
+      exit 0
+    fi
+    if [ -e scripts/2H4U_win.cbp ]
+    then
+      pkgname=2H4U
+      install -d $PREFIX/bin
+echo "cd $HOME
+install -d .2H4U
+cd .2H4U
+ln -sf $PREFIX/share/data .
+ln -sf $PREFIX/bin/2H4U .
+./2H4U " > $PREFIX/bin/dbstart-"$pkgname"
+      chmod +x $PREFIX/bin/dbstart-"$pkgname"
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=dbstart-"$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+    fi
+  fi
+
+  if [ -e dist/configure ]
+  then
+    echo "Run ./dist/configure --prefix=$PREFIX $LC_CONFIGURE_OPTS"
+    ./dist/configure --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 14
+  fi
+  if [ -e GNUmakefile ] && [ -e midori ]
+  then
+    make ||exit $?
+    make install ||exit $?
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+    #ydfs-install-package
+    touch buildok-$ARCH
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+    exit 0
+  fi
+  if [ -e unzip.c ]
+  then
+    CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -DACORN_FTYPE_NFS \
+  -DWILD_STOP_AT_DIR -DLARGE_FILE_SUPPORT -DUNICODE_SUPPORT \
+  -DUNICODE_WCHAR -DUTF8_MAYBE_NATIVE -DNO_LCHMOD -DDATE_FORMAT=DF_YMD \
+  -DNATIVE" make -f unix/Makefile prefix=$PREFIX unzips || exit $?
+    make -f unix/Makefile prefix=$PREFIX install || exit $?
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e Source/WebKit2 ]
+  then
+    make all || exit $?
+    make install || exit $?
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e netsurf ]
+  then
+ make PREFIX=$HOME/$ARCH \
+    TARGET=gtk \
+    NETSURF_USE_VIDEO=NO || exit $?
+    PREFIX=$HOME/$ARCH make install || exit $?
+    DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR PREFIX=$HOME/$ARCH make install || exit $?
+    pkgname="netsurf"
+    install -d $PREFIX/share/pixmaps
+    wget http://ubuntu.allmyapps.com/data/n/e/netsurf-netsurf-web-browser/icon_48x48_netsurf.png
+    mv icon_48x48_netsurf.png $PREFIX/share/pixmaps/netsurf.png
+    install -d $PREFIX/share/applications
+    NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="netsurf" ICON=$pkgname.png CATEGORIES="Internet;" \
+    $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+    touch buildok-$ARCH
+    exit 0
+  fi
+  if [ -e ./configure.gnu ]
+  then
+    # install -d $BUILD_DIR
+    # cd $BUILD_DIR || exit $?
+	# FIXME : build perl outside source dir
+    echo "Run $SOURCEDIR/configure.gnu --prefix=$PREFIX"
+    # build miniperl on LinuxConsole
+	echo $PATH
+    $SOURCEDIR/configure.gnu --prefix=$PREFIX 
+    [ $? != 0 ] && exit 15
+  fi
+  if [ -e bin/frozen-bubble ]
+	then
+	  perl Build.PL||exit $?
+	  perl Build install destdir=$HOME/frozen-bubble ||exit $?
+	  install -d $PREFIX/bin
+	  install -d $PREFIX/lib
+          install -d $PREFIX/share/applications
+          install -d $PREFIX/share/pixmaps
+	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
+	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib
+	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+  	  FBBIN=$HOME/frozen-bubble/$HOME/$ARCH/bin/
+	  FBLIB=$HOME/frozen-bubble/$HOME/$ARCH/lib/
+	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
+	  cp -fR $FBBIN/* $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin || exit $?
+	  cp -fR $FBLIB/* $PREFIX/lib | exit $?
+	  cp -fR $FBLIB/* $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
+        cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
+        cp share/icons/frozen-bubble-icon-64x64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
+	echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.22.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
+	chmod +x $PREFIX/bin/start-frozen-bubble
+	cp $PREFIX/bin/start-frozen-bubble $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
+echo '
+[Desktop Entry]
+Type=Application
+Version=1.0
+Encoding=UTF-8
+Name=Frozen Bubble
+Icon=frozen-bubble.png
+Exec=start-frozen-bubble
+Terminal=false
+Categories=Game;
+' > $PREFIX/share/applications/frozen-bubble.desktop
+	cp $PREFIX/share/applications/frozen-bubble.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	touch buildok-$ARCH
+	fi
+  if [ -e Build.PL ] && [ ! -e bin/frozen-bubble ]
+	then
+		if [ -e bin/sdl-config.pl ]
+	        then
+		  echo "Alien SDL custom build" && sleep 5
+		  #sed -i '/^GetOptions/d' Build.PL
+		  echo "Dirty copy SDL includes at $HOME/$ARCH/include" && cp $HOME/$ARCH/include/SDL/* $HOME/$ARCH/include
+		  cp $HOME/$ARCH/bin/sdl-config $HOME/$ARCH/bin/ydfs-sdl-config
+		  sed -i "s@-lpthread@-lpthread -lpango-1.0 -lSDL_Pango -lpangoft2-1.0@g" $HOME/$ARCH/bin/ydfs-sdl-config
+		  SDL_LIB=$HOME/$ARCH/lib SDL_INC=$HOME/$ARCH/include SDL_INST_DIR=$HOME/$ARCH perl Build.PL --with-sdl-config=$HOME/$ARCH/bin/ydfs-sdl-config ||exit $?
+		  echo "Clear HOME/$ARCH/include/SDL*" 
+                  rm $HOME/$ARCH/include/SDL* 
+                  cp $HOME/ydfs/packages-$ARCH/SDL_Pango-0.1.2/$HOME/$ARCH/include/SDL_Pango.h $HOME/$ARCH/include/SDL
+		else
+		  perl Build.PL||exit $?
+		fi
+# perl Build blib/arch/auto/SDL/Pango/Context/Context.so
+echo "At BUILDPERL"
+#xterm
+		perl Build||exit $?
+		#perl Build test||exit $?
+		#perl Build install destdir="$PREFIX" || exit $?
+		perl Build install || exit $?
+	  touch buildok-$ARCH
+		exit 0
+	fi
+  if [ -e darkplaces-sdl.dev ]
+  then
+	  SDLCONFIG_UNIXCFLAGS_X11="-I$HOME/$ARCH/include" make sdl-release || exit $?
+	  install -d $PREFIX/bin
+	  install darkplaces-sdl $PREFIX/bin/darkplaces && touch buildok-$ARCH
+  fi
+  if [ -e bin/java ] # OpenJDK
+  then
+	  install java into $PREFIX
+	  install -d $PREFIX
+	  cp -fR * $PREFIX
+  fi
+  if [ -e SConstruct ] || [ -e Sconstruct ] # && [ "$ARCH" != "arm" ]
+  then
+	if [ -e src/mixxx.cpp ] 
+        then
+	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
+  	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
+	  scons $SCONS_OPT build=release optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT
+	  scons $SCONS_OPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
+	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
+	else
+	  SCONS_OPT=""
+	  [ -e src/fceu.cpp ] && SCONS_OPT="--prefix $PREFIX"
+          echo "Run scons PREFIX=$PREFIX $SCONS_OPT"
+          scons -c PREFIX=$PREFIX $SCONS_OPT || exit 23
+	  echo "Run scons install"
+          scons PREFIX=$PREFIX $SCONS_OPT install
+	fi
+  fi
+  if [ -e ./bootstrap.sh ]  # boost
+  then
+     if [ -e boost.css ]
+     then
+     echo "Run ./bootstrap.sh "
+       ./bootstrap.sh --prefix=$PREFIX && sed -i "s@using gcc@using gcc : $ARCH : $CROSS_PREFIX-g++ -I$HOME/$SUBARCH/include -L$HOME/$SUBARCH/lib @g" project-config.jam 
+       ./bjam 
+       ./bjam install && touch buildok-$ARCH
+     fi
+     if [ -e ./b2 ]
+     then
+     echo "Run ./bootstrap.sh "
+       ./bootstrap.sh --prefix=$PREFIX
+     ./b2 
+     ./b2 install && touch buildok-$ARCH
+     fi
+  fi
+  if [ -e ghostscript.vcproj ] 
+  then
+	echo ghostscript.vcproj
+    #sed -i 's/ZLIBDIR=src/ZLIBDIR=$includedir/' configure.ac configure &&
+    #rm -rf expat freetype lcms2 jpeg libpng
+    #rm -rf freetype
+  fi
+  if [ -e waf ]
+  then
+      echo "Run ./waf "
+	 if [ -e src/plugins/avcodec ]
+	   then
+     ./waf configure --prefix=$PREFIX --without-plugins avcodec
+		 else
+     ./waf configure --prefix=$PREFIX $LC_CONFIGURE_OPTS
+     fi
+     ./waf || exit $?
+     ./waf install || exit $?
+     touch buildok-$ARCH
+     if [ -e ardour.1 ] 
+     then
+       ./waf install --destdir=$HOME/ydfs/packages-$ARCH/$MYDIR
+       cd $HOME/ydfs/packages-$ARCH/$MYDIR
+      install -d $PREFIX/share/applications/
+echo "[Desktop Entry]
+Name=Ardour 4
+Comment=Multitrack hard disk recorder
+Exec=ardour4
+Icon=$PREFIX/share/ardour4/icons/ardour_icon_256px.png
+Terminal=false
+Type=Application
+X-MultipleArgs=false
+Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applications/ardour.desktop
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+       cp $PREFIX/share/applications/ardour.desktop  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+       $HOME_DIBAB/scripts/make_opkg || exit $?
+       exit 0
+     fi
+  fi
+  # Fix building CUPS
+  if [ -e cups-config.in ]
+  then
+    for lib in `ls -l $PREFIX/lib/*.so`
+    do
+	    #FIXME
+		  break
+	    ln -s $lib cups
+    done
+  fi
+  if [ -e Makefile-libbz2_so ]
+  then
+     sed -i "s@PREFIX=/usr/local@PREFIX=$PREFIX@g" Makefile
+     sed -i "s@CC=gcc@@" Makefile
+     sed -i "s@CC=gcc@@" Makefile-libbz2_so
+     sed -i "s@AR=ar@@" Makefile
+     sed -i "s@AR=ar@@" Makefile-libbz2_so
+     sed -i "s@RANLIB=ranlib@@" Makefile
+     sed -i "s@RANLIB=ranlib@@" Makefile-libbz2_so
+     if [ "$CROSS_PREFIX" = "" ]
+     then
+       make install || exit 16
+       make -f Makefile-libbz2_so || exit 17
+     else
+       CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib make install || exit 16
+       CC=$CROSS_PREFIX-gcc CXX=$CROSS_PREFIX-g++ AR=$CROSS_PREFIX-ar RANLIB=$CROSS_PREFIX-ranlib make -f Makefile-libbz2_so || exit 17
+     fi
+     cp libbz2.so.1.0 $PREFIX/lib/ || exit 18
+     sed -i "s@PREFIX=$PREFIX@PREFIX=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX@g" Makefile
+     make install || exit 19
+     cp libbz2.so.1.0 $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib/ || exit 20
+  fi
+
+  if [ -e wxPython ]
+  then
+    cd wxPython
+    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 build || exit $?
+    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$PREFIX" || exit $?
+    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 install || exit $?
+    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX" || exit $?
+    touch ../buildok-$ARCH
+    exit 0
+  fi
+
+  if [ -e genMakefiles ] # live555
+  then
+  sed \
+      -e 's/$(INCLUDES) -I. -O2 -DSOCKLEN_T/$(INCLUDES) -I. -O2 -I. -fPIC -DRTSPCLIENT_SYNCHRONOUS_INTERFACE=1 -DSOCKLEN_T/g' \
+      -i config.linux
+  ./genMakefiles linux
+	make || exit $?
+      for dir in BasicUsageEnvironment groupsock liveMedia UsageEnvironment; do
+    install -dm755 ${PREFIX}/{bin,lib,include/${dir}}
+    install -m644 ${dir}/*.a "${PREFIX}/lib" || exit ?
+    install -m644 ${dir}/include/*.h* "${PREFIX}/include/${dir}"  || exit $?
+    # Mplayer
+    install -dm755 ${PREFIX}/lib/live/include/${dir}
+    install -m644 ${dir}/include/*.h*  ${PREFIX}/lib/live/include/${dir}  || exit $?
+    cp ${dir}/*.a ${PREFIX}/lib/live/include/${dir}
+  done
+    # cp ${PREFIX}/include/UsageEnvironment/UsageEnvironment.hh ${PREFIX}/include/
+  install -d $PREFIX/lib/pkgconfig
+  echo "
+Name: live555
+Description: multimedia RTSP streaming library
+Version: 555
+Cflags: -I${PREFIX}/include/liveMedia -I${PREFIX}/include/groupsock -I${PREFIX}/include/BasicUsageEnvironment -I${PREFIX}/include/UsageEnvironment
+Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment
+  " > $PREFIX/lib/pkgconfig/live555.pc
+
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0
+
+  for testprog in `find testProgs -type f -perm 755`; do
+    install ${testprog} "${PREFIX}/bin"
+  done 
+  fi
+  if [ -e  $SOURCEDIR/src/aisleriot.schemas.in ]
+  then
+	echo 'libtool $@' > libtool
+  fi
+  [ "$CLEARENV" = "OK" ] && $HOME_DIBAB/scripts/clear-env && . /tmp/env
+  [ "$FIRSTENV" = "OK" ] && [ -e /tmp/firstenv ] && . /tmp/firstenv
+
+  if [ -e git.c ]
+  then
+    echo "Building git"
+    . $(dirname $0)/../scripts/includes/git
+  fi
+
+  # echo "Looking for Makefile at $PWD"
+  if [ -e Makefile ] || [ -e GNUmakefile ] 
+  then
+      echo "Run make "
+      OLDARCH=$ARCH # Fix vlc bug
+      [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
+      #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
+      make DBM_INCLUDE=$HOME/$OLDARCH/include 
+      if [ $? != 0 ]
+      then
+	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
+	then
+	  exit 21
+        else
+ 	  exit 22
+	fi
+      fi
+. $(dirname $0)/../scripts/includes/warsow
+. $(dirname $0)/../scripts/includes/wine
+
+
+   if [ -e "wx-config.in" ]
+   then
+	#make -C locale allmo
+	 make install || exit $?
+	 if [ -e contrib/src ] # wx2
+	 then
+	   make -C contrib/src || exit $?
+	   make -C contrib/src install || exit $?
+	 fi
+         touch buildok-$ARCH
+         exit 0
+   fi    
+
+   if [ -e WHATwine64 ]
+   then
+	pwd
+	export _wine32opts=( --libdir=/usr/lib32 --with-wine64="$PWD")
+	mkdir ../wine32
+        cd ../wine32
+	PKG_CONFIG_PATH="$PREFIX/lib32/pkgconfig" $SOURCEDIR/configure --prefix=$PREFIX --with-x --with-gstreamer "${_wine32opts[@]}"
+	make
+	exit 10     
+   fi
+
+      	[ -e "Source/Swig/swig.h" ] && make && make install
+	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+
+      if [ -e qtquickcontrols ]
+      then
+	for QTDIR in `ls`
+	do
+	  cd $QTDIR || continue
+	  make make install
+	  DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+	  cd ..
+	done
+      fi
+
+      [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
+      [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
+      if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
+      then
+        echo "Run make install inside $PWD"
+	  make install
+	  echo "DESTDIR=$PREFIX make install"
+	  DESTDIR=$PREFIX make install
+	return=$?
+	[ -e "libxvidcore.def" ] && return=0
+	[ -e "x265_config.h" ] && return=0
+	[ -e "pm_common" ] && return=0
+	if [ $return != "0" ]
+	then
+	  echo "Return is $return"
+	  exit 23
+	fi
+	[ -e liblightdm-gobject ] && make -C liblightdm-gobject install
+	[ -e ghostscript.vcproj ] && make so && make soinstall
+	[ -e getfattr/getfattr.c ] && make install-lib install-dev
+	[ -e getfacl/getfacl.c ] && make install-lib install-dev
+        MAKE_INSTALL=""
+      fi
+      # Glibc
+      [ -e $SOURCEDIR/Makefile ] && grep install_root $SOURCEDIR/Makefile && make install_root=$HOME/ydfs/packages-$ARCH/$MYDIR install
+      [ -e Makefile ] && grep INSTALL_ROOT Makefile && make INSTALL_ROOT=$HOME/ydfs/packages-$ARCH/$MYDIR install
+      [ -e share/vlc.desktop.in ] && export ARCH=$OLDARCH
+      touch buildok-$ARCH
+  fi
+
+  [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
+. $(dirname $0)/../scripts/includes/games
+. $(dirname $0)/../scripts/includes/xbmc
+  echo $HOME/ydfs/packages-$ARCH/$MYDIR
+  if [ ! -e $HOME/ydfs/packages-$ARCH/$MYDIR ] 
+  then 
+    echo "Run ydfs-install-package"
+    ydfs-install-package
+  fi
+  if [ "$BUILD_TWICE" = "yes" ]
+  then
+    rm buildok-$ARCH
+    if [ -e  build-twice ]
+    then
+      unset BUILD_TWICE
+      rm build-twice
+    else
+      echo "Building $MYDIR again"
+      touch build-twice 
+    fi 
+  fi
+  [ -e fluid/fluid.cxx ] && make -C fluid install install-linux 
+  echo "Try make clean"
+  make clean # Save some space
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+  TESTDIRNAME=$(pwd | grep lightdm)
+  if [ -n "$TESTDIRNAME" ]
+  then
+	echo "Post Build Lightdm" && sleep 10
+	for file in Xsession lightdm.service lightdm.tmpfiles lightdm.pam lightdm-autologin.pam lightdm.rules lightdm-default-config.patch
+	do
+	  [ ! -e $file ] && wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/$file?h=packages/lightdm --output-document=$file
+	done
+	 install -m 755 Xsession "${pkgdir}"/etc/lightdm/Xsession
+
+  install -dm 755 "${pkgdir}"/var/cache/lightdm
+  install -dm 770 "${pkgdir}"/var/lib/lightdm{,-data}
+  install -dm 711 "${pkgdir}"/var/log/lightdm
+  chmod +t "${pkgdir}"/var/{cache/lightdm,lib/lightdm{,-data}}
+  echo 'GDK_CORE_DEVICE_EVENTS=true' > "${pkgdir}"/var/lib/lightdm/.pam_environment
+  chmod 644 "${pkgdir}"/var/lib/lightdm/.pam_environment
+  #chown 620:620 -R "${pkgdir}"/var/lib/lightdm{,-data}
+  #chgrp 620 "${pkgdir}"/var/log/lightdm
+
+# PAM
+  install -m 644 lightdm.pam "${pkgdir}"/etc/pam.d/lightdm
+  install -m 644 lightdm-autologin.pam "${pkgdir}"/etc/pam.d/lightdm-autologin
+
+# PolicyKit
+  install -d "${pkgdir}"/share/polkit-1/rules.d
+  install -m 644 lightdm.rules "${pkgdir}"/share/polkit-1/rules.d/lightdm.rules
+
+# Systemd
+  install -d "${pkgdir}"/lib/{systemd/system,tmpfiles.d}
+  install -m 644 lightdm.service "${pkgdir}"/lib/systemd/system/lightdm.service
+  install -m 644 lightdm.tmpfiles "${pkgdir}"/lib/tmpfiles.d/lightdm.conf
+  fi
+  echo "packages/db-autobuild done !"
+fi

@@ -1,0 +1,17 @@
+diff -ur /tmp/a/src/helpers/System.cpp /tmp/b/src/helpers/System.cpp
+--- a/src/helpers/System.cpp	2013-09-14 22:30:19.179335436 +0200
++++ b/src/helpers/System.cpp	2013-09-14 22:30:31.117165793 +0200
+@@ -105,13 +105,7 @@
+   ssize_t v_read;
+   //size_t n;
+ 
+-  v_pid = getpid();
+-  v_pid_str << v_pid;
+-  v_memfile = "/proc/" + v_pid_str.str() + "/status";
+-
+-  if( (fd = fopen(v_memfile.c_str(), "r")) == NULL) {
+     return "No available information";
+-  }
+ 
+   v_line = NULL;
+   v_len = 0;

@@ -1,0 +1,17 @@
+if [ -e win32/warsow.ico ]
+then
+# Create Destination Directories
+  pkgdir=$MYPREFIX
+  install -d $pkgdir/warsow/
+
+  # Move Compiled Data to Destination Directory
+  cp -r release/* $pkgdir/warsow
+  find $pkgdir/warsow -type d | xargs chmod 755 
+  find $pkgdir/warsow -type f | xargs chmod 755 # only executable files in there
+
+  pkgname=warsow
+  NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC=$pkgdir/warsow/$pkgname ICON=$pkgname.png CATEGORIES="Game;" \
+  $HOME_DIBAB/scripts/print_desktop > $pkgdir/share/applications/${pkgname}.desktop
+  convert win32/warsow.ico $pkgdir/share/pixmaps/warsow.png
+  MAKE_INSTALL=OFF
+fi

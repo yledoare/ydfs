@@ -1,0 +1,26 @@
+diff --git a/xbmc/dbwrappers/mysqldataset.cpp b/xbmc/dbwrappers/mysqldataset.cpp
+index ab92a80..74348d3 100644
+--- a/xbmc/dbwrappers/mysqldataset.cpp
++++ b/xbmc/dbwrappers/mysqldataset.cpp
+@@ -27,7 +27,7 @@
+ 
+ #ifdef HAS_MYSQL
+ #include "mysqldataset.h"
+-#include "mysql/errmsg.h"
++#include "errmsg.h"
+ #ifdef _WIN32
+ #pragma comment(lib, "mysqlclient.lib")
+ #endif
+diff --git a/xbmc/dbwrappers/mysqldataset.h b/xbmc/dbwrappers/mysqldataset.h
+index 8090e94..75e3098 100644
+--- a/xbmc/dbwrappers/mysqldataset.h
++++ b/xbmc/dbwrappers/mysqldataset.h
+@@ -23,7 +23,7 @@
+ 
+ #include <stdio.h>
+ #include "dataset.h"
+-#include "mysql/mysql.h"
++#include "mysql.h"
+ 
+ namespace dbiplus {
+ /***************** Class MysqlDatabase definition ******************

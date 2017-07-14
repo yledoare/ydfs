@@ -1,0 +1,206 @@
+diff --git a/Makefile b/Makefile
+index 3d575cb..4739dec 100755
+--- a/Makefile
++++ b/Makefile
+@@ -5,7 +5,7 @@ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ LIBDIR=$(PREFIX)/lib/x2go
+ SHAREDIR=$(PREFIX)/share/x2go
+ 
+diff --git a/x2goserver-compat/Makefile b/x2goserver-compat/Makefile
+index 439ae59..02d0a65 100755
+--- a/x2goserver-compat/Makefile
++++ b/x2goserver-compat/Makefile
+@@ -3,16 +3,16 @@
+ SRC_DIR=$(CURDIR)
+ SHELL=/bin/bash
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d 
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(DETDIR)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ #SBINDIR=$(PREFIX)/sbin
+ #LIBDIR=$(PREFIX)/lib/x2go
+diff --git a/x2goserver-extensions/Makefile b/x2goserver-extensions/Makefile
+index c28d749..5fe4561 100755
+--- a/x2goserver-extensions/Makefile
++++ b/x2goserver-extensions/Makefile
+@@ -3,16 +3,16 @@
+ SRC_DIR=$(CURDIR)
+ SHELL=/bin/bash
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d 
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ LIBDIR=$(PREFIX)/lib/x2go
+ MANDIR=$(PREFIX)/share/man
+diff --git a/x2goserver-fmbindings/Makefile b/x2goserver-fmbindings/Makefile
+index 1d4f1dd..e3a2a63 100755
+--- a/x2goserver-fmbindings/Makefile
++++ b/x2goserver-fmbindings/Makefile
+@@ -3,16 +3,16 @@
+ SRC_DIR=$(CURDIR)
+ SHELL=/bin/bash
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d 
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ LIBDIR=$(PREFIX)/lib/x2go
+ MANDIR=$(PREFIX)/share/man
+diff --git a/x2goserver-printing/Makefile b/x2goserver-printing/Makefile
+index d7ff4a3..0b69503 100755
+--- a/x2goserver-printing/Makefile
++++ b/x2goserver-printing/Makefile
+@@ -3,16 +3,16 @@
+ SRC_DIR=$(CURDIR)
+ SHELL=/bin/bash
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ SBINDIR=$(PREFIX)/sbin
+ LIBDIR=$(PREFIX)/lib/x2go
+diff --git a/x2goserver-pyhoca/Makefile b/x2goserver-pyhoca/Makefile
+index 1d05bd5..4cc8708 100755
+--- a/x2goserver-pyhoca/Makefile
++++ b/x2goserver-pyhoca/Makefile
+@@ -3,16 +3,16 @@
+ SRC_DIR=$(CURDIR)
+ SHELL=/bin/bash
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d 
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ #SBINDIR=$(PREFIX)/sbin
+ LIBDIR=$(PREFIX)/lib/x2go
+diff --git a/x2goserver-xsession/Makefile b/x2goserver-xsession/Makefile
+index f2b50c4..987ac39 100755
+--- a/x2goserver-xsession/Makefile
++++ b/x2goserver-xsession/Makefile
+@@ -20,10 +20,10 @@ LIBDIR=$(PREFIX)/lib/x2go
+ MANDIR=$(PREFIX)/share/man
+ SHAREDIR=$(PREFIX)/share/x2go
+ 
+-XSESSIONDIR ?= /etc/X11/Xsession.d
+-XSESSIONOPTIONFILE ?= /etc/X11/Xsession.options
+-XINITRCDIR ?= /etc/X11/xinit/xinitrc.d
+-XCLIENTSDIR ?= /etc/X11/xinit/Xclients.d
++XSESSIONDIR ?= $(PREFIX)/etc/X11/Xsession.d
++XSESSIONOPTIONFILE ?= $(PREFIX)/etc/X11/Xsession.options
++XINITRCDIR ?= $(PREFIX)/etc/X11/xinit/xinitrc.d
++XCLIENTSDIR ?= $(PREFIX)/etc/X11/xinit/Xclients.d
+ 
+ ETC_FILES=$(shell cd etc && echo *)
+ FEATURE_SCRIPTS=$(shell cd share/x2gofeature.d && echo *.features)
+@@ -54,12 +54,6 @@ install_config:
+ #       provide target dirs for X11 related symlinks
+ 	$(INSTALL_PROGRAM) etc/Xsession                 $(DESTDIR)$(ETCDIR)/
+ 	$(INSTALL_SYMLINK) /etc/X11/Xresources          $(DESTDIR)$(ETCDIR)/
+-	if [ -e /etc/debian_version ]; then if [ -e $(XSESSIONOPTIONFILE) ]; then $(INSTALL_SYMLINK) $(XSESSIONOPTIONFILE) $(DESTDIR)$(ETCDIR)/Xsession.options; else touch $(DESTDIR)$(ETCDIR)/Xsession.options; fi; fi
+-	if [ -e /etc/debian_version ]; then if [ -d $(XSESSIONDIR) ]; then $(INSTALL_SYMLINK) $(XSESSIONDIR) $(DESTDIR)$(ETCDIR)/Xsession.d; else $(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/Xsession.d; fi; fi
+-	if [ -e /etc/redhat-release ]; then if [ -d $(XINITRCDIR) ]; then $(INSTALL_SYMLINK) $(XINITRCDIR) $(DESTDIR)$(ETCDIR)/xinitrc.d; else $(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/xinitrc.d; fi; fi
+-	if [ -e /etc/redhat-release ]; then if [ -d $(XCLIENTSDIR) ]; then $(INSTALL_SYMLINK) $(XCLIENTSDIR) $(DESTDIR)$(ETCDIR)/Xclients.d; else $(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/Xclients.d; fi; fi
+-	if [ -e /etc/gentoo-release ]; then if [ -d $(XINITRCDIR) ]; then $(INSTALL_SYMLINK) $(XINITRCDIR) $(DESTDIR)$(ETCDIR)/xinitrc.d; else $(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/xinitrc.d; fi; fi
+-	if [ -e /etc/gentoo-release ]; then if [ -d $(XCLIENTSDIR) ]; then $(INSTALL_SYMLINK) $(XCLIENTSDIR) $(DESTDIR)$(ETCDIR)/Xclients.d; else $(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/Xclients.d; fi; fi
+ 
+ install_man:
+ 
+diff --git a/x2goserver/Makefile b/x2goserver/Makefile
+index 6867c72..384366a 100755
+--- a/x2goserver/Makefile
++++ b/x2goserver/Makefile
+@@ -7,16 +7,16 @@ CC      ?= gcc
+ CFLAGS  += -fPIE
+ LDFLAGS += -pie
+ 
+-INSTALL_DIR=install -d -o root -g root -m 755
+-INSTALL_FILE=install -o root -g root -m 644
+-INSTALL_PROGRAM=install -o root -g root -m 755
++INSTALL_DIR=install -d 
++INSTALL_FILE=install 
++INSTALL_PROGRAM=install 
+ 
+ RM_FILE=rm -f
+ RM_DIR=rmdir -p --ignore-fail-on-non-empty
+ 
+ DESTDIR ?=
+ PREFIX ?= /usr/local
+-ETCDIR=/etc/x2go
++ETCDIR=$(PREFIX)/etc/x2go
+ BINDIR=$(PREFIX)/bin
+ SBINDIR=$(PREFIX)/sbin
+ LIBDIR=$(PREFIX)/lib/x2go
+@@ -84,10 +84,6 @@ install_config:
+ 	$(INSTALL_DIR) $(DESTDIR)$(ETCDIR)/x2go_logout.d
+ 	$(INSTALL_FILE) etc/x2go_logout     $(DESTDIR)$(ETCDIR)/
+ 	$(INSTALL_FILE) etc/x2go_logout.d/* $(DESTDIR)$(ETCDIR)/x2go_logout.d/
+-	$(INSTALL_DIR) $(DESTDIR)/etc/sudoers.d || true
+-	$(INSTALL_FILE) etc/sudoers.d/x2goserver $(DESTDIR)/etc/sudoers.d/
+-	$(INSTALL_DIR) $(DESTDIR)/etc/logcheck/ignore.d.server || true
+-	$(INSTALL_FILE) etc/logcheck/ignore.d.server/x2goserver $(DESTDIR)/etc/logcheck/ignore.d.server/
+ 
+ install_man:
+ 	$(INSTALL_DIR) $(DESTDIR)$(MANDIR)

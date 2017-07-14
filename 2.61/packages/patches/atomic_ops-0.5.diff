@@ -1,0 +1,25 @@
+--- orig/Makefile	2012-01-08 22:50:44.644281499 +0100
++++ fix/Makefile	2012-01-08 22:49:00.514424114 +0100
+@@ -24,8 +24,8 @@
+ # It defaults to the installed subdirectory of the build directory.  This allows
+ # (somewhat inconvenient) use of the profiler without setting up or accessing
+ # a separate installation directory.
+-PREFIX=XXPWDXX/installed
+ CC= cc
++PREFIX=$(HOME)/$(ARCH)
+ #Add -DHW_EVENT_SUPPORT if you have Itanium perfmon installed
+ CFLAGS= -g -O2
+ RANLIB=ranlib
+@@ -159,9 +159,9 @@
+ 	install -d $(DOCDIR)
+ 	install -d $(PREFIX)/include
+ 	install -d $(PREFIX)/lib
+-	/usr/bin/install -m 644 $(DOC) $(DOCDIR)
+-	/usr/bin/install -m 644 libatomic_ops.a $(PREFIX)/lib/libatomic_ops-$(VERSION).a
+-	/usr/bin/install -m 644 $(TOP_LEVEL_HEADERS) $(PREFIX)/include
++	install -m 644 $(DOC) $(DOCDIR)
++	install -m 644 libatomic_ops.a $(PREFIX)/lib/libatomic_ops-$(VERSION).a
++	install -m 644 $(TOP_LEVEL_HEADERS) $(PREFIX)/include
+ 	cp -r atomic_ops atomic_ops.h $(INCDIR)
+ 	ln -s -f $(PREFIX)/lib/libatomic_ops-$(VERSION).a $(PREFIX)/lib/libatomic_ops.a
+ 	ln -s -f $(INCDIR)/atomic_ops $(PREFIX)/include/atomic_ops

@@ -1,0 +1,38 @@
+diff --git a/Make-default.mk b/Make-default.mk
+index c295181..564c0f5 100644
+--- a/Make-default.mk
++++ b/Make-default.mk
+@@ -129,16 +129,7 @@ ifdef COMPILATION
+ 
+ default: exports tools compil
+ 
+-ifeq (.depend,$(wildcard .depend))
+-include .depend
+-endif
+-
+-.depend:
+-	$(CPP) $(INCFLAGS) $(CFLAGSD) $(COMPILFLAGS)  $(SOURCES) > .depend
+-
+-dep:	.depend
+-
+-compil: subdirs dep ${LIBRARY} ${SOLIBRARY} ${MODULE} ${PROGRAM}
++compil: subdirs ${LIBRARY} ${SOLIBRARY} ${MODULE} ${PROGRAM}
+ 
+ else
+ 
+@@ -211,15 +202,6 @@ installshipswin32: installshipwin32dirs installshipexecwin32dirs installshipwin3
+ 
+ tools: toolsdirs ${TOOLS} ${LOCALTOOLS} toolsdata
+ 
+-clean: cleancompil cleantools
+-	-rm -f ${LIBRARY} ${OBJECTS} ${PROGRAM} .depend ${SOLIBRARY} ${MODULE} ${GARBAGE} *~
+-
+-cleantools: cleantoolsdirs
+-	-rm -f  ${TOOLS} ${LOCALTOOLS} .depend ${GARBAGE} *~
+-
+-cleancompil: cleansubdirs
+-	-rm -f ${LIBRARY} ${OBJECTS} ${PROGRAM} .depend ${SOLIBRARY} ${MODULE} ${GARBAGE} *~
+-
+ install: installdirs installship installshipexec installshipmkdir installsolibrary installmodule installprogram installtools installtoolsdata
+ 
+ installwin32: installwin32dirs installsolibrarywin32 installmodulewin32

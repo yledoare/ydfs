@@ -1,0 +1,14 @@
+diff -ur util-linux-ng-2.18.orig//login-utils/Makefile.am util-linux-ng-2.18/login-utils/Makefile.am
+--- util-linux-ng-2.18.orig//login-utils/Makefile.am	2010-05-24 11:37:29.000000000 +0200
++++ util-linux-ng-2.18/login-utils/Makefile.am	2011-08-18 11:05:54.000000000 +0200
+@@ -108,8 +108,8 @@
+ if USE_TTY_GROUP
+ if MAKEINSTALL_DO_CHOWN
+ install-exec-hook::
+-	chgrp tty $(DESTDIR)$(usrbin_execdir)/wall
+-	chmod g+s $(DESTDIR)$(usrbin_execdir)/wall
++	echo chgrp tty $(DESTDIR)$(usrbin_execdir)/wall
++	echo chmod g+s $(DESTDIR)$(usrbin_execdir)/wall
+ endif
+ endif
+ endif

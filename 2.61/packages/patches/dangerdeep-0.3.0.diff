@@ -1,0 +1,245 @@
+diff --git a/SConstruct b/SConstruct
+index 9047ba5..503c1cd 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -30,7 +30,7 @@ archflag = ARGUMENTS.get('arch', '')
+ osspecificsrc = []
+ extralibs = []
+ 
+-fftwlib = 'fftw3'
++fftwlib = 'fftw3f'
+ if sys.platform == 'win32':
+ 	print "Compiling for Win32 Environment"
+ 	env = Environment(ENV = os.environ, tools = ['mingw'])
+@@ -120,8 +120,11 @@ elif (sys.platform == 'freebsd5') or (sys.platform == 'freebsd6') or (sys.platfo
+ else:
+ 	print "Compiling for Unix/Posix/Linux Environment"
+ 	env = Environment(ENV = os.environ)
+-	env.Append(CPPPATH = ['/usr/include/SDL', '/usr/include/GL'])
+-	libpath = ['/usr/X11R6/lib']
++	MYPREFIX = os.environ['MYPREFIX']
++	HOME = os.environ['HOME']
++	ARCH = os.environ['ARCH']
++	env.Append(CPPPATH = [HOME + '/' + ARCH + '/include/SDL', HOME + '/' + ARCH + '/include/GL'])
++	libpath = [HOME + '/' + ARCH + '/lib']
+ 	gllibs = ['GL', 'GLU']
+ 	sdllibs = ['SDL', 'SDL_image']
+ 	ccflags = '-Wall `sdl-config --cflags` `pkg-config --cflags x11`'
+@@ -178,30 +181,13 @@ else:
+ 		else:
+ 			print 'Using x86 SSE/MMX optimizations with GCC intrinsics.'
+ 	env.Append(CCFLAGS = ccflags)
+-	datadir = '/usr/local/share/dangerdeep'
++	datadir = MYPREFIX+'/share/dangerdeep/data'
+ 	build_dir = 'linux'
+-	# check for broken libGL, ignore undefined symbols then
+-	if (os.system('grep glBindProgram /usr/include/GL/gl*.h > /dev/null') == 0):
+-		gllibdirs = ['/usr/X11R6/lib/', '/usr/lib/', '/usr/local/lib/']
+-		gllibdir = ''
+-		for i in gllibdirs:
+-			if (os.system('test -f '+i+'libGL.so') == 0):
+-				gllibdir = i
+-				break
+-		if (gllibdir == ''):
+-			print 'ERROR: no libGL.so detected!'
+-		else:
+-			print 'Found GL library "'+gllibdir+'libGL.so"'
+-		if (os.system('grep glBindProgram '+gllibdir+'libGL.so > /dev/null') != 0):
+-			print 'GL headers declare glBindProgram, but libGL.so has no such symbol! Ignoring all undefined symbols...'
+-			# I'm not sure which option will hopefully fix the problem... so i use both...
+-			env.Append(LINKFLAGS = '--unresolved-symbols=ignore-all')
+-			env.Append(LINKFLAGS = '-Xlinker --unresolved-symbols -Xlinker ignore-all')
+ 
+ ###### optionally change install and data dirs
+ if ARGUMENTS.get('datadir', 0):
+ 	datadir = ARGUMENTS.get('datadir', 0)
+-installbindir = '/usr/local/bin'
++installbindir = MYPREFIX+'/bin'
+ if ARGUMENTS.get('installbindir', 0):
+ 	installbindir = ARGUMENTS.get('installbindir', 0)
+ 
+@@ -232,9 +218,6 @@ if (devel == 0):
+ 	if not conf.CheckLibWithHeader('SDL_mixer', 'SDL_mixer.h', 'C'):
+ 		print 'SDL_mixer library is needed for sound support!'
+ 		Exit(1)
+-	if not conf.CheckLibWithHeader('fftw3', 'fftw3.h', 'C'):
+-		print 'fftw3 library must be installed!'
+-		Exit(1)
+ 	if conf.CheckLibWithHeader('fftw3f', 'fftw3.h', 'C'):
+ 		print 'fftw3 library supports float type. Using it...'
+ 		fftwlib = 'fftw3f'
+diff --git a/src/bspline_test.cpp b/src/bspline_test.cpp
+index 0c938f9..f481960 100644
+--- a/src/bspline_test.cpp
++++ b/src/bspline_test.cpp
+@@ -1,6 +1,8 @@
+ // some test code for the 2d bsplines!
+ #include "bspline.h"
+ #include <fstream>
++#include <cstdlib>
++
+ using namespace std;
+ 
+ double rnd() { return double(rand())/RAND_MAX; }
+diff --git a/src/coastmap.cpp b/src/coastmap.cpp
+index a187d82..87e4c47 100644
+--- a/src/coastmap.cpp
++++ b/src/coastmap.cpp
+@@ -1353,8 +1353,8 @@ coastmap::coastmap(const string& filename)
+ 		themap.resize(mapw*maph);
+ 
+ 		surf.lock();
+-		if (surf->format->BytesPerPixel != 1 || surf->format->palette == 0 || surf->format->palette->ncolors != 2)
+-			throw error(string("coastmap: image is no black/white 1bpp paletted image, in ") + filename);
++//		if (surf->format->BytesPerPixel != 1 || surf->format->palette == 0 || surf->format->palette->ncolors != 2)
++//			throw error(string("coastmap: image is no black/white 1bpp paletted image, in ") + filename);
+ 
+ 		Uint8* offset = (Uint8*)(surf->pixels);
+ 		int mapoffy = maph*mapw;
+diff --git a/src/convoy.h b/src/convoy.h
+index e87f899..86fa4ff 100644
+--- a/src/convoy.h
++++ b/src/convoy.h
+@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #include "ai.h"
+ #include "vector2.h"
+ #include <new>
++#include <memory>
+ #include <list>
+ class ship;
+ 
+diff --git a/src/date.cpp b/src/date.cpp
+index 3dab12a..32e97e1 100644
+--- a/src/date.cpp
++++ b/src/date.cpp
+@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ // date
+ // subsim (C)+(W) Markus Petermann and Thorsten Jordan. SEE LICENSE
+ 
++#include <stdio.h>
++#include <stdlib.h>
+ #include <iomanip>
+ #include "date.h"
+ #include "texts.h"
+diff --git a/src/faulthandler.h b/src/faulthandler.h
+index 982b046..7c33d0e 100644
+--- a/src/faulthandler.h
++++ b/src/faulthandler.h
+@@ -50,6 +50,7 @@ void install_segfault_handler()
+ #include <signal.h>
+ #include <string>
+ #include <sstream>
++#include <unistd.h>
+ 
+ // Note: use --export-dynamic as linker option or you won't get function names here.
+ 
+diff --git a/src/filehelper.cpp b/src/filehelper.cpp
+index 9795cd9..3a0ecfe 100644
+--- a/src/filehelper.cpp
++++ b/src/filehelper.cpp
+@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #include "filehelper.h"
+ #include "error.h"
+ #include <vector>
++#include <stdio.h>
+ using namespace std;
+ 
+ #ifdef WIN32
+diff --git a/src/font.cpp b/src/font.cpp
+index a90dc67..1f4249f 100644
+--- a/src/font.cpp
++++ b/src/font.cpp
+@@ -144,10 +144,12 @@ font::font(const string& basefilename, unsigned char_spacing)
+ 
+ 	// process image data, create textures
+ 	fontimage.lock();
++        /*
+ 	if (fontimage->format->BytesPerPixel != 1) {
+ 		fontimage.unlock();
+ 		throw error(string("font: only grayscale images are supported! font ")+basefilename);
+ 	}
++        */
+ 
+ //	measure waste of video ram. 2006/12/02, ca. 660kb wasted, 1.3mb totally used. so 50% loss.
+ //	unsigned waste = 0;
+diff --git a/src/ocean_wave_generator.h b/src/ocean_wave_generator.h
+index 87f4d7b..cdc4b13 100644
+--- a/src/ocean_wave_generator.h
++++ b/src/ocean_wave_generator.h
+@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #include "environment.h"
+ #include <complex>
+ #include <vector>
++#include <cstdlib>
+ 
+ // use float fftw (faster) or double (default) ?
+ #ifdef WITH_FLOAT_FFTW
+diff --git a/src/ptrlist.h b/src/ptrlist.h
+index 39876ad..4597ea3 100644
+--- a/src/ptrlist.h
++++ b/src/ptrlist.h
+@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+ #include <list>
+ #include <stdexcept>
++#include <memory>
+ 
+ // same as std::list regarding the interface (partly), but handles pointers.
+ template <class T>
+diff --git a/src/ptrvector.h b/src/ptrvector.h
+index 783658f..ada7121 100644
+--- a/src/ptrvector.h
++++ b/src/ptrvector.h
+@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ 
+ #include <vector>
+ #include <stdexcept>
++#include <memory>
+ 
+ // same as std::vector regarding the interface, but handles pointers.
+ template <class T>
+diff --git a/src/subsim.cpp b/src/subsim.cpp
+index 69166bd..092e5f8 100644
+--- a/src/subsim.cpp
++++ b/src/subsim.cpp
+@@ -1605,8 +1605,8 @@ int mymain(list<string>& args)
+ 	mycfg.register_option("fullscreen", true);
+ 	mycfg.register_option("debug", false);
+ 	mycfg.register_option("sound", true);
+-	mycfg.register_option("use_shaders", true);
+-	mycfg.register_option("use_shaders_for_water", true);
++	mycfg.register_option("use_shaders", false);
++	mycfg.register_option("use_shaders_for_water", false);
+ 	mycfg.register_option("use_hqsfx", true);
+ 	mycfg.register_option("water_detail", 128);
+ 	mycfg.register_option("wave_fft_res", 128);
+diff --git a/src/texture.cpp b/src/texture.cpp
+index c831f90..2ea09ee 100644
+--- a/src/texture.cpp
++++ b/src/texture.cpp
+@@ -127,12 +127,6 @@ sdl_image::sdl_image(const std::string& filename)
+ 		    || (teximagergb->format->Amask != 0))
+ 			throw texture::texerror(fnrgb, ".jpg: no 3 byte/pixel RGB image!");
+ 
+-		if (teximagea->format->BytesPerPixel != 1
+-		    || teximagea->format->palette == 0
+-		    || teximagea->format->palette->ncolors != 256
+-		    || ((teximagea->flags & SDL_SRCCOLORKEY) != 0))
+-			throw texture::texerror(fna, ".png: no 8bit greyscale non-alpha-channel image!");
+-
+ 		Uint32 rmask, gmask, bmask, amask;
+ 
+ 		/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+diff --git a/src/widget.cpp b/src/widget.cpp
+index 5644886..95eeab1 100644
+--- a/src/widget.cpp
++++ b/src/widget.cpp
+@@ -32,6 +32,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #include "datadirs.h"
+ #include <set>
+ #include <sstream>
++#include <algorithm>
++
+ using std::vector;
+ using std::list;
+ using std::string;

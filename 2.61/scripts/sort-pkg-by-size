@@ -1,0 +1,13 @@
+rm $HOME/ydfs/list-pkg
+ls /home/linuxconsole24/ydfs/packages-x86_64 | while read pkg
+do
+  SIZE=$(du -s /home/linuxconsole24/ydfs/packages-x86_64/$pkg | cut -d '/' -f1)
+  echo -n $SIZE
+  echo " $pkg "
+  echo -n $SIZE >> $HOME/ydfs/list-pkg
+  echo " $pkg " >> $HOME/ydfs/list-pkg
+done
+
+sort $HOME/ydfs/list-pkg
+
+echo "Read $HOME/ydfs/list-pkg"

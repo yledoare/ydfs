@@ -1,0 +1,21 @@
+#http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-linux-x86-5.5.1.run
+#http://download.qt.io/official_releases/qt/5.7/5.7.0/qt-opensource-linux-x64-5.7.0.run
+wget wget http://download.qt.io/official_releases/qt/5.6/5.6.1/qt-opensource-linux-x86-5.6.1.run
+chmod +x qt-opensource-linux-x86-5.6.1.run
+./qt-opensource-linux-x86-5.6.1.run
+bash scripts/uninstall-package qt-everywhere-opensource-src-4.8.7
+
+...
+
+cat CONTROL/control 
+Package: qt5
+Priority: optional
+Version: 5.4.2
+Architecture: i686
+Maintainer: Yann (http://www.linuxconsole.org/contact)
+Depends: 
+Source: http://download.qt.io/official_releases/qt/5.4/5.4.2/qt-opensource-linux-x86-5.4.2.run
+Section: libs
+Description: QT5
+
+/home/linuxconsole24/src/ydfs/2.4/tools/opkg-utils/opkg-build -o root -g root . $HOME/ydfs/opkg

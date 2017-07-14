@@ -1,0 +1,28 @@
+        unset CROSS_COMPILE
+        unset CC
+        unset LD_LIBRARY_PATH
+install -d $HOME/ydfs/src
+cd $HOME/ydfs
+if [ "$ARCH" != "arm" ]
+then
+  if [ ! -e $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc ]
+  then
+    install -d $HOME/ydfs/x-tools/
+    cd $HOME/ydfs/x-tools/
+    [ -e i386-unknown-linux-uclibc.tar.gz ] && rm i386-unknown-linux-uclibc.tar.gz
+    wget jukebox.linuxconsole.org/toolchains/i386-unknown-linux-uclibc.tar.gz
+    tar xzvf i386-unknown-linux-uclibc.tar.gz
+    exit 0
+    #NOT WORKING FROM DEBIAN 8
+    $HOME_DIBAB/scripts/make_crosstool-ng
+    install -d build-toolchain/uclibc-toolchain
+    cd build-toolchain/uclibc-toolchain
+    . /etc/profile
+    [ ! -e .config ] && cp $HOME_DIBAB/config/crosstool/config .config 
+    echo CT_LIBC_UCLIBC_CONFIG_FILE=\"$HOME_DIBAB/config/uclibc/config\" >> .config 
+    echo CT_PREFIX_DIR=\"\${HOME}/ydfs/x-tools/\${CT_TARGET}\" >> .config
+    # /$HOME/ydfs/crosstool-bin/bin/ct-ng menuconfig
+    unset LD_LIBRARY_PATH
+    /$HOME/ydfs/crosstool-bin/bin/ct-ng build || exit 23
+  fi
+fi

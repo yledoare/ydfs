@@ -1,0 +1,9 @@
+archlinux:libxkbcommon
+archlinux:gsettings-desktop-schemas
+archlinux:cogl
+archlinux:clutter
+archlinux:clutter-gtk
+archlinux:granite
+archlinux:gnome-desktop
+archlinux:mutter
+lp:gala

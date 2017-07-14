@@ -1,0 +1,102 @@
+diff --git a/Makefile.m4 b/Makefile.m4
+index a6a100b..3976cb0 100644
+--- a/Makefile.m4
++++ b/Makefile.m4
+@@ -66,8 +66,7 @@ CXXFLAGS+=$(WARN) -O2 -fno-exceptions -pthread -D_THREAS_SAFE -D_REENTRANT
+ # yes, default is set-root-uid, `make BIN_MODE=0755 install' to override...
+ BIN_MODE?=04755
+ install:	dvd+rw-tools
+-	install -o root -m $(BIN_MODE) $(CHAIN) /usr/local/bin
+-	install -o root -m 0644 growisofs.1 /usr/local/man/man1
++	install $(CHAIN) ${MYPREFIX}/bin
+ ])
+ 
+ ifelse(OS,SunOS,[
+@@ -101,8 +100,7 @@ LDLIBS=-lvolmgt -lrt -lpthread -ldl
+ 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+ 
+ install:	dvd+rw-tools
+-	/usr/ucb/install -o root -m 04755 $(CHAIN) /usr/local/bin
+-	/usr/ucb/install -o root -m 0644 growisofs.1 /usr/local/man/man1
++	/usr/ucb/install -o root -m 04755 $(CHAIN) $(MYPREFIX)/bin
+ ])
+ 
+ ifelse(OS,HP-UX,[
+@@ -139,8 +137,7 @@ LDLIBS=-lrt -lpthread
+ 	$(CXX) $(CXXFLAGS) -o $@ $> $^ $(LDFLAGS) $(LDLIBS)
+ 
+ install:	dvd+rw-tools
+-	/usr/sbin/install -o -f /usr/local/bin  $(CHAIN)
+-	/usr/sbin/install -o -f /usr/local/man/man1 growisofs.1
++	/usr/sbin/install -o -f $(MYPREFIX)/bin  $(CHAIN)
+ ])
+ 
+ ifelse(OS,IRIX,[
+@@ -176,8 +173,7 @@ LDFLAGS=-dont_warn_unused
+ 
+ BIN_MODE=04755	# set-root-uid
+ install:	dvd+rw-tools
+-	/sbin/install -u root -m $(BIN_MODE) $(CHAIN) /usr/local/bin
+-	/sbin/install -u root -m 0644 growisofs.1 /usr/local/man/man1
++	/sbin/install $(CHAIN) $(MYPREFIX)/bin
+ ])
+ 
+ ifelse(OS,Linux,[
+@@ -191,7 +187,7 @@ CXXFLAGS+=$(WARN) -O2 -fno-exceptions -D_REENTRANT
+ LDLIBS	=-lpthread
+ LINK.o	=$(LINK.cc)
+ 
+-prefix?=/usr/local
++prefix?=$(MYPREFIX)
+ manprefix?=$(shell case $(prefix) in (*/usr/?*) echo $(prefix)/man ;; (*) echo $(prefix)/share/man ;; esac)
+ 
+ bin_mode?=0755	# yes, default is *no* set-uid
+diff --git a/dvd+rw-format.cpp b/dvd+rw-format.cpp
+index 0969d11..1b2ea30 100644
+--- a/dvd+rw-format.cpp
++++ b/dvd+rw-format.cpp
+@@ -247,7 +247,7 @@ int main (int argc, char *argv[])
+ 	alarm(1);
+ 	while ((waitpid(pid,&i,0) != pid) && !WIFEXITED(i)) ;
+ 	if (WEXITSTATUS(i) == 0) fprintf (stderr,"\n");
+-	exit (0);
++	exit (WEXITSTATUS(i));
+     }
+ #endif
+ 
+diff --git a/growisofs_mmc.cpp b/growisofs_mmc.cpp
+index 4de8a14..cc25f0a 100644
+--- a/growisofs_mmc.cpp
++++ b/growisofs_mmc.cpp
+@@ -1640,9 +1640,7 @@ static void plus_r_dl_split (Scsi_Command &cmd,off64_t size)
+     blocks += 15, blocks &= ~15;
+ 
+     if (blocks <= split)
+-	fprintf (stderr,":-( more than 50%% of space will be *wasted*!\n"
+-			"    use single layer media for this recording\n"),
+-	exit (FATAL_START(EMEDIUMTYPE));
++	fprintf (stderr,":-? more than 50%% of space will be *wasted*!\n");
+ 
+     blocks /= 16;
+     blocks += 1;
+diff --git a/transport.hxx b/transport.hxx
+index 35a57a7..b599425 100644
+--- a/transport.hxx
++++ b/transport.hxx
+@@ -11,6 +11,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <string.h>
++#include <limits.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+@@ -123,7 +124,7 @@ class autofree {
+ extern "C" char *plusminus_locale()
+ { static class __plusminus {
+     private:
+-	char str[4];
++	char str[MB_LEN_MAX];
+     public:
+ 	__plusminus()	{   setlocale(LC_CTYPE,ENV_LOCALE);
+ 			    int l = wctomb(str,(wchar_t)(unsigned char)'±');

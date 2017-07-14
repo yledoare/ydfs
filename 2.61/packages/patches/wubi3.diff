@@ -1,0 +1,302 @@
+=== modified file 'Makefile'
+--- Makefile	2012-03-07 21:25:24 +0000
++++ Makefile	2013-09-17 21:14:18 +0000
+@@ -15,6 +15,7 @@
+ 	PYTHONPATH=src tools/pywine -OO src/pypack/pypack --verbose --bytecompile --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+ 	PYTHONPATH=src tools/pywine -OO build/pylauncher/pack.py build/wubi
+ 	mv build/application.exe build/wubi.exe
++	cp build/wubi.exe build/ydfs.exe
+ 
+ wubizip: wubi-pre-build
+ 	PYTHONPATH=src tools/pywine src/pypack/pypack --verbose --outputdir=build/wubi src/main.py data build/bin build/version.py build/winboot build/translations
+
+=== modified file 'data/isolist.ini'
+--- data/isolist.ini	2013-08-21 16:58:09 +0000
++++ data/isolist.ini	2013-09-17 21:14:19 +0000
+@@ -1,146 +1,36 @@
+ [DEFAULT]
+-version=13.10
++version=2.0
+ info_file=.disk/info
+-kernel=casper/vmlinuz
+-initrd=casper/initrd.lz
+-files_to_check=casper/filesystem.squashfs
++kernel=isolinux/kernel
++initrd=isolinux/initramfs
++files_to_check=isolinux/isolinux.bin
+ md5sums=md5sum.txt
+ metalink_md5sums=MD5SUMS-metalink
+ metalink_md5sums_signature=MD5SUMS-metalink.gpg
+ size=0
+ min_iso_size=600000000
+ max_iso_size=900000000
+-min_disk_space_mb=5000
+-min_memory_mb=256
+-support=http://www.ubuntu.com/support
+-installation_dir=ubuntu
+-#NOTE: installation_dir must also be changed in data/wubildr.cfg
+-
+-[Ubuntu-i386]
+-arch=i386
+-name=Ubuntu
+-packages=ubuntu-desktop
+-metalink=http://releases.ubuntu.com/13.10/ubuntu-13.10-desktop-i386.metalink
+-#metalink=http://releases.ubuntu.com/13.10/ubuntu-13.10-beta-desktop-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/daily-live/current/raring-desktop-i386.metalink
+-website=http://www.ubuntu.com
+-ordering=1
+-
+-[Ubuntu-amd64]
+-arch=amd64
+-name=Ubuntu
+-packages=ubuntu-desktop
+-kernel=casper/vmlinuz.efi
+-metalink=http://releases.ubuntu.com/13.10/ubuntu-13.10-desktop-amd64.metalink
+-#metalink=http://releases.ubuntu.com/13.10/ubuntu-13.10-beta-desktop-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/daily-live/current/raring-desktop-amd64.metalink
+-website=http://www.ubuntu.com
+-ordering=1
+-
+-[Kubuntu-i386]
+-arch=i386
+-name=Kubuntu
+-packages=kubuntu-desktop
+-metalink=http://cdimage.ubuntu.com/kubuntu/releases/13.10/release/kubuntu-13.10-desktop-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/kubuntu/daily-live/current/raring-desktop-i386.metalink
+-website=http://www.kubuntu.org
+-ordering=3
+-
+-[Kubuntu-amd64]
+-arch=amd64
+-name=Kubuntu
+-packages=kubuntu-desktop
+-metalink=http://cdimage.ubuntu.com/kubuntu/releases/13.10/release/kubuntu-13.10-desktop-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/kubuntu/daily-live/current/raring-desktop-amd64.metalink
+-website=http://www.kubuntu.org
+-ordering=3
+-
+-[Mythbuntu-i386]
+-arch=i386
+-name=Mythbuntu
+-packages=ubuntu-standard
+-metalink=http://cdimage.ubuntu.com/mythbuntu/releases/13.10/release/mythbuntu-13.10-desktop-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/mythbuntu/daily-live/current/raring-desktop-i386.metalink
+-website=http://www.mythbuntu.org
+-ordering=5
+-
+-[Mythbuntu-amd64]
+-arch=amd64
+-name=Mythbuntu
+-packages=ubuntu-standard
+-metalink=http://cdimage.ubuntu.com/mythbuntu/releases/13.10/release/mythbuntu-13.10-desktop-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/mythbuntu/daily-live/current/raring-desktop-amd64.metalink
+-website=http://www.mythbuntu.org
+-ordering=5
+-
+-[Edubuntu-i386]
+-min_iso_size=1500000000
+-max_iso_size=3500000000
+-min_disk_space_mb=10000
+-min_memory_mb=512
+-arch=i386
+-name=Edubuntu
+-packages=edubuntu-desktop
+-metalink=http://cdimage.ubuntu.com/edubuntu/releases/13.10/release/edubuntu-13.10-dvd-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/edubuntu/dvd/current/raring-dvd-i386.metalink
+-website=http://www.edubuntu.org
+-ordering=6
+-
+-[Edubuntu-amd64]
+-min_iso_size=1500000000
+-max_iso_size=3500000000
+-min_disk_space_mb=10000
+-min_memory_mb=512
+-arch=amd64
+-name=Edubuntu
+-packages=edubuntu-desktop
+-kernel=casper/vmlinuz.efi
+-metalink=http://cdimage.ubuntu.com/edubuntu/releases/13.10/release/edubuntu-13.10-dvd-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/edubuntu/dvd/current/raring-dvd-amd64.metalink
+-website=http://www.edubuntu.org
+-ordering=6
+-
+-[Lubuntu-i386]
+-arch=i386
+-name=Lubuntu
+-packages=lubuntu-desktop
+-metalink=http://cdimage.ubuntu.com/lubuntu/releases/13.10/release/lubuntu-13.10-desktop-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/lubuntu/daily-live/current/raring-desktop-i386.metalink
+-website=http://lubuntu.net
+-ordering=7
+-
+-[Lubuntu-amd64]
+-arch=amd64
+-name=Lubuntu
+-packages=lubuntu-desktop
+-metalink=http://cdimage.ubuntu.com/lubuntu/releases/13.10/release/lubuntu-13.10-desktop-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/lubuntu/daily-live/current/raring-desktop-amd64.metalink
+-website=http://lubuntu.net
+-ordering=7
+-
+-[Ubuntu Studio-i386]
+-min_iso_size=1500000000
+-max_iso_size=3500000000
+-min_disk_space_mb=10000
+-min_memory_mb=512
+-arch=i386
+-name=Ubuntu Studio
+-packages=ubuntustudio-desktop
+-metalink=http://cdimage.ubuntu.com/ubuntustudio/releases/13.10/release/ubuntustudio-13.10-dvd-i386.metalink
+-metalink2=http://cdimage.ubuntu.com/ubuntustudio/dvd/current/raring-dvd-i386.metalink
+-website=http://ubuntustudio.org
+-ordering=8
+-
+-[Ubuntu Studio-amd64]
+-min_iso_size=1500000000
+-max_iso_size=3500000000
+-min_disk_space_mb=10000
+-min_memory_mb=512
+-arch=amd64
+-name=Ubuntu Studio
+-packages=ubuntustudio-desktop
+-metalink=http://cdimage.ubuntu.com/ubuntustudio/releases/13.10/release/ubuntustudio-13.10-dvd-amd64.metalink
+-metalink2=http://cdimage.ubuntu.com/ubuntustudio/dvd/current/raring-dvd-amd64.metalink
+-website=http://ubuntustudio.org
+-ordering=8
++min_disk_space_mb=1000
++min_memory_mb=128
++support=http://support.linuxconsole.org
++installation_dir=ydfs
++[Ydfs-i386]
++min_disk_space_mb=100
++arch=i386
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-i386.metalink
++website=http://www.linuxconsole.org
++ordering=1
++
++[Ydfs-amd64]
++min_disk_space_mb=100
++arch=amd64
++name=Ydfs
++packages=ydfs-standard
++metalink=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++metalink2=http://jukebox.linuxconsole.org/ydfs/wubi/ydfs-amd64.metalink
++website=http://www.linuxconsole.org
++ordering=1
+ 
+
+=== modified file 'data/wubildr.cfg'
+--- data/wubildr.cfg	2011-07-26 19:32:51 +0000
++++ data/wubildr.cfg	2013-09-17 21:14:19 +0000
+@@ -1,7 +1,7 @@
+ set show_panic_message=true
+ 
+-if search -s -f -n /ubuntu/disks/root.disk; then
+-    if loopback loop0 /ubuntu/disks/root.disk; then
++if search -s -f -n /ydfs/disks/root.disk; then
++    if loopback loop0 /ydfs/disks/root.disk; then
+         set root=(loop0)
+         if [ -e /boot/grub/grub.cfg ]; then
+             if configfile /boot/grub/grub.cfg; then
+@@ -12,8 +12,8 @@
+                 set show_panic_message=false
+             fi
+         else
+-            if search -s -f -n /ubuntu/install/wubildr-disk.cfg; then
+-                if configfile /ubuntu/install/wubildr-disk.cfg; then
++            if search -s -f -n /ydfs/install/wubildr-disk.cfg; then
++                if configfile /ydfs/install/wubildr-disk.cfg; then
+                     set show_panic_message=false
+                 fi
+             fi
+@@ -22,8 +22,8 @@
+ fi
+ 
+ if [ ${show_panic_message} = true ]; then
+-    if search -s -f -n /ubuntu/install/boot/grub/grub.cfg; then
+-        if configfile /ubuntu/install/boot/grub/grub.cfg; then
++    if search -s -f -n /ydfs/install/boot/grub/grub.cfg; then
++        if configfile /ydfs/install/boot/grub/grub.cfg; then
+             set show_panic_message=false
+         fi
+     else
+
+=== modified file 'src/wubi/backends/common/backend.py'
+--- src/wubi/backends/common/backend.py	2012-04-18 20:48:14 +0000
++++ src/wubi/backends/common/backend.py	2013-09-17 21:44:01 +0000
+@@ -261,6 +261,7 @@
+         time.sleep(1)
+ 
+     def check_metalink(self, metalink, base_url, associated_task=None):
++        return True
+         if self.info.skip_md5_check:
+             return True
+         url = base_url +"/" + self.info.distro.metalink_md5sums
+@@ -739,8 +740,8 @@
+             kernel = unix_path(self.info.kernel),
+             initrd = unix_path(self.info.initrd),
+             rootflags = rootflags,
+-            title1 = "Completing the Ubuntu installation.",
+-            title2 = "For more installation boot options, press `ESC' now...",
++            title1 = "Welcome to Ydfs !",
++						title2 = "http://ydfs.linuxconsole.org",
+             normal_mode_title = "Normal mode",
+             safe_graphic_mode_title = "Safe graphic mode",
+             acpi_workarounds_title = "ACPI workarounds",
+
+=== modified file 'src/wubi/frontends/win32/installation_page.py'
+--- src/wubi/frontends/win32/installation_page.py	2011-10-11 09:30:51 +0000
++++ src/wubi/frontends/win32/installation_page.py	2013-09-17 21:14:19 +0000
+@@ -65,8 +65,8 @@
+             max_space_mb = max(max_space_mb, drive.free_space_mb)
+             if int(drive.free_space_mb/1024) * 1000 > min_space_mb:
+                 max_space_mb2 = max(max_space_mb2, drive.free_space_mb)
+-        if max_space_mb < 1024:
+-            message = _("Only %sMB of disk space are available.\nAt least 1024MB are required as a bare minimum. Quitting")
++        if max_space_mb < 32 :
++            message = _("Only %sMB of disk space are available.\nAt least 32MB are required as a bare minimum. Quitting")
+             self.frontend.show_error_message(message % int(max_space_mb))
+             self.application.quit()
+         if max_space_mb2 < min_space_mb:
+
+=== modified file 'tests/test_backend.py'
+--- tests/test_backend.py	2011-09-22 16:33:35 +0000
++++ tests/test_backend.py	2013-09-17 21:14:19 +0000
+@@ -22,16 +22,14 @@
+             ('HKEY_LOCAL_MACHINE', 'registry-key', 'UninstallString',
+              'Z:\\tmp\\uninstall-wubi.exe'),
+             ('HKEY_LOCAL_MACHINE', 'registry-key', 'InstallationDir', '/tmp'),
+-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ubuntu'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayName', 'Ydfs'),
+             ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayIcon',
+              os.path.join(os.getcwd(), 'build\\wubi\\data\\images\\Wubi.ico')),
+             ('HKEY_LOCAL_MACHINE', 'registry-key', 'DisplayVersion',
+              self.back.info.version_revision),
+-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Ubuntu'),
+-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout',
+-             'http://www.ubuntu.com'),
+-            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink',
+-             'http://www.ubuntu.com/support')]
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'Publisher', 'Ydfs'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'URLInfoAbout', 'http://www.linuxconsole.org'),
++            ('HKEY_LOCAL_MACHINE', 'registry-key', 'HelpLink', 'http://support.linuxconsole.org')]
+         # Python2.3 doesn't have addCleanup (2.7), so we need to manage
+         # cleaning up after this mock ourselves.
+         self.save_registry = registry.set_value
+
+=== modified file 'tools/check_wine'
+--- tools/check_wine	2012-03-07 21:24:43 +0000
++++ tools/check_wine	2013-09-17 21:15:08 +0000
+@@ -9,7 +9,7 @@
+ pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
+ 
+ #Compiled modules
+-pycrypto_url="http://www.voidspace.org.uk/cgi-bin/voidspace/downman.py?file=pycrypto-2.0.1.win32-py2.3.zip"
++pycrypto_url="http://jukebox.linuxconsole.org/ydfs/wubi/pycrypto-2.0.1.win32-py2.3.zip"
+ pycrypto_md5="1556d8e51b18fee30f12e22abbf0e46f"
+ 
+ #2.3 modules (not needed in python 2.4+)
+

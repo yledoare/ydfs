@@ -1,0 +1,237 @@
+# rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
+# apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
+cd $HOME_DIBAB
+sh scripts/build-llvm-clang
+
+export PYTHON=/usr/bin/python
+export PYTHON2=/usr/bin/python
+unset PYTHONPATH
+export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconfig:$HOME/$ARCH/lib/pkgconfig:$HOME/$ARCH/share/pkgconfig
+export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export CPPFLAGS="-I$HOME/multilib/include"
+#export CFLAGS="-I/usr/src/linux-headers-3.16.0-4-common/include/"
+export LDFLAGS="-L$HOME/multilib/lib -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
+
+install -d $HOME/multilib
+install -d $HOME/$ARCH/lib32 || exit 1
+
+install -d $HOME/multilib/include
+#FIXME !
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/uapi/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/linux/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/asm-generic/ $HOME/multilib/include/
+
+[ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
+[ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+
+# libFS-1 libdmx- \
+
+for PKG in util-linux alsa-lib ncurses readline sqlite zlib-1 libpng libffi glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb xtrans-1 \
+libX11-1 \
+libXext-1 \
+libICE-1 \
+libSM-1 \
+scrnsaverproto libXScrnSaver-1 \
+libXt-1 \
+libXmu-1 \
+libXpm-3 \
+libXaw-1 \
+fixesproto libXfixes-5 \
+libXcomposite-0 \
+renderproto \
+libXrender-0 \
+libXcursor-1 \
+libXdamage-1 \
+libfontenc-1 \
+libXfont-1 \
+libXft-2 \
+libXi-1 \
+libXinerama-1 \
+libXrandr-1 \
+libXres-1 \
+libXtst-1 \
+libXv-1 \
+libXvMC-1 \
+libXxf86dga-1 \
+libXxf86vm-1 \
+libpciaccess-0 \
+libxkbfile-1 \
+libxshmfence-1  pcre libffi dbus openssl-1 pixman cairo-1 libdrm llvm xorg-server-1.17.2/Mesa qt-everywhere-opensource-src-4  libnl-1 # pixman lcms2 poppler cairo-1 
+do
+  echo -n "$PKG " # && sleep 1
+  cd $HOME/ydfs/src/$PKG* || exit $?
+
+  [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
+  pwd
+  case $PKG in
+    xorg-server* )
+PYTHON2=/usr/bin/python ./configure \
+    --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
+    --prefix=$HOME/multilib \
+	--with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl \
+    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
+    --with-egl-platforms=x11,drm,wayland \
+    --enable-gallium-llvm \
+    --enable-llvm-shared-libs \
+    --enable-shared-glapi \
+    --enable-glx-tls \
+    --enable-egl \
+    --enable-glx \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-gbm \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-texture-float \
+    --enable-nine \
+    --enable-vdpau  --disable-debug
+	 patch -p1 < $HOME_DIBAB/packages/patches/mesa-multilib.diff
+	;;
+    alsa-lib )
+  	./configure --disable-python --prefix=$HOME/multilib || exit $?
+	;;
+    qt-everywhere-opensource-src-4 )
+	patch -p1 < $HOME_DIBAB/packages/patches/qt-everywhere-opensource-src-build32.diff 
+	# make
+	# From https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/lib32-qt4
+  sed -i "/^QMAKE_LINK\s/s|g++|g++ -m32|g" mkspecs/common/g++-base.conf
+  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/g++-base.conf
+  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/gcc-base.conf
+  sed -i "/^QMAKE_LFLAGS_RPATH/s| -Wl,-rpath,||g" mkspecs/common/gcc-base-unix.conf
+  sed -i "/^QMAKE_LFLAGS\s/s|+=|+= ${LDFLAGS} -m32|g" mkspecs/common/gcc-base.conf
+  sed -i "s|-Wl,-O1|-m32 -Wl,-O1|" mkspecs/common/g++-unix.conf
+  sed -e "s|-O2|$CXXFLAGS -m32|" \
+      -e "/^QMAKE_RPATH/s| -Wl,-rpath,||g" \
+      -e "/^QMAKE_LINK\s/s|g++|g++ -m32|g" \
+      -e "/^QMAKE_LFLAGS\s/s|+=|+= $LDFLAGS|g" \
+      -i mkspecs/common/g++.conf
+	ARCH=multilib ./configure -confirm-license -opensource -v -platform linux-g++-32 \
+    -prefix $HOME/multilib -system-sqlite \
+    -no-phonon \
+    -no-phonon-backend \
+    -no-gtkstyle -webkit \
+    -graphicssystem raster \
+    -openssl-linked \
+    -nomake demos \
+    -nomake examples \
+    -nomake docs \
+    -optimized-qmake \
+    -no-rpath \
+    -dbus-linked \
+    -reduce-relocations \
+    -no-openvg || exit $?
+
+    ;;
+    ncurses )
+
+	 mkdir ncursesw-build
+	 mkdir ncurses-build
+
+  cd ncursesw-build
+  ../configure --prefix=$HOME/multilib \
+     --with-shared --with-normal --without-debug --without-ada \
+     --enable-widec
+  make
+  make install
+	cd ..
+  cd ncurses-build
+  ../configure --prefix=$HOME/multilib \
+    --with-shared --with-normal --without-debug --without-ada 
+    ;;
+    icu )
+	cd source
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    util-linux* )
+	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
+	autoreconf
+  	./configure --prefix=$HOME/multilib --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
+    ;;
+    dbus* )
+  	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
+    ;;
+    freetype-2* )
+	if [ -e $HOME/multilib/lib/libharfbuzz.so ]
+	then
+  	  ./configure --prefix=$HOME/multilib || exit $?
+	else
+  	  ./configure --prefix=$HOME/multilib --with-harfbuzz=no || exit $?
+	fi
+    ;;
+    harfbuzz* )
+	./configure --prefix=$HOME/multilib -disable-silent-rules --with-graphite2=no --without-cairo || exit $?
+    ;;
+    readline )
+	sed -i 's|-Wl,-rpath,$(libdir) ||g' support/shobj-conf
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    openssl* )
+	./Configure --prefix=$HOME/multilib --openssldir=$HOME/multilib/etc/ssl --libdir=lib32 \
+		shared zlib \
+		linux-elf \
+		"-Wa,--noexecstack ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}"
+
+	make MAKEDEPPROG="${CC}" depend
+    ;;
+    llvm )
+	mkdir build
+	cd build
+  	../configure --prefix=$HOME/multilib --enable-shared || exit $?
+    ;;
+    cairo-1* )
+	# echo "Disable Test .." && sleep 2
+  	sed -i "s| test perf| perf|g" Makefile.am
+	# echo "Done" && sleep 2
+  	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
+  	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
+    ;;
+    poppler )
+  	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
+    ;;
+    * )
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+  esac
+
+  echo "Run make clean" && sleep 5
+  make clean
+  case $PKG in
+    readline )
+	make SHLIB_LIBS=-lncurses
+	;;
+    * )
+  	echo "Run make " && sleep 5
+  	make || exit $?
+	;;
+  esac
+	
+  make || exit $?
+  case $PKG in
+    llvm* )
+  	make install || exit $?
+	cd ..
+	;;
+    * )
+  	make install || exit $?
+	;;
+  esac
+  touch ydfs-multilib-buildt
+  cd ..
+done
+
+cp -a /usr/lib32/* $HOME/$ARCH/lib32
+cp -a /lib32 $HOME/$ARCH/lib32-root
+
+ls $HOME/$ARCH/lib32/*.a |while read file
+do
+  echo  $file
+  rm  $file
+done
+
+echo

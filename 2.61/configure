@@ -1,0 +1,39 @@
+# for file in `ls /usr/lib/i386-linux-gnu/|grep boost`; do ln -s /usr/lib/i386-linux-gnu/$file /usr/lib/$file; done
+[ $USER != "root" ] && echo "$0 should be run as root" && exit 1
+if [ -e /etc/debian_version ]
+then
+  DEBIAN="libncurses5-dev"
+  UBUNTU="ncurses-dev"
+  [ -e /usr/lib/x86_64-linux-gnu/ ] && DEBIAN8="gcc-multilib g++-multilib python-mako"
+  COMMON="locales syslinux-utils ghc libghc-random-dev libghc-zlib-dev libghc-entropy-dev libghc-SHA-dev libghc-utf8-string-dev ghc libghc-vector-dev libghc-bytestring-show-dev libghc-network-dev libghc-dataenc-dev libghc-hslogger-dev makeself iasl clang libclc-dev libclang-3.5-dev doxygen p7zip-full xutils-dev xmlto libelf-dev imagemagick bam fontforge ruby libboost-all-dev libboost-dev nasm libatomic-ops-dev unzip bc lynx cmake xfonts-utils xsltproc zlib1g-dev gperf bzr unicode-data llvm gettext docbook-xsl make mtd-utils pciutils texinfo bzip2 subversion git gawk bison flex automake autoconf libtool-bin libtool cvs lzma g++ genisoimage libmpfr-dev libgmp3-dev"
+  grep jessie /etc/debian_version && apt-get install $UBUNTU $COMMON
+  grep 7 /etc/debian_version && apt-get install $DEBIAN $COMMON
+  grep 8 /etc/debian_version && apt-get install $DEBIAN $COMMON $DEBIAN8
+else
+  echo "Ydfs is used to be build from debian/ubuntu"
+  exit 1
+fi
+
+exit 0
+
+# Old code
+  if [ -e /etc/mageia-release ]
+  then
+    urpmi gettext byacc flex bison libtool automake autoconf lynx docbook-xsl wget git texinfo libmpfr-devel libgmp-devel gcc-c++ gcc binutils docbook-dtd412-xml docbook-dtd44-xml docbook-dtd43-xml docbook-dtd42-xml make
+  else
+    if [ -e /sbin/yast ]
+    then
+      yast --install gettext docbook-xsl-stylesheets make patch bison flex gcc gawk git wget subversion texinfo automake libtool cvs xz ncurses ncurses-devel gcc-c++ gmp-devel mpfr-devel genisoimage
+    else
+      if [ -e /etc/arch-release ]
+      then
+        pacman -S git qemu cdrkit docbook-xsl svn cvs cpio
+        # To make new openssl buildt
+        [ -e /usr/lib/libssl.so ] && rm /usr/lib/libssl.so
+        [ -e /usr/lib/libcrypto.so ] && rm /usr/lib/libcrypto.so
+      fi
+    fi
+  fi
+fi
+
+echo "Warning, to build libreoffice, you need gdb and python3 dev files with 'sudo apt-get install python3-dev gdb'"

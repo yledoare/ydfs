@@ -1,0 +1,56 @@
+diff --git a/Makefile.in b/Makefile.in
+index 2dcc287..7f17c63 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -34,8 +34,6 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
+-
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+ pkgincludedir = $(includedir)/@PACKAGE@
+diff --git a/configure b/configure
+index ad9ee75..7b3a9ec 100755
+--- a/configure
++++ b/configure
+@@ -33,7 +33,7 @@ target=NONE
+ verbose=
+ x_includes=NONE
+ x_libraries=NONE
+-bindir='${exec_prefix}/dossizola'
++bindir='${exec_prefix}/dossizola'
+ sbindir='${exec_prefix}/sbin'
+ libexecdir='${exec_prefix}/libexec'
+ datadir='${prefix}/share'
+diff --git a/dossizola/Makefile.in b/dossizola/Makefile.in
+index 3d9b35b..cd1e696 100644
+--- a/dossizola/Makefile.in
++++ b/dossizola/Makefile.in
+@@ -34,8 +34,6 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
+-
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+ pkgincludedir = $(includedir)/@PACKAGE@
+diff --git a/dossizola/isola.h b/dossizola/isola.h
+index 9ec4614..fa029f9 100644
+--- a/dossizola/isola.h
++++ b/dossizola/isola.h
+@@ -222,12 +222,6 @@ void Constructeur (JOUEUR[], GRILLE *, BOOL, SDL_Surface *, SDL_Surface *);
+ // Libère la mémoire occupée par les images
+ void Destructeur (JOUEUR[], GRILLE *);
+ 
+-// Prévois les possibilités de déplacements pour chaques cases
+-void Calcul_Choix (GRILLE , int[][], int , int *);
+-
+-// Crée une grille à partir du jeu pour calculer les déplacements possibles
+-void Meilleur_Choix (GRILLE , int[][], int, JOUEUR[], int, MAX[], MAX []);
+-
+ // Place sur l'une des meilleurs cases
+ void Ordi_Place (int *, int *, JOUEUR, GRILLE);
+ 

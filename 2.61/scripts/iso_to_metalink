@@ -1,0 +1,23 @@
+echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">
+    <files>
+      <file name=\"linuxconsole.2.3-x86.iso\">
+      <resources>
+        <url type=\"http\">http://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
+      </resources>
+      </file>
+    </files>
+  </metalink>
+" > linuxconsole-i386.metalink
+
+echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">
+    <files>
+      <file name=\"linuxconsole.2.3-x86.iso\">
+      <resources>
+        <url type=\"http\">http://jukebox.linuxconsole.org/official/linuxconsole.2.3-x86.iso</url> 
+      </resources>
+      </file>
+    </files>
+  </metalink>
+" > linuxconsole-amd64.metalink
+
+md5sum *.metalink > MD5SUMS-metalink

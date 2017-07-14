@@ -1,0 +1,41 @@
+diff --git a/game2/Makefile.GnuLinux b/game2/Makefile.GnuLinux
+index 8bf6b4b..fbe1494 100644
+--- a/game2/Makefile.GnuLinux
++++ b/game2/Makefile.GnuLinux
+@@ -20,11 +20,11 @@ PLATFORM_COMPILE_FLAGS = -DLINUX
+ 
+ # various GL and X windows  librariesneeded for linux
+ # also need portaudio library (which in turn needs pthreads)
+-PLATFORM_LINK_FLAGS = -L/usr/X11R6/lib -lGL -lglut -lGLU -lX11 -lportaudio -lpthread -lpng
++PLATFORM_LINK_FLAGS = -L/usr/X11R6/lib -lGL -lglut -lGLU -lX11 -lportaudio -lpthread -lpng -L${HOME}/games/lib/ -L${HOME}/${ARCH}/lib
+ 
+ 
+ # All platforms but OSX support g++ and need no linker hacks
+-GXX = g++ 
++GXX = g++ -I${HOME}/games/include -I${HOME}/${ARCH}/include
+ LINK_FLAGS = 
+ 
+ 
+diff --git a/runToBuild b/runToBuild
+index 60b9799..ec17a2c 100755
+--- a/runToBuild
++++ b/runToBuild
+@@ -13,7 +13,7 @@
+ 
+ cd game2
+ chmod u+x ./configure
+-./configure
++./configure --linux
+ 
+ 
+ echo "Building Cultivation..."
+@@ -37,6 +37,10 @@ cp game2/gameSource/languages/*.txt ./languages
+ 
+ echo "Run Cultivation to play."
+ 
+-
++install -d $HOME/games/Cultivation
++cp ./Cultivation $HOME/games/Cultivation
++cp *.txt $HOME/games/Cultivation && echo "French" > $HOME/games/Cultivation/language.txt
++cp *.tga $HOME/games/Cultivation
++cp -fR languages $HOME/games/Cultivation && echo "cd $HOME/games/Cultivation && ./Cultivation" > $HOME/games/bin/cultivation && chmod +x $HOME/games/bin/cultivation && install -d $HOME/games/share/applications && cp debian/cultivation.desktop $HOME/games/share/applications
