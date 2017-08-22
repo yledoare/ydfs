@@ -1,4 +1,5 @@
 http://zlib.net/current/zlib-1.2.8.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.10.5.tar.gz 
 http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
 http://ftp.gimp.org/pub/babl/0.1/babl-0.1.14.tar.bz2
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz  
@@ -64,9 +65,11 @@ ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.5.tar.bz2
 ftp://ftp.gnutls.org/gcrypt/gnutls/v3.4/gnutls-3.4.13.tar.xz
 http://curl.haxx.se/download/curl-7.37.0.tar.gz 
 CPAN:/YAML 
+CPAN:/Net::HTTP
 CPAN:/Net::FTP 
-CPAN:/Net::DBus 
 CPAN:/XML::Parser 
+CPAN:/XML::Twig
+CPAN:/Net::DBus 
 CPAN:/Date::Manip 
 #http://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.54.tar.gz
 CPAN:/HTML::Entities 
@@ -112,7 +115,7 @@ http://www.freedesktop.org/software/colord/releases/colord-1.0.7.tar.xz
 http://www.cups.org/software/2.0.2/cups-2.0.2-source.tar.bz2 # needed for Google Chrome
 ftp://ftp.freedesktop.org/pub/individual/proto/dri2proto-2.8.tar.gz  
 http://xorg.freedesktop.org//releases/individual/proto/dri3proto-1.0.tar.bz2 
-ftp://ftp.freedesktop.org/pub/individual/proto/xproto-7.0.26.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/xproto-7.0.28.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/proto/glproto-1.4.17.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/proto/xextproto-7.3.0.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/proto/presentproto-1.0.tar.bz2 
@@ -210,17 +213,17 @@ http://downloads.sourceforge.net/project/omxil/omxil/Bellagio%200.9.3/libomxil-b
 http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.5.1.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
-ftp://ftp.freedesktop.org/pub/individual/xserver/xorg-server-1.17.2.tar.gz
+ftp://ftp.freedesktop.org/pub/individual/xserver/xorg-server-1.18.4.tar.gz
 https://github.com/anholt/libepoxy/releases/download/v1.3.1/libepoxy-1.3.1.tar.bz2
 ftp://ftp.freedesktop.org/pub/mesa/glu/glu-9.0.0.tar.bz2
 http://optimate.dl.sourceforge.net/project/freeglut/freeglut/2.8.1/freeglut-2.8.1.tar.gz 
 git://anongit.freedesktop.org/xorg/driver/glamor
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-vesa-2.3.3.tar.bz2
 http://www.freedesktop.org/software/libevdev/libevdev-1.4.2.tar.xz
-ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.9.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.10.5.tar.gz 
 http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.gz 
-ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-ati-7.5.0.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-ati-7.9.0.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-modesetting-0.9.0.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-openchrome-0.3.3.tar.gz
 http://xorg.freedesktop.org/archive/individual/driver/xf86-video-vmware-13.1.0.tar.bz2
