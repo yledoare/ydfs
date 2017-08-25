@@ -1304,6 +1304,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 		echo ghostscript 
 		make so || exit $?
 		make soinstall || exit $?
+		make install-so || exit $?
 	fi
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	[ -e getfacl/getfacl.c ] && make install-lib install-dev
