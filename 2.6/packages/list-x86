@@ -592,51 +592,49 @@ https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar
 https://download.gnome.org/sources/libwnck/3.20/libwnck-3.20.1.tar.xz 
 https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
 http://download.gnome.org/sources/dconf/0.24/dconf-0.24.0.tar.xz #SKIP-x86#
-https://github.com/mate-desktop/mate-common/archive/v1.16.0.tar.gz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-desktop-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/caja-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-icon-theme-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/libmatekbd-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-menus-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/marco-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-settings-daemon-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-control-center-1.16.0.tar.xz #SKIP-x86#
-#http://pub.mate-desktop.org/releases/1.16/mate-themes-gtk3.16-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/libmatemixer-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/libmateweather-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/caja-extensions-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-notification-daemon-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-panel-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-power-manager-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-session-manager-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-backgrounds-1.16.0.tar.xz #SKIP-x86#
-http://pub.mate-desktop.org/releases/1.16/mate-media-1.16.0.tar.xz #SKIP-x86#
-http://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip 
+#https://github.com/mate-desktop/mate-common/archive/v1.16.0.tar.gz #SKIP-x86#
+http://pub.mate-desktop.org/releases/1.18/mate-desktop-1.18.0.tar.xz
+http://pub.mate-desktop.org/releases/1.18/caja-1.18.4.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-icon-theme-1.18.2.tar.xz
+http://pub.mate-desktop.org/releases/1.18/libmatekbd-1.18.2.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-menus-1.18.0.tar.xz 
+http://pub.mate-desktop.org/releases/1.18/marco-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-settings-daemon-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-control-center-1.18.2.tar.xz
+http://pub.mate-desktop.org/releases/1.18/libmatemixer-1.18.0.tar.xz
+http://pub.mate-desktop.org/releases/1.18/libmateweather-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/caja-extensions-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-notification-daemon-1.18.0.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-panel-1.18.4.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-power-manager-1.18.0.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-session-manager-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-media-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/mate-backgrounds-1.18.0.tar.xz
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 #Warning, unset LDFLAGS for building grub
 http://alpha.gnu.org/gnu/grub/grub-2.02~beta3.tar.xz
 #Wine
-#http://dl.winehq.org/wine/source/2.0/wine-2.0.tar.bz2
-#https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
-#http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
-#https://github.com/libfuse/libfuse/archive/fuse_2_9_5.tar.gz
-#https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
-#git://github.com/Aorimn/dislocker.git
+http://dl.winehq.org/wine/source/2.0/wine-2.0.tar.bz2
+https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
+http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
+https://github.com/libfuse/libfuse/archive/fuse_2_9_5.tar.gz
+https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
+git://github.com/Aorimn/dislocker.git
 archlinux:strace
 archlinux:mesa-demos
-#http://sourceforge.net/projects/pyqt/files/sip/sip-4.18/sip-4.18.tar.gz
-#http://www.sfml-dev.org/files/SFML-2.3.2-sources.zip
-#https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar.xz
-#http://freefr.dl.sourceforge.net/project/extremetuxracer/releases/0.7.2/etr-0.7.2.tar.xz
-#https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
-#http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
-#https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
-#http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
-#http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
-#http://audacity.googlecode.com/files/audacity-minsrc-2.0.5.tar.xz
-#archlinux:git
-#archlinux:ncftp
-#archlinux:vmpk
+http://sourceforge.net/projects/pyqt/files/sip/sip-4.18/sip-4.18.tar.gz
+http://www.sfml-dev.org/files/SFML-2.3.2-sources.zip
+https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar.xz
+http://freefr.dl.sourceforge.net/project/extremetuxracer/releases/0.7.2/etr-0.7.2.tar.xz
+https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
+http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
+https://download.gnome.org/sources/brasero/3.12/brasero-3.12.1.tar.xz
+http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
+http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
+http://audacity.googlecode.com/files/audacity-minsrc-2.0.5.tar.xz
+archlinux:git
+archlinux:ncftp
+archlinux:vmpk
 #http://downloads.sourceforge.net/project/guvcview/source/guvcview-src-2.0.4.tar.gz
 #EndList
