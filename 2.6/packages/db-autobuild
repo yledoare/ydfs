@@ -269,8 +269,11 @@ else
 
   if [ -e js/src/jsanalyze.cpp ]
   then
-    cd js/src
-    sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
+     cd js/src
+pwd && sleep 5
+     # rm -r editline
+     # rm -r ctypes/libffi
+     sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
   fi
 
   if [ -e js/src/jsalloc.cpp ]

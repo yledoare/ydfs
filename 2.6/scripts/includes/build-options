@@ -1,9 +1,10 @@
        echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
-    --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie"
+    --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
  
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
+        echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
     --enable-pcre16 \
     --enable-pcre32 \
@@ -11,6 +12,7 @@
     --enable-pcregrep-libz \
     --enable-pcregrep-libbz2 \
     --enable-pcretest-libreadline" 
+	echo $ARCHIVE | grep mozjs-24 && unset MODULE && unset CPPFLAGS && CXXFLAGS+=' -fno-delete-null-pointer-checks' && LC_CONFIGURE_OPTS=" --with-system-nspr --enable-system-ffi --enable-readline --enable-threadsafe"
 	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
 	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 
 	echo $ARCHIVE | grep libfuse && export LC_CONFIGURE_OPTS="--enable-lib --enable-util --disable-example" 
