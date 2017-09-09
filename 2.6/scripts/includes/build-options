@@ -1,4 +1,8 @@
-        echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
+       echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
+    --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
+    --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie"
+ 
+	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
     --enable-pcre16 \

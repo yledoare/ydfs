@@ -273,6 +273,11 @@ else
     sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
   fi
 
+  if [ -e js/src/jsalloc.cpp ]
+  then
+    cd js/src
+  fi
+
   if [ -e nspr ]
   then
     cd nspr
@@ -410,6 +415,8 @@ else
 	touch buildok-$ARCH
 	exit 0
     fi
+
+   [ -e src/polkit/polkit.h ] && echo src/polkit/polkit.h && sleep 4 && sed -i "s:/sys/fs/cgroup/systemd/:/sys:g" configure
 
    if [ -e readline.c ]
    then
