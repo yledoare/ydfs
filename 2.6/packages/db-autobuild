@@ -302,7 +302,8 @@ pwd && sleep 5
   	cp $HOME/$ARCH/include/GL/glxext.h source/Irrlicht/glxext.h
   	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
 	cd source/Irrlicht
-	CXXFLAGS="-std=gnu++11 " make NDEBUG=1 sharedlib	 || exit 2
+	rm */*.o
+	CFLAGS="" CPPFLAGS="" CXXFLAGS="-std=gnu++11 -fPIC" make NDEBUG=1 sharedlib	 || exit 2
 	make install || exit 3
   	cd ../../
 	touch buildok-$ARCH

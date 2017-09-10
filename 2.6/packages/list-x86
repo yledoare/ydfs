@@ -396,7 +396,7 @@ http://www.lua.org/ftp/lua-5.3.3.tar.gz
 http://ftp.de.debian.org/debian/pool/main/o/ode/ode_0.11.1-4.dsc 
 http://ftp.de.debian.org/debian/pool/main/libx/libxdg-basedir/libxdg-basedir_1.1.1-2.dsc
 http://roy.marples.name/downloads/dhcpcd/dhcpcd-6.0.5.tar.bz2
-http://hostap.epitest.fi/releases/wpa_supplicant-2.5.tar.gz
+https://w1.fi/releases/wpa_supplicant-2.6.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/libsecret/0.16/libsecret-0.16.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.0/json-glib-1.0.0.tar.xz
 http://www.freedesktop.org/software/libmbim/libmbim-1.10.0.tar.xz
