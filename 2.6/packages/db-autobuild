@@ -142,15 +142,6 @@ else
   [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   [ -e SDL_Pango.pc.in ] && [ -e configure ] && rm configure && echo " Forced remake configure " && sleep 5 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
 
-  if [ -e DISABLE/generic/include/clc/clc.h ]
-  then
-  [ ! -e $HOME/ydfs/llvm-clang/bin/llvm-config ] && echo "Build llvm-clang" && $HOME_DIBAB/scripts/build-llvm-clang
-  echo "Build custom clc"
-  # sed -i 's/"python < $in >/sys.executable + " < $in >/g' configure.py
-  python2 ./configure.py --prefix=$PREFIX --with-llvm-config=$HOME/ydfs/llvm-clang/bin/llvm-config
-#  sed -i 's|/usr/lib/llvm-3.4|/usr|' Makefile
-  fi
-
 . $(dirname $0)/../scripts/includes/login
 
 
@@ -476,7 +467,7 @@ pwd && sleep 5
   fi
   if [ -n "`basename $PWD | grep xorg-server`" ]
   then
-    if [ ! -e $HOME/ydfs/llvm ]
+    if [ ! -e $HOME/ydfs/llvm ] && grep '8.' /etc/debian_version
     then
 	echo "Build $HOME/ydfs/llvm"
 	scripts/build-llvm-clang
@@ -509,6 +500,8 @@ pwd && sleep 5
     [ "$ARCH" = "x86" ] && BUILDOPT=" --host=i586-linux-gnu "
     sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
     ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+    LLVMOPT=""
+    [ -e $HOME/ydfs/llvm/lib/ ] && LLVMOPT=" --with-clang-libdir=$HOME/ydfs/llvm/lib/ "
 ./configure $BUILDOPT --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
     --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
@@ -529,8 +522,7 @@ pwd && sleep 5
     --enable-vdpau \
     --enable-omx \
     --enable-nine \
-    --enable-opencl --enable-opencl-icd \
-    --with-clang-libdir=$HOME/ydfs/llvm/lib/ || exit 5
+    --enable-opencl --enable-opencl-icd $LLVMOPT || exit 5
     make || exit 6
     make install || exit 7
     cd ..
