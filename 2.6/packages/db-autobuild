@@ -294,7 +294,7 @@ pwd && sleep 5
   	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
 	cd source/Irrlicht
 	rm */*.o
-	CFLAGS="" CPPFLAGS="" CXXFLAGS="-std=gnu++11 -fPIC" make NDEBUG=1 sharedlib	 || exit 2
+	CFLAGS="" CPPFLAGS="" CXXFLAGS="-I$HOME/$ARCH/include -std=gnu++11 -fPIC" make NDEBUG=1 sharedlib	 || exit 2
 	make install || exit 3
   	cd ../../
 	touch buildok-$ARCH
