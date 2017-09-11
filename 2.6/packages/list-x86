@@ -517,13 +517,11 @@ http://mirror0.sfml-dev.org/files/SFML-1.6-sdk-linux-32.tar.gz
 https://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
 https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz
-http://freefr.dl.sourceforge.net/project/openil/DevIL/1.7.8/DevIL-1.7.8.tar.gz
 http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 http://savannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
 http://cgit.freedesktop.org/libxklavier/snapshot/libxklavier-5.4.zip
 http://www.freedesktop.org/software/accountsservice/accountsservice-0.6.39.tar.xz
-https://launchpad.net/intltool/trunk/0.50.2/+download/intltool-0.50.2.tar.gz
-https://sourceforge.net/projects/wxwindows/files/3.0.2/wxWidgets-3.0.2.tar.bz2
+archlinuxpatched:intltool
 http://downloads.sourceforge.net/sourceforge/giflib/giflib-5.1.1.tar.bz2
 archlinuxpatched:system-tools-backends
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
