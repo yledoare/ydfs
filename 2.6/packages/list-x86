@@ -462,7 +462,7 @@ git://github.com/lloyd/yajl.git
 http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
 http://netcologne.dl.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz
 http://taglib.github.io/releases/taglib-1.9.1.tar.gz 
-http://pkgs.fedoraproject.org/repo/pkgs/libssh/libssh-0.6.4.tar.gz/5d092f911492e3ee4cd7b473f09a0196/libssh-0.6.4.tar.gz
+https://red.libssh.org/attachments/download/218/libssh-0.7.5.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.2.tar.gz
 http://lxml.de/files/lxml-3.3.0.tgz
 http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.19.tar.gz
@@ -477,6 +477,7 @@ http://ftp.gimp.org/pub/gegl/0.3/gegl-0.3.6.tar.bz2
 http://pkgs.fedoraproject.org/repo/pkgs/community-mysql/mysql-5.6.25.tar.gz/37664399c91021abe070faa700ecd0ed/mysql-5.6.25.tar.gz
 http://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.33.tar.gz 
 http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz 
+archlinuxpatched:cdrdao
 http://downloads.sourceforge.net/cdrdao/cdrdao-1.2.3.tar.bz2
 http://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-10.2.src.tgz
 http://downloads.sourceforge.net/cdrtools/cdrtools-3.02a06.tar.bz2

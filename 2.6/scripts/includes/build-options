@@ -3,6 +3,7 @@
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
  
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
+	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
