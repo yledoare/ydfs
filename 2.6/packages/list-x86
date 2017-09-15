@@ -130,7 +130,7 @@ http://xcb.freedesktop.org/dist/xcb-util-0.4.0.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/lib/libX11-1.6.3.tar.gz 
 #ftp://ftp.freedesktop.org/pub/individual/util/makedepend-1.0.2.tar.gz 
 http://xorg.freedesktop.org/archive/individual/lib/libpciaccess-0.13.4.tar.gz
-http://dri.freedesktop.org/libdrm/libdrm-2.4.78.tar.bz2 
+http://dri.freedesktop.org/libdrm/libdrm-2.4.79.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/lib/libICE-1.0.9.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libxkbfile-1.0.9.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libSM-1.2.2.tar.bz2 
@@ -213,9 +213,11 @@ http://downloads.sourceforge.net/project/omxil/omxil/Bellagio%200.9.3/libomxil-b
 http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.5.1.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
-http://wayland.freedesktop.org/releases/wayland-1.12.0.tar.xz
+http://wayland.freedesktop.org/releases/wayland-1.14.0.tar.xz
+http://wayland.freedesktop.org/releases/wayland-protocols-1.10.tar.xz
 #https://mesa.freedesktop.org/archive/mesa-17.2.0.tar.xz
-ftp://ftp.freedesktop.org/pub/mesa/12.0.6/mesa-12.0.6.tar.xz
+#ftp://ftp.freedesktop.org/pub/mesa/12.0.6/mesa-12.0.6.tar.xz
+https://mesa.freedesktop.org/archive/mesa-17.1.9.tar.xz
 https://github.com/anholt/libepoxy/releases/download/v1.3.1/libepoxy-1.3.1.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/xserver/xorg-server-1.19.3.tar.gz
 ftp://ftp.freedesktop.org/pub/mesa/glu/glu-9.0.0.tar.bz2
@@ -254,7 +256,6 @@ http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.10/at-spi2-core-2.10.2.tar
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.0.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/atk/2.22/atk-2.22.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.10/at-spi2-atk-2.10.2.tar.xz
-http://wayland.freedesktop.org/releases/wayland-protocols-1.7.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.20/gtk+-3.20.9.tar.xz
 http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.102.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/zenity/3.14/zenity-3.14.0.tar.xz
