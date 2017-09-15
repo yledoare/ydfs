@@ -43,4 +43,5 @@ Debian-exim:x:103:
 mlocate:x:104:
 ssh:x:105:
 lpadmin:x:106:
+input:x:107:
 pulse:x:110:

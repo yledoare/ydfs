@@ -6,7 +6,7 @@ cd ydfs || exit 1
 
 BUSYBOX=$1
 
-[ ! -e $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --directory-prefix=$HOME/ydfs/tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
+[ ! -e $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --no-check-certificate --directory-prefix=$HOME/ydfs/tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
 [ ! -e $HOME/ydfs/src/busybox-$BUSYBOX ] && tar xjvf  $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 --directory=$HOME/ydfs/src
 
 install -d  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX

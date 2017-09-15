@@ -102,6 +102,8 @@ ln -s /busybox/sbin /
 chmod u+s /usr/libexec/dbus-daemon-launch-helper
 
 /ydfs/start/syslog
+mkdir /run
+
 
 #udevd --daemon --debug
 if [ -e /ydfs/boot/options/debug ]
