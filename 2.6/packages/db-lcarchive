@@ -12,16 +12,17 @@ build_the_archive()
   else
   echo "Log : $PWD/ydfs-log "
   echo -n "Building in progress ... "     
-	date
+  #	date
   START=`date '+%s'`
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log || exit $?
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
-  echo "OK - $DURATION" 
-  if [ "$DURATION" != "0" ]
-    then
-     echo "Sleep" # && sleep 100
-    fi
+  SDURATION=$((($END - $START)%60))
+  echo -n -e " ... Build in \e[92m$DURATION:$SDURATION\e[0m " 
+  #if [ "$DURATION" != "0" ]
+  #  then
+  #   echo "Sleep" # && sleep 100
+  #  fi
   fi
 }
 if [ "$1" = "--help" ] || [ "$1" = "" ]
@@ -151,7 +152,7 @@ case "$ARCHIVE" in
         echo $FILE
         tar xzvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
-      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
+      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
       cd $DIR2
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
