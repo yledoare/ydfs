@@ -465,7 +465,7 @@ pwd && sleep 5
     touch buildok-$ARCH 
     exit 0
   fi
-  if [ -n "`basename $PWD | grep xorg-server`" ]
+  if [ -n "`basename $PWD | grep DELETEMExorg-server`" ]
   then
     if [ ! -e $HOME/ydfs/llvm ] && grep '8.' /etc/debian_version
     then

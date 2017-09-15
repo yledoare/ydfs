@@ -214,6 +214,8 @@ http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.5.1.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
 http://wayland.freedesktop.org/releases/wayland-1.12.0.tar.xz
+#https://mesa.freedesktop.org/archive/mesa-17.2.0.tar.xz
+ftp://ftp.freedesktop.org/pub/mesa/12.0.6/mesa-12.0.6.tar.xz
 https://github.com/anholt/libepoxy/releases/download/v1.3.1/libepoxy-1.3.1.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/xserver/xorg-server-1.19.3.tar.gz
 ftp://ftp.freedesktop.org/pub/mesa/glu/glu-9.0.0.tar.bz2
