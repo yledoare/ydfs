@@ -36,7 +36,7 @@ then
 	if [ ! -e $HOME/qt5 ]
 	then            
 	  cd $HOME 
-	  [ ! -e `basename $TARBALL` &&  wget $TARBALL 
+	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL 
 	  7z x gcc_64.7z && mv gcc_64 qt5
 	fi
 

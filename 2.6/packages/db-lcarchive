@@ -20,7 +20,7 @@ build_the_archive()
   echo "OK - $DURATION" 
   if [ "$DURATION" != "0" ]
     then
-     echo "Sleep" && sleep 100
+     echo "Sleep" # && sleep 100
     fi
   fi
 }
