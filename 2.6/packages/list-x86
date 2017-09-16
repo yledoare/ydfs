@@ -248,7 +248,7 @@ git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=f2a4645
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-nouveau-1.0.13.tar.gz
 http://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-1.2.0.tar.gz
-http://cairographics.org/releases/cairo-1.14.6.tar.xz
+http://cairographics.org/releases/cairo-1.14.10.tar.xz
 http://xkbcommon.org/download/libxkbcommon-0.6.1.tar.xz
 http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.3.0.tar.bz2
 ftp://ftp.gnome.org/pub/gnome/sources/pango/1.40/pango-1.40.3.tar.xz

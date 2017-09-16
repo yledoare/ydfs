@@ -1,7 +1,8 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
 # apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
 cd $HOME_DIBAB
-sh scripts/build-llvm-clang
+pwd
+bash scripts/build-llvm-clang
 
 export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
@@ -60,8 +61,8 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau xorg-server-1.18.4/Mesa \
-attr acl libusb-0.1.12 udev \
+libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
+attr acl libusb-0.1.12 eudev 
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
@@ -78,7 +79,7 @@ do
 	;;
   esac
   case $PKG in
-    xorg-server* )
+    mesa* )
 PYTHON2=/usr/bin/python ./configure \
     --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
     --prefix=$HOME/multilib \
