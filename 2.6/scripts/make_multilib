@@ -62,7 +62,7 @@ libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
-attr acl libusb-0.1.12 eudev 
+attr acl eudev 
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
