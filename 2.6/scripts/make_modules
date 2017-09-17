@@ -77,11 +77,11 @@ echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HO
 LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module
 LDLINUX=ld-linux.so.2
 [ "$ARCH" = "x86_64" ] && LDLINUX=ld-linux-x86-64.so.2
-LIBLLVM=3.5
+LIBLLVM=3.8
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.4.so ] && LIBLLVM=3.4
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.0.so ] && LIBLLVM=3.0
-LIBBOOST=55
+LIBBOOST=62
 
 [ -e /usr/lib/libboost_filesystem.so.1.49.0 ] && LIBBOOST=49
 LIBFFI=libffi.so.6
@@ -100,7 +100,7 @@ else
   done
   for file in $GLIBC_LIBS
   do
-    for directory in /usr/lib/gcc/x86_64-linux-gnu/4.9/ /usr/lib/llvm-3.5/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/
+    for directory in /usr/lib/gcc/x86_64-linux-gnu/6/ /usr/lib/gcc/x86_64-linux-gnu/4.9/ /usr/lib/llvm-3.5/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/
     do
 	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
     done

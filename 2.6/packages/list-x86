@@ -248,6 +248,7 @@ git://anongit.freedesktop.org/xorg/driver/xf86-video-intel#commit=f2a4645
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-nouveau-1.0.13.tar.gz
 http://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-1.2.0.tar.gz
+http://invisible-island.net/datafiles/release/xterm.tar.gz
 http://cairographics.org/releases/cairo-1.14.10.tar.xz
 http://xkbcommon.org/download/libxkbcommon-0.6.1.tar.xz
 http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.3.0.tar.bz2
@@ -531,7 +532,6 @@ http://downloads.sourceforge.net/sourceforge/giflib/giflib-5.1.1.tar.bz2
 archlinuxpatched:system-tools-backends
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
 # For PlayOnLinux
-http://invisible-island.net/datafiles/release/xterm.tar.gz
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
 http://www.imagemagick.org/download/ImageMagick-6.9.5-7.tar.xz
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
