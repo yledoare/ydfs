@@ -2,6 +2,7 @@
 archlinux:nasm
 http://zlib.net/current/zlib-1.2.11.tar.gz 
 http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
+http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 http://ftp.gimp.org/pub/babl/0.1/babl-0.1.16.tar.bz2
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
@@ -39,7 +40,6 @@ ftp://xmlsoft.org/libxml2/libxml2-2.9.4.tar.gz
 http://files.itstool.org/itstool/itstool-2.0.2.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.10.12.tar.gz
-http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.25.tar.xz
 http://www.ijg.org/files/jpegsrc.v9b.tar.gz
 http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
