@@ -1,7 +1,8 @@
 #Begin
-archlinux:nasm
+http://www.nasm.us/pub/nasm/releasebuilds/2.13.01/nasm-2.13.01.tar.xz
 http://zlib.net/current/zlib-1.2.11.tar.gz 
 http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
+http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 http://ftp.gimp.org/pub/babl/0.1/babl-0.1.16.tar.bz2
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
@@ -39,7 +40,6 @@ ftp://xmlsoft.org/libxml2/libxml2-2.9.4.tar.gz
 http://files.itstool.org/itstool/itstool-2.0.2.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.10.12.tar.gz
-http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.25.tar.xz
 http://www.ijg.org/files/jpegsrc.v9b.tar.gz
 http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
@@ -278,7 +278,8 @@ http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.0.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
 http://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
 https://github.com/lathiat/avahi/releases/download/v0.6.32/avahi-0.6.32.tar.gz
-http://poppler.freedesktop.org/poppler-0.26.0.tar.xz
+https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
+http://poppler.freedesktop.org/poppler-0.57.0.tar.xz
 ftp://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.2.tar.bz2 
 ftp://ftp.gnome.org/pub/gnome/sources/librsvg/2.40/librsvg-2.40.2.tar.xz
 http://monkey.org/~provos/libevent-2.0.10-stable.tar.gz 

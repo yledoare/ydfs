@@ -856,7 +856,8 @@ ac_cv_file__dev_ptc=no' >  config.site
 	 cd squashfs-tools
      	sed -i "s@/usr/local@$PREFIX@g" Makefile
 	echo "Custom make for squasqhfs"
-	 make XZ_SUPPORT=1 LZO_SUPPORT=1 LZMA_XZ_SUPPORT=1
+	 make || exit 1
+	 # make XZ_SUPPORT=1 LZO_SUPPORT=1 LZMA_XZ_SUPPORT=1 || exit 1
 	echo "done"
     fi
 
