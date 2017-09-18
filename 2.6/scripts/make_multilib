@@ -61,7 +61,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
+libxshmfence-1  libffi dbus-1 openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
 attr acl eudev 
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
@@ -171,7 +171,7 @@ PYTHON2=/usr/bin/python ./configure \
 	autoreconf
   	./configure --prefix=$HOME/multilib --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
-    dbus* )
+    dbus-1* )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
     freetype-2* )

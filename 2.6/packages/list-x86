@@ -604,8 +604,6 @@ http://pub.mate-desktop.org/releases/1.18/mate-media-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-backgrounds-1.18.0.tar.xz
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
-#Warning, unset LDFLAGS for building grub
-ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #Wine
 http://dl.winehq.org/wine/source/2.0/wine-2.0.tar.bz2
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
@@ -628,6 +626,7 @@ http://audacity.googlecode.com/files/audacity-minsrc-2.0.5.tar.xz
 archlinux:git
 archlinux:ncftp
 archlinux:vmpk
+#Warning, unset LDFLAGS for building grub
+ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
 #http://downloads.sourceforge.net/project/guvcview/source/guvcview-src-2.0.4.tar.gz
-#EndList
