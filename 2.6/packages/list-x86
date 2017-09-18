@@ -1,5 +1,5 @@
 #Begin
-archlinux:nasm
+http://www.nasm.us/pub/nasm/releasebuilds/2.13.01/nasm-2.13.01.tar.xz
 http://zlib.net/current/zlib-1.2.11.tar.gz 
 http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
 http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
@@ -278,7 +278,8 @@ http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.0.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
 http://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
 https://github.com/lathiat/avahi/releases/download/v0.6.32/avahi-0.6.32.tar.gz
-http://poppler.freedesktop.org/poppler-0.26.0.tar.xz
+https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
+http://poppler.freedesktop.org/poppler-0.57.0.tar.xz
 ftp://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.2.tar.bz2 
 ftp://ftp.gnome.org/pub/gnome/sources/librsvg/2.40/librsvg-2.40.2.tar.xz
 http://monkey.org/~provos/libevent-2.0.10-stable.tar.gz 
