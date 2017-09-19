@@ -1,0 +1,56 @@
+--- a/src/vdpau_decode.c
++++ b/src/vdpau_decode.c
+@@ -1289,7 +1289,7 @@
+             driver_data,
+             obj_context->vdp_decoder,
+             obj_surface->vdp_surface,
+-            (VdpPictureInfo)&obj_context->vdp_picture_info,
++            (VdpPictureInfo *)&obj_context->vdp_picture_info,
+             obj_context->vdp_bitstream_buffers_count,
+             obj_context->vdp_bitstream_buffers
+         );
+--- a/src/utils_glx.h~	2012-10-05 16:02:58.000000000 +0100
++++ b/src/utils_glx.h	2012-10-19 08:44:12.469642440 +0100
+@@ -48,6 +48,13 @@
+ typedef void (*PFNGLXRELEASETEXIMAGEEXTPROC)(Display *, GLXDrawable, int);
+ #endif
+ 
++#if GL_GLEXT_VERSION >= 85
++/* XXX: PFNGLMULTITEXCOORD2FPROC got out of the GL_VERSION_1_3_DEPRECATED
++   block and is not defined if GL_VERSION_1_3 is defined in <GL/gl.h>
++   Redefine the type here as an interim solution */
++typedef void (*PFNGLMULTITEXCOORD2FPROC) (GLenum target, GLfloat s, GLfloat t);
++#endif
++                    
+ #ifndef GL_FRAMEBUFFER_BINDING
+ #define GL_FRAMEBUFFER_BINDING GL_FRAMEBUFFER_BINDING_EXT
+ #endif
+>From fda3706eb74ba5ad874853969f3df3e372739c8d Mon Sep 17 00:00:00 2001
+From: "Xiang, Haihao" <haihao.xiang@intel.com>
+Date: Fri, 21 Jun 2013 12:55:30 +0800
+Subject: [PATCH] VAEncH264VUIBufferType and VAEncH264SEIBufferType are
+ dropped from VA API
+
+The driver doesn't use them indeed
+
+Signed-off-by: Xiang, Haihao <haihao.xiang@intel.com>
+---
+ src/vdpau_dump.c |    2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/vdpau_dump.c b/src/vdpau_dump.c
+index 899888b..610e7cd 100644
+--- a/src/vdpau_dump.c
++++ b/src/vdpau_dump.c
+@@ -59,8 +59,6 @@ const char *string_of_VABufferType(VABufferType type)
+         _(VAEncSequenceParameterBufferType);
+         _(VAEncPictureParameterBufferType);
+         _(VAEncSliceParameterBufferType);
+-        _(VAEncH264VUIBufferType);
+-        _(VAEncH264SEIBufferType);
+ #endif
+ #if VA_CHECK_VERSION(0,31,1)
+         _(VAQMatrixBufferType);
+-- 
+1.7.9.5
+
