@@ -8,7 +8,7 @@ export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
-export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconfig
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
@@ -31,7 +31,7 @@ install -d $HOME/multilib/include
 # libFS-1 libdmx- \
 
 for PKG in util-linux alsa-lib ncurses readline tcl8 sqlite zlib-1 libpng libffi pcre elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
-xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb xtrans-1 \
+xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
 libICE-1 \
