@@ -13,7 +13,7 @@ then
 
 	export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig/
 	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
-	export LDFLAGS="-L $HOME/multilib/lib"
+	export LDFLAGS="-L $HOME/multilib/lib -L $HOME/multilib/lib32"
 
 	echo "Configure Win32"
 	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --libdir=$HOME/multilib/lib/ --with-wine64=$HOME/ydfs/build-x86_64/$WINEVER || exit 1
