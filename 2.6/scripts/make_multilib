@@ -9,12 +9,12 @@ export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
 export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconfig
-export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
 export CPPFLAGS="-I$HOME/multilib/include"
 #export CFLAGS="-I/usr/src/linux-headers-3.16.0-4-common/include/"
-export LDFLAGS="-L$HOME/multilib/lib -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
+export LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
 
 install -d $HOME/multilib
 install -d $HOME/$ARCH/lib32 || exit 1
@@ -62,7 +62,7 @@ libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1  libffi dbus-1 openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
-attr acl eudev 
+attr acl kmod eudev 
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 do
   echo -n "$PKG " # && sleep 1
