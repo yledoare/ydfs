@@ -148,7 +148,7 @@
       --enable-poppler-glib"
 	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
 	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
-	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa "
+	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa -enable-cxx "
 	echo $ARCHIVE | grep GConf && LC_CONFIGURE_OPTS="--disable-orbit --disable-static "
 	echo $ARCHIVE | grep ghostscript && LC_CONFIGURE_OPTS="--enable-dynamic \
 	--with-ijs \
@@ -167,7 +167,6 @@
 	--disable-compile-inits"
 	echo $ARCHIVE | grep nspr && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $ARCHIVE | grep wine && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
-	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--without-ffmpeg  --without-portmixer --enable-unicode" && export WX_CONFIG=$HOME/ydfs/src/wxGTK-2.8.12/wx-config
 	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
