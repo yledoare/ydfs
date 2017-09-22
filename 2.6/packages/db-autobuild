@@ -758,6 +758,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 	# cp -fR data $PREFIX
       fi
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
+  [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
