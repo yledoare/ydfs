@@ -2,7 +2,7 @@
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
  
-		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$DIBAB_PREFIX/etc \
+		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
     --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
     --with-egl-platforms=x11,drm,wayland \
@@ -101,7 +101,7 @@
 	#echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-udisks --enable-debug"
 	echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-debug"
 	echo $ARCHIVE | grep wayland && LC_CONFIGURE_OPTS="--disable-documentation"
-	echo $ARCHIVE | grep pulseaudio-6 && LC_CONFIGURE_OPTS="--with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
+	echo $ARCHIVE | grep pulseaudio- && LC_CONFIGURE_OPTS="--with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
 	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--disable-systemd-login --with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
 	echo $ARCHIVE | grep glib-2 && LC_CONFIGURE_OPTS="--enable-debug" # Debug pcmanfm
 	echo $ARCHIVE | grep evince && LC_CONFIGURE_OPTS="--disable-nautilus"
