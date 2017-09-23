@@ -1321,6 +1321,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	fi
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	[ -e getfacl/getfacl.c ] && make install-lib install-dev
+	[ -e lib/e2p/e2p.pc ] && echo e2p.pc && make install-libs && sleep 10
         MAKE_INSTALL=""
       fi
       # Glibc

@@ -13,6 +13,10 @@ http://http.debian.net/debian/pool/main/n/ncurses/ncurses_6.0+20170715.orig.tar.
 http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/glib/2.48/glib-2.48.0.tar.xz
+https://github.com/libfuse/libfuse/releases/download/fuse-2.9.7/fuse-2.9.7.tar.gz
+https://github.com/ostreedev/ostree/releases/download/v2017.10/libostree-2017.10.tar.xz
+https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.tar.gz
+https://github.com/flatpak/flatpak/releases/download/0.9.12/flatpak-0.9.12.tar.xz
 http://edge.launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz 
 #GEGL-0.2-for-Gimp 
 http://ftp.gimp.org/pub/gegl/0.2/gegl-0.2.0.tar.bz2
@@ -599,7 +603,7 @@ http://pub.mate-desktop.org/releases/1.18/marco-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-settings-daemon-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-control-center-1.18.2.tar.xz
 http://pub.mate-desktop.org/releases/1.18/libmatemixer-1.18.0.tar.xz
-http://pub.mate-desktop.org/releases/1.18/libmateweather-1.18.1.tar.xz
+#http://pub.mate-desktop.org/releases/1.18/libmateweather-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/caja-extensions-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-notification-daemon-1.18.0.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-panel-1.18.4.tar.xz
@@ -614,7 +618,6 @@ https://people.redhat.com/sgrubb/audit/audit-2.7.8.tar.gz
 http://dl.winehq.org/wine/source/2.0/wine-2.0.2.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
-https://github.com/libfuse/libfuse/archive/fuse_2_9_5.tar.gz
 https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git
 archlinux:strace
@@ -627,7 +630,6 @@ https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
 http://downloads.sourceforge.net/project/filezilla/libfilezilla/0.6.1/libfilezilla-0.6.1.tar.bz2
-http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
 https://github.com/audacity/audacity/archive/Audacity-2.1.3.tar.gz
 #archlinux:git
 #archlinux:ncftp

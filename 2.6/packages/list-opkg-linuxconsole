@@ -1,9 +1,10 @@
 #Network
+http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
 #https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
 #Misc
-http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+#http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 #Libs
-archlinux:lib32-libtxc_dxtn
+#archlinux:lib32-libtxc_dxtn
 #Games
 https://github.com/minetest/minetest/archive/0.4.14.tar.gz #SKIP-x86#
 http://download.kde.org/stable/4.14.3/src/bomber-4.14.3.tar.xz
