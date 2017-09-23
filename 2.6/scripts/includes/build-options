@@ -23,7 +23,9 @@
     --enable-omx \
     --enable-nine \
     --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
+	echo $ARCHIVE | grep audit && LC_CONFIGURE_OPTS=" --disable-zos-remote "
 	echo $ARCHIVE | grep kmod && LC_CONFIGURE_OPTS=" --disable-tools "
+	echo $ARCHIVE | grep libcap-ng && LC_CONFIGURE_OPTS=" --enable-static=no --with-python=no "
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
 	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
