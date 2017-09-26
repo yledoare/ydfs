@@ -320,7 +320,7 @@ http://freefr.dl.sourceforge.net/project/flex/flex-2.5.37.tar.gz
 http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.5.tar.bz2 
 http://ftp.de.debian.org/debian/pool/main/u/upower/upower_0.9.17-1.dsc
 http://samba.org/ftp/talloc/talloc-2.1.10.tar.gz
-http://tuxera.com/opensource/ntfs-3g_ntfsprogs-2014.2.15.tgz
+https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 ftp://sources.redhat.com/pub/lvm2/LVM2.2.02.106.tgz
 http://ftp.gnu.org/gnu/parted/parted-3.1.tar.xz
 http://pkgs.fedoraproject.org/lookaside/pkgs/libatasmart/libatasmart-0.18.tar.gz/dc22b7acda1c2230f55ae98737e8b159/libatasmart-0.18.tar.gz
@@ -603,7 +603,7 @@ http://pub.mate-desktop.org/releases/1.18/marco-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-settings-daemon-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-control-center-1.18.2.tar.xz
 http://pub.mate-desktop.org/releases/1.18/libmatemixer-1.18.0.tar.xz
-#http://pub.mate-desktop.org/releases/1.18/libmateweather-1.18.1.tar.xz
+http://pub.mate-desktop.org/releases/1.18/libmateweather-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/caja-extensions-1.18.1.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-notification-daemon-1.18.0.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-panel-1.18.4.tar.xz

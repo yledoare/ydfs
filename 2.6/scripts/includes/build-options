@@ -173,7 +173,7 @@
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
-	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
+	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--exec-prefix=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep libav && LC_CONFIGURE_OPTS="--disable-static --enable-shared"
 	echo $ARCHIVE | grep db-6 && LC_CONFIGURE_OPTS="--enable-compat185 --enable-dbm --disable-static --enable-cxx"
