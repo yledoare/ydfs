@@ -783,6 +783,8 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
     [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CFLAGS"
 [ -e "torcs.desktop" ] && unset MODULE
     [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
+
+env > ydfs.env
 echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
 echo "CFLAGS: $CFLAGS"
 echo "$PWD : Run $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS "

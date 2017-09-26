@@ -209,7 +209,7 @@ fi
   export PKGSRC=$ARCHIVE
   echo -n " $ARCHIVE "
   export MYPREFIX=$DIBAB_PREFIX/$MODULE/
-  echo $ARCHIVE | grep grub && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
+  echo $ARCHIVE | grep grub-2 && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
   echo $ARCHIVE | grep warzone && export CLEARENV="OK"
   echo $ARCHIVE | grep lxpanel && install -d $HOME/ydfs/build-$ARCH/lxpanel/data/ui # FIXME
   if [  -n "`echo $ARCHIVE | grep 'svn://'`" ] 

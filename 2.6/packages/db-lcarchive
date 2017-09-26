@@ -11,20 +11,22 @@ build_the_archive()
   db-autobuild $MYPREFIX || exit $?
   else
   echo "Log : $PWD/ydfs-log "
-  echo "Err : $PWD/ydfs-error "
+#  echo "Err : $PWD/ydfs-error "
   TIME=`date "+%H:%M"`
-  echo -n "Building in progress ... start "     
-  echo -n -e " \e[91m$DURATION:$TIME\e[0m " 
+  echo -n "Building in progress ... start at"     
+  echo -n -e " \e[91m$TIME\e[0m " 
   START=`date '+%s'`
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log || exit $?
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
   SDURATION=$((($END - $START)%60))
-  echo -n -e " build in \e[92m$DURATION:$SDURATION\e[0m " 
-  #if [ "$DURATION" != "0" ]
-  #  then
-  #   echo "Sleep" # && sleep 100
-  #  fi
+  if [ "$DURATION" != "0" ]
+    then
+  	echo -n -e " build in \e[94m$DURATION:$SDURATION\e[0m " 
+    else
+  	echo -n -e " build in \e[92m$DURATION:$SDURATION\e[0m " 
+    fi
+  echo
   fi
 }
 if [ "$1" = "--help" ] || [ "$1" = "" ]
