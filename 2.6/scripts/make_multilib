@@ -40,7 +40,7 @@ libXt-1 \
 libXmu-1 \
 libXpm-3 \
 libXaw-1 \
-libXfixes-5 \
+fixesproto libXfixes-5 \
 libXcomposite-0 \
 renderproto \
 libXrender-0 \
@@ -65,7 +65,7 @@ attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
 do
-  echo -n "$PKG " # && sleep 1
+  # echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
 done
 
