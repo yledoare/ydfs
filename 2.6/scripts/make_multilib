@@ -205,9 +205,9 @@ PYTHON2=/usr/bin/python ./configure \
     ;;
     llvm )
 	cd $HOME
-	wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
-	tar xzvf llvm-multilib.tar.gz
-
+	[ ! -e llvm-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
+	tar xzvhf llvm-multilib.tar.gz
+	cd $HOME/ydfs/src/llvm
 	#	$HOME_DIBAB/scripts/build-llvm-clang
 	# mkdir build
 	# cd build
@@ -234,17 +234,28 @@ PYTHON2=/usr/bin/python ./configure \
     readline )
 	make SHLIB_LIBS=-lncurses
 	;;
+    llvm )
+	;;
     * )
   	echo "Run make " && sleep 5
   	make || exit $?
 	;;
   esac
 	
-  make || exit $?
   case $PKG in
-    llvm* )
+    	llvm )
+	;;
+    * )
+  	make || exit $?
+	;;
+  esac
+
+  case $PKG in
+    llvm-build* )
   	make install || exit $?
 	cd ..
+	;;
+    llvm )
 	;;
     * )
   	make install || exit $?
