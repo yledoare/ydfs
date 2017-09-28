@@ -161,6 +161,8 @@ test:
 test2:
 	@echo ${ISOPATH}
 #	@echo ${KERNEL3} | tr -d '.'
+cleanmultilib:
+	./scripts/make_clean_multilib
 distclean:
 	./scripts/make_distclean
 clean-opkg:
