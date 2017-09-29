@@ -76,7 +76,7 @@
     -DENABLE_GETTEXT=1 \
     -DENABLE_FREETYPE=1 \
     -DENABLE_LEVELDB=0 \
-    -DENABLE_REDIS=0" && export CXX="g++ -I/$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS"
+    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CFLAGS"
 	echo $ARCHIVE | grep jack- && export LC_CONFIGURE_OPTS="--alsa"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
