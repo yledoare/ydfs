@@ -65,7 +65,7 @@ attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
 do
-  # echo -n "$PKG " # && sleep 1
+  echo -n "Test $PKG dir " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
 done
 

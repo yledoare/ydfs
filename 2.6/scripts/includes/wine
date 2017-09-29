@@ -2,7 +2,7 @@ if [ -e programs/winecfg ]
 then
 #	$HOME_DIBAB/scripts/make_multilib
 #	$HOME_DIBAB/scripts/make_multilib
-	$HOME_DIBAB/scripts/make_multilib || exit 1
+	bash $HOME_DIBAB/scripts/make_multilib || exit 1
 	WINEBUILD=$PWD
 
 	WINEVER=$(basename $PWD)
