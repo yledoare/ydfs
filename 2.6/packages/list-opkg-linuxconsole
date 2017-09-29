@@ -11,9 +11,9 @@ https://github.com/minetest/minetest/archive/0.4.15.tar.gz
 git://github.com/hydrogen-music/hydrogen.git
 http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86_64#
 #Office
+https://download.gimp.org/mirror/pub/gimp/v2.8/gimp-2.8.22.tar.bz2
+http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
 http://www.xsane.org/download/xsane-0.999.tar.gz
-#http://download.virtualbox.org/virtualbox/5.1.4/VirtualBox-5.1.4.tar.bz2 #SKIP-x86#
-http://download.virtualbox.org/virtualbox/4.3.36/VirtualBox-4.3.36.tar.bz2 #SKIP-x86#
 #Education
 http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 #Games
