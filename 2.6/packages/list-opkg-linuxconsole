@@ -6,7 +6,7 @@ http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZ
 #Libs
 #archlinux:lib32-libtxc_dxtn
 #Games
-https://github.com/minetest/minetest/archive/0.4.14.tar.gz #SKIP-x86#
+https://github.com/minetest/minetest/archive/0.4.16.tar.gz #SKIP-x86#
 http://download.kde.org/stable/4.14.3/src/bomber-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/bovo-4.14.3.tar.xz
 http://download.kde.org/stable/4.14.3/src/granatier-4.14.3.tar.xz

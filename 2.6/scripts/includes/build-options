@@ -30,6 +30,13 @@
 	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
+	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
+    --enable-pcre2-32 \
+    --enable-jit \
+    --enable-pcre2grep-libz \
+    --enable-pcre2grep-libbz2 \
+    --enable-pcre2test-libreadline"
+ 
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
     --enable-pcre16 \
     --enable-pcre32 \
@@ -52,7 +59,8 @@
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
-	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
+	# echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
+	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-DWANT_QT5=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo"
 	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
 	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep lxpanel && export LC_CONFIGURE_OPTS="--enable-man"
