@@ -1,8 +1,5 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
 # apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
-cd $HOME_DIBAB
-pwd
-bash scripts/build-llvm-clang
 
 export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
@@ -27,11 +24,13 @@ install -d $HOME/multilib/include
 
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+  
+install -d $HOME/ydfs/src/llvm
 
 # libFS-1 libdmx- \
 
-for PKG in util-linux alsa-lib ncurses readline tcl8 sqlite zlib-1 libpng libffi pcre elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
-xextproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb \
+PKGMULTILIB=" bigreqsproto compositeproto damageproto dri2proto dri3proto fixesproto fontsproto glproto inputproto kbproto presentproto randrproto recordproto renderproto resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto xproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+xextproto compositeproto scrnsaverproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
 libICE-1 \
@@ -41,7 +40,7 @@ libXt-1 \
 libXmu-1 \
 libXpm-3 \
 libXaw-1 \
-libXfixes-5 \
+fixesproto libXfixes-5 \
 libXcomposite-0 \
 renderproto \
 libXrender-0 \
@@ -61,9 +60,16 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1 openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
-attr acl kmod eudev 
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
+attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+for PKG in $PKGMULTILIB
+do
+  echo -n "Test $PKG dir " # && sleep 1
+  cd $HOME/ydfs/src/$PKG* || exit $?
+done
+
+for PKG in $PKGMULTILIB
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
@@ -171,7 +177,7 @@ PYTHON2=/usr/bin/python ./configure \
 	autoreconf
   	./configure --prefix=$HOME/multilib --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
-    dbus-1* )
+    dbus-1.10.14 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
     freetype-2* )
@@ -198,9 +204,14 @@ PYTHON2=/usr/bin/python ./configure \
 	make MAKEDEPPROG="${CC}" depend
     ;;
     llvm )
-	mkdir build
-	cd build
-  	../configure --prefix=$HOME/multilib --enable-shared || exit $?
+	cd $HOME
+	[ ! -e llvm-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
+	tar xzvhf llvm-multilib.tar.gz
+	cd $HOME/ydfs/src/llvm
+	#	$HOME_DIBAB/scripts/build-llvm-clang
+	# mkdir build
+	# cd build
+  	# ../configure --prefix=$HOME/multilib --enable-shared || exit $?
     ;;
     cairo-1* )
 	# echo "Disable Test .." && sleep 2
@@ -223,17 +234,28 @@ PYTHON2=/usr/bin/python ./configure \
     readline )
 	make SHLIB_LIBS=-lncurses
 	;;
+    llvm )
+	;;
     * )
   	echo "Run make " && sleep 5
   	make || exit $?
 	;;
   esac
 	
-  make || exit $?
   case $PKG in
-    llvm* )
+    	llvm )
+	;;
+    * )
+  	make || exit $?
+	;;
+  esac
+
+  case $PKG in
+    llvm-build* )
   	make install || exit $?
 	cd ..
+	;;
+    llvm )
 	;;
     * )
   	make install || exit $?

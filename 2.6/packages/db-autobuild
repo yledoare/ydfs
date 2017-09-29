@@ -671,6 +671,7 @@ fi
 
     if [ -e CMakeLists.txt ] \
  && [ ! -e src/lzo_crc.c ] \
+ && [ ! -e libpcre2-8.pc.in ] \
  && [ ! -e src/yaml_private.h ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e expat.pc.in ] \
@@ -783,6 +784,8 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
     [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CFLAGS"
 [ -e "torcs.desktop" ] && unset MODULE
     [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
+
+env > ydfs.env
 echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
 echo "CFLAGS: $CFLAGS"
 echo "$PWD : Run $SOURCEDIR/configure $MYPREFIX $LC_CONFIGURE_OPTS "
@@ -1233,6 +1236,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	  echo "STDLIBS += -ldl -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss -ltiff -ljpeg ;" >> Jamtop
   fi
 
+      [ -e src/lua.hpp ] && make amalg PREFIX=$PREFIX &&  make install PREFIX=$PREFIX && touch buildok-$ARCH && exit 0
   # echo "Looking for Makefile at $PWD"
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
@@ -1295,6 +1299,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       fi
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
+
       [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then

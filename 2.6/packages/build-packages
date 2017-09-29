@@ -98,9 +98,9 @@ install -d $HOME/ydfs/CFLAGS
 install -d $HOME/ydfs/CPPFLAGS
 install -d $HOME/ydfs/CPPFLAGS
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/$HOME/$MODULE/lib:$HOME/$ARCH/lib CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:$HOME/$MODULE/include:$HOME/$ARCH/include
-export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include -I$HOME/ydfs/CFLAGS"
-export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include -I$HOME/ydfs/CPPFLAGS"
-export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include -I$HOME/ydfs/CXXFLAGS"
+export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include"
+export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/AL"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/irrlicht"
@@ -209,7 +209,7 @@ fi
   export PKGSRC=$ARCHIVE
   echo -n " $ARCHIVE "
   export MYPREFIX=$DIBAB_PREFIX/$MODULE/
-  echo $ARCHIVE | grep grub && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
+  echo $ARCHIVE | grep grub-2 && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
   echo $ARCHIVE | grep warzone && export CLEARENV="OK"
   echo $ARCHIVE | grep lxpanel && install -d $HOME/ydfs/build-$ARCH/lxpanel/data/ui # FIXME
   if [  -n "`echo $ARCHIVE | grep 'svn://'`" ] 

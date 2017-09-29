@@ -30,6 +30,13 @@
 	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
+	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
+    --enable-pcre2-32 \
+    --enable-jit \
+    --enable-pcre2grep-libz \
+    --enable-pcre2grep-libbz2 \
+    --enable-pcre2test-libreadline"
+ 
 	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
     --enable-pcre16 \
     --enable-pcre32 \
@@ -52,7 +59,8 @@
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
-	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
+	# echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
+	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-DWANT_QT5=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo"
 	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
 	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep lxpanel && export LC_CONFIGURE_OPTS="--enable-man"
@@ -68,7 +76,7 @@
     -DENABLE_GETTEXT=1 \
     -DENABLE_FREETYPE=1 \
     -DENABLE_LEVELDB=0 \
-    -DENABLE_REDIS=0" && export CXX="g++ -I/$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS"
+    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CFLAGS"
 	echo $ARCHIVE | grep jack- && export LC_CONFIGURE_OPTS="--alsa"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
@@ -173,7 +181,7 @@
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
-	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
+	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--exec-prefix=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep libav && LC_CONFIGURE_OPTS="--disable-static --enable-shared"
 	echo $ARCHIVE | grep db-6 && LC_CONFIGURE_OPTS="--enable-compat185 --enable-dbm --disable-static --enable-cxx"
@@ -270,6 +278,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
+        echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
 	if [ "$ARCH" = "arm" ] 
 	then
 		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 
