@@ -11,6 +11,14 @@ fi
 install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+cp -fR linux-firmware/* lib/firmware || exit 3
+ls lib/firmware/radeon/R600* || exit 1
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
+echo
+ 
+exit 0
+
 DEBVER=_0.44_all.deb
 DEBVER=_0.44~bpo8+1_all.deb
 DEBVER=_20160110-1_all.deb
