@@ -1,16 +1,16 @@
 #!/bin/sh
-  if [ -e mozilla/security/nss/ ]
+  if [ -e nss/build.sh ]
   then
-  	cp $HOME_DIBAB/config/nss/Linux.mk mozilla/security/coreconf/Linux.mk || exit
-	cd mozilla/security/nss 
+  	cp $HOME_DIBAB/config/nss/Linux.mk nss/coreconf/Linux.mk || exit
+	cd nss 
   if [ "$ARCH" = "x86_64" ]
 then
-  make nss_build_all BUILD_OPT=1                 \
-  USE_SYSTEM_ZLIB=1                            \
-  ZLIB_LIBS=-lz                                \
-  OS_TEST=x86_64                                \
-  USE_64=1                                \
-  NSS_USE_SYSTEM_SQLITE=1 PREFIX=$PREFIX HOME=$HOME ARCH=$ARCH || exit $?
+  make -j1 BUILD_OPT=1                  \
+  NSPR_INCLUDE_DIR=/$HOME/$ARCH/include/nspr  \
+  USE_SYSTEM_ZLIB=1                   \
+  ZLIB_LIBS=-lz                       \
+  NSS_ENABLE_WERROR=0                 \
+  $([ $(uname -m) = x86_64 ] && echo USE_64=1) || exit $?
 else
   make nss_build_all BUILD_OPT=1                 \
   USE_SYSTEM_ZLIB=1                            \
@@ -18,11 +18,12 @@ else
   OS_TEST=x86                                \
   NSS_USE_SYSTEM_SQLITE=1 PREFIX=$PREFIX HOME=$HOME ARCH=$ARCH || exit $?
 fi
+
   install -v -m755 -d $PREFIX/include/nss                   
-  cp -v -RL ../../dist/public/nss/* $PREFIX/include/nss     
-  cp -v -RL ../../dist/private/nss/* $PREFIX/include/nss     
-  cp -fRL ../../dist/Linux*/* $PREFIX 
-  touch ../../../buildok-$ARCH 
+  cp -v -RL ../dist/public/nss/* $PREFIX/include/nss 
+  cp -v -RL ../dist/private/nss/* $PREFIX/include/nss     
+  cp -fRL ../dist/Linux*/* $PREFIX 
+  touch ../buildok-$ARCH 
   exit 0
 
   fi
