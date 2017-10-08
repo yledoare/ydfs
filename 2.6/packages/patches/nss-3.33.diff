@@ -18,7 +18,7 @@ diff -Naurp nss-3.28-orig/nss/config/Makefile nss-3.28/nss/config/Makefile
 +NSS_MAJOR_VERSION = `grep "NSS_VMAJOR" ../lib/nss/nss.h | awk '{print $$3}'`
 +NSS_MINOR_VERSION = `grep "NSS_VMINOR" ../lib/nss/nss.h | awk '{print $$3}'`
 +NSS_PATCH_VERSION = `grep "NSS_VPATCH" ../lib/nss/nss.h | awk '{print $$3}'`
-+PREFIX = /usr
++PREFIX = ${HOME}/${DIBAB_ARCH}
 +
 +all: export libs
 +
