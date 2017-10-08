@@ -1,0 +1,61 @@
+diff --git a/src/lib/lib.pro b/src/lib/lib.pro
+index be6d0d8..c96c7e8 100644
+--- a/src/lib/lib.pro
++++ b/src/lib/lib.pro
+@@ -37,6 +37,7 @@ INCLUDEPATH += 3rdparty \
+                tools \
+                webengine \
+                webtab \
++               $$(HOME)/$$(ARCH)/include \
+ 
+ DEPENDPATH += $$INCLUDEPATH \
+               data \
+@@ -460,6 +461,7 @@ RESOURCES += \
+ 
+     !contains(DEFINES, NO_X11) {
+         LIBS += -lxcb
++        LIBS += -L$$(HOME)/$$(ARCH)/lib
+         QT *= x11extras
+     }
+ 
+diff --git a/src/main/main.pro b/src/main/main.pro
+index 49620ff..b3db132 100644
+--- a/src/main/main.pro
++++ b/src/main/main.pro
+@@ -15,6 +15,14 @@ else {
+ !mac:unix: LIBS += $$QZ_DESTDIR/libQupZilla.so
+ }
+ 
++LIBS += -L$$(HOME)/$$(ARCH)/lib
++
++LIBS += -L$$(HOME)/$$(ARCH)/lib
++
++LIBS += -L$$(HOME)/$$(ARCH)/lib
++
++LIBS += -L$$(HOME)/$$(ARCH)/lib
++
+ unix:!contains(DEFINES, "DISABLE_DBUS") QT += dbus
+ 
+ INCLUDEPATH += ../lib/3rdparty \
+diff --git a/src/plugins.pri b/src/plugins.pri
+index 27d7cc0..7dcb8e7 100644
+--- a/src/plugins.pri
++++ b/src/plugins.pri
+@@ -42,6 +42,8 @@ MOC_DIR = build
+ RCC_DIR = build
+ UI_DIR = build
+ 
++LIBS += -L$$(HOME)/$$(ARCH)/lib
++
+ !unix|mac: LIBS += -L$$QZ_DESTDIR -lQupZilla
+ !mac:unix: LIBS += $$QZ_DESTDIR/libQupZilla.so
+ 
+diff --git a/src/plugins/AutoScroll/AutoScroll.pro b/src/plugins/AutoScroll/AutoScroll.pro
+index d72536c..5abe9f7 100644
+--- a/src/plugins/AutoScroll/AutoScroll.pro
++++ b/src/plugins/AutoScroll/AutoScroll.pro
+@@ -57,3 +57,4 @@ TRANSLATIONS += \
+ 
+ PLUGIN_DIR = $$PWD
+ include(../../plugins.pri)
++

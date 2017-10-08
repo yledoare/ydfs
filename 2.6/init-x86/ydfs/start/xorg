@@ -31,7 +31,8 @@ echo "
 export PATH=$PATH
 cat /proc/cmdline | grep lxterminal && lxterminal &
 cat /proc/cmdline | grep xterm && xterm &
-openbox &
+#openbox &
+marco &
 . /ydfs/detect/lang
 . /ydfs/detect/kbd
 . /ydfs/start/child-limits &
