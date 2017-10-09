@@ -670,6 +670,7 @@ fi
     # Do not build with cmake
 
     if [ -e CMakeLists.txt ] \
+ && [ ! -e enet.dsp ] \
  && [ ! -e src/lzo_crc.c ] \
  && [ ! -e libpcre2-8.pc.in ] \
  && [ ! -e src/yaml_private.h ] \
