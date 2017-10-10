@@ -1,0 +1,51 @@
+diff --git a/ntfsprogs/Makefile.am b/ntfsprogs/Makefile.am
+index f4f9d1b..b507d7a 100644
+--- a/ntfsprogs/Makefile.am
++++ b/ntfsprogs/Makefile.am
+@@ -166,11 +166,9 @@ extras:	libs $(EXTRA_PROGRAMS)
+ if ENABLE_MOUNT_HELPER
+ install-exec-hook:
+ 	$(INSTALL) -d $(DESTDIR)/sbin
+-	$(LN_S) -f $(sbindir)/mkntfs $(DESTDIR)/sbin/mkfs.ntfs
+ 
+ install-data-hook:
+ 	$(INSTALL) -d $(DESTDIR)$(man8dir)
+-	$(LN_S) -f mkntfs.8 $(DESTDIR)$(man8dir)/mkfs.ntfs.8
+ 
+ uninstall-local:
+ 	$(RM) -f $(DESTDIR)/sbin/mkfs.ntfs
+diff --git a/ntfsprogs/Makefile.in b/ntfsprogs/Makefile.in
+index 86184cd..afa1b1d 100644
+--- a/ntfsprogs/Makefile.in
++++ b/ntfsprogs/Makefile.in
+@@ -1424,12 +1424,8 @@ uninstall-man: uninstall-man8
+ # mkfs.ntfs[.8] hard link
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@install-exec-hook:
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@	$(INSTALL) -d $(DESTDIR)/sbin
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@	$(LN_S) -f $(sbindir)/mkntfs $(DESTDIR)/sbin/mkfs.ntfs
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@install-data-hook:
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@	$(INSTALL) -d $(DESTDIR)$(man8dir)
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@	$(LN_S) -f mkntfs.8 $(DESTDIR)$(man8dir)/mkfs.ntfs.8
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@uninstall-local:
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFSPROGS_TRUE@	$(RM) -f $(DESTDIR)/sbin/mkfs.ntfs
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 6e6d5f4..2522748 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -969,13 +969,8 @@ uninstall-man: uninstall-man8
+ @DISABLE_PLUGINS_FALSE@@ENABLE_NTFS_3G_TRUE@	$(MKDIR_P) $(DESTDIR)/$(plugindir)
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@install-exec-local:	install-rootbinPROGRAMS
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(MKDIR_P) "$(DESTDIR)/sbin"
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(LN_S) -f "$(rootbindir)/ntfs-3g" "$(DESTDIR)/sbin/mount.ntfs-3g"
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(LN_S) -f "$(rootbindir)/lowntfs-3g" "$(DESTDIR)/sbin/mount.lowntfs-3g"
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@install-data-local:	install-man8
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(LN_S) -f ntfs-3g.8 "$(DESTDIR)$(man8dir)/mount.ntfs-3g.8"
+-@ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(LN_S) -f ntfs-3g.8 "$(DESTDIR)$(man8dir)/mount.lowntfs-3g.8"
+ 
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@uninstall-local:
+ @ENABLE_MOUNT_HELPER_TRUE@@ENABLE_NTFS_3G_TRUE@	$(RM) -f "$(DESTDIR)$(man8dir)/mount.ntfs-3g.8"

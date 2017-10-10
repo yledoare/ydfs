@@ -100,6 +100,16 @@ else
     exit 1
   fi
 
+  if [ -e lirc.pc.in ]
+  then
+	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX
+  	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+	make || exit $?
+	make install || exit $?
+    	touch buildok-$ARCH
+	exit 0
+  fi
+
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
   [ -e src/mame/mame.c ] && cp makefile Makefile
@@ -436,6 +446,8 @@ pwd && sleep 5
   [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX linux-generic32 shared
   [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX linux-generic32 shared
   [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
+  
+  [ -e src/gallium/targets/opencl/Makefile.am ] && sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
   
   if [ -e DISABLE/src/mesa ] && [ "$ARCH" != "arm" ]
   then
