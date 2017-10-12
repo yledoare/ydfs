@@ -1,7 +1,7 @@
-archlinux:strace
-http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
-https://github.com/QupZilla/qupzilla/releases/download/v2.1.2/QupZilla-2.1.2.tar.xz
+#archlinux:strace
+#http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+#https://github.com/QupZilla/qupzilla/releases/download/v2.1.2/QupZilla-2.1.2.tar.xz
 https://github.com/LMMS/lmms/archive/v1.2.0-rc3.tar.gz
-https://github.com/xbmc/xbmc/archive/17.4-Krypton.tar.gz
-git://github.com/xboxdrv/xboxdrv.git
-https://prdownloads.sourceforge.net/linuxconsole/linuxconsoletools-1.6.0.tar.bz2
+#https://github.com/xbmc/xbmc/archive/17.4-Krypton.tar.gz
+#git://github.com/xboxdrv/xboxdrv.git
+#https://prdownloads.sourceforge.net/linuxconsole/linuxconsoletools-1.6.0.tar.bz2

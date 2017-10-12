@@ -12,3 +12,4 @@
 	rm -fR ${HOME}/opkg
 	rm -fR ${HOME}/ydfs/opkg
 	rm -fR ${HOME}/multilib
+	rm -fR ${HOME}/ydfs/build/busybox*

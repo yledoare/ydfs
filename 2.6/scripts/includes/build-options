@@ -1,6 +1,9 @@
        echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
+
+echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
+echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disable-amalgamation --enable-fts3 --enable-fts4 --enable-fts5 --enable-rtree --enable-json1"
  
 		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \

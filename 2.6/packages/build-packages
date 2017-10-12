@@ -302,9 +302,15 @@ fi
   echo $ARCHIVE | grep minetest && export LDFLAGS="$LDFLAGS -lIrrlicht" 
   echo $ARCHIVE | grep dolphin && export CXXFLAGS="$CXXFLAGS "$( pkg-config --cflags gtk+-2.0)
   echo $ARCHIVE | grep ffmpeg-3 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export CPPFLAGS="$CPPFLAGS -fPIC" && CXXFLAGS="$CXXFLAGS -fPIC"
-  echo $ARCHIVE | grep sqlite && export AM_CPPFLAGS="-DSQLITE_ENABLE_UNLOCK_NOTIFY -DSQLITE_SECURE_DELETE"
-  echo $ARCHIVE | grep sqlite || unset AM_CPPFLAGS
+  echo $ARCHIVE | grep sqlite && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                             -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+                             -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                             -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
+                             -DSQLITE_SECURE_DELETE \
+                             -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+                             -DSQLITE_MAX_EXPR_DEPTH=10000" 
   echo $ARCHIVE | grep ghostscript && export CPPFLAGS="$CPPFLAGS -Ijpeg/ -Ilibpng -I./freetype/include/freetype" 
+  echo $ARCHIVE | grep sqlite || unset AM_CPPFLAGS
 
   # Build options
 
