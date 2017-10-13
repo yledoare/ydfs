@@ -707,6 +707,7 @@ fi
  && [ ! -e curl-config.in ] \
  && [ ! -e libapr.dsp ] \
  && [ ! -e libaprutil.dsp ] \
+ && [ ! -e src/harfbuzz.pc.in ] \
  && [ ! -e libhttpd.dsp ] \
  && [ ! -e gc_cpp.cc ]
     then
