@@ -8,13 +8,10 @@ http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZ
 #Games
 https://github.com/minetest/minetest/archive/0.4.15.tar.gz
 #Multimedia
-git://github.com/hydrogen-music/hydrogen.git
 http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86_64#
 #Office
-https://download.gimp.org/mirror/pub/gimp/v2.8/gimp-2.8.22.tar.bz2
 http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
 http://www.xsane.org/download/xsane-0.999.tar.gz
-http://download.documentfoundation.org/libreoffice/src/5.3.7/libreoffice-5.3.7.1.tar.xz
 #Education
 http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 #Games
@@ -22,6 +19,8 @@ http://download.gna.org/hedgewars/hedgewars-src-0.9.22.tar.bz2
 archlinux:frozen-bubble
 http://neverball.org/neverball-1.6.0.tar.gz
 archlinux:armagetronad
+https://github.com/Unvanquished/Unvanquished/releases/download/v0.50.0/unvanquished_0.50.0.zip
+https://github.com/MegaGlest/megaglest-source/releases/download/3.13.0/megaglest-source-3.13.0.tar.xz
 #Multimedia
 https://github.com/freetuxtv/freetuxtv/archive/freetuxtv-0.6.8.tar.gz
 http://freefr.dl.sourceforge.net/project/zynaddsubfx/zynaddsubfx/2.5.1/zynaddsubfx-2.5.1.tar.gz
