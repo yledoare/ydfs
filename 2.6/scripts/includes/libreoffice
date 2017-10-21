@@ -2,14 +2,14 @@
   if [ -e librelogo ] 
   then
 	# ?? depuis que include qt4 est actif
-	ls $HOME/$ARCH/lib/libicu* |while read file
-do
-	ln -sf $file $HOME/$ARCH/opkg/lib
-done
+#	ls $HOME/$ARCH/lib/libicu* |while read file
+#do
+#	ln -sf $file $HOME/$ARCH/opkg/lib
+#done
 	# for correct file install into package dir
         [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
 	# mount / -o remount,noatime
-	cp /usr/lib/x86_64-linux-gnu/pkgconfig/icu-* $HOME/$ARCH/lib/pkgconfig/
+	# cp /usr/lib/x86_64-linux-gnu/pkgconfig/icu-* $HOME/$ARCH/lib/pkgconfig/
 	install -d src
 	sed -e "/gzip -f/d"   -e "s|.1.gz|.1|g" -i bin/distro-install-desktop-integration && sed -e "/distro-install-file-lists/d" -i Makefile.in
 	chmod -v +x bin/unpack-sources
@@ -29,14 +29,14 @@ echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
         # [ ! -e configure ] && 
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++
-        ./autogen.sh CC=clang CXX=clang++ # --with-parallelism=2
+        ./autogen.sh CC=clang CXX=clang++# --with-parallelism=2
 	CONFIGURE_OPTS=""
 	env > env.log
         [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --host=i586-linux-gnu"
 	PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" ./configure $CONFIGURE_OPTS --with-system-nss --prefix=$PREFIX  --with-lang="en-US fr" --with-build-version="YourditroFromScratch $ARCH"   --with-vendor="Ydfs" --enable-release-build --without-help --without-krb5 --without-gssapi --disable-gstreamer-0-10 \
-	     --with-system-libpng	\
+	     --with-system-libcdr --with-system-libpng	\
 	     --with-system-glew  \
-	     --with-system-icu --without-java  \
+	     --with-system-libebook --with-system-icu --without-java  \
 	     --with-alloc=system         \
              --disable-gconf             \
              --disable-odk               \

@@ -148,6 +148,7 @@ else
      export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
+  [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e libexfat ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --install
   [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   [ -e SDL_Pango.pc.in ] && [ -e configure ] && rm configure && echo " Forced remake configure " && sleep 5 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
