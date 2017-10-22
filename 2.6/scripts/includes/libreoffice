@@ -28,7 +28,7 @@ echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
 	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
         # [ ! -e configure ] && 
-	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++
+	export CXXFLAGS=$CFLAGS CC=clang CXX="clang++ -std=c++11"
         ./autogen.sh CC=clang CXX=clang++# --with-parallelism=2
 	CONFIGURE_OPTS=""
 	env > env.log
