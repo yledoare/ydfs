@@ -191,6 +191,17 @@ else
   	#fi
   fi
 
+  if [ -e org.kde.gcompris.desktop ]
+  then
+	mkdir build
+	cd build
+  		cmake \
+	     -DCMAKE_BUILD_TYPE=Release \
+	     -DCMAKE_INSTALL_PREFIX=$PREFIX \
+	     -DQML_BOX2D_LIBRARY=/usr/lib/qt/qml/Box2D.2.0 \
+	       ..
+  fi
+
   [ -e $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
 
   if [ -e qtbase/configure ]
@@ -883,6 +894,7 @@ ac_cv_file__dev_ptc=no' >  config.site
 	echo "done"
     fi
 
+    [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     if [ -e QupZilla.pro ]
     then

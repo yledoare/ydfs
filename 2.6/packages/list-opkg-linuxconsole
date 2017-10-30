@@ -1,19 +1,7 @@
-#Network
-http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
-#https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
-#Misc
-#http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
-#Libs
-#archlinux:lib32-libtxc_dxtn
-#Games
-https://github.com/minetest/minetest/archive/0.4.15.tar.gz
-#Multimedia
-http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86_64#
-#Office
-http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
-http://www.xsane.org/download/xsane-0.999.tar.gz
 #Education
-http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
+git://github.com/qml-box2d/qml-box2d.git
+http://gcompris.net/download/qt/src/gcompris-qt-0.81.tar.xz
+#http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 #Games
 http://download.gna.org/hedgewars/hedgewars-src-0.9.22.tar.bz2
 archlinux:frozen-bubble
@@ -44,3 +32,17 @@ http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.
 #Education
 http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
 archlinuxpatched:celestia
+#Network
+http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.20.1/FileZilla_3.20.1_src.tar.bz2
+#https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
+#Misc
+#http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
+#Libs
+#archlinux:lib32-libtxc_dxtn
+#Games
+https://github.com/minetest/minetest/archive/0.4.15.tar.gz
+#Multimedia
+http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86_64#
+#Office
+http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
+http://www.xsane.org/download/xsane-0.999.tar.gz
