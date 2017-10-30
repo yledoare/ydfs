@@ -343,7 +343,7 @@ pwd && sleep 5
   [ -e Imakefile ] && [ ! -e Makefile ]  && [ ! -e configure ] && [ ! -e autogen.sh ] && xmkmf -a
   [ -e gtk-sharp.snk ] &&  ./bootstrap-2.12 --prefix=$PREFIX --sysconfdir=/$PREFIX/etc --disable-static
 
-  [ -e xmoto.6 ] && ./bootstrap
+  [ -e xmoto.6 ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
   if [ -e autogen.sh ] && [ ! -e configure ] 
   then
@@ -1254,7 +1254,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	  echo "LINKFLAGS += ${LDFLAGS} ;" >> Jamtop
 	  echo "STDLIBS += -ldl -lrt -lX11 -lXext -lXxf86vm -lXinerama -lXrandr -lXau -lXdmcp -lXss -ltiff -ljpeg ;" >> Jamtop
   fi
-
+      pwd | grep lua-5.2 && make linux && make INSTALL_INC="$PREFIX"/include/lua5.2 INSTALL_TOP=$PREFIX install && touch buildok-$ARCH && exit 0
       [ -e src/lua.hpp ] && make amalg PREFIX=$PREFIX &&  make install PREFIX=$PREFIX && touch buildok-$ARCH && exit 0
   # echo "Looking for Makefile at $PWD"
   if [ -e Makefile ] || [ -e GNUmakefile ] 
@@ -1319,7 +1319,6 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
 
-      [ -e src/lua.c ] && make linux && make INSTALL_TOP=$PREFIX TO_LIB="liblua.so liblua.so.5.1 liblua.so.5.1.5" && cp -a src/lib* $PREFIX/lib && make install && touch buildok-$ARCH && exit 0
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"
