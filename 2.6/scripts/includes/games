@@ -371,15 +371,3 @@ fi
     touch buildok-$ARCH
     exit 0
   fi
-
-  if [ -e xmoto.6 ]
-  then
-	echo "FIX xmoto build" && sleep 5
-   echo "aclocal -Im4 -I$HOME/$ARCH/share/aclocal --force" > compile
-   chmod +x ./compile
-	./compile
-    autoconf 
-    #autoheader -f
-    #automake -a -c -f 
-    export am__append_6="-llua"
-  fi
