@@ -130,7 +130,15 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disab
 	echo $ARCHIVE | grep foomatic-filters && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
 	echo $ARCHIVE | grep foomatic-db-engine && LC_CONFIGURE_OPTS="--sysconfdir=$DIBAB_PREFIX/$MODULE/etc"
 	echo $ARCHIVE | grep LVM && LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig"
-	echo $ARCHIVE | grep Python-2 && LC_CONFIGURE_OPTS="--with-system-expat --enable-shared --with-ssl " #--enable-unicode=ucs4
+	echo $ARCHIVE | grep Python-2 && LC_CONFIGURE_OPTS=" --with-ssl  --enable-shared \
+              --with-threads \
+              --with-lto \
+              --enable-ipv6 \
+              --enable-unicode=ucs4 \
+              --with-system-expat \
+              --with-system-ffi \
+              --with-dbmliborder=gdbm:ndbm \
+              --without-ensurepip  " #--enable-unicode=ucs4
 	echo $ARCHIVE | grep fltk && LC_CONFIGURE_OPTS="--enable-shared" 
 	echo $ARCHIVE | grep Python-3 && LC_CONFIGURE_OPTS=" --enable-shared \
               --with-threads \
