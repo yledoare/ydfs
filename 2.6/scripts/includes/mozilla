@@ -1,23 +1,15 @@
 #!/bin/sh
+
   if [ -e nss/build.sh ]
   then
   	cp $HOME_DIBAB/config/nss/Linux.mk nss/coreconf/Linux.mk || exit
 	cd nss 
-  if [ "$ARCH" = "x86_64" ]
-then
   make -j1 BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/$HOME/$ARCH/include/nspr  \
   USE_SYSTEM_ZLIB=1                   \
   ZLIB_LIBS=-lz                       \
   NSS_ENABLE_WERROR=0                 \
-  $([ $(uname -m) = x86_64 ] && echo USE_64=1) || exit $?
-else
-  make nss_build_all BUILD_OPT=1                 \
-  USE_SYSTEM_ZLIB=1                            \
-  ZLIB_LIBS=-lz                                \
-  OS_TEST=x86                                \
-  NSS_USE_SYSTEM_SQLITE=1 PREFIX=$PREFIX HOME=$HOME ARCH=$ARCH || exit $?
-fi
+  $([ $ARCH = x86_64 ] && echo USE_64=1) || exit $?
 
   install -v -m755 -d $PREFIX/include/nss                   
   cp -v -RL ../dist/public/nss/* $PREFIX/include/nss 
