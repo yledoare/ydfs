@@ -28,7 +28,6 @@ ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-2.1.1.tar.bz2
 ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.7.3.tar.bz2 
 ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.0.27.tar.bz2
 ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-1.4.3.tar.bz2
-https://github.com/ostreedev/ostree/releases/download/v2017.10/libostree-2017.10.tar.xz
 https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.tar.gz
 http://edge.launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz 
 #GEGL-0.2-for-Gimp 
@@ -581,6 +580,7 @@ https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
 #gnome-software
+https://github.com/ostreedev/ostree/releases/download/v2017.10/libostree-2017.10.tar.xz
 https://github.com/flatpak/flatpak/releases/download/0.9.12/flatpak-0.9.12.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz

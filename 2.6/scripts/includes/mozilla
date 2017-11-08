@@ -5,8 +5,7 @@
 	echo "Inside $0"
   	cp $HOME_DIBAB/config/nss/Linux.mk nss/coreconf/Linux.mk || exit
 	cd nss 
-  ./build.sh -v \
-    --opt --system-sqlite --system-nspr --disable-tests || exit 11
+#  ./build.sh -v --opt --system-sqlite --system-nspr --disable-tests || exit 11
 
   make -j1 BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/$HOME/$ARCH/include/nspr  \
