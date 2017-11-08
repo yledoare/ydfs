@@ -1,7 +1,0 @@
-cd $HOME/ydfs/build-$ARCH
-ls | while read PKG
-do
-  echo $PKG
-  echo "Clean $PKG"
-  rm -fR $PKG/*
-done

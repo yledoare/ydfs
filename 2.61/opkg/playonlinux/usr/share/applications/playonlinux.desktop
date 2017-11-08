@@ -1,9 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=playonlinux
-GenericName=Play Wine Games
-Exec=playonlinux %U
-Terminal=false
-Icon=playonlinux
-Type=Application
-Categories=Game

@@ -1,3 +1,0 @@
-FORCE_PREFIX=x86 : force prefix dir ($HOME/prefix)
-BUILDME=OK make : run shell before starting make
-FORCEBUILD=OK make : force building all packages
