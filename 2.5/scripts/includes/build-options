@@ -89,6 +89,7 @@
               --with-system-libmpdec \
               --without-ensurepip"
 	echo $ARCHIVE | grep mpeg2dec && LC_CONFIGURE_OPTS="--enable-shared"
+	echo $ARCHIVE | grep links- && LC_CONFIGURE_OPTS="--enable-javascript --enable-graphics --with-x --with-fb"
 	echo $ARCHIVE | grep lame && LC_CONFIGURE_OPTS="--enable-nasm --enable-shared"
 	echo $ARCHIVE | grep libvpx && LC_CONFIGURE_OPTS="--enable-pic --enable-shared --disable-unit-tests"
 	echo $ARCHIVE | grep lirc && LC_CONFIGURE_OPTS="--enable-sandboxed --with-driver=userspace --with-transmitter"
