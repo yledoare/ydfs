@@ -107,6 +107,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disab
 	echo $ARCHIVE | grep inkscape && LC_CONFIGURE_OPTS="--disable-strict-build"
 	echo $ARCHIVE | grep libomxil-bellagio && LC_CONFIGURE_OPTS="-disable-static"
 	echo $ARCHIVE | grep e2fsprogs && LC_CONFIGURE_OPTS="--enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck"
+#	echo $ARCHIVE | grep ode-0.15 && LC_CONFIGURE_OPTS="--enable-libccd --enable-double-precision"
 	echo $ARCHIVE | grep Alien-SDL && LC_CONFIGURE_OPTS="--with-sdl-config"
 	echo $ARCHIVE | grep gobject-introspection && LC_CONFIGURE_OPTS="--disable-tests" && [ "$ARCH" == "arm" ] && export PATH=$HOME/$ARCH/bin/:$PATH
 	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
@@ -308,6 +309,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	else
 		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  -disable-nasm --enable-alsa --with-x --disable-rpath --disable-static"
 		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--enable-composite --enable-dri2 --enable-glx --enable-aiglx --with-log-dir=/var/log" 
+#		echo $ARCHIVE | grep ode-0.15 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --target=i686-linux-gnu --build=i686-linux-gnu"
 	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
@@ -323,4 +325,5 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep opkg && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
 		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep mesa && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	fi
