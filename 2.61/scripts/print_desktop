@@ -1,8 +1,0 @@
-echo "[Desktop Entry]
-Name=$NAME
-GenericName=$GENERICNAME
-Comment=$COMMENT
-Exec=$EXEC
-Icon=$ICON
-Type=Application
-Categories=$CATEGORIES"

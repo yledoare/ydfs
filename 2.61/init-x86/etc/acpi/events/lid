@@ -1,3 +1,0 @@
-#!/bin/bash
-event=button/lid
-action=/etc/acpi/actions/sleep.sh %e

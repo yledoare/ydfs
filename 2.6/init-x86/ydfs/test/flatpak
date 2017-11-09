@@ -1,0 +1,3 @@
+wget https://sdk.gnome.org/keys/gnome-sdk.gpg
+flatpak remote-add --user --gpg-import=gnome-sdk.gpg gnome https://sdk.gnome.org/repo/
+flatpak install --user gnome org.gnome.Platform 3.24

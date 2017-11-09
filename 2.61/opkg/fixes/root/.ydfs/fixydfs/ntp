@@ -1,2 +1,0 @@
-[ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe /etc/localtime
-ntpdate 1.fr.pool.ntp.org

@@ -1,6 +1,6 @@
 [ ! -e /usr/lib/libncurses.so.5 ] && ln -s /usr/lib/libncursesw.so.6 /usr/lib/libncurses.so.5
 ln -s /usr/lib/libgnutls.so.28 /lib/libgnutls.so.26
-ln -s /usr/lib/libLLVM-3.5.so /lib/libLLVM-3.5.so.1
+ln -s /usr/lib/libLLVM-3.8.so /lib/libLLVM-3.8.so.1
 ln -s /usr/lib/libpng16.so.16 /lib/libpng12.so.0
 ln -s /usr/lib/libexpat.so /lib/libexpat.so.1
 if [ -e /usr/lib32-root ]

@@ -1,3 +1,0 @@
-mkdir /dev/vboxusb 
-chmod 770 /dev/vbox*
-chown root:vboxusers /dev/vbox*

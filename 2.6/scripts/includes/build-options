@@ -2,6 +2,7 @@
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
 
+echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disable-amalgamation --enable-fts3 --enable-fts4 --enable-fts5 --enable-rtree --enable-json1"
@@ -289,7 +290,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	#echo $ARCHIVE | grep cairo-1.10 && LC_CONFIGURE_OPTS="--enable-tee=yes "
 	echo $ARCHIVE | grep Linux-PAM && LC_CONFIGURE_OPTS="--enable-db=no"
 	echo $ARCHIVE | grep ncurses && export PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" && LC_CONFIGURE_OPTS="--with-shared --enable-pc-files --without-debug  --enable-pc-files --enable-widec" # && export BUILD_TWICE=yes
-	echo $ARCHIVE | grep glib-networking && LC_CONFIGURE_OPTS="--without-ca-certificates"
+	# echo $ARCHIVE | grep glib-networking && LC_CONFIGURE_OPTS="--without-ca-certificates"
   	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
   	echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "

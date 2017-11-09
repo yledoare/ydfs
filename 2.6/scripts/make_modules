@@ -141,16 +141,11 @@ ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
 ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
 cp -a /etc/ssl/ $HOME/ydfs/modules/$ARCH/etc
 
-for QTLIB in `ls $HOME/qt5/lib/*.so.56`
+for QTDIR in lib plugins
 do
-  echo copy $QTLIB
-  cp $QTLIB  $HOME/ydfs/modules/$ARCH/lib || exit 11
-done
-
-for QTLIB in `ls $HOME/qt5/lib/*.so.5`
-do
-  echo copy $QTLIB
-  cp $QTLIB  $HOME/ydfs/modules/$ARCH/lib || exit 11
+  install -d $HOME/ydfs/modules/$ARCH/qt5
+  echo copy qt5 $QTDIR
+  cp -fR $HOME/qt5/$QTDIR  $HOME/ydfs/modules/$ARCH/qt5 || exit 11
 done
 
 if [ "$ARCH" = "x86_64" ]
