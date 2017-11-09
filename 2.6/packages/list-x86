@@ -440,7 +440,8 @@ archlinux:perl-archive-zip
 archlinux:perl-ipc-system-simple
 archlinux:perl-locale-maketext-lexicon
 archlinux:perl-compress-bzip2
-archlinux:perl-file-which
+#archlinux:perl-file-which
+http://www.cpan.org/authors/id/P/PL/PLICEASE/File-Which-1.22.tar.gz
 archlinux:perl-file-slurp
 archlinux:perl-file-sharedir
 archlinux:perl-archive-extract
