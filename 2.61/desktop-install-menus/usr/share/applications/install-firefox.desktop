@@ -1,9 +1,0 @@
-
-[Desktop Entry]
-Version=1.0
-Name=firefox
-Exec=/ydfs/add/software firefox
-Terminal=false
-Icon=firefox
-Type=Application
-Categories=Install 

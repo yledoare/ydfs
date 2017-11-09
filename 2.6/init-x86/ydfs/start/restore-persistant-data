@@ -13,12 +13,6 @@ mount /disk/root.ext3 /root
   then
     install -d /root/opkg
   fi
-  if [ ! -e /root/qt5 ]
-  then
-    install -d /root/qt5
-    install -d $HOME_DIBAB/qt5
-    mount /root/qt5 $HOME_DIBAB/qt5 -o bind
-  fi
   ln -s /root/opkg $HOME_DIBAB/opkg
   install -d /root/usr
   install -d /root/etc
@@ -47,12 +41,6 @@ then
   then
     install -d /media/ydfs/opkg
   fi
-  if [ ! -e $HOME_DIBAB/qt5 ]
-  then
-    install -d /media/ydfs/qt5
-    install -d $HOME_DIBAB/qt5
-    mount /media/ydfs/qt5 $HOME_DIBAB/qt5 -o bind
-  fi
   ln -s /media/ydfs/opkg $HOME_DIBAB/opkg
   rmdir /root
   ln -s /media/ydfs/root /root
@@ -71,4 +59,5 @@ cd /
 tar xzvf /root/.config/ydfs/backup.tar.gz
 fi
 
+ln -s $HOME_DIBAB/$ARCH/qt5 $HOME_DIBAB
 install -d $HOME_DIBAB/opkg/share/applications

@@ -1,8 +1,0 @@
-if [ -e /root/.ydfs/fixydfs ]
-  then
-     ls /root/.ydfs/fixydfs |while read file
-     do
-       echo /root/.ydfs/fixydfs/$file
-       bash /root/.ydfs/fixydfs/$file
-     done
-fi
