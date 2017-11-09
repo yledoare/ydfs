@@ -89,7 +89,8 @@ archlinux:perl-net-http
 archlinux:perl-xml-parser
 archlinux:perl-xml-twig
 archlinux:perl-net-dbus
-archlinux:perl-date-manip
+#archlinux:perl-date-manip
+http://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.60.tar.gz
 archlinux:perl-xml-namespacesupport
 archlinux:perl-xml-sax-base
 archlinux:perl-xml-sax
