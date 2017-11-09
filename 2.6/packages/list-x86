@@ -362,9 +362,9 @@ http://portland.freedesktop.org/download/xdg-utils-1.1.0-rc1.tar.gz
 http://ftp.kernel.org/pub/software/utils/pciutils/pciutils-3.2.0.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
 ftp://ftp.gnome.org/pub/gnome/sources/gnome-menus/2.30/gnome-menus-2.30.5.tar.bz2
-ftp://ftp.gnome.org/pub/gnome/sources/glib-networking/2.50/glib-networking-2.50.0.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/glib-networking/2.54/glib-networking-2.54.1.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/vala/0.24/vala-0.24.0.tar.xz
-https://download.gnome.org/sources/libsoup/2.54/libsoup-2.54.1.tar.xz
+https://download.gnome.org/sources/libsoup/2.60/libsoup-2.60.1.tar.xz
 https://github.com/thom311/libnl/releases/download/libnl3_2_28/libnl-3.2.28.tar.gz
 https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_33_RTM/src/nss-3.33.tar.gz
 http://pkg-isocodes.alioth.debian.org/downloads/iso-codes-3.49.tar.xz
@@ -584,7 +584,8 @@ http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
 #gnome-software
 https://github.com/ostreedev/ostree/releases/download/v2017.13/libostree-2017.13.tar.xz
-https://github.com/flatpak/flatpak/releases/download/0.9.12/flatpak-0.9.12.tar.xz
+#https://github.com/flatpak/flatpak/releases/download/0.9.12/flatpak-0.9.12.tar.xz
+https://github.com/flatpak/flatpak/releases/download/0.8.8/flatpak-0.8.8.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
 http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
