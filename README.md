@@ -9,26 +9,8 @@ Features :
 
 #Build ydfs ISO
 
-Your Distro From Scratch 2.* is buildt from Debian8 (x86 and x86_64), you will need recent building tools to make it successfull
+Your Distro From Scratch 2.6 should be buildt from Debian 9 (Stretch) 
 
-# Install debootstrap for 32 bit release 
-
-You can build 32 and 64 bit on one computer
-
-```
-#!shell
-MY_CHROOT=/home/debian-stretch-32
-apt-get install debootstrap
-install -d $MY_CHROOT
-debootstrap --arch i386 stretch $MY_CHROOT http://http.debian.net/debian/
-echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
-mount proc $MY_CHROOT/proc -t proc
-echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
-mount sysfs $MY_CHROOT/sys -t sysfs
-cp /etc/hosts $MY_CHROOT/etc/hosts
-cp /proc/mounts $MY_CHROOT/etc/mtab
-chroot $MY_CHROOT /bin/bash
-```
 
 #Install debian toolchain packages
 
@@ -95,3 +77,21 @@ pl_PL.UTF-8 UTF-8
 
 * sudo dpkg-reconfigure locales
 * or locale-gen
+
+# Install debootstrap for 32 bit release 
+You can build 32 and 64 bit on one computer
+
+```
+#!shell
+MY_CHROOT=/home/debian-stretch-32
+apt-get install debootstrap
+install -d $MY_CHROOT
+debootstrap --arch i386 stretch $MY_CHROOT http://http.debian.net/debian/
+echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
+mount proc $MY_CHROOT/proc -t proc
+echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
+mount sysfs $MY_CHROOT/sys -t sysfs
+cp /etc/hosts $MY_CHROOT/etc/hosts
+cp /proc/mounts $MY_CHROOT/etc/mtab
+chroot $MY_CHROOT /bin/bash
+```
