@@ -2,7 +2,7 @@
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
 
-echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl"
+echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disable-amalgamation --enable-fts3 --enable-fts4 --enable-fts5 --enable-rtree --enable-json1"
