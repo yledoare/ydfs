@@ -17,10 +17,10 @@ You can build 32 and 64 bit on one computer
 
 ```
 #!shell
-MY_CHROOT=/home/debian-stretch-32
-apt-get install debootstrap
+MY_CHROOT=/home/debian-jessie-32
+
 install -d $MY_CHROOT
-debootstrap --arch i386 stretch $MY_CHROOT http://http.debian.net/debian/
+debootstrap --arch i386 jessie $MY_CHROOT http://http.debian.net/debian/
 echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
 mount proc $MY_CHROOT/proc -t proc
 echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
@@ -35,7 +35,7 @@ chroot $MY_CHROOT /bin/bash
 ```
 #!shell
 
-wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.6/configure
+wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.5/configure
 sh configure
 ```
 
@@ -56,7 +56,7 @@ install -d src
 cd src
 git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs
-cd 2.6
+cd 2.5
 make 
 ```
 
