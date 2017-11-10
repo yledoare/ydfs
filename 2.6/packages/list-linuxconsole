@@ -6,7 +6,7 @@ https://download.videolan.org/vlc/2.2.6/vlc-2.2.6.tar.xz
 https://github.com/LMMS/lmms/archive/v1.2.0-rc3.tar.gz
 git://github.com/hydrogen-music/hydrogen.git
 https://download.gimp.org/mirror/pub/gimp/v2.8/gimp-2.8.22.tar.bz2
-http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
+#http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #http://download.documentfoundation.org/libreoffice/src/5.3.7/libreoffice-5.3.7.2.tar.xz
 #https://github.com/xbmc/xbmc/archive/17.4-Krypton.tar.gz
 #git://github.com/xboxdrv/xboxdrv.git
