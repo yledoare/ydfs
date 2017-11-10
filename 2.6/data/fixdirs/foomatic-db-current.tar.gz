@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 DIR2=foomatic-db-20170911 && FORCED=1
+=======
+DIR2=foomatic-db-20171109 && FORCED=1
+>>>>>>> 9408e0d2a4d1471b4ee49277d86f25ae4a2287c8
