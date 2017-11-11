@@ -127,7 +127,7 @@ endif
 # -ansi on platforms like Android where the system headers are C99 and do
 # not build with -ansi.
 STANDARDS_CFLAGS	= -D_POSIX_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE
-OS_CFLAGS		= -I$(HOME)/$(ARCH)/include/ -I/$(PREFIX)/include/nspr/ $(STANDARDS_CFLAGS) $(DSO_CFLAGS) $(OS_REL_CFLAGS) $(ARCHFLAG) -Wall -Werror-implicit-function-declaration -Wno-switch -pipe -DLINUX -Dlinux -DHAVE_STRERROR
+OS_CFLAGS		= -I$(HOME)/$(DIBAB_ARCH)/include/ -I/$(HOME)/$(DIBAB_ARCH)/include/nspr/ $(STANDARDS_CFLAGS) $(DSO_CFLAGS) $(OS_REL_CFLAGS) $(ARCHFLAG) -Wall -Werror-implicit-function-declaration -Wno-switch -pipe -DLINUX -Dlinux -DHAVE_STRERROR
 OS_LIBS			= $(OS_PTHREAD) -ldl -lc
 
 ifdef USE_PTHREADS
@@ -141,7 +141,7 @@ DSO_LDOPTS		= -shared $(ARCHFLAG)
 # The linker on Red Hat Linux 7.2 and RHEL 2.1 (GNU ld version 2.11.90.0.8)
 # incorrectly reports undefined references in the libraries we link with, so
 # we don't use -z defs there.
-ZDEFS_FLAG		= -Wl,-z,defs -L$(HOME)/$(ARCH)/lib
+ZDEFS_FLAG		= -Wl,-z,defs -L$(HOME)/$(DIBAB_ARCH)/lib
 DSO_LDOPTS		+= $(if $(findstring 2.11.90.0.8,$(shell ld -v)),,$(ZDEFS_FLAG))
 LDFLAGS			+= $(ARCHFLAG)
 

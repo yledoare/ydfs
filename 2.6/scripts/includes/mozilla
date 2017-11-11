@@ -8,7 +8,7 @@
 #  ./build.sh -v --opt --system-sqlite --system-nspr --disable-tests || exit 11
 
   make -j1 BUILD_OPT=1                  \
-  NSPR_INCLUDE_DIR=/$HOME/$ARCH/include/nspr  \
+  NSPR_INCLUDE_DIR=/$HOME_DIBAB/$ARCH/include/nspr  \
   USE_SYSTEM_ZLIB=1                   \
   ZLIB_LIBS=-lz                       \
   NSS_ENABLE_WERROR=0                 \
