@@ -584,7 +584,8 @@ http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
 #gnome-software
 https://github.com/ostreedev/ostree/releases/download/v2017.13/libostree-2017.13.tar.xz
-https://github.com/flatpak/flatpak/releases/download/0.9.12/flatpak-0.9.12.tar.xz
+https://github.com/projectatomic/bubblewrap/releases/download/v0.2.0/bubblewrap-0.2.0.tar.xz
+https://github.com/flatpak/flatpak/releases/download/0.10.0/flatpak-0.10.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
 http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
@@ -645,6 +646,8 @@ https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2
 #archlinux:ncftp
 #archlinux:vmpk
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
+https://downloads.sourceforge.net/project/gparted/gparted/gparted-0.30.0/gparted-0.30.0.tar.gz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole

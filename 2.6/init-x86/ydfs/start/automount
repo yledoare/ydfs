@@ -49,7 +49,7 @@ ACTION=="remove", ENV{dir_name}!="", RUN+="/busybox/bin/umount -l /media/%E{dir_
 # Exit
 LABEL="media_by_label_auto_mount_end"
 
-' > /usr/libexec/rules.d/11-media-by-label-auto-mount.rules
+' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 
 echo '
 KERNEL!="sd[a-z]", GOTO="media_by_label_auto_mount_end"
@@ -68,7 +68,7 @@ ACTION=="remove",  ENV{ID_FS_TYPE}=="exfat", ENV{dir_name}!="", RUN+="/busybox/b
 
 # Exit
 LABEL="media_by_label_auto_mount_end"
-' > /usr/libexec/rules.d/11-media-by-label-auto-mount-exfat.rules
+' > /usr/lib/udev/rules.d/11-media-by-label-auto-mount-exfat.rules
 
 echo '
 
@@ -81,7 +81,7 @@ RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}" RUN+="/busybox/bin/mount  /dev/
 
 LABEL="media_by_label_auto_mount_cdrom_end"
 
-' > /usr/libexec/rules.d/12-media-by-label-auto-mountcdrom.rules
+' > /usr/lib/udev/rules.d/12-media-by-label-auto-mountcdrom.rules
 udevadm trigger --action=add
 #udevadm control --reload-rules
 
