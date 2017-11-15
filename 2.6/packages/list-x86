@@ -1,4 +1,5 @@
 #Begin
+https://github.com/libical/libical/archive/v2.0.0.tar.gz
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.xz 
 http://downloads.sourceforge.net/infozip/unzip60.tar.gz 
 http://www.oberhumer.com/opensource/lzo/download/lzo-2.09.tar.gz 
@@ -219,6 +220,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.10.14.tar.gz
+https://www.kernel.org/pub/linux/bluetooth/bluez-5.47.tar.xz
 http://xorg.freedesktop.org//releases/individual/lib/libxshmfence-1.1.tar.bz2
 #http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2
 archlinux:libvdpau
@@ -409,6 +411,7 @@ git://anongit.freedesktop.org/git/libqmi
 http://www.freedesktop.org/software/ModemManager/ModemManager-1.6.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
 https://download.gnome.org/sources/NetworkManager/1.8/NetworkManager-1.8.4.tar.xz
+https://github.com/blueman-project/blueman/releases/download/2.0.5/blueman-2.0.5.tar.xz 
 http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.4/network-manager-applet-1.4.0.tar.xz
 http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
