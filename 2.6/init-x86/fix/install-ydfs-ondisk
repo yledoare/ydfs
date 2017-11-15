@@ -22,7 +22,7 @@ which gpartedbin || opkg-cl install gparted
 zenity --info --text="Please create a parition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
 
 # To disable remounting while running gparted
-echo > /usr/libexec/rules.d/11-media-by-label-auto-mount.rules
+echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
 $HOME_DIBAB/$ARCH/sbin/gpartedbin
 sh /ydfs/start/automount
@@ -53,6 +53,7 @@ sed -i "s@DISTRONAME@$DISTRONAME@"  `which grub-mkconfig`
 echo "running grub-mkconfig"
 find /sys |grep sda|grep usb && BOOTOPTION=" liveusb "
 LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
+cp /media/$DISTRONAME/grub/grub.cfg.new /media/$DISTRONAME/grub/grub.cfg
 sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
 touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
 echo "Copying module ..."

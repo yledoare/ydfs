@@ -26,6 +26,14 @@ fi
 chmod +x /busybox/bin/umount
 
 echo '
+KERNEL!="sd[a-z][0-9]", GOTO="block-auto-mknod_end"
+IMPORT{program}="/busybox/bin/busybox mdev -s"
+# Exit
+LABEL="block-auto-mknod_end"
+
+' > /usr/lib/udev/rules.d/10-block-auto-mknod.rules
+
+echo '
 KERNEL!="sd[a-z][0-9]", GOTO="media_by_label_auto_mount_end"
 
 # Import FS infos

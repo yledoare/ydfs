@@ -22,4 +22,4 @@ then
   echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
   # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
 fi
-[ ! -e /etc/opkg/ydfs.conf ] && zenity --text="Error \n please run $0 from lxterminal !" --error
+[ ! -e /etc/opkg/ydfs.conf ] && zenity --text="Error \n please run $0 from xterm !" --error

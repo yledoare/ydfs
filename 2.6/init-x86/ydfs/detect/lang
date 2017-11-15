@@ -22,8 +22,8 @@ fi
 
 
 [ "$lang" = "chinese" ] && cat >>~/.Xresources <<"EOF"
-lxterminal*faceName:AR PL Uming CN
-lxterminal*faceSize:12
+xterm*faceName:AR PL Uming CN
+xterm*faceSize:12
 EOF
 
 [ "$lang" = "polska" ] && export LC_ALL=pl_PL.UTF-8 && export LANG=pl_PL.UTF-8

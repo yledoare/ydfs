@@ -2,6 +2,7 @@
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
 
+echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
 echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
