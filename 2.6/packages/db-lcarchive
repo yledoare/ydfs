@@ -156,7 +156,8 @@ case "$ARCHIVE" in
         echo $FILE
         tar xzvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
-      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
+      # [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " 
+      [ ! -e $DIR2 ] && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` #&& install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
       cd $DIR2
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
