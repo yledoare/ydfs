@@ -1136,6 +1136,8 @@ echo "At BUILDPERL"
   fi
   if [ -e waf ]
   then
+	[ -e ydfs.env ] && mv ydfs.env ydfs.env.bak 
+	env > ydfs.env
       echo "Run ./waf "
 	 if [ -e src/plugins/avcodec ]
 	   then
