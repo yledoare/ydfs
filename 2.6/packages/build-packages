@@ -156,7 +156,7 @@ do
   COUNT=`echo $((COUNT + 1))`
   [ $COUNT = 1 ] && MAX=`cat $LIST2|wc -l`
   echo 
-  echo -n -e " \e[90m$COUNT\e[0m " 
+  echo -n -e " \e[94m$COUNT\e[0m " 
   echo -n " / $MAX : "
   echo "$ARCHIVE" | grep "#END-$DISTRONAME" && break
   echo "$ARCHIVE" | grep "#SKIP-$DISTRONAME" && continue
