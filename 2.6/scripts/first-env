@@ -1,10 +1,6 @@
 echo "Store first env VAR ..."
 
-rm /tmp/firstenv
-env | while read VAR
-do
-  THEENV=$(echo $VAR|cut -d '=' -f1)
-  VALUE=$(echo $VAR|cut -d '=' -f2)
-  echo "$THEENV=\"$VALUE\"" >> /tmp/firstenv
-  # echo "THEENV" $VAR|cut -d '=' -f1 >> /tmp/firstenv
-done
+echo "export CFLAGS=\"$CFLAGS\"" > $HOME/ydfs/firstenv
+echo "export CXXFLAGS=\"$CXXFLAGS\"" >> $HOME/ydfs/firstenv
+echo "export CXX=\"$CXX\"" >> $HOME/ydfs/firstenv
+echo "export LDFLAGS=\"$LDFLAGS\"" >> $HOME/ydfs/firstenv

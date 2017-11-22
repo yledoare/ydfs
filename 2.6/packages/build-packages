@@ -146,7 +146,7 @@ LIST2=$SRC_PATH/list-$LIST
 
 [ -e $HOME/ydfs-error ] && rm $HOME/ydfs-error
 
-#$HOME_DIBAB/scripts/first-env
+$HOME_DIBAB/scripts/first-env
 
 readarray -t PACKAGE < $LIST2 || exit $?
 COUNT=0
