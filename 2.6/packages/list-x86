@@ -595,8 +595,7 @@ https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar
 #Mate desktop
 https://download.gnome.org/sources/libwnck/3.20/libwnck-3.20.1.tar.xz 
 https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
-http://download.gnome.org/sources/dconf/0.24/dconf-0.24.0.tar.xz #SKIP-x86#
-#https://github.com/mate-desktop/mate-common/archive/v1.16.0.tar.gz #SKIP-x86#
+http://download.gnome.org/sources/dconf/0.24/dconf-0.24.0.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-desktop-1.18.0.tar.xz
 http://pub.mate-desktop.org/releases/1.18/caja-1.18.4.tar.xz
 http://pub.mate-desktop.org/releases/1.18/mate-icon-theme-1.18.2.tar.xz

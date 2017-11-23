@@ -146,7 +146,7 @@ LIST2=$SRC_PATH/list-$LIST
 
 [ -e $HOME/ydfs-error ] && rm $HOME/ydfs-error
 
-#$HOME_DIBAB/scripts/first-env
+$HOME_DIBAB/scripts/first-env
 
 readarray -t PACKAGE < $LIST2 || exit $?
 COUNT=0
@@ -156,7 +156,7 @@ do
   COUNT=`echo $((COUNT + 1))`
   [ $COUNT = 1 ] && MAX=`cat $LIST2|wc -l`
   echo 
-  echo -n -e " \e[90m$COUNT\e[0m " 
+  echo -n -e " \e[94m$COUNT\e[0m " 
   echo -n " / $MAX : "
   echo "$ARCHIVE" | grep "#END-$DISTRONAME" && break
   echo "$ARCHIVE" | grep "#SKIP-$DISTRONAME" && continue
