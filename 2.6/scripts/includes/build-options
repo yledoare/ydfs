@@ -8,7 +8,19 @@ echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --w
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
-echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disable-amalgamation --enable-fts3 --enable-fts4 --enable-fts5 --enable-rtree --enable-json1"
+echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
+	--disable-amalgamation \
+	--enable-fts3 \
+	--enable-fts4 \
+	--enable-fts5 \
+	--enable-rtree \
+	--enable-json1" && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                             -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+                             -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                             -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
+                             -DSQLITE_SECURE_DELETE \
+                             -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+                             -DSQLITE_MAX_EXPR_DEPTH=10000"
  
 		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
    --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
@@ -62,8 +74,8 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static --disab
 	echo $ARCHIVE | grep v4l-utils && export LC_CONFIGURE_OPTS="--with-udevdir=$HOME/$MODULE/lib/udev" 
 	echo $ARCHIVE | grep abe_1.1 && export LC_CONFIGURE_OPTS="--with-data-dir=$HOME/$MODULE/share/abe" 
 	echo $ARCHIVE | grep apr-util && export LC_CONFIGURE_OPTS="--with-apr=$HOME/$MODULE" 
-	echo $ARCHIVE | grep supertux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include" 
-	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
+	echo $ARCHIVE | grep SuperTux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_BUILD_TYPE=Release" && export LDFLAGS="$LDFLAGS -lphysfs"
+	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
@@ -283,7 +295,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
      --enable-libwebpdemux \
      --enable-libwebpdecoder \
      --disable-static"
-	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--with-unoptimized=0"
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--with-unoptimized=0" && LDFLAGS="$LDFLAGS -lsqlite3"
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
