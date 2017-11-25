@@ -297,7 +297,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
      --enable-libwebpdemux \
      --enable-libwebpdecoder \
      --disable-static"
-	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--with-unoptimized=0" && LDFLAGS="$LDFLAGS -lsqlite3"
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua"
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
