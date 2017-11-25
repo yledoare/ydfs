@@ -9,6 +9,7 @@
 
   make -j1 BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/$HOME_DIBAB/$ARCH/include/nspr  \
+  SQLITE_LIB_DIR=/$HOME_DIBAB/$ARCH/lib  \
   USE_SYSTEM_ZLIB=1                   \
   ZLIB_LIBS=-lz                       \
   NSS_ENABLE_WERROR=0                 \
@@ -18,6 +19,8 @@
   cp -v -RL ../dist/public/nss/* $PREFIX/include/nss 
   cp -v -RL ../dist/private/nss/* $PREFIX/include/nss     
   cp -fRL ../dist/Linux*/* $PREFIX 
+
+  cp -fR $HOME/ydfs/packages-$ARCH/sqlite-src-*/* /
   touch ../buildok-$ARCH 
   exit 0
 
