@@ -81,7 +81,7 @@ PATH="$HOME/ydfs/llvm/bin:$PATH"
 [ -e $HOME/qt5 ] && CXXFLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CXX_FLAGS="-std=c++11 -I$HOME/qt5/include"
 [ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"
-[ -e $HOME/qt5 ] && CPPFLAGS=" -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore $CPPFLAGS"
+[ -e $HOME/qt5 ] && CPPFLAGS=" -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore $CPPFLAGS"
 [ -e $HOME/qt5 ] && LDFLAGS=" -L$HOME/qt5/lib $LDFLAGS"
 [ -e $HOME/qt5 ] && LD_LIBRARY_PATH="$HOME/qt5/lib:$LD_LIBRARY_PATH"
 [ -e $HOME/qt5 ] && PKG_CONFIG_PATH="$HOME/qt5/lib/pkgconfig:$PKG_CONFIG_PATH"
@@ -280,7 +280,7 @@ fi
   # Environment variables
 
   export CXX="g++"
-  [ -e $HOME/qt5 ] && export CXX="g++ -I$HOME/qt5/include $CFLAGS -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore"
+  [ -e $HOME/qt5 ] && export CXX="g++ -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include $CFLAGS -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore"
   echo $ARCHIVE | grep warsow && export CFLAGS="$CFLAGS -I""$HOME/$ARCH/include/freetype "
   echo $ARCHIVE | grep efl-1 && unset CXX
 #  echo $ARCHIVE | grep icu4c && export CXX="g++ -fPIC"
