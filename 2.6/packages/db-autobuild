@@ -901,8 +901,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e QupZilla.pro ]
     then
       echo "Building QUPZILLA"
-	QTDIR=$HOME/qt5
-	QMAKESPEC=$QTDIR/mkspecs/linux-g++ qmake
+	QTDIR=$HOME/qt5 USE_WEBGL=true QMAKESPEC=$QTDIR/mkspecs/linux-g++ qmake
       QUPZILLA_PREFIX=$PREFIX qmake || exit $?
       QUPZILLA_PREFIX=$PREFIX make || exit $?
       QUPZILLA_PREFIX=$PREFIX make install || exit $?
