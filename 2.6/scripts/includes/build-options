@@ -1,5 +1,6 @@
 echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
