@@ -621,7 +621,8 @@ pwd && sleep 5
 	FILE=fpc-2.6.4.x86_64
 	[ "$ARCH" = "x86" ] && FILE=fpc-2.6.4.i386
         TAR=$FILE-linux.tar
-	[ ! -e "$TAR" ] && wget http://heanet.dl.sourceforge.net/project/freepascal/Linux/2.6.4/"$TAR"
+	[ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/2.6.4/"$TAR"
+	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
 	sh install.sh
