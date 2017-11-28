@@ -1,4 +1,5 @@
 #Begin
+https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.9.0.tar.bz2
 https://github.com/libical/libical/archive/v2.0.0.tar.gz
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.xz 
 http://downloads.sourceforge.net/infozip/unzip60.tar.gz 
@@ -32,6 +33,7 @@ ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-2.1.1.tar.bz2
 ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.7.3.tar.bz2 
 ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.0.27.tar.bz2
 ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-1.4.3.tar.bz2
+https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.9.0.tar.bz2
 https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.tar.gz
 https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
 #GEGL-0.2-for-Gimp 
