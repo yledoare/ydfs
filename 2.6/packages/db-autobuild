@@ -719,6 +719,7 @@ fi
  && [ ! -e libpng.3 ] \
  && [ ! -e poppler-glib.pc.in ] \
  && [ ! -e curl-config.in ] \
+ && [ ! -e turbojpeg.h ] \
  && [ ! -e libapr.dsp ] \
  && [ ! -e libaprutil.dsp ] \
  && [ ! -e src/harfbuzz.pc.in ] \

@@ -57,7 +57,8 @@ http://files.itstool.org/itstool/itstool-2.0.2.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.10.12.tar.gz
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.25.tar.xz
-http://www.ijg.org/files/jpegsrc.v9b.tar.gz
+#http://www.ijg.org/files/jpegsrc.v9b.tar.gz
+https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.2/libjpeg-turbo-1.5.2.tar.gz
 http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
 http://xmlsoft.org/sources/libxslt-1.1.29.tar.gz 
 http://www.mega-nerd.com/SRC/libsamplerate-0.1.8.tar.gz 
