@@ -629,7 +629,7 @@ pwd && sleep 5
 	cd $HOME/ydfs/src/$MYDIR
       fi
       [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
-      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
       install -d $PREFIX/share/applications/
       # install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
