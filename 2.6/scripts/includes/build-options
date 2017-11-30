@@ -7,6 +7,7 @@ echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv
 
 echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
+echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"

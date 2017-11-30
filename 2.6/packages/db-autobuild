@@ -639,14 +639,14 @@ pwd && sleep 5
   [ -e ./bootstrap ] && [ -e libfaad ] && [ ! -e configure ] && autoreconf --force --install
     if [ -e CMakeLists.txt ] && [ -e Scribus.pro ] 
     then
-    install -d $PREFIX/share/pixmaps
-    install -d $PREFIX/share/applications
-    sed 's|Icon=scribus|Icon=scribus.png|' -i scribus.desktop || exit $?
-    cp resources/icons/scribus.png $PREFIX/share/pixmaps || exit $?
-    cp scribus.desktop $PREFIX/share/applications
 	cmake -DCMAKE_INSTALL_PREFIX:PATH="$PREFIX" -DFREETYPE_INCLUDE_DIRS="$HOME/$ARCH/include/freetype2" . 
         VERBOSE=1 make || exit $?
         make install || exit $?
+    install -d $PREFIX/share/pixmaps
+    install -d $PREFIX/share/applications
+    sed 's|Icon=scribus|Icon=scribus.png|' -i scribus.desktop || exit $?
+    cp resources/iconsets/1_5_1/scribus.png $PREFIX/share/pixmaps || exit $?
+    cp scribus.desktop $PREFIX/share/applications
         ydfs-install-package
         touch buildok-$ARCH
        	exit 0

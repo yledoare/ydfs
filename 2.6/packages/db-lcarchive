@@ -97,6 +97,7 @@ echo "$FILE" |grep xvidcore && DIR2=xvidcore && FORCED=1
 #echo "$FILE" |grep x264 && DIR2=x264-snapshot-20141218-2245 && FORCED=1
 echo "$FILE" |grep x11-xserver-utils && DIR2=x11-xserver-utils && FORCED=1
 echo "$FILE" |grep firefox-38 && DIR2=mozilla-esr38 && FORCED=1
+echo "$FILE" |grep firefox-47.0.2 && DIR2=firefox-47.0.2 && FORCED=1
 echo "$FILE" |grep x11-xkb-utils && DIR2=x11-xkb-utils && FORCED=1
 echo "$FILE" |grep 4.0.2 && DIR2=dolphin-4.0.2 && FORCED=1
 echo "$FILE" |grep libatomic_ops-7_4 && DIR2=libatomic_ops-libatomic_ops-7_4_4 && FORCED=1
@@ -157,7 +158,7 @@ case "$ARCHIVE" in
         tar xzvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
       # [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " 
-      [ ! -e $DIR2 ] && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` #&& install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
+      [ ! -e $DIR2 ] && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) # && git -C $HOME_DIBAB add data/fixdirs/$(basename $FILE)
       cd $DIR2
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
