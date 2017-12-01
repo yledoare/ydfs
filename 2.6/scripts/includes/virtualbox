@@ -1,20 +1,19 @@
   if [ -e src/VBox/Storage/ ]
   then
-    # QTDIR=$HOME/$ARCH
-    # [ -e $HOME/qt5 ] && QTDIR=$HOME/qt5
-    #    --with-qt-dir=$QTDIR --disable-docs \
-    if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
-	then
-	echo "Build Virtualbox" && sleep 5
+    if [ ! -e out/linux.amd64/release/obj/VBoxSDL/VBoxSDL ]
+    then
+	echo "Build Virtualbox" && sleep 1
 	./configure --with-linux=$HOME/ydfs/src/linux-$KERNEL3/ \
         --enable-vde \
         --disable-docs --disable-java \
-        --disable-kmods --disable-hardening --disable-devmapper || exit $?
-    		source ./env.sh
-	echo "Run kmk .." && sleep 1
-	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/"	kmk || exit $?
-	fi
+        --nofatal --disable-devmapper || exit $?
+    	source ./env.sh
+	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" kmk
+	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" kmk
+    fi
 	cd out/linux.amd64/release/bin/src
+	if [ ! -e vboxpci/vboxpci.ko ]
+	then
 	echo "Building drivers .. " && sleep 1
 	for DRIVER in vboxdrv vboxnetadp  vboxnetflt  vboxpci
 	do
@@ -24,11 +23,22 @@
 	  make KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
 	  cd ..
 	done
-	cd ..
-        install -dm755 "$pkgdir//bin"
-        install -dm755 "$pkgdir//lib/modules/"
+	echo "Done " && sleep 2
+	fi
+        install -dm755 "$pkgdir/lib/modules/"
 	find . -name *.ko | while read file; do cp $file $pkgdir/lib/modules; done
-    install -m755 VBox.sh "$pkgdir//bin/VBox"
+	cd ..
+	cd ../../../../
+    if [ ! -e out/linux.amd64/release/obj/VBoxSDL/VBoxSDL ]
+    then
+    	source ./env.sh
+	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/"	kmk 
+	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/"	kmk 
+    fi
+	cd out/linux.amd64/release/bin/
+        install -dm755 "$pkgdir/bin"
+	echo "Install VBox.sh"
+    install -m755 VBox.sh "$pkgdir//bin/VBox" || exit $?
     for i in VBoxHeadless VBoxManage VBoxSDL VirtualBox vboxwebsrv VBoxBalloonCtrl; do
         ln -sf VBox "$pkgdir//bin/$i"
         ln -sf VBox "$pkgdir//bin/${i,,}"
