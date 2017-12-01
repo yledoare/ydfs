@@ -24,9 +24,7 @@ sh configure
 #Add user
 ```
 #!shell
-useradd linuxconsole
-mkdir /home/linuxconsole
-chown linuxconsole /home/linuxconsole
+useradd -m -s /bin/bash linuxconsole
 ```
 
 #Log in as user
