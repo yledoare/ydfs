@@ -583,9 +583,6 @@ https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.
 https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u40-unofficial-linux-i586-image.zip #SKIP-x86_64#
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
-#gnome-software
-https://github.com/ostreedev/ostree/releases/download/v2017.13/libostree-2017.13.tar.xz
-https://github.com/projectatomic/bubblewrap/releases/download/v0.2.0/bubblewrap-0.2.0.tar.xz
 https://github.com/flatpak/flatpak/releases/download/0.10.0/flatpak-0.10.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
@@ -594,7 +591,6 @@ https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib
 http://ftp.gnome.org/pub/gnome/sources/gsettings-desktop-schemas/3.22/gsettings-desktop-schemas-3.22.0.tar.xz
 http://www.abisource.com/downloads/enchant/1.6.0/enchant-1.6.0.tar.gz
 http://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.9.tar.xz
-https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar.xz
 #Mate desktop
 https://download.gnome.org/sources/libwnck/3.20/libwnck-3.20.1.tar.xz 
 https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
@@ -644,6 +640,8 @@ https://download.kde.org/stable/frameworks/5.40/extra-cmake-modules-5.40.0.tar.x
 https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
+http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
+http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole

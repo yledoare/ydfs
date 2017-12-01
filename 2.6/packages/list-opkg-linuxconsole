@@ -26,9 +26,6 @@ archlinuxpatched:tuxpaint
 archlinux:drumstick
 #Multimedia
 http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.tar.gz
-#Education
-http://freefr.dl.sourceforge.net/project/stellarium/Stellarium-sources/0.15.0/stellarium-0.15.0.tar.gz
-archlinuxpatched:celestia
 #Network
 #https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
 #Misc
@@ -37,8 +34,9 @@ archlinuxpatched:celestia
 #archlinux:lib32-libtxc_dxtn
 #Games
 https://github.com/minetest/minetest/archive/0.4.15.tar.gz
-#Multimedia
-http://downloads.mixxx.org/mixxx-2.0.0/mixxx-2.0.0-src.tar.gz #SKIP-x86_64#
 #Office
 http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
-http://www.xsane.org/download/xsane-0.999.tar.gz
+#gnome-software
+https://github.com/ostreedev/ostree/releases/download/v2017.13/libostree-2017.13.tar.xz
+https://github.com/projectatomic/bubblewrap/releases/download/v0.2.0/bubblewrap-0.2.0.tar.xz
+https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar.xz

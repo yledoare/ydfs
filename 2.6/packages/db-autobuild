@@ -149,6 +149,7 @@ else
   fi
 
   [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
+  [ -e celestia.cfg  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e libexfat ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --install
   [ -e cdparanoia.1 ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --force --install
   [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
@@ -672,19 +673,22 @@ pwd && sleep 5
 	echo PORTMIDI
     fi
  
-if [ -e sssource/glest_game ]
+if [ -e source/glest_game ]
 then
-  [ ! -e megaglest-standalone-data-3.12.0.tar.xz ] && wget https://github.com/MegaGlest/megaglest-data/releases/download/3.12.0/megaglest-standalone-data-3.12.0.tar.xz
+	VERSION=`basename $PWD |cut -d'-' -f2`
+  [ ! -e megaglest-standalone-data-$VERSION.tar.xz ] && wget https://github.com/MegaGlest/megaglest-data/releases/download/$VERSION/megaglest-standalone-data-$VERSION.tar.xz
 	if [ ! -e data ] 
 	then
-		tar xJvf megaglest-standalone-data-3.12.0.tar.xz 
+		tar xJvf megaglest-standalone-data-$VERSION.tar.xz 
 	fi
 	mkdir build
 	cd build
       export SDL2DIR=$HOME/$ARCH
+      export CXX="clang++ $CPPFLAGS"
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_BUILD_TYPE=Release \
+    -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include \
     -DCMAKE_CXX_FLAGS="-lX11" \
     -DWANT_GIT_STAMP=0 $CMAKEOPTIONS
   make VERBOSE=1
@@ -796,7 +800,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in obexd/client/bluetooth.h audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -976,6 +980,14 @@ ln -sf $PREFIX/bin/2H4U .
     cd $HOME/ydfs/packages-$ARCH/$MYDIR
     $HOME_DIBAB/scripts/make_opkg || exit $?
   fi
+    exit 0
+  fi
+  if [ -e pitivi.xml ]
+  then
+	meson --prefix=$PREFIX build || exit $?
+	ninja -C build || exit $?
+	ninja install -C build || exit $?
+    touch buildok-$ARCH
     exit 0
   fi
   if [ -e unzip.c ]
@@ -1296,6 +1308,11 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       make install || exit $?
       cp src/liblua.so $PREFIX/lib || exit $?
       make INSTALL_TOP=$PREFIX install || exit $?
+      pkgver=5.3.4
+	_majorver=${pkgver%.*}
+      wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lua.pc?h=packages/lua -O lua.pc
+      sed "s/%VER%/$_majorver/g;s/%REL%/$pkgver/g" lua.pc > $PREFIX/lib/pkgconfig/lua.pc
+     sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/lua.pc
     fi
     touch buildok-$ARCH && exit 0
   fi
