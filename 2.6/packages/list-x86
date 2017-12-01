@@ -642,6 +642,7 @@ ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
 http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
 http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
+https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
