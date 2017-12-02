@@ -583,7 +583,6 @@ https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.
 https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u40-unofficial-linux-i586-image.zip #SKIP-x86_64#
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
-https://github.com/flatpak/flatpak/releases/download/0.10.0/flatpak-0.10.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
 http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
