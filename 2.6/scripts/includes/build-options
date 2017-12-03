@@ -1,5 +1,6 @@
 echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep hyphen && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
@@ -154,7 +155,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep foomatic-filters && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
 	echo $ARCHIVE | grep foomatic-db-engine && LC_CONFIGURE_OPTS="--sysconfdir=$DIBAB_PREFIX/$MODULE/etc"
-	echo $ARCHIVE | grep LVM && LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig             --enable-applib     \
+	echo $ARCHIVE | grep LVM && [ ! -e $HOME/$ARCH/include/lvm2app.h ] &&  LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig             --enable-applib     \
             --enable-cmdlib     \
             --enable-udev_sync " && export CFLAGS=" -L../libdm $CFLAGS" && sleep 5
 	echo $ARCHIVE | grep Python-2 && LC_CONFIGURE_OPTS=" --with-ssl  --enable-shared \
