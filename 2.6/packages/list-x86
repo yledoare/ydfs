@@ -322,7 +322,7 @@ http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.5.tar.bz2
 http://ftp.de.debian.org/debian/pool/main/u/upower/upower_0.9.17-1.dsc
 http://samba.org/ftp/talloc/talloc-2.1.10.tar.gz
 https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
-ftp://sources.redhat.com/pub/lvm2/LVM2.2.02.106.tgz
+https://sourceware.org/ftp/lvm2/releases/LVM2.2.02.176.tgz
 http://ftp.gnu.org/gnu/parted/parted-3.1.tar.xz
 http://pkgs.fedoraproject.org/lookaside/pkgs/libatasmart/libatasmart-0.18.tar.gz/dc22b7acda1c2230f55ae98737e8b159/libatasmart-0.18.tar.gz
 http://hal.freedesktop.org/releases/udisks-1.0.5.tar.gz
@@ -642,6 +642,7 @@ http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
 http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
 http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
+https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.11.tar.gz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole

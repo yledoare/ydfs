@@ -1,5 +1,7 @@
+#Misc
+http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
+#END-linuxconsole
 #Education
-git://github.com/qml-box2d/qml-box2d.git
 #http://gcompris.net/download/gtk/src/gcompris-15.10.tar.bz2
 #Games
 archlinux:frozen-bubble
@@ -36,7 +38,6 @@ http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
 #Games
 https://github.com/minetest/minetest/archive/0.4.15.tar.gz
 #Office
-http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
 #gnome-software
 https://github.com/ostreedev/ostree/releases/download/v2017.13/libostree-2017.13.tar.xz
 https://github.com/projectatomic/bubblewrap/releases/download/v0.2.0/bubblewrap-0.2.0.tar.xz
