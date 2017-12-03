@@ -9,6 +9,7 @@ echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="-DPORT=GTK -DCMAKE_BUILD
         -DCMAKE_SKIP_RPATH=ON "
 echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
+echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
@@ -16,6 +17,8 @@ echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmp
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
 echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
+echo $ARCHIVE | grep gtksourceview &&  LC_CONFIGURE_OPTS="--disable-static \
+      --enable-glade-catalog --enable-gtk-doc --disable-Werror --enable-introspection=yes"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--disable-amalgamation \
 	--enable-fts3 \
