@@ -146,4 +146,5 @@ fi
 
 [ -e /ydfs/boot/options/debug6  ] && sh
 [ -e /run-before-poweroof  ] && sh /run-before-poweroof
+grep RESTART /var/log/ConsoleKit/history && reboot
 poweroff
