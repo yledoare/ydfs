@@ -643,6 +643,16 @@ http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig
 http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.11.tar.gz
+http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
+https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.7.tar.xz
+https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
+https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
+https://www.libraw.org/data/LibRaw-0.18.5.tar.gz
+http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
+https://downloads.sourceforge.net/project/gparted/gparted/gparted-0.30.0/gparted-0.30.0.tar.gz
+https://download.gnome.org/sources/vte/0.28/vte-0.28.2.tar.xz
+https://download.gnome.org/sources/vte/0.50/vte-0.50.2.tar.xz
+https://pub.mate-desktop.org/releases/1.18/mate-terminal-1.18.2.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
