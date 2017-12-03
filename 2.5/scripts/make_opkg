@@ -60,6 +60,7 @@ SECTION=extras
 echo "Extra is $DBEXTRA, name is $NAME"
 [ "$DBEXTRA" != "" ] && SECTION=$DBEXTRA
 
+[ "$NAME" = "gthumb" ] && DEPENDS="gsettings-desktop"
 [ "$NAME" = "dolphin" ] && DEPENDS="enet"
 [ "$NAME" = "abiword" ] && DEPENDS="libgsf,wv"
 [ "$NAME" = "gbrainy" ] && DEPENDS="mono, gtk-sharp"
