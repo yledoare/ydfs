@@ -115,7 +115,7 @@ https://github.com/gentoo/eudev/archive/v3.2.2.tar.gz
 http://freefr.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.20/libusb-1.0.20.tar.bz2 
 http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz
 http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz 
-http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.40/gobject-introspection-1.40.0.tar.xz 
+http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.54/gobject-introspection-1.54.1.tar.xz
 ftp://ftp.gnu.org/gnu/coreutils/coreutils-8.25.tar.xz
 http://pkg-shadow.alioth.debian.org/releases/shadow-4.2.1.tar.xz 
 http://ftp.de.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu2.tar.gz
@@ -384,6 +384,7 @@ https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-11.1.tar.xz
 http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
 http://freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol-3.0.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/glade/3.20/glade-3.20.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtksourceview/3.22/gtksourceview-3.22.0.tar.xz
 http://downloads.yoctoproject.org/releases/opkg/opkg-0.2.0.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/libgee/0.10/libgee-0.10.4.tar.xz
@@ -653,6 +654,11 @@ https://downloads.sourceforge.net/project/gparted/gparted/gparted-0.30.0/gparted
 https://download.gnome.org/sources/vte/0.28/vte-0.28.2.tar.xz
 https://download.gnome.org/sources/vte/0.50/vte-0.50.2.tar.xz
 https://pub.mate-desktop.org/releases/1.18/mate-terminal-1.18.2.tar.xz
+https://download.gnome.org/sources/libpeas/1.22/libpeas-1.22.0.tar.xz
+https://pub.mate-desktop.org/releases/1.18/eom-1.18.3.tar.xz
+https://pub.mate-desktop.org/releases/1.18/pluma-1.18.3.tar.xz
+http://http.debian.net/debian/pool/main/libg/libgtop2/libgtop2_2.28.4.orig.tar.bz2
+https://pub.mate-desktop.org/releases/1.18/mate-utils-1.18.3.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
