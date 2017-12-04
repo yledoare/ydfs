@@ -20,6 +20,7 @@ fi
 
 cp -fR init-$ARCH/* $INITRAMFS
 echo "$DISTRONAME" > $INITRAMFS/ydfs-name
+basename $HOME > $INITRAMFS/ydfs-home
 basename $PWD > $INITRAMFS/ydfs-release
 
 # if [ ! -e $HOME/ydfs/src/yaffs2utils-read-only/src/buildok ]
