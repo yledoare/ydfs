@@ -132,7 +132,7 @@ fi
 
     if [ -e desktop/icons/small/armagetronad.png ]
 	then
-		cp desktop/icons/small/armagetronad.png $PREFIX"/share/pixmaps
+		cp desktop/icons/small/armagetronad.png "$PREFIX"/share/pixmaps
 		cp desktop/icons/small/armagetronad.png "$pkgdir"/share/pixmaps/
 		cp desktop/armagetronad.desktop "$PREFIX"/share/applications || exit $?
 		cp desktop/armagetronad.desktop "$pkgdir"/share/applications/
@@ -144,6 +144,9 @@ fi
 	     install -D -m644 Ticon.png "$PREFIX"/share/pixmaps/torcs.png
 	     install -D -m644 torcs.desktop "$pkgdir"/share/applications/torcs.desktop 
 	     install -D -m644 torcs.desktop "$PREFIX"/share/applications/torcs.desktop 
+		 make DESTDIR="$pkgdir" datainstall
+		 make datainstall
+bash
 	fi 
 
     if [ -e game/egoboo-2.x ]
