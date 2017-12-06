@@ -373,6 +373,8 @@ do
 done
 
 # more /$ISOTMP/iso/md5sum.txt
+# Fix Lili bug http://www.linuxliveusb.com
+cp -fR /$ISOTMP/iso/isolinux/ /$ISOTMP/iso/syslinux/ 
 
 ISONAME="Ydfs-$LCBUILD"
 

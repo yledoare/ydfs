@@ -7,7 +7,6 @@ then
 	find $HOME/ydfs/opkg/ -type f -size -500k | while read file
 	do
 		echo "Send $file"
-		#sleep 2
 		echo scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
 		# scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
 	done

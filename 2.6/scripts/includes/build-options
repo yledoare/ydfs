@@ -1,6 +1,6 @@
 echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
-echo $ARCHIVE | grep hyphen && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
@@ -327,6 +327,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
         echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
+        echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
 	if [ "$ARCH" = "arm" ] 
 	then
 		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 

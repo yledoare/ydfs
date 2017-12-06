@@ -60,8 +60,5 @@ tar xzvf /root/.config/ydfs/backup.tar.gz
 fi
 
 ln -s $HOME_DIBAB/$ARCH/qt5 $HOME_DIBAB
-QT5HOME=`grep prefix=/home $HOME_DIBAB/$ARCH/qt5/lib/pkgconfig/Qt5Concurrent.pc|cut -d'=' -f2`
-install -d `basename $QT5HOME`
-ln -s $HOME_DIBAB/$ARCH/qt5 $QT5HOME
 
 install -d $HOME_DIBAB/opkg/share/applications

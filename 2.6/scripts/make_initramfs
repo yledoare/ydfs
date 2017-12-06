@@ -20,6 +20,7 @@ fi
 
 cp -fR init-$ARCH/* $INITRAMFS
 echo "$DISTRONAME" > $INITRAMFS/ydfs-name
+basename $HOME > $INITRAMFS/ydfs-home
 basename $PWD > $INITRAMFS/ydfs-release
 
 # if [ ! -e $HOME/ydfs/src/yaffs2utils-read-only/src/buildok ]
@@ -87,6 +88,7 @@ then
   echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/media
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
+  sed -i "s@\$HOME_DIBAB@$HOME_DIBAB@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
 else
   if [ "$TOOLCHAIN" = "FriendlyARM" ]

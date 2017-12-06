@@ -27,23 +27,23 @@ do
   echo "cat $LIST | grep $FILES" 
   cat $LIST | grep $FILES | while read file
   do
-	echo "DEBUG $file 1" >> /tmp/debug
+	echo "DEBUG $file 1" >> $HOME/ydfs/tmp/debug
     test "$file" = "./bin/ls" && echo "Skip ./bin/ls" && continue
-	echo "DEBUG $file 2" >> /tmp/debug
+	echo "DEBUG $file 2" >> $HOME/ydfs/tmp/debug
     test -f "$file" && test ! -e `dirname $HOME/ydfs/modules/$MOD/"$file"` && install -d `dirname $HOME/ydfs/modules/$MOD/"$file"` 
-	echo "DEBUG $file 3" >> /tmp/debug
+	echo "DEBUG $file 3" >> $HOME/ydfs/tmp/debug
 	  test $HOME/$ARCH/"$file" -nt $HOME/ydfs/modules/$MOD/"$file" && echo "Update $HOME/ydfs/modules/$MOD/$file" && cp $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" && continue
-	echo "DEBUG $file 4" >> /tmp/debug
+	echo "DEBUG $file 4" >> $HOME/ydfs/tmp/debug
     test -e $HOME/ydfs/modules/$MOD/"$file" && continue
-	echo "DEBUG $file 5" >> /tmp/debug
+	echo "DEBUG $file 5" >> $HOME/ydfs/tmp/debug
     echo -n $(basename "$file")
-	echo "DEBUG $file 6" >> /tmp/debug
+	echo "DEBUG $file 6" >> $HOME/ydfs/tmp/debug
     echo -n " "
-	echo "DEBUG $file 7" >> /tmp/debug
+	echo "DEBUG $file 7" >> $HOME/ydfs/tmp/debug
     test -d "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && install -d $HOME/ydfs/modules/$MOD/"$file" && continue
-	echo "DEBUG $file 8" >> /tmp/debug
+	echo "DEBUG $file 8" >> $HOME/ydfs/tmp/debug
     test -f "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && cp -a $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" 
-	echo "DEBUG $file 9" >> /tmp/debug
+	echo "DEBUG $file 9" >> $HOME/ydfs/tmp/debug
     echo $file|grep 'grub/i386-pc' >/dev/null && continue
     echo $file|grep 'mysql-test' >/dev/null && continue
     echo $file|grep 'sql-bench' >/dev/null && continue
