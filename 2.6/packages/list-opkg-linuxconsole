@@ -1,5 +1,12 @@
 #Misc
 http://download.virtualbox.org/virtualbox/5.1.30/VirtualBox-5.1.30.tar.bz2
+#Libs
+archlinux:lib32-libtxc_dxtn
+#Games
+http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
+https://steamcdn-a.akamaihd.net/client/installer/steam.deb
+#Multimedia
+http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 #END-linuxconsole
 #Libs
 https://webkitgtk.org/releases/webkitgtk-2.18.3.tar.xz
@@ -17,10 +24,8 @@ https://github.com/MegaGlest/megaglest-source/releases/download/3.13.0/megaglest
 #Multimedia
 http://freefr.dl.sourceforge.net/project/zynaddsubfx/zynaddsubfx/2.5.1/zynaddsubfx-2.5.1.tar.gz
 #Games
-http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
 #Multimedia
 http://heanet.dl.sourceforge.net/project/rosegarden/rosegarden/16.02/rosegarden-16.02.tar.bz2
-http://downloads.sourceforge.net/qjackctl/qjackctl-0.3.13.tar.gz
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 #Games
 archlinux:astromenace 
