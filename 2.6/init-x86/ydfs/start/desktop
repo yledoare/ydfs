@@ -27,6 +27,7 @@ else
  else
    if [ -e /usr/bin/mate-session ]
    then
+	caja --force-desktop &
 	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
    	dbus-launch mate-session
    else
