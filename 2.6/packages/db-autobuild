@@ -126,9 +126,11 @@ else
 	  echo $URL
 	  wget $URL --no-check-certificate -O patch
 	  patch -Nfp0 -i patch || patch -Nfp1 -i patch # || exit 3
-	  sleep 3
+	  sleep 1
 	  rm patch
 	done
+	git diff > $HOME_DIBAB/packages/patches/`basename $PWD`.diff ||exit $?
+	echo "$HOME_DIBAB/packages/patches/`basename $PWD`.diff created !" && sleep 10
    rm $HOME/.archpatches
   fi
   if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e ydfs-patched ]

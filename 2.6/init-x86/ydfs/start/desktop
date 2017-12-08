@@ -27,9 +27,10 @@ else
  else
    if [ -e /usr/bin/mate-session ]
    then
-	caja --force-desktop &
+	/usr/x86_64/libexec/bluetooth/obexd
+	caja --force-desktop -n &
 	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
-   	dbus-launch mate-session
+   	ck-launch-session dbus-launch mate-session
    else
  	pcmanfm --desktop &
  	dbus-launch lxsession
