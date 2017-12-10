@@ -649,6 +649,7 @@ https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
 https://www.libraw.org/data/LibRaw-0.18.5.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
+https://ftp.gnome.org/pub/GNOME/sources/murrine/0.98/murrine-0.98.2.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-0.30.0/gparted-0.30.0.tar.gz
 https://download.gnome.org/sources/vte/0.28/vte-0.28.2.tar.xz
 https://download.gnome.org/sources/vte/0.50/vte-0.50.2.tar.xz
@@ -661,6 +662,7 @@ http://pub.mate-desktop.org/releases/1.18/mozo-1.18.0.tar.xz
 http://http.debian.net/debian/pool/main/libg/libgtop2/libgtop2_2.28.4.orig.tar.bz2
 http://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.14.tar.xz
 https://pub.mate-desktop.org/releases/1.18/mate-utils-1.18.3.tar.xz
+https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole

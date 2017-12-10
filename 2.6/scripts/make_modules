@@ -124,6 +124,7 @@ done
 [ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME/ydfs/modules/$ARCH/lib/
 install -d $HOME/ydfs/modules/$ARCH/share/locale 
 cp -fR $HOME/$ARCH/share/locale/br $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/ar $HOME/ydfs/modules/$ARCH/share/locale
 cp -fR $HOME/$ARCH/share/locale/fr $HOME/ydfs/modules/$ARCH/share/locale
 cp -fR $HOME/$ARCH/share/locale/es $HOME/ydfs/modules/$ARCH/share/locale
 cp -fR $HOME/$ARCH/share/locale/it $HOME/ydfs/modules/$ARCH/share/locale

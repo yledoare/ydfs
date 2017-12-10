@@ -5,6 +5,7 @@
 
 mount -a
 mount /sys sys -t sysfs
+mount -t devtmpfs none /dev
 mkdir /dev/pts
 mount /dev/pts -t devpts
 
