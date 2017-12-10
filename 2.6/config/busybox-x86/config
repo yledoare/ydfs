@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.24.2
-# Wed Sep 13 14:16:13 2017
+# Fri Dec  8 22:51:05 2017
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -159,8 +159,8 @@ CONFIG_GZIP_FAST=0
 # CONFIG_FEATURE_GZIP_LEVELS is not set
 # CONFIG_LZOP is not set
 # CONFIG_LZOP_COMPR_HIGH is not set
-# CONFIG_RPM is not set
 # CONFIG_RPM2CPIO is not set
+# CONFIG_RPM is not set
 CONFIG_TAR=y
 # CONFIG_FEATURE_TAR_CREATE is not set
 # CONFIG_FEATURE_TAR_AUTODETECT is not set
@@ -497,9 +497,9 @@ CONFIG_LAST_SYSTEM_ID=0
 # CONFIG_CRYPTPW is not set
 # CONFIG_CHPASSWD is not set
 CONFIG_FEATURE_DEFAULT_PASSWD_ALGO=""
-CONFIG_SU=y 
-# CONFIG_FEATURE_SU_SYSLOG is not set
-# CONFIG_FEATURE_SU_CHECKS_SHELLS is not set
+CONFIG_SU=y
+CONFIG_FEATURE_SU_SYSLOG=y
+CONFIG_FEATURE_SU_CHECKS_SHELLS=y
 # CONFIG_SULOGIN is not set
 # CONFIG_VLOCK is not set
 

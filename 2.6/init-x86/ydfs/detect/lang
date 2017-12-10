@@ -6,12 +6,13 @@ cat /proc/cmdline | grep locale=es >/dev/null && lang="spanish"
 cat /proc/cmdline | grep locale=it >/dev/null && lang="italian"
 cat /proc/cmdline | grep locale=de >/dev/null && lang="german"
 cat /proc/cmdline | grep locale=pt >/dev/null && lang="portuguese"
+cat /proc/cmdline | grep locale=jp >/dev/null && lang="japanese"
 
 if [ ! -e $HOME/.config/ydfs/lang ] || [ "$1" = "reconfigure" ]
 then
   if [ "$lang" = "" ] || [ "$1" = "reconfigure" ]
   then
-    ans=$(zenity  --height 350 --list --hide-header  --text "Choose lang" --radiolist  --column "Choice" --column "Lang" TRUE English FALSE French FALSE Spanish FALSE Italian FALSE German FALSE Portuguese FALSE Polska FALSE Czech FALSE Breton FALSE Quebec FALSE Russian FALSE Chinese)
+    ans=$(zenity  --height 350 --list --hide-header  --text "Choose lang" --radiolist  --column "Choice" --column "Lang" TRUE English FALSE French FALSE Spanish FALSE Italian FALSE German FALSE Portuguese FALSE Polska FALSE Czech FALSE Breton FALSE Quebec FALSE Russian FALSE Chinese FALSE Japanese FALSE Arabic)
     lang=$(echo $ans| tr '[:upper:]' '[:lower:]')
   fi
   install -d $HOME/.config/ydfs
@@ -38,6 +39,8 @@ EOF
 [ "$lang" = "german" ] && export LC_ALL=de_DE.UTF8 && export LANG=de_DE.UTF8
 [ "$lang" = "portuguese" ] && export LC_ALL=pt_PT.UTF8 && export LANG=pt_PT.UTF8
 [ "$lang" = "english" ] && export LC_ALL=en_US.UTF8
+[ "$lang" = "japanese" ] && export LC_ALL=jp_JP.UTF8
+[ "$lang" = "arabic" ] && export LC_ALL=ar_TN.UTF8
 
 if [ "$ans" != "" ]
 then

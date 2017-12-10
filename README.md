@@ -72,6 +72,8 @@ ru_RU.UTF-8 UTF-8
 zh_CN.UTF-8 UTF-8
 cs_CZ.UTF-8 UTF-8
 pl_PL.UTF-8 UTF-8
+ar_TN.UTF-8 UTF-8
+ja_JP.UTF-8 UTF-8
 
 * sudo dpkg-reconfigure locales
 * or locale-gen
