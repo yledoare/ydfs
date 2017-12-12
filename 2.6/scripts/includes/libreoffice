@@ -84,6 +84,8 @@ do
   mv $PREFIX/lib/libreoffice/share/xdg/$i.desktop $PREFIX/share/applications
 done
 unset i
+#FIXME
+# cp /home/linuxconsole2018/x86_64/share/icons/ContrastHigh/48x48/apps/libreoffice-base.png init-x86/share/pixmaps/libreoffice5.4-base.png
 
     # make DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR distro-pack-install 
     # cd $HOME/ydfs/packages-$ARCH/$MYDIR

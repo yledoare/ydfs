@@ -1,8 +1,0 @@
-chmod 622 /dev/console 
-chmod 666 /dev/null 
-chmod 666 /dev/zero 
-chmod 666 /dev/ptmx 
-chmod 666 /dev/tty 
-chmod 666 /dev/random 
-chmod 666 /dev/urandom 
-chown root:tty /dev/{console,ptmx,tty}

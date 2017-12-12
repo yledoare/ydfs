@@ -53,8 +53,9 @@ chmod 775 /tmp
 test -s /etc/shadow
 if [ $? = 0 ]
 then
-  # chmod 777 /dev/*
-  /ydfs/config/dev
+  #chmod 777 /dev/*
+  #chmod 777 /dev/*/*
+  # /ydfs/config/dev
   [ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
   [ "$lang" = "french" ] && export LC_ALL=fr_FR.UTF8 && export LANG=fr_FR.UTF8
   lxdm

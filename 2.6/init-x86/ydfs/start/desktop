@@ -7,7 +7,8 @@ echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/$DISTRONAME/grub ] &&
 
 # Fix wine startup
 # [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
-sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
+# sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
+sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gparted.desktop
 
 install -d $HOME/.local/share/applications
 update-desktop-database
@@ -27,10 +28,10 @@ else
  else
    if [ -e /usr/bin/mate-session ]
    then
-	/usr/x86_64/libexec/bluetooth/obexd
+	/usr/libexec/bluetooth/obexd &
 	caja --force-desktop -n &
 	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
-   	ck-launch-session dbus-launch mate-session
+   	ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
    else
  	pcmanfm --desktop &
  	dbus-launch lxsession
