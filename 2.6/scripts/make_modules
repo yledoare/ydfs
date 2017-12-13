@@ -142,6 +142,8 @@ ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
 ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
 cp -a /etc/ssl/ $HOME/ydfs/modules/$ARCH/etc
 
+chmod +s $HOME/ydfs/modules/$ARCH/bin/su
+
 for QTDIR in bin lib libexec mkspecs phrasebooks plugins qml resources translations
 do
   install -d $HOME/ydfs/modules/$ARCH/qt5
