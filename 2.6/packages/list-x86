@@ -615,7 +615,7 @@ ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-2.7.8.tar.gz
 #Wine
-http://dl.winehq.org/wine/source/2.0/wine-2.0.2.tar.xz #SKIP-x86
+http://dl.winehq.org/wine/source/2.0/wine-2.0.2.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
 https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
@@ -636,7 +636,7 @@ http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/libreve
 https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
 https://download.kde.org/stable/frameworks/5.40/extra-cmake-modules-5.40.0.tar.xz
-https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
+#https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
 http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz

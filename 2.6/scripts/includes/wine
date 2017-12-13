@@ -1,4 +1,4 @@
-if [ -e programs/winecfg ]
+if [ -e programs/winecfg ] && [ "$ARCH" == "x86_64" ]
 then
 #	$HOME_DIBAB/scripts/make_multilib
 #	$HOME_DIBAB/scripts/make_multilib
