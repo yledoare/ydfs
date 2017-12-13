@@ -100,6 +100,7 @@ busybox sh /ydfs/stop/all
 #fi
 
 echo "Stoping all process ... "
+touch /tmp/stop
 killall NetworkManager
 killall ModemManager
 killall dbus-launch
