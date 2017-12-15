@@ -20,4 +20,5 @@ http://downloads.sourceforge.net/supertuxkart/supertuxkart-0.9.3-src.tar.xz #SKI
 http://freefr.dl.sourceforge.net/project/extremetuxracer/releases/0.7.2/etr-0.7.2.tar.xz #SKIP-x86#
 http://www.xsane.org/download/xsane-0.999.tar.gz #SKIP-x86#
 http://gcompris.net/download/qt/src/gcompris-qt-0.81.tar.xz #SKIP-x86#
-https://github.com/QupZilla/qupzilla/releases/download/v2.1.2/QupZilla-2.1.2.tar.xz
+https://github.com/QupZilla/qupzilla/releases/download/v1.8.9/QupZilla-1.8.9.tar.xz #SKIP-x86_64#
+https://github.com/QupZilla/qupzilla/releases/download/v2.2.2/QupZilla-2.2.2.tar.xz #SKIP-x86#
