@@ -24,7 +24,7 @@ zenity --info --text="Please create a partition named $DISTRONAME \n\nClose this
 # To disable remounting while running gparted
 echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
-$HOME_DIBAB/$ARCH/sbin/gpartedbin
+$HOME_DIBAB/$ARCH/sbin/gpartedbin &>/dev/null
 sh /ydfs/start/automount
 sleep 3
   if [ ! -e /media/$DISTRONAME ]

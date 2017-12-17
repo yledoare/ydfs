@@ -3,11 +3,12 @@
 [ -e /ydfs/boot/options/debug01  ] && sh
 . /etc/profile
 
-mount -a
+# mount -a
+mount /proc proc -t proc
 mount /sys sys -t sysfs
 mount -t devtmpfs none /dev
 mkdir /dev/pts
-mount /dev/pts -t devpts
+mount devpts /dev/pts -t devpts
 
 ln -s /proc/mounts /etc/mtab # For Gparted
 
@@ -39,6 +40,7 @@ echo "ok"
 # echo -n " 3" > /dev/tty1
 
 [ -e /ydfs/boot/options/debug1  ] && sh
+. /ydfs/start/automount
 echo "Detect hardware"
 . /ydfs/detect/hardware
 echo "Detect Network"
@@ -51,7 +53,6 @@ echo "Set up sound mixer"
 
 [ -e /ydfs/boot/options/debug2  ] && sh
 
-. /ydfs/start/automount
 . /ydfs/start/fixydfs
 
 if [ -e /ydfs/boot/options/fixusb  ]; then 
@@ -117,6 +118,7 @@ ifconfig $NET down 1>/dev/null 2>/dev/null
 done
 
 /sbin/swapoff -a
+/busybox/bin/umount -l /dev
 sync
 sleep 2
 echo

@@ -1,44 +1,20 @@
-#mount | grep ntfs | cut -d' ' -f1 |while read DEV
-#do
-#umount $DEV
-#done
-
-#echo '/busybox/bin/umount $1 || /busybox/bin/umount $2' > /fix/umount
-#chmod +x /fix/umount
-rm /busybox/bin/umount
-echo '
-if [ "$1" = "-a" ]
-then
-    sleep 1
-    swapoff -a
-  busybox umount -a
-else
-  if [ $HOME = "/root" ]
-  then
-    busybox umount $1 || busybox umount $2
-  else
-    mkdir /tmp/.umountme
-    MEDIA=$(echo $1 | cut -d'/' -f3)
-    touch /tmp/.umountme/$MEDIA
-  fi
-fi
-' > /busybox/bin/umount
-chmod +x /busybox/bin/umount
-
-echo '
-KERNEL!="sd[a-z][0-9]", GOTO="block-auto-mknod_end"
-IMPORT{program}="/busybox/bin/busybox mdev -s"
-# Exit
-LABEL="block-auto-mknod_end"
-
-' > /usr/lib/udev/rules.d/10-block-auto-mknod.rules
+echo '#!/bin/bash
+/busybox/bin/date >>/var/log/detectmount.log 
+echo $1 >>/var/log/detectmount.log 
+/busybox/bin/mount | /busybox/bin/grep $1 >>/var/log/detectmount.log  && /usr/bin/echo MOUNTED=YES
+#/busybox/bin/mount | /busybox/bin/grep $1 >>/var/log/detectmount.log  && /usr/bin/echo TRUE >> /var/log/detectmount.log
+' > /bin/detectmount
+chmod +x /bin/detectmount
 
 echo '
 KERNEL!="sd[a-z][0-9]", GOTO="media_by_label_auto_mount_end"
 
 # Import FS infos
 IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
-
+IMPORT{program}="/bin/detectmount %N"
+IMPORT{program}="/usr/bin/logger media_by_label_auto_mount :"
+ENV{MOUNTED}=="YES", GOTO="media_by_label_auto_mount_end"
+IMPORT{program}="/usr/bin/logger media_by_label_auto_mount not mounted"
 # Get a label if present, otherwise specify one
 ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
 ENV{ID_FS_LABEL}=="", ENV{dir_name}="usbhd-%k"
@@ -63,6 +39,8 @@ echo '
 KERNEL!="sd[a-z]", GOTO="media_by_label_auto_mount_end"
 # Import FS infos
 IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
+IMPORT{program}="/bin/detectmount %N"
+ENV{MOUNTED}=="YES", GOTO="media_by_label_auto_mount_end"
 
 # Get a label if present, otherwise specify one
 ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
@@ -84,16 +62,19 @@ KERNEL!="sr[0-9]", GOTO="media_by_label_auto_mount_cdrom_end"
 
 SUBSYSTEM=="block", KERNEL=="sr0", RUN+="/busybox/bin/mkdir -p /media/cdrom"
 IMPORT{program}="/usr/sbin/blkid -o udev -p %N"
+IMPORT{program}="/bin/detectmount %N"
+ENV{MOUNTED}=="YES", GOTO="media_by_label_auto_mount_cdrom_end"
 ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
 RUN+="/busybox/bin/mkdir -p /media/%E{dir_name}" RUN+="/busybox/bin/mount  /dev/%k /media/%E{dir_name}" , RUN+="/busybox/bin/mount $env{mount_options} /dev/%k /media/%E{dir_name}"
 
 LABEL="media_by_label_auto_mount_cdrom_end"
 
 ' > /usr/lib/udev/rules.d/12-media-by-label-auto-mountcdrom.rules
-udevadm trigger --action=add
-#udevadm control --reload-rules
+
+# udevadm trigger --action=add
+# udevadm control --reload-rules
 
 install -d /root/firmware 
 # /bin/mountsfsrw /root/firmware /lib/firmware # echo "Firmwares mounted rw"
 
-/ydfs/start/umountuser-daemon &
+# /ydfs/start/umountuser-daemon &
