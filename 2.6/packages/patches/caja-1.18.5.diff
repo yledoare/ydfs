@@ -19,7 +19,7 @@ index 559d70f..78f1960 100644
      </key>
      <key name="volumes-visible" type="b">
 -      <default>true</default>
-+      <default>false</default>
++      <default>true</default>
        <summary>Show mounted volumes on the desktop</summary>
        <description>If this is set to true, icons linking to mounted volumes will be put on the desktop.</description>
      </key>
