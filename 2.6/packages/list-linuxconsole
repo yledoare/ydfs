@@ -1,3 +1,4 @@
+https://download.videolan.org/vlc/2.2.8/vlc-2.2.8.tar.xz #SKIP-x86#
 git://github.com/hydrogen-music/hydrogen.git
 https://github.com/transmission/transmission-releases/raw/master/transmission-2.92.tar.xz
 http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.29.0/FileZilla_3.29.0_src.tar.bz2 
@@ -20,4 +21,3 @@ http://www.xsane.org/download/xsane-0.999.tar.gz
 http://gcompris.net/download/qt/src/gcompris-qt-0.81.tar.xz #SKIP-x86#
 https://github.com/QupZilla/qupzilla/releases/download/v1.8.9/QupZilla-1.8.9.tar.xz #SKIP-x86_64#
 https://github.com/QupZilla/qupzilla/releases/download/v2.2.2/QupZilla-2.1.2.tar.xz #SKIP-x86#
-https://download.videolan.org/vlc/2.2.6/vlc-2.2.6.tar.xz #SKIP-x86#
