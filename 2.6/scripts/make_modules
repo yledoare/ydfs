@@ -142,6 +142,7 @@ ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
 ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
 cp -a /etc/ssl/ $HOME/ydfs/modules/$ARCH/etc
 
+[ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
 chmod +s $HOME/ydfs/modules/$ARCH/bin/su
 
 for QTDIR in bin lib libexec mkspecs phrasebooks plugins qml

@@ -664,6 +664,7 @@ http://http.debian.net/debian/pool/main/libg/libgtop2/libgtop2_2.28.4.orig.tar.b
 http://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.14.tar.xz
 https://pub.mate-desktop.org/releases/1.18/mate-utils-1.18.3.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
+http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
