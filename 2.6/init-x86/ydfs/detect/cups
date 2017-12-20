@@ -1,5 +1,7 @@
 cupsd
 
+ln -s `which qupzilla` /fix/htmlview
+
 exit 0
 
 [ ! -e /opt ] && mkdir /opt && ln -s /usr/opt/epson-inkjet-printer-escpr /opt/epson-inkjet-printer-escpr
