@@ -145,8 +145,9 @@ fi
 
 if [ -e /var/ydfs/boot/media/cdrom/ ]
 then
+  mount -t devtmpfs none /dev
   echo "Ejecting cdrom, 5 seconds before poweroff" > /dev/tty1
-  eject /dev/`ls /var/ydfs/boot/media/cdrom/`
+  eject -s /dev/`ls /var/ydfs/boot/media/cdrom/`
   sleep 5
 fi
 
