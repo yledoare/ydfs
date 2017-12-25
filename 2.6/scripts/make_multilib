@@ -60,7 +60,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa" 
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -244,9 +244,21 @@ PYTHON2=/usr/bin/python ./configure \
     flac )
   	./configure --prefix=$HOME/multilib --disable-sse || exit $?
     ;;
+    gtk+-2 )
+  	./configure --prefix=$HOME/multilib --disable-cups || exit $?
+    ;;
     libjpeg-turbo )
   	./configure --prefix=$HOME/multilib --without-simd || exit $?
     ;;
+    openal-soft-1.16 )
+	mkdir build
+	 cd build
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+
+	;;
     * )
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
@@ -259,6 +271,10 @@ PYTHON2=/usr/bin/python ./configure \
 	make SHLIB_LIBS=-lncurses
 	;;
     llvm )
+	;;
+    openal-soft-1.16 )
+	cd build
+	make
 	;;
     * )
   	echo "Run make "
@@ -280,6 +296,10 @@ PYTHON2=/usr/bin/python ./configure \
 	cd ..
 	;;
     llvm )
+	;;
+    openal-soft-1.16 )
+  	make install || exit $?
+	cd ..
 	;;
     * )
   	echo "Run make install "

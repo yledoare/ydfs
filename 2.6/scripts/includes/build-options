@@ -220,8 +220,8 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--with-system-libtiff \
 	--with-libpaper \
 	--disable-compile-inits"
-	echo $ARCHIVE | grep nspr && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
-	echo $ARCHIVE | grep wine && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
+	echo $ARCHIVE | grep nspr && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
+	echo $ARCHIVE | grep wine && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
 	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
