@@ -3,7 +3,7 @@ install -d $HOME/Desktop
 # echo $HOME | grep root && cp /share/applications/opkg.desktop $HOME/Desktop
 # echo $HOME | grep root && cp /usr/share/applications/lutris.desktop $HOME/Desktop
 # echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root
-echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/$DISTRONAME/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
+echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
 
 # Fix wine startup
 # [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/

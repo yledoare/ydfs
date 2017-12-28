@@ -155,6 +155,8 @@ do
 done
 
 cp -fR /usr/share/zoneinfo/ $HOME/ydfs/modules/$ARCH/share
+rmdir $HOME/ydfs/modules/$ARCH/lib64
+ln -s $HOME/$ARCH/lib $HOME/ydfs/modules/$ARCH/lib64
 
 if [ "$ARCH" = "x86_64" ]
 then
