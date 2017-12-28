@@ -39,6 +39,8 @@ echo "ok"
 
 # echo -n " 3" > /dev/tty1
 
+. /ydfs/start/fixydfs
+
 [ -e /ydfs/boot/options/debug1  ] && sh
 . /ydfs/start/automount
 echo "Detect hardware"
@@ -52,8 +54,6 @@ echo "Set up sound mixer"
 . /ydfs/detect/cups &
 
 [ -e /ydfs/boot/options/debug2  ] && sh
-
-. /ydfs/start/fixydfs
 
 if [ -e /ydfs/boot/options/fixusb  ]; then 
 echo "FIXUSB mode, looking into usb disks ..." && sleep 9
