@@ -1,6 +1,7 @@
 ARCHIVE=$HOME/ydfs/tarballs/"$DIR".run
 pkgver=`basename $DIR| cut -d'-' -f4`
 pkgdir=/$HOME/ydfs/packages-x86_64/nvidia-$pkgver/$HOME/$ARCH
+[ -e "$pkgdir" ] && echo "$pkgdir exists, skip building" && exit 0
 cd $HOME/ydfs/src
 mkdir nvidia
 cd nvidia 

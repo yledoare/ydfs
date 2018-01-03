@@ -821,7 +821,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
-    [ "$MODULE" != "$ARCH" ] && SKIP_DIR=""
+    [ "$MODULE" != "$ARCH" ] && [ ! -e "programs/winecfg" ] && SKIP_DIR=""
     MYPREFIX="--prefix=$PREFIX"
     [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
     [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
@@ -831,7 +831,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
       cd $BUILD_DIR
 	echo "build into $BUILD_DIR"
     else
-	echo "Skip $BUILD_DIR"
+	echo "Skip $BUILD_DIR : $SKIP_DIR"
     fi
     [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
     [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
@@ -1378,17 +1378,6 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
          touch buildok-$ARCH
          exit 0
    fi    
-
-   if [ -e WHATwine64 ]
-   then
-	pwd
-	export _wine32opts=( --libdir=/usr/lib32 --with-wine64="$PWD")
-	mkdir ../wine32
-        cd ../wine32
-	PKG_CONFIG_PATH="$PREFIX/lib32/pkgconfig" $SOURCEDIR/configure --prefix=$PREFIX --with-x --with-gstreamer "${_wine32opts[@]}"
-	make
-	exit 10     
-   fi
 
       	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
