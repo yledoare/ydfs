@@ -217,3 +217,5 @@ lxterminal;LXDE Terminal
 qastools;Sound Mixer
 nvidia;Nvidia drivers
 bumblebee;NVIDIA Optimus support for Linux
+procps-ng;Process tools
+grep;Grep util

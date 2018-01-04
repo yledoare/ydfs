@@ -13,6 +13,7 @@
 	install -d src
 	sed -e "/gzip -f/d"   -e "s|.1.gz|.1|g" -i bin/distro-install-desktop-integration && sed -e "/distro-install-file-lists/d" -i Makefile.in
 	chmod -v +x bin/unpack-sources
+        [ "$ARCH" = "x86" ] &&  sed -e "s/GNUC/GGGGNUC/g" -i include/o3tl/safeint.hxx
 	sed -e "s/autoreconf /echo /g" -i external/libxmlsec/ExternalProject_xmlsec.mk
 grep autoreconf external/libxmlsec/ExternalProject_xmlsec.mk && exit 1
 	sed -e "s/target\.mk/langlist\.mk/" -e "s/tar -xf/tar -x --strip-components=1 -f/" -e "/tar -x/s/lo_src_dir/start_dir/"  -i bin/unpack-sources 
