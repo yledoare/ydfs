@@ -219,3 +219,7 @@ nvidia;Nvidia drivers
 bumblebee;NVIDIA Optimus support for Linux
 procps-ng;Process tools
 grep;Grep util
+nvidia-304;Nvidia 304 series driver
+nvidia-340;Nvidia 340 serie Driver
+nvidia-384;Nvidia 384 serie drivers
+dosbox;Dos emulator

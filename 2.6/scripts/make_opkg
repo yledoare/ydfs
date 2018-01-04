@@ -19,6 +19,8 @@ fi
 echo $PWD| grep Squeak && NAME=squeak && PKGVER="latest"
 echo $PWD| grep NVIDIA-Linux && NAME=`basename $PWD|cut -d'_' -f1|sed "s/Linux-x86-//"|sed "s/\.//"|tr '[:upper:]' '[:lower:]'`
 echo $PWD| grep NVIDIA-Linux && NAME=nvidia && PKGVER=`basename $PWD | cut -d'-' -f4`
+echo $PWD| grep nvidia- && NAME=`basename $PWD|cut -d'.' -f1|tr '[:upper:]' '[:lower:]'`
+pwd
 echo "NAME IS $NAME"
 
 # exit 1

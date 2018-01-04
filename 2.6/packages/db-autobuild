@@ -112,7 +112,12 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
-  [ -e src/mame/mame.c ] && cp makefile Makefile
+  [ -e src/mame/mame.cpp ] && cp makefile Makefile && ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    ARCHOPTS=-flifetime-dse=1 \
+    -j1 
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
   then
