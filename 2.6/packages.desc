@@ -216,3 +216,4 @@ gcompris-qt;Educational software suite comprising of numerous activities for chi
 lxterminal;LXDE Terminal
 qastools;Sound Mixer
 nvidia;Nvidia drivers
+bumblebee;NVIDIA Optimus support for Linux

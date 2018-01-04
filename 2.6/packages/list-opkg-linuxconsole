@@ -1,4 +1,5 @@
 #Multimedia
+https://www.bumblebee-project.org/bumblebee-3.2.1.tar.gz
 http://sourceforge.net/projects/qastools/files/0.21.0/qastools_0.21.0.tar.bz2
 #Education
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.22.tar.gz
@@ -15,7 +16,9 @@ https://steamcdn-a.akamaihd.net/client/installer/steam.deb
 #Multimedia
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 #Driver
-http://us.download.nvidia.com/XFree86/Linux-x86_64/340.104/NVIDIA-Linux-x86_64-340.104-no-compat32.run
+#http://us.download.nvidia.com/XFree86/Linux-x86_64/304.137/NVIDIA-Linux-x86_64-304.137.run
+http://fr.download.nvidia.com/XFree86/Linux-x86_64/384.98/NVIDIA-Linux-x86_64-384.98.run
+#http://us.download.nvidia.com/XFree86/Linux-x86_64/340.104/NVIDIA-Linux-x86_64-340.104-no-compat32.run
 #END-linuxconsole
 #Libs
 https://webkitgtk.org/releases/webkitgtk-2.18.3.tar.xz
