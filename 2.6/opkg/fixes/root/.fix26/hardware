@@ -1,10 +1,13 @@
-#!/bin/sh
+#!/bin/sh 
 echo 'mount -t aufs -o dirs=/$1:/$2 aufs $2' > /bin/mountsfsrw
 chmod +x /bin/mountsfsrw
 
 install -d /etc/modprobe.d
-echo "blacklist pcspkr" > /etc/modprobe.d/pcspkr
-echo "blacklist snd_pcsp" > /etc/modprobe.d/snd_pcsp
+grep pcspkr /etc/modprobe.d/modprobe.conf || echo "blacklist pcspkr" > /etc/modprobe.d/modprobe.conf
+ln -s /etc/modprobe.d /run
+killall udevd
+udevd --daemon
+# echo "blacklist snd_pcsp" > /etc/modprobe.d/snd_pcsp
 #echo "options iwlwifi power_level=3" > /etc/modprobe.d/test.conf
 
 INTEL=""
@@ -18,10 +21,10 @@ grep optimus=nouveau /proc/cmdline && OPTIMUS=NOUVEAU
 if [ "$OPTIMUS" = "INTEL" ]
 then
 echo "Optimus detected, use optimus=nouveau to enable Nvidia card" > /dev/tty1 
-echo blacklist nouveau >> /etc/modprobe.d/blacklist.conf
+grep nouveau /etc/modprobe.d/modprobe.conf || echo "blacklist nouveau" > /etc/modprobe.d/modprobe.conf
 else
 echo "Optimus detected, delete optimus=nouveau to enable Intel card" > /dev/tty1 
-echo blacklist i915 >> /etc/modprobe.d/blacklist.conf
+grep i915 /etc/modprobe.d/modprobe.conf || echo "blacklist i915" > /etc/modprobe.d/modprobe.conf
 fi
 fi
 

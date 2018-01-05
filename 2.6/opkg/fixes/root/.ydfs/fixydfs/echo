@@ -1,1 +1,2 @@
+cp /root/.fix26/hardware /ydfs/detect/hardware
 echo "Test fixes .."

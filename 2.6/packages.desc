@@ -223,3 +223,9 @@ nvidia-304;Nvidia 304 series driver
 nvidia-340;Nvidia 340 serie Driver
 nvidia-384;Nvidia 384 serie drivers
 dosbox;Dos emulator
+gnome-common;gnome-common
+udisks-udisks;
+autoconf-archive;autoconf-archive
+cracklib;cracklib
+libpwquality;libpwquality
+qemu;Qemu emulator

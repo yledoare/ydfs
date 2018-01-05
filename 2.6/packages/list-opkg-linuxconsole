@@ -1,4 +1,12 @@
 #System
+# For 2.7
+#https://github.com/cracklib/cracklib/releases/download/cracklib-2.9.6/cracklib-2.9.6.tar.gz
+#https://github.com/libpwquality/libpwquality/releases/download/libpwquality-1.4.0/libpwquality-1.4.0.tar.bz2
+#http://ftp.igh.cnrs.fr/pub/gnu/autoconf-archive/autoconf-archive-2017.09.28.tar.xz
+#https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
+#https://github.com/storaged-project/udisks/archive/udisks-2.6.5.tar.gz
+#https://git.gnome.org/browse/gnome-disk-utility/snapshot/gnome-disk-utility-3.24.1.zip
+http://wiki.qemu.org//download/qemu-2.11.0.tar.bz2
 http://downloads.sourceforge.net/dosbox/dosbox-0.74.tar.gz
 https://github.com/mamedev/mame/archive/mame0193.tar.gz
 https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.12.tar.xz

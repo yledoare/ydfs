@@ -89,7 +89,7 @@ PATH="$HOME/ydfs/llvm/bin:$PATH"
 for MODULE in $MODULE_LIST
 do
 # echo "PATH is $PATH"
-export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$ARCH/share/aclocal/"
+export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$ARCH/share/aclocal/ -I $HOME/opkg/share/aclocal/"
 echo "ACLOCAL_FLAGS is $ACLOCAL_FLAGS"
 # création d'un répertoire
 [ ! -e $HOME/$MODULE/share/aclocal ] && install -d $HOME/$MODULE/share/aclocal
