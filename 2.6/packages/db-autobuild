@@ -155,6 +155,7 @@ else
      export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
+  [ -e liboauth.lsm.in  ] && install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e mount.cifs.c  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e celestia.cfg  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
@@ -201,7 +202,7 @@ else
     	#sed -i '/DSSI_PATH/s|\(/usr/lib\)\(/dssi\)|&:\132\2|' remotevstclient.cpp
   	#fi
   fi
-
+  # [ -e util/scan/Makefile ] && echo "dvb-apps" && sleep 3 && sed -i '/$(sharedir)\/dvb\//d' util/scan/Makefile
   if [ -e org.kde.gcompris.desktop ]
   then
 	mkdir build
@@ -823,7 +824,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -932,8 +933,10 @@ ac_cv_file__dev_ptc=no' >  config.site
     fi 
     if [ -e setup.py ] 
     then
+	# pwd | grep beautifulsoup4 && export PREFIX=$HOME/$ARCH && echo "Prefix : $PREFIX"
       echo "Run Python setup.py" 
       python setup.py build || exit $?
+	pwd | grep beautifulsoup4 && python2 setup.py install --root="/home/linuxconsole2018/ydfs/packages-x86_64/beautifulsoup4-4.6.0" --optimize=1 --skip-build
     fi
 
     if [ -e squashfs-tools ]
@@ -1416,6 +1419,21 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
          exit 0
    fi    
 
+      if [ -e librhash ]
+	then
+	echo librhash && sleep 10
+  make PREFIX=$PREFIX install-shared || exit 1
+  make -C librhash PREFIX=$PREFIX install-headers install-lib-shared install-so-link || exit 1
+  if [ "$MODULE" = "opkg" ]
+  then
+    make PREFIX=$PREFIX DESTDIR="$pkgdir" install-shared || exit 1
+    make -C librhash PREFIX=$PREFIX DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR install-headers install-lib-shared install-so-link || exit 1
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR || exit $?
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+         touch buildok-$ARCH
+         exit 0
+      fi
       	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install

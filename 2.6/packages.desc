@@ -229,3 +229,13 @@ autoconf-archive;autoconf-archive
 cracklib;cracklib
 libpwquality;libpwquality
 qemu;Qemu emulator
+scummvm;ScummVM is a program which allows you to run certain classic graphical point-and-click adventure games
+xbmc-17.6;XBMC Media player
+beautifulsoup4;beautifulsoup4
+liboauth;liboauth
+jsoncpp;jsoncpp
+htmlcxx;htmlcxx
+rhash;rhash
+lgogdownloader;lgogdownloader
+dvb-apps;dvb-apps
+primus;Faster OpenGL offloading for Bumblebee
