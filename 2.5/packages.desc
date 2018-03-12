@@ -221,3 +221,4 @@ enet;A relatively thin, simple and robust network communication layer on top of 
 links;Links is a graphics and text mode web browser
 gsettings-desktop;gsettings-desktop
 gthumb;gThumb is an image viewer
+python;python 3
