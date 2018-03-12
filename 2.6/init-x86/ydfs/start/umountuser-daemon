@@ -11,4 +11,5 @@ do
     done
     rmdir /tmp/.umountme	
   fi
+  [ -e /tmp/stop ] && exit 0
 done

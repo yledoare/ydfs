@@ -1,18 +1,30 @@
 echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
 
+echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_SKIP_RPATH=ON "
 echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
+echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
+echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
+    -DENABLE_LTO='TRUE' \
+    -DUSE_SHARED_ENET='TRUE' \
+    -DDISTRIBUTOR='linuxconsole.org'"
+echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
+echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
+echo $ARCHIVE | grep gtksourceview &&  LC_CONFIGURE_OPTS="--disable-static \
+      --enable-glade-catalog --enable-gtk-doc --disable-Werror --enable-introspection=yes"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--disable-amalgamation \
 	--enable-fts3 \
@@ -151,7 +163,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep foomatic-filters && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
 	echo $ARCHIVE | grep foomatic-db-engine && LC_CONFIGURE_OPTS="--sysconfdir=$DIBAB_PREFIX/$MODULE/etc"
-	echo $ARCHIVE | grep LVM && LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig             --enable-applib     \
+	echo $ARCHIVE | grep LVM && [ ! -e $HOME/$ARCH/include/lvm2app.h ] &&  LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig             --enable-applib     \
             --enable-cmdlib     \
             --enable-udev_sync " && export CFLAGS=" -L../libdm $CFLAGS" && sleep 5
 	echo $ARCHIVE | grep Python-2 && LC_CONFIGURE_OPTS=" --with-ssl  --enable-shared \
@@ -212,8 +224,8 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--with-system-libtiff \
 	--with-libpaper \
 	--disable-compile-inits"
-	echo $ARCHIVE | grep nspr && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
-	echo $ARCHIVE | grep wine && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
+	echo $ARCHIVE | grep nspr && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
+	echo $ARCHIVE | grep wine && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
 	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
@@ -295,7 +307,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	# echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--enable-discard-path --with-config-file-path=$HOME/etc/php --enable-sigchild --with-pcre-regex=$HOME/$ARCH --enable-magic-quotes --enable-short-tags --with-exec-dir=/home/ --with-openssl=$HOME/$ARCH --disable-rpath --enable-libgcc --disable-pic --with-zlib=$HOME/$ARCH --enable-bcmath --enable-calendar --with-curl=$HOME/$ARCH --with-gdbm=$HOME/$ARCH --with-db=$HOME/$ARCH --enable-dbase --enable-xslt=$HOME/$ARCH --with-xslt-sablot=$HOME/$ARCH --with-dom=$HOME/$ARCH --with-dom-xslt=$HOME/$ARCH --with-kerberos --with-dom-exslt=$HOME/$ARCH --enable-exif --enable-mbstring --enable-mbregex --enable-filepro --enable-ftp --with-ming --with-gd --with-expat-dir=$HOME/$ARCH --enable-gd-native-tt=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir=$HOME/$ARCH '--with-ttf=$HOME/$ARCH --with-freetype-dir=$HOME/$ARCH --with-t1lib=$HOME/$ARCH --with-gettext=$HOME/$ARCH --with-imap --with-imap-ssl --with-mcrypt=$HOME/$ARCH --with-mhash=$HOME/$ARCH --with-mysql=$HOME/$ARCH --with-mysqli=$HOME/$ARCH/bin/mysql_config --with-pdflib=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir --with-tiff-dir --enable-trans-sid --with-regex=system --enable-sysvsem --enable-sysvshm --enable-sysvmsg --with-xpm-dir=$HOME/$ARCH --with-zziplib=$HOME/$ARCH --enable-wddx --with-zip=$HOME/$ARCH --with-sablot=$HOME/$ARCH --enable-inline-optimization --with-gnu-ld --enable-soap --with-pspell --with-gmp "
 	echo $ARCHIVE | grep php-5 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
 	echo $ARCHIVE | grep x264 && LC_CONFIGURE_OPTS="--enable-shared"
-	echo $ARCHIVE | grep webkitgtk && LC_CONFIGURE_OPTS="--with-gtk=3.0 --disable-webkit2" # --disable-geolocation --disable-video --disable-web-audio"
+#	echo $ARCHIVE | grep webkitgtk && LC_CONFIGURE_OPTS="--with-gtk=3.0 --disable-webkit2" # --disable-geolocation --disable-video --disable-web-audio"
 	echo $ARCHIVE | grep libwebp && LC_CONFIGURE_OPTS=" --enable-swap-16bit-csp \
      --enable-experimental \
      --enable-libwebpmux \
@@ -320,6 +332,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
         echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
+        echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
 	if [ "$ARCH" = "arm" ] 
 	then
 		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 
@@ -334,6 +347,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--enable-composite --enable-dri2 --enable-glx --enable-aiglx --with-log-dir=/var/log" 
 #		echo $ARCHIVE | grep ode-0.15 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --target=i686-linux-gnu --build=i686-linux-gnu"
 	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"
 	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libdv-1 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
@@ -349,4 +363,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
 		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep mesa && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep gtkglext && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep libjpeg-turbo && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	fi

@@ -19,12 +19,12 @@ fi
 if [ ! -e /media/$DISTRONAME ]
 then
 which gpartedbin || opkg-cl install gparted
-zenity --info --text="Please create a parition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
+zenity --info --text="Please create a partition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
 
 # To disable remounting while running gparted
 echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
-$HOME_DIBAB/$ARCH/sbin/gpartedbin
+$HOME_DIBAB/$ARCH/sbin/gpartedbin &>/dev/null
 sh /ydfs/start/automount
 sleep 3
   if [ ! -e /media/$DISTRONAME ]
@@ -34,28 +34,30 @@ sleep 3
   fi
 fi
 
-[ ! -e /boot ] && ln -sf /media/$DISTRONAME /boot
-grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || exit 1
+if [ ! -e /sys/firmware/efi ]
+then
+  [ ! -e /boot ] && ln -sf /media/$DISTRONAME /boot
+  grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || exit 1
+  echo "Installing kernel and initramfs"
+  mkdir /media/$DISTRONAME/rootfs
+  KVER=`uname -r`
+  cp /media/ydfs/isolinux/k4* /boot/kernel-$KVER
+  cp /media/ydfs/isolinux/4* /boot/initramfs-genkernel-$KVER
+  cp /proc/config.gz /boot
+  gunzip /boot/config.gz
+  mv /boot/config /boot/config-$KVER
+  sed -i 's@target=device /`@target=device /media/DISTRONAME`@'  `which grub-mkconfig`
+  sed -i "s@DISTRONAME@$DISTRONAME@"  `which grub-mkconfig`
+  echo "running grub-mkconfig"
+  find /sys |grep sda|grep usb && BOOTOPTION=" liveusb "
+  LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
+  [ -e /media/$DISTRONAME/grub/grub.cfg.new ] && cp /media/$DISTRONAME/grub/grub.cfg.new /media/$DISTRONAME/grub/grub.cfg
+  sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
+  touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
+else
+  zenity --info --text="Please create a boot partition, and install EFI" &>/dev/null
+fi
 
-echo "Installing kernel and initramfs"
-
-mkdir /media/$DISTRONAME/rootfs
-KVER=`uname -r`
-cp /media/ydfs/isolinux/k4* /boot/kernel-$KVER
-cp /media/ydfs/isolinux/4* /boot/initramfs-genkernel-$KVER
-cp /proc/config.gz /boot
-gunzip /boot/config.gz
-mv /boot/config /boot/config-$KVER
-
-sed -i 's@target=device /`@target=device /media/DISTRONAME`@'  `which grub-mkconfig`
-sed -i "s@DISTRONAME@$DISTRONAME@"  `which grub-mkconfig`
-
-echo "running grub-mkconfig"
-find /sys |grep sda|grep usb && BOOTOPTION=" liveusb "
-LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
-cp /media/$DISTRONAME/grub/grub.cfg.new /media/$DISTRONAME/grub/grub.cfg
-sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
-touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
 echo "Copying module ..."
 ls /media/ydfs/modules/ | while read file
 do

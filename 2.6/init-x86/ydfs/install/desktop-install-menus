@@ -9,8 +9,10 @@ do
   if [ -e desktop-install-menus.tar.gz ]
   then
     tar xzvhf desktop-install-menus.tar.gz && break
+    tar xzvhf desktop-install-menus.tar.gz || break
     rm desktop-install-menus.tar.gz
   fi
+  [ -e /tmp/stop ] && break
 done
 
 [ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe /etc/localtime

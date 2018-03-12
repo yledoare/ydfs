@@ -3,10 +3,12 @@
 [ -e /ydfs/boot/options/debug01  ] && sh
 . /etc/profile
 
-mount -a
+# mount -a
+mount /proc proc -t proc
 mount /sys sys -t sysfs
+mount -t devtmpfs none /dev
 mkdir /dev/pts
-mount /dev/pts -t devpts
+mount devpts /dev/pts -t devpts
 
 ln -s /proc/mounts /etc/mtab # For Gparted
 
@@ -37,7 +39,10 @@ echo "ok"
 
 # echo -n " 3" > /dev/tty1
 
+. /ydfs/start/fixydfs
+
 [ -e /ydfs/boot/options/debug1  ] && sh
+. /ydfs/start/automount
 echo "Detect hardware"
 . /ydfs/detect/hardware
 echo "Detect Network"
@@ -49,9 +54,6 @@ echo "Set up sound mixer"
 . /ydfs/detect/cups &
 
 [ -e /ydfs/boot/options/debug2  ] && sh
-
-. /ydfs/start/automount
-. /ydfs/start/fixydfs
 
 if [ -e /ydfs/boot/options/fixusb  ]; then 
 echo "FIXUSB mode, looking into usb disks ..." && sleep 9
@@ -71,6 +73,8 @@ fi
 
 # echo -n " 1" > /dev/tty1
 /fix/libs
+. /ydfs/enable/qt5
+[ -e /ydfs/boot/options/debugqt5  ] && sh
 
 [ -e /media/ydfs/pkg ] && echo "Opkg update" && opkg-cl update
 
@@ -97,6 +101,7 @@ busybox sh /ydfs/stop/all
 #fi
 
 echo "Stoping all process ... "
+touch /tmp/stop
 killall NetworkManager
 killall ModemManager
 killall dbus-launch
@@ -113,6 +118,7 @@ ifconfig $NET down 1>/dev/null 2>/dev/null
 done
 
 /sbin/swapoff -a
+/busybox/bin/umount -l /dev
 sync
 sleep 2
 echo
@@ -139,8 +145,9 @@ fi
 
 if [ -e /var/ydfs/boot/media/cdrom/ ]
 then
+  mount -t devtmpfs none /dev
   echo "Ejecting cdrom, 5 seconds before poweroff" > /dev/tty1
-  eject /dev/`ls /var/ydfs/boot/media/cdrom/`
+  eject -s /dev/`ls /var/ydfs/boot/media/cdrom/`
   sleep 5
 fi
 

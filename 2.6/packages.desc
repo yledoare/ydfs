@@ -213,3 +213,29 @@ cdparanoia-iii;Compact Disc Digital Audio extraction tool
 recordmydesktop;Record desktop session
 gtk-recordmydesktop;RecordMydesktop GUI
 gcompris-qt;Educational software suite comprising of numerous activities for children aged 2 to 10
+lxterminal;LXDE Terminal
+qastools;Sound Mixer
+nvidia;Nvidia drivers
+bumblebee;NVIDIA Optimus support for Linux
+procps-ng;Process tools
+grep;Grep util
+nvidia-304;Nvidia 304 series driver
+nvidia-340;Nvidia 340 serie Driver
+nvidia-384;Nvidia 384 serie drivers
+dosbox;Dos emulator
+gnome-common;gnome-common
+udisks-udisks;
+autoconf-archive;autoconf-archive
+cracklib;cracklib
+libpwquality;libpwquality
+qemu;Qemu emulator
+scummvm;ScummVM is a program which allows you to run certain classic graphical point-and-click adventure games
+xbmc-17.6;XBMC Media player
+beautifulsoup4;beautifulsoup4
+liboauth;liboauth
+jsoncpp;jsoncpp
+htmlcxx;htmlcxx
+rhash;rhash
+lgogdownloader;lgogdownloader
+dvb-apps;dvb-apps
+primus;Faster OpenGL offloading for Bumblebee

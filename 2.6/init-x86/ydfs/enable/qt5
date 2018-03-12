@@ -1,0 +1,3 @@
+QT5HOME=`grep prefix=/home $HOME_DIBAB/$ARCH/qt5/lib/pkgconfig/Qt5Concurrent.pc|cut -d'=' -f2`
+install -d `dirname $QT5HOME`
+ln -s $HOME_DIBAB/$ARCH/qt5 $QT5HOME

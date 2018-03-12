@@ -34,16 +34,17 @@ bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
 echo
 DBNAME=$(/busybox/bin/cat /ydfs-name)
+DBHOME=$(/busybox/bin/cat /ydfs-home)
 DBREL=$(/busybox/bin/cat /ydfs-release)
 DBDATE=$(/busybox/bin/cat /ydfs-date)
 echo -n -e '\e[33m'
-echo -n $DBNAME
+echo -n $DBHOME
 echo -n -e '\e[0m'
 echo -n -e '\e[32m'
-echo -n " $DBREL"
+echo -n " YDFS $DBREL"
 echo -n -e '\e[0m'
 echo -n -e '\e[36m'
-echo -n " $DBDATE"
+echo -n " Build : $DBDATE"
 echo -n -e '\e[0m'
 echo " - Yann Le Doaré - GNU GPL v3"
 echo

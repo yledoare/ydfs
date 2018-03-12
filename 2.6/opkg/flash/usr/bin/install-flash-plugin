@@ -14,9 +14,9 @@ wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=pack
 #pkgver=$(grep pkgver= flashplugin | cut -d'=' -f2)
 . flashplugin
 rm flashplugin
-URL=$(echo $source_x86_64 | cut -d ':' -f3,4)
-[ "$ARCH" = "x86" ] && URL=$(echo $source_i686 | cut -d ':' -f3,4)
-#URL=http://fpdownload.macromedia.com/get/flashplayer/pdc/$pkgver/install_flash_player_11_linux.$ARCH.tar.gz
+URL=https://fpdownload.adobe.com/get/flashplayer/pdc/$pkgver/flash_player_npapi_linux.x86_64.tar.gz
+#URL=$(echo $source_x86_64 | cut -d ':' -f3,4)
+#[ "$ARCH" = "x86" ] && URL=$(echo $source_i686 | cut -d ':' -f3,4)
 DEST=$PLUGPATH /ydfs/start/download $URL 
 tar xzvf $(basename $URL)
 rm $(basename $URL)

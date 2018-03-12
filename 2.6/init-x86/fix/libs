@@ -9,3 +9,7 @@ then
   rm /lib/ld-linux.so.2
   ln -s /lib32/ld-linux.so.2 /lib/ld-linux.so.2
 fi
+ln -s /usr/lib/libicuuc.so.59 /lib/libicuuc.so.57 
+ln -s /usr/lib/libicui18n.so.59 /lib/libicui18n.so.57 
+ln -s /usr/lib/libicudata.so.59 /lib/libicudata.so.57 
+

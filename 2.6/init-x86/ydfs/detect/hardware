@@ -40,7 +40,7 @@ modprobe psmouse
 modprobe evdev
 modprobe analog
 echo -n "."
-busybox mdev -s
+#busybox mdev -s
 echo "Ok"
 # mkdir /tmp/drivers
 #/bin/mountsfsrw /tmp/drivers /lib/modules/
@@ -52,5 +52,7 @@ acpid
 echo "killall Xorg" > /fix/lubuntu-logout
 echo "killall lxdm-binary" >> /fix/lubuntu-logout
 chmod +x /fix/lubuntu-logout
+
+/usr/libexec/bluetooth/bluetoothd &
 
 [ -e /dev/kmsg ] && rm /dev/kmsg

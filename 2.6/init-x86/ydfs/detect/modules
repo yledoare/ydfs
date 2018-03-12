@@ -138,8 +138,9 @@ mount tmpfs /dev/shm -t tmpfs -o 'defaults,noexec,nosuid,nodev'
 
 install -d $HOME/var/log # Xorg log
 install -d /var/run # Xorg optimus
-mkdir $HOME_DIBAB/multilib
-ln -s $HOME_DIBAB/$ARCH/lib32 $HOME_DIBAB/multilib
-ln -s $HOME_DIBAB/$ARCH/lib32 $HOME_DIBAB/multilib/lib
-ln -s $HOME_DIBAB/$ARCH/etc $HOME_DIBAB/multilib
-ln -s $HOME_DIBAB/$ARCH/share $HOME_DIBAB/multilib
+mkdir $HOME/multilib
+ln -s $HOME/$ARCH/lib32 $HOME/multilib
+ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+ln -s $HOME/$ARCH/etc $HOME/multilib
+ln -s $HOME/$ARCH/share $HOME/multilib
+

@@ -5,7 +5,7 @@ export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
-export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/share/pkgconfig
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/lib32/pkgconfig:$HOME/multilib/share/pkgconfig
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
@@ -29,7 +29,7 @@ install -d $HOME/ydfs/src/llvm
 
 # libFS-1 libdmx- \
 
-PKGMULTILIB=" bigreqsproto compositeproto damageproto dri2proto dri3proto fixesproto fontsproto glproto inputproto kbproto presentproto randrproto recordproto renderproto resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto xproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+PKGMULTILIB="bigreqsproto compositeproto damageproto dri2proto dri3proto fixesproto fontsproto glproto inputproto kbproto presentproto randrproto recordproto renderproto resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto xproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
 xextproto compositeproto scrnsaverproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -60,8 +60,8 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libvdpau mesa \
-attr acl kmod eudev"
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
+# attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
 do
@@ -141,6 +141,24 @@ PYTHON2=/usr/bin/python ./configure \
     -reduce-relocations \
     -no-openvg || exit $?
 
+    ;;
+    pulseaudio )
+	if [ ! -e libtool-2.4.6 ]
+	then
+	  wget ftp://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.xz
+	  tar xJvf libtool-2.4.6.tar.xz
+	  cd libtool-2.4.6
+		./configure  --prefix=$HOME/multilib || exit $?
+		make || exit $?
+		make install || exit $?
+	  cd ..	
+	fi
+  	# NOCONFIGURE=1 ./bootstrap.sh
+	./configure  --prefix=$HOME/multilib     --disable-tcpwrap \
+    --disable-udev --disable-gconf --disable-avahi --disable-jack --disable-bluez4 \
+    --disable-samplerate \
+    --without-fftw --disable-rpath \
+    --disable-default-build-tests --without-caps ||exit 1
     ;;
     ncurses )
 
@@ -223,12 +241,30 @@ PYTHON2=/usr/bin/python ./configure \
     poppler )
   	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
     ;;
+    flac )
+  	./configure --prefix=$HOME/multilib --disable-sse || exit $?
+    ;;
+    gtk+-2 )
+  	./configure --prefix=$HOME/multilib --disable-cups || exit $?
+    ;;
+    libjpeg-turbo )
+  	./configure --prefix=$HOME/multilib --without-simd || exit $?
+    ;;
+    openal-soft-1.16 )
+	mkdir build
+	 cd build
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+
+	;;
     * )
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
   esac
 
-  echo "Run make clean" && sleep 5
+  echo "Run make clean" 
   make clean
   case $PKG in
     readline )
@@ -236,8 +272,12 @@ PYTHON2=/usr/bin/python ./configure \
 	;;
     llvm )
 	;;
+    openal-soft-1.16 )
+	cd build
+	make
+	;;
     * )
-  	echo "Run make " && sleep 5
+  	echo "Run make "
   	make || exit $?
 	;;
   esac
@@ -257,7 +297,12 @@ PYTHON2=/usr/bin/python ./configure \
 	;;
     llvm )
 	;;
+    openal-soft-1.16 )
+  	make install || exit $?
+	cd ..
+	;;
     * )
+  	echo "Run make install "
   	make install || exit $?
         [ -e getfacl/getfacl.c ] && make install-lib install-dev
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev

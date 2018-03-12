@@ -7,7 +7,7 @@ else
   passwd
 fi
 user=$(zenity --entry --text="user login")
-useradd --groups tty,users,audio $user
+useradd --groups tty,users,audio,video,root $user
 clear
 zenity --warning --text="Please set $user password" 2>/dev/null
 passwd $user

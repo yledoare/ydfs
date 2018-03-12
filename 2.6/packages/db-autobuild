@@ -20,7 +20,7 @@ echo $MYPWD | grep file && SHORTNAME=file-
 echo $MYPWD | grep gc- && SHORTNAME=gc-
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
 
-[ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null && echo -n " OK " && exit 0
+[ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null && echo -n "$HOME/ydfs/opkg/$SHORTNAME OK " && exit 0
 
 [ "$FORCEBUILD" != "OK" ] && [ -e buildok-$ARCH ] && echo -n "built OK ($PWD)" && exit 0
 MYBUILDSCRIPT=""
@@ -112,7 +112,12 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
-  [ -e src/mame/mame.c ] && cp makefile Makefile
+  [ -e src/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
+    OPTIMIZE=2 \
+    PYTHON_EXECUTABLE=/usr/bin/python2 \
+    TOOLS=1 \
+    ARCHOPTS=-flifetime-dse=1 \
+    -j1 
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
   then
@@ -126,9 +131,11 @@ else
 	  echo $URL
 	  wget $URL --no-check-certificate -O patch
 	  patch -Nfp0 -i patch || patch -Nfp1 -i patch # || exit 3
-	  sleep 3
+	  sleep 1
 	  rm patch
 	done
+	git diff > $HOME_DIBAB/packages/patches/`basename $PWD`.diff ||exit $?
+	echo "$HOME_DIBAB/packages/patches/`basename $PWD`.diff created !" && sleep 10
    rm $HOME/.archpatches
   fi
   if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e ydfs-patched ]
@@ -148,6 +155,8 @@ else
      export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
+  [ -e liboauth.lsm.in  ] && install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e mount.cifs.c  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e celestia.cfg  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e libexfat ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --install
@@ -193,7 +202,7 @@ else
     	#sed -i '/DSSI_PATH/s|\(/usr/lib\)\(/dssi\)|&:\132\2|' remotevstclient.cpp
   	#fi
   fi
-
+  # [ -e util/scan/Makefile ] && echo "dvb-apps" && sleep 3 && sed -i '/$(sharedir)\/dvb\//d' util/scan/Makefile
   if [ -e org.kde.gcompris.desktop ]
   then
 	mkdir build
@@ -358,10 +367,16 @@ pwd && sleep 5
 
   [ -e xmoto.6 ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
+  if [ -e autogen.sh ] && [ -e gtksourceview-3.0.pc.in ]
+  then
+    ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh || exit 1
+  fi
+
   if [ -e autogen.sh ] && [ ! -e configure ] 
   then
-    pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+    pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal -I $HOME/opkg/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
     echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
+    export ACLOCAL_PATH="$HOME/$ARCH/share/aclocal:$HOME/opkg/share/aclocal:$HOME/opkg/share/aclocal"
     sh autogen.sh  || exit 3
     make distclean && sleep 5
   fi
@@ -795,16 +810,25 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 	exit 0
 	# cp -fR data $PREFIX
       fi
+  if [ -e grub-core ] && [ "$ARCH" == "x86_64" ]
+  then
+     unset CPPFLAGS && unset CFLAGS && unset LDFLAGS
+     ./configure --prefix=$PREFIX \
+	--with-platform="efi" \
+		--target="x86_64" 
+	make && make install
+	make clean
+  fi
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
   [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
-    [ "$MODULE" != "$ARCH" ] && SKIP_DIR=""
+    [ "$MODULE" != "$ARCH" ] && [ ! -e "programs/winecfg" ] && SKIP_DIR=""
     MYPREFIX="--prefix=$PREFIX"
     [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
     [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
@@ -814,7 +838,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
       cd $BUILD_DIR
 	echo "build into $BUILD_DIR"
     else
-	echo "Skip $BUILD_DIR"
+	echo "Skip $BUILD_DIR : $SKIP_DIR"
     fi
     [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
     [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
@@ -822,6 +846,27 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 [ -e "torcs.desktop" ] && unset MODULE
     [ -e ./bootstrap ] && [ -e src/libvlc.c ] && [ ! -e configure ] && echo "Bootstraping VLC" && env > env.txt && ACLOCAL_ARGS="-I $HOME/$ARCH/share/aclocal/"  ./bootstrap
 
+	if [ -e src/bbrun.c ]
+	then
+		cp /usr/lib/x86_64-linux-gnu/pkgconfig/libbsd.pc $HOME/$ARCH/lib/pkgconfig/
+		echo src/bbrun.c
+		./configure \
+        CONF_DRIVER_MODULE_NVIDIA=nvidia \
+        CONF_LDPATH_NVIDIA=/usr/lib/nvidia:/usr/lib32/nvidia:/usr/lib:/usr/lib32 \
+        CONF_MODPATH_NVIDIA=/usr/lib/nvidia/xorg,/usr/lib/xorg/modules \
+        --prefix=$PREFIX \
+        --sbindir=$PREFIX/bin \
+        --with-udev-rules=$PREFIX/lib/udev/rules.d \
+        --sysconfdir=$PREFIX/etc \
+        --without-pidfile || exit 1
+		[ ! -e bbswitch ] && git clone https://github.com/Bumblebee-Project/bbswitch.git
+		cd bbswitch
+		  make -C $HOME/ydfs/build/linux-x86_64-$KERNEL3 M=$PWD modules || exit 1
+	 	cd ..
+		install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/lib/modules
+		cp bbswitch/bbswitch.ko	$HOME/ydfs/packages-$ARCH/$MYDIR/usr/lib/modules || exit 1
+
+	fi
 env > ydfs.env
 echo "LD_LIBRARY_PATH : $LD_LIBRARY_PATH"
 echo "CFLAGS: $CFLAGS"
@@ -888,8 +933,10 @@ ac_cv_file__dev_ptc=no' >  config.site
     fi 
     if [ -e setup.py ] 
     then
+	# pwd | grep beautifulsoup4 && export PREFIX=$HOME/$ARCH && echo "Prefix : $PREFIX"
       echo "Run Python setup.py" 
       python setup.py build || exit $?
+	pwd | grep beautifulsoup4 && python2 setup.py install --root="/home/linuxconsole2018/ydfs/packages-x86_64/beautifulsoup4-4.6.0" --optimize=1 --skip-build
     fi
 
     if [ -e squashfs-tools ]
@@ -982,6 +1029,16 @@ ln -sf $PREFIX/bin/2H4U .
   fi
     exit 0
   fi
+
+  if [ -e ssssrc/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in ]
+  then
+	mkdir build
+	cd build
+	meson --prefix=$PREFIX ../
+	ninja
+exit 1	
+  fi
+
   if [ -e pitivi.xml ]
   then
 	meson --prefix=$PREFIX build || exit $?
@@ -1362,17 +1419,21 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
          exit 0
    fi    
 
-   if [ -e WHATwine64 ]
-   then
-	pwd
-	export _wine32opts=( --libdir=/usr/lib32 --with-wine64="$PWD")
-	mkdir ../wine32
-        cd ../wine32
-	PKG_CONFIG_PATH="$PREFIX/lib32/pkgconfig" $SOURCEDIR/configure --prefix=$PREFIX --with-x --with-gstreamer "${_wine32opts[@]}"
-	make
-	exit 10     
-   fi
-
+      if [ -e librhash ]
+	then
+	echo librhash && sleep 10
+  make PREFIX=$PREFIX install-shared || exit 1
+  make -C librhash PREFIX=$PREFIX install-headers install-lib-shared install-so-link || exit 1
+  if [ "$MODULE" = "opkg" ]
+  then
+    make PREFIX=$PREFIX DESTDIR="$pkgdir" install-shared || exit 1
+    make -C librhash PREFIX=$PREFIX DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR install-headers install-lib-shared install-so-link || exit 1
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR || exit $?
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+         touch buildok-$ARCH
+         exit 0
+      fi
       	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
