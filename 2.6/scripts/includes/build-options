@@ -235,10 +235,9 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep libav && LC_CONFIGURE_OPTS="--disable-static --enable-shared"
 	echo $ARCHIVE | grep db-6 && LC_CONFIGURE_OPTS="--enable-compat185 --enable-dbm --disable-static --enable-cxx"
 	echo $ARCHIVE | grep pkg-config && [ "$ARCH" != "arm" ] && LC_CONFIGURE_OPTS="--with-internal-glib"
-	echo $ARCHIVE | grep ffmpeg-3 && LC_CONFIGURE_OPTS="   --disable-debug \
+	echo $ARCHIVE | grep ffmpeg-4 && LC_CONFIGURE_OPTS="   --disable-debug \
     --disable-static \
     --enable-avresample \
-    --enable-dxva2 \
     --enable-fontconfig \
     --enable-gnutls \
     --enable-gpl \
@@ -256,8 +255,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-runtime-cpudetect \
     --enable-shared \
     --enable-vdpau \
-    --enable-version3 \
-    --enable-x11grab"
+    --enable-version3 "
 echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
 	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="--with-x11"
 #WRITE HERE NEW RULES
