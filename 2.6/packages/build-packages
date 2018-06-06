@@ -11,6 +11,8 @@ then
  install -d $HOME/$ARCH/share/aclocal
 fi
 
+install -d $HOME/opkg/share/aclocal/
+
 echo $SRC_PATH/list-$1
 # normalement c'est un double crochet, le simple crochet est utilisé pour des raisons de compatibilité
 # -n ch vraie si la longueur de la chaîne ch est différente de zéro.
