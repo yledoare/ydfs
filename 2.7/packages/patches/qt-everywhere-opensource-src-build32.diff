@@ -1,0 +1,102 @@
+diff --git a/src/gui/dialogs/qprintdialog_unix.cpp b/src/gui/dialogs/qprintdialog_unix.cpp
+index a851d47..57d311f 100644
+--- a/src/gui/dialogs/qprintdialog_unix.cpp
++++ b/src/gui/dialogs/qprintdialog_unix.cpp
+@@ -213,7 +213,6 @@ public:
+ 
+ class QPPDOptionsModel : public QAbstractItemModel
+ {
+-    friend class QPPDOptionsEditor;
+ public:
+     QPPDOptionsModel(QCUPSSupport *cups, QObject *parent = 0);
+     ~QPPDOptionsModel();
+@@ -235,22 +234,6 @@ public:
+     void parseChoices(QOptionTreeItem* parent);
+ };
+ 
+-class QPPDOptionsEditor : public QStyledItemDelegate
+-{
+-    Q_OBJECT
+-public:
+-    QPPDOptionsEditor(QObject* parent = 0) : QStyledItemDelegate(parent) {}
+-    ~QPPDOptionsEditor() {}
+-
+-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+-    void setEditorData(QWidget* editor, const QModelIndex& index) const;
+-    void setModelData( QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const;
+-
+-private slots:
+-    void cbChanged(int index);
+-
+-};
+-
+ #endif
+ 
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@@ -314,7 +297,6 @@ void QPrintPropertiesDialog::selectPrinter()
+         if (m_cupsOptionsModel == 0) {
+             m_cupsOptionsModel = new QPPDOptionsModel(m_cups);
+ 
+-            widget.treeView->setItemDelegate(new QPPDOptionsEditor(this));
+         } else {
+             // update the model
+             m_cupsOptionsModel->parseItems();
+@@ -1245,58 +1227,6 @@ QVariant QPPDOptionsModel::headerData(int section, Qt::Orientation, int role) co
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+ 
+-QWidget* QPPDOptionsEditor::createEditor(QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const
+-{
+-    if (index.column() == 1 && reinterpret_cast<QOptionTreeItem*>(index.internalPointer())->type == QOptionTreeItem::Option)
+-        return new QComboBox(parent);
+-    else
+-        return 0;
+-}
+-
+-void QPPDOptionsEditor::setEditorData(QWidget* editor, const QModelIndex& index) const
+-{
+-    if (index.column() != 1)
+-        return;
+-
+-    QComboBox* cb = static_cast<QComboBox*>(editor);
+-    QOptionTreeItem* itm = reinterpret_cast<QOptionTreeItem*>(index.internalPointer());
+-
+-    if (itm->selected == -1)
+-        cb->addItem(QString());
+-
+-    for (int i = 0; i < itm->childItems.count(); ++i)
+-        cb->addItem(QString::fromLocal8Bit(itm->childItems.at(i)->description));
+-
+-    if (itm->selected > -1)
+-        cb->setCurrentIndex(itm->selected);
+-
+-    connect(cb, SIGNAL(currentIndexChanged(int)), this, SLOT(cbChanged(int)));
+-}
+-
+-void QPPDOptionsEditor::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
+-{
+-    QComboBox* cb = static_cast<QComboBox*>(editor);
+-    QOptionTreeItem* itm = reinterpret_cast<QOptionTreeItem*>(index.internalPointer());
+-
+-    if (itm->selected == cb->currentIndex())
+-        return;
+-
+-    const ppd_option_t* opt = reinterpret_cast<const ppd_option_t*>(itm->ptr);
+-    QPPDOptionsModel* m = static_cast<QPPDOptionsModel*>(model);
+-
+-    if (m->cups->markOption(opt->keyword, opt->choices[cb->currentIndex()].choice) == 0) {
+-        itm->selected = cb->currentIndex();
+-        itm->selDescription = reinterpret_cast<const ppd_option_t*>(itm->ptr)->choices[itm->selected].text;
+-    }
+-}
+-
+-void QPPDOptionsEditor::cbChanged(int)
+-{
+-/*
+-    emit commitData(static_cast<QWidget*>(sender()));
+-*/
+-}
+-
+ #endif
+ 
+ QT_END_NAMESPACE

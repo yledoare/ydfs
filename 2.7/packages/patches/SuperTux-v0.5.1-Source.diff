@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 691f9e4..f383cad 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -251,10 +251,6 @@ IF("${VERSION_LIST}" STREQUAL "")
+ ENDIF()
+ 
+ FILE(GLOB ORIG_TGZ ../*.orig.tar.gz)
+-IF("${VERSION_LIST}" STREQUAL "" AND (NOT "${ORIG_TGZ}" STREQUAL ""))
+-	GET_FILENAME_COMPONENT(BASEDIR ${ORIG_TGZ} NAME)
+-	STRING(REGEX REPLACE "(\\.|_|-)" ";" VERSION_LIST ${BASEDIR})
+-ENDIF()
+ 
+ LIST(LENGTH VERSION_LIST VERSION_LIST_SIZE)
+ 

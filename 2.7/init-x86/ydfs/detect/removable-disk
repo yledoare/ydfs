@@ -1,0 +1,6 @@
+ls /sys/class/block/ | while read block
+do
+  [ -e /sys/class/block/$block/removable ] || continue 
+  echo $block | grep sd >/dev/null || continue
+  grep 1 /sys/class/block/$block/removable >/dev/null && echo $block
+done

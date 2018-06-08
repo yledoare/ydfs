@@ -1,0 +1,36 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(dirname `which gcc`)"/../lib/"
+echo "Building $1" # && sleep 1
+modperl=$1
+  [ ! -e $DIBAB_PREFIX/$MODULE/bin/perl ] && continue
+  [ ! -e $HOME/.cpan ] && echo "o conf init" | $DIBAB_PREFIX/$MODULE/bin/perl -MCPAN -e shell
+  echo "require $modperl" | $DIBAB_PREFIX/$MODULE/bin/perl
+  if [ ! $? = 0 ]
+  then
+    echo "install $modperl" | $DIBAB_PREFIX/$MODULE/bin/perl -MCPAN -e shell 
+    echo "require $modperl" | $DIBAB_PREFIX/$MODULE/bin/perl 
+    if [ ! $? = 0 ] 
+    then
+	MODSRC=`echo "$modperl" |sed "s/::/-/"`
+	echo "Look at $SRC_PATH/patches/"$modperl".diff " && sleep 5
+	if [ -e $SRC_PATH/patches/"$modperl".diff ]
+	then
+		echo "Patching " && sleep 10
+		cd $HOME/.cpan/build/$MODSRC*
+    pwd
+		patch -f -p1 < $SRC_PATH/patches/"$modperl".diff || patch -f -p0 < $SRC_PATH/patches/"$modperl".diff || exit 1
+    # perl Build.PL||exit $?
+    perl Build||exit $?
+    perl Build install destdir="$PREFIX" || exit $?
+    touch buildok-$ARCH
+    exit 0
+		#make && make install || exit 3
+	else
+		echo "error and : $SRC_PATH/patches/$modperl.diff not found"
+		exit 4
+	fi
+    fi
+
+  else
+    echo -n "$modperl ... "
+  fi

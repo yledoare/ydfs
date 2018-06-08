@@ -1,0 +1,2 @@
+#devpts /dev/pts devpts noauto 0 0
+#proc /proc proc	defaults 0 0

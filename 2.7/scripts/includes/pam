@@ -1,0 +1,58 @@
+  if [ -e libpam/pam_auth.c ]
+  then
+	echo "Build PAM"
+	for file in system-auth system-local-login system-login system-remote-login system-services other
+	do
+	  [ ! -e $pkgdir/etc/pam.d/$file ] && install -d $pkgdir/etc/pam.d && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/pambase --output-document=$pkgdir/etc/pam.d/$file
+	done
+
+	[ ! -e pam_unix2-2.9.1 ] && wget https://mirrors.kernel.org/archlinux/other/pam_unix2/pam_unix2-2.9.1.tar.bz2 && tar xjvf pam_unix2-2.9.1.tar.bz2 && cd pam_unix2-2.9.1 && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/pam_unix2-glibc216.patch?h=packages/pam --output-document=pam_unix2-glibc216.patch && patch -p1 < pam_unix2-glibc216.patch && cd ..
+	[ ! -e pam_unix2-2.9.1 ] && exit 4
+	if [ ! -e other ]
+	then
+        wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/pam-1.1.8-cve-2014-2583.patch?h=packages/pam --output-document=pam-1.1.8-cve-2014-2583.patch	
+	wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/pam-1.1.8-cve-2013-7041.patch?h=packages/pam --output-document=pam-1.1.8-cve-2013-7041.patch
+	patch -Np1 -i  "pam-1.1.8-cve-2013-7041.patch"
+        patch -Np1 -i  "pam-1.1.8-cve-2014-2583.patch"
+	wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/other?h=packages/pam --output-document=other
+	fi
+	./configure --prefix=$PREFIX --libdir=$PREFIX/lib --sbindir=$PREFIX/bin --disable-db
+  	make || exit $?
+	cd pam_unix2-2.9.1 
+	./configure \
+      CFLAGS="$CFLAGS -I$MYPWD/libpam/include/" \
+      LDFLAGS="$LDFLAGS -L$MYPWD/libpam/.libs/" \
+      --libdir=$PREFIX/lib \
+      --sbindir=$PREFIX/bin --prefix=$PREFIX
+       make || exit $?
+	cd ..
+	make SCONFIGDIR=$PREFIX/etc/security install
+	cp other $PREFIX/etc/pam.d
+  # build pam_unix2 module
+  # source ftp://ftp.suse.com/pub/people/kukuk/pam/pam_unix2
+  cd pam_unix2-2.9.1
+  make install
+
+  # add the realtime permissions for audio users
+  sed -i 's|# End of file||' $pkgdir/etc/security/limits.conf
+  cat >>$pkgdir/etc/security/limits.conf <<_EOT
+*               -       rtprio          0
+*               -       nice            0
+@audio          -       rtprio          65
+@audio          -       nice           -10
+@audio          -       memlock         40000
+_EOT
+
+  # fix some missing symlinks from old pam for compatibility
+  cd $pkgdir/lib/security
+  ln -s pam_unix.so pam_unix_acct.so
+  ln -s pam_unix.so pam_unix_auth.so
+  ln -s pam_unix.so pam_unix_passwd.so
+  ln -s pam_unix.so pam_unix_session.so
+
+  # set unix_chkpwd uid
+  chmod +s $pkgdir/bin/unix_chkpwd
+  ydfs-install-package
+  touch buildok-$ARCH
+  exit 0
+  fi

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Setup Keyboard layout
+Name[fr]=Configurer le type de clavier
+Exec=/ydfs/config/change-kbd
+Terminal=false
+Icon=kbd
+Type=Application
+Categories=Settings

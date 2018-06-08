@@ -1,0 +1,38 @@
+. ./config.ini
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
+export LD_LIBRARY_PATH=$HOME/x86/lib
+rm $LCMBUILD/firmware-$ARCH.squashfs
+if [ "$ARCH" = "x86_64" ]
+then
+export LD_LIBRARY_PATH=$HOME/x86_64/lib
+else
+export LD_LIBRARY_PATH=$HOME/x86/lib
+fi
+install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
+cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
+
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+cp -fR linux-firmware/* lib/firmware || exit 3
+ls lib/firmware/radeon/R600* || exit 1
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
+echo
+ 
+exit 0
+
+DEBVER=_0.44_all.deb
+DEBVER=_0.44~bpo8+1_all.deb
+DEBVER=_20160110-1_all.deb
+for FIRMWARE in firmware-iwlwifi firmware-realtek firmware-libertas firmware-brcm80211 firmware-atheros firmware-netxen firmware-ipw2x00 firmware-linux firmware-myricom firmware-qlogic
+do
+  [ ! -e $FIRMWARE$DEBVER ] && wget http://ftp.us.debian.org/debian/pool/non-free/f/firmware-nonfree/$FIRMWARE$DEBVER
+  [ ! -e $FIRMWARE$DEBVER ] && wget http://jukebox.linuxconsole.org/sources/$FIRMWARE$DEBVER
+  [ ! -e $FIRMWARE$DEBVER ] && exit 1
+  dpkg -x $FIRMWARE$DEBVER .
+done
+[ ! -e firmware-nonfree_20160110.orig.tar.xz ] && wget http://ftp.us.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-nonfree_20160110.orig.tar.xz
+[ ! -e firmware-nonfree_20160110.orig.tar.xz ] && wget  http://jukebox.linuxconsole.org/sources/firmware-nonfree_20160110.orig.tar.xz
+tar xJvf firmware-nonfree_20160110.orig.tar.xz
+cp -fR firmware-nonfree*/* lib/firmware || exit 3
+ls lib/firmware/radeon/R600* || exit 1
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
+echo

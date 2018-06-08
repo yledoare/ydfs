@@ -1,0 +1,16 @@
+RELEASE=3.8.1
+cd $HOME/ydfs/tarballs
+[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
+[ ! -e ../src/llvm-$RELEASE.src ] && cd ../src/ && tar -xJf ../tarballs/llvm-$RELEASE.src.tar.xz
+cd llvm-$RELEASE.src/tools || exit 1
+
+[ ! -e cfe-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/cfe-$RELEASE.src.tar.xz
+[ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
+[ ! -e clang ] && mv cfe-$RELEASE.src clang 
+
+cd ..
+
+#install -d build
+#cd build
+# ../configure --enable-shared --prefix=$HOME/ydfs/llvm-clang
+# make -j3 && make install

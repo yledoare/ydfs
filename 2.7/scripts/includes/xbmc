@@ -1,0 +1,30 @@
+#!/bin/sh
+if [ -e xbmc-xrandr.c ]
+then
+
+#    OLDPWD=$PWD
+#    cd /home/linuxconsole2018/ydfs/src/xbmc-17.6-Krypton/kodi-build/build/libdvd/src/dvdread/
+#	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif
+#	cd $OLDPWD
+    mkdir kodi-build
+    cd kodi-build
+	pwd
+    cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
+    -DENABLE_EVENTCLIENTS=ON \
+    -DENABLE_INTERNAL_FFMPEG=OFF \
+    -DENABLE_OPTICAL=OFF \
+    -DLIRC_DEVICE=/run/lirc/lircd \
+    ../project/cmake || exit $?
+
+     make || exit $?
+     make install || exit $?
+     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+     touch buildok-$ARCH
+     exit 0 
+fi 

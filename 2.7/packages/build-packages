@@ -1,0 +1,408 @@
+#!/bsn/bash
+export DIBAB_PREFIX=$HOME
+export SRC_PATH=$PWD
+
+install -d $HOME/tmp
+export TMPDIR=$HOME/tmp
+
+
+if [ "$ARCH" = "arm" ]
+then
+ install -d $HOME/$ARCH/share/aclocal
+fi
+
+install -d $HOME/opkg/share/aclocal/
+
+echo $SRC_PATH/list-$1
+# normalement c'est un double crochet, le simple crochet est utilisé pour des raisons de compatibilité
+# -n ch vraie si la longueur de la chaîne ch est différente de zéro.
+# si donc "$1" n'est pas nulle (donc la distribution particulière précisée) et si le fichier $SRC_PATH/list-$1 exist
+# alors on va chercher à faire l'ISO spécifique ou l'ISO générale de l'architecture demandée
+if [ -n "$1" ] && [ -e $SRC_PATH/list-$1 ] 
+then
+export MODULE=$1
+else
+export MODULE=$ARCH
+fi
+
+# 2 commandes pour le cas particulier de l'architecture x86_64
+[ "$ARCH" = "x86_64" ] && [ ! -e $HOME/$ARCH/lib64 ] && install -d $HOME/$ARCH/lib && ln -s $HOME/$ARCH/lib $HOME/$ARCH/lib64
+
+if [ "$MODULE" == "qt5" ]
+then
+  if [ "$ARCH" = "x86_64" ]
+  then
+	#TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
+	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/gcc_64.7z"
+  	#[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
+	if [ ! -e $HOME/qt5 ]
+	then            
+	  cd $HOME 
+	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL 
+	  7z x gcc_64.7z && mv gcc_64 qt5
+	fi
+
+	OPKGARCH=x86_64
+	#LIBICU=57
+	#for LIB in libicuuc.so libicui18n.so libicudata.so libicuuc.so libicui18n.so libicudata.so
+	#do
+	#		ln -s $HOME/$OPKGARCH/lib/$LIB.$LIBICU $HOME/qt5/lib/$LIB.55
+	#done
+  else
+  	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5-x86.tar.gz
+  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5-x86.tar.gz && mv qt5-x86 qt5
+	OPKGARCH=i686
+  fi
+  exit 0
+fi
+
+# 2 commandes pour Freetype
+[ ! -e $HOME/$ARCH/include/freetype ] && install -d $HOME/$ARCH/include/freetype2 && ln -s $HOME/$ARCH/include/freetype2 $HOME/$ARCH/include/freetype
+
+# destruction des variables d'environnement citées
+unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD_LIBRARY_PATH PYTHONPATH PERL PYTHON
+
+# $1 est supposée être une ISO particulière demandée passée en paramètre, lanpower, par exemple: pourquoi est-ce "uclib" ici ? 
+# Sinon, La ligne 14 "echo $SRC_PATH/list-$1" donne n'importe quoi
+[ "$1" = "uclib" ] && export CC=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
+# initialisation du chemin pour le compilateur C x86
+[ "$ARCH" = "x86" ] && [ "$CC" = "" ] && export CC=`which gcc`
+
+# initialisation de variables
+MODULEPATH=""
+export ACLOCAL="aclocal"
+
+# $1 a été mis dans $MODULE ci-dessus. Si list-$MODULE n'existe pas on sort : OK
+[ ! -e list-$MODULE ] && echo "$PWD/list-$MODULE not found !" && exit 1
+[ $MODULE != "ARCH" ] && MODULE_LIST="$MODULE $ARCH"
+[ -e list-$MODULE.deps ] && MODULE_LIST="`cat list-$MODULE.deps` $MODULE_LIST"
+echo " Module list : $MODULE_LIST"
+[ -e $HOME/qt5 ] && ln -sf $HOME/qt5/bin/qmake  $HOME/qt5/bin/qmake-qt5
+[ -e $HOME/qt5 ] && PATH="$HOME/qt5/bin:$PATH"
+PATH="$HOME/ydfs/llvm/bin:$PATH"
+[ -e $HOME/qt5 ] && CXXFLAGS="-std=c++11 -I$HOME/qt5/include"
+[ -e $HOME/qt5 ] && CXX_FLAGS="-std=c++11 -I$HOME/qt5/include"
+[ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"
+[ -e $HOME/qt5 ] && CPPFLAGS="  -I$HOME/qt5/include/QtTest -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore $CPPFLAGS"
+[ -e $HOME/qt5 ] && LDFLAGS=" -L$HOME/qt5/lib $LDFLAGS"
+[ -e $HOME/qt5 ] && LD_LIBRARY_PATH="$HOME/qt5/lib:$LD_LIBRARY_PATH"
+[ -e $HOME/qt5 ] && PKG_CONFIG_PATH="$HOME/qt5/lib/pkgconfig:$PKG_CONFIG_PATH"
+# boucle sur l'ensemble des modules 
+for MODULE in $MODULE_LIST
+do
+# echo "PATH is $PATH"
+export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$ARCH/share/aclocal/ -I $HOME/opkg/share/aclocal/"
+echo "ACLOCAL_FLAGS is $ACLOCAL_FLAGS"
+# création d'un répertoire
+[ ! -e $HOME/$MODULE/share/aclocal ] && install -d $HOME/$MODULE/share/aclocal
+# initialisations des variables utilisées 
+install -d $HOME/ydfs/CFLAGS
+install -d $HOME/ydfs/CPPFLAGS
+install -d $HOME/ydfs/CPPFLAGS
+export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/$HOME/$MODULE/lib:$HOME/$ARCH/lib CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:$HOME/$MODULE/include:$HOME/$ARCH/include
+export CFLAGS="$CFLAGS -O2 -I. -I""$HOME/$MODULE/include"
+export CPPFLAGS="$CPPFLAGS -I""$HOME/$MODULE/include"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$MODULE/include"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/AL"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/irrlicht"
+export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/freetype2"
+export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib "
+export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib64 "
+export GTKMM_BASEPATH=$HOME/$ARCH
+# autres initialisations selon les architectures(processeurs)
+[ "$ARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$ARCH/lib -Wl,-rpath-link,/home/raspi/ydfs/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME
+[ "$ARCH" = "x86" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib"
+[ "$ARCH" = "x86_64" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib64 -Wl,-rpath-link,$HOME/$MODULE/lib"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/$MODULE/lib"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/$MODULE/lib/pkgconfig/:$HOME/$MODULE/share/pkgconfig/:$HOME/$MODULE/lib64/pkgconfig"
+MODULEPATH="$HOME/$MODULE/bin/:$HOME/$MODULE/sbin/:$MODULEPATH"
+export XDG_DATA_DIRS="$HOME/$MODULE/share/:$XDG_DATA_DIRS"
+[ "$MODULE" = "qt" ] && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && unset CFLAGS
+done
+
+# echo "SET PATH"
+if [ "$ARCH" = "arm" ]
+then
+PATH=$PWD:$PATH
+else
+PATH=$PWD:$HOME/Qt5/5.4/gcc/bin:$MODULEPATH:$PATH:
+fi
+PATH=$HOME/ydfs/llvm-clang/bin/:$PATH
+test -n "$1" && MODULE="$1"
+# build tar
+whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
+
+# initialisation de différents variables pour la compilation
+export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python2.7/site-packages:$DIBAB_PREFIX/$MODULE/lib/python2.7/site-packages
+export MAKE=`which make` MSGFMT=`which msgfmt` MSGMERGE=`which msgmerge` XGETTEXT=`which xgettext`
+
+export PYTHON_PREFIX=$DIBAB_PREFIX/$MODULE/
+export LIB_CUPS=$DIBAB_PREFIX/$ARCH/lib
+export CUPS_ETC=$DIBAB_PREFIX/$ARCH/etc
+
+# la variable LIST n'est pas initialisée ici dans build-packages, mais c'est MODULE en fait mais aussi $1 (le premier paramètre)
+# on initialise LIST2 avec $SRC_PATH/list-$LIST sauf si $1 est non vide alors LIST2=$SRC_PATH/list-$1 , mais LIST est définie où ?
+LIST2=$SRC_PATH/list-$LIST
+[ -n "$1" ] && [ -e $SRC_PATH/list-$1 ] && LIST2=$SRC_PATH/list-$1
+
+[ -e $HOME/ydfs-error ] && rm $HOME/ydfs-error
+
+$HOME_DIBAB/scripts/first-env
+
+readarray -t PACKAGE < $LIST2 || exit $?
+COUNT=0
+for i in ${!PACKAGE[*]}
+do 
+  ARCHIVE=${PACKAGE[i]}
+  COUNT=`echo $((COUNT + 1))`
+  [ $COUNT = 1 ] && MAX=`cat $LIST2|wc -l`
+  echo 
+  echo -n -e " \e[94m$COUNT\e[0m " 
+  echo -n " / $MAX : "
+  echo "$ARCHIVE" | grep "#END-$DISTRONAME" && break
+  echo "$ARCHIVE" | grep "#SKIP-$DISTRONAME" && continue
+  echo "$ARCHIVE" | grep "#SKIP-""$ARCH""#" && continue
+  echo "$ARCHIVE" | grep "#Games" && export DBEXTRA="games"
+  echo "$ARCHIVE" | grep "#Education" && export DBEXTRA="education"
+  echo "$ARCHIVE" | grep "#Office" && export DBEXTRA="office"
+  echo "$ARCHIVE" | grep "#Drivers" && export DBEXTRA="drivers"
+  echo "$ARCHIVE" | grep "#Libs" && export DBEXTRA="libs"
+  echo "$ARCHIVE" | grep "#Emulators" && export DBEXTRA="emulators"
+  echo "$ARCHIVE" | grep "#Network" && export DBEXTRA="network"
+  echo "$ARCHIVE" | grep "#Printer" && export DBEXTRA="printer"
+  echo "$ARCHIVE" | grep "#Multimedia" && export DBEXTRA="multimedia"
+  echo "$ARCHIVE" | grep "#System" && export DBEXTRA="system"
+  echo "$ARCHIVE" | grep "#KDE" && export DBEXTRA="KDE"
+  echo "$ARCHIVE" | grep "#Development" && export DBEXTRA="development"
+  echo "$ARCHIVE" | grep "#Misc" && export DBEXTRA="misc"
+  ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  [ "$ARCHIVE_URL" = "" ] && continue
+  if [  -n "`echo $ARCHIVE | grep 'archsource:'`" ] 
+then
+  PKG=`echo $ARCHIVE | cut -d':' -f2`
+  $HOME_DIBAB/scripts/get-archpkg $PKG || exit $?
+  $HOME_DIBAB/scripts/build-archpkg || exit $?
+  exit 0
+fi
+  if [  -n "`echo $ARCHIVE | grep 'archlinuxpatched:'`" ] 
+then
+  PKG=`echo $ARCHIVE | cut -d':' -f2`
+  $HOME_DIBAB/scripts/get-archpkg $PKG || exit $?
+	$HOME_DIBAB/scripts/echo-archpkg $PKG || exit $?
+  ARCHIVE=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+  echo "Arch linux source for $PKG : $ARCHIVE_URL"
+fi
+  if [  -n "`echo $ARCHIVE | grep 'archlinux:'`" ] 
+then
+  PKG=`echo $ARCHIVE | cut -d':' -f2`
+	$HOME_DIBAB/scripts/echo-archpkg $PKG || exit $?
+  ARCHIVE=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+  echo "Arch linux source for $PKG : $ARCHIVE_URL"
+fi
+  DIRNAME=`basename $ARCHIVE_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH ] && echo "$HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages-$ARCH/$DIRNAME ] && echo "$HOME/ydfs/packages-$ARCH/$DIRNAME exists" && continue
+  FIRST=`echo $ARCHIVE | head -c1`
+  [ "$FIRST" = '#' ] && continue
+  ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
+  [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/_i386.deb/_amd64.deb/"`
+  [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/i586.deb/amd64.deb/"`
+  export PKGSRC=$ARCHIVE
+  echo -n " $ARCHIVE "
+  export MYPREFIX=$DIBAB_PREFIX/$MODULE/
+  echo $ARCHIVE | grep grub-2 && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
+  echo $ARCHIVE | grep warzone && export CLEARENV="OK"
+  echo $ARCHIVE | grep lxpanel && install -d $HOME/ydfs/build-$ARCH/lxpanel/data/ui # FIXME
+  if [  -n "`echo $ARCHIVE | grep 'svn://'`" ] 
+  then
+    cd $HOME/ydfs/src
+    SOURCE_DIR=`basename $ARCHIVE | cut -d'.' -f1`
+    [ ! -e $SOURCE_DIR ] && svn co $ARCHIVE
+    cd $SOURCE_DIR
+    [ -e libc ] && cd libc # eglibc
+    db-autobuild $DIBAB_PREFIX/$MODULE || exit $?
+    continue
+  fi
+  if [  -n "`echo $ARCHIVE | grep 'lp:'`" ] 
+  then
+    cd $HOME/ydfs/src
+    SOURCE_DIR=`echo $ARCHIVE | cut -d':' -f2`
+    [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $ARCHIVE
+    cd $SOURCE_DIR
+    db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    continue
+  fi
+  if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] 
+  then
+    cd $HOME/ydfs/src
+    echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
+    SOURCE_DIR=`basename $ARCHIVE | cut -d'.' -f1`
+    #[ "$SOURCE_DIR" = "core" ] && SOURCE_DIR=libreoffice
+    [ ! -e $SOURCE_DIR ] && git clone $ARCHIVE
+    cd $SOURCE_DIR
+    [ ! -n "$REVISION" ] && git reset --hard $REVISION 
+  . $HOME_DIBAB/scripts/includes/build-options
+    db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    continue
+  fi
+  if [  -n "`echo $ARCHIVE | grep 'CPAN:/'`" ] 
+  then
+    modperl=`echo $ARCHIVE | cut -d '/' -f2` 
+    echo "Run  db-build-modperl $modperl" 
+	  SDL_INC=$HOME/$ARCH/include SDL_LIB=$HOME/$ARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    continue
+  fi
+
+  [ -e $HOME/ydfs-error ] && echo "Exit $0 " && break
+
+  if [ -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ]
+  then
+    test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
+  fi
+  [ -e $HOME/ydfs/tarballs/`basename $ARCHIVE`.start ] && [ -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
+
+  # First pass, go into source LinuxConsole
+  echo
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo -n "Get $ARCHIVE ..." && wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
+    test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
+   file $HOME/ydfs/tarballs/`basename $ARCHIVE` | grep HTML && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " 
+
+  # Second pass, go into LinuxConsole reposotory
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo && echo -n "Now trying http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) ..." && wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
+    test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found !!!" && echo && touch $HOME/ydfs-error && exit 1
+
+  echo $ARCHIVE | grep xslt && [ -e $DIBAB_PREFIX/$MODULE/include/libxml2/libxml ] && [ ! -e $DIBAB_PREFIX/$MODULE/include/libxml ] && ln -s $DIBAB_PREFIX/$MODULE/include/libxml2/libxml $DIBAB_PREFIX/$MODULE/include
+
+  # Environment variables
+
+  export CXX="g++"
+  [ -e $HOME/qt5 ] && export CXX="g++ -I$HOME/qt5/include/QtTest -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include $CFLAGS -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore"
+  echo $ARCHIVE | grep warsow && export CFLAGS="$CFLAGS -I""$HOME/$ARCH/include/freetype "
+  echo $ARCHIVE | grep efl-1 && unset CXX
+#  echo $ARCHIVE | grep icu4c && export CXX="g++ -fPIC"
+#  echo $ARCHIVE | grep zlib- && export CC="gcc -fPIC"
+  echo $ARCHIVE | grep plib && export CXX="g++ -fPIC"
+  echo $ARCHIVE | grep dssi && export CXX="g++ -fPIC -I$HOME/$ARCH/include"
+  echo $ARCHIVE | grep perl-5 && export CFLAGS="-I$HOME/$ARCH/include" && export CXXFLAGS=$CFLAGS && export CPPFLAGS=$CFLAGS
+  echo $ARCHIVE | grep SDL_Pango && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+  echo $ARCHIVE | grep ijs-0 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+  echo $ARCHIVE | grep lzo-2 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+#  echo $ARCHIVE | grep net-snmp && export LDFLAGS="$LDFLAGS -lnl" 
+  echo $ARCHIVE | grep fftw && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+  echo $ARCHIVE | grep json-c && export CFLAGS="$CFLAGS -Wno-error"
+  echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
+  echo $ARCHIVE | grep foomatic-db-engine && export LIBDIR=$DIBAB_PREFIX/$MODULE/share/foomatic 
+  echo $ARCHIVE | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gtk+-2.24.9/gdk/.libs/"
+  echo $ARCHIVE | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS"
+  echo $ARCHIVE | grep udev-164 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/udev-164/libudev/.libs/"
+  echo $ARCHIVE | grep gst-plugins-bad && ln -s $HOME/$ARCH/include/openjpeg-2.2 $HOME/$ARCH/include/openjpeg-2.1
+  echo $ARCHIVE | grep minetest && export LDFLAGS="$LDFLAGS -lIrrlicht" 
+  echo $ARCHIVE | grep dolphin && export CXXFLAGS="$CXXFLAGS "$( pkg-config --cflags gtk+-2.0)
+  echo $ARCHIVE | grep ffmpeg-3 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export CPPFLAGS="$CPPFLAGS -fPIC" && CXXFLAGS="$CXXFLAGS -fPIC"
+  echo $ARCHIVE | grep sqlite && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                             -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+                             -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                             -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
+                             -DSQLITE_SECURE_DELETE \
+                             -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+                             -DSQLITE_MAX_EXPR_DEPTH=10000" 
+  echo $ARCHIVE | grep ghostscript && export CPPFLAGS="$CPPFLAGS -Ijpeg/ -Ilibpng -I./freetype/include/freetype" 
+  echo $ARCHIVE | grep sqlite || unset AM_CPPFLAGS
+
+  # Build options
+
+  LC_CONFIGURE_OPTS=""
+
+  # . $(dirname $0)/../scripts/includes/build-options
+  . $HOME_DIBAB/scripts/includes/build-options
+
+
+	echo $ARCHIVE | grep zlib && unset LC_CONFIGURE_OPTS && LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` && continue
+
+	# Build now
+
+	echo -n  " (db-lcarchive) "
+	# echo -n  " .. Running db-lcarchive $HOME/ydfs/tarballs/$(basename $ARCHIVE)"
+	DBKVER=$KERNEL3 LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS" LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` || touch $HOME/ydfs-error
+       
+	if [ -e $HOME/ydfs-error ]
+        then
+	   echo "Exit db-lcarchive $ARCHIVE " 
+		# [ -e $HOME/ydfs/.last-error ] && tail -200 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error && break
+		exit 1	
+	fi
+	# Build twice
+
+	if [ "$BUILD_TWICE" = "yes" ] 
+	then
+	  echo "Building twice" # && read key
+	  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS" LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+	  unset BUILD_TWICE
+	fi
+        
+	# Unser variables
+
+	unset PREFIX
+	echo $ARCHIVE | grep gstreamer && unset SHELL
+	echo $ARCHIVE | grep gstreamer && unset CONFIG_SHELL
+	echo $ARCHIVE | grep foomatic-db-engine && unset LIBDIR
+	echo $ARCHIVE | grep gutenprint && unset DESTDIR
+	echo $ARCHIVE | grep glibc && unset MAKE_INSTALL
+	echo $ARCHIVE | grep mysql-5 && install -d  $MYPREFIX/include/mysql && cp $MYPREFIX/include/errmsg.h $MYPREFIX/include/mysql/ && cp $MYPREFIX/include/mysql.h  $MYPREFIX/include/mysql/
+	echo $ARCHIVE | grep Linux-PAM && [ ! -e $HOME/$MODULE/include/security ] && ln -s $HOME/$MODULE/include/ $HOME/$MODULE/include/security
+	echo $ARCHIVE | grep netpbm && [ ! -e $DIBAB_PREFIX/$MODULE/bin/pnmtops ] && cd $HOME/ydfs/src/netpbm* && make package pkgdir=/tmp/netpbm && cp -fR /tmp/netpbm/* $DIBAB_PREFIX/$MODULE/
+done
+
+[ -e $HOME/ydfs-error ] && exit 1
+
+if [ ! -e $HOME/$ARCH/share/fonts/dejavu-fonts-ttf-2.29 ] && [ "$ARCH" != "arm" ]
+then
+  install -d $HOME/$ARCH/share
+  [ ! -e $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2 ] && wget --directory-prefix=$HOME/ydfs/tarballs http://freefr.dl.sourceforge.net/sourceforge/dejavu/dejavu-fonts-ttf-2.29.tar.bz2
+  tar xjvf $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2
+  mv dejavu-fonts-ttf-2.29 $HOME/$ARCH/share/fonts
+fi
+
+#if [ ! -e $HOME/$ARCH/share/fonts/truetype/ukai ]
+#then
+#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+#  mkdir ukai
+#  cd ukai
+#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
+#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/ukai
+#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/ukai
+#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
+#  cd $HOME/$ARCH/etc/fonts/conf.d
+#  cp ../conf.avail/*-ttf-arphic-ukai-*.conf . 
+#fi
+
+#if [ ! -e $HOME/$ARCH/share/fonts/truetype/uming ]
+#then
+#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+#  mkdir uming
+#  cd uming
+#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
+#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/uming
+#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/uming
+#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
+#  cd $HOME/$ARCH/etc/fonts/conf.d
+#  cp ../conf.avail/*-ttf-arphic-uming-*.conf . 
+#fi
+
+echo > $HOME/$ARCH/buildenv
+for ENV in LD_LIBRARY_PATH LIB_CUPS PATH CUPS_ETC XDG_DATA_DIRS PYTHONPATH
+do
+  echo 'echo $'"$ENV" > $HOME/.printenv
+  echo "export $ENV=`sh $HOME/.printenv`" >> $HOME/$ARCH/buildenv
+done
+[ ! -e $HOME/$MODULE/buildok ] && touch $HOME/$MODULE/buildok # usefull to know which file can be wrotten into $HOME/$MODULE/ after last package build
+echo "Build packages OK"
+
+#/home/yann/x86/bin/mksquashfs /home/ydfs-32/games/ /home/ydfs-32/ydfs/build/modules/games-x86.squashfs

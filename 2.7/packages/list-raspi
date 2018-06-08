@@ -1,0 +1,423 @@
+#BEGIN
+#archlinux:perl
+#archlinux:rxvt-unicode
+http://zlib.net/zlib-1.2.8.tar.gz 
+http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+http://www.oberhumer.com/opensource/lzo/download/lzo-2.06.tar.gz
+http://www.lzop.org/download/lzop-1.03.tar.gz
+http://tukaani.org/xz/xz-5.0.1.tar.gz 
+http://ftp.gnu.org/pub/gnu/gettext/gettext-0.18.3.2.tar.gz 
+http://freefr.dl.sourceforge.net/project/expat/expat/2.0.1/expat-2.0.1.tar.gz 
+ftp://sourceware.org/pub/libffi/libffi-3.0.9.tar.gz 
+http://ftp.gnome.org/pub/gnome/sources/glib/2.38/glib-2.38.2.tar.xz
+http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz
+http://files.itstool.org/itstool/itstool-1.2.0.tar.bz2
+# needs patch to cross compile http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/wireless_tools.29.tar.gz 
+#http://avahi.org/download/avahi-0.6.31.tar.gz
+#dbus-first-build
+#http://dbus.freedesktop.org/releases/dbus/dbus-1.6.12.tar.gz
+http://ftp.de.debian.org/debian/pool/main/x/xmlto/xmlto_0.0.23.orig.tar.gz
+http://dbus.freedesktop.org/releases/dbus/dbus-1.8.0.tar.gz
+http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.2/squashfs4.2.tar.gz 
+#libpng12-to-be-compatible-with-debian
+http://freefr.dl.sourceforge.net/project/libpng/libpng12/1.2.50/libpng-1.2.50.tar.xz
+http://www.ijg.org/files/jpegsrc.v8.tar.gz
+ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz
+http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.9.tar.gz
+ftp://xmlsoft.org/libxml2/libxml2-2.9.1.tar.gz
+http://p11-glue.freedesktop.org/releases/p11-kit-0.12.tar.gz
+http://ftp.gnu.org/gnu/libidn/libidn-1.22.tar.gz
+http://www.lysator.liu.se/~nisse/archive/nettle-2.7.tar.gz
+ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.12.tar.gz
+ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.3.tar.gz
+http://xmlsoft.org/sources/libxslt-1.1.28.tar.gz 
+http://www.mega-nerd.com/SRC/libsamplerate-0.1.7.tar.gz 
+#ftp://ftp.alsa-project.org/pub/lib/alsa-lib-1.0.27.2.tar.bz2
+#ftp://ftp.alsa-project.org/pub/utils/alsa-utils-1.0.27.2.tar.bz2
+http://ftp.gnu.org/pub/gnu/gperf/gperf-3.0.4.tar.gz 
+http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
+http://www.openssl.org/source/openssl-1.0.1f.tar.gz 
+http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+http://download.savannah.gnu.org/releases/freetype/freetype-2.4.8.tar.gz 
+http://www.sqlite.org/sqlite-autoconf-3070500.tar.gz 
+http://curl.haxx.se/download/curl-7.35.0.tar.gz 
+http://www.freedesktop.org/software/fontconfig/release/fontconfig-2.10.95.tar.gz
+http://edge.launchpad.net/intltool/trunk/0.41.1/+download/intltool-0.41.1.tar.gz 
+http://ftp.igh.cnrs.fr/pub/nongnu//attr/attr-2.4.47.src.tar.gz
+http://ftp.de.debian.org/debian/pool/main/libu/libusb/libusb_0.1.12.orig.tar.gz 
+http://freefr.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.8/libusb-1.0.8.tar.bz2
+http://ftp.de.debian.org/debian/pool/main/u/usbutils/usbutils_005.orig.tar.gz
+http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz
+ftp://ftp.freedesktop.org/pub/individual/lib/pixman-0.32.4.tar.gz
+ftp://ftp.freedesktop.org/pub/individual/proto/dri2proto-2.8.tar.gz 
+http://xorg.freedesktop.org//releases/individual/proto/dri3proto-1.0.tar.bz2
+ftp://ftp.freedesktop.org/pub/individual/proto/xproto-7.0.25.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/glproto-1.4.17.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/xextproto-7.3.0.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/presentproto-1.0.tar.bz2
+ftp://ftp.freedesktop.org/pub/individual/lib/xtrans-1.3.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/inputproto-2.3.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/kbproto-1.0.4.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXau-1.0.6.tar.gz 
+http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz 
+http://xcb.freedesktop.org/dist/xcb-proto-1.10.tar.gz 
+http://xcb.freedesktop.org/dist/libxcb-1.10.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/util/util-macros-1.9.0.tar.gz 
+http://xcb.freedesktop.org/dist/xcb-util-0.3.9.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libX11-1.6.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/util/makedepend-1.0.2.tar.gz 
+http://xorg.freedesktop.org/archive/individual/lib/libpciaccess-0.13.1.tar.gz
+http://dri.freedesktop.org/libdrm/libdrm-2.4.56.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libICE-1.0.8.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libxkbfile-1.0.8.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libSM-1.2.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXt-1.1.4.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXext-1.1.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/fontcacheproto-0.1.3.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libxkbui-1.0.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXmu-1.1.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXpm-3.5.11.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXaw-1.0.12.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/fontsproto-2.1.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libfontenc-1.1.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXfont-1.4.7.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXfontcache-1.0.5.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/fixesproto-5.0.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXfixes-5.0.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/compositeproto-0.4.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/xf86driproto-2.1.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/xf86dgaproto-2.1.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/xcmiscproto-1.2.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/bigreqsproto-1.1.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/randrproto-1.4.0.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/renderproto-0.11.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/videoproto-2.3.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/recordproto-1.14.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/scrnsaverproto-1.2.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/resourceproto-1.2.0.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/xineramaproto-1.2.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/dri2proto-2.8.tar.gz
+ftp://ftp.freedesktop.org/pub/individual/lib/libXcomposite-0.4.2.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXrender-0.9.6.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXcursor-1.1.10.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXv-1.0.10.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXi-1.7.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXScrnSaver-1.2.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXres-1.0.7.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXinerama-1.1.3.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXft-2.3.1.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXvMC-1.0.8.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXrandr-1.4.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXxf86dga-1.1.4.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXdmcp-1.1.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/proto/xf86vidmodeproto-2.3.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXxf86vm-1.1.3.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/proto/damageproto-1.2.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXdamage-1.1.4.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXtst-1.2.2.tar.gz 
+http://ftp.de.debian.org/debian/pool/main/x/xbitmaps/xbitmaps_1.1.0.orig.tar.gz 
+http://ftp.de.debian.org/debian/pool/main/x/x11-apps/x11-apps_7.7~2.dsc
+ftp://ftp.cs.cuhk.edu.hk/pub/X11/individual/app/xcursorgen-1.0.5.tar.bz2 
+http://ftp.de.debian.org/debian/pool/main/x/x11-xserver-utils/x11-xserver-utils_7.5+3.tar.gz 
+http://ftp.de.debian.org/debian/pool/main/x/x11-xkb-utils/x11-xkb-utils_7.5+5.tar.gz 
+http://xorg.freedesktop.org/archive/individual/app/xauth-1.0.5.tar.gz 
+http://xorg.freedesktop.org/archive/individual/app/xvinfo-1.1.1.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/font/font-util-1.2.0.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/app/mkfontscale-1.0.8.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/app/mkfontdir-1.0.6.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/font/encodings-1.0.3.tar.gz 
+ftp://ftp.freedesktop.org/pub/individual/data/xkeyboard-config/xkeyboard-config-2.12.tar.bz2
+ftp://ftp.freedesktop.org/pub/individual/font/font-adobe-75dpi-1.0.1.tar.gz 
+http://xorg.freedesktop.org/releases/individual/font/font-bitstream-100dpi-1.0.3.tar.gz
+http://xorg.freedesktop.org/releases/individual/font/font-xfree86-type1-1.0.4.tar.gz
+http://xorg.freedesktop.org/releases/individual/font/font-bh-type1-1.0.3.tar.gz
+http://xorg.freedesktop.org/releases/individual/font/font-bitstream-type1-1.0.3.tar.gz
+http://xorg.freedesktop.org/releases/individual/font/font-misc-misc-1.1.2.tar.bz2
+http://xorg.freedesktop.org/releases/individual/font/font-bh-ttf-1.0.3.tar.gz
+#dbus-second-build-with-x11-deps
+http://dbus.freedesktop.org/releases/dbus/dbus-1.6.14.tar.gz
+http://ftp.lfs-matrix.net/pub/clfs/conglomeration/udev/udev-165.tar.bz2 # core
+http://xorg.freedesktop.org//releases/individual/lib/libxshmfence-1.1.tar.bz2
+# ftp://ftp.freedesktop.org/pub/mesa/10.2.6/MesaLib-10.2.6.tar.bz2
+ftp://ftp.freedesktop.org/pub/individual/xserver/xorg-server-1.15.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.2.tar.bz2
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-keyboard-1.7.0.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-mouse-1.9.0.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
+http://cairographics.org/releases/cairo-1.12.16.tar.xz
+http://www.freedesktop.org/software/harfbuzz/release/harfbuzz-0.9.25.tar.bz2
+ftp://ftp.gnome.org/pub/gnome/sources/pango/1.36/pango-1.36.2.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.10/at-spi2-core-2.10.2.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.30/gdk-pixbuf-2.30.4.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/atk/2.10/atk-2.10.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.10/at-spi2-atk-2.10.2.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gtk+/3.12/gtk+-3.12.2.tar.xz
+http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.102.tar.gz
+ftp://ftp.gnome.org/pub/gnome/sources/zenity/3.8/zenity-3.8.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/libnotify/0.7/libnotify-0.7.6.tar.xz
+http://cairographics.org/releases/py2cairo-1.10.0.tar.bz2
+http://downloads.xiph.org/releases/ao/libao-1.1.0.tar.gz 
+http://downloads.xiph.org/releases/ogg/libogg-1.2.2.tar.gz 
+http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.2.tar.bz2 
+http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz 
+http://openbox.org/dist/openbox/openbox-3.5.2.tar.gz
+http://ftp.acc.umu.se/pub/GNOME/sources/pygobject/2.28/pygobject-2.28.6.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/pygobject/3.10/pygobject-3.10.2.tar.xz # for gtk3
+http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
+ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
+http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
+http://ftp.de.debian.org/debian/pool/main/h/hicolor-icon-theme/hicolor-icon-theme_0.12-1.dsc
+http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.0.tar.gz
+ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
+http://sources.openelec.tv/mirror/avahi/avahi-0.6.31.tar.gz
+http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz
+http://poppler.freedesktop.org/poppler-0.26.0.tar.xz
+ftp://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.2.tar.bz2 
+ftp://ftp.gnome.org/pub/gnome/sources/librsvg/2.40/librsvg-2.40.2.tar.xz
+http://monkey.org/~provos/libevent-2.0.10-stable.tar.gz 
+http://ftp.gnu.org/gnu/tar/tar-1.27.1.tar.xz
+http://ftp.gnu.org/gnu/libcdio/libcdio-0.82.tar.gz 
+http://downloads.sourceforge.net/project/lame/lame/3.98.4/lame-3.98.4.tar.gz 
+http://downloads.xiph.org/releases/speex/speex-1.2rc1.tar.gz #SKIP-papyrus
+http://ftp.de.debian.org/debian/pool/main/libt/libtheora/libtheora_1.1.1+dfsg.1-3.1.dsc #SKIP-papyrus
+http://ftp.de.debian.org/debian/pool/main/libm/libmikmod/libmikmod_3.1.11-6.3.dsc #SKIP-papyrus
+http://downloads.xiph.org/releases/flac/flac-1.3.0.tar.xz
+http://www.libsdl.org/release/SDL-1.2.15.tar.gz #SKIP-papyrus
+http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz #SKIP-papyrus
+http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz #SKIP-papyrus
+http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.11.tar.gz #SKIP-papyrus
+http://www.libsdl.org/projects/SDL_image/release/SDL_image-1.2.11.tar.gz #SKIP-papyrus
+http://www.ferzkopp.net/Software/SDL_gfx-2.0/SDL_gfx-2.0.25.tar.gz #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/scons/scons/2.0.1/scons-2.0.1.tar.gz
+http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.24.tar.gz #SKIP-papyrus
+http://ftp.gnu.org/gnu/enscript/enscript-1.6.6.tar.gz
+http://sg.danny.cz/sg/p/sg3_utils-1.30.tgz 
+http://hal.freedesktop.org/releases/eggdbus-0.6.tar.gz 
+http://freefr.dl.sourceforge.net/project/flex/flex-2.5.37.tar.gz
+http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.5.tar.bz2 
+http://ftp.de.debian.org/debian/pool/main/u/upower/upower_0.9.17-1.dsc
+http://garr.dl.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.42.10/e2fsprogs-1.42.10.tar.gz
+http://www.samba.org/ftp/talloc/talloc-2.1.0.tar.gz
+http://tuxera.com/opensource/ntfs-3g_ntfsprogs-2014.2.15.tgz
+ftp://sources.redhat.com/pub/lvm2/LVM2.2.02.106.tgz
+http://ftp.gnu.org/gnu/parted/parted-3.1.tar.xz
+http://pkgs.fedoraproject.org/lookaside/pkgs/libatasmart/libatasmart-0.18.tar.gz/dc22b7acda1c2230f55ae98737e8b159/libatasmart-0.18.tar.gz
+http://hal.freedesktop.org/releases/udisks-1.0.5.tar.gz
+http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz #SKIP-papyrus
+http://jukebox.linuxconsole.org/sources/libmad-0.15.1b.tar.gz
+#video
+http://downloads.xvid.org/downloads/xvidcore-1.3.2.tar.bz2 #SKIP-papyrus
+ftp://ftp.videolan.org/pub/x264/snapshots/last_x264.tar.bz2 #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/libraw1394/libraw1394/libraw1394-2.0.5.tar.gz #SKIP-papyrus
+http://download.videolan.org/pub/libdvdcss/1.2.12/libdvdcss-1.2.12.tar.bz2 #SKIP-papyrus
+http://downloads.sourceforge.net/libdv/libdv-1.0.0.tar.gz #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/libavc1394/libavc1394/libavc1394-0.5.4.tar.gz #SKIP-papyrus
+http://webm.googlecode.com/files/libvpx-v1.3.0.tar.bz2 #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.4/libmodplug-0.8.8.4.tar.gz #SKIP-papyrus
+http://fribidi.org/download/fribidi-0.19.6.tar.bz2
+http://libass.googlecode.com/files/libass-0.10.2.tar.xz
+ftp://ftp.videolan.org/pub/videolan/libbluray/0.5.0/libbluray-0.5.0.tar.bz2 #SKIP-papyrus
+http://ffmpeg.org/releases/ffmpeg-1.2.5.tar.bz2 #SKIP-papyrus
+http://gstreamer.freedesktop.org//src/gstreamer/gstreamer-1.2.4.tar.xz #SKIP-papyrus
+http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.2.4.tar.xz #SKIP-papyrus
+http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.2.4.tar.xz #SKIP-papyrus
+http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.2.4.tar.xz #SKIP-papyrus
+http://ftp.de.debian.org/debian/pool/main/m/mpeg2dec/mpeg2dec_0.4.1-3.dsc #SKIP-papyrus
+http://download.videolan.org/pub/libdvbpsi/1.1.2/libdvbpsi-1.1.2.tar.bz2 #SKIP-papyrus
+http://dvdnav.mplayerhq.hu/releases/libdvdread-4.9.9.tar.xz #SKIP-papyrus
+http://dvdnav.mplayerhq.hu/releases/libdvdnav-4.2.1.tar.xz #SKIP-papyrus
+http://live555.com/liveMedia/public/live555-latest.tar.gz #SKIP-papyrus
+http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.2.4.tar.xz #SKIP-papyrus
+http://gstreamer.freedesktop.org/src/gst-python/gst-python-1.2.0.tar.gz #SKIP-papyrus
+http://gstreamer.freedesktop.org//src/gst-libav/gst-libav-1.2.3.tar.xz #SKIP-papyrus
+http://www.fftw.org/fftw-3.3.3.tar.gz #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/libexif/libexif/0.6.20/libexif-0.6.20.tar.bz2
+http://portland.freedesktop.org/download/xdg-utils-1.1.0-rc1.tar.gz
+http://ftp.kernel.org/pub/software/utils/pciutils/pciutils-3.2.0.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
+ftp://ftp.gnome.org/pub/gnome/sources/gnome-menus/2.30/gnome-menus-2.30.5.tar.bz2
+http://pkgs.fedoraproject.org/repo/pkgs/libcanberra/libcanberra-0.30.tar.xz/34cb7e4430afaf6f447c4ebdb9b42072/libcanberra-0.30.tar.xz #SKIP-papyrus
+ftp://ftp.gnome.org/pub/gnome/sources/glib-networking/2.38/glib-networking-2.38.2.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/libsoup/2.42/libsoup-2.42.3.tar.xz
+http://www.carisma.slowglass.com/~tgr/libnl/files/libnl-3.2.24.tar.gz
+http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.9.5/src/nspr-4.9.5.tar.gz
+http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_14_3_RTM/src/nss-3.14.3.tar.gz
+http://pkg-isocodes.alioth.debian.org/downloads/iso-codes-3.49.tar.xz
+http://freefr.dl.sourceforge.net/project/glew/glew/1.10.0/glew-1.10.0.tgz #SKIP-papyrus
+http://xorg.freedesktop.org/archive/individual/app/xdriinfo-1.0.4.tar.gz
+http://freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.22.tar.xz
+http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.22.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/gtksourceview/2.10/gtksourceview-2.10.5.tar.bz2 
+http://ftp.gnome.org/pub/gnome/sources/pygtk/2.24/pygtk-2.24.0.tar.bz2
+http://www.galago-project.org/files/releases/source/notify-python/notify-python-0.1.1.tar.bz2
+http://ftp.gnome.org/pub/gnome/sources/libsigc++/2.3/libsigc++-2.3.1.tar.xz
+http://cairographics.org/releases/cairomm-1.10.0.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/glibmm/2.32/glibmm-2.32.1.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/pangomm/2.27/pangomm-2.27.1.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/atkmm/2.22/atkmm-2.22.2.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
+http://libarchive.org/downloads/libarchive-3.1.2.tar.gz
+ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-2.1.1.tar.bz2
+ftp://ftp.gnupg.org/gcrypt/libksba/libksba-1.3.0.tar.bz2
+ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz
+ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.0.22.tar.bz2
+ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-1.4.3.tar.bz2
+http://opkg.googlecode.com/files/opkg-0.2.0.tar.gz
+https://yledoare@bitbucket.org/yledoare/opkg-gtk2.git
+http://freefr.dl.sourceforge.net/project/wxwindows/2.8.12/wxGTK-2.8.12.tar.gz
+http://freefr.dl.sourceforge.net/project/wxsvg/wxsvg/1.1.16/wxsvg-1.1.16.tar.bz2 #SKIP-papyrus
+ftp://ftp.gnome.org/pub/gnome/sources/libwnck/2.30/libwnck-2.30.2.tar.bz2
+http://ftp.de.debian.org/debian/pool/main/l/lxde-common/lxde-common_0.5.5-6.dsc
+http://ftp.de.debian.org/debian/pool/main/l/lxmenu-data/lxmenu-data_0.1.2-2.dsc
+http://ftp.de.debian.org/debian/pool/main/l/lxinput/lxinput_0.3.2-1.dsc
+http://freefr.dl.sourceforge.net/project/lxde/menu-cache/menu-cache%200.5.x/menu-cache-0.5.1.tar.gz
+http://ftp.de.debian.org/debian/pool/main/l/lxrandr/lxrandr_0.1.2-3.dsc
+ftp://ftp.gnome.org/pub/gnome/sources/vala/0.24/vala-0.24.0.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/libgee/0.10/libgee-0.10.4.tar.xz
+http://freefr.dl.sourceforge.net/project/lxde/LXSession%20%28session%20manager%29/LXSession%200.4.6.1/lxsession-0.4.6.1.tar.gz
+http://freefr.dl.sourceforge.net/project/lxde/LXPolkit/lxpolkit-0.1.0.tar.gz
+http://ftp.de.debian.org/debian/pool/main/l/lxsession-edit/lxsession-edit_0.2.0-3.dsc
+http://ftp.de.debian.org/debian/pool/main/l/lxshortcut/lxshortcut_0.1.2-3.dsc
+http://ftp.de.debian.org/debian/pool/main/l/lxtask/lxtask_0.1.4-3.dsc
+http://ftp.de.debian.org/debian/pool/main/l/lxde-icon-theme/lxde-icon-theme_0.5.0-1.dsc
+http://downloads.sourceforge.net/sourceforge/lxde/lxappearance-0.5.5.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/gnome-icon-theme/2.30/gnome-icon-theme-2.30.3.tar.bz2
+http://freefr.dl.sourceforge.net/project/gphoto/libgphoto/2.5.4/libgphoto2-2.5.4.tar.bz2
+http://ftp.gnome.org/pub/gnome/sources/gvfs/1.20/gvfs-1.20.2.tar.xz
+http://skylink.dl.sourceforge.net/project/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/libfm%20%28required%20by%20PCManFM%29/libfm-1.2.0.tar.xz
+http://skylink.dl.sourceforge.net/project/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/pcmanfm-1.2.0.tar.xz
+http://freefr.dl.sourceforge.net/project/lxde/LXPanel%20%28desktop%20panel%29/LXPanel%200.5.12/lxpanel-0.5.12.tar.gz
+ftp://ftp.gnome.org/pub/gnome/sources/vte/0.28/vte-0.28.2.tar.xz
+http://ftp.de.debian.org/debian/pool/main/x/xinit/xinit_1.2.0-2.dsc
+http://ftp.fr.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-6.6p1.tar.gz #SKIP-papyrus
+http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.2.tar.xz
+http://ftp.de.debian.org/debian/pool/main/s/strace/strace_4.5.20-2.dsc
+http://ftp.de.debian.org/debian/pool/main/r/rsyslog/rsyslog_4.6.4-2.dsc
+http://www.lua.org/ftp/lua-5.1.5.tar.gz
+http://ftp.de.debian.org/debian/pool/main/o/ode/ode_0.11.1-4.dsc #SKIP-papyrus
+http://ftp.de.debian.org/debian/pool/main/libx/libxdg-basedir/libxdg-basedir_1.1.1-2.dsc
+http://www.carisma.slowglass.com/~tgr/libnl/files/libnl-1.1.4.tar.gz
+ftp://roy.marples.name/pub/dhcpcd/dhcpcd-6.0.5.tar.bz2
+http://hostap.epitest.fi/releases/wpa_supplicant-2.1.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/libsecret/0.16/libsecret-0.16.tar.xz
+https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/json-glib/1.0/json-glib-1.0.0.tar.xz
+http://www.freedesktop.org/software/libmbim/libmbim-1.10.0.tar.xz
+http://www.freedesktop.org/software/libqmi/libqmi-1.8.0.tar.xz
+http://www.freedesktop.org/software/ModemManager/ModemManager-1.2.0.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/NetworkManager/0.9/NetworkManager-0.9.8.10.tar.xz
+ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/network-manager-applet-0.9.8.10.tar.xz
+http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.16.15.tar.xz
+https://bitbucket.org/libgd/gd-libgd/downloads/libgd-2.1.0.tar.xz #SKIP-linuxconsole
+http://ftp.acc.umu.se/pub/gnome/sources/polkit-gnome/0.102/polkit-gnome-0.102.tar.bz2
+http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
+http://ftp.gnu.org/pub/gnu/wget/wget-1.15.tar.xz
+http://ftp.de.debian.org/debian/pool/main/l/lxterminal/lxterminal_0.1.11-4.dsc
+http://enet.bespin.org/download/enet-1.3.3.tar.gz
+http://freefr.dl.sourceforge.net/project/irrlicht/Irrlicht%20SDK/1.7/1.7.3/irrlicht-1.7.3.zip
+http://kcat.strangesoft.net/openal-releases/openal-soft-1.15.1.tar.bz2 #SKIP-papyrus
+http://ftp.igh.cnrs.fr/pub/nongnu//leafpad/leafpad-0.8.18.1.tar.gz
+http://downloads.sourceforge.net/wxpython/wxPython-src-2.8.12.1.tar.bz2
+http://ftp.gnu.org/gnu/findutils/findutils-4.4.2.tar.gz
+http://ftp.gnu.org/gnu/diffutils/diffutils-3.3.tar.xz
+http://ftp.gnu.org/gnu/sed/sed-4.2.2.tar.gz
+ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.19.tar.bz2
+http://www.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
+https://fedorahosted.org/releases/l/i/liberation-fonts/liberation-fonts-ttf-1.07.3.tar.gz
+ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2
+http://ftp.de.debian.org/debian/pool/main/l/lshw/lshw_02.16-1.dsc
+http://ftp.de.debian.org/debian/pool/main/x/xresprobe/xresprobe_0.4.23debian1-1.dsc
+http://ftp.de.debian.org/debian/pool/main/p/pygame/pygame_1.9.1release+dfsg-8.dsc #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/numpy/NumPy/1.7.0/numpy-1.7.0.tar.gz #SKIP-papyrus
+http://netcologne.dl.sourceforge.net/project/pmw/Pmw/Pmw.1.3.3/Pmw_1_3_3b.tar.gz #SKIP-papyrus
+http://ftp.de.debian.org/debian/pool/main/p/python-imaging/python-imaging_1.1.7-4.dsc #SKIP-papyrus
+https://launchpadlibrarian.net/33676762/duo-0.10.tar.gz
+http://downloads.sourceforge.net/project/sdlpango/SDL_Pango/0.1.2/SDL_Pango-0.1.2.tar.gz #SKIP-papyrus
+http://offload1.icculus.org/physfs/downloads/physfs-2.0.3.tar.bz2 #SKIP-papyrus
+http://rpm5.org/files/popt/popt-1.16.tar.gz
+http://optimate.dl.sourceforge.net/project/lxde/GPicView%20%28image%20Viewer%29/GpicView%200.2.4/gpicview-0.2.4.tar.gz
+http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.1.tar.gz
+ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.35.tar.gz
+http://ftp.de.debian.org/debian/pool/main/z/zip/zip_3.0-6.dsc
+http://freefr.dl.sourceforge.net/project/tinyxml/tinyxml/2.6.2/tinyxml_2_6_2.tar.gz
+http://xorg.freedesktop.org/archive/individual/app/xvinfo-1.1.2.tar.gz
+http://xorg.freedesktop.org/archive/individual/app/xdriinfo-1.0.4.tar.gz
+http://xorg.freedesktop.org/archive/individual/app/xlsfonts-1.0.4.tar.gz
+http://optimate.dl.sourceforge.net/project/glfw/glfw/2.7.9/glfw-2.7.9.tar.bz2 #SKIP-papyrus
+http://ftp.gnome.org/pub/gnome/sources/GConf/3.2/GConf-3.2.6.tar.xz
+http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.22.tar.xz
+http://pycurl.sourceforge.net/download/pycurl-7.19.0.3.tar.gz
+http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-7.2e.tar.gz
+https://launchpad.net/libgc/main/7.4.0/+download/gc-7.4.0.tar.gz
+http://optimate.dl.sourceforge.net/project/lcms/lcms/2.5/lcms2-2.5.tar.gz
+ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz
+http://downloads.ghostscript.com/public/ghostscript-9.14.tar.bz2 #SKIP-linuxconsole
+http://www.openprinting.org/download/ijs/download/ijs-0.35.tar.bz2 #SKIP-linuxconsole
+http://freefr.dl.sourceforge.net/project/qpdf/qpdf/5.1.1/qpdf-5.1.1.tar.gz #SKIP-linuxconsole
+http://www.openprinting.org/download/cups-filters/cups-filters-1.0.44.tar.xz #SKIP-linuxconsole
+http://freefr.dl.sourceforge.net/project/gimp-print/gutenprint-5.2/5.2.9/gutenprint-5.2.9.tar.bz2 #SKIP-linuxconsole
+ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.39.tgz #SKIP-linuxconsole
+http://cyberelk.net/tim/data/pycups/pycups-1.9.66.tar.bz2 #SKIP-linuxconsole
+http://cyberelk.net/tim/data/system-config-printer/1.4/system-config-printer-1.4.4.tar.xz #SKIP-linuxconsole
+git://github.com/lloyd/yajl.git
+http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
+http://netcologne.dl.sourceforge.net/project/swig/swig/swig-2.0.11/swig-2.0.11.tar.gz
+http://taglib.github.io/releases/taglib-1.9.1.tar.gz #SKIP-papyrus
+http://www.libssh.org/files/0.5/libssh-0.5.3.tar.gz #SKIP-papyrus
+ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.2.tar.gz
+http://lxml.de/files/lxml-3.3.0.tgz
+http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.19.tar.gz
+http://ftp.de.debian.org/debian/pool/main/l/lirc/lirc_0.9.0~pre1-1.dsc #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/faac/faad2-src/faad2-2.7/faad2-2.7.zip #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/libcddb/libcddb/1.3.2/libcddb-1.3.2.tar.bz2 #SKIP-papyrus
+http://freefr.dl.sourceforge.net/project/mpg123/mpg123/1.18.0/mpg123-1.18.0.tar.bz2 #SKIP-papyrus
+http://distfiles.audacious-media-player.org/audacious-3.4.3.tar.bz2 #SKIP-papyrus
+http://distfiles.audacious-media-player.org/audacious-plugins-3.4.3.tar.bz2 #SKIP-papyrus
+http://ftp.gimp.org/pub/babl/0.1/babl-0.1.10.tar.bz2 #SKIP-linuxconsole
+http://ftp.gimp.org/pub/gegl/0.2/gegl-0.2.0.tar.bz2 #SKIP-linuxconsole
+http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.17.tar.gz #SKIP-linuxconsole
+http://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.33.tar.gz #SKIP-linuxconsole
+http://ftp.samba.org/pub/samba/stable/samba-4.1.6.tar.gz #SKIP-linuxconsole
+http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz #SKIP-papyrus
+http://files.libburnia-project.org/releases/libisofs-1.3.6.tar.gz #SKIP-papyrus #SKIP-linuxconsole
+http://files.libburnia-project.org/releases/libburn-1.3.6.pl01.tar.gz #SKIP-papyrus #SKIP-linuxconsole
+http://archive.xfce.org/src/xfce/libxfce4util/4.10/libxfce4util-4.10.1.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://archive.xfce.org/src/xfce/xfconf/4.10/xfconf-4.10.0.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://archive.xfce.org/src/xfce/libxfce4ui/4.10/libxfce4ui-4.10.0.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://archive.xfce.org/src/xfce/exo/0.10/exo-0.10.2.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://archive.be.xfce.org/src/apps/xfburn/0.5/xfburn-0.5.0.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://ftp.de.debian.org/debian/pool/main/s/sdl-sound1.2/sdl-sound1.2_1.0.3-6.dsc #SKIP-papyrus
+http://gtkdialog.googlecode.com/files/gtkdialog-0.8.3.tar.gz
+http://freefr.dl.sourceforge.net/project/acpid2/acpid-2.0.22.tar.xz
+http://kcat.strangesoft.net/openal-releases/openal-soft-1.15.1.tar.bz2 #SKIP-papyrus
+http://libspectre.freedesktop.org/releases/libspectre-0.2.7.tar.gz #SKIP-linuxconsole
+http://download.gnome.org/sources/libgxps/0.2/libgxps-0.2.2.tar.xz
+http://ftp.de.debian.org/debian/pool/main/s/sdl-sound1.2/sdl-sound1.2_1.0.3-6.dsc #SKIP-papyrus
+http://gtkdialog.googlecode.com/files/gtkdialog-0.8.3.tar.gz
+http://download.gnome.org/sources/gcr/3.12/gcr-3.12.2.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/evince-3.6.1.tar.xz #SKIP-linuxconsole
+http://ftp.gnome.org/pub/gnome/sources/file-roller/3.12/file-roller-3.12.2.tar.xz
+http://webp.googlecode.com/files/libwebp-0.3.1.tar.gz #SKIP-papyrus #SKIP-linuxconsole
+https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz #SKIP-papyrus #SKIP-linuxconsole
+http://www.freedesktop.org/software/geoclue/releases/2.1/geoclue-2.1.8.tar.xz  #SKIP-papyrus #SKIP-linuxconsole
+http://webkitgtk.org/releases/webkitgtk-2.4.1.tar.xz #SKIP-papyrus #SKIP-linuxconsole
+http://www.midori-browser.org/downloads/midori_0.5.8_all_.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://camaya.net/download/gloox-1.0.10.tar.bz2 #SKIP-papyrus #SKIP-linuxconsole
+http://ftp.de.debian.org/debian/pool/main/libg/libglade2/libglade2_2.6.4-2.dsc
+http://openbox.org/dist/obconf/obconf-2.0.4.tar.gz
+http://archive.ubuntu.com/ubuntu/pool/universe/x/xbacklight/xbacklight_1.1.1-1.dsc
+#http://freefr.dl.sourceforge.net/project/clucene/clucene-core-unstable/2.3/clucene-core-2.3.3.4.tar.gz
+#http://download.netsurf-browser.org/netsurf/releases/source-full/netsurf-all-3.1.tar.gz
+git://github.com/QupZilla/qupzilla.git
+#Steam
+http://freedesktop.org/software/pulseaudio/releases/pulseaudio-5.0.tar.xz #SKIP-papyrus
+http://pyyaml.org/download/pyyaml/PyYAML-3.11.tar.gz
+#Xbmc 13.1
+http://xorg.freedesktop.org/archive/individual/app/xdpyinfo-1.3.1.tar.bz2 #SKIP-linuxconsole
+http://wayland.freedesktop.org/releases/wayland-1.5.0.tar.xz #SKIP-linuxconsole
+http://www.freedesktop.org/software/vaapi/releases/libva/libva-1.3.1.tar.bz2 #SKIP-linuxconsole
+http://garr.dl.sourceforge.net/project/galculator/galculator/2.1.3/galculator-2.1.3.tar.bz2
+git://github.com/vancegroup/freealut.git

@@ -1,0 +1,80 @@
+#!/bin/sh
+MEM=32
+MEM=128
+. ./config.ini
+
+which qemu-system-x86_64 && EMULATOR="QEMU"
+#which VBoxManage && EMULATOR="VBOX"
+[ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu to make tests !" && exit 1
+
+KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"
+INITRD26="`echo $KERNEL3 | tr -d '.'`"
+if [ "$ARCH" = "x86" ] ||[ "$ARCH" = "x86_64" ]
+then
+ISO=$ISOTMP/linuxconsole"$NUM"."$LCBUILD"-"$ARCH".iso
+NAME="ydfs-test"
+
+if [ -e myfix ]
+then
+  cd myfix
+  find
+  cp $HOME/ydfs/build-$ARCH/$INITRD26 ..
+  find . -print |  grep -v '.svn' | cpio -A -o -H newc -F ../$INITRD26
+  cd ..
+fi
+
+if [ "$DISPLAY" = "" ] || [ "$EMULATOR" = "QEMU" ]
+then
+  echo "Run Qemu"
+  [ "$DISPLAY" = "" ] && DISPLAY_OPT="-curses"
+  # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cdrom $ISO
+  if [ -e myfix ]
+  then
+  qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
+  else
+    [ -e $ISO ] && OPTION="-cdrom $ISO" 
+    qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+  fi
+  exit 0
+fi
+
+if [ "$EMULATOR" = "VBOX" ]
+then
+  echo "Run Virtualbox"
+  VBoxManage createvm -register -name $NAME
+  VBoxManage modifyvm $NAME --memory 512
+  VBoxManage storagectl $NAME --name controlleur --add ide
+  VBoxManage storageattach $NAME  --storagectl controlleur --port 0 --device 0 --type dvddrive --medium $ISO
+  VBoxSDL -fullscreenresize -vm $NAME
+  #VBoxManage unregistervm $NAME -delete 
+  VBoxManage closemedium dvd $ISO 
+  #VBoxManage modifyvm $NAME --vrde on
+  #BoxManage startvm $NAME --type headless
+
+fi
+fi # end x86
+
+if [ "$SUBARCH" = "raspi" ] || [ "$SUBARCH" = "raspi-qemu" ]
+then
+  INITRD="$HOME/ydfs/build-$ARCH/`echo $KERNEL3 | tr -d '.'`"
+  cp $INITRD $INITRD.cpio || exit $?
+  cd $HOME/ydfs/src/linux-"$KERNEL3" || exit $?
+  cp $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs || exit $?
+  echo CONFIG_INITRAMFS_SOURCE=\"$INITRD.cpio\" >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  echo CONFIG_INITRAMFS_ROOT_UID=0 >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  echo CONFIG_INITRAMFS_ROOT_GID=0 >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  echo CONFIG_INITRAMFS_COMPRESSION_NONE=y >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  echo CONFIG_ATAGS_PROC=y >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  echo CONFIG_KEXEC=y >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+#  echo CONFIG_BLK_DEV_RAM=y >> $HOME/ydfs/build/linux-$ARCH-"$KERNEL3"/.config-initramfs
+  KCONFIG_CONFIG=".config-initramfs" make bzImage O=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3" || exit $?
+  echo "initramfs inside kernel is ready !"
+fi
+
+if [ "$SUBARCH" = "raspi-qemu" ]
+then
+  [ -e /host/yann/raspberri/raspbian.img ] && bootopt="-hda /host/yann/raspberri/raspbian.img"
+  [ -e /host/yann/raspberri/ydfs.img ] && bootopt="-hda /host/yann/raspberri/ydfs.img"
+  # qemu-system-arm -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/zImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cpu arm1176 -m 256 -M versatilepb -append "quiet console=ttyAMA0,115200 " -serial stdio $bootopt || exit $?
+  qemu-system-arm -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/zImage -cpu arm1176 -m 256 -M versatilepb -append "quiet console=ttyAMA0,115200 " -serial stdio $bootopt || exit $?
+fi

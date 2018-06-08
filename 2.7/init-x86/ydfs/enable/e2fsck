@@ -1,0 +1,15 @@
+EFSCK=$(which e2fsck)
+ldd $EFSCK | while read file
+do
+  lib=$(echo $file | cut -d' ' -f1)
+  echo $lib
+  cp /usr/lib/$lib /lib || cp $lib /lib
+done
+
+rm /lib/ld-linux.so.2
+cp /usr/lib/ld-linux.so.2 /lib/ld-linux.so.2
+
+cp $EFSCK /tmp
+DEVICE=$(mount | grep media/dib | cut -d' ' -f1)
+
+echo /tmp/$EFSCK $DEVICE > /run-before-poweroof

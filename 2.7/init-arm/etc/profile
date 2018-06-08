@@ -1,0 +1,11 @@
+export LD_LIBRARY_PATH=$HOME/arm/lib
+export PATH=/busybox/bin/:/busybox/sbin:/$HOME/arm/bin/://busybox/usr/bin/:/busybox/sur/sbin/
+
+echo "into /etc/profile"
+
+[ ! -e /dev/null ] && mknod /dev/null c 1 3
+
+#ifconfig eth0 up
+/ydfs/detect/media
+/ydfs/detect/raspbian
+#udhcpc -t 5 -q -S -s /etc/udhcpc/simple.script &

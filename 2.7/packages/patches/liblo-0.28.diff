@@ -1,0 +1,29 @@
+diff --git a/configure b/configure
+index b70fb5e..768f3ef 100755
+--- a/configure
++++ b/configure
+@@ -12167,7 +12167,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking how to print long long int" >&5
+ $as_echo_n "checking how to print long long int... " >&6; }
+ _CFLAGS="$CFLAGS"
+-CFLAGS="$_CFLAGS -Werror -Wall"
++CFLAGS="$_CFLAGS -Wall"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <stdio.h>
+@@ -15919,15 +15919,6 @@ else
+ fi
+ 
+ 
+-# Filter out -Werror temporarily, otherwise library checks can fail
+-CFLAGS_nowerror="`echo $CFLAGS | sed 's/-Werror\(^=\|$\)//'`"
+-if test "$CFLAGS" = "$CFLAGS_nowerror"; then
+-  CFLAGS_werror=
+-else
+-  CFLAGS_werror=" -Werror"
+-  CFLAGS="$CFLAGS_nowerror"
+-fi
+-
+ # Checks for libraries.
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing recvfrom" >&5
+ $as_echo_n "checking for library containing recvfrom... " >&6; }

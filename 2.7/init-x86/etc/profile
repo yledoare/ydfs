@@ -1,0 +1,8 @@
+export PATH="/fix:/usr/bin:/usr/sbin:/usr/games:/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/:$HOME/opkg/bin:$HOME/opkg/sbin:/ydfs/modules/module/bin:/ydfs/modules/module/games:/ydfs/modules/module/usr/bin:/ydfs/modules/module/usr/games:$HOME/opkg/games:/ydfs/modules/module/lib/libreoffice/program/"
+export LD_LIBRARY_PATH=/fix:/usr/lib:/lib:/usr/lib64:/ydfs/modules/module/lib:/ydfs/modules/module/lib/i386-linux-gnu:$HOME/opkg/lib:$HOME/opkg/lib/i386-linux-gnu:/ydfs/modules/module/usr/lib:/ydfs/modules/module/usr/lib64:$HOME/qt5/lib
+export XDG_DATA_DIRS=/share:/usr/share:/ydfs/modules/module/share:$HOME/opkg/share:$HOME/opkg/lib/libreoffice/share/xdg/:/ydfs/modules/module/usr/share
+export PYTHONPATH=/ydfs/modules/module/lib/python2.7/site-packages/:$HOME/opkg/lib/python2.7/site-packages
+export DISTRONAME=`cat /ydfs-name`
+export HOME_DIBAB=$HOME
+export JAVA_HOME=$HOME/opkg
+export QT_QPA_PLATFORM_PLUGIN_PATH=$HOME/qt5/plugins/platforms/

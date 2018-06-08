@@ -1,0 +1,15 @@
+	chmod -R 777 ${HOME}/${ARCH}/share/doc/p7zip
+	rm -fR ${HOME}/${ARCH}
+	rm -fR ${HOME}/ydfs/build-${ARCH}/*
+	rm -fR ${HOME}/ydfs/src/*
+	rm -fR ${HOME}/.cpan
+	rm -fR ${HOME}/ydfs/modules/*
+	# Clean kernel 
+	# rm -fR ${HOME}/ydfs/build/*
+	rm -fR ${HOME}/ydfs/build/modules/*
+	rm -fR ${HOME}/ydfs/packages-${ARCH}/*
+	rm -fR ${HOME}/qt5*
+	rm -fR ${HOME}/opkg
+	rm -fR ${HOME}/ydfs/opkg
+	rm -fR ${HOME}/multilib
+	rm -fR ${HOME}/ydfs/build/busybox*

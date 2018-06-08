@@ -1,0 +1,87 @@
+diff --git a/config_unix.py b/config_unix.py
+index 39abd48..bb02a37 100644
+--- a/config_unix.py
++++ b/config_unix.py
+@@ -22,6 +22,15 @@ origlibdirs = ['/lib','/lib64','/X11R6/lib']
+ if 'ORIGLIBDIRS' in os.environ and os.environ['ORIGLIBDIRS'] != "":
+     origlibdirs = os.environ['ORIGLIBDIRS'].split(":")
+ 
++if 'ORIGLIBDIRS' in os.environ and os.environ['ORIGLIBDIRS'] != "":
++    origlibdirs = os.environ['ORIGLIBDIRS'].split(":")
++
++if 'ORIGLIBDIRS' in os.environ and os.environ['ORIGLIBDIRS'] != "":
++    origlibdirs = os.environ['ORIGLIBDIRS'].split(":")
++
++if 'ORIGLIBDIRS' in os.environ and os.environ['ORIGLIBDIRS'] != "":
++    origlibdirs = os.environ['ORIGLIBDIRS'].split(":")
++
+ def confirm(message):
+     "ask a yes/no question, return result"
+     reply = raw_input('\n' + message + ' [Y/n]:')
+@@ -163,10 +172,13 @@ def main():
+     else:
+         incdirs = []
+         libdirs = []
++    ydfsarch = os.environ['ARCH']
++    ydfshome = os.environ['HOME']
++    ydfsinc = os.environ['HOME']+'/'+os.environ['ARCH']
+     incdirs += ["/usr"+d for d in origincdirs]
+     libdirs += ["/usr"+d for d in origlibdirs]
+-    incdirs += ["/usr/local"+d for d in origincdirs]
+-    libdirs += ["/usr/local"+d for d in origlibdirs]
++    incdirs += [ydfsinc+d for d in origincdirs]
++    libdirs += [ydfsinc+d for d in origlibdirs]
+ 
+     for arg in DEPS[0].cflags.split():
+         if arg[:2] == '-I':
+@@ -176,19 +188,6 @@ def main():
+     for d in DEPS:
+         d.configure(incdirs, libdirs)
+ 
+-    for d in DEPS[1:]:
+-        if not d.found:
+-            if ( d.name=='PORTMIDI' or d.name=='PORTTIME'  or d.name=='V4L2') and  \
+-                    os.getenv('DEB_HOST_ARCH_OS') != 'linux':
+-                print 'Debian specific hack: ignore missing dependency %s on %s .' % \
+-                    (d.name , os.getenv('DEB_HOST_ARCH_OS'))
+-            elif not confirm("""
+-Warning, some of the pygame dependencies were not found. Pygame can still
+-compile and install, but games that depend on those missing dependencies
+-will not run. Would you like to continue the configuration?"""):
+-                raise SystemExit
+-            break
+-
+     return DEPS
+ 
+ if __name__ == '__main__':
+diff --git a/lib/__init__.py b/lib/__init__.py
+index 68d6abf..afc1c56 100644
+--- a/lib/__init__.py
++++ b/lib/__init__.py
+@@ -90,7 +90,15 @@ class MissingModule:
+         except ImportError:
+             print (message)
+ 
++# when running under X11, always set the SDL window WM_CLASS to make the
++# window managers correctly match the pygame window.
++if 'DISPLAY' in os.environ and not 'SDL_VIDEO_X11_WMCLASS' in os.environ:
++    os.environ['SDL_VIDEO_X11_WMCLASS'] = os.path.basename(sys.argv[0])
+ 
++# when running under X11, always set the SDL window WM_CLASS to make the
++# window managers correctly match the pygame window.
++if 'DISPLAY' in os.environ and not 'SDL_VIDEO_X11_WMCLASS' in os.environ:
++    os.environ['SDL_VIDEO_X11_WMCLASS'] = os.path.basename(sys.argv[0])
+ 
+ #we need to import like this, each at a time. the cleanest way to import
+ #our modules is with the import command (not the __import__ function)
+@@ -139,6 +147,10 @@ except (ImportError,IOError):mouse=MissingModule("mouse", geterror(), 1)
+ try: import pygame.sprite
+ except (ImportError,IOError):sprite=MissingModule("sprite", geterror(), 1)
+ 
++# when running under X11, always set the SDL window WM_CLASS to make the
++# window managers correctly match the pygame window.
++if 'DISPLAY' in os.environ and not 'SDL_VIDEO_X11_WMCLASS' in os.environ:
++    os.environ['SDL_VIDEO_X11_WMCLASS'] = os.path.basename(sys.argv[0])
+ 
+ try: import pygame.threads
+ except (ImportError,IOError):threads=MissingModule("threads", geterror(), 1)

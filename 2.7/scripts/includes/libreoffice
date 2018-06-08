@@ -1,0 +1,96 @@
+#!/bin/bash
+  if [ -e librelogo ] 
+  then
+	# ?? depuis que include qt4 est actif
+#	ls $HOME/$ARCH/lib/libicu* |while read file
+#do
+#	ln -sf $file $HOME/$ARCH/opkg/lib
+#done
+	# for correct file install into package dir
+        [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
+	# mount / -o remount,noatime
+	# cp /usr/lib/x86_64-linux-gnu/pkgconfig/icu-* $HOME/$ARCH/lib/pkgconfig/
+	install -d src
+	sed -e "/gzip -f/d"   -e "s|.1.gz|.1|g" -i bin/distro-install-desktop-integration && sed -e "/distro-install-file-lists/d" -i Makefile.in
+	chmod -v +x bin/unpack-sources
+        [ "$ARCH" = "x86" ] &&  sed -e "s/GNUC/GGGGNUC/g" -i include/o3tl/safeint.hxx
+	sed -e "s/autoreconf /echo /g" -i external/libxmlsec/ExternalProject_xmlsec.mk
+grep autoreconf external/libxmlsec/ExternalProject_xmlsec.mk && exit 1
+	sed -e "s/target\.mk/langlist\.mk/" -e "s/tar -xf/tar -x --strip-components=1 -f/" -e "/tar -x/s/lo_src_dir/start_dir/"  -i bin/unpack-sources 
+	LIBREOFFICE=`basename $PWD|cut -d'-' -f2`
+	LIBREOFFICE_SHORT=`echo $LIBREOFFICE |cut -d'.' -f1,2,3`
+echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
+	for PACK in translations dictionaries help
+	do
+        [ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && wget http://download.documentfoundation.org/libreoffice/src/$LIBREOFFICE_SHORT/libreoffice-$PACK-$LIBREOFFICE.tar.xz && mv libreoffice-$PACK-$LIBREOFFICE.tar.xz src && cd .. && tar xJvf libreoffice-$LIBREOFFICE/src/libreoffice-$PACK-$LIBREOFFICE.tar.xz && cd libreoffice-$LIBREOFFICE
+	[ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && exit 1
+	done
+	[ -e /usr/lib/python3.4/config-3.4m-i386-linux-gnu/libpython3.4.so ] && [ ! -e $HOME/$ARCH/lib/libpython3.4.so ] && cp /usr/lib/python3.4/config-3.4m-i386-linux-gnu/libpython3.4.so $HOME/$ARCH/lib/libpython3.4.so	
+	[ -e /usr/lib/python3.4/config-3.4m-x86_64-linux-gnu/libpython3.4.so ] && [ ! -e $HOME/$ARCH/lib/libpython3.4.so ] && cp /usr/lib/python3.4/config-3.4m-x86_64-linux-gnu/libpython3.4.so $HOME/$ARCH/lib/libpython3.4.so	
+	export ACLOCAL="aclocal" 
+	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
+	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
+        # [ ! -e configure ] && 
+	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++
+        ./autogen.sh CC=clang CXX=clang++ # || exit 1
+	CONFIGURE_OPTS=""
+	env > env.log
+        [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --host=i586-linux-gnu"
+	CXX="clang++ -std=c++11  -Wno-c++11-narrowing"  PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" ./configure $CONFIGURE_OPTS --with-system-nss --prefix=$PREFIX  --with-lang="en-US fr" --with-build-version="YourditroFromScratch $ARCH"   --with-vendor="Ydfs" --enable-release-build --without-help --without-gssapi --disable-gstreamer-0-10 --enable-release-build --with-system-libcdr --with-system-libpng	\
+	     --with-system-libebook --with-system-icu --without-java  \
+	     --with-alloc=system         \
+             --disable-gconf             \
+             --disable-odk               \
+             --disable-postgresql-sdbc   \
+             --enable-release-build=yes  \
+             --enable-python=system      \
+             --with-system-cairo         \
+             --with-system-curl          \
+             --with-system-expat         \
+             --with-system-jpeg          \
+             --with-system-lcms2         \
+             --with-system-libpng        \
+             --with-krb5=no	         \
+             --without-krb5	         \
+             --with-system-libxml        \
+             --with-system-nss           \
+             --with-system-openldap      \
+             --enable-openssl  --disable-firebird-sdbc \
+             --with-system-zlib  --with-system-harfbuzz
+             # --with-system-gpgmepp       \
+echo "Run make build"
+	# ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build || exit $?
+	ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build-nocheck || exit $?
+	# make build || exit $?
+	make build-nocheck || exit $?
+	# CXX="clang++ -std=c++11 -Wno-c++11-narrowing" make build # || exit $?
+	CXX="clang++ -std=c++11 -Wno-c++11-narrowing" make build-nocheck # || exit $?
+	# make distro-pack-install || exit $?	
+echo "Run make install-strip"
+	make install-strip || exit $?	
+	for LANG in fr_FR en br_FR
+do
+# FIXME NOT WORKING
+break
+install -d $PREFIX/share/extensions/$LANG
+cp -vR dictionaries/$LANG/*  $PREFIX/share/extensions/$LANG
+done
+
+install -d $PREFIX/share/pixmaps 
+install -d $PREFIX/share/applications
+for i in writer base calc draw impress math startcenter writer
+do
+  ln -svf $PREFIX/share/icons/hicolor/32x32/apps/libreoffice-$i.png \
+          $PREFIX/share/pixmaps/
+  mv $PREFIX/lib/libreoffice/share/xdg/$i.desktop $PREFIX/share/applications
+done
+unset i
+#FIXME
+# cp /home/linuxconsole2018/x86_64/share/icons/ContrastHigh/48x48/apps/libreoffice-base.png init-x86/share/pixmaps/libreoffice5.4-base.png
+
+    # make DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR distro-pack-install 
+    # cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    # $HOME_DIBAB/scripts/make_opkg || exit $?
+        touch buildok-$ARCH
+	exit 0
+  fi

@@ -1,0 +1,241 @@
+tuxpaint;Tux Paint is a free, award-winning drawing program for children ages 3 to 12
+ltris;Tetris like 
+0ad-0.0.17;game of ancient warfare
+audacity-src; A program that lets you manipulate digital audio waveforms
+bomberinstinct-0.8.10; A bomberman type game, multiplayer only
+bzflag; A 3D FPS type game with tanks,multiplayer
+curl; An URL retrieval utility and library
+dossizola; An Isola board game with nice graphics
+etr; Tux play snowbodyboard
+fixes; desc Fix all ydfs known bugs
+foobillardplus; 3D billard game fork of Foobillard
+freedink;Jeu d'aventure/RPG décalé et extensible
+freedroidrpg;RPG with isometric graphics
+freetuxtv; Access to TV broadcoast
+frozen-bubble;Clone of the popular "Puzzle Bobble" game
+gcompris;Educational software suite comprising of numerous activities for children aged 2 to 10
+gdb; The GNU Debugger
+gimp; GNU Image Manipulation Program
+gltron; 3D Tron game 
+gmqcc;Quake C Compiler
+gparted; A Partition Magic clone, frontend to GNU Parted
+grive; Google Drive client
+grub; GNU GRand Unified Bootloader
+hedgewars-src; Turn by turn Worms like 2D game
+hunspell; Spell checker and morphological analyzer library and program
+inkscape; Vectorial graphic program
+kitsune3.0; -Le compte est bon-calculation game
+libreoffice; The famous office suite
+libtxc;Texture compression library for Mesa, needed for Steam
+lightdm; A lightweight display manager
+mc; Midnight Commander is a text based filemanager/shell that emulates Norton Commander
+mesa-demos;Test 3D effects
+neverball; 3D rolling ball game 
+openjdk-1.7.0; Java runtime environment
+openttd; Libre Transport Tycoon Deluxe clone
+playonlinux;PlayOnLinux is a graphical front-end for the Wine software
+plee-the;Plee the Bear is a platform game in which you play an angry bear
+plib;Gaming library
+sane-backends; Scanner Access Now Easy
+scribus; Desktop publishing software
+source;Free online multiplayer competitive FPS based on the Qfusion engine
+steam; Digital distribution client bootstrap package
+stellarium; A stellarium with great graphics and a nice database of sky-objects
+supertuxkart; Tux and its friends race with kart
+teeworlds-0.6.2; 2D fast and fun FPS with tees
+vim74; Vi Improved, a highly configurable, improved version of the vi text editor
+vlc; A multi-platform multimedia player and more
+warzone2100;3D realtime strategy game on a future Earth
+wesnoth;tactical strategy game
+wine; A compatibility layer for running Windows programs
+xbmc-13.1; A software media player and entertainment hub for digital media
+xbmc; software media player and entertainment hub for digital media
+xboard;Chess Board
+xmoto; 2D moto cross game
+xonotic;A free, fast-paced crossplatform first-person shooter
+xsane; A GTK-based X11 frontend for SANE and plugin for Gimp.
+yabause;A Saturn emulator/Un émulateur Saturn
+guile;Guile is a library designed to help programmers create flexible applications
+aisleriot;Play many different solitaire games
+xqf;game server browser
+gargoyle;lecteur de nouvelles interactives/interactives novels reader 
+libopenal1;OpenAL libraries/Librairies OpenAL
+maniadrive-1.2;jeu de courses chronométrées/car racing challenges
+warmux;jeu de tir au tour par tour entre amis/turn by turn shooting game
+sdl2;cross-platform development library
+sdl2ttf;SDL_ttf is a TrueType font rendering library that is used with the SDL library
+mame;Multiple Arcade Machine Emulator
+openjdk-6;java libraryfile;tool for files
+dangerdeep;Submarine game
+egoboo;three-dimensional dungeon crawling adventure
+pinball;pinball
+pinball-data;pinball-data
+freetds;FreeTDS is a set of libraries for Unix and Linux that allows your programs to natively talk to Microsoft SQL Server and Sybase databases
+advancemame;A MAME and MESS port with an advanced video support for Arcade Monitors
+etlegacy;Open-source team based FPS game compatible with Wolfenstein: Enemy Territory
+mplayer-export;Media player
+gmtk;Library for gnome-mplayer and gecko-mediaplayer
+gnome-mplayer;A simple MPlayer GUI
+lubuntu-software;Add new softwares
+phonon;Phonon is the multimedia API for KDE4
+p7zip;p7 compress software
+lutris;Open Gaming Platform
+langagelinotte;Linotte est un langage de programmation interprété (french only)
+pygtk;Pygtk with Glade2 enabled
+wahcade;front end for games and emulators
+libxklavier;libxklavier is a library providing high-level API for X Keyboard Extension known as XKB
+lightdm-gtk;GTK+ greeter for LightDM
+accountsservice;AccountsService is a D-Bus service for accessing the list of user accounts and information attached to those accounts
+xdm;X Display Manager
+flash;Adobe Flash plugin
+mono;Cross platform, open source .NET framework
+gtk-sharp;Gtk# is a Graphical User Interface Toolkit for mono and .Net
+gbrainy;A brain teaser game and trainer to have fun and to keep your brain trained
+automoc;lib to build kde
+strigi;Fast crawling desktop search engine with Qt GUI
+attica;A Qt4 library that implements the Open Collaboration Services API
+giflib;giflib is a library for reading and writing gif images
+libdbusmenu-qt;This library provides a Qt implementation of the DBusMenu specs, which goal is to expose menus on DBus
+kdelibs;Kde core library
+libkdeedu;Libraries used by KDE Education applications
+khangman;KHangMan is a game based on the well-known hangman game
+kde-l10n;French locale for KDE
+libkdegames;Libraries for KDE games
+ksudoku;KDE Sudoku
+kgeography;Geography Trainer
+libkmahjongg;libkmahjongg
+knavalbattle;Naval Battle is a Battle Ship game for KDE
+gstreamer;Old gstreamer lib
+gst-plugins;Old gst plugin base
+dolphin;Wii Emulator
+rtmidi;A set of C++ classes that provide a common API for realtime MIDI input/output
+abe;Abe's amazing aventures arcade game
+funnyboat;a side scrolling arcade shooter game on a steamboat
+sfml;Simple and Fast Multimedia Library
+berusky2;A logic game based on the puzzle game Sokoban
+asylum;surreal platform shooting game
+filezilla;FTP client
+armagetronad;Tron clone in 3D
+teeworlds-0.6.3;A retro multiplayer shooter
+0ad-0.0.18;game of ancient warfare
+guvcview-src;WebCam Viewer
+fluidsynth;A real-time software synthesizer based on the SoundFont 2 specifications
+qjackctl;JACK Audio Connection Kit
+lmms;Let's make music
+rosegarden;Music composition and editing environment
+ardour;Professional-grade digital audio workstation
+minetest;Minetest is an infinite-world block sandbox game
+nvidia-linux;Nvidia Linux Drivers
+bovo;A Gomoku like game for two players
+bomber;A single player arcade game
+blinken;Memory Enhancement Game
+cantor;KDE Frontend to Mathematical Software
+dragon;A multimedia player where the focus is on simplicity, instead of features
+hydrogen;Drum machine
+audacity-minsrc;A free multi-track audio editor and recorder
+NVIDIA-346.72;NVIDIA drivers
+NVIDIA-346-72;NVIDIA driver 346-72
+NVIDIA34672;NVIDIA-Linux-x86-346.72
+nvidia-34672;NVIDIA-Linux-x86-346.72
+squeak;Smalltalk programming language and environment
+scratch;Create and share your own interactive stories, games, music and art
+nvidia-35221;Nvidia 352.21
+pangox-compat;X Window System font support for Pango
+gtkglext;opengl extensions for gtk2
+celestia;Real-time space simulation
+qt-everywhere;QT5
+protobuf;Protocol Buffers - Google's data interchange format
+virtualbox;Powerful x86 virtualization for enterprise as well as home use
+vegastrike-src;3D action-space-sim allowing player to trade and bounty hunt in a vast universe
+fftw;FFTW is a C subroutine library for computing the discrete Fourier transform
+liblo;A lightweight library to handle the sending and receiving of messages
+dssi;DSSI is an open and well-documented specification developed for use in Linux audio applications
+zynaddsubfx;software synthesizer capable of making a countless number of instruments
+mxml;XML Library
+fltk;Graphical user interface toolkit for X
+ncftp;FTP Client
+git;a distributed version control system
+less;Less tool
+nvidia-35230;Nvidia driver
+a2ps;a2ps
+lv2;LV2 is an open standard for audio plugins
+calf;LV2/DSSI/LADSPA plug-ins suite and standalone JACK host
+vamp-plugin;Vamp is an easy system to develop plugins for
+rubberband;Time-stretching and pitch-shifting audio library and utility
+aubio;A tool for extracting annotations from audio signals
+raptor2;Raptor RDF Syntax Library
+lrdf;A lightweight RDF library with special support for LADSPA plugins
+suil;Suil is a lightweight C library for loading and wrapping LV2 plugin
+serd;Serd is a lightweight C library for RDF syntax
+sord;Sord is a lightweight C library for storing RDF data in memory
+sratom;Sratom is a library for serialising LV2 atoms to/from RDF
+lilv;Lilv is a C library to make the use of LV2 plugins as simple as possible for applications
+megaglest;A cross-platform 3-d game
+openarena;A violent, sexy, multiplayer first person shooter based on the ioquake3 engine
+supertux;A classic 2D jump'n run sidescroller game in a style similar to the original SuperMario games
+libfilezilla;Small and modern C++ library, offering some basic functionality to build high-performing, platform-independent programs
+qtractor;An Audio/MIDI multi-track sequencer
+drumstick;MIDI libraries
+vmpk;Virtual MIDI Piano Keyboard
+granatier;A clone of the classic Bomberman game
+kapman;A clone of the well known game Pac-Man
+katomic;A fun and educational game built around molecular geometry
+kblackbox;A game of hide and seek played on a grid of boxes
+kblocks;The classic falling blocks game
+kbounce;A single player arcade game with the elements of puzzle
+kbreakout;A Breakout-like game
+kdiamond;A single player puzzle game
+kfourinline;A four-in-a-row game
+killbots;A simple game of evading killer robots
+kiriki;An addictive and fun dice game
+kjumpingcube;A simple tactical game
+klickety;An adaptation of the Clickomania game
+klines;A simple but highly addictive, one player game
+kmines;The classic Minesweeper game
+knetwalk;Connect all the terminals to the server, in as few turns as possible
+kollision;A simple ball dodging game
+kshisen;A solitaire-like game played using the standard set of Mahjong tiles
+ksquares;A modeled after the well known pen and paper based game of Dots and Boxes
+ktuberling;A simple constructor game suitable for children and adults alike
+picmi;A nonogram logic game for KDE
+gcc;GNU C compiler
+mixxx;software for digital DJ'ing
+freetuxtv-freetuxtv;WebTV vlc player to watch tv/radio playlists on the internet
+cabextract;A program to extract Microsoft cabinet (.CAB) files
+winetricks;Script to install various redistributable runtime libraries in Wine.
+mate-media;MATE Media Tool
+arabic;Arabic locale for LinuxConsole
+rdesktop;Unix client for Microsoft Remote Desktop Services
+brasero;CD/DVD mastering tool
+cdrdao;Records audio/data CD-Rs in disk-at-once (DAO) mode
+cdrkit;Suite of programs for CD/DVD recording, ISO image creation, and audio CD extraction
+cdparanoia-iii;Compact Disc Digital Audio extraction tool
+recordmydesktop;Record desktop session
+gtk-recordmydesktop;RecordMydesktop GUI
+gcompris-qt;Educational software suite comprising of numerous activities for children aged 2 to 10
+lxterminal;LXDE Terminal
+qastools;Sound Mixer
+nvidia;Nvidia drivers
+bumblebee;NVIDIA Optimus support for Linux
+procps-ng;Process tools
+grep;Grep util
+nvidia-304;Nvidia 304 series driver
+nvidia-340;Nvidia 340 serie Driver
+nvidia-384;Nvidia 384 serie drivers
+dosbox;Dos emulator
+gnome-common;gnome-common
+udisks-udisks;
+autoconf-archive;autoconf-archive
+cracklib;cracklib
+libpwquality;libpwquality
+qemu;Qemu emulator
+scummvm;ScummVM is a program which allows you to run certain classic graphical point-and-click adventure games
+xbmc-17.6;XBMC Media player
+beautifulsoup4;beautifulsoup4
+liboauth;liboauth
+jsoncpp;jsoncpp
+htmlcxx;htmlcxx
+rhash;rhash
+lgogdownloader;lgogdownloader
+dvb-apps;dvb-apps
+primus;Faster OpenGL offloading for Bumblebee

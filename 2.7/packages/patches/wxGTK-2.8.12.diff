@@ -1,0 +1,22 @@
+diff --git a/configure b/configure
+index 9c9931c..c85c72f 100755
+--- a/configure
++++ b/configure
+@@ -25060,7 +25060,7 @@ echo "$as_me:$LINENO: result: $wx_cv_std_libpath" >&5
+ echo "${ECHO_T}$wx_cv_std_libpath" >&6
+ 
+ SEARCH_LIB="`echo "$SEARCH_INCLUDE" | sed s@include@$wx_cv_std_libpath@g` /usr/$wx_cv_std_libpath"
+-
++SEARCH_LIB="$SEARCH_LIB $HOME/$ARCH/lib"
+ if test "$build" != "$host" -a "$GCC" = yes; then
+                     if cross_root=`$CC -print-prog-name=ld 2>/dev/null`; then
+         cross_root=`dirname $cross_root`
+@@ -50847,7 +50847,7 @@ fi
+ 
+ if test "$wxWITH_SUBDIRS" != "no"; then
+ if test "$wxUSE_GUI" = "yes"; then
+-    SUBDIRS="samples demos utils contrib"
++    SUBDIRS="utils contrib"
+ else         SUBDIRS="samples utils"
+ fi
+ 

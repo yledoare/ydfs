@@ -1,0 +1,15 @@
+while [ 1 ]
+do
+  busybox sleep 1.1
+  if [ -e /tmp/.umountme ]  
+  then
+    for MOUNT in $(ls /tmp/.umountme)
+    do
+	echo "Umount /media/$MOUNT"
+	busybox umount /media/$MOUNT
+	rm /tmp/.umountme/$MOUNT
+    done
+    rmdir /tmp/.umountme	
+  fi
+  [ -e /tmp/stop ] && exit 0
+done

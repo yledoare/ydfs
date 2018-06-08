@@ -1,0 +1,24 @@
+test -s /etc/shadow
+if [ $? = 0 ]
+then
+  echo "Root password is set"
+else
+  zenity --warning --text="Please set your root password" 2>/dev/null
+  passwd
+fi
+user=$(zenity --entry --text="user login")
+useradd --groups tty,users,audio,video,root $user
+clear
+zenity --warning --text="Please set $user password" 2>/dev/null
+passwd $user
+zenity --warning --text="You will need to logout to use $user account" 2>/dev/null
+
+if [ -e /media/ydfs/home ]
+then
+  install -d /media/ydfs/home/$user
+  ln -s /media/ydfs/home/$user /home/$user
+  chown $user  /media/ydfs/home/$user
+else
+  install -d /home/$user
+  chown $user  /home/$user
+fi

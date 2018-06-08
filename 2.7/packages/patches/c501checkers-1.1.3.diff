@@ -1,0 +1,13 @@
+diff --git a/configure b/configure
+index 8a58e4f..34b40e5 100755
+--- a/configure
++++ b/configure
+@@ -15256,7 +15256,7 @@ $as_echo "yes" >&6; }
+ $as_echo "no" >&6; }
+ 	fi
+ 
+-		warningOptions=' -Wall -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized' # -Wignored-qualifiers
++		warningOptions="-I$HOME/$ARCH/include"' -Wall -Wclobbered -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized' # -Wignored-qualifiers
+ 	if test "$IS_MAC" = 'true'; then
+ 		warningOptions=' -Wall'
+ 	fi

@@ -1,0 +1,13 @@
+diff --git a/src/daemon/LogindDBusTypes.cpp b/src/daemon/LogindDBusTypes.cpp
+index 79c7031..a611f8c 100644
+--- a/src/daemon/LogindDBusTypes.cpp
++++ b/src/daemon/LogindDBusTypes.cpp
+@@ -60,7 +60,7 @@ LogindPathInternal::LogindPathInternal()
+ 
+     if (QDBusConnection::systemBus().interface()->isServiceRegistered(QStringLiteral("org.freedesktop.ConsoleKit"))) {
+         qDebug() << "Console kit interface found";
+-        available = true;
++        available = false;
+         serviceName = QStringLiteral("org.freedesktop.ConsoleKit");
+         managerPath = QStringLiteral("/org/freedesktop/ConsoleKit/Manager");
+         managerIfaceName = QStringLiteral("/org.freedesktop.ConsoleKit.Manager"); //note this doesn't match logind

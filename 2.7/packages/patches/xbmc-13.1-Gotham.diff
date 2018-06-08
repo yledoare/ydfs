@@ -1,0 +1,13 @@
+diff --git a/tools/TexturePacker/Makefile.in b/tools/TexturePacker/Makefile.in
+index 4f0b610..4843108 100644
+--- a/tools/TexturePacker/Makefile.in
++++ b/tools/TexturePacker/Makefile.in
+@@ -19,7 +19,7 @@ CXXFLAGS_FOR_BUILD += \
+   -I@abs_top_srcdir@/xbmc \
+   -I@abs_top_srcdir@/xbmc/linux
+ 
+-LDFLAGS_FOR_BUILD += -lSDL_image -lSDL -llzo2
++LDFLAGS_FOR_BUILD += -lSDL_image -lSDL -llzo2 $(CFLAGS) $(LDFLAGS)
+ LDFLAGS_FOR_BUILD += -L@abs_top_srcdir@/lib/libsquish -lsquish-native
+ 
+ ifeq ($(findstring Darwin,$(shell uname -s)),Darwin)

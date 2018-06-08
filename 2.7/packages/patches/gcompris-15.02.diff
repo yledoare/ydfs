@@ -1,0 +1,13 @@
+diff --git a/src/gcompris/Makefile.in b/src/gcompris/Makefile.in
+index 1fb1185..5d729b5 100644
+--- a/src/gcompris/Makefile.in
++++ b/src/gcompris/Makefile.in
+@@ -450,7 +450,7 @@ gcompris_SOURCES = $(cairo_c) $(cairo_h) about.c about.h anim.c anim.h \
+ 	sdlplayer.c timer.c timer.h wordlist.c wordlist.h \
+ 	$(am__append_2) $(am__append_4)
+ gcompris_LDFLAGS = \
+-	-export-dynamic $(cairo_ldflags)
++	-export-dynamic $(cairo_ldflags) -lgmodule-2.0
+ 
+ gcompris_LDADD = $(top_builddir)/src/goocanvas/src/libgoocanvas.la \
+ 	$(GCOMPRIS_LIBS) $(sqlite_ldadd) $(XML_LIBS) $(GNET_LIBS) \

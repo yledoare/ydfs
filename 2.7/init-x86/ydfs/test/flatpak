@@ -1,0 +1,8 @@
+export FLATPAK_OSTREE_REPO_MODE=user-only
+wget https://sdk.gnome.org/keys/gnome-sdk.gpg
+flatpak remote-add --user --gpg-import=gnome-sdk.gpg gnome https://sdk.gnome.org/repo/
+flatpak install --user gnome org.gnome.Platform 3.24
+
+#flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+#flatpak list
+#flatpak install --from https://flathub.org/repo/appstream/org.tuxfamily.XMoto.flatpakref

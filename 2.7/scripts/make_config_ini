@@ -1,0 +1,85 @@
+#par la commande echo,créé un fichier config.ini;attention:avec la distribution LinuxConsole par défaut
+#ce script est lancé par ?
+# commande echo pour créer le fichier
+echo '
+BUSYBOX=1.24.2
+KERNEL_PREFIX=k
+DISTRONAME=linuxconsole
+CROSSTOOL=1.15.3
+LCBUILD=`date +"%Y-%m-%d"`
+#MEDIA=DVD
+#MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
+LCMBUILD=${HOME}/ydfs/build/modules/
+
+ISOTMP=${HOME}/ydfs/iso
+# MODULES="${ARCH}"
+MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH}"
+
+HOME_DIBAB=${PWD}
+
+# enable this to configure toolchain, busybox and kernel
+# MENUCONFIG=YES
+# DIBAB_VERBOSE_BUILD=YES
+' > config.ini
+
+# récupération de l'architecture par défaut(type de processeur)
+def_arch=`uname -m | sed -e s/i.86/x86/`
+[ -e /lib/i386-linux-gnu/ ] && def_arch=x86
+# grep -q "^flags.*\blm\b" /proc/cpuinfo && def_arch=x86_64
+# saisie par l'utilisateur de l'architecture demandée pour la compilation
+echo -n  "Arch ? (x86,x86_64,i586,mini2440,raspi,raspi-qemu) : $def_arch : "
+read arch
+[ "$arch" = "" ] && arch=$def_arch
+# modification de config.ini selon le type de processeur saisi
+if [ "$arch" = "mini2440" ]
+then
+  echo "Warning, arm mini2440 built was done to make this contest: http://www.linuxembedded.fr/concours2011/, run make test to see what it does"
+  echo "press enter to continue"
+  read key
+echo '
+# Only for mini2440 ARM
+TOOLCHAIN=FriendlyARM
+# TOOLCHAIN=buildroot
+# TOOLCHAIN=crosstool-ng
+
+# enable this to build crosstoolng toolchain
+# BUILD_TOOLCHAIN=OK
+
+# enable this to check mtd capacities of target 
+# BUILD-MTD-UTILS=OK 
+BOOT=NAND
+# BOOT=NOR
+# ARM_BOOT_LOADER=barebox
+# ARM_BOOT_LOADER=vboot
+' >> config.ini
+  echo "KERNEL3=3.3.4" >> config.ini
+  echo "ARCH=arm" >> config.ini
+  echo "SUBARCH=mini2440" >> config.ini
+  else
+    if [ "$arch" = "raspi" ]
+    then
+      echo "ARCH=arm" >> config.ini
+      echo "SUBARCH=raspi" >> config.ini
+      echo "KERNEL3=rpi-3.12.y" >> config.ini
+      echo "#TOOLCHAIN=crosstool-ng" >> config.ini
+      echo "#CROSSTOOL=1.15.3" >> config.ini
+    else
+      if [ "$arch" = "raspi-qemu" ]
+      then
+        echo "ARCH=arm" >> config.ini
+        echo "SUBARCH=raspi-qemu" >> config.ini
+        echo "KERNEL3=3.6.11" >> config.ini
+        echo "#TOOLCHAIN=crosstool-ng" >> config.ini
+        echo "#CROSSTOOL=1.15.3" >> config.ini
+      else
+        if [ "$arch" = "x86" ]
+	    then
+          echo "KERNEL3=4.1.48" >> config.ini
+	    else
+          echo "KERNEL3=4.16.14" >> config.ini
+	    fi
+        # autres cas non prévus
+        echo "ARCH=$arch" >> config.ini
+      fi
+    fi
+fi

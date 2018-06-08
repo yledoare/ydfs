@@ -1,0 +1,66 @@
+#!/bin/sh 
+if [ -e browser/app/profile/firefox.js ]
+then
+  cat >.mozconfig <<END
+ac_add_options --enable-application=browser
+
+ac_add_options --prefix=$PREFIX
+ac_add_options --enable-release
+ac_add_options --enable-gold
+ac_add_options --enable-pie
+ac_add_options --enable-optimize="-O2 -fPIC"
+ac_add_options --enable-rust-simd
+
+# Branding
+ac_add_options --enable-official-branding
+ac_add_options --enable-update-channel=release
+ac_add_options --with-distribution-id=org.linuxconsole
+export MOZILLA_OFFICIAL=1
+export MOZ_TELEMETRY_REPORTING=1
+export MOZ_ADDON_SIGNING=1
+export MOZ_REQUIRE_SIGNING=1
+
+ac_add_options --with-system-bz2
+ac_add_options --enable-system-hunspell
+ac_add_options --enable-system-sqlite
+ac_add_options --enable-system-ffi
+ac_add_options --with-system-icu
+
+# Features
+ac_add_options --enable-alsa
+ac_add_options --enable-jack
+ac_add_options --enable-startup-notification
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+END
+
+./mach build
+
+exit 1
+
+fi
+  if [ -e nss/build.sh ]
+  then
+	echo "Inside $0"
+  	cp $HOME_DIBAB/config/nss/Linux.mk nss/coreconf/Linux.mk || exit
+	cd nss 
+#  ./build.sh -v --opt --system-sqlite --system-nspr --disable-tests || exit 11
+
+  make -j1 BUILD_OPT=1                  \
+  NSPR_INCLUDE_DIR=/$HOME_DIBAB/$ARCH/include/nspr  \
+  SQLITE_LIB_DIR=/$HOME_DIBAB/$ARCH/lib  \
+  USE_SYSTEM_ZLIB=1                   \
+  ZLIB_LIBS=-lz                       \
+  NSS_ENABLE_WERROR=0                 \
+  $([ $ARCH = x86_64 ] && echo USE_64=1) || exit $?
+
+  install -v -m755 -d $PREFIX/include/nss                   
+  cp -v -RL ../dist/public/nss/* $PREFIX/include/nss 
+  cp -v -RL ../dist/private/nss/* $PREFIX/include/nss     
+  cp -fRL ../dist/Linux*/* $PREFIX 
+
+  cp -fR $HOME/ydfs/packages-$ARCH/sqlite-src-*/* /
+  touch ../buildok-$ARCH 
+  exit 0
+
+  fi

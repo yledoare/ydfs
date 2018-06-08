@@ -1,0 +1,39 @@
+From 5a88d560091327ff57b0029a9e7f5af1f4743c64 Mon Sep 17 00:00:00 2001
+From: Hib Eris <hib@hiberis.nl>
+Date: Tue, 31 Jan 2012 20:01:30 +0100
+Subject: [PATCH] Exclude poppler-private.h from introspection files
+
+---
+ glib/CMakeLists.txt |    2 +-
+ glib/Makefile.am    |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/glib/CMakeLists.txt b/glib/CMakeLists.txt
+index bc46b4d..0addd86 100644
+--- a/glib/CMakeLists.txt
++++ b/glib/CMakeLists.txt
+@@ -106,7 +106,7 @@ if (HAVE_INTROSPECTION)
+   set(INTROSPECTION_SCANNER_ARGS "--add-include-path=${CMAKE_CURRENT_SOURCE_DIR}")
+   set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
+ 
+-  set(introspection_files ${poppler_glib_SRCS} ${poppler_glib_public_headers} poppler-private.h)
++  set(introspection_files ${poppler_glib_SRCS} ${poppler_glib_public_headers})
+   set(Poppler_0_18_gir "poppler-glib")
+   set(Poppler_0_18_gir_INCLUDES GObject-2.0 cairo-1.0)
+   get_directory_property(_tmp_includes INCLUDE_DIRECTORIES)
+diff --git a/glib/Makefile.am b/glib/Makefile.am
+index 5c357bc..8aa2724 100644
+--- a/glib/Makefile.am
++++ b/glib/Makefile.am
+@@ -91,7 +91,7 @@ INTROSPECTION_GIRS =
+ INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
+ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+ 
+-introspection_files = $(libpoppler_glib_la_SOURCES) $(poppler_glib_include_HEADERS) $(nodist_poppler_glib_include_HEADERS)
++introspection_files = $(filter-out poppler-private.h, $(libpoppler_glib_la_SOURCES)) $(poppler_glib_include_HEADERS) $(nodist_poppler_glib_include_HEADERS)
+ Poppler-0.18.gir: libpoppler-glib.la
+ Poppler_0_18_gir_INCLUDES = GObject-2.0 cairo-1.0
+ Poppler_0_18_gir_CFLAGS = $(INCLUDES) -I$(top_builddir)
+-- 
+1.7.7
+

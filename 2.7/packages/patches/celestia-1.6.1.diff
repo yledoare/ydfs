@@ -1,0 +1,127 @@
+diff --git a/configure.in b/configure.in
+index cc8594c..0fffcc7 100644
+--- a/configure.in
++++ b/configure.in
+@@ -73,7 +73,7 @@ dnl Perform program name transformation
+ AC_ARG_PROGRAM
+ 
+ AM_INIT_AUTOMAKE([-Wno-portability])
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ 
+ AM_PO_SUBDIRS
+ dnl Specifying the AM_GNU_GETTEXT_VERSION macro causes autopoint to run,
+diff --git a/src/celengine/frametree.h b/src/celengine/frametree.h
+index 2e1efa2..62ca545 100644
+--- a/src/celengine/frametree.h
++++ b/src/celengine/frametree.h
+@@ -14,6 +14,7 @@
+ #define _CELENGINE_FRAMETREE_H_
+ 
+ #include <vector>
++#include <cstddef>
+ 
+ class Star;
+ class Body;
+diff --git a/src/celengine/image.cpp b/src/celengine/image.cpp
+index a36b9c1..9ee84aa 100644
+--- a/src/celengine/image.cpp
++++ b/src/celengine/image.cpp
+@@ -42,6 +42,7 @@ extern "C" {
+ #include "jpeglib.h"
+ #else
+ #include <cstdio>
++#include <string.h>
+ #include <jpeglib.h>
+ #endif
+ }
+diff --git a/src/celengine/texture.cpp b/src/celengine/texture.cpp
+index 0775204..51547f2 100644
+--- a/src/celengine/texture.cpp
++++ b/src/celengine/texture.cpp
+@@ -28,6 +28,7 @@
+ #include <cstdlib>
+ #include <cstdio>
+ #include <cassert>
++#include <string.h>
+ 
+ #ifndef _WIN32
+ #ifndef TARGET_OS_MAC
+diff --git a/src/celestia/Makefile.am b/src/celestia/Makefile.am
+index b1e4b3f..a2bda4d 100644
+--- a/src/celestia/Makefile.am
++++ b/src/celestia/Makefile.am
+@@ -7,14 +7,15 @@ DEFS = -DCONFIG_DATA_DIR='"$(PKGDATADIR)"' -DLOCALEDIR='"$(datadir)/locale"' @DE
+ 
+ if ENABLE_KDE
+ SUBDIRS += kde
+-celestiaKDELIBS = $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) $(LIB_KFILE) \
+-                  $(LIBSOCKET) -lDCOP kde/libkdegui.a
++celestiaKDELIBS = kde/libkdegui.a
+ celestia_LDFLAGS = $(all_libraries) $(KDE_RPATH)
++LIBS += $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) $(LIB_KFILE) $(LIBSOCKET) -lDCOP
+ endif
+ 
+ if ENABLE_GTK
+ SUBDIRS += gtk
+-celestiaGTKLIBS = $(GTK_LIBS) gtk/libgtkgui.a
++celestiaGTKLIBS = gtk/libgtkgui.a
++LIBS += $(GTK_LIBS)
+ endif
+ 
+ COMMONSOURCES = \
+@@ -62,6 +63,7 @@ endif
+ 
+ if ENABLE_GLUT
+ GLUTSOURCES = glutmain.cpp
++GLUTLIBS = -lGL
+ endif
+ 
+ if ENABLE_THEORA
+@@ -80,15 +82,16 @@ EXTRA_DIST = \
+ celestia_LDADD = \
+ 	$(celestiaKDELIBS) \
+ 	$(celestiaGTKLIBS) \
+-	$(DL_LIBS) \
+-	$(LUA_LIBS) \
+-	$(THEORA_LIBS) \
+ 	../celengine/libcelengine.a \
+ 	../celtxf/libceltxf.a \
+ 	../cel3ds/libcel3ds.a \
+ 	../celmath/libcelmath.a \
+ 	../celutil/libcelutil.a \
+-	$(SPICE_LIBS)
++	$(LUA_LIBS) \
++	$(THEORA_LIBS) \
++	$(GLUTLIBS) \
++	$(SPICE_LIBS) \
++	$(DL_LIBS)
+ 
+ noinst_HEADERS = $(wildcard *.h)
+ noinst_DATA = ../../celestia
+diff --git a/src/celestia/imagecapture.cpp b/src/celestia/imagecapture.cpp
+index 92602da..4b32b3e 100644
+--- a/src/celestia/imagecapture.cpp
++++ b/src/celestia/imagecapture.cpp
+@@ -31,6 +31,9 @@ extern "C" {
+ #include "png.h"
+ #endif
+ 
++// Z_BEST_COMPRESSION
++#include <zlib.h>
++
+ // Define png_jmpbuf() in case we are using a pre-1.0.6 version of libpng
+ #ifndef png_jmpbuf
+ #define png_jmpbuf(png_ptr) png_ptr->jmpbuf
+diff --git a/src/celmath/intersect.h b/src/celmath/intersect.h
+index 38fb01f..473b41b 100644
+--- a/src/celmath/intersect.h
++++ b/src/celmath/intersect.h
+@@ -15,6 +15,7 @@
+ #include "ray.h"
+ #include "sphere.h"
+ #include "ellipsoid.h"
++#include "mathlib.h"
+ 
+ 
+ template<class T> bool testIntersection(const Ray3<T>& ray,

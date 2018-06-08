@@ -1,0 +1,78 @@
+# mke2fs -L $DISTRONAME /dev/sda1
+# sh /ydfs/start/automount
+
+DISTRONAME=`cat /ydfs-name`
+if [ ! -e /dev/sda ]
+then
+  zenity --info --text="You need a /dev/sda disk for this !" &>/dev/null
+  exit 1	  
+else
+  if [ -e /dev/sda1 ]
+	then
+           zenity --question --text="Warning, grub will be installed on your /dev/sda disk ! Are you sure ?" &>/dev/null
+	   ans=$?
+	   echo $ans  
+	   [ "$ans" != "0" ] && exit 1
+	fi
+fi
+
+if [ ! -e /media/$DISTRONAME ]
+then
+which gpartedbin || opkg-cl install gparted
+zenity --info --text="Please create a partition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
+
+# To disable remounting while running gparted
+echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
+udevadm trigger --action=add
+$HOME_DIBAB/$ARCH/sbin/gpartedbin &>/dev/null
+sh /ydfs/start/automount
+sleep 3
+  if [ ! -e /media/$DISTRONAME ]
+  then
+	  zenity --error --text="Please format an ext4 partition with $DISTRONAME lablel !" &>/dev/null
+  	exit 1
+  fi
+fi
+
+if [ ! -e /sys/firmware/efi ]
+then
+  [ ! -e /boot ] && ln -sf /media/$DISTRONAME /boot
+  grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || grub-install /dev/sda  --boot-directory=/media/$DISTRONAME || exit 1
+  echo "Installing kernel and initramfs"
+  mkdir /media/$DISTRONAME/rootfs
+  KVER=`uname -r`
+  cp /media/ydfs/isolinux/k4* /boot/kernel-$KVER
+  cp /media/ydfs/isolinux/4* /boot/initramfs-genkernel-$KVER
+  cp /proc/config.gz /boot
+  gunzip /boot/config.gz
+  mv /boot/config /boot/config-$KVER
+  sed -i 's@target=device /`@target=device /media/DISTRONAME`@'  `which grub-mkconfig`
+  sed -i "s@DISTRONAME@$DISTRONAME@"  `which grub-mkconfig`
+  echo "running grub-mkconfig"
+  find /sys |grep sda|grep usb && BOOTOPTION=" liveusb "
+  LC_ALL=en_US.UTF8 grub-mkconfig -o /media/$DISTRONAME/grub/grub.cfg
+  [ -e /media/$DISTRONAME/grub/grub.cfg.new ] && cp /media/$DISTRONAME/grub/grub.cfg.new /media/$DISTRONAME/grub/grub.cfg
+  sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
+  touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
+else
+  zenity --info --text="Please create a boot partition, and install EFI" &>/dev/null
+fi
+
+echo "Copying module ..."
+ls /media/ydfs/modules/ | while read file
+do
+	echo $file
+	install -d /media/$DISTRONAME/modules
+  cp /media/ydfs/modules/$file /media/$DISTRONAME/modules
+done
+if [ -e /media/ydfs/pkg/ ]
+then
+echo "Copying packages ..."
+ls /media/ydfs/pkg/ | while read file
+do
+	echo $file
+	install -d /media/$DISTRONAME/pkg
+  cp /media/ydfs/pkg/$file /media/$DISTRONAME/pkg
+done
+fi
+  zenity --info --text="Installation finished, you can reboot now" &>/dev/null

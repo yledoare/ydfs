@@ -1,0 +1,32 @@
+--- SDL_ttf-2.0.9/configure.old	2011-09-09 16:48:21.000000000 +0200
++++ SDL_ttf-2.0.9/configure	2011-09-09 16:48:54.000000000 +0200
+@@ -1598,29 +1598,6 @@
+ build_os=`echo $ac_cv_build | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
+ 
+ 
+-echo "$as_me:$LINENO: checking host system type" >&5
+-echo $ECHO_N "checking host system type... $ECHO_C" >&6
+-if test "${ac_cv_host+set}" = set; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_cv_host_alias=$host_alias
+-test -z "$ac_cv_host_alias" &&
+-  ac_cv_host_alias=$ac_cv_build_alias
+-ac_cv_host=`$ac_config_sub $ac_cv_host_alias` ||
+-  { { echo "$as_me:$LINENO: error: $ac_config_sub $ac_cv_host_alias failed" >&5
+-echo "$as_me: error: $ac_config_sub $ac_cv_host_alias failed" >&2;}
+-   { (exit 1); exit 1; }; }
+-
+-fi
+-echo "$as_me:$LINENO: result: $ac_cv_host" >&5
+-echo "${ECHO_T}$ac_cv_host" >&6
+-host=$ac_cv_host
+-host_cpu=`echo $ac_cv_host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\1/'`
+-host_vendor=`echo $ac_cv_host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\2/'`
+-host_os=`echo $ac_cv_host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
+-
+-
+-
+ am__api_version="1.9"
+ # Find a good install program.  We prefer a C program (faster),
+ # so one script is as good as another.  But avoid the broken or

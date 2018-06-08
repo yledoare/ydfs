@@ -1,0 +1,98 @@
+diff --git a/po/LINGUAS b/po/LINGUAS
+new file mode 100644
+index 0000000..0e49a3e
+--- /dev/null
++++ b/po/LINGUAS
+@@ -0,0 +1,61 @@
++af
++ar
++be
++bg
++bn
++bn_IN
++ca
++cs
++da
++de
++el
++en_GB
++es
++es_VE
++et
++eu
++fa
++fi
++fo
++fr
++frp
++gl
++he
++hr
++hu
++id
++it
++ja
++kk
++km
++ko
++lg
++lt
++ml
++ms
++nb
++nl
++nn
++pa
++pl
++ps
++pt
++pt_BR
++ro
++ru
++sk
++sl
++sr
++sr@latin
++sv
++te
++th
++tr
++tt_RU
++ug
++uk
++ur
++ur_PK
++vi
++zh_CN
++zh_TW
+diff --git a/po/br.po b/po/br.po
+new file mode 100644
+index 0000000..97bb0d9
+--- /dev/null
++++ b/po/br.po
+@@ -0,0 +1,25 @@
++# translation of LxPanel to French
++# Copyright (C) 2006-2008 the LXDE team
++# This file is distributed under the same license as the LxPanel package.
++#
++# Frank Endres <frank_endres@yahoo.fr>, 2008.
++# Robert-André Mauchin <zebob.m@pengzone.org>, 2008.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: lxpanel r839\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2012-09-23 15:11+0200\n"
++"PO-Revision-Date: 2012-06-12 01:14+0200\n"
++"Last-Translator: Cilyan <gaknar@gmail.com>\n"
++"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
++"Language: fr\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n > 1);\n"
++"X-Generator: Pootle 2.0.5\n"
++
++msgid "Logout"
++msgstr "Kenavo"
++

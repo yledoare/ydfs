@@ -1,0 +1,12 @@
+[ $USER != "root" ] && echo "$0 should be run as root" && exit 1
+if [ -e /etc/debian_version ]
+then
+  DEBIAN="libncurses5-dev"
+  UBUNTU="ncurses-dev"
+  grep '9.' /etc/debian_version && DEBIAN9="gcc-multilib g++-multilib python-mako libclang-3.8-dev"
+  COMMON="libssl-dev libwrap0 gsoap meson libghc-sandi-dev libghc-regex-tdfa-dev libghc-base-dev libghc-sha-dev libbabeltrace-ctf1 clang cython llvm-dev xz-utils libxml-parser-perl patch libunwind8 libclc-dev ftjam locales syslinux-utils ghc libghc-random-dev libghc-zlib-dev libghc-entropy-dev libghc-utf8-string-dev ghc libghc-vector-dev libghc-bytestring-show-dev libghc-network-dev libghc-hslogger-dev makeself iasl doxygen p7zip-full xutils-dev xmlto libelf-dev imagemagick bam fontforge ruby libboost-all-dev libboost-dev nasm libatomic-ops-dev unzip bc lynx cmake extra-cmake-modules xfonts-utils xsltproc zlib1g-dev gperf bzr unicode-data llvm gettext docbook-xsl make mtd-utils pciutils texinfo bzip2 subversion git gawk bison flex automake autoconf libtool-bin libtool cvs lzma g++ genisoimage libmpfr-dev libgmp3-dev" 
+  apt-get install $DEBIAN $COMMON $DEBIAN9
+else
+  echo "Ydfs is designed to be build from debian/ubuntu"
+  exit 1
+fi

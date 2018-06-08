@@ -1,0 +1,16 @@
+#!/bin/sh
+url=$1
+DIALOG=zenity
+[ ! -n "$DEST" ] && echo "Please give DEST" && exit 1
+wget --no-check-certificate --directory-prefix=$DEST "$url" 2>&1 | awk '{for(i=1;i<=NF;i=i+1) if($i~/[[:digit:]]+%/){gsub("%","",$i);print $i}; fflush()}' | $DIALOG --title="Downloading" --text="$url" --progress "$url" 10 400 &
+
+RUNNING=0
+while [ $RUNNING -eq 0 ]
+do
+  sleep 1
+if [ -z "$(pidof zenity)" ]
+then
+    pkill wget
+      RUNNING=1
+    fi
+done

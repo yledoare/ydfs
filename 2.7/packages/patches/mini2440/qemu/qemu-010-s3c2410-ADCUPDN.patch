@@ -1,0 +1,33 @@
+--- a/hw/s3c2410.c
++++ b/hw/s3c2410.c
+@@ -1655,6 +1655,7 @@
+ #define S3C_ADCDLY	0x08	/* ADC Start or Interval Delay register */
+ #define S3C_ADCDAT0	0x0c	/* ADC Conversion Data register 0 */
+ #define S3C_ADCDAT1	0x10	/* ADC Conversion Data register 1 */
++#define S3C_ADCUPDN	0x14	/* ADC Stylus Up or Down Interrupt status register */
+ 
+ static uint32_t s3c_adc_read(void *opaque, target_phys_addr_t addr)
+ {
+@@ -1673,6 +1674,8 @@
+         return ((!s->down) << 15) | s->xdata;
+     case S3C_ADCDAT1:
+         return ((!s->down) << 15) | s->ydata;
++    case S3C_ADCUPDN:
++		return s->down?1:2;
+     default:
+         printf("%s: Bad register 0x%lx\n", __FUNCTION__, (unsigned long)addr);
+         break;
+@@ -1704,6 +1707,13 @@
+         s->delay = value & 0xffff;
+         break;
+ 
++	case S3C_ADCUPDN:
++		if(value & 1)
++			s->down = 1;
++		else if(value & 2)
++			s->down = 0;
++		break;
++
+     default:
+         printf("%s: Bad register 0x%lx\n", __FUNCTION__, (unsigned long)addr);
+     }

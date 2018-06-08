@@ -1,0 +1,79 @@
+--- nebu/scripting/scripting.c
++++ nebu/scripting/scripting.c
+@@ -169,16 +169,16 @@
+   return status;
+ }    
+ 
+-void scripting_RunFile(char *name) {
++void scripting_RunFile(const char *name) {
+   lua_dofile(L, name);
+ }
+ 
+-void scripting_Run(char *command) {
++void scripting_Run(const char *command) {
+   /* fprintf(stderr, "[command] %s\n", command); */
+   lua_dostring(L, command);
+ }
+ 
+-void scripting_RunFormat(char *format, ... ) {
++void scripting_RunFormat(const char *format, ... ) {
+   char buf[4096];
+   va_list ap;
+   va_start(ap, format);
+
+--- src/include/game/game_data.h
++++ src/include/game/game_data.h
+@@ -71,7 +71,7 @@
+ typedef struct AI {
+   int active;
+   int tdiff;
+-  long lasttime;
++  unsigned int lasttime;
+ 	segment2 left, right, front, backleft;
+ } AI;
+ 
+--- src/include/video/fonttex.h
++++ src/include/video/fonttex.h
+@@ -10,7 +10,7 @@
+   int lower; /* lowest ascii character (normally: 32) */
+   int upper; /* highest ascii character (normally: 126) */
+ 
+-  int *texID;
++  unsigned int *texID;
+ 
+   char *fontname;
+   char *bitmapname;
+   
+--- src/video/trail.c
++++ src/video/trail.c
+@@ -19,7 +19,7 @@
+   n[1] = s->vStart.v[1] - s->vDirection.v[0];
+   tmp[0] = eye[0] - s->vStart.v[0];
+   tmp[1] = eye[1] - s->vStart.v[1];
+-  if(n[0] == n[1] == 0) return length(tmp);
++  if(n[0] == 0 && n[1] == 0) return length(tmp);
+   return abs(scalarprod2(n, tmp) / length(n));
+ }
+ 
+--- configure
++++ configure
+@@ -2805,7 +2805,7 @@
+   RANLIB="$ac_cv_prog_RANLIB"
+ fi
+ 
+-CFLAGS="-DSEPARATOR=\"'/'\""
++CFLAGS="$CFLAGS -DSEPARATOR=\"'/'\""
+ 
+ # Check whether --enable-warn or --disable-warn was given.
+ if test "${enable_warn+set}" = set; then
+@@ -2852,10 +2852,6 @@
+ else
+   enable_optimize=s
+ fi;
+-if test "x$enable_optimize" ; then
+-	CFLAGS="$CFLAGS -O$enable_optimize"
+-	CXXFLAGS="$CXXFLAGS -O$enable_optimize"
+-fi
+ 
+ # Check whether --with-sdl-prefix or --without-sdl-prefix was given.
+ if test "${with_sdl_prefix+set}" = set; then

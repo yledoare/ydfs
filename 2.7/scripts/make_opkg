@@ -1,0 +1,107 @@
+PKGNAME=`basename $PWD|cut -d'_' -f1|sed "s/_/-/"`
+echo $PWD|grep SDL2_ttf && PKGNAME=SDL2ttf
+# PKGVER=`basename $PWD|cut -d'-' -f2`
+NAME=""
+
+TRY1=`echo $PKGNAME | cut -d '-' -f1,2`
+if [ $TRY1 != "$PKGNAME" ]
+then
+  echo 1
+  NAME=`echo $PKGNAME | cut -d '-' -f1,2 | tr '[:upper:]' '[:lower:]'`
+  PKGVER=`echo $PKGNAME | cut -d '-' -f3` 
+else
+  echo 2
+  NAME=`echo $PKGNAME | cut -d '-' -f1 | tr '[:upper:]' '[:lower:]'`
+  PKGVER=`echo $PKGNAME | cut -d '-' -f2` 
+  [ "$PKGVER" = "data" ] && NAME=$PKGNAME
+fi
+
+echo $PWD| grep Squeak && NAME=squeak && PKGVER="latest"
+echo $PWD| grep NVIDIA-Linux && NAME=`basename $PWD|cut -d'_' -f1|sed "s/Linux-x86-//"|sed "s/\.//"|tr '[:upper:]' '[:lower:]'`
+echo $PWD| grep NVIDIA-Linux && NAME=nvidia && PKGVER=`basename $PWD | cut -d'-' -f4`
+echo $PWD| grep nvidia- && NAME=`basename $PWD|cut -d'.' -f1|tr '[:upper:]' '[:lower:]'`
+pwd
+echo "NAME IS $NAME"
+
+# exit 1
+
+PKGDESC=""
+if [ "$NAME" = "mc" ]
+then
+  PKGDESC="Midnight Commander is a text based filemanager/shell that emulates Norton Command"
+else
+  if [ "$NAME" = "filezilla" ]
+  then
+    PKGDESC="FTP Client"
+  else
+    if [ "$NAME" = "recordmydesktop" ]
+    then
+    	PKGDESC="Record desktop session"
+    else
+    	grep "$NAME;" $HOME_DIBAB/packages.desc && PKGDESC=$(grep "$NAME;" $HOME_DIBAB/packages.desc | cut -d';' -f2)
+    fi
+  fi
+fi
+
+[ "$NAME" = "fixes" ] && DBEXTRA=FixBugs && PKGVER=`date +"%Y-%m-%d"` && PKGSRC="http://bugtracker.linuxconsole.org" && LISTFIX=$(ls -x $HOME_DIBAB/opkg/fixes/root/.ydfs/fixydfs/) && PKGDESC="Fix all ydfs known bugs : $LISTFIX"
+[ "$NAME" = "thunderbird" ] && DBEXTRA=Internet && PKGVER="31.2" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Mail client"
+[ "$NAME" = "firefox" ] && DBEXTRA=Internet && PKGVER="latest" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Firefox Web browser"
+[ "$NAME" = "flash" ] && DBEXTRA=Internet && PKGVER="latest" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Adobe Flash plugin"
+[ "$NAME" = "chrome" ] && DBEXTRA=Internet && PKGVER="latest" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Chrome Web browser"
+[ "$NAME" = "playonlinux" ] && DBEXTRA=games && PKGVER="4.2.5" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="Play Linux Games with Wine"
+[ "$NAME" = "spring" ] && DBEXTRA=games && PKGVER="98.0" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="RTS Game"
+
+
+#[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
+[ "$PKGDESC" = "" ] && echo "What is DESC for $NAME ?" && read PKGDESC && echo "$NAME;$PKGDESC" >> $HOME_DIBAB/packages.desc
+
+echo "FIXME : NAME $NAME VERSION $PKGVER"
+#bash 
+install -d CONTROL
+
+SECTION=extras
+echo "Extra is $DBEXTRA, name is $NAME"
+[ "$DBEXTRA" != "" ] && SECTION=$DBEXTRA
+
+[ "$NAME" = "gbrainy" ] && DEPENDS="mono, gtk-sharp"
+[ "$NAME" = "filezilla" ] && DEPENDS="libfilezilla"
+[ "$NAME" = "steam" ] && DEPENDS="libtxc"
+[ "$NAME" = "xsane" ] && DEPENDS="gimp"
+[ "$NAME" = "gtk-recordmydesktop" ] && DEPENDS="recordmydesktop"
+[ "$NAME" = "advancemame" ] && DEPENDS="mame"
+[ "$NAME" = "vmpk" ] && DEPENDS="qt5,drumstick"
+[ "$NAME" = "stellarium" ] && DEPENDS="qt5"
+[ "$NAME" = "qtractor" ] && DEPENDS="qt5"
+[ "$NAME" = "scratch" ] && DEPENDS="squeak"
+[ "$NAME" = "gnome-mplayer" ] && DEPENDS="gmtk, mplayer-export"
+[ "$NAME" = "celestia" ] && DEPENDS="pangox-compat,gtkglext"
+# [ "$NAME" = "kgeography" ] && DEPENDS="libkdeedu"
+[ "$NAME" = "khangman" ] && DEPENDS="libkdeedu"
+[ "$NAME" = "pinball" ] && DEPENDS="pinball-data"
+#[ "$NAME" = "mfc5860cncupswrapper-1.0.1" ] && DEPENDS="mfc5860cnlpr-1.0.1"
+
+OPKGARCH=x86_64
+[ "$ARCH" = "x86" ] && OPKGARCH=i686
+[ "$PKGSRC" = "" ] && PKGSRC="http://linuxconsole.org"
+
+echo "
+Package: $NAME
+Priority: optional
+Version: $PKGVER
+Architecture: $OPKGARCH
+Maintainer: Yann (http://www.linuxconsole.org/contact)
+Depends: $DEPENDS
+Source: $PKGSRC
+Section: $SECTION
+Description: $PKGDESC " > CONTROL/control 
+
+install -d $HOME/ydfs/opkg
+
+[ -e $PWD/$HOME/opkg/share/info/dir ] && echo "Delete $PWD/$HOME/opkg/share/info/dir" && rm $PWD/$HOME/opkg/share/info/dir
+
+echo "Look at $HOME_DIBAB/packages/patches/opkg/$NAME/postinst"
+[ -e $HOME_DIBAB/packages/patches/opkg/$NAME/postinst ] && echo OK && cp $HOME_DIBAB/packages/patches/opkg/$NAME/postinst CONTROL
+
+$HOME_DIBAB/tools/opkg-utils/opkg-build -o root -g root . $HOME/ydfs/opkg || exit $?
+[ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
+echo "Buildt"

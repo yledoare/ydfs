@@ -1,0 +1,51 @@
+diff --git a/Make.Rules b/Make.Rules
+index 8393738..1762f2d 100644
+--- a/Make.Rules
++++ b/Make.Rules
+@@ -22,8 +22,8 @@ lib_prefix=$(exec_prefix)
+ inc_prefix=$(lib_prefix)
+ man_prefix=$(prefix)/share
+ else
+-prefix=/usr
+-exec_prefix=
++prefix=$(HOME)/$(ARCH)
++exec_prefix=$(prefix)
+ lib_prefix=$(exec_prefix)
+ inc_prefix=$(prefix)
+ man_prefix=$(prefix)/share
+diff --git a/Makefile b/Makefile
+index b0a8727..0f53a67 100644
+--- a/Makefile
++++ b/Makefile
+@@ -13,8 +13,6 @@ all install clean: %: %-here
+ ifneq ($(PAM_CAP),no)
+ 	$(MAKE) -C pam_cap $@
+ endif
+-	$(MAKE) -C progs $@
+-	$(MAKE) -C doc $@
+ 
+ all-here:
+ 
+diff --git a/libcap/Makefile b/libcap/Makefile
+index 4762c60..86a322d 100644
+--- a/libcap/Makefile
++++ b/libcap/Makefile
+@@ -16,7 +16,7 @@ FILES=cap_alloc cap_proc cap_extint cap_flag cap_text
+ # no support).
+ ifeq ($(LIBATTR),yes)
+ FILES += cap_file
+-LDFLAGS += -lattr
++LDFLAGS += -lattr -L$(HOME)/$(ARCH)/lib
+ endif
+ 
+ INCLS=libcap.h cap_names.h $(INCS)
+@@ -68,9 +68,6 @@ install: all
+ 	install -m 0644 $(MINLIBNAME) $(LIBDIR)/$(MINLIBNAME)
+ 	ln -sf $(MINLIBNAME) $(LIBDIR)/$(MAJLIBNAME)
+ 	ln -sf $(MAJLIBNAME) $(LIBDIR)/$(LIBNAME)
+-ifeq ($(FAKEROOT),)
+-	-/sbin/ldconfig
+-endif
+ 
+ clean:
+ 	$(LOCALCLEAN)

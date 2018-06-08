@@ -1,0 +1,118 @@
+diff --git a/distrolst.cpp b/distrolst.cpp
+index 29d88f7..5c1baf7 100644
+--- a/distrolst.cpp
++++ b/distrolst.cpp
+@@ -54,6 +54,20 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY
+ 	}
+ #endif
+ 
++if (nameDistro == "AlbatrOS")
++{
++	if (isarch64)
++	{
++		cpuarch = "x86_64";
++	}
++	else
++	{
++		cpuarch = "x86";
++	}
++  downloadfile(QString("http://jukebox.linuxconsole.org/official/albatros/%1/ydfs-%2.iso").arg(relname,cpuarch), isotmpf);
++  extractiso(isotmpf);
++}
++
+ #ifdef AUTOSUPERGRUBDISK
+ 
+ if (nameDistro == "Auto Super Grub Disk")
+@@ -568,9 +582,24 @@ if (nameDistro == "Gujin")
+ 	downloadfile(QString("http://downloads.sourceforge.net/sourceforge/lubi/gujin-%1.img.gz").arg(relname), QString("%1ubninit").arg(targetPath), 81920);
+ }
+ 
++
+ if (nameDistro == "LinuxConsole")
+ {
+-  downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(QString(relname)), isotmpf);
++/*
++	if (isarch64)
++	{
++		cpuarch = "x86_64";
++  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole/%1/%2.iso").arg(cpuarch,relname), isotmpf);
++	}
++	else
++*/
++	{
++		cpuarch = "x86";
++		if(relname == "2.0")
++  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole.2.0-x86.iso"), isotmpf);
++		else
++  		downloadfile(QString("http://jukebox.linuxconsole.org/official/linuxconsole%1.iso").arg(relname), isotmpf);
++	}
+   extractiso(isotmpf);
+ }
+ 
+@@ -771,6 +800,11 @@ if (nameDistro == "Ophcrack")
+ 	extractiso(isotmpf);
+ }
+ 
++if (nameDistro == "Papyrus")
++{
++  downloadfile(QString("http://jukebox.linuxconsole.org/official/papyrus.%1-x86.iso").arg(relname), isotmpf);
++  extractiso(isotmpf);
++}
+ if (nameDistro == "Parted Magic")
+ {
+ 	if (relname == "2.1")
+diff --git a/distrover.cpp b/distrover.cpp
+index 75af092..72c17fe 100644
+--- a/distrover.cpp
++++ b/distrover.cpp
+@@ -22,6 +22,11 @@ unetbootin::tr("Welcome to <a href=\"http://unetbootin.sourceforge.net/\">UNetbo
+ 	"<ol><li>Select a distribution and version to download from the list above, or manually specify files to load below.</li>"
+ 	"<li>Select an installation type, and press OK to begin installing.</li></ol>") <<
+ unetbootin::tr("== Select Version ==")));
++distroselect->addItem("AlbatrOS", (QStringList() << "2.2" <<
++unetbootin::tr("<b>Homepage:</b> <a href=\"http://albatros.linuxconsole.org/\">http://albatros.linuxconsole.org</a><br/>"
++ "<b>Description:</b> AlbatrOS is a linux based live CD, developped by the team of the LinuxConsole Project, which is primarly designed to turn old and semi-old computers into game console center. <br/>"
++ "<b>Install Notes:</b> Install the 'fix' package, then run install on disk") <<
++ "2.2" ));
+ distroselect->addItem("Arch Linux", (QStringList() << "core" <<
+ unetbootin::tr("<b>Homepage:</b> <a href=\"http://www.archlinux.org/\">http://www.archlinux.org</a><br/>"
+ 	"<b>Description:</b> Arch Linux is a lightweight distribution optimized for speed and flexibility.<br/>"
+@@ -131,11 +136,11 @@ unetbootin::tr("<b>Homepage:</b> <a href=\"http://www.kubuntu.org/\">http://www.
+ 	"<b>Description:</b> Kubuntu is an official Ubuntu derivative featuring the KDE desktop.<br/>"
+ 	"<b>Install Notes:</b> The Live version allows for booting in Live mode, from which the installer can optionally be launched. The NetInstall version allows for installation over FTP, and can install Kubuntu and other official Ubuntu derivatives. If you would like to use a pre-downloaded alternate (not desktop) install iso, use the HdMedia option, and then place the alternate install iso file on the root directory of your hard drive or USB drive") <<
+ ubuntuverlist));
+-	distroselect->addItem("LinuxConsole", (QStringList() << "1.0.2010-cd" <<
++	distroselect->addItem("LinuxConsole", (QStringList() << "2.0" <<
+ unetbootin::tr("<b>Homepage:</b> <a href=\"http://linuxconsole.org/\">http://linuxconsole.org</a><br/>"
+  "<b>Description:</b> LinuxConsole is a desktop distro to play games, easy to install, easy to use and fast to boot .<br/>"
+  "<b>Install Notes:</b> The 1.0.2010 is latest 1.0, now available on rolling release (run liveuptate to update modules and kernel).") <<
+- "1.0.2010-cd"));
++ "2.0" << "1.0.2010-cd" << "1.0.2009-cd" ));
+     distroselect->addItem("Linux Mint", (QStringList() << "17_Live" <<
+ unetbootin::tr("<b>Homepage:</b> <a href=\"http://linuxmint.com/\">http://linuxmint.com</a><br/>"
+ 	"<b>Description:</b> Linux Mint is a user-friendly Ubuntu-based distribution which includes additional proprietary codecs and other software by default.<br/>"
+@@ -186,6 +191,11 @@ unetbootin::tr("<b>Homepage:</b> <a href=\"http://ophcrack.sourceforge.net/\">ht
+ 	"<b>Description:</b> Ophcrack can crack Windows passwords.<br/>"
+ 	"<b>Install Notes:</b> Ophcrack is booted and run in live mode; no installation is required to use it.") <<
+ "XP-LiveCD-2.0" << "Vista-LiveCD-2.0"));
++	distroselect->addItem("Papyrus", (QStringList() << "2014-06-24" <<
++unetbootin::tr("<b>Homepage:</b> <a href=\"http://albatros.linuxconsole.org/papyrus-2-2/\">http://albatros.linuxconsole.org/papyrus-2-2/</a><br/>"
++ "<b>Description:</b> Papyrus is a linux based live CD, developped by the team of the LinuxConsole Project, Papyrus has libroffice and other software (gimp, scribus)  inside a squashfs image, you can use it without downloading other software.. <br/>"
++ "<b>Install Notes:</b> You can install it with <a href=\"http://ftp.cc.uoc.gr/mirrors/linux/linuxconsole/albatros/AlbatrOS.exe\">The windows installer</a>") <<
++ "2014-06-24" ));
+ distroselect->addItem("Parted Magic", (QStringList() << "Latest_Live" <<
+ unetbootin::tr("<b>Homepage:</b> <a href=\"http://partedmagic.com/\">http://partedmagic.com</a><br/>"
+ 	"<b>Description:</b> Parted Magic includes the GParted partition manager and other system utilities which can resize, copy, backup, and manipulate disk partitions.<br/>"
+diff --git a/unetbootin_fr.ts b/unetbootin_fr.ts
+index 44ff23a..0856186 100644
+--- a/unetbootin_fr.ts
++++ b/unetbootin_fr.ts
+@@ -540,7 +540,7 @@ Redémarrer immédiatement?</translation>
+     </message>
+     <message>
+         <location filename="distrover.cpp" line="137"/>
+-        <source>&lt;b&gt;Homepage:&lt;/b&gt; &lt;a href=&quot;http://linuxconsole.org/&quot;&gt;http://linuxconsole.org&lt;/a&gt;&lt;br/&gt;&lt;b&gt;Description:&lt;/b&gt; LinuxConsole is a desktop distro to play games, easy to install, easy to use and fast to boot .&lt;br/&gt;&lt;b&gt;Install Notes:&lt;/b&gt; The 1.0.2010 is latest 1.0, now available on rolling release (run liveuptate to update modules and kernel).</source>
++        <source>&lt;b&gt;Homepage:&lt;/b&gt; &lt;a href=&quot;http://linuxconsole.org/&quot;&gt;http://linuxconsole.org&lt;/a&gt;&lt;br/&gt;&lt;b&gt;Description:&lt;/b&gt; LinuxConsole is a desktop distro to play games, easy to install, easy to use and fast to boot .&lt;br/&gt;&lt;b&gt;Install Notes:&lt;/b&gt; You can install with the windows installer.</source>
+         <translation>&lt;b&gt;Page d&apos;accueil :&lt;/ b&gt;&lt;a href=&quot;http://linuxconsole.org/&quot;&gt;http://linuxconsole.org&lt;/a&gt;&lt;br/&gt;&lt;b&gt;Description :&lt;/b&gt; LinuxConsole est une distribution de bureau pour jouer à des jeux, facile à installer, facile à utiliser et rapide à démarrer.&lt;br/&gt; &lt;b&gt;Notes d&apos;installation :&lt;/b&gt; La version 1.0.2010 est la dernière version 1.0, courante maintenant disponible (exécutez liveuptate pour mettre à jour les modules et le noyau).</translation>
+     </message>
+     <message>

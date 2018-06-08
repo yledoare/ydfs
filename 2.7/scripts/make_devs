@@ -1,0 +1,18 @@
+cd $1
+
+#install -d input/ts
+#rmdir input/ts
+mknod input/ts c 13 64
+for a in 0 1 2 3 4
+do
+  mknod mtd$a c 90 $(($a+$a))
+  mknod mtdblock$a b 31 $a
+done
+mknod fb0 c 29 0
+mknod mmcblk0 b 179 0
+mknod mmcblk0p1 b 179 1
+rm null
+mknod null c 1 3
+mknod ttyS0 c 4 64 # console port
+mknod ptmx c 5 2 # dropbear sshd
+ls -l null
