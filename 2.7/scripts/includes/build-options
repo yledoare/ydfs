@@ -1,3 +1,4 @@
+echo $ARCHIVE | grep mozjs && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
@@ -67,6 +68,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
 	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
+        echo $ARCHIVE | grep polkit-0.114 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
         echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
@@ -82,6 +84,11 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-pcregrep-libz \
     --enable-pcregrep-libbz2 \
     --enable-pcretest-libreadline" 
+	 echo $ARCHIVE | grep mozjs-52 && export LC_CONFIGURE_OPTS="  
+	            --with-intl-api     \
+            --with-system-nspr  \
+            --with-system-icu   \
+            --enable-threadsafe "
 	echo $ARCHIVE | grep mozjs-24 && unset MODULE && unset CPPFLAGS && CXXFLAGS+=' -fno-delete-null-pointer-checks' && LC_CONFIGURE_OPTS=" --with-system-nspr --enable-system-ffi --enable-readline --enable-threadsafe"
 	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
 	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 

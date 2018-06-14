@@ -302,7 +302,13 @@ pwd && sleep 5
 
   if [ -e js/src/jsalloc.cpp ]
   then
+    echo "Build mozjs"
     cd js/src
+    echo "$LC_CONFIGURE_OPTS"
+    sleep 5
+    ./configure $LC_CONFIGURE_OPTS
+    make || exit 1
+    bash
   fi
 
   if [ -e nspr ]
@@ -452,7 +458,8 @@ pwd && sleep 5
 	exit 0
     fi
 
-   [ -e src/polkit/polkit.h ] && echo src/polkit/polkit.h && sleep 4 && sed -i "s:/sys/fs/cgroup/systemd/:/sys:g" configure
+   # [ -e src/polkit/polkit.h ] && echo src/polkit/polkit.h && sleep 4 && sed -i "s:/sys/fs/cgroup/systemd/:/sys:g" configure
+   [ -e src/polkit/polkit.h ] && echo src/polkit/polkit.h && sleep 4 && NOCONFIGURE=1 && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
 
    if [ -e readline.c ]
    then
@@ -789,6 +796,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 	 exit 0
       fi
     fi
+  [ -e src/fcobjshash.h ] && echo "DELETE src/fcobjshash.h" && rm src/fcobjshash.h
   [ -e gnu/stdio.in.h ] && sed -i -e '/gets is a/d' gnu/stdio.in.h
   [ -e src/FTGL/ftgl.h ] &&  sed -i '/^SUBDIRS =/s/demo//' Makefile.in
   [ -e src/FTGL/ftgl.h ] &&  sed -i '/^SUBDIRS =/s/docs//' Makefile.in
