@@ -41,13 +41,13 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
                              -DSQLITE_MAX_EXPR_DEPTH=10000"
  
 		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
-   --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
-    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
-    --with-egl-platforms=x11,drm,wayland \
+    --with-gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,swr \
+    --with-dri-drivers=i915,i965,r200,nouveau \
+    --with-vulkan-drivers=intel,radeon \
+    --with-egl-platforms=x11,wayland,drm,surfaceless \
     --enable-llvm-shared-libs \
     --enable-egl \
     --enable-gbm \
-    --enable-gallium-llvm \
     --enable-shared-glapi \
     --enable-glx \
     --enable-glx-tls \
@@ -58,7 +58,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-texture-float \
     --enable-xa \
     --enable-vdpau \
-    --enable-omx \
     --enable-nine \
     --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
 	echo $ARCHIVE | grep ftgl && LC_CONFIGURE_OPTS=" -with-pic --disable-static "
