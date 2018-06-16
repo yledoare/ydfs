@@ -88,6 +88,11 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
             --with-system-nspr  \
             --with-system-icu   \
             --enable-threadsafe "
+	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
+    --enable-double-precision \
+    --enable-libccd \
+    --enable-ou \
+    --enable-silent-rules"
 	echo $ARCHIVE | grep mozjs-24 && unset MODULE && unset CPPFLAGS && CXXFLAGS+=' -fno-delete-null-pointer-checks' && LC_CONFIGURE_OPTS=" --with-system-nspr --enable-system-ffi --enable-readline --enable-threadsafe"
 	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
 	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 
@@ -296,6 +301,43 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
             -nomake demos      \
             -nomake examples   \
             -optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/ydfs/build-$ARCH/`basename $ARCHIVE | cut -d'.' -f1,2,3`/lib"
+	echo $ARCHIVE | grep mariadb && LC_CONFIGURE_OPTS="-DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib .. -DOPENSSL_INCLUDE_DIR=$HOME/$ARCH/include -DOPENSSL_LIBRARIES=$HOME/$ARCH/lib/libssl.so -DCRYPTO_LIBRARY=$HOME/$ARCH/lib/libcrypto.so"
+	echo $ARCHIVE | grep mmmariadb && LC_CONFIGURE_OPTS="
+    -DDEFAULT_CHARSET=utf8mb4 \
+    -DDEFAULT_COLLATION=utf8mb4_unicode_ci \
+    -DENABLED_LOCAL_INFILE=ON \
+    -DINSTALL_DOCDIR=share/doc/mariadb \
+    -DINSTALL_DOCREADMEDIR=share/doc/mariadb \
+    -DINSTALL_MANDIR=share/man \
+    -DINSTALL_PLUGINDIR=lib/mysql/plugin \
+    -DINSTALL_SCRIPTDIR=bin \
+    -DINSTALL_SYSCONFDIR=/etc/mysql \
+    -DINSTALL_SYSCONF2DIR=/etc/mysql \
+    -DINSTALL_INCLUDEDIR=include/mysql \
+    -DINSTALL_SUPPORTFILESDIR=share/mysql \
+    -DINSTALL_MYSQLSHAREDIR=share/mysql \
+    -DINSTALL_SHAREDIR=share/mysql \
+    -DINSTALL_SYSTEMD_SYSUSERSDIR=$PREFIX/lib/sysusers.d/ \
+    -DINSTALL_SYSTEMD_TMPFILESDIR=$PREFIX/lib/tmpfiles.d/ \
+    -DINSTALL_SYSTEMD_UNITDIR=$PREFIX/lib/systemd/system/ \
+    -DWITH_SYSTEMD=yes \
+    -DWITH_READLINE=ON \
+    -DWITH_ZLIB=system \
+    -DWITH_SSL=system \
+    -DWITH_PCRE=bundled \
+    -DWITH_LIBWRAP=OFF \
+    -DWITH_JEMALLOC=ON \
+    -DWITH_EXTRA_CHARSETS=complex \
+    -DWITH_EMBEDDED_SERVER=ON \
+    -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+    -DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+    -DWITH_INNOBASE_STORAGE_ENGINE=1 \
+    -DWITH_PARTITION_STORAGE_ENGINE=1 \
+    -DWITH_TOKUDB_STORAGE_ENGINE=1 \
+    -DWITHOUT_EXAMPLE_STORAGE_ENGINE=1 \
+    -DWITHOUT_FEDERATED_STORAGE_ENGINE=1 \
+    -DWITHOUT_PBXT_STORAGE_ENGINE=1 \
+    -DCMAKE_EXE_LINKER_FLAGS=-ljemalloc" && -DCMAKE_C_FLAGS="-fPIC $CFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -fomit-frame-pointer -fno-delete-null-pointer-checks"  && -DCMAKE_CXX_FLAGS="-fPIC $CXXFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -felide-constructors -fno-rtti -fno-delete-null-pointer-checks" && -DWITH_MYSQLD_LDFLAGS="-pie ${LDFLAGS},-z,now"
 
 	echo $ARCHIVE | grep mysql-5.6 && LC_CONFIGURE_OPTS="-DENABLED_LOCAL_INFILE=ON -DWITH_SSL=$HOME/$ARCH "
 	echo $ARCHIVE | grep httpd && LC_CONFIGURE_OPTS="--enable-so"
