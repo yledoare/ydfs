@@ -25,8 +25,6 @@ install -d $HOME/multilib/include
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
   
-install -d $HOME/ydfs/src/llvm
-
 # libFS-1 libdmx- \
 
 PKGMULTILIB="bigreqsproto compositeproto damageproto dri2proto dri3proto fixesproto fontsproto glproto inputproto kbproto presentproto randrproto recordproto renderproto resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto xproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
@@ -60,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -106,6 +104,9 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-texture-float \
     --enable-nine \
     --enable-vdpau  --disable-debug
+	;;
+    libxml )
+  	./configure --without-python --prefix=$HOME/multilib || exit $?
 	;;
     alsa-lib )
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
@@ -222,20 +223,41 @@ PYTHON2=/usr/bin/python ./configure \
 	make MAKEDEPPROG="${CC}" depend
     ;;
     llvm )
-	cd $HOME
-	[ ! -e llvm-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
-	tar xzvhf llvm-multilib.tar.gz
-	cd $HOME/ydfs/src/llvm
-	#	$HOME_DIBAB/scripts/build-llvm-clang
-	# mkdir build
-	# cd build
-  	# ../configure --prefix=$HOME/multilib --enable-shared || exit $?
+	# cd $HOME
+	# [ ! -e llvm-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
+	# tar xzvhf llvm-multilib.tar.gz
+	#cd $HOME/ydfs/src/llvm
+		$HOME_DIBAB/scripts/build-llvm-clang
+	 mkdir build
+	 cd build
+	   export PKG_CONFIG_PATH="$HOME/multilib/lib32/pkgconfig"
+
+  cmake .. -G Ninja \
+    -DCMAKE_C_FLAGS="-ldl -L$HOME/multilib/lib32" -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=$HOME/llvm-multilib \
+    -DLLVM_LIBDIR_SUFFIX=32 \
+    -DCMAKE_C_FLAGS:STRING=-m32 \
+    -DCMAKE_CXX_FLAGS:STRING=-m32 \
+    -DLLVM_TARGET_ARCH:STRING=i686 \
+    -DLLVM_DEFAULT_TARGET_TRIPLE="i686-pc-linux-gnu" \
+    -DLLVM_BUILD_LLVM_DYLIB=ON \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLVM_ENABLE_RTTI=ON \
+    -DLLVM_ENABLE_FFI=ON \
+    -DLLVM_BUILD_DOCS=OFF \
+    -DLLVM_ENABLE_SPHINX=OFF \
+    -DLLVM_ENABLE_DOXYGEN=OFF \
+    -DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) || exit $?
+ 	ninja all || exit $?
+	# DESTDIR="$HOME/llvm-multilib" ninja install
+	ninja install
     ;;
     cairo-1* )
 	# echo "Disable Test .." && sleep 2
   	sed -i "s| test perf| perf|g" Makefile.am
 	# echo "Done" && sleep 2
   	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
+	autoreconf
   	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
     ;;
     poppler )

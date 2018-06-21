@@ -61,7 +61,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-nine \
     --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
 	echo $ARCHIVE | grep ftgl && LC_CONFIGURE_OPTS=" -with-pic --disable-static "
-	echo $ARCHIVE | grep audit && LC_CONFIGURE_OPTS=" --disable-zos-remote "
+	echo $ARCHIVE | grep audit && LC_CONFIGURE_OPTS="--without-python3 --disable-zos-remote "
 	echo $ARCHIVE | grep kmod && LC_CONFIGURE_OPTS=" --disable-tools "
 	echo $ARCHIVE | grep libcap-ng && LC_CONFIGURE_OPTS=" --enable-static=no --with-python=no "
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
@@ -126,7 +126,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     -DENABLE_FREETYPE=1 \
     -DENABLE_LEVELDB=0 \
     -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CFLAGS"
-	echo $ARCHIVE | grep jack- && export LC_CONFIGURE_OPTS="--alsa"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
 	echo $ARCHIVE | grep xbmc && export LC_CONFIGURE_OPTS="--disable-debug"
