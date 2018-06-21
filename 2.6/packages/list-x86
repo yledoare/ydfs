@@ -615,6 +615,7 @@ http://pub.mate-desktop.org/releases/1.18/mate-backgrounds-1.18.0.tar.xz
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-2.7.8.tar.gz
+ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 #Wine
 https://dl.winehq.org/wine/source/2.x/wine-2.20.tar.xz 
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
@@ -638,7 +639,6 @@ https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
 https://download.kde.org/stable/frameworks/5.40/extra-cmake-modules-5.40.0.tar.xz
 #https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
-ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.2.tar.xz
 http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
 http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2

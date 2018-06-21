@@ -57,7 +57,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-texture-float \
     --enable-xa \
     --enable-vdpau \
-    --enable-omx \
     --enable-nine \
     --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
 	echo $ARCHIVE | grep ftgl && LC_CONFIGURE_OPTS=" -with-pic --disable-static "
