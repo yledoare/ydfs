@@ -105,7 +105,7 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-osmesa \
     --enable-texture-float \
     --enable-nine \
-    --enable-vdpau  --disable-debug
+    --enable-vdpau  --disable-debug --libdir=$HOME/multilib/lib32
 	;;
     alsa-lib )
   	./configure --disable-python --prefix=$HOME/multilib || exit $?

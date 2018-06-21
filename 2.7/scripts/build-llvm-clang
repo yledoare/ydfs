@@ -12,7 +12,3 @@ cd ..
 
 sed -i "s|-pedantic|-pedantic -ldl|" cmake/modules/HandleLLVMOptions.cmake
 
-#install -d build
-#cd build
-# ../configure --enable-shared --prefix=$HOME/ydfs/llvm-clang
-# make -j3 && make install

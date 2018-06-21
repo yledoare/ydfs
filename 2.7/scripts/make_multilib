@@ -4,7 +4,7 @@
 export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
 unset PYTHONPATH
-export PATH=$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
+export PATH=$HOME/llvm-multilib/bin/:$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
 export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/lib32/pkgconfig:$HOME/multilib/share/pkgconfig
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex pulseaudio mesa expat glu libsamplerate SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -103,7 +103,7 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-osmesa \
     --enable-texture-float \
     --enable-nine \
-    --enable-vdpau  --disable-debug
+    --enable-vdpau  --disable-debug --libdir=$HOME/multilib/lib32
 	;;
     libxml )
   	./configure --without-python --prefix=$HOME/multilib || exit $?
@@ -223,16 +223,26 @@ PYTHON2=/usr/bin/python ./configure \
 	make MAKEDEPPROG="${CC}" depend
     ;;
     llvm )
-	# cd $HOME
-	# [ ! -e llvm-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm-multilib.tar.gz
-	# tar xzvhf llvm-multilib.tar.gz
-	#cd $HOME/ydfs/src/llvm
-		$HOME_DIBAB/scripts/build-llvm-clang
-	 mkdir build
-	 cd build
-	   export PKG_CONFIG_PATH="$HOME/multilib/lib32/pkgconfig"
+	[ -e $HOME/llvm-multilib ] && continue
+	cd $HOME
+	[ ! -e llvm6-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm6-multilib.tar.gz
+	tar xzvhf llvm6-multilib.tar.gz
+	#	$HOME_DIBAB/scripts/build-llvm-clang
+	RELEASE=6.0.0
+	cd $HOME/ydfs/tarballs
+	[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
+	[ ! -e ../src/llvm-$RELEASE.src ] && cd ../src/ && tar -xJf ../tarballs/llvm-$RELEASE.src.tar.xz
+	cd llvm-$RELEASE.src/tools || exit 1
 
-  cmake .. -G Ninja \
+	[ ! -e cfe-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/cfe-$RELEASE.src.tar.xz
+	[ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
+	[ ! -e clang ] && mv cfe-$RELEASE.src clang 
+
+	cd ..
+	sed -i "s|-pedantic|-pedantic -ldl|" cmake/modules/HandleLLVMOptions.cmake
+	mkdir build
+	cd build
+	PKG_CONFIG_PATH="$HOME/multilib/lib32/pkgconfig" cmake .. -G Ninja \
     -DCMAKE_C_FLAGS="-ldl -L$HOME/multilib/lib32" -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$HOME/llvm-multilib \
     -DLLVM_LIBDIR_SUFFIX=32 \
