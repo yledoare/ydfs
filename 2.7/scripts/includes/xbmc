@@ -15,9 +15,37 @@ then
     [ ! -e 3.1.11-Krypton-17.5.tar.gz ] && wget https://github.com/xbmc/FFmpeg/archive/3.1.11-Krypton-17.5.tar.gz
 	pwd
 
+	
+    CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
+    -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
+    -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
+    -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
+    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
+    -DENABLE_EVENTCLIENTS=ON \
+    -DENABLE_INTERNAL_FFMPEG=OFF \
+    -DENABLE_OPTICAL=OFF \
+    -DLIRC_DEVICE=/run/lirc/lircd \
+    ../project/cmake 
+
     sed -i -e 's/PKG_CHECK_MODULES(DVDREAD, dvdread >= 5.0.3)//' build/libdvd/src/dvdnav/configure
     sed -i -e 's/PKG_CHECK_MODULES(CSS, $CSS_REQUIRES)//' build/libdvd/src/dvdread/configure
-	
+
+    CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
+    -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
+    -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
+    -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
+    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
+    -DENABLE_EVENTCLIENTS=ON \
+    -DENABLE_INTERNAL_FFMPEG=OFF \
+    -DENABLE_OPTICAL=OFF \
+    -DLIRC_DEVICE=/run/lirc/lircd \
+    ../project/cmake 
+
+    sed -i -e 's/PKG_CHECK_MODULES(DVDREAD, dvdread >= 5.0.3)//' build/libdvd/src/dvdnav/configure
+    sed -i -e 's/PKG_CHECK_MODULES(CSS, $CSS_REQUIRES)//' build/libdvd/src/dvdread/configure
+
     CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
     -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
     -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
