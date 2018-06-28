@@ -10,3 +10,23 @@ diff -wbBur torcs-1.3.7/src/drivers/olethros/geometry.cpp torcs-1.3.7.my/src/dri
  #endif
  
  
+diff --git a/src/libs/musicplayer/OpenALMusicPlayer.cpp b/src/libs/musicplayer/OpenALMusicPlayer.cpp
+index c2ca83f..f4f4429 100644
+--- a/src/libs/musicplayer/OpenALMusicPlayer.cpp
++++ b/src/libs/musicplayer/OpenALMusicPlayer.cpp
+@@ -161,7 +161,7 @@ bool OpenALMusicPlayer::streamBuffer(ALuint buffer)
+ {
+ 	char pcm[BUFFERSIZE];
+ 	int size = 0;
+-	const char* error = '\0';
++	const char* error = nullptr;
+ 	
+ 	if (!stream->read(pcm, BUFFERSIZE, &size, &error)) {
+ 		GfError("OpenALMusicPlayer: Stream read error: %s\n", error);
+@@ -268,4 +268,4 @@ bool OpenALMusicPlayer::startPlayback()
+     alSourcePlay(source);
+     
+     return true;
+-}
+\ No newline at end of file
++}

@@ -113,6 +113,7 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
+  [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   [ -e src/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=/usr/bin/python2 \
@@ -216,6 +217,7 @@ else
 	       ..
   fi
 
+  [ -e source/carla ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
 
   if [ -e qtbase/configure ]
@@ -683,6 +685,8 @@ pwd && sleep 5
        	exit 0
     fi 
 
+    # lmms
+    [ -e src/3rdparty/qt5-x11embed ] && git submodule update --init --recursive && sleep 5
     if [ -e include/lame.def ]
     then
 	case $(uname -m) in
