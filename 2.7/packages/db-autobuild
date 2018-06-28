@@ -409,6 +409,11 @@ pwd && sleep 5
 	 autoconf -f
   fi
 
+  if [ -e src/Stk.cpp ] 
+  then
+         ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  fi
+
   if [ -e unique.pc.in ] 
   then
          ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
