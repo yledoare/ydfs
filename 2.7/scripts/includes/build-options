@@ -12,6 +12,7 @@ echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="-DPORT=GTK -DCMAKE_BUILD
 echo $ARCHIVE | grep exiv2-0.26 &&  LC_CONFIGURE_OPTS=" -DEXIV2_ENABLE_VIDEO=ON \
     -DEXIV2_ENABLE_BUILD_PO=ON \
     -DEXIV2_ENABLE_BUILD_SAMPLES=OFF "
+echo $ARCHIVE | grep icu4c &&  export LDFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib -L$HOME/ydfs/build-$ARCH/icu/stubdata $LDFLAGS " && export CFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib -L$HOME/ydfs/build-$ARCH/icu/stubdata $CFLAGS " && export CXXFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib  -L$HOME/ydfs/build-$ARCH/icu/stubdata $CXXFLAGS " 
 echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
 echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
