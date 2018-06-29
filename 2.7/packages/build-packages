@@ -32,14 +32,14 @@ if [ "$MODULE" == "qt5" ]
 then
   if [ "$ARCH" = "x86_64" ]
   then
-	#TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/qt5_x64.tar.gz"
-	TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/gcc_64.7z"
+	#TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/gcc_64.7z"
+  	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5.tar.gz
   	#[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
 	if [ ! -e $HOME/qt5 ]
 	then            
 	  cd $HOME 
-	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL 
-	  7z x gcc_64.7z && mv gcc_64 qt5
+	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL && tar xzvf qt5.tar.gz
+	  # 7z x gcc_64.7z && mv gcc_64 qt5
 	fi
 
 	OPKGARCH=x86_64

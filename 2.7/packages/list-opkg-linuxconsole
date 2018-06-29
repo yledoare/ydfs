@@ -2,7 +2,6 @@
 https://media.inkscape.org/dl/resources/file/inkscape-0.92.2.tar.bz2
 http://wirbel.htpc-forum.de/w_scan/w_scan-20170107.tar.bz2
 http://cdn-fastly.deb.debian.org/debian/pool/main/l/linuxtv-dvb-apps/linuxtv-dvb-apps_1.1.1+rev1500.orig.tar.bz2
-https://github.com/xbmc/xbmc/archive/17.6-Krypton.tar.gz
 #Driver
 https://github.com/amonakov/primus/archive/v0.2.tar.gz
 git://github.com/amonakov/primus
@@ -18,13 +17,6 @@ http://sites.google.com/site/gogdownloader/lgogdownloader-3.3.tar.gz
 http://www.crummy.com/software/BeautifulSoup/bs4/download/4.6/beautifulsoup4-4.6.0.tar.gz
 http://scummvm.org/frs/scummvm/2.0.0/scummvm-2.0.0.tar.xz
 #git://github.com/dolphin-emu/dolphin
-# For 2.7
-#https://github.com/cracklib/cracklib/releases/download/cracklib-2.9.6/cracklib-2.9.6.tar.gz
-#https://github.com/libpwquality/libpwquality/releases/download/libpwquality-1.4.0/libpwquality-1.4.0.tar.bz2
-#http://ftp.igh.cnrs.fr/pub/gnu/autoconf-archive/autoconf-archive-2017.09.28.tar.xz
-#https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
-#https://github.com/storaged-project/udisks/archive/udisks-2.6.5.tar.gz
-#https://git.gnome.org/browse/gnome-disk-utility/snapshot/gnome-disk-utility-3.24.1.zip
 http://wiki.qemu.org//download/qemu-2.11.0.tar.bz2
 http://downloads.sourceforge.net/dosbox/dosbox-0.74.tar.gz
 https://github.com/mamedev/mame/archive/mame0193.tar.gz
@@ -45,7 +37,6 @@ http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 http://download.virtualbox.org/virtualbox/5.1.30/VirtualBox-5.1.30.tar.bz2 #SKIP-x86#
 #Libs
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
-#https://dl.winehq.org/wine/source/3.0/wine-3.0-rc4.tar.xz
 archlinux:lib32-libtxc_dxtn
 #Games
 http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
@@ -75,7 +66,6 @@ http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-
 #Games
 archlinux:astromenace 
 http://optimate.dl.sourceforge.net/project/wesnoth/wesnoth-1.12/wesnoth-1.12.6/wesnoth-1.12.6.tar.bz2
-archlinux:torcs
 #Network
 #Education
 https://bitbucket.org/metalm/langagelinotte/downloads/langagelinotte_2.03.00-ubuntu_all.deb
@@ -86,7 +76,6 @@ http://freefr.dl.sourceforge.net/project/qtractor/qtractor/0.7.8/qtractor-0.7.8.
 #Network
 #https://github.com/TigerVNC/tigervnc/archive/v1.6.0.tar.gz
 #Misc
-http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28.tar.bz2
 #http://ftp.gnu.org/gnu/gdb/gdb-7.9.1.tar.xz
 #Libs
 #archlinux:lib32-libtxc_dxtn

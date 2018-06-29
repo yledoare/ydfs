@@ -78,7 +78,7 @@ done
 
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications
-for i in writer base calc draw impress math startcenter writer
+for i in writer base calc draw impress math startcenter
 do
   ln -svf $PREFIX/share/icons/hicolor/32x32/apps/libreoffice-$i.png \
           $PREFIX/share/pixmaps/
