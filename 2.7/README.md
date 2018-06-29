@@ -17,6 +17,7 @@ Your Distro From Scratch 2.7 should be buildt from Debian 10 (Buster)
 ```
 #!shell
 
+apt-get install wget
 wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.7/configure
 sh configure
 ```
@@ -36,7 +37,7 @@ install -d src
 cd src
 git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs
-cd 2.6
+cd 2.7
 make 
 ```
 
