@@ -1,6 +1,5 @@
 #Begin
 https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
-ftp://xmlsoft.org/libxml2/libxml2-2.9.8.tar.gz 
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.xz 
 http://downloads.sourceforge.net/infozip/unzip60.tar.gz 
