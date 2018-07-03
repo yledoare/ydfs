@@ -421,9 +421,10 @@ http://ftp.gnome.org/pub/gnome/sources/libsecret/0.18/libsecret-0.18.6.tar.xz
 https://www.freedesktop.org/software/libmbim/libmbim-1.16.0.tar.xz
 #http://www.freedesktop.org/software/libqmi/libqmi-1.8.0.tar.xz
 git://anongit.freedesktop.org/git/libqmi
-http://www.freedesktop.org/software/ModemManager/ModemManager-1.6.8.tar.xz
+https://www.freedesktop.org/software/ModemManager/ModemManager-1.8.0.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
-https://download.gnome.org/sources/NetworkManager/1.8/NetworkManager-1.8.4.tar.xz
+https://github.com/akheron/jansson/archive/v2.11.tar.gz
+https://download.gnome.org/sources/NetworkManager/1.12/NetworkManager-1.12.0.tar.xz
 https://github.com/blueman-project/blueman/releases/download/2.0.5/blueman-2.0.5.tar.xz 
 http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.4/network-manager-applet-1.4.0.tar.xz
