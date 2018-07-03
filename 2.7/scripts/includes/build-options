@@ -184,7 +184,9 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
 	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
-	echo $ARCHIVE | grep foomatic-filters && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
+	echo $ARCHIVE | grep foomatic-filters && LC_CONFIGURE_OPTS=" --enable-avahi \
+    --with-browseremoteprotocols=DNSSD,CUPS \
+    --enable-auto-setup-driverless"  && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
 	echo $ARCHIVE | grep foomatic-db-engine && LC_CONFIGURE_OPTS="--sysconfdir=$DIBAB_PREFIX/$MODULE/etc"
 	echo $ARCHIVE | grep LVM &&  LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig      --enable-applib     \
             --enable-cmdlib     \
@@ -224,10 +226,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	    --disable-gtk3 --disable-qt4 --disable-gdbm --disable-gtk  --disable-pygtk \
             --enable-core-docs   \
             --with-distro=none "
-	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" --enable-cairo-output \
-      --enable-xpdf-headers \
-      --enable-libjpeg --enable-zlib \
-      --enable-poppler-glib"
+	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
 	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
 	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
 	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa -enable-cxx "

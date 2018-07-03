@@ -151,6 +151,9 @@ else
 . $(dirname $0)/../scripts/includes/mozilla
 . $(dirname $0)/../scripts/includes/gmic
 
+  [ -e source/tools/mutool.c ] && sed '/^JBIG2DEC_CFLAGS :=/s|$| -I./include/mupdf|' -i Makethird && sed -i 's/pkg-config --exists \(libcrypto\|openssl\)/false/' Makerules && rm -rf thirdparty/{curl,freeglut,freetype,harfbuzz,jbig2dec,lcms2,libjpeg,openjpeg,zlib} && make build=release libs apps extra
+  [ -e source/tools/mutool.c ] && make build=release prefix="$PREFIX" install
+
   if [ -e fuse.pc.in ] 
   then
      sh makeconf.sh
