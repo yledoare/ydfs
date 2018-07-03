@@ -181,6 +181,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
 	echo $ARCHIVE | grep NetworkManager && LC_CONFIGURE_OPTS="--with-libnm-glib --enable-more-warnings --with-udev-dir=$DIBAB_PREFIX/$MODULE/lib/udev --without-dhcpcanon --with-dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
 	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
+	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
 	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep foomatic-filters && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
