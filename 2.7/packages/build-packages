@@ -39,7 +39,7 @@ then
 	then            
 	  cd $HOME 
 	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL && tar xzvf qt5.tar.gz
-	  rm $HOME/qt5/lib/libicu*
+	  rm $HOME/qt5/lib/libicu*.so
 	  # 7z x gcc_64.7z && mv gcc_64 qt5
 	fi
 
