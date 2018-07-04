@@ -411,7 +411,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
             -nomake demos      \
             -nomake examples   \
             -optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/ydfs/build-$ARCH/`basename $ARCHIVE | cut -d'.' -f1,2,3`/lib"
-	echo $ARCHIVE | grep mariadb && LC_CONFIGURE_OPTS="-DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib .. -DOPENSSL_INCLUDE_DIR=$HOME/$ARCH/include -DOPENSSL_LIBRARIES=$HOME/$ARCH/lib/libssl.so -DCRYPTO_LIBRARY=$HOME/$ARCH/lib/libcrypto.so"
+	echo $ARCHIVE | grep mariadb && LC_CONFIGURE_OPTS="-DWITHOUT_TOKUDB_STORAGE_ENGINE=1 -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib .. -DOPENSSL_INCLUDE_DIR=$HOME/$ARCH/include -DOPENSSL_LIBRARIES=$HOME/$ARCH/lib/libssl.so -DCRYPTO_LIBRARY=$HOME/$ARCH/lib/libcrypto.so"
 	echo $ARCHIVE | grep mmmariadb && LC_CONFIGURE_OPTS="
     -DDEFAULT_CHARSET=utf8mb4 \
     -DDEFAULT_COLLATION=utf8mb4_unicode_ci \
