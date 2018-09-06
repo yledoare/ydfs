@@ -24,6 +24,7 @@ install -d $HOME/multilib/include
 
 [ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
 [ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+
   
 # libFS-1 libdmx- \
 
@@ -72,6 +73,22 @@ for PKG in $PKGMULTILIB
 do
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
+
+  if [ ! -L $HOME/multilib/lib32 ]
+  then
+    echo "$PKG : $HOME/multilib/lib32 is not a link"
+    exit 1
+  else
+    echo "$PKG : $HOME/multilib/lib32 is a link"
+  fi
+
+  if [ ! -L $HOME/multilib/lib ]
+  then
+    echo "$PKG : $HOME/multilib/lib is not a link"
+    exit 1
+  else
+    echo "$PKG : $HOME/multilib/lib32 is a link"
+  fi
 
   [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e unix/ydfs-multilib-buildt ] && cd .. && continue
@@ -250,6 +267,14 @@ PYTHON2=/usr/bin/python ./configure \
     libjpeg-turbo )
   	./configure --prefix=$HOME/multilib --without-simd || exit $?
     ;;
+    soxr )
+	mkdir build32
+	 cd build32
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+	;;
     openal-soft-1.16 )
 	mkdir build
 	 cd build
