@@ -87,7 +87,9 @@ do
   if [ ! -L $HOME/multilib/lib ]
   then
     echo "$PKG : $HOME/multilib/lib is not a link"
-    exit 1
+    cp -fR $HOME/multilib/lib/* $HOME/$ARCH/lib32
+    rm -fR $HOME/multilib/lib
+    ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
   else
     echo "$PKG : $HOME/multilib/lib32 is a link"
   fi
@@ -277,7 +279,6 @@ PYTHON2=/usr/bin/python ./configure \
   	export CXX="g++ -m32 -mstackrealign"
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
-	 cd ..
 	;;
     openal-soft-1.16 )
 	mkdir build
@@ -286,7 +287,6 @@ PYTHON2=/usr/bin/python ./configure \
   	export CXX="g++ -m32 -mstackrealign"
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
-	 cd ..
 	;;
     * )
   	./configure --prefix=$HOME/multilib || exit $?
