@@ -1,5 +1,6 @@
 echo clean
 rm -fR $HOME/x86_64/lib32
+rm -fR $HOME/lib32
 rm -fR $HOME/multilib/*
 rm -fR $HOME/multilib
 rm -fR $HOME/ydfs/src/*/ydfs-multilib-buildt

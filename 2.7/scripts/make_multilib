@@ -59,7 +59,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2" 
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2"
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -77,7 +77,9 @@ do
   if [ ! -L $HOME/multilib/lib32 ]
   then
     echo "$PKG : $HOME/multilib/lib32 is not a link"
-    exit 1
+    cp -fR $HOME/multilib/lib32/* $HOME/$ARCH/lib32
+    rm -fR $HOME/multilib/lib32/
+    ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
   else
     echo "$PKG : $HOME/multilib/lib32 is a link"
   fi
@@ -121,7 +123,8 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-osmesa \
     --enable-texture-float \
     --enable-nine \
-    --enable-vdpau  --disable-debug --libdir=$HOME/multilib/lib32
+    --enable-vdpau  --disable-debug
+# --libdir=$HOME/multilib/lib32
 	;;
     libxml )
   	./configure --without-python --prefix=$HOME/multilib || exit $?
@@ -212,7 +215,7 @@ PYTHON2=/usr/bin/python ./configure \
     util-linux* )
 	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
 	autoreconf
-  	./configure --prefix=$HOME/multilib --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
+  	./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
     dbus-1.10.14 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
@@ -274,6 +277,7 @@ PYTHON2=/usr/bin/python ./configure \
   	export CXX="g++ -m32 -mstackrealign"
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+	 cd ..
 	;;
     openal-soft-1.16 )
 	mkdir build
@@ -282,7 +286,7 @@ PYTHON2=/usr/bin/python ./configure \
   	export CXX="g++ -m32 -mstackrealign"
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
-
+	 cd ..
 	;;
     * )
   	./configure --prefix=$HOME/multilib || exit $?
