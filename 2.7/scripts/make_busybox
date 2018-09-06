@@ -23,7 +23,8 @@ patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.24.2.diff
 [ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$ARCH-$BUSYBOX
 if [ $ARCH = "x86" ]
 then
- export PATH=/$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/:$PATH
+ wget jukebox.linuxconsole.org/toolchains/libmpfr.so.4 && mv libmpfr.so.4 $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/lib32/
+ export PATH=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/:$PATH
  make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc || exit 1
  make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc install
 else
