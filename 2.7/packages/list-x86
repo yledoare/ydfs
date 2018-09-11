@@ -296,7 +296,7 @@ http://sg.danny.cz/sg/p/sg3_utils-1.30.tgz
 http://hal.freedesktop.org/releases/eggdbus-0.6.tar.gz 
 http://freefr.dl.sourceforge.net/project/flex/flex-2.5.37.tar.gz
 http://www.freedesktop.org/software/ConsoleKit/dist/ConsoleKit-0.4.5.tar.bz2 
-http://ftp.de.debian.org/debian/pool/main/u/upower/upower_0.9.17-1.dsc
+https://upower.freedesktop.org/releases/upower-0.99.7.tar.xz
 http://samba.org/ftp/talloc/talloc-2.1.10.tar.gz
 https://github.com/cracklib/cracklib/releases/download/cracklib-2.9.6/cracklib-2.9.6.tar.gz
 https://github.com/libpwquality/libpwquality/releases/download/libpwquality-1.4.0/libpwquality-1.4.0.tar.bz2
