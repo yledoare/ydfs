@@ -404,7 +404,7 @@ https://github.com/blueman-project/blueman/releases/download/2.0.5/blueman-2.0.5
 http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.8/network-manager-applet-1.8.14.tar.xz
 http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
-https://github.com/libgd/libgd/releases/download/gd-2.2.3/libgd-2.2.3.tar.xz
+https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.3.1/wxWidgets-3.0.3.1.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
 http://ftp.gnu.org/pub/gnu/wget/wget-1.15.tar.xz
@@ -440,7 +440,7 @@ http://search.cpan.org/CPAN/authors/id/D/DA/DAGOLDEN/Capture-Tiny-0.46.tar.gz
 http://search.cpan.org/CPAN/authors/id/C/CA/CADE/Text-Patch-1.8.tar.gz
 http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/Alien-SDL-1.444.tar.gz 
 http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/SDL-2.546.tar.gz
-http://offload1.icculus.org/physfs/downloads/physfs-2.0.3.tar.bz2 
+http://icculus.org/physfs/downloads/physfs-3.0.1.tar.bz2
 http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.1.tar.gz
 https://downloads.sourceforge.net/infozip/zip30.tar.gz
 http://freefr.dl.sourceforge.net/project/tinyxml/tinyxml/2.6.2/tinyxml_2_6_2.tar.gz
