@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="bigreqsproto compositeproto damageproto dri2proto dri3proto fixesproto fontsproto glproto inputproto kbproto presentproto randrproto recordproto renderproto resourceproto scrnsaverproto videoproto xcmiscproto xextproto xf86dgaproto xf86driproto xf86vidmodeproto xineramaproto xproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+PKGMULTILIB="xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
 xextproto compositeproto scrnsaverproto xtrans kbproto inputproto xproto-7 libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
