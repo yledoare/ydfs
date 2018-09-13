@@ -111,6 +111,7 @@ http://ftp.de.debian.org/debian/pool/main/libc/libcap2/libcap2_2.22-1.2.dsc
 https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-24.tar.xz
 https://github.com/gentoo/eudev/archive/v3.2.2.tar.gz
 http://freefr.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.20/libusb-1.0.20.tar.bz2 
+https://downloads.sourceforge.net/libmtp/libmtp-1.1.15.tar.gz
 http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz
 http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz 
 http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.54/gobject-introspection-1.54.1.tar.xz
@@ -545,7 +546,6 @@ http://www.fftw.org/fftw-3.3.4.tar.gz
 https://github.com/haasn/libplacebo/archive/v0.5.0.tar.gz
 https://github.com/videolabs/libmicrodns/releases/download/0.0.10/microdns-0.0.10.tar.gz
 https://downloads.sourceforge.net/sourceforge/pupnp/libupnp-1.6.25.tar.bz2
-https://downloads.sourceforge.net/libmtp/libmtp-1.1.15.tar.gz
 http://downloads.sourceforge.net/project/goom/goom2k4/0/goom-2k4-0-src.tar.gz
 http://downloads.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
 http://downloads.sourceforge.net/sox/sox-14.4.2.tar.bz2
