@@ -85,13 +85,6 @@ EOF
   # Remove evil/broken tools
   rm "$pkgdir"/sbin/logoutd
 
-  # Remove utilities provided by util-linux
-  rm \
-      "$pkgdir"/bin/{login,su,chsh,chfn,sg,nologin} \
-      "$pkgdir"/sbin/{vipw,vigr}
-
-  # but we keep newgrp, as sg is really an alias to it
-  mv "$pkgdir"/bin/{newgrp,sg}
   ydfs-install-package
   touch buildok-$ARCH
   exit 0
