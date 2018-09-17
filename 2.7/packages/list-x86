@@ -1,4 +1,5 @@
 #Begin
+https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.xz 
@@ -42,7 +43,7 @@ http://mp4v2.googlecode.com/files/mp4v2-2.0.0.tar.bz2
 https://ssl.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz
 http://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
 http://miniupnp.free.fr/files/miniupnpc-2.0.tar.gz
-ftp://ftp.gnu.org/gnu/libunistring/libunistring-0.9.6.tar.gz
+https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz
 https://sourceware.org/elfutils/ftp/0.171/elfutils-0.171.tar.bz2
 ftp://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.gz
 http://downloads.sourceforge.net/sourceforge/expat/expat-2.2.0.tar.bz2

@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+PKGMULTILIB="gmp libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2"
+libxshmfence-1  libffi dbus-1.10.14 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 pango-1 atk-2 gtk+-2"
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -126,6 +126,27 @@ PYTHON2=/usr/bin/python ./configure \
     --enable-nine \
     --enable-vdpau  --disable-debug
 # --libdir=$HOME/multilib/lib32
+	;;
+
+    libxslt )
+	./configure --prefix=$HOME/multilib --without-python
+	;;
+    libgcrypt )
+	 sed 's:path="amd64":path="i586 i386":' -i mpi/config.links
+  	./configure --prefix=$HOME/multilib --disable-static --disable-padlock-support --enable-shared
+	;;
+
+    gnutls )
+  	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --with-zlib \
+    --with-included-unistring \
+    --disable-static \
+    --disable-guile \
+    --disable-valgrind-tests --disable-doc || exit $?
+	;;
+    gmp )
+	make clean
+	export ABI=32
+  	./configure  --enable-fat --enable-cxx --libdir=$HOME/multilib/lib32 --includedir=$HOME/multilib/lib32/gmp  --prefix=$HOME/multilib || exit $?
 	;;
     libxml )
   	./configure --without-python --prefix=$HOME/multilib || exit $?
