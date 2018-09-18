@@ -110,6 +110,15 @@ else
     	touch buildok-$ARCH
 	exit 0
   fi
+  
+  [ -e src/cadence.py ] && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e src/cadence.py ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
+  [ -e src/cadence.py ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
+  
+  [ -e source/carla.kdev4 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e source/carla.kdev4 ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
+  [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
+
 
   if [ -e xeniarc ]
   then
@@ -197,14 +206,33 @@ else
     exit 0
   fi
 
+  if [ -e pyrcc/pyrcc_main.py ]
+  then
+    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
+    python configure.py \
+    --confirm-license \
+    --no-sip-files \
+    --qsci-api
+  fi
+
   if [ -e sipdistutils.py ]
   then
-	python configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
-	make || exit $?
-	make install -C sipgen
-	make install -C siplib
-  	install -Dm644 sipconfig.py "$pkgdir"/lib/python2.7/site-packages/sipconfig.py
-  	install -Dm644 sipdistutils.py "$pkgdir"/lib/python2.7/site-packages/sipdistutils.py
+        mkdir build-qt5
+	cd build-qt5
+	  python ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" --sip-module PyQt5.sip --no-tools || exit $?
+	  make || exit $?
+	  make install || exit $?
+        cd ..
+	mkdir build
+        cd build
+	  python ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
+	  make || exit $?
+	  make install -C sipgen
+	  make install -C siplib
+  	  install -Dm644 sipconfig.py "$pkgdir"/lib/python2.7/site-packages/sipconfig.py
+  	  install -Dm644 sipdistutils.py "$pkgdir"/lib/python2.7/site-packages/sipdistutils.py
+        cd ..
+
     touch buildok-$ARCH
     exit 0
   fi
@@ -851,6 +879,14 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 		--target="x86_64" 
 	make && make install
 	make clean
+  fi
+  if [ -e jack.pc.in ]
+  then
+	  python2 waf configure --prefix=$PREFIX \
+                        --htmldir="/usr/share/doc/${pkgbase}/" \
+                        --freebob=no \
+                        --classic \
+                        --dbus
   fi
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
   [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
