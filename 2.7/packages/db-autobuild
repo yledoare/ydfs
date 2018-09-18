@@ -215,6 +215,25 @@ else
     --qsci-api
   fi
 
+  if [ -e ncurses/base/nc_panel.c ]
+  then
+     mkdir buildw
+     cd buildw
+        PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" ../configure --without-tests --with-shared --enable-pc-files --without-debug  --enable-pc-files --enable-widec --prefix=$PREFIX
+	make || exit 1
+	make install || exit 1
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+     cd ..
+     mkdir build
+     cd build
+        PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" ../configure --without-tests --with-shared --enable-pc-files --without-debug  --enable-pc-files --prefix=$PREFIX
+	make || exit 1
+	make install || exit 1
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+     cd ..
+    touch buildok-$ARCH
+    exit 0
+
   if [ -e sipdistutils.py ]
   then
         mkdir build-qt5

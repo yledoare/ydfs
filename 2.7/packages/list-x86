@@ -18,7 +18,7 @@ http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
 http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 https://download.gimp.org/pub/babl/0.1/babl-0.1.50.tar.bz2
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
-http://http.debian.net/debian/pool/main/n/ncurses/ncurses_6.0+20170715.orig.tar.gz
+https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
 http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
 https://www.sqlite.org/2017/sqlite-src-3210000.zip
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
