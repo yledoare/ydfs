@@ -50,8 +50,7 @@ then
 	#		ln -s $HOME/$OPKGARCH/lib/$LIB.$LIBICU $HOME/qt5/lib/$LIB.55
 	#done
   else
-  	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5-x86.tar.gz
-  	[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5-x86.tar.gz && mv qt5-x86 qt5
+	echo "Qt5 now build form source for x86"
 	OPKGARCH=i686
   fi
   exit 0

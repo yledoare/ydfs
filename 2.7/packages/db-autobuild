@@ -119,6 +119,41 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
 
+  if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
+  then
+     if [ ! -e qt5-base-glibc-2.28.patch ]
+     then
+	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
+	patch -p1 -i qt5-base-glibc-2.28.patch
+	sleep 2
+	 sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
+    		mkspecs/common/gcc-base.conf
+  	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
+    		mkspecs/common/g++-unix.conf
+     fi
+    [ ! -e Makefile ] && ./configure -confirm-license -opensource -v \
+    -prefix $HOME/qt5 \
+    -docdir $HOME/qt5/share/doc/qt \
+    -headerdir $HOME/qt5/include/qt \
+    -archdatadir $HOME/qt5/lib/qt \
+    -datadir $HOME/qt5/share/qt \
+    -sysconfdir $HOME/qt5/xdg \
+    -examplesdir $HOME/qt5/share/doc/qt/examples \
+    -plugin-sql-sqlite \
+    -system-sqlite \
+    -openssl-linked \
+    -nomake examples \
+    -no-rpath \
+    -optimized-qmake \
+    -dbus-linked \
+    -no-use-gold-linker \
+    -reduce-relocations
+
+	make || exit 1
+	make install || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi
 
   if [ -e xeniarc ]
   then
@@ -206,6 +241,15 @@ else
     exit 0
   fi
 
+  if [ -e pyrcc/rcc.cpp ]
+  then
+    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
+    python configure.py \
+    --confirm-license \
+    --no-sip-files \
+    --qsci-api
+  fi
+
   if [ -e pyrcc/pyrcc_main.py ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
@@ -280,13 +324,6 @@ else
 
   [ -e source/carla ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
-
-  if [ -e qtbase/configure ]
-  then
-	echo "Fix for QT5" #&& sleep 3
-    	#sed -i "s@/usr/local@$PREFIX@" qtbase/configure
-    	#sed -i "s@/usr/local@$PREFIX@" qtbase/mkspecs/features/*
-  fi
 
   if [ -e pyqtconfig.py.in ]
   then
