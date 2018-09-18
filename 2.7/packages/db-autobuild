@@ -233,6 +233,7 @@ else
      cd ..
     touch buildok-$ARCH
     exit 0
+  fi
 
   if [ -e sipdistutils.py ]
   then
