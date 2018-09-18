@@ -233,6 +233,32 @@ else
 	mv $PREFIX/include/SFML $PREFIX/include/SFML-1
   fi
 
+  if [ -e src/core/CLucene.h ]
+  then
+    mkdir build
+   cd build
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DENABLE_ASCII_MODE=OFF \
+    -DENABLE_PACKAGING=OFF \
+    -DBUILD_CONTRIBS_LIB:BOOL=ON \
+    -DLIB_DESTINATION:PATH=$PREFIX/lib \
+    -DLUCENE_SYS_INCLUDES:PATH=$PREFIX/lib \
+    -DDISABLE_MULTITHREADING=OFF || exit $?
+  cd ..
+
+  make -C build || exit $?
+  make install -C build || exit $?
+	ls $PREFIX/include/CLucene/analysis/cjk/CJKAnalyzer.h || exit 1
+    touch buildok-$ARCH
+  rm -rfv $PREFIX/lib/CLuceneConfig.cmake
+  cd $PREFIX/include//CLucene
+  ln -s /usr/lib/CLucene/clucene-config.h .
+    exit 0
+
+  fi
+
   if [ -e doc/examples/etc/init.d/atieventsd.sh ]
   then
     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR $HOME_DIBAB/scripts/install-catalyst.sh || exit $?
