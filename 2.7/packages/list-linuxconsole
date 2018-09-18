@@ -10,7 +10,12 @@ git://github.com/hydrogen-music/hydrogen.git
 https://github.com/transmission/transmission-releases/raw/master/transmission-2.92.tar.xz
 http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.29.0/FileZilla_3.29.0_src.tar.bz2 
 https://launchpad.net/armagetronad/0.2.8/0.2.8.3.4/+download/armagetronad-0.2.8.3.4.src.tar.bz2 
-https://downloads.sourceforge.net/scribus/scribus-1.5.3.tar.xz #SKIP-x86#
+https://dev-www.libreoffice.org/src/libfreehand/libfreehand-0.1.2.tar.xz
+https://dev-www.libreoffice.org/src/libmspub/libmspub-0.1.4.tar.xz
+https://dev-www.libreoffice.org/src/libpagemaker/libpagemaker-0.0.4.tar.xz
+https://dev-www.libreoffice.org/src/libvisio/libvisio-0.1.6.tar.xz
+https://dev-www.libreoffice.org/src/libqxp/libqxp-0.0.1.tar.xz
+https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz #SKIP-x86#
 https://github.com/audacity/audacity/archive/Audacity-2.2.2.tar.gz
 http://distfiles.audacious-media-player.org/audacious-3.5.1.tar.bz2  
 http://distfiles.audacious-media-player.org/audacious-plugins-3.5.1.tar.bz2 
