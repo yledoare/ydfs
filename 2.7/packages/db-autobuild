@@ -241,6 +241,16 @@ else
     exit 0
   fi
 
+  if [ -e pyrcc/pyrcc.pro ]
+  then
+    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
+    python configure.py \
+    --confirm-license \
+    --no-sip-files \
+    --qsci-api
+    sed -e "s|/usr/share/qt5/qsci/api|$PREFIX/share/qt5/qsci/api|g" -i Makefile
+  fi
+
   if [ -e pyrcc/rcc.cpp ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
