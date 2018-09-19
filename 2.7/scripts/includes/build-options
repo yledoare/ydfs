@@ -33,6 +33,7 @@ echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
 echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
 echo $ARCHIVE | grep libmtp &&  LC_CONFIGURE_OPTS="--with-udev=$HOME/$ARCH/lib/udev"
+echo $ARCHIVE | grep graphviz &&  LC_CONFIGURE_OPTS="--enable-perl=no --disable-perl"
 echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS="--without-dmraid --without-gtk-doc --disable-introspection"
 echo $ARCHIVE | grep librevenge &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86" ] && export ABI=32 && LC_CONFIGURE_OPTS="--disable-werror"
