@@ -18,9 +18,17 @@ echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE
 echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep sdl-sound1.2 &&  LC_CONFIGURE_OPTS="--disable-physfs"
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
+
+#Building postgres
+[ -e $HOME/$ARCH/include/sqltypes2.h ] && mv $HOME/$ARCH/include/sqltypes2.h $HOME/$ARCH/include/sqltypes.h
+echo $ARCHIVE | grep postgresql && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  $HOME/$ARCH/include/sqltypes.h $HOME/$ARCH/include/sqltypes2.h
+
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
+echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
+echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
 echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
