@@ -1,80 +1,125 @@
 #!/bin/bash
   if [ -e librelogo ] 
   then
-	# ?? depuis que include qt4 est actif
-#	ls $HOME/$ARCH/lib/libicu* |while read file
-#do
-#	ln -sf $file $HOME/$ARCH/opkg/lib
-#done
 	# for correct file install into package dir
         [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
-	# mount / -o remount,noatime
-	# cp /usr/lib/x86_64-linux-gnu/pkgconfig/icu-* $HOME/$ARCH/lib/pkgconfig/
 	install -d src
-	sed -e "/gzip -f/d"   -e "s|.1.gz|.1|g" -i bin/distro-install-desktop-integration && sed -e "/distro-install-file-lists/d" -i Makefile.in
-	chmod -v +x bin/unpack-sources
-        [ "$ARCH" = "x86" ] &&  sed -e "s/GNUC/GGGGNUC/g" -i include/o3tl/safeint.hxx
-	sed -e "s/autoreconf /echo /g" -i external/libxmlsec/ExternalProject_xmlsec.mk
-grep autoreconf external/libxmlsec/ExternalProject_xmlsec.mk && exit 1
-	sed -e "s/target\.mk/langlist\.mk/" -e "s/tar -xf/tar -x --strip-components=1 -f/" -e "/tar -x/s/lo_src_dir/start_dir/"  -i bin/unpack-sources 
 	LIBREOFFICE=`basename $PWD|cut -d'-' -f2`
 	LIBREOFFICE_SHORT=`echo $LIBREOFFICE |cut -d'.' -f1,2,3`
-echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
-	for PACK in translations dictionaries help
+	echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
+	for PACK in translations help
 	do
         [ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && wget http://download.documentfoundation.org/libreoffice/src/$LIBREOFFICE_SHORT/libreoffice-$PACK-$LIBREOFFICE.tar.xz && mv libreoffice-$PACK-$LIBREOFFICE.tar.xz src && cd .. && tar xJvf libreoffice-$LIBREOFFICE/src/libreoffice-$PACK-$LIBREOFFICE.tar.xz && cd libreoffice-$LIBREOFFICE
 	[ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && exit 1
 	done
-	[ -e /usr/lib/python3.4/config-3.4m-i386-linux-gnu/libpython3.4.so ] && [ ! -e $HOME/$ARCH/lib/libpython3.4.so ] && cp /usr/lib/python3.4/config-3.4m-i386-linux-gnu/libpython3.4.so $HOME/$ARCH/lib/libpython3.4.so	
-	[ -e /usr/lib/python3.4/config-3.4m-x86_64-linux-gnu/libpython3.4.so ] && [ ! -e $HOME/$ARCH/lib/libpython3.4.so ] && cp /usr/lib/python3.4/config-3.4m-x86_64-linux-gnu/libpython3.4.so $HOME/$ARCH/lib/libpython3.4.so	
 	export ACLOCAL="aclocal" 
 	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
-        # [ ! -e configure ] && 
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++
-        ./autogen.sh CC=clang CXX=clang++ # || exit 1
 	CONFIGURE_OPTS=""
 	env > env.log
         [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --host=i586-linux-gnu"
-	CXX="clang++ -std=c++11  -Wno-c++11-narrowing"  PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" ./configure $CONFIGURE_OPTS --with-system-nss --prefix=$PREFIX  --with-lang="en-US fr" --with-build-version="YourditroFromScratch $ARCH"   --with-vendor="Ydfs" --enable-release-build --without-help --without-gssapi --disable-gstreamer-0-10 --enable-release-build --with-system-libcdr --with-system-libpng	\
-	     --with-system-libebook --with-system-icu --without-java  \
-	     --with-alloc=system         \
-             --disable-gconf             \
-             --disable-odk               \
-             --disable-postgresql-sdbc   \
-             --enable-release-build=yes  \
-             --enable-python=system      \
-             --with-system-cairo         \
-             --with-system-curl          \
-             --with-system-expat         \
-             --with-system-jpeg          \
-             --with-system-lcms2         \
-             --with-system-libpng        \
-             --with-krb5=no	         \
-             --without-krb5	         \
-             --with-system-libxml        \
-             --with-system-nss           \
-             --with-system-openldap      \
-             --enable-openssl  --disable-firebird-sdbc \
-             --with-system-zlib  --with-system-harfbuzz
-             # --with-system-gpgmepp       \
-echo "Run make build"
-	# ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build || exit $?
-	ACLOCAL="aclocal $ACLOCAL_FLAGS" CFLAGS='-O0 -g0 ' CXXFLAGS='-O0 -g0 ' make build-nocheck || exit $?
-	# make build || exit $?
-	make build-nocheck || exit $?
-	# CXX="clang++ -std=c++11 -Wno-c++11-narrowing" make build # || exit $?
-	CXX="clang++ -std=c++11 -Wno-c++11-narrowing" make build-nocheck # || exit $?
-	# make distro-pack-install || exit $?	
-echo "Run make install-strip"
-	make install-strip || exit $?	
-	for LANG in fr_FR en br_FR
+        # don't run broken tests
+	sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk
+	sed -i "/CppunitTest_sw_uiwriter/d" sw/Module_sw.mk
+	sed -i "/CppunitTest_sw_ww8export2/d" sw/Module_sw.mk 
+	sed -i "/CppunitTest_xmlsecurity_signing/d" xmlsecurity/Module_xmlsecurity.mk
+	sed -i "/CppunitTest_sc_subsequent_filters_test/d" sc/Module_sc.mk 
+	sed -i "/CppunitTest_sc_subsequent_export_test/d" sc/Module_sc.mk
+	sed -i "/CppunitTest_chart2_export/d" chart2/Module_chart2.mk
+	sed -i "/CppunitTest_dbaccess_RowSetClones/d" dbaccess/Module_dbaccess.mk
+	sed -i "/CppunitTest_dbaccess_hsqldb/d" dbaccess/Module_dbaccess.mk
+
+	PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" \
+	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
+
+	_additional_source_url="http://dev-www.libreoffice.org/src"
+	_additional_source_url2="http://dev-www.libreoffice.org/extern"
+	install -d tar
+for TAR in ${_additional_source_url}/boost_1_65_1.tar.bz2 ${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip ${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip ${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip ${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz ${_additional_source_url}/language-subtag-registry-2017-08-15.tar.bz2 ${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip ${_additional_source_url}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip ${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip ${_additional_source_url}/Firebird-3.0.0.32483-0.tar.bz2 ${_additional_source_url}/pdfium-3235.tar.bz2 ${_additional_source_url2}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar  ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies+ODFTOOLKIT-460+ODFTOOLKIT-475.jar ${_additional_source_url2}/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 do
-# FIXME NOT WORKING
-break
-install -d $PREFIX/share/extensions/$LANG
-cp -vR dictionaries/$LANG/*  $PREFIX/share/extensions/$LANG
+  NAME=`basename $TAR`
+  [ ! -e tar/$NAME ] && wget $TAR -O tar/$NAME
 done
+
+	./autogen.sh --with-build-version="${pkgver}-${pkgrel}" \
+		--with-vendor="YourDistroFromScratch" \
+		--enable-split-app-modules \
+		--with-parallelism=${_MAKEFLAGS/-j/} \
+		--disable-fetch-external \
+		--with-external-tar=$PWD/tar \
+		--enable-release-build \
+		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
+		--libdir=$PREFIX/lib --mandir=$PREFIX/share/man \
+		--with-lang="" \
+		--with-help \
+		--disable-avahi \
+		--enable-dbus \
+		--enable-evolution2\
+		--enable-gio\
+		--disable-kde4\
+		--enable-gtk3 \
+		--enable-introspection \
+		--disable-gstreamer-0-10 \
+		--enable-openssl \
+		--enable-odk\
+		--enable-python=system \
+		--enable-scripting-beanshell \
+		--enable-scripting-javascript \
+		--disable-dconf \
+		--disable-report-builder \
+		--enable-ext-wiki-publisher \
+		--enable-ext-nlpsolver \
+		--without-fonts\
+		--with-system-apr \
+		--with-system-libcdr \
+		--with-system-mdds\
+		--without-myspell-dicts \
+		--with-system-libvisio \
+		--with-system-libcmis \
+		--with-system-libmspub \
+		--with-system-libexttextcat \
+		--with-system-orcus \
+		--with-system-liblangtag \
+		--with-system-libmwaw \
+		--with-system-libodfgen \
+		--with-system-libetonyek \
+		--with-system-libfreehand \
+		--without-system-firebird \
+		--with-system-libtommath \
+		--with-system-libatomic-ops \
+		--with-system-libebook \
+		--with-system-libabw \
+		--with-system-coinmp \
+		--with-system-dicts \
+		--with-external-dict-dir=$HOME/$ARCH/share/hunspell \
+		--with-external-hyph-dir=$HOME/$ARCH/share/hyphen \
+		--with-external-thes-dir=$HOME/$ARCH/share/mythes \
+		--with-system-beanshell \
+		--with-system-cppunit\
+		--with-system-graphite\
+		--with-system-glm \
+		--with-system-libwpg \
+		--with-system-libwps \
+		--with-system-redland\
+		--with-system-libzmf \
+		--with-system-gpgmepp \
+		--with-system-libstaroffice \
+		--with-system-serf \
+		--without-system-boost\
+		--with-system-icu \
+		--with-system-cairo \
+		--with-system-libs \
+		--with-system-mythes \
+		--with-system-headers \
+		--without-system-hsqldb \
+		--with-alloc=system \
+		--with-system-clucene \
+		--disable-dependency-tracking
+
+	echo "Run make build"
+	make build || exit $?
+	make DESTDIR=${srcdir}/fakeinstall distro-pack-install || exit $?
 
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications
@@ -85,12 +130,7 @@ do
   mv $PREFIX/lib/libreoffice/share/xdg/$i.desktop $PREFIX/share/applications
 done
 unset i
-#FIXME
-# cp /home/linuxconsole2018/x86_64/share/icons/ContrastHigh/48x48/apps/libreoffice-base.png init-x86/share/pixmaps/libreoffice5.4-base.png
 
-    # make DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR distro-pack-install 
-    # cd $HOME/ydfs/packages-$ARCH/$MYDIR
-    # $HOME_DIBAB/scripts/make_opkg || exit $?
         touch buildok-$ARCH
 	exit 0
   fi

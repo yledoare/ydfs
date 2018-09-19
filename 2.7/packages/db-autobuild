@@ -155,6 +155,34 @@ else
     exit 0
   fi
 
+  if [ -e libtommath.pc.in ]
+  then
+	make -f makefile.shared IGNORE_SPEED=1 || exit ?
+	make -f makefile.shared PREFIX=$PREFIX INSTALL_GROUP=root install || exit ?
+	touch buildok-$ARCH
+	exit 0
+  fi
+
+  if [ -e lpsolve55 ]
+  then
+	wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/cflags.patch?h=packages/lpsolve -O patch
+	patch -Np1 -i  patch
+	wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lpsolve-5.5.2.0.defines.patch?h=packages/lpsolve -O patch
+	patch -Np1 -i  patch
+	  cd lpsolve55
+  	sh -x ccc || exit 1
+  	cd ../lp_solve
+  	sh -x ccc || exit 1
+	cd ..
+  install -dm755 ${PREFIX}{bin,lib,include/lpsolve} || exit 1
+  install -m755 lp_solve/bin/ux*/lp_solve ${PREFIX}/bin/ || exit 1
+  install -m755 lpsolve55/bin/ux*/liblpsolve55.so ${PREFIX}/lib/ || exit 1
+  install -m644 lp*.h ${PREFIX}/include/lpsolve/ || exit 1
+	touch buildok-$ARCH
+	exit 0
+
+  fi
+
   if [ -e xeniarc ]
   then
 	echo "Build Xenia"
@@ -231,6 +259,32 @@ else
   then
 	echo "Move $PREFIX/include/SFML into $PREFIX/include/SFML-1"
 	mv $PREFIX/include/SFML $PREFIX/include/SFML-1
+  fi
+
+  if [ -e src/core/CLucene.h ]
+  then
+    mkdir build
+   cd build
+  cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DENABLE_ASCII_MODE=OFF \
+    -DENABLE_PACKAGING=OFF \
+    -DBUILD_CONTRIBS_LIB:BOOL=ON \
+    -DLIB_DESTINATION:PATH=$PREFIX/lib \
+    -DLUCENE_SYS_INCLUDES:PATH=$PREFIX/lib \
+    -DDISABLE_MULTITHREADING=OFF || exit $?
+  cd ..
+
+  make -C build || exit $?
+  make install -C build || exit $?
+	ls $PREFIX/include/CLucene/analysis/cjk/CJKAnalyzer.h || exit 1
+    touch buildok-$ARCH
+  rm -rfv $PREFIX/lib/CLuceneConfig.cmake
+  cd $PREFIX/include//CLucene
+  ln -s /usr/lib/CLucene/clucene-config.h .
+    exit 0
+
   fi
 
   if [ -e doc/examples/etc/init.d/atieventsd.sh ]
