@@ -131,7 +131,8 @@ else
   	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
     		mkspecs/common/g++-unix.conf
      fi
-    [ ! -e Makefile ] && ./configure -confirm-license -opensource -v \
+#    [ ! -e Makefile ] && 
+./configure -confirm-license -opensource -v \
     -prefix $HOME/qt5 \
     -docdir $HOME/qt5/share/doc/qt \
     -headerdir $HOME/qt5/include/qt \
@@ -147,8 +148,8 @@ else
     -optimized-qmake \
     -dbus-linked \
     -no-use-gold-linker \
-    -reduce-relocations
-
+    -reduce-relocations -webengine-icu
+	exit 1
 	make || exit 1
 	make install || exit 1
     touch buildok-$ARCH
@@ -1141,6 +1142,13 @@ ac_cv_file__dev_ptc=no' >  config.site
 
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+    [ -e qtwebview.pro ] && qmake
+    [ -e qtwebengine.pro ] && qmake -proprietary-codecs \
+    -system-ffmpeg \
+    -webp \
+    -spellchecker \
+    -webengine-icu
+
     if [ -e QupZilla.pro ]
     then
       echo "Building QUPZILLA"
