@@ -33,11 +33,11 @@
 	sed -i "/CppunitTest_dbaccess_hsqldb/d" dbaccess/Module_dbaccess.mk
 
 	install -d $PREFIX/lib/java
-	wget https://github.com/beanshell/beanshell/releases/download/2.0b6/bsh-2.0b6.jar -O $PREFIX/lib/java/bsh.jar
+	[ ! -e $PREFIX/lib/java/bsh.jar ] && wget https://github.com/beanshell/beanshell/releases/download/2.0b6/bsh-2.0b6.jar -O $PREFIX/lib/java/bsh.jar
 	export BSH_JAR=$PREFIX/lib/java/bsh.jar
-	PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" \
+	# PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" \
 	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
-
+	export PYTHON=$PREFIX/bin/python3
 	_additional_source_url="http://dev-www.libreoffice.org/src"
 	_additional_source_url2="http://dev-www.libreoffice.org/extern"
 	install -d tar
@@ -123,9 +123,9 @@ done
 		--disable-dependency-tracking --without-java
 
 	echo "Run make build"
-	make build || exit $?
-	make DESTDIR=${srcdir}/fakeinstall distro-pack-install || exit $?
-
+	make build-nocheck || exit $?
+	make distro-pack-install  # || exit $?
+        [ ! -e $PREFIX/lib/libreoffice/program/soffice ] && exit $?
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications
 for i in writer base calc draw impress math startcenter
