@@ -145,13 +145,6 @@ chmod +s $HOME/ydfs/modules/$ARCH/bin/su
 
 [ "$ARCH" = "x86_64" ] && QTMORE="translations resources"
 
-for QTDIR in bin lib libexec mkspecs phrasebooks plugins qml $QTMORE
-do
-  install -d $HOME/ydfs/modules/$ARCH/qt5
-  echo copy qt5 $QTDIR
-  cp -fR $HOME/qt5/$QTDIR  $HOME/ydfs/modules/$ARCH/qt5 || exit 11
-done
-
 cp -fR /usr/share/zoneinfo/ $HOME/ydfs/modules/$ARCH/share
 rmdir $HOME/ydfs/modules/$ARCH/lib64
 ln -s $HOME/$ARCH/lib $HOME/ydfs/modules/$ARCH/lib64

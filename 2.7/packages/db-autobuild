@@ -127,7 +127,7 @@ else
      if [ ! -e qt5-base-glibc-2.28.patch ]
      then
 	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
-	patch -p1 -i qt5-base-glibc-2.28.patch
+	patch -p1 -i qt5-base-glibc-2.28.patch || exit 1
 	sleep 2
 	 sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
     		mkspecs/common/gcc-base.conf
@@ -137,13 +137,13 @@ else
      cd ..
 #    [ ! -e Makefile ] && 
 ./configure -confirm-license -opensource -v \
-    -prefix $HOME/qt5 \
-    -docdir $HOME/qt5/share/doc/qt \
-    -headerdir $HOME/qt5/include/qt \
-    -archdatadir $HOME/qt5/lib/qt \
-    -datadir $HOME/qt5/share/qt \
-    -sysconfdir $HOME/qt5/xdg \
-    -examplesdir $HOME/qt5/share/doc/qt/examples \
+    -prefix $HOME/$ARCH \
+    -docdir $HOME/$ARCH/share/doc/qt \
+    -headerdir $HOME/$ARCH/include/qt \
+    -archdatadir $HOME/$ARCH/lib/qt \
+    -datadir $HOME/$ARCH/share/qt \
+    -sysconfdir $HOME/$ARCH/xdg \
+    -examplesdir $HOME/$ARCH/share/doc/qt/examples \
     -plugin-sql-sqlite \
     -system-sqlite \
     -openssl-linked \
@@ -391,7 +391,7 @@ else
   fi
 
   [ -e source/carla ] && sed -i "s@/usr/local@$PREFIX@" Makefile
-  [ -e $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/qt5/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
+  [ -e $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
 
   if [ -e pyqtconfig.py.in ]
   then
@@ -1155,7 +1155,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e QupZilla.pro ]
     then
       echo "Building QUPZILLA"
-	QTDIR=$HOME/qt5 USE_WEBGL=true QMAKESPEC=$QTDIR/mkspecs/linux-g++ qmake
+	QTDIR=$HOME/$ARCH USE_WEBGL=true QMAKESPEC=$QTDIR/mkspecs/linux-g++ qmake
       QUPZILLA_PREFIX=$PREFIX qmake || exit $?
       QUPZILLA_PREFIX=$PREFIX make || exit $?
       QUPZILLA_PREFIX=$PREFIX make install || exit $?
@@ -1386,7 +1386,7 @@ echo "At BUILDPERL"
         then
 	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
   	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
-	  scons $SCONS_OPT build=release scons qt5=1 qtdir=$HOME/qt5/ optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT || exit $?
+	  scons $SCONS_OPT build=release scons qt5=1 qtdir=$HOME/$ARCH/ optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT || exit $?
 	  scons $SCONS_OPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
 	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
   	  [ -e $HOME/$ARCH/include/util-smb ] && mv $HOME/$ARCH/include/util-smb $HOME/$ARCH/include/util

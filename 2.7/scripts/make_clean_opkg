@@ -6,7 +6,6 @@
 	rm -fR ${HOME}/ydfs/packages-${ARCH}/*
 	rm -fR ${HOME}/opkg
 	rm -fR ${HOME}/ydfs/opkg
-	rm -fR ${HOME}/qt5*
 	mv $HOME/ydfs/wxGTK-2.8.12 $HOME/ydfs/src/
 	mv $HOME/ydfs/linux-* $HOME/ydfs/src/
 	rm -fR ${HOME}/ydfs/build/busybox-*

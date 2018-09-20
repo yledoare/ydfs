@@ -104,7 +104,7 @@ endif
 INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
-all: config.ini toolchain qt5 ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers $(DISTRONAME) iso
+all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers $(DISTRONAME) iso
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
 busybox-toolchain: ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
@@ -198,10 +198,6 @@ ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 video: packages/list-video
 	./scripts/make_packages video
-qt5: packages/list-qt5
-	./scripts/make_packages qt5
-qt: packages/list-qt
-	./scripts/make_packages qt
 elementary: packages/list-elementary
 	./scripts/make_packages elementary
 music: packages/list-music

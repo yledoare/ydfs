@@ -73,8 +73,6 @@ fi
 
 # echo -n " 1" > /dev/tty1
 /fix/libs
-. /ydfs/enable/qt5
-[ -e /ydfs/boot/options/debugqt5  ] && sh
 
 [ -e /media/ydfs/pkg ] && echo "Opkg update" && opkg-cl update
 

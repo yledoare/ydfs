@@ -300,7 +300,7 @@ https://github.com/webmproject/libvpx/archive/v1.6.0.tar.gz
 http://fribidi.org/download/fribidi-0.19.6.tar.bz2
 http://libass.googlecode.com/files/libass-0.10.2.tar.xz
 https://ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz
-http://download.qt.io/official_releases/qt/5.11/5.11.2/single/qt-everywhere-src-5.11.2.tar.xz #SKIP-x86_64#
+http://download.qt.io/official_releases/qt/5.11/5.11.2/single/qt-everywhere-src-5.11.2.tar.xz
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
 http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
 http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
@@ -679,8 +679,7 @@ https://github.com/xbmc/xbmc/archive/17.6-Krypton.tar.gz
 https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utility-3.26.2.tar.xz
 https://pypi.python.org/packages/bf/3e/31d502c25302814a7c2f1d3959d2a3b3f78e509002ba91aea64993936876/enum34-1.1.6.tar.gz
-https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.9.2/PyQt5_gpl-5.9.2.tar.gz #SKIP-x86#
-http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz #SKIP-x86_64#
+http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-0.3.0.tar.xz
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
