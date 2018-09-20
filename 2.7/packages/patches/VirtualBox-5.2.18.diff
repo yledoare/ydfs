@@ -7,7 +7,7 @@ index caac8c9..fd94d6d 100644
  # Note! The __SOMETHING__ #defines are deprecated as they violate the C/C++ specs.
  #
 -INCS += $(PATH_ROOT)/include $(PATH_OUT)
-+INCS +=  ${HOME}/qt5/include  ${HOME}/${ARCH}/include $(PATH_ROOT)/include $(PATH_OUT)
++INCS +=  ${HOME}/{$ARCH}/include  ${HOME}/${ARCH}/include $(PATH_ROOT)/include $(PATH_OUT)
  DEFS += VBOX
  DEFS.debug      := DEBUG DEBUG_$(subst $(subst _, ,_),_,$(USERNAME)) DEBUG_USERNAME=$(subst $(subst _, ,_),_,$(USERNAME))
  DEFS.dbgopt      = $(DEFS.debug)
@@ -100,7 +100,7 @@ index 128da55..28bef75 100755
  PKGCONFIG="`which_wrapper pkg-config`"
  PYTHONDIR="/usr /usr/local"
 -QT5DIR="/usr/lib/qt5 /usr/share/qt5 /usr/lib64/qt5 /usr /usr/local"
-+QT5DIR="/usr/lib/qt5 ${HOME}/qt5 /usr/lib64/qt5 /usr /usr/local"
++QT5DIR="/usr/lib/qt5 ${HOME}/{$ARCH} /usr/lib64/qt5 /usr /usr/local"
  QT5DIR_PKGCONFIG=1
  QT5MAJ=5
  QT5MIN=6

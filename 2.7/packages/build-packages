@@ -25,37 +25,6 @@ else
 export MODULE=$ARCH
 fi
 
-# 2 commandes pour le cas particulier de l'architecture x86_64
-[ "$ARCH" = "x86_64" ] && [ ! -e $HOME/$ARCH/lib64 ] && install -d $HOME/$ARCH/lib && ln -s $HOME/$ARCH/lib $HOME/$ARCH/lib64
-
-if [ "$MODULE" == "qt5" ]
-then
-  if [ "$ARCH" = "x86_64" ]
-  then
-	#TARBALL="http://jukebox.linuxconsole.org/toolchains/qt5/gcc_64.7z"
-  	TARBALL=http://jukebox.linuxconsole.org/toolchains/qt5/qt5.tar.gz
-  	#[ ! -e $HOME/qt5 ] && cd $HOME && wget $TARBALL && tar xzvf qt5_x64.tar.gz && mv qt5_x64 qt5
-	if [ ! -e $HOME/qt5 ]
-	then            
-	  cd $HOME 
-	  [ ! -e `basename $TARBALL` ] &&  wget $TARBALL && tar xzvf qt5.tar.gz
-	  rm $HOME/qt5/lib/libicu*.so
-	  # 7z x gcc_64.7z && mv gcc_64 qt5
-	fi
-
-	OPKGARCH=x86_64
-	#LIBICU=57
-	#for LIB in libicuuc.so libicui18n.so libicudata.so libicuuc.so libicui18n.so libicudata.so
-	#do
-	#		ln -s $HOME/$OPKGARCH/lib/$LIB.$LIBICU $HOME/qt5/lib/$LIB.55
-	#done
-  else
-	echo "Qt5 now build form source for x86"
-	OPKGARCH=i686
-  fi
-  exit 0
-fi
-
 # 2 commandes pour Freetype
 [ ! -e $HOME/$ARCH/include/freetype ] && install -d $HOME/$ARCH/include/freetype2 && ln -s $HOME/$ARCH/include/freetype2 $HOME/$ARCH/include/freetype
 
@@ -77,16 +46,8 @@ export ACLOCAL="aclocal"
 [ $MODULE != "ARCH" ] && MODULE_LIST="$MODULE $ARCH"
 [ -e list-$MODULE.deps ] && MODULE_LIST="`cat list-$MODULE.deps` $MODULE_LIST"
 echo " Module list : $MODULE_LIST"
-[ -e $HOME/qt5 ] && ln -sf $HOME/qt5/bin/qmake  $HOME/qt5/bin/qmake-qt5
-[ -e $HOME/qt5 ] && PATH="$HOME/qt5/bin:$PATH"
-PATH="$HOME/ydfs/llvm/bin:$PATH"
-[ -e $HOME/qt5 ] && CXXFLAGS=" -I$HOME/qt5/include"
-[ -e $HOME/qt5 ] && CXX_FLAGS=" -I$HOME/qt5/include"
-[ -e $HOME/qt5 ] && CFLAGS=" -I$HOME/qt5/include $CFLAGS"
-[ -e $HOME/qt5 ] && CPPFLAGS=" -I$HOME/qt5/include/QtSvg -I$HOME/qt5/include/QtTest -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore $CPPFLAGS"
-[ -e $HOME/qt5 ] && LDFLAGS=" -L$HOME/qt5/lib $LDFLAGS"
-[ -e $HOME/qt5 ] && LD_LIBRARY_PATH="$HOME/qt5/lib:$LD_LIBRARY_PATH"
-[ -e $HOME/qt5 ] && PKG_CONFIG_PATH="$HOME/qt5/lib/pkgconfig:$PKG_CONFIG_PATH"
+[ -e $HOME/$ARCH/bin/qmake ] && ln -sf $HOME/$ARCH/bin/qmake $HOME/$ARCH/bin/qmake-qt5
+[ -e $HOME/$ARCH ] && CPPFLAGS=" -I$HOME/$ARCH/include/QtSvg -I$HOME/$ARCH/include/QtTest -I$HOME/$ARCH/include/QtPrintSupport -I$HOME/$ARCH/include/QtOpenGL -I$HOME/$ARCH/include/QtX11Extras -I$HOME/$ARCH/include/QtGui -I$HOME/$ARCH/include -I$HOME/$ARCH/include/QtWidgets -I$HOME/$ARCH/include/QtCore $CPPFLAGS"
 export RCC=`which rcc`
 export MOC=`which moc`
 export UIC=`which uic`
@@ -285,7 +246,7 @@ fi
   # Environment variables
 
   export CXX="g++"
-  [ -e $HOME/qt5 ] && export CXX="g++ -I$HOME/qt5/include/QtTest -I$HOME/qt5/include/QtPrintSupport -I$HOME/qt5/include $CFLAGS -I$HOME/qt5/include/QtOpenGL -I$HOME/qt5/include/QtX11Extras -I$HOME/qt5/include/QtGui -I$HOME/qt5/include -I$HOME/qt5/include/QtWidgets -I$HOME/qt5/include/QtCore"
+  [ -e $HOME/$ARCH/include/QtTest ] && export CXX="g++ -I$HOME/$ARCH/include/QtTest -I$HOME/$ARCH/include/QtPrintSupport -I$HOME/$ARCH/include $CFLAGS -I$HOME/$ARCH/include/QtOpenGL -I$HOME/$ARCH/include/QtX11Extras -I$HOME/$ARCH/include/QtGui -I$HOME/$ARCH/include -I$HOME/$ARCH/include/QtWidgets -I$HOME/$ARCH/include/QtCore"
   echo $ARCHIVE | grep warsow && export CFLAGS="$CFLAGS -I""$HOME/$ARCH/include/freetype "
   echo $ARCHIVE | grep efl-1 && unset CXX
 #  echo $ARCHIVE | grep icu4c && export CXX="g++ -fPIC"

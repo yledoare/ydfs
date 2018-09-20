@@ -135,7 +135,6 @@ echo "$FILE" |grep  "pa_stable" && DIR2=portaudio && FORCED=1
 case "$ARCHIVE" in
   RUN)
     echo "$FILE" |grep -i nvidia && DIR=$DIR $HOME_DIBAB/scripts/includes/nvidia && exit 0
-    echo "$FILE" |grep -i qt-opensource && DIR=$DIR FILE=$FILE $HOME_DIBAB/scripts/includes/qt5 && exit 0
 	echo "How extract $FILE ?"
       exit 1
     ;;
