@@ -11,6 +11,20 @@
     	source ./env.sh
 	KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" kmk || exit 1
     fi
+    	source ./env.sh
+	cd src/VBox/Additions
+		kmk || exit 1
+	cd ../../../
+	cd ./out/linux.amd64/release/bin/additions/src/
+	for DRIVER in vboxguest  vboxsf  vboxvideo
+	do
+	  cd $DRIVER	
+	  echo "Building $DRIVER  .. " && sleep 1
+	  make KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
+	  cd ..
+	  find . -name *.ko | while read file; do cp $file $pkgdir/lib/modules; done
+	done
+	cd ../../../../../../
 	cd out/linux.amd64/release/bin/src
 	if [ ! -e vboxpci/vboxpci.ko ]
 	then
@@ -20,7 +34,7 @@
 	  cd $DRIVER	
 	  echo "Building $DRIVER  .. " && sleep 1
 	  # make KERN_DIR="$HOME/ydfs/src/linux-$KERNEL3/" || exit $?
-	  make KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
+	  make KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
 	  cd ..
 	done
 	echo "Done " && sleep 2

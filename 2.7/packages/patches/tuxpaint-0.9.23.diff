@@ -35,7 +35,7 @@ index 730ed91..135b314 100644
  
  #-ffast-math
 -OPTFLAGS:=-O2
-+OPTFLAGS:=-O2 -I$(HOME)/$(ARCH)/include/SDL
++OPTFLAGS:=-O2 -I$(HOME)/$(ARCH)/include/SDL -lpaper -lpng
 +
  CFLAGS:=$(CPPFLAGS) $(OPTFLAGS) -W -Wall -fno-common -ffloat-store \
  	$(if $(filter windows,$(OS)),,$(call comptest,-fvisibility=hidden,)) \
