@@ -121,6 +121,7 @@ else
 
   if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
   then
+     cd qtbase
      if [ ! -e qt5-base-glibc-2.28.patch ]
      then
 	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
@@ -131,6 +132,7 @@ else
   	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
     		mkspecs/common/g++-unix.conf
      fi
+     cd ..
 #    [ ! -e Makefile ] && 
 ./configure -confirm-license -opensource -v \
     -prefix $HOME/qt5 \
@@ -148,8 +150,7 @@ else
     -optimized-qmake \
     -dbus-linked \
     -no-use-gold-linker \
-    -reduce-relocations -webengine-icu
-	exit 1
+    -reduce-relocations -webengine-icu || exit 1
 	make || exit 1
 	make install || exit 1
     touch buildok-$ARCH
