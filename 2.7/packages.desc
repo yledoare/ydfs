@@ -239,3 +239,7 @@ rhash;rhash
 lgogdownloader;lgogdownloader
 dvb-apps;dvb-apps
 primus;Faster OpenGL offloading for Bumblebee
+sddm;Login manager
+bubblewrap;bubblewrap
+libostree;libostree
+flatpak;flatpak
