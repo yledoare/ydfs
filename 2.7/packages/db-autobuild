@@ -127,7 +127,7 @@ else
      if [ ! -e qt5-base-glibc-2.28.patch ]
      then
 	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
-	patch -p1 -i qt5-base-glibc-2.28.patch || exit 1
+	patch -p1 -i qt5-base-glibc-2.28.patch
 	sleep 2
 	 sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
     		mkspecs/common/gcc-base.conf

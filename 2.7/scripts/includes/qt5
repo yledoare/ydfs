@@ -1,4 +1,0 @@
-cd $HOME/ydfs/
-install -d $DIR
-chmod +x $FILE
-exit 0
