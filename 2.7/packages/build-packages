@@ -47,7 +47,12 @@ export ACLOCAL="aclocal"
 [ -e list-$MODULE.deps ] && MODULE_LIST="`cat list-$MODULE.deps` $MODULE_LIST"
 echo " Module list : $MODULE_LIST"
 [ -e $HOME/$ARCH/bin/qmake ] && ln -sf $HOME/$ARCH/bin/qmake $HOME/$ARCH/bin/qmake-qt5
-[ -e $HOME/$ARCH ] && CPPFLAGS=" -I$HOME/$ARCH/include/QtSvg -I$HOME/$ARCH/include/QtTest -I$HOME/$ARCH/include/QtPrintSupport -I$HOME/$ARCH/include/QtOpenGL -I$HOME/$ARCH/include/QtX11Extras -I$HOME/$ARCH/include/QtGui -I$HOME/$ARCH/include -I$HOME/$ARCH/include/QtWidgets -I$HOME/$ARCH/include/QtCore $CPPFLAGS"
+CPPFLAGS=" -I$HOME/$ARCH/include $CPPFLAGS"
+for QTINC in QtSvg QtTest QtPrintSupport QtOpenG QtX11Extra QtGui QtWidgets
+do
+  CPPFLAGS="$CPPFLAGS -I$HOME/$ARCH/include/$QTINC"
+  install -d $HOME/$ARCH/include/$QTINC
+done
 export RCC=`which rcc`
 export MOC=`which moc`
 export UIC=`which uic`
