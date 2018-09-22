@@ -16,7 +16,8 @@ build_the_archive()
   echo -n "Building in progress ... start at"     
   echo -n -e " \e[91m$TIME\e[0m " 
   START=`date '+%s'`
-  db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log || exit $?
+  db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
+  [ "$?" != "0" ] && LOGERROR=`tail ydfs-error | grep error` && echo -n -e "\n\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && exit 1
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
   SDURATION=$((($END - $START)%60))

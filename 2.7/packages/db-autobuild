@@ -110,7 +110,8 @@ else
     	touch buildok-$ARCH
 	exit 0
   fi
-  
+ 
+  [ -e libparted/arch/linux.c ] && sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c 
   [ -e src/tuxpaint.desktop ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/tuxpaint.desktop ] && sed -i "s@kbuildsycoca4@echo kbuildsycoca4@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -120,7 +121,8 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
-
+  [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
+  [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
 
   if [ -e libtommath.pc.in ]
   then
@@ -1567,7 +1569,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
-      make DBM_INCLUDE=$HOME/$OLDARCH/include 
+      make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n
       if [ $? != 0 ]
       then
 	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
