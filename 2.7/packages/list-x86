@@ -15,6 +15,7 @@ http://www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.xz
 http://zlib.net/current/zlib-1.2.11.tar.gz 
 http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.6-src.tar.gz
 http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
+https://download.savannah.gnu.org/releases/lzip/lzip-1.20.tar.gz
 http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
 https://download.gimp.org/pub/babl/0.1/babl-0.1.50.tar.bz2
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
@@ -85,7 +86,7 @@ http://p11-glue.freedesktop.org/releases/p11-kit-0.23.2.tar.gz
 http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
 https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz
 https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz
-https://ftp.gnu.org/gnu/wget/wget-1.19.5.tar.lz
+http://ftp.gnu.org/pub/gnu/wget/wget-1.15.tar.xz
 http://curl.haxx.se/download/curl-7.50.3.tar.gz
 http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz
 http://www.cpan.org/authors/id/T/TI/TINITA/YAML-1.24.tar.gz

@@ -17,7 +17,7 @@ build_the_archive()
   echo -n -e " \e[91m$TIME\e[0m " 
   START=`date '+%s'`
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
-  [ "$?" != "0" ] && LOGERROR=`tail ydfs-error | grep error` && echo -n -e "\n\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && exit 1
+  [ "$?" != "0" ] && LOGERROR=`tail ydfs-error | grep error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-log \n\n" && exit 1
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
   SDURATION=$((($END - $START)%60))
@@ -78,6 +78,7 @@ case "$FILE" in
  *.tbz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
    *.tar.bz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
  *.tar.gz) ARCHIVE=TARGZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+ *.tar.lz) ARCHIVE=TARLZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
    *bz2)  ARCHIVE=BZ;;
  *deb)  ARCHIVE=DEB;;
    *rpm)  ARCHIVE=RPM;;
@@ -217,6 +218,20 @@ case "$ARCHIVE" in
       install -d $HOME/ydfs/src/
       cd $HOME/ydfs/src/
       [ ! -e $DIR2 ] && 7z x "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log
+      [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
+      cd $DIR2 
+      export DIR2=$DIR2
+      export MYPREFIX=$MYPREFIX
+      export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
+      build_the_archive
+    fi
+    ;;
+  TARLZ)
+    if [ "$CHOICE" = "installfromsrc" ]
+    then
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
+      [ ! -e $DIR2 ] && tar --lzip -xvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log
       [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
       cd $DIR2 
       export DIR2=$DIR2
