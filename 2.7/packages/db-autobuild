@@ -121,43 +121,6 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
 
-  if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
-  then
-     cd qtbase
-     if [ ! -e qt5-base-glibc-2.28.patch ]
-     then
-	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
-	patch -p1 -i qt5-base-glibc-2.28.patch
-	sleep 2
-	 sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
-    		mkspecs/common/gcc-base.conf
-  	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
-    		mkspecs/common/g++-unix.conf
-     fi
-     cd ..
-#    [ ! -e Makefile ] && 
-./configure -confirm-license -opensource -v \
-    -prefix $HOME/$ARCH \
-    -docdir $HOME/$ARCH/share/doc/qt \
-    -headerdir $HOME/$ARCH/include/qt \
-    -archdatadir $HOME/$ARCH/lib/qt \
-    -datadir $HOME/$ARCH/share/qt \
-    -sysconfdir $HOME/$ARCH/xdg \
-    -examplesdir $HOME/$ARCH/share/doc/qt/examples \
-    -plugin-sql-sqlite \
-    -system-sqlite \
-    -openssl-linked \
-    -nomake examples \
-    -no-rpath \
-    -optimized-qmake \
-    -dbus-linked \
-    -no-use-gold-linker \
-    -reduce-relocations -webengine-icu || exit 1
-	make || exit 1
-	make install || exit 1
-    touch buildok-$ARCH
-    exit 0
-  fi
 
   if [ -e libtommath.pc.in ]
   then
@@ -232,6 +195,8 @@ else
     [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
   fi
 
+
+. $(dirname $0)/../scripts/includes/qt5
 . $(dirname $0)/../scripts/includes/virtualbox
 . $(dirname $0)/../scripts/includes/mozilla
 . $(dirname $0)/../scripts/includes/gmic
@@ -654,9 +619,9 @@ pwd && sleep 5
   fi
 
   [ -e crypto/bio/bio.h ] && install -d include/openssl
-  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX linux-elf shared
-  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX linux-x86_64 shared
-  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-elf shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-x86_64 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-generic32 shared
   [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX linux-generic32 shared
   [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
   

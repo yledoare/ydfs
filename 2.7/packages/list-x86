@@ -327,7 +327,7 @@ https://github.com/pmem/ndctl/archive/v61.1.tar.gz
 http://rpm5.org/files/popt/popt-1.16.tar.gz
 https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz
 https://github.com/thom311/libnl/releases/download/libnl3_2_28/libnl-3.2.28.tar.gz
-https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_33_RTM/src/nss-3.33.tar.gz
+https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_39_RTM/src/nss-3.39.tar.gz
 https://releases.pagure.org/volume_key/volume_key-0.3.10.tar.xz
 git://github.com/Distrotech/dmraid.git
 https://github.com/storaged-project/libbytesize/releases/download/1.3/libbytesize-1.3.tar.gz

@@ -1,0 +1,38 @@
+
+  if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
+  then
+     cd qtbase
+     if [ ! -e qt5-base-glibc-2.28.patch ]
+     then
+	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
+	patch -p1 -i qt5-base-glibc-2.28.patch
+	sleep 2
+	 sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
+    		mkspecs/common/gcc-base.conf
+  	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
+    		mkspecs/common/g++-unix.conf
+     fi
+     cd ..
+#    [ ! -e Makefile ] && 
+./configure -confirm-license -opensource -v \
+    -prefix $HOME/$ARCH \
+    -docdir $HOME/$ARCH/share/doc/qt \
+    -headerdir $HOME/$ARCH/include/qt \
+    -archdatadir $HOME/$ARCH/lib/qt \
+    -datadir $HOME/$ARCH/share/qt \
+    -sysconfdir $HOME/$ARCH/xdg \
+    -examplesdir $HOME/$ARCH/share/doc/qt/examples \
+    -plugin-sql-sqlite \
+    -system-sqlite \
+    -openssl-linked \
+    -nomake examples \
+    -no-rpath \
+    -optimized-qmake \
+    -dbus-linked \
+    -no-use-gold-linker \
+    -reduce-relocations -webengine-icu || exit 1
+	make || exit 1
+	make install || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi
