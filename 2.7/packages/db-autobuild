@@ -444,8 +444,12 @@ pwd && sleep 5
     echo "$LC_CONFIGURE_OPTS"
     sleep 5
     ./configure $LC_CONFIGURE_OPTS
-    make || exit 1
-    bash
+    make || exit $?
+    make install || exit $?
+    cd ../..
+    touch buildok-$ARCH
+    exit 0
+
   fi
 
   if [ -e nspr ]

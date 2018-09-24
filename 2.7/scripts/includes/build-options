@@ -109,11 +109,13 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-pcregrep-libz \
     --enable-pcregrep-libbz2 \
     --enable-pcretest-libreadline" 
-	 echo $ARCHIVE | grep mozjs-52 && export LC_CONFIGURE_OPTS="  
-	            --with-intl-api     \
+	echo $ARCHIVE | grep mozjs-52 && export LC_CONFIGURE_OPTS="--prefix=$HOME/$ARCH       \
+            --with-intl-api     \
+            --with-system-zlib  \
             --with-system-nspr  \
             --with-system-icu   \
-            --enable-threadsafe "
+            --enable-threadsafe \
+            --enable-readline"
 	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
     --enable-double-precision \
     --enable-libccd \
