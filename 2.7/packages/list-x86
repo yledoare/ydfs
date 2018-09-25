@@ -475,7 +475,7 @@ git://github.com/lloyd/yajl.git
 http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
 http://netcologne.dl.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz
 http://taglib.github.io/releases/taglib-1.9.1.tar.gz 
-https://red.libssh.org/attachments/download/218/libssh-0.7.5.tar.xz
+https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.2.tar.gz
 http://lxml.de/files/lxml-3.3.0.tgz
 http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.25.tar.gz
