@@ -1,7 +1,9 @@
 #!/bin/bash
   if [ -e librelogo ] 
   then
-	# cp /home/linuxconsole2019/linuxconsole/lib/libtommath* /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/workdir/UnpackedTarball/libtommath
+	install -d workdir/UnpackedTarball/libtommath
+	cp $PREFIX/lib/libtommath* workdir/UnpackedTarball/libtommath
+	cp $PREFIX/include/tommath* workdir/UnpackedTarball/libtommath
 	# for correct file install into package dir
         [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
 	install -d src
@@ -20,7 +22,8 @@
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ 
 	CONFIGURE_OPTS=""
 	env > env.log
-        [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --host=i586-linux-gnu"
+        [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --disable-ext-wiki-publisher --disable-ext-nlpsolver --host=i586-linux-gnu"
+        [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --enable-ext-wiki-publisher --enable-ext-nlpsolver "
         # don't run broken tests
 	sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk
 	sed -i "/CppunitTest_sw_uiwriter/d" sw/Module_sw.mk
@@ -47,8 +50,7 @@ do
   [ ! -e tar/$NAME ] && wget $TAR -O tar/$NAME
 done
 
-	./autogen.sh --with-build-version="${pkgver}-${pkgrel}" \
-		--with-vendor="YourDistroFromScratch" \
+	./autogen.sh --with-vendor="YourDistroFromScratch" \
 		--enable-split-app-modules \
 		--with-parallelism=${_MAKEFLAGS/-j/} \
 		--disable-fetch-external \
@@ -56,7 +58,7 @@ done
 		--enable-release-build \
 		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
 		--libdir=$PREFIX/lib --mandir=$PREFIX/share/man \
-		--with-lang="" \
+		--with-lang="en-US fr" \
 		--with-help \
 		--disable-avahi \
 		--enable-dbus \
@@ -73,8 +75,6 @@ done
 		--enable-scripting-javascript \
 		--disable-dconf \
 		--disable-report-builder \
-		--enable-ext-wiki-publisher \
-		--enable-ext-nlpsolver \
 		--without-fonts\
 		--with-system-apr \
 		--with-system-libcdr \
@@ -120,11 +120,11 @@ done
 		--without-system-hsqldb \
 		--with-alloc=system \
 		--with-system-clucene \
-		--disable-dependency-tracking --without-java
+		--disable-dependency-tracking --without-java $CONFIGURE_OPTS  || exit $?
 
 	echo "Run make build"
 	make build-nocheck || exit $?
-	make distro-pack-install  # || exit $?
+	make distro-pack-install || exit $?
         [ ! -e $PREFIX/lib/libreoffice/program/soffice ] && exit $?
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications
