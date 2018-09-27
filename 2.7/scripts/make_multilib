@@ -264,7 +264,7 @@ PYTHON2=/usr/bin/python ./configure \
     ;;
     openssl* )
 	./Configure --prefix=$HOME/multilib --openssldir=$HOME/multilib/etc/ssl --libdir=lib32 \
-		shared zlib \
+		shared zlib no-ssl3-method \
 		linux-elf \
 		"-Wa,--noexecstack ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}"
 
