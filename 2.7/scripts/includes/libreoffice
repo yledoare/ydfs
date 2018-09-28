@@ -58,7 +58,7 @@ done
 		--enable-release-build \
 		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
 		--libdir=$PREFIX/lib --mandir=$PREFIX/share/man \
-		--with-lang="en-US fr" \
+		--with-lang="" \
 		--with-help \
 		--disable-avahi \
 		--enable-dbus \
@@ -122,9 +122,21 @@ done
 		--with-system-clucene \
 		--disable-dependency-tracking --without-java $CONFIGURE_OPTS  || exit $?
 
-	echo "Run make build"
-	make build-nocheck || exit $?
-	make distro-pack-install || exit $?
+	echo "Run : make build / make build-nocheck / make distro-pack-install "
+	echo "Make 1"
+	make
+	echo "Make 2"
+	make
+	echo "Make 3"
+	make
+	echo "Make 4"
+	make
+	echo "Make 5"
+	make
+	echo "Make build-nocheck"
+	make build-nocheck 
+	echo "Make distro-pack-install"
+	make distro-pack-install  
         [ ! -e $PREFIX/lib/libreoffice/program/soffice ] && exit $?
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications

@@ -483,7 +483,6 @@ pwd && sleep 5
 
 . $(dirname $0)/../scripts/includes/os-prober
 . $(dirname $0)/../scripts/includes/libreoffice
-
   if [ -e makefile.linux_amd64_asm ]
   then
     cp makefile.linux_amd64_asm makefile.machine
