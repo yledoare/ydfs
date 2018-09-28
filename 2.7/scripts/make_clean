@@ -12,4 +12,5 @@
 	rm -fR ${HOME}/ydfs/opkg
 	rm -fR ${HOME}/multilib
 	rm -fR ${HOME}/ydfs/build-wine32
+	rm -fR ${HOME}/linuxconsole
 	rm -fR ${HOME}/ydfs/build/busybox*
