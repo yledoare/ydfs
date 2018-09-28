@@ -9,7 +9,7 @@ Features :
 
 #Build ydfs ISO
 
-Your Distro From Scratch 2.6 should be buildt from Debian 9 (Stretch) 
+Your Distro From Scratch 2.7 should be buildt from Debian 10 (Buster) 
 
 
 #Install debian toolchain packages
@@ -17,7 +17,8 @@ Your Distro From Scratch 2.6 should be buildt from Debian 9 (Stretch)
 ```
 #!shell
 
-wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.6/configure
+apt-get install wget
+wget --no-check-certificate https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.7/configure
 sh configure
 ```
 
@@ -36,7 +37,7 @@ install -d src
 cd src
 git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs
-cd 2.6
+cd 2.7
 make 
 ```
 
@@ -83,10 +84,10 @@ You can build 32 and 64 bit on one computer
 
 ```
 #!shell
-MY_CHROOT=/home/debian-stretch-32
+MY_CHROOT=/home/debian-buster-32
 apt-get install debootstrap
 install -d $MY_CHROOT
-debootstrap --arch i386 stretch $MY_CHROOT http://http.debian.net/debian/
+debootstrap --arch i386 buster $MY_CHROOT http://http.debian.net/debian/
 echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
 mount proc $MY_CHROOT/proc -t proc
 echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
