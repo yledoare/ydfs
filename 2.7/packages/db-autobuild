@@ -1121,17 +1121,18 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     [ -e qtwebview.pro ] && qmake
     [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
+    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
+    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
     if [ -e qqqqtwebengine.pro ]
     then
       for patchfile in buffer.h data_pipe.h message_pipe.h; do
         sed -i '/MOJO_STATIC_ASSERT(MOJO_ALIGNOF(int64_t) == 8, "int64_t has weird alignment");/d' src/3rdparty/chromium/mojo/public/c/system/$patchfile
       done
     fi
-    [ -e qtwebengine.pro ] && qmake -- -proprietary-codecs \
+    [ -e qtwebengine.pro ] && qmake -- \
     -system-ffmpeg \
-    -webp \
-    -spellchecker \
-    -webengine-icu
+    -webengine-icu -webp
 
     if [ -e QupZilla.pro ]
     then
