@@ -1,4 +1,6 @@
 https://github.com/SuperTux/supertux/releases/download/v0.5.1/SuperTux-v0.5.1-Source.tar.gz
+https://github.com/google/protobuf/archive/v3.6.1.tar.gz
+https://download.videolan.org/vlc/3.0.4/vlc-3.0.4.tar.xz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
 https://ftp.postgresql.org/pub/source/v10.5/postgresql-10.5.tar.bz2
@@ -58,6 +60,5 @@ https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
 https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
-https://download.videolan.org/vlc/3.0.3/vlc-3.0.3.tar.xz
 # Last for c++98
 http://downloads.sourceforge.net/supertuxkart/supertuxkart-0.9.3-src.tar.xz 
