@@ -238,7 +238,9 @@ https://github.com/01org/libva/releases/download/1.8.3/libva-1.8.3.tar.bz2
 https://github.com/01org/intel-vaapi-driver/releases/download/1.8.3/intel-vaapi-driver-1.8.3.tar.bz2
 http://freedesktop.org/software/vaapi/releases/libva-vdpau-driver/libva-vdpau-driver-0.7.4.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
+https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
+https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
 http://wayland.freedesktop.org/releases/wayland-1.14.0.tar.xz
 http://wayland.freedesktop.org/releases/wayland-protocols-1.10.tar.xz
 https://pypi.python.org/packages/source/s/setuptools/setuptools-5.7.zip
