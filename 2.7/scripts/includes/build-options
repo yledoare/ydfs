@@ -519,7 +519,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
   		export MYPREFIX=$DIBAB_PREFIX/arm/
 	else
 		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  -disable-nasm --enable-alsa --with-x --disable-rpath --disable-static"
-		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--enable-composite --enable-dri2 --enable-glx --enable-aiglx --with-log-dir=/var/log" 
+		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--enable-kdrive --enable-dmx --enable-composite --enable-dri2 --enable-glx --enable-aiglx --with-log-dir=/var/log" 
 #		echo $ARCHIVE | grep ode-0.15 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --target=i686-linux-gnu --build=i686-linux-gnu"
 	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 #	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"

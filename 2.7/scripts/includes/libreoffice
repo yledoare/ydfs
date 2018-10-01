@@ -131,7 +131,7 @@ done
 		make GMAKE_OPTIONS='VERBOSE=1' 
 	done
 
-	make GMAKE_OPTIONS='VERBOSE=1' || exit $?
+	make GMAKE_OPTIONS='VERBOSE=1' 
 	echo "Make build-nocheck"
 	make build-nocheck 
 	echo "Make distro-pack-install"

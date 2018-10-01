@@ -123,6 +123,8 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
+    
+  [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
 
   if [ -e libtommath.pc.in ]
   then
@@ -163,6 +165,7 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
+  [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="/usr/bin/clang++ $CPPFLAGS" && export CC="/usr/bin/clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   [ -e src/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
     OPTIMIZE=2 \
@@ -1117,7 +1120,14 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     [ -e qtwebview.pro ] && qmake
-    [ -e qtwebengine.pro ] && qmake -proprietary-codecs \
+    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+    if [ -e qqqqtwebengine.pro ]
+    then
+      for patchfile in buffer.h data_pipe.h message_pipe.h; do
+        sed -i '/MOJO_STATIC_ASSERT(MOJO_ALIGNOF(int64_t) == 8, "int64_t has weird alignment");/d' src/3rdparty/chromium/mojo/public/c/system/$patchfile
+      done
+    fi
+    [ -e qtwebengine.pro ] && qmake -- -proprietary-codecs \
     -system-ffmpeg \
     -webp \
     -spellchecker \

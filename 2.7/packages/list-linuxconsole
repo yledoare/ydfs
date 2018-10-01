@@ -1,7 +1,4 @@
 https://github.com/SuperTux/supertux/releases/download/v0.5.1/SuperTux-v0.5.1-Source.tar.gz
-https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
-FAIL
-https://github.com/google/protobuf/archive/v3.6.1.tar.gz
 https://download.videolan.org/vlc/3.0.4/vlc-3.0.4.tar.xz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
@@ -10,6 +7,7 @@ http://ccrma.stanford.edu/software/stk/release/stk-4.6.0.tar.gz
 http://downloads.sourceforge.net/sourceforge/torcs/torcs-1.3.7.tar.bz2
 https://download.kde.org/stable/frameworks/5.50/extra-cmake-modules-5.50.0.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
+http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.11.2.tar.xz
 http://download.kde.org/stable/falkon/3.0.1/falkon-3.0.1.tar.xz
 #http://libsound.io/release/libsoundio-1.1.0.tar.gz
 https://download.linuxsampler.org/packages/libgig-4.1.0.tar.bz2
