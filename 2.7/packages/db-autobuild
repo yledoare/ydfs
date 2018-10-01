@@ -212,6 +212,7 @@ else
      export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
+  [ -e luit.c ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e libomxil-bellagio.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e sox.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm CMakeLists.txt
   [ -e liboauth.lsm.in  ] && install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif

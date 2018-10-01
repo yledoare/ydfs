@@ -10,7 +10,7 @@ export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/
 export CC="gcc -m32"
 export CXX="g++ -m32"
 export CPPFLAGS="-I$HOME/multilib/include"
-#export CFLAGS="-I/usr/src/linux-headers-3.16.0-4-common/include/"
+export CFLAGS="-I$HOME/multilib/include"
 export LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
 
 install -d $HOME/multilib
