@@ -10,10 +10,10 @@
 	LIBREOFFICE=`basename $PWD|cut -d'-' -f2`
 	LIBREOFFICE_SHORT=`echo $LIBREOFFICE |cut -d'.' -f1,2,3`
 	echo "LIBREOFFICE : $LIBREOFFICE, LIBREOFFICE_SHORT : $LIBREOFFICE_SHORT"
-	for PACK in translations help
+	for PACK in translations help dictionaries
 	do
-        [ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && wget http://download.documentfoundation.org/libreoffice/src/$LIBREOFFICE_SHORT/libreoffice-$PACK-$LIBREOFFICE.tar.xz && mv libreoffice-$PACK-$LIBREOFFICE.tar.xz src && cd .. && tar xJvf libreoffice-$LIBREOFFICE/src/libreoffice-$PACK-$LIBREOFFICE.tar.xz && cd libreoffice-$LIBREOFFICE
-	[ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && exit 1
+          [ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && wget http://download.documentfoundation.org/libreoffice/src/$LIBREOFFICE_SHORT/libreoffice-$PACK-$LIBREOFFICE.tar.xz && mv libreoffice-$PACK-$LIBREOFFICE.tar.xz src && cd .. && tar xJvf libreoffice-$LIBREOFFICE/src/libreoffice-$PACK-$LIBREOFFICE.tar.xz && cd libreoffice-$LIBREOFFICE
+	  [ ! -e src/libreoffice-$PACK-$LIBREOFFICE.tar.xz ] && echo "Error : src/libreoffice-$PACK-$LIBREOFFICE.tar.xz missing" && exit 1
 	done
 	export ACLOCAL="aclocal" 
 	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
@@ -48,6 +48,7 @@ for TAR in ${_additional_source_url}/boost_1_65_1.tar.bz2 ${_additional_source_u
 do
   NAME=`basename $TAR`
   [ ! -e tar/$NAME ] && wget $TAR -O tar/$NAME
+  [ ! -e tar/$NAME ] && echo "$NAME is missing" && exit 1
 done
 
 	./autogen.sh --with-vendor="YourDistroFromScratch" \
@@ -58,7 +59,7 @@ done
 		--enable-release-build \
 		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
 		--libdir=$PREFIX/lib --mandir=$PREFIX/share/man \
-		--with-lang="" \
+		--with-lang="fr en-GB" \
 		--with-help \
 		--disable-avahi \
 		--enable-dbus \
@@ -123,21 +124,21 @@ done
 		--disable-dependency-tracking --without-java $CONFIGURE_OPTS  || exit $?
 
 	echo "Run : make build / make build-nocheck / make distro-pack-install "
-	echo "Make 1"
-	make
-	echo "Make 2"
-	make
-	echo "Make 3"
-	make
-	echo "Make 4"
-	make
-	echo "Make 5"
-	make
+	for STEP in 1 2 3 4 5 6 7 8 9 
+	do
+		# Bug at /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/solenv/gbuild/HelpTarget.mk:452
+		echo "Make $STEP"
+		make GMAKE_OPTIONS='VERBOSE=1' 
+	done
+
+	make GMAKE_OPTIONS='VERBOSE=1' || exit $?
 	echo "Make build-nocheck"
 	make build-nocheck 
 	echo "Make distro-pack-install"
 	make distro-pack-install  
-        [ ! -e $PREFIX/lib/libreoffice/program/soffice ] && exit $?
+	echo "Check $PREFIX/lib/libreoffice/program/soffice"
+        [ ! -e $PREFIX/lib/libreoffice/program/soffice ] && exit 1
+	echo "Yes"
 install -d $PREFIX/share/pixmaps 
 install -d $PREFIX/share/applications
 for i in writer base calc draw impress math startcenter
