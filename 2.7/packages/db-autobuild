@@ -126,6 +126,41 @@ else
     
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
 
+  if [ -e src/systemd/sd-event.h ]
+  then
+	echo "Build systemd"
+	# [ ! -e systemd-239-glibc_statx_fix-1.patch ] && wget http://www.linuxfromscratch.org/patches/blfs/svn/systemd-239-glibc_statx_fix-1.patch && patch -Np1 -i systemd-239-glibc_statx_fix-1.patch
+	rm -fR build
+	mkdir -p build
+	cd       build
+	CXX="g++" CPPFLAGS="-I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
+	meson --prefix=$PREFIX                \
+      --sysconfdir=$PREFIX/etc            \
+      --localstatedir=$PREFIX/var         \
+      -Daudit=false                 \
+      -Dblkid=true                 \
+      -Dbuildtype=release          \
+      -Ddefault-dnssec=no          \
+      -Dfirstboot=false            \
+      -Dinstall-tests=false        \
+      -Dkill-path=/bin/kill        \
+      -Dkmod-path=/bin/kmod        \
+      -Dldconfig=false             \
+      -Dmount-path=/bin/mount      \
+      -Drootprefix=                \
+      -Drootlibdir=/lib            \
+      -Dsplit-usr=true             \
+      -Dsulogin-path=/sbin/sulogin \
+      -Dsysusers=false             \
+      -Dumount-path=/bin/umount    \
+      -Db_lto=false                \
+      ..
+	LANG=en_US.UTF-8 ninja -v  || exit 1
+	DESTDIR="$HOME/systemd" ninja install || exit 1 
+	cd ..
+	touch buildok-$ARCH
+  fi
+
   if [ -e libtommath.pc.in ]
   then
 	make -f makefile.shared IGNORE_SPEED=1 || exit ?
@@ -514,6 +549,7 @@ pwd && sleep 5
   [ -e source/icudefs.mk.in ] && cd source && export CFLAGS="$CFLAGS -fPIC" 
   [ -e Imakefile ] && [ ! -e Makefile ]  && [ ! -e configure ] && [ ! -e autogen.sh ] && xmkmf -a
   [ -e gtk-sharp.snk ] &&  ./bootstrap-2.12 --prefix=$PREFIX --sysconfdir=/$PREFIX/etc --disable-static
+  [ -e geoip.pc.in ] &&  ./bootstrap
 
   [ -e xmoto.6 ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
@@ -908,9 +944,10 @@ fi
       export SDL2DIR=$HOME/$ARCH
       install -d build
       cd build
-CMAKEOPTIONS="--debug-output -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
+CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS" 
       pwd | grep spring_98  && CMAKEOPTIONS="--debug-output -DPHONON_LIBRARY=$HOME/$ARCH/lib -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$PREFIX -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS"
 	pwd | grep mysql-5 && CXXFLAGS="$CXXFLAGS -L$HOME/$ARCH/lib/ -lssl"
+	pwd | grep Unvanquished && export LDFLAGS="$LDFLAGS -lz -lrt"
 	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
 	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS, CXXFLAGS=$CXXFLAGS"
 	cmake $CMAKEOPTIONS .. || exit 12
