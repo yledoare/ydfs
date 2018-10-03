@@ -101,6 +101,8 @@ else
   fi
 
   [ -e src/libmodplug/sndfile.h ] && echo "Fix src/libmodplug/sndfile.h" && cp src/libmodplug/*.h src
+  [ -e src/libwebp.pc.in ] && rm CMakeLists.txt
+
   if [ -e lirc.pc.in ]
   then
 	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX
@@ -1167,7 +1169,7 @@ ac_cv_file__dev_ptc=no' >  config.site
         sed -i '/MOJO_STATIC_ASSERT(MOJO_ALIGNOF(int64_t) == 8, "int64_t has weird alignment");/d' src/3rdparty/chromium/mojo/public/c/system/$patchfile
       done
     fi
-    [ -e qtwebengine.pro ] && qmake -- \
+    [ -e qtwebengine.pro ] && qmake -- -proprietary-codecs \
     -system-ffmpeg \
     -webengine-icu -webp
 
