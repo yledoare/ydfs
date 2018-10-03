@@ -127,6 +127,8 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
     
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
+  [ -e $HOME/$ARCH/include/utils.h ] && mv $HOME/$ARCH/include/utils.h $HOME/$ARCH/include/utils-cdparanoia.h
+  [ -e $HOME/$ARCH/include/util/debug.h ] && mv $HOME/$ARCH/include/util/debug.h $HOME/$ARCH/include/util/debug-samba.h
 
   if [ -e src/systemd/sd-event.h ]
   then
