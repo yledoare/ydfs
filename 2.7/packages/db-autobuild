@@ -125,8 +125,12 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
-    
+   
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
+  [ -e $HOME/$ARCH/include/vpx-disabled ] && mv $HOME/$ARCH/include/vpx-disabled $HOME/$ARCH/include/vpx
+  [ -e $HOME/$ARCH/include/google/protobuf-disabled ] && mv $HOME/$ARCH/include/google/protobuf-disabled $HOME/$ARCH/include/google/protobuf
+  [ -e $HOME/$ARCH/include/GLES2-disabled ] && mv $HOME/$ARCH/include/GLES2-disabled $HOME/$ARCH/include/GLES2
+  [ -e $HOME/$ARCH/include/GL-disabled ] && mv $HOME/$ARCH/include/GL-disabled $HOME/$ARCH/include/GL
   [ -e $HOME/$ARCH/include/utils.h ] && mv $HOME/$ARCH/include/utils.h $HOME/$ARCH/include/utils-cdparanoia.h
   [ -e $HOME/$ARCH/include/util/debug.h ] && mv $HOME/$ARCH/include/util/debug.h $HOME/$ARCH/include/util/debug-samba.h
 
@@ -1161,17 +1165,15 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     [ -e qtwebview.pro ] && qmake
+    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/vpx ] && mv $HOME/$ARCH/include/vpx $HOME/$ARCH/include/vpx-disabled
+    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
+    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
     [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
     [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
     [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
     [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
-    if [ -e qqqqtwebengine.pro ]
-    then
-      for patchfile in buffer.h data_pipe.h message_pipe.h; do
-        sed -i '/MOJO_STATIC_ASSERT(MOJO_ALIGNOF(int64_t) == 8, "int64_t has weird alignment");/d' src/3rdparty/chromium/mojo/public/c/system/$patchfile
-      done
-    fi
-    [ -e qtwebengine.pro ] && qmake -- -proprietary-codecs \
+    [ -e qtwebengine.pro ] && [ ! -e Makefile ] && qmake -- -proprietary-codecs \
     -system-ffmpeg \
     -webengine-icu -webp
 

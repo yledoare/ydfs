@@ -1,7 +1,7 @@
 #Misc
+https://download.mono-project.com/sources/mono/mono-4.6.2.7.tar.bz2
 git://github.com/Unvanquished/Unvanquished.git
 https://github.com/systemd/systemd/archive/v239.tar.gz
-https://github.com/mono/mono/archive/mono-5.14.0.177.tar.gz #SKIP-x86#
 https://github.com/sddm/sddm/archive/v0.18.0.tar.gz
 http://download.virtualbox.org/virtualbox/5.2.18/VirtualBox-5.2.18.tar.bz2
 #Education
