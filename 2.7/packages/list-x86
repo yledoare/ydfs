@@ -1,4 +1,7 @@
 #Begin
+https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
+https://github.com/google/re2/archive/2018-09-01.tar.gz
+https://github.com/google/snappy/archive/1.1.7.tar.gz
 https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
@@ -334,7 +337,7 @@ https://download.videolan.org/pub/libdvdcss/1.4.2/libdvdcss-1.4.2.tar.bz2
 http://downloads.sourceforge.net/libdv/libdv-1.0.0.tar.gz 
 http://freefr.dl.sourceforge.net/project/libraw1394/libraw1394/libraw1394-2.0.5.tar.gz
 http://freefr.dl.sourceforge.net/project/libavc1394/libavc1394/libavc1394-0.5.4.tar.gz 
-https://github.com/webmproject/libvpx/archive/v1.6.0.tar.gz
+https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz
 #http://freefr.dl.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz 
 http://fribidi.org/download/fribidi-0.19.6.tar.bz2
 http://libass.googlecode.com/files/libass-0.10.2.tar.xz

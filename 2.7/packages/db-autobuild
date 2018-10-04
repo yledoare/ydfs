@@ -112,7 +112,10 @@ else
     	touch buildok-$ARCH
 	exit 0
   fi
- 
+
+
+
+  [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e libparted/arch/linux.c ] && sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c 
   [ -e src/tuxpaint.desktop ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/tuxpaint.desktop ] && sed -i "s@kbuildsycoca4@echo kbuildsycoca4@" Makefile
@@ -127,12 +130,12 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
    
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
-  [ -e $HOME/$ARCH/include/vpx-disabled ] && mv $HOME/$ARCH/include/vpx-disabled $HOME/$ARCH/include/vpx
   [ -e $HOME/$ARCH/include/google/protobuf-disabled ] && mv $HOME/$ARCH/include/google/protobuf-disabled $HOME/$ARCH/include/google/protobuf
   [ -e $HOME/$ARCH/include/GLES2-disabled ] && mv $HOME/$ARCH/include/GLES2-disabled $HOME/$ARCH/include/GLES2
   [ -e $HOME/$ARCH/include/GL-disabled ] && mv $HOME/$ARCH/include/GL-disabled $HOME/$ARCH/include/GL
   [ -e $HOME/$ARCH/include/utils.h ] && mv $HOME/$ARCH/include/utils.h $HOME/$ARCH/include/utils-cdparanoia.h
   [ -e $HOME/$ARCH/include/util/debug.h ] && mv $HOME/$ARCH/include/util/debug.h $HOME/$ARCH/include/util/debug-samba.h
+
 
   if [ -e src/systemd/sd-event.h ]
   then
@@ -258,6 +261,7 @@ else
      export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
+  [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
   [ -e luit.c ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e libomxil-bellagio.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e sox.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm CMakeLists.txt
@@ -948,6 +952,24 @@ fi
  && [ ! -e libhttpd.dsp ] \
  && [ ! -e gc_cpp.cc ]
     then
+
+    if [ -e snappy-c.cc ]
+	then
+	install -d $PREFIX/lib/pkgconfig
+
+	echo 'prefix='"$PREFIX"'
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: snappy
+Description: A fast compression/decompression library
+Version: 1.1.4
+Libs: -L${libdir} -lsnappy
+Cflags: -I${includedir}' > $PREFIX/lib/pkgconfig/snappy.pc
+	LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DBUILD_SHARED_LIBS=yes"
+	fi
+
       [ -e CMakeCache.txt ] && rm CMakeCache.txt 
       export SDL2DIR=$HOME/$ARCH
       install -d build
@@ -1191,7 +1213,6 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     [ -e qtwebview.pro ] && qmake
-    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/vpx ] && mv $HOME/$ARCH/include/vpx $HOME/$ARCH/include/vpx-disabled
     [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
     [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
     [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
@@ -1713,6 +1734,19 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
 
+  if [ -e contrib/minizip ] 
+  then
+	cd contrib/minizip
+	cp Makefile Makefile.orig
+	cp ../README.contrib readme.txt
+	autoreconf --install
+	./configure --prefix=$PREFIX --enable-static=no
+	make || exit 1
+	make install || exit 1
+	# https://github.com/madler/zlib/pull/229
+	rm $PREFIX/include/minizip/crypt.h
+	cd ../../
+  fi
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"

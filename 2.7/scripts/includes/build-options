@@ -26,6 +26,7 @@ echo $ARCHIVE | grep postgresql && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
