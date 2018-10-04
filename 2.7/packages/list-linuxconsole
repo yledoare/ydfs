@@ -22,7 +22,6 @@ https://dev-www.libreoffice.org/src/libmspub/libmspub-0.1.4.tar.xz
 https://dev-www.libreoffice.org/src/libpagemaker/libpagemaker-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libvisio/libvisio-0.1.6.tar.xz
 https://dev-www.libreoffice.org/src/libqxp/libqxp-0.0.1.tar.xz
-https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz
 https://github.com/audacity/audacity/archive/Audacity-2.2.2.tar.gz
 http://distfiles.audacious-media-player.org/audacious-3.5.1.tar.bz2  
 http://distfiles.audacious-media-player.org/audacious-plugins-3.5.1.tar.bz2 
@@ -33,7 +32,6 @@ git://github.com/LMMS/lmms.git
 http://freefr.dl.sourceforge.net/project/extremetuxracer/releases/0.7.2/etr-0.7.2.tar.xz 
 http://www.xsane.org/download/xsane-0.999.tar.gz
 http://gcompris.net/download/qt/src/gcompris-qt-0.81.tar.xz 
-https://github.com/QupZilla/qupzilla/releases/download/v1.8.9/QupZilla-1.8.9.tar.xz
 http://downloads.sourceforge.net/clucene/clucene-core-2.3.3.4.tar.gz
 https://sourceforge.net/projects/libepubgen/files/libepubgen-0.1.1/libepubgen-0.1.1.tar.xz
 https://downloads.sourceforge.net/sourceforge/libwpd/libwpd-0.10.2.tar.xz
@@ -60,5 +58,6 @@ https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
 https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
+https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz
 # Last for c++98
 http://downloads.sourceforge.net/supertuxkart/supertuxkart-0.9.3-src.tar.xz 
