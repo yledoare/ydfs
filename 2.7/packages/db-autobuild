@@ -1212,17 +1212,24 @@ ac_cv_file__dev_ptc=no' >  config.site
 
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
-    [ -e qtwebview.pro ] && qmake
-    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
-    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
-    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
-    [ -e qtwebengine.pro ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
-    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
-    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
-    [ -e qtwebengine.pro ] && cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
-    [ -e qtwebengine.pro ] && [ ! -e Makefile ] && qmake -- -proprietary-codecs \
-    -system-ffmpeg \
-    -webengine-icu -webp
+    # [ -e qtwebview.pro ] && qmake
+    if [ -e qtwebengine.pro ] 
+    then
+	[ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
+	[ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
+	[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+	[ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
+    	cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
+    	$HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
+    	cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
+    	qmake -- -proprietary-codecs \
+    		-system-ffmpeg \
+    		-webengine-icu -webp
+	make || exit $?
+	make install || exit $?
+	touch buildok-$ARCH
+	exit 0
+    fi
 
     if [ -e QupZilla.pro ]
     then
