@@ -21,7 +21,7 @@ echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 
 #Building postgres
 [ -e $HOME/$ARCH/include/sqltypes2.h ] && mv $HOME/$ARCH/include/sqltypes2.h $HOME/$ARCH/include/sqltypes.h
-echo $ARCHIVE | grep postgresql && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  $HOME/$ARCH/include/sqltypes.h $HOME/$ARCH/include/sqltypes2.h
+echo $ARCHIVE | grep postgresql && echo "Move HOME/$ARCH/include/sqltypes.h ?" && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  $HOME/$ARCH/include/sqltypes.h $HOME/$ARCH/include/sqltypes2.h && echo "Yes"
 
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"

@@ -320,7 +320,7 @@ else
   if [ -e pyrcc/pyrcc.pro ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python configure.py \
+    python2 configure.py \
     --confirm-license \
     --no-sip-files \
     --qsci-api
@@ -330,7 +330,7 @@ else
   if [ -e pyrcc/rcc.cpp ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python configure.py \
+    python2 configure.py \
     --confirm-license \
     --no-sip-files \
     --qsci-api
@@ -339,7 +339,7 @@ else
   if [ -e pyrcc/pyrcc_main.py ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python configure.py \
+    python2 configure.py \
     --confirm-license \
     --no-sip-files \
     --qsci-api
@@ -414,7 +414,7 @@ else
   if [ -e pyqtconfig.py.in ]
   then
 	ln -sf $PREFIX/include/phonon $PREFIX/include/qt4/phonon || exit 1
-	python configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
+	python2 configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
@@ -1225,6 +1225,8 @@ ac_cv_file__dev_ptc=no' >  config.site
     	qmake -- -proprietary-codecs \
     		-system-ffmpeg \
     		-webengine-icu -webp
+	make 
+	make 
 	make || exit $?
 	make install || exit $?
 	touch buildok-$ARCH
