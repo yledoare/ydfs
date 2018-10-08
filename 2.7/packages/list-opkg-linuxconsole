@@ -1,4 +1,8 @@
 #Misc
+git://github.com/Unvanquished/daemonmap.git
+https://gitlab.com/xonotic/netradiant/-/archive/master/netradiant-master.tar.bz2
+git://github.com/DaemonEngine/Urcheon.git
+git://github.com/UnvanquishedAssets/UnvanquishedAssets.git
 git://github.com/Unvanquished/Unvanquished.git
 https://download.mono-project.com/sources/mono/mono-4.6.2.7.tar.bz2
 https://github.com/systemd/systemd/archive/v239.tar.gz
