@@ -720,6 +720,9 @@ http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.ta
 https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-0.3.0.tar.xz
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
+https://download.kde.org/stable/frameworks/5.50/extra-cmake-modules-5.50.0.tar.xz
+https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
+http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.11.2.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
