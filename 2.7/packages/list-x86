@@ -683,7 +683,7 @@ https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
 http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/librevenge-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
-https://download.kde.org/stable/frameworks/5.40/extra-cmake-modules-5.40.0.tar.xz
+https://download.kde.org/stable/frameworks/5.50/extra-cmake-modules-5.50.0.tar.xz
 #https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
@@ -720,7 +720,6 @@ http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.ta
 https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-0.3.0.tar.xz
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
-https://download.kde.org/stable/frameworks/5.50/extra-cmake-modules-5.50.0.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
 http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.11.2.tar.xz
 #Warning, unset LDFLAGS for building grub
