@@ -22,8 +22,22 @@
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ 
 	CONFIGURE_OPTS=""
 	env > env.log
-        [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --disable-ext-wiki-publisher --disable-ext-nlpsolver --host=i586-linux-gnu"
+        # [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --disable-ext-wiki-publisher --disable-ext-nlpsolver --host=i586-linux-gnu"
+ 	[ "$ARCH" = "x86" ] && sed -i "s/__builtin_mul_overflow/__DISABLE_X86__builtin_mul_overflow/" include/o3tl/safeint.hxx
         [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --enable-ext-wiki-publisher --enable-ext-nlpsolver "
+        if [ "$ARCH" = "x86" ] 
+	then
+		CONFIGURE_OPTS=" --host=i686-linux-gnu --build=i686-linux-gnu"
+		for dir in sbasic  scalc  schart  sdatabase  sdraw  shared  simpress  smath  swriter
+		do 
+			for lang in fr en-GB en-US
+			do
+		  	  install -d workdir/HelpTarget/$dir/$lang/$dir.idxl
+			done
+		 done
+		# Bug at /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/solenv/gbuild/HelpTarget.mk:452
+		sed -e '451,452d' solenv/gbuild/HelpTarget.mk
+	fi
         # don't run broken tests
 	sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk
 	sed -i "/CppunitTest_sw_uiwriter/d" sw/Module_sw.mk
@@ -51,6 +65,7 @@ do
   [ ! -e tar/$NAME ] && echo "$NAME is missing" && exit 1
 done
 
+	# [ "$ARCH" = "x86" ] &&	./autogen.sh --with-java=/usr/bin/java --with-vendor="YourDistroFromScratch"  --prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc --with-lang="fr en-GB"
 	./autogen.sh --with-vendor="YourDistroFromScratch" \
 		--enable-split-app-modules \
 		--with-parallelism=${_MAKEFLAGS/-j/} \
@@ -124,14 +139,13 @@ done
 		--disable-dependency-tracking --without-java $CONFIGURE_OPTS  || exit $?
 
 	echo "Run : make build / make build-nocheck / make distro-pack-install "
-	for STEP in 1 2 3 4 5 6 7 8 9 
+	bash
+	for STEP in 1 2 3 # 4 5 6 7 8 9 
 	do
-		# Bug at /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/solenv/gbuild/HelpTarget.mk:452
 		echo "Make $STEP"
-		make GMAKE_OPTIONS='VERBOSE=1' 
+		make build-nocheck # GMAKE_OPTIONS='VERBOSE=1' 
 	done
-
-	make GMAKE_OPTIONS='VERBOSE=1' 
+	make build-nocheck || make GMAKE_OPTIONS='VERBOSE=1' 
 	echo "Make build-nocheck"
 	make build-nocheck 
 	echo "Make distro-pack-install"
