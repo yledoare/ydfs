@@ -512,7 +512,7 @@ http://cyberelk.net/tim/data/system-config-printer/1.4/system-config-printer-1.4
 git://github.com/lloyd/yajl.git
 http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
 http://netcologne.dl.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz
-http://taglib.github.io/releases/taglib-1.9.1.tar.gz 
+http://taglib.github.io/releases/taglib-1.11.1.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.2.tar.gz
 http://lxml.de/files/lxml-3.3.0.tgz
