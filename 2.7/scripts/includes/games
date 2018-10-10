@@ -7,6 +7,13 @@
 	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
 }
 
+if [ -e unix/chessx.desktop ]
+then
+  install -Dm644 "unix/chessx.desktop" $PREFIX/share/applications
+  install -Dm644 data/images/chessx.png $PREFIX/share/pixmaps
+  install -Dm755 release/chessx $PREFIX/bin
+fi
+
 if [ -e openarena.i386 ]
 then
   echo openarena.i386

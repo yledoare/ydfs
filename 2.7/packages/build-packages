@@ -213,7 +213,7 @@ fi
     [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
-    if [ "#TAG" != "" ]
+    if [ "$TAG" != "" ]
     then
 	git checkout tags/$TAG || exit 1
     fi
