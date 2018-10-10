@@ -113,8 +113,8 @@ else
 	exit 0
   fi
 
-
-
+  [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
+  [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
   [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e libparted/arch/linux.c ] && sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c 
   [ -e src/tuxpaint.desktop ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -211,6 +211,8 @@ else
 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
+  [ -e gnome-vfs-2.0.pc.in ] && [ -e configure ] && rm configure && echo " delete configure "
+  [ -e gnome-vfs-2.0.pc.in ] && sed -i -s 's|$(srcdir)/auto-test|auto-test|' test/Makefile.am
   [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="/usr/bin/clang++ $CPPFLAGS" && export CC="/usr/bin/clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   [ -e src/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
@@ -244,6 +246,14 @@ else
     patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
     [ ! -e ydfs-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
     [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
+  fi
+  if [ "$NOPATCH" = "" ] && [ -d $SRC_PATH/patches/"$MYDIR" ] # && [ ! -e ydfs-patched ]
+  then
+    echo "Patches from $SRC_PATH/patches/$MYDIR" && sleep 1
+	for PATCH in `ls $SRC_PATH/patches/$MYDIR`
+	do
+    		patch -f -p0 < $SRC_PATH/patches/"$MYDIR"/$PATCH || patch -f -p1 < $SRC_PATH/patches/"$MYDIR"/$PATCH || sleep 3
+	done
   fi
 
 
@@ -414,7 +424,7 @@ else
   if [ -e pyqtconfig.py.in ]
   then
 	ln -sf $PREFIX/include/phonon $PREFIX/include/qt4/phonon || exit 1
-	python2 configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
+	python3 configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
@@ -849,12 +859,11 @@ pwd && sleep 5
 	cd $HOME/ydfs/src/$MYDIR
       fi
       [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
-      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
       install -d $PREFIX/share/applications/
-      # install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
+      install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
-      # wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/hedgewars.png?h=packages/hedgewars
-      # mv hedgewars.png?h=packages%2Fhedgewars $PREFIX/share/pixmaps/hedgewars.png || exit 1
+      cp misc/hedgewars.png  $PREFIX/share/pixmaps/hedgewars.png || exit 1
   fi
   [ -e ./bootstrap ] && [ -e libnfs.pc.in ] && [ ! -e configure ] && autoreconf --force --install
   [ -e ./bootstrap ] && [ -e libfaad ] && [ ! -e configure ] && autoreconf --force --install
@@ -894,6 +903,7 @@ pwd && sleep 5
 	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
 	echo PORTMIDI
     fi
+    [ -e samples/data/opencv-logo.png  ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
  
 if [ -e source/glest_game ]
 then
@@ -1022,8 +1032,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
       then
 	cd ..
 	./build/AstroMenace --pack --rawdata=./RAW_VFS_DATA --dir=build
-	 install -Dm755 build/AstroMenace $pkgdir/bin/astromenace || exit $?
-         install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit $?
+	 install -Dm755 build/AstroMenace $pkgdir/bin/astromenace || exit $?
+         install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit $?
 	 install -d $pkgdir/share/applications
 	 echo "[Desktop Entry]
 Encoding=UTF-8
@@ -1085,7 +1095,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in libomxil-bellagio.pc.in dmraid.spec src/libmodplug/sndfile.h doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/libmodplug/sndfile.h doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -1213,6 +1223,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
     [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     # [ -e qtwebview.pro ] && qmake
+    [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
     then
 	[ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
@@ -1406,9 +1417,9 @@ ln -sf $PREFIX/bin/2H4U .
 	  cp -fR $FBLIB/* $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
         cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
         cp share/icons/frozen-bubble-icon-64x64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
-	echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.22.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
-	chmod +x $PREFIX/bin/start-frozen-bubble
-	cp $PREFIX/bin/start-frozen-bubble $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
+	# echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.22.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
+	# chmod +x $PREFIX/bin/start-frozen-bubble
+	# cp $PREFIX/bin/start-frozen-bubble $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
 echo '
 [Desktop Entry]
 Type=Application
@@ -1677,6 +1688,8 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   fi
       [ -e src/lua.hpp ] && make amalg PREFIX=$PREFIX &&  make install PREFIX=$PREFIX && touch buildok-$ARCH && exit 0
   # echo "Looking for Makefile at $PWD"
+  	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
       echo "Run make "

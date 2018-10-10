@@ -243,3 +243,8 @@ sddm;Login manager
 bubblewrap;bubblewrap
 libostree;libostree
 flatpak;flatpak
+c-ares;c-ares
+gnuchess;gnuchess
+gnome-mime;gnome-mime
+orbit2;
+libbonobo;libbonobo

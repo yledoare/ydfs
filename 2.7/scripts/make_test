@@ -33,7 +33,7 @@ then
   qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
   else
     [ -e $ISO ] && OPTION="-cdrom $ISO" 
-    qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
   fi
   exit 0
 fi

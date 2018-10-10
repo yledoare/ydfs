@@ -23,6 +23,7 @@ echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 [ -e $HOME/$ARCH/include/sqltypes2.h ] && mv $HOME/$ARCH/include/sqltypes2.h $HOME/$ARCH/include/sqltypes.h
 echo $ARCHIVE | grep postgresql && echo "Move HOME/$ARCH/include/sqltypes.h ?" && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  $HOME/$ARCH/include/sqltypes.h $HOME/$ARCH/include/sqltypes2.h && echo "Yes"
 
+echo $ARCHIVE | grep gnome-vfs &&  LC_CONFIGURE_OPTS="--disable-static --disable-hal --enable-avahi --disable-howl --disable-openssl --enable-gnutls" && export CFLAGS="$CFLAGS -fno-strict-aliasing"
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
@@ -489,7 +490,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
      --enable-libwebpdemux \
      --enable-libwebpdecoder \
      --disable-static"
-	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua"
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--disable-sdltest --with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua" && CPPFLAGS+=' -fpermissive -D_GLIBCXX_USE_CXX11_ABI=0'
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE

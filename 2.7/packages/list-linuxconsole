@@ -7,8 +7,6 @@ http://ccrma.stanford.edu/software/stk/release/stk-4.6.0.tar.gz
 http://downloads.sourceforge.net/sourceforge/torcs/torcs-1.3.7.tar.bz2
 http://download.kde.org/stable/falkon/3.0.1/falkon-3.0.1.tar.xz
 https://download.linuxsampler.org/packages/libgig-4.1.0.tar.bz2
-https://github.com/falkTX/Cadence/archive/v0.9.0.tar.gz 
-https://github.com/falkTX/carla/archive/v1.9.11.tar.gz
 git://github.com/hydrogen-music/hydrogen.git
 https://github.com/transmission/transmission-releases/raw/master/transmission-2.94.tar.xz
 http://downloads.sourceforge.net/project/filezilla/FileZilla_Client/3.29.0/FileZilla_3.29.0_src.tar.bz2 
@@ -54,6 +52,9 @@ https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
 https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
+http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
+https://github.com/falkTX/Cadence/archive/v0.9.0.tar.gz 
+https://github.com/falkTX/carla/archive/v1.9.11.tar.gz
 https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz #SKIP-x86#
 https://download.kde.org/stable/frameworks/5.50/attica-5.50.0.tar.xz #SKIP-x86#
 https://download.kde.org/stable/frameworks/5.50/kdbusaddons-5.50.0.tar.xz #SKIP-x86#
@@ -81,6 +82,16 @@ https://download.kde.org/stable/frameworks/5.50/kxmlgui-5.50.0.tar.xz #SKIP-x86#
 https://download.kde.org/stable/frameworks/5.50/kbookmarks-5.50.0.tar.xz #SKIP-x86#
 https://download.kde.org/stable/frameworks/5.50/kio-5.50.0.tar.xz #SKIP-x86#
 https://download.kde.org/stable/frameworks/5.50/knewstuff-5.50.0.tar.xz #SKIP-x86#
+#Kdenlive
+https://files.dyne.org/frei0r/frei0r-plugins-1.6.1.tar.gz
+https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
+https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+https://movit.sesse.net/movit-1.6.2.tar.gz
+https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 https://download.kde.org/stable/applications/18.08.1/src/kdenlive-18.08.1.tar.xz #SKIP-x86#
+#Krita
+https://download.kde.org/stable/frameworks/5.50/kitemmodels-5.50.0.tar.xz
+http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
+https://download.kde.org/stable/krita/4.1.3/krita-4.1.3.tar.gz
 # Last for c++98
 http://downloads.sourceforge.net/supertuxkart/supertuxkart-0.9.3-src.tar.xz 

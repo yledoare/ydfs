@@ -6,10 +6,11 @@ URL2=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h
 PKG=$1
 SHORT=${PKG:0:2}
 URL3=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
+URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
 
 if [ ! -e $HOME/archpkg/$PKG ]
 then
-wget --no-check-certificate "$URL""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL3" -O $HOME/archpkg/$PKG || ERROR=1
+wget --no-check-certificate "$URL""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL3" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
 fi
 
 test -s $HOME/archpkg/$PKG
