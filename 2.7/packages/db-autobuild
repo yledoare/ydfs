@@ -145,7 +145,7 @@ else
 	mkdir -p build
 	cd       build
 	CXX="g++" CPPFLAGS="-I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
-	meson --prefix=$PREFIX                \
+	PYTHONPATH="" meson --prefix=$PREFIX                \
       --sysconfdir=$PREFIX/etc            \
       --localstatedir=$PREFIX/var         \
       -Daudit=false                 \
@@ -166,8 +166,8 @@ else
       -Dumount-path=/bin/umount    \
       -Db_lto=false                \
       ..
-	LANG=en_US.UTF-8 ninja -v  || exit 1
-	DESTDIR="$HOME/systemd" ninja install || exit 1 
+	LANG=en_US.UTF-8 PYTHONPATH="" ninja -v  || exit 1
+	DESTDIR="$HOME/systemd" PYTHONPATH="" ninja install || exit 1 
 	cd ..
 	touch buildok-$ARCH
   fi
@@ -1327,26 +1327,26 @@ ln -sf $PREFIX/bin/2H4U .
   then
 	mkdir build
 	cd build
-	meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
-	ninja || exit $?
-	ninja install || exit $?
+	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
+	PYTHONPATH="" ninja || exit $?
+	PYTHONPATH="" ninja install || exit $?
 	exit 0	
   fi
 
   if [ -e etc/libplacebo-9999.ebuild ]
   then
-	meson --prefix=$PREFIX build || exit $?
-	ninja -C build || exit $?
-	ninja install -C build || exit $?
+	PYTHONPATH="" meson --prefix=$PREFIX build || exit $?
+	PYTHONPATH="" ninja -C build || exit $?
+	PYTHONPATH="" ninja install -C build || exit $?
     touch buildok-$ARCH
     exit 0
   fi
 
   if [ -e pitivi.xml ]
   then
-	meson --prefix=$PREFIX build || exit $?
-	ninja -C build || exit $?
-	ninja install -C build || exit $?
+	PYTHONPATH="" meson --prefix=$PREFIX build || exit $?
+	PYTHONPATH="" ninja -C build || exit $?
+	PYTHONPATH="" ninja install -C build || exit $?
     touch buildok-$ARCH
     exit 0
   fi

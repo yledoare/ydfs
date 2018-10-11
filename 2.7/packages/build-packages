@@ -146,7 +146,9 @@ do
   echo "$ARCHIVE" | grep "#Development" && export DBEXTRA="development"
   echo "$ARCHIVE" | grep "#Misc" && export DBEXTRA="misc"
   echo "$ARCHIVE" | grep '#tag' || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#commit' || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
   echo "$ARCHIVE" | grep '#tag' && ARCHIVE_URL=`echo $ARCHIVE`
+  echo "$ARCHIVE" | grep '#commit' && ARCHIVE_URL=`echo $ARCHIVE`
   [ "$ARCHIVE_URL" = "" ] && continue
   if [  -n "`echo $ARCHIVE | grep 'archsource:'`" ] 
 then
@@ -175,7 +177,7 @@ fi
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages-$ARCH/$DIRNAME ] && echo "$HOME/ydfs/packages-$ARCH/$DIRNAME exists" && continue
   FIRST=`echo $ARCHIVE | head -c1`
   [ "$FIRST" = '#' ] && continue
-  echo "$ARCHIVE" | grep '#tag' || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#tag' || echo "$ARCHIVE" | grep '#commit' || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/_i386.deb/_amd64.deb/"`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/i586.deb/amd64.deb/"`
   export PKGSRC=$ARCHIVE
@@ -213,10 +215,12 @@ fi
     [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
+    COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
     if [ "$TAG" != "" ]
     then
 	git checkout tags/$TAG || exit 1
     fi
+    [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
   . $HOME_DIBAB/scripts/includes/build-options
     db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
