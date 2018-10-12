@@ -1,5 +1,4 @@
 https://github.com/SuperTux/supertux/releases/download/v0.5.1/SuperTux-v0.5.1-Source.tar.gz
-#END-linuxconsole
 https://download.videolan.org/vlc/3.0.4/vlc-3.0.4.tar.xz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
@@ -50,10 +49,7 @@ http://download.librdf.org/source/redland-1.0.17.tar.gz
 https://www.coin-or.org/download/source/CoinMP/CoinMP-1.8.3.tgz
 http://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.5/lp_solve_5.5.2.5_source.tar.gz
 https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
-# Python-3 to build Libreoffice
-https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
 https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
-http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 https://github.com/falkTX/Cadence/archive/v0.9.0.tar.gz 
 https://github.com/falkTX/carla/archive/v1.9.11.tar.gz
 https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz #SKIP-x86#

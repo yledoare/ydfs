@@ -723,6 +723,9 @@ https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
 http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.11.2.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
+# Python-3 to build Libreoffice
+https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole

@@ -327,7 +327,7 @@ else
     exit 0
   fi
 
-  if [ -e pyrcc/pyrcc.pro ]
+  if [ -e pppyrcc/pyrcc.pro ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
     python2 configure.py \
@@ -337,7 +337,7 @@ else
     sed -e "s|/usr/share/qt5/qsci/api|$PREFIX/share/qt5/qsci/api|g" -i Makefile
   fi
 
-  if [ -e pyrcc/rcc.cpp ]
+  if [ -e ppppyrcc/rcc.cpp ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
     python2 configure.py \
@@ -346,7 +346,7 @@ else
     --qsci-api
   fi
 
-  if [ -e pyrcc/pyrcc_main.py ]
+  if [ -e ppppyrcc/pyrcc_main.py ]
   then
     sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
     python2 configure.py \
@@ -421,10 +421,26 @@ else
   [ -e source/carla ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
 
-  if [ -e pyqtconfig.py.in ]
+  if [ -e qpy/QtCore/qpycore_pyqtpyobject.cpp ]
   then
-	ln -sf $PREFIX/include/phonon $PREFIX/include/qt4/phonon || exit 1
-	python3 configure-ng.py  --confirm-license --no-sip-files --qsci-api  -q $PREFIX/bin/qmake
+	echo "Build pyqt with $PREFIX/bin/python3"
+	cd ../sip-4* || exit 1
+        mkdir build-qt5py3
+	cd build-qt5py3
+	  $PREFIX/bin/python3 ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" --sip-module PyQt5.sip --no-tools || exit $?
+	  make || exit $?
+	  make install || exit $?
+        cd ..
+	mkdir buildpy3
+        cd buildpy3
+	  $PREFIX/bin/python3 ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
+	  make || exit $?
+	  make install -C sipgen
+	  make install -C siplib
+  	  install -Dm644 sipconfig.py $PREFIX/lib/python3.7/site-packages/sipconfig.py
+  	  install -Dm644 sipdistutils.py $PREFIX/lib/python3.7/site-packages/sipdistutils.py
+        cd ../../PyQt5* || exit 1
+	$PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
@@ -1095,7 +1111,7 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/libmodplug/sndfile.h doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py pyqtconfig.py.in libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/libmodplug/sndfile.h doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
