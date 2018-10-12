@@ -424,6 +424,7 @@ else
   if [ -e qpy/QtCore/qpycore_pyqtpyobject.cpp ]
   then
 	echo "Build pyqt with $PREFIX/bin/python3"
+	echo "step 1"
 	cd ../sip-4* || exit 1
         mkdir build-qt5py3
 	cd build-qt5py3
@@ -433,14 +434,19 @@ else
         cd ..
 	mkdir buildpy3
         cd buildpy3
+	echo "step 2"
 	  $PREFIX/bin/python3 ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
+	echo "step 3"
 	  make || exit $?
+	echo "step 4"
 	  make install -C sipgen
 	  make install -C siplib
   	  install -Dm644 sipconfig.py $PREFIX/lib/python3.7/site-packages/sipconfig.py
+	cd ..
   	  install -Dm644 sipdistutils.py $PREFIX/lib/python3.7/site-packages/sipdistutils.py
-        cd ../../PyQt5* || exit 1
-	$PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
+	echo "step 5" && sleep 2
+        cd ../PyQt5* || exit 1
+	PYTHONPATH=$PREFIX/lib/python3.7 $PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
