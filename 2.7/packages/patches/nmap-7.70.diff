@@ -1,0 +1,18 @@
+diff --git a/nbase/nbase.h b/nbase/nbase.h
+index 0ecd9bc..170203c 100644
+--- a/nbase/nbase.h
++++ b/nbase/nbase.h
+@@ -316,13 +316,7 @@ extern "C" int snprintf (char *, size_t, const char *, ...);
+ extern "C" int vsnprintf (char *, size_t, const char *, va_list);
+ #endif
+ 
+-#ifdef HAVE_GETOPT_H
+ #include <getopt.h>
+-#else
+-#ifndef HAVE_GETOPT_LONG_ONLY
+-#include "getopt.h"
+-#endif
+-#endif /* HAVE_GETOPT_H */
+ 
+ /* More Windows-specific stuff */
+ #ifdef WIN32

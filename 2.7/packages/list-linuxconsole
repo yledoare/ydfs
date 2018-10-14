@@ -83,12 +83,15 @@ https://download.kde.org/stable/frameworks/5.50/knewstuff-5.50.0.tar.xz #SKIP-x8
 https://files.dyne.org/frei0r/frei0r-plugins-1.6.1.tar.gz
 https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
 https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
 https://movit.sesse.net/movit-1.6.2.tar.gz
 https://github.com/opencv/opencv/archive/3.4.3.tar.gz
+https://download.kde.org/stable/frameworks/5.50/knotifications-5.50.0.tar.xz
+download.kde.org/stable/frameworks/5.50/knotifyconfig-5.50.0.tar.xz
+https://github.com/mltframework/mlt/archive/v6.10.0.tar.gz
 https://download.kde.org/stable/applications/18.08.1/src/kdenlive-18.08.1.tar.xz #SKIP-x86#
 #Krita
 https://download.kde.org/stable/frameworks/5.50/kitemmodels-5.50.0.tar.xz
-http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
 https://download.kde.org/stable/krita/4.1.3/krita-4.1.3.tar.gz
 # Last for c++98
 http://downloads.sourceforge.net/supertuxkart/supertuxkart-0.9.3-src.tar.xz 

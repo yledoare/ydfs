@@ -113,6 +113,7 @@ else
 	exit 0
   fi
 
+  [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
   [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
   [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -129,6 +130,7 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
    
+  [ -e $HOME/$ARCH/include//python2.7-disabled ] && mv $HOME/$ARCH/include//python2.7-disabled $HOME/$ARCH/include//python2.7
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
   [ -e $HOME/$ARCH/include/google/protobuf-disabled ] && mv $HOME/$ARCH/include/google/protobuf-disabled $HOME/$ARCH/include/google/protobuf
   [ -e $HOME/$ARCH/include/GLES2-disabled ] && mv $HOME/$ARCH/include/GLES2-disabled $HOME/$ARCH/include/GLES2
@@ -450,6 +452,10 @@ else
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
+  	install -Dm644 PyQt5.api $PREFIX/share/qt/qsci/api/python/PyQt5.api  || exit $?
+  	install -d $PREFIX/share/sip/PyQt5 || exit $?
+  	cp -a sip/* $PREFIX/share/sip/PyQt5 || exit $?
+	
     touch buildok-$ARCH
     exit 0
   fi
@@ -925,6 +931,8 @@ pwd && sleep 5
 	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
 	echo PORTMIDI
     fi
+
+    [ -e krita/main.cc ] &&  mv $HOME/$ARCH/include/python2.7 $HOME/$ARCH/include/python2.7-disabled
     [ -e samples/data/opencv-logo.png  ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
  
 if [ -e source/glest_game ]
