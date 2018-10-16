@@ -310,7 +310,7 @@ fi
 
 	# Build now
 
-	echo -n  " (db-lcarchive) "
+	# echo -n  " (db-lcarchive) "
 	# echo -n  " .. Running db-lcarchive $HOME/ydfs/tarballs/$(basename $ARCHIVE)"
 	DBKVER=$KERNEL3 LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS" LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` || touch $HOME/ydfs-error
        
