@@ -18,6 +18,7 @@ echo $MYPWD | grep lightdm-gtk-greeter && SHORTNAME=lightdm-gtk-greeter
 echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
 echo $MYPWD | grep file && SHORTNAME=file-
 echo $MYPWD | grep gc- && SHORTNAME=gc-
+echo $MYPWD | grep gnome-vfs && SHORTNAME=gnomevfs 
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
 
 [ "$FORCEBUILD" != "OK" ] && ls $HOME/ydfs/opkg/$SHORTNAME* >/dev/null && echo -n "$HOME/ydfs/opkg/$SHORTNAME OK " && exit 0
@@ -36,13 +37,13 @@ function ydfs-install-package () {
       #si_$FILE_est_un_fichier_alors_on_le_copie
       if [ -f "$FILE" ] 
       then
-        [ ! -e $HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE` ] && install -d $HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`
+        [ ! -e "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`" ] && install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/`dirname $FILE`"
         cp $FILE $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && echo "copy $FILE"
         [ -e $HOME/.ydfs-error ] && rm $HOME/.ydfs-error
       fi
       #si_$FILE_est_un_lien_symbolique_alors
       [ -h "$FILE" ] && cp -a $FILE $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE && echo "link $FILE " && continue
-      [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$FILE ] && continue
+      [ -e "$HOME/ydfs/packages-$ARCH/$MYDIR/$FILE" ] && continue
       echo "What is $FILE ?? "
       rm buildok-$ARCH 
       exit 24
@@ -107,12 +108,15 @@ else
   then
 	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX
   	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-	make || exit $?
-	make install || exit $?
+	make || exit $?
+	make install || exit $?
     	touch buildok-$ARCH
 	exit 0
   fi
 
+  pwd |grep kajongg && export PYTHON=$HOME/$ARCH/bin/python3 
+  pwd |grep twisted && export PYTHON=$HOME/$ARCH/bin/python3 
+  pwd |grep setuptools-40 && export PYTHON=$HOME/$ARCH/bin/python3 
   [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
   [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
@@ -137,7 +141,19 @@ else
   [ -e $HOME/$ARCH/include/GL-disabled ] && mv $HOME/$ARCH/include/GL-disabled $HOME/$ARCH/include/GL
   [ -e $HOME/$ARCH/include/utils.h ] && mv $HOME/$ARCH/include/utils.h $HOME/$ARCH/include/utils-cdparanoia.h
   [ -e $HOME/$ARCH/include/util/debug.h ] && mv $HOME/$ARCH/include/util/debug.h $HOME/$ARCH/include/util/debug-samba.h
-
+  
+  if [ -e src/appstream.pc.in ]
+  then
+  	sed -i "s@/etc@$PREFIX/etc@" data/meson.build
+	mkdir build
+	cd build
+  	meson ../ --prefix=$PREFIX -Dqt=true -Dvapi=true || exit 1
+     	ninja || exit 1
+     	ninja install || exit 1
+     	DESTDIR="$pkgdir" ninja install 
+	cd ..
+	touch buildok-$ARCH
+  fi
 
   if [ -e src/systemd/sd-event.h ]
   then
@@ -421,6 +437,7 @@ else
   fi
 
   [ -e source/carla ] && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e $HOME/$ARCH/lib/cmake/Qt5Gui ] && [ ! -e $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && cp $HOME/ydfs/src/qt-everywhere-src-5.*/qtbase/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake $HOME/$ARCH/lib/cmake/Qt5Gui
   [ -e $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake ] && sed -i "s@usr@$HOME/$ARCH@" $HOME/$ARCH/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
 
   if [ -e qpy/QtCore/qpycore_pyqtpyobject.cpp ]
@@ -934,6 +951,30 @@ pwd && sleep 5
 
     [ -e krita/main.cc ] &&  mv $HOME/$ARCH/include/python2.7 $HOME/$ARCH/include/python2.7-disabled
     [ -e samples/data/opencv-logo.png  ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
+
+    if [ -e icons/radiant-src.png ]
+    then
+	sed -i "s#GDEF_ATTRIBUTE_INLINE#inline#g" tools/quake2/qdata_heretic2/qcommon/arrayedlist.h
+	cmake -G "Unix Makefiles" -H. -Bbuild -DOpenGL_GL_PREFERENCE=LEGACY -DCMAKE_BUILD_TYPE=Release 
+	make
+   	cmake --build build --target install `DOWNLOAD_GAMEPACKS=ON` -- 
+	install -d "${PREFIX}/netradiant/"
+	install -d "${PREFIX}/bin/"
+
+	cp -r install/* "${PREFIX}/netradiant/" || exit 1
+
+	ln -s "$PREFIX/netradiant/radiant" "${PREFIX}/bin/netradiant"
+	sed -i -e '/enginepath_linux/c\  enginepath_linux="/opt/nexuiz/"' "${PREFIX}/netradiant/games/nexuiz.game"
+
+	sed -i -e '/enginepath_linux/c\  enginepath_linux="/opt/warsow/"'  "${PREFIX}/netradiant/games/warsow.game"
+	sed -i -e '/enginepath_linux/c\  enginepath_linux="/usr/share/xonotic/"' "${PREFIX}/netradiant/games/xonotic.game"
+
+	install -Dm644 icons/radiant-src.png "$PREFIX/share/pixmaps/$pkgname.png"
+	install -Dm644 "${srcdir}/${pkgname}.desktop" "${PREFIX}/share/applications/${pkgname}.desktop"		
+	ydfs-install-package
+        touch buildok-$ARCH
+        exit 0
+    fi
  
 if [ -e source/glest_game ]
 then
@@ -1235,8 +1276,8 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e setup.py ] 
     then
 	# pwd | grep beautifulsoup4 && export PREFIX=$HOME/$ARCH && echo "Prefix : $PREFIX"
-      echo "Run Python setup.py" 
-      python setup.py build || exit $?
+      echo "Run $PYTHON setup.py"  && sleep 1
+       $PYTHON setup.py build || exit $?
 	pwd | grep beautifulsoup4 && python2 setup.py install --root="/home/linuxconsole2018/ydfs/packages-x86_64/beautifulsoup4-4.6.0" --optimize=1 --skip-build
     fi
 
@@ -1251,7 +1292,8 @@ ac_cv_file__dev_ptc=no' >  config.site
     fi
 
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
-    [ -e setup.py ] && python setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+    [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
+    [ -e setup.py ] && $PYTHON setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     # [ -e qtwebview.pro ] && qmake
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
@@ -1719,6 +1761,9 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       [ -e src/lua.hpp ] && make amalg PREFIX=$PREFIX &&  make install PREFIX=$PREFIX && touch buildok-$ARCH && exit 0
   # echo "Looking for Makefile at $PWD"
   	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgobject-2.0/g'  programs/Makefile
+	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
+	[ -e gnome-vfs-2.0.pc.in ] && grep lgobject programs/Makefile && sleep 2
 
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
@@ -1798,6 +1843,16 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	# https://github.com/madler/zlib/pull/229
 	rm $PREFIX/include/minizip/crypt.h
 	cd ../../
+  fi
+  if [ -e libstemmer.so.0.0.0 ]
+  then
+	install -t "$PREFIX/bin" snowball stemwords
+	install -Dm644 {.,$PREFIX}/include/libstemmer.h || exit 1
+	install -D {.,$PREFIX/lib}/libstemmer.so.0.0.0 || exit 1
+	ln -s libstemmer.so.0.0.0 "$PREFIX/lib/libstemmer.so.0"
+	ln -s libstemmer.so.0 "$PREFIX/lib/libstemmer.so"
+        touch buildok-$ARCH
+	exit 0
   fi
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then

@@ -37,9 +37,12 @@ unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD
 # initialisation du chemin pour le compilateur C x86
 [ "$ARCH" = "x86" ] && [ "$CC" = "" ] && export CC=`which gcc`
 
+CMAKE_PREFIX_PATH=$HOME/$ARCH
 # initialisation de variables
 MODULEPATH=""
 export ACLOCAL="aclocal"
+export KF5="$HOME/linuxconsole"
+export CMAKE_PREFIX_PATH=$KF5:$CMAKE_PREFIX_PATH
 
 # $1 a été mis dans $MODULE ci-dessus. Si list-$MODULE n'existe pas on sort : OK
 [ ! -e list-$MODULE ] && echo "$PWD/list-$MODULE not found !" && exit 1
@@ -145,10 +148,10 @@ do
   echo "$ARCHIVE" | grep "#KDE" && export DBEXTRA="KDE"
   echo "$ARCHIVE" | grep "#Development" && export DBEXTRA="development"
   echo "$ARCHIVE" | grep "#Misc" && export DBEXTRA="misc"
-  echo "$ARCHIVE" | grep '#tag' || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
-  echo "$ARCHIVE" | grep '#commit' || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
-  echo "$ARCHIVE" | grep '#tag' && ARCHIVE_URL=`echo $ARCHIVE`
-  echo "$ARCHIVE" | grep '#commit' && ARCHIVE_URL=`echo $ARCHIVE`
+  echo "$ARCHIVE" | grep '#tag' >/dev/null || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#tag' >/dev/null && ARCHIVE_URL=`echo $ARCHIVE`
+  echo "$ARCHIVE" | grep '#commit' >/dev/null && ARCHIVE_URL=`echo $ARCHIVE`
   [ "$ARCHIVE_URL" = "" ] && continue
   if [  -n "`echo $ARCHIVE | grep 'archsource:'`" ] 
 then
@@ -173,11 +176,11 @@ then
   echo "Arch linux source for $PKG : $ARCHIVE_URL"
 fi
   DIRNAME=`basename $ARCHIVE_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH ] && echo "$HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH exists" && continue
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages-$ARCH/$DIRNAME ] && echo "$HOME/ydfs/packages-$ARCH/$DIRNAME exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH ] && echo -n "build-$ARCH/$DIRNAME/"buildok-"$ARCH exists" && continue
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages-$ARCH/$DIRNAME ] && echo -n "packages-$ARCH/$DIRNAME exists" && continue
   FIRST=`echo $ARCHIVE | head -c1`
   [ "$FIRST" = '#' ] && continue
-  echo "$ARCHIVE" | grep '#tag' || echo "$ARCHIVE" | grep '#commit' || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#tag' >/dev/null || echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/_i386.deb/_amd64.deb/"`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/i586.deb/amd64.deb/"`
   export PKGSRC=$ARCHIVE
@@ -212,6 +215,7 @@ fi
     # echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
     SOURCE_DIR=`basename $ARCHIVE |cut -d'#' -f1 | cut -d'.' -f1`
     #[ "$SOURCE_DIR" = "core" ] && SOURCE_DIR=libreoffice
+    [ -e $SOURCE_DIR/buildok-$ARCH ] && echo -n " $SOURCE_DIR/buildok-$ARCH " && continue
     [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`

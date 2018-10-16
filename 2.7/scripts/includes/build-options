@@ -98,8 +98,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
 	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
-        echo $ARCHIVE | grep polkit-0.114 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
-        echo $ARCHIVE | grep polkit-0.113 && LC_CONFIGURE_OPTS="--enable-libsystemd-login=no --disable-libsystemd-login"
+        echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
     --enable-jit \
