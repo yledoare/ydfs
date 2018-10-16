@@ -54,7 +54,7 @@
 	export BSH_JAR=$PREFIX/lib/java/bsh.jar
 	# PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" \
 	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
-	export PYTHON=$PREFIX/bin/python3
+	export PYTHON=$HOME/$ARCH/bin/python3
 	_additional_source_url="http://dev-www.libreoffice.org/src"
 	_additional_source_url2="http://dev-www.libreoffice.org/extern"
 	install -d tar

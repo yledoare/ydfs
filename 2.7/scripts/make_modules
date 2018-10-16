@@ -74,7 +74,8 @@ do
 done
 
 echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HOME/ydfs/modules/gui-list-all
-LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module
+echo "Make module .. log in  $HOME/ydfs/modules/$ARCH.log"
+LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module > $HOME/ydfs/modules/$ARCH.log 2> $HOME/ydfs/modules/$ARCH.log.err
 LDLINUX="ld-linux.so.2 libunwind-x86.so.8"
 [ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8"
 LIBLLVM=6.0
