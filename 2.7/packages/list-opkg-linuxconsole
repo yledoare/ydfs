@@ -1,4 +1,8 @@
 #Misc
+git://github.com/nodejs/node.git
+git://github.com/yarnpkg/yarn.git
+git://github.com/Microsoft/vscode.git
+http://pub.mate-desktop.org/releases/1.20/mate-session-manager-1.20.1.tar.xz
 git://github.com/Unvanquished/daemonmap.git
 https://gitlab.com/xonotic/netradiant/-/archive/master/netradiant-master.tar.bz2
 #git://github.com/DaemonEngine/Urcheon.git
@@ -37,7 +41,7 @@ git://github.com/ardour/ardour.git#tag=5.12
 http://ponce.cc/slackware/sources/repo/warmux-11.04.1.tar.bz2
 http://downloads.sourceforge.net/lgames/ltris-1.0.19.tar.gz
 https://download.mono-project.com/sources/mono/mono-4.6.2.7.tar.bz2
-https://github.com/systemd/systemd/archive/v239.tar.gz
+#https://github.com/systemd/systemd/archive/v239.tar.gz
 https://github.com/sddm/sddm/archive/v0.18.0.tar.gz
 http://download.virtualbox.org/virtualbox/5.2.18/VirtualBox-5.2.18.tar.bz2
 #Education

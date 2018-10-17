@@ -545,8 +545,9 @@ http://kcat.strangesoft.net/openal-releases/openal-soft-1.15.1.tar.bz2
 http://libspectre.freedesktop.org/releases/libspectre-0.2.8.tar.gz 
 http://download.gnome.org/sources/libgxps/0.2/libgxps-0.2.2.tar.xz
 http://download.gnome.org/sources/gcr/3.12/gcr-3.12.2.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
+#http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
+# Mate bug !!!
+#http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/evince-3.6.1.tar.xz 
 http://downloads.webmproject.org/releases/webp/libwebp-1.0.0.tar.gz
 https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz  

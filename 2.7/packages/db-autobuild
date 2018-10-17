@@ -162,7 +162,7 @@ else
 	rm -fR build
 	mkdir -p build
 	cd       build
-	CXX="g++" CPPFLAGS="-I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
+	CXX="g++" CPPFLAGS=" -DWstringop-truncation -I$HOME/$ARCH/include" LDFLAGS="-L$HOME/$ARCH/lib" CFLAGS="-I$HOME/$ARCH/include" CXXFLAGS="-I$HOME/$ARCH/include" LANG=en_US.UTF-8                   \
 	PYTHONPATH="" meson --prefix=$PREFIX                \
       --sysconfdir=$PREFIX/etc            \
       --localstatedir=$PREFIX/var         \
