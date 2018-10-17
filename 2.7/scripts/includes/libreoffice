@@ -36,7 +36,7 @@
 			done
 		 done
 		# Bug at /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/solenv/gbuild/HelpTarget.mk:452
-		sed -e '451,452d' solenv/gbuild/HelpTarget.mk
+		sed -i -e '451,452d' solenv/gbuild/HelpTarget.mk
 	fi
         # don't run broken tests
 	sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk

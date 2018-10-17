@@ -52,33 +52,33 @@ https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 https://download.documentfoundation.org/libreoffice/src/6.0.6/libreoffice-6.0.6.2.tar.xz
 https://github.com/falkTX/Cadence/archive/v0.9.0.tar.gz 
 https://github.com/falkTX/carla/archive/v1.9.11.tar.gz
-https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/attica-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kdbusaddons-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kconfig-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kcoreaddons-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kwindowsystem-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kcrash-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kglobalaccel-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kwidgetsaddons-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kjobwidgets-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/solid-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kcompletion-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kservice-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/karchive-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kauth-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kcodecs-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kguiaddons-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kconfigwidgets-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kitemviews-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kiconthemes-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/sonnet-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/ktextwidgets-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kxmlgui-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kbookmarks-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/kio-5.50.0.tar.xz #SKIP-x86#
-https://download.kde.org/stable/frameworks/5.50/knewstuff-5.50.0.tar.xz #SKIP-x86#
+https://downloads.sourceforge.net/scribus/scribus-1.5.4.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/attica-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kdbusaddons-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kconfig-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kcoreaddons-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kwindowsystem-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kcrash-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kglobalaccel-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kwidgetsaddons-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kjobwidgets-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/solid-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kcompletion-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kservice-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/karchive-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kauth-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kcodecs-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kguiaddons-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kconfigwidgets-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kitemviews-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kiconthemes-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/sonnet-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/ktextwidgets-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kxmlgui-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kbookmarks-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/kio-5.50.0.tar.xz 
+https://download.kde.org/stable/frameworks/5.50/knewstuff-5.50.0.tar.xz 
 https://download.kde.org/stable/frameworks/5.50/kdoctools-5.50.0.tar.xz
 https://download.kde.org/stable/frameworks/5.50/kcompletion-5.50.0.tar.xz
 #Kdenlive
@@ -91,7 +91,7 @@ https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 https://download.kde.org/stable/frameworks/5.50/knotifications-5.50.0.tar.xz
 download.kde.org/stable/frameworks/5.50/knotifyconfig-5.50.0.tar.xz
 https://github.com/mltframework/mlt/archive/v6.10.0.tar.gz
-https://download.kde.org/stable/applications/18.08.1/src/kdenlive-18.08.1.tar.xz #SKIP-x86#
+https://download.kde.org/stable/applications/18.08.1/src/kdenlive-18.08.1.tar.xz 
 #Krita
 https://download.kde.org/stable/frameworks/5.50/kitemmodels-5.50.0.tar.xz
 https://download.kde.org/stable/krita/4.1.3/krita-4.1.3.tar.gz
