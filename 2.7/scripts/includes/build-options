@@ -542,6 +542,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep opkg && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
 		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep v6.10.0 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --arch=i386 --target-arch=i386"
 		echo $ARCHIVE | grep mesa && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep gtkglext && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep libjpeg-turbo && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
