@@ -10,7 +10,7 @@ build_the_archive()
   then
   db-autobuild $MYPREFIX || exit $?
   else
-  echo "Log : $PWD/ydfs-log "
+  echo " $PWD/ydfs-log "
 #  echo "Err : $PWD/ydfs-error "
   TIME=`date "+%H:%M"`
   echo -n "Building in progress ... start at"     
@@ -133,7 +133,7 @@ echo "$FILE" |grep  "libpaper_1.1.24+nmu2" && DIR2=libpaper-1.1.24+nmu2 && FORCE
 echo "$FILE" |grep  "pa_stable" && DIR2=portaudio && FORCED=1
 # echo -n " Archive is $ARCHIVE "
 
-[ "$FORCED" = "1" ] && echo && echo "Forced source as $DIR2 for $FILE ,from $0 script" 
+[ "$FORCED" = "1" ] && echo && echo " $FILE -> $DIR2" 
 
 #actions à mener selon le type d'ARCHIVE et le type d'installation
 case "$ARCHIVE" in

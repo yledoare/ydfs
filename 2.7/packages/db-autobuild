@@ -1070,7 +1070,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 		cd build
 		echo "Run cmake" && sleep 2
 		# cmake -D BUILD_GAME_NACL=OFF -D BUILD_GAME_NATIVE_DLL=OFF -D BUILD_GAME_NATIVE_EXE=OFF .. || exit 1
-		cmake .. || exit 1
+		PYTHON=/usr/bin/python cmake .. -DOpenGL_GL_PREFERENCE=LEGACY || exit 1
 		make
 		install -d $PREFIX/bin $PREFIX/share/pixmaps $PREFIX/share/applications
 		install -m 755 daemon                  "$PREFIX/bin"
@@ -1292,8 +1292,11 @@ ac_cv_file__dev_ptc=no' >  config.site
     fi
 
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
+    [ -e setup.py ] && echo "Run $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX"
     [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
+    [ -e setup.py ] && echo "Run $PYTHON setup.py install --prefix=$PREFIX "
     [ -e setup.py ] && $PYTHON setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+    [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && [ ! -e $HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && cp -fR $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 $HOME/$ARCH/lib/python2.7/site-packages/jinja2 && echo "$HOME/$ARCH/lib/python2.7/site-packages/jinja2 fixed" && sleep 3
     # [ -e qtwebview.pro ] && qmake
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
