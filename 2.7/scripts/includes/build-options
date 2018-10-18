@@ -487,6 +487,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--with-apxs2=$HOME/$ARCH/bin/apxs --with-mysql=$HOME/$ARCH --with-mysql-sock=$HOME/$ARCH/mysql.sock" 	
 	# echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--enable-discard-path --with-config-file-path=$HOME/etc/php --enable-sigchild --with-pcre-regex=$HOME/$ARCH --enable-magic-quotes --enable-short-tags --with-exec-dir=/home/ --with-openssl=$HOME/$ARCH --disable-rpath --enable-libgcc --disable-pic --with-zlib=$HOME/$ARCH --enable-bcmath --enable-calendar --with-curl=$HOME/$ARCH --with-gdbm=$HOME/$ARCH --with-db=$HOME/$ARCH --enable-dbase --enable-xslt=$HOME/$ARCH --with-xslt-sablot=$HOME/$ARCH --with-dom=$HOME/$ARCH --with-dom-xslt=$HOME/$ARCH --with-kerberos --with-dom-exslt=$HOME/$ARCH --enable-exif --enable-mbstring --enable-mbregex --enable-filepro --enable-ftp --with-ming --with-gd --with-expat-dir=$HOME/$ARCH --enable-gd-native-tt=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir=$HOME/$ARCH '--with-ttf=$HOME/$ARCH --with-freetype-dir=$HOME/$ARCH --with-t1lib=$HOME/$ARCH --with-gettext=$HOME/$ARCH --with-imap --with-imap-ssl --with-mcrypt=$HOME/$ARCH --with-mhash=$HOME/$ARCH --with-mysql=$HOME/$ARCH --with-mysqli=$HOME/$ARCH/bin/mysql_config --with-pdflib=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir --with-tiff-dir --enable-trans-sid --with-regex=system --enable-sysvsem --enable-sysvshm --enable-sysvmsg --with-xpm-dir=$HOME/$ARCH --with-zziplib=$HOME/$ARCH --enable-wddx --with-zip=$HOME/$ARCH --with-sablot=$HOME/$ARCH --enable-inline-optimization --with-gnu-ld --enable-soap --with-pspell --with-gmp "
 	echo $ARCHIVE | grep php-5 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
+	echo $ARCHIVE | grep php-7 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
 	echo $ARCHIVE | grep x264 && LC_CONFIGURE_OPTS="--enable-shared"
 #	echo $ARCHIVE | grep webkitgtk && LC_CONFIGURE_OPTS="--with-gtk=3.0 --disable-webkit2" # --disable-geolocation --disable-video --disable-web-audio"
 	echo $ARCHIVE | grep libwebp && LC_CONFIGURE_OPTS=" --enable-swap-16bit-csp \
@@ -544,6 +545,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep libodfgen && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep strace && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep gegl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep php-7 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep opkg && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
 		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
