@@ -29,10 +29,7 @@ then
 else
   mkdir /usr
   mkdir $HOME/$ARCH
-  #ln -s /usr $HOME/$ARCH
-  #ln -s /usr $HOME/$ARCH
-  # Allow opkg install to correct $ARCH updates from opkg
-  mount  /usr $HOME/$ARCH -o bind
+  ln -s /usr $HOME/$ARCH
 fi
 
 #sachant que ydfs-name est créé par le fichier 
