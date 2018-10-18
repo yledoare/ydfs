@@ -262,3 +262,7 @@ libgnomeui;libgnomeui
 gtetrinet;gtetrinet
 daemonmap;daemonmap
 netradiant;netradiant
+node;nodejs
+yarn;yarn
+cli;npm
+mate-session;mate-session

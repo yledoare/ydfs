@@ -19,18 +19,6 @@ fi
 install -d /lib/firmware
 mount /media/ydfs/modules/firmware-$ARCH.squashfs /lib/firmware
 
-#ls /media/modules/ | while read MODULE
-#do
-#  [ "$MODULE" = "$ARCH.squashfs" ] && continue 
-#  [ "$MODULE" = "drivers-$ARCH.squashfs" ] && continue 
-#  [ "$MODULE" = "firmware-$ARCH.squashfs" ] && continue 
-#  MODULE_NAME=`echo $MODULE|cut -d'.' -f1`
-#  install -d /ydfs/modules/$MODULE_NAME
-#  mount /media/modules/$MODULE /ydfs/modules/$MODULE_NAME
-#  ln -s /ydfs/modules/$MODULE_NAME
-#  MODULE_LIST="$MODULE_LIST:/ydfs/modules/$MODULE_NAME"
-#done
-
 cp -fR /ydfs/modules/$ARCH/var /
 
 /ydfs/start/restore-persistant-data
@@ -40,7 +28,11 @@ then
   /media/ydfs/mount-myusr
 else
   mkdir /usr
-  ln -s /usr $HOME/$ARCH
+  mkdir $HOME/$ARCH
+  #ln -s /usr $HOME/$ARCH
+  #ln -s /usr $HOME/$ARCH
+  # Allow opkg install to correct $ARCH updates from opkg
+  mount  /usr $HOME/$ARCH -o bind
 fi
 
 #sachant que ydfs-name est créé par le fichier 
@@ -54,9 +46,10 @@ then
  ln -s /ydfs/modules/$MODULE $HOME
  ln -s /ydfs/modules/$MODULE /ydfs/modules/module
  mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
- if [ -e /root/usr ]
+fi
+ if [ -e /overlay ]
  then
-	DBDATADIR=/root
+	DBDATADIR=/overlay
  else
 	DBDATADIR=/tmp
  fi
@@ -69,7 +62,6 @@ then
  mount -t overlay overlay -olowerdir=/ydfs/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
  mount -t overlay overlay -olowerdir=/ydfs/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /ydfs/modules/module 
  mount -t overlay overlay -olowerdir=/etc,upperdir=$DBDATADIR/updir-etc,workdir=$DBDATADIR/work-etc /etc || ash
-fi
 
 [ -e /ydfs/modules/$MODULE/logo.png ] && cp /ydfs/modules/$MODULE/logo.png /etc/ydfs.png
 

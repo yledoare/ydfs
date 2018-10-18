@@ -34,9 +34,12 @@ then
   install -d /media/ydfs/root
   install -d /media/ydfs/home
   install -d /media/ydfs/opt
+  install -d /media/ydfs/overlay
 
   mkdir /opt
   mount /media/ydfs/opt /opt -o bind
+  mkdir /overlay
+  mount /media/ydfs/overlay /overlay -o bind
   if [ ! -e /media/ydfs/opkg ]
   then
     install -d /media/ydfs/opkg

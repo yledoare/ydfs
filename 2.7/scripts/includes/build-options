@@ -34,6 +34,11 @@ echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
+echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
+    --without-npm \
+    --shared-openssl \
+    --shared-zlib \
+    --shared-cares "
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
 echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
@@ -504,7 +509,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
   	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
   	echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
-  	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-upower "
+  	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower "
 	echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
