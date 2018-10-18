@@ -814,6 +814,8 @@ https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-2.3.21.tar.bz2
 https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar.bz2
 https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
 https://download.gnome.org/sources/libbonoboui/2.24/libbonoboui-2.24.5.tar.bz2
+#Do not build mate-session after this !
+https://download.gnome.org/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
 https://download.gnome.org/sources/libgnomeui/2.24/libgnomeui-2.24.5.tar.bz2
 https://aubio.org/pub/aubio-0.4.7.tar.bz2
 #Warning, unset LDFLAGS for building grub
