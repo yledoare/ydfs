@@ -1793,7 +1793,9 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   # echo "Looking for Makefile at $PWD"
   	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgobject-2.0/g'  programs/Makefile
+	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/lutil/lutil -lgobject-2.0/g'  programs/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
+	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/lutil/lutil -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && grep lgobject programs/Makefile && sleep 2
 
   if [ -e Makefile ] || [ -e GNUmakefile ] 
