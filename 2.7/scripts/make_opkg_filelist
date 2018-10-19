@@ -5,7 +5,7 @@ HOME_DIST=`basename $HOME_DIBAB`
 if [ -e $HOME/ydfs/opkg ]
 then
 	# find $HOME/ydfs/opkg/ -type f -size -500k | while read file
-	find $HOME/ydfs/opkg/ -type | while read file
+	find $HOME/ydfs/opkg/ -type f | while read file
 	do
 		echo "Send $file"
 		echo scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)

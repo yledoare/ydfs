@@ -28,7 +28,6 @@ then
   /media/ydfs/mount-myusr
 else
   mkdir /usr
-  mkdir $HOME/$ARCH
   ln -s /usr $HOME/$ARCH
 fi
 
