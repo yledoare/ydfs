@@ -266,3 +266,4 @@ node;nodejs
 yarn;yarn
 cli;npm
 mate-session;mate-session
+php;php 7

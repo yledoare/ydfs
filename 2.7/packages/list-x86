@@ -546,9 +546,8 @@ http://kcat.strangesoft.net/openal-releases/openal-soft-1.15.1.tar.bz2
 http://libspectre.freedesktop.org/releases/libspectre-0.2.8.tar.gz 
 http://download.gnome.org/sources/libgxps/0.2/libgxps-0.2.2.tar.xz
 http://download.gnome.org/sources/gcr/3.12/gcr-3.12.2.tar.xz
-#http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
-# Mate bug !!!
-#http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/evince-3.6.1.tar.xz 
 http://downloads.webmproject.org/releases/webp/libwebp-1.0.0.tar.gz
 https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz  
@@ -814,8 +813,6 @@ https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-2.3.21.tar.bz2
 https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar.bz2
 https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
 https://download.gnome.org/sources/libbonoboui/2.24/libbonoboui-2.24.5.tar.bz2
-#Do not build mate-session after this !
-https://download.gnome.org/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
 https://download.gnome.org/sources/libgnomeui/2.24/libgnomeui-2.24.5.tar.bz2
 https://aubio.org/pub/aubio-0.4.7.tar.bz2
 #Warning, unset LDFLAGS for building grub
