@@ -240,30 +240,5 @@ lgogdownloader;lgogdownloader
 dvb-apps;dvb-apps
 primus;Faster OpenGL offloading for Bumblebee
 sddm;Login manager
-bubblewrap;bubblewrap
-libostree;libostree
-flatpak;flatpak
-c-ares;c-ares
-gnuchess;gnuchess
-gnome-mime;gnome-mime
-orbit2;
-libbonobo;libbonobo
-chessx;X chess
-crack-attack;crack-attack
-kajongg;kajongg game
-orbit2;orbit2
-gnome-vfs;gnome-vfs
-libgnome;libgnome
-libart;libart
-libgnomecanvas;libgnomecanvas
-libglade;libglade
-libbonoboui;libbonoboui
-libgnomeui;libgnomeui
-gtetrinet;gtetrinet
-daemonmap;daemonmap
-netradiant;netradiant
-node;nodejs
-yarn;yarn
-cli;npm
+gnome-keyring;gnome-keyring
 mate-session;mate-session
-php;php 7
