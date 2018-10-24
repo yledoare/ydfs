@@ -16,7 +16,7 @@ echo $ARCHIVE | grep icu4c &&  export LDFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib 
 echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
 echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
 echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
-echo $ARCHIVE | grep sdl-sound1.2 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
 
