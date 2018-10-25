@@ -2,8 +2,8 @@
   if [ -e librelogo ] 
   then
 	install -d workdir/UnpackedTarball/libtommath
-	cp $PREFIX/lib/libtommath* workdir/UnpackedTarball/libtommath
-	cp $PREFIX/include/tommath* workdir/UnpackedTarball/libtommath
+	cp $HOME/$ARCH/lib/libtommath* workdir/UnpackedTarball/libtommath
+	cp $HOME/$ARCH/include/tommath* workdir/UnpackedTarball/libtommath
 	# for correct file install into package dir
         [ -e "$PREFIX/bin/libreoffice" ] && echo "$PREFIX/bin/libreoffice exists, skip build libreoffice" && exit 0
 	install -d src
