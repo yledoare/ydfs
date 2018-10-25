@@ -729,6 +729,10 @@ https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
 http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 git://github.com/snowballstem/snowball#commit=fc2adaa96b0561506e6c1a80d73de7f4e0fa9663
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
+https://files.pythonhosted.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz
+https://files.pythonhosted.org/packages/48/69/d87c60746b393309ca30761f8e2b49473d43450b150cb08f3c6df5c11be5/appdirs-1.4.3.tar.gz
+https://files.pythonhosted.org/packages/cf/50/1f10d2626df0aa97ce6b62cf6ebe14f605f4e101234f7748b8da4138a8ed/packaging-18.0.tar.gz
+https://files.pythonhosted.org/packages/1a/e2/4a7ad8f2808e03caebd3ec0a250b4afbb26d4ba063c39c3286185dd06dd1/pyparsing-2.2.2.tar.gz
 https://files.pythonhosted.org/packages/6e/9c/6a003320b00ef237f94aa74e4ad66c57a7618f6c79d67527136e2544b728/setuptools-40.4.3.zip
 https://www.freedesktop.org/software/appstream/releases/AppStream-0.12.2.tar.xz
 https://github.com/twisted/twisted/archive/twisted-18.7.0.tar.gz
@@ -746,6 +750,8 @@ https://downloads.sourceforge.net/libwpg/libwpg-0.3.2.tar.xz
 http://downloads.sourceforge.net/project/libwps/libwps/libwps-0.4.10/libwps-0.4.10.tar.xz
 https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.3.14.tar.xz
 https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.2.tar.bz2
+https://github.com/g-truc/glm/releases/download/0.9.9.2/glm-0.9.9.2.zip
+https://kohei.us/files/mdds/src/mdds-1.3.1.tar.bz2
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.8.tar.xz
 https://dev-www.libreoffice.org/src/libabw/libabw-0.1.2.tar.xz
 https://dev-www.libreoffice.org/src/libzmf/libzmf-0.0.2.tar.xz
@@ -761,8 +767,6 @@ http://download.librdf.org/source/redland-1.0.17.tar.gz
 https://www.coin-or.org/download/source/CoinMP/CoinMP-1.8.3.tgz
 http://ccrma.stanford.edu/software/stk/release/stk-4.6.0.tar.gz
 http://downloads.sourceforge.net/clucene/clucene-core-2.3.3.4.tar.gz
-https://github.com/g-truc/glm/releases/download/0.9.9.2/glm-0.9.9.2.zip
-https://kohei.us/files/mdds/src/mdds-1.3.1.tar.bz2
 http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
 http://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.5/lp_solve_5.5.2.5_source.tar.gz
