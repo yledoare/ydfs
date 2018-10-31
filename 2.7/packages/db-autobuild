@@ -192,7 +192,24 @@ else
 	ln -s "$pkgdir"/lib/node_modules/yarn/bin/yarn.js "$pkgdir"/bin/yarnpkg
   fi
  
-  if [ -e src/systemd/sd-event.h ]
+  if [ -e man/elogind.xml ]
+  then
+	echo "Elogind" && sleep 3
+  	echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm CMakeLists.txt
+	intltoolize
+	./configure --prefix=$PREFIX --with-rootprefix=$PREFIX --disable-smack \
+        --enable-acl \
+        --enable-pam \
+        --disable-kdbus
+
+	make || exit $?
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install || exit 1
+    	cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    	$HOME_DIBAB/scripts/make_opkg || exit $?
+	exit 0
+  fi
+
+  if [ -e src/systemd/sd-event.h ] && [ ! -e man/elogind.xml ]
   then
 	echo "Build systemd"
 	# [ ! -e systemd-239-glibc_statx_fix-1.patch ] && wget http://www.linuxfromscratch.org/patches/blfs/svn/systemd-239-glibc_statx_fix-1.patch && patch -Np1 -i systemd-239-glibc_statx_fix-1.patch
@@ -1192,12 +1209,16 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
   fi
   if [ -e jack.pc.in ]
   then
-	  python2 waf configure --prefix=$PREFIX \
-                        --htmldir="/usr/share/doc/${pkgbase}/" \
+	python2 waf configure --prefix=$PREFIX \
                         --freebob=no \
-                        --classic \
-                        --dbus
+                        --alsa --dbus || exit 1
+	python2 waf build || exit 1
+	python2 waf install  || exit 1
+	python2 waf install --destdir="$HOME/ydfs/packages-$ARCH/$MYDIR "
+        touch $SRCDIR/buildok-$ARCH
+	exit 0
   fi
+
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
   [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]

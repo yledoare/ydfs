@@ -242,3 +242,6 @@ primus;Faster OpenGL offloading for Bumblebee
 sddm;Login manager
 gnome-keyring;gnome-keyring
 mate-session;mate-session
+php;php
+webkitgtk;webkitgtk
+elogind;elogind
