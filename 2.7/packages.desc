@@ -245,3 +245,7 @@ mate-session;mate-session
 php;php
 webkitgtk;webkitgtk
 elogind;elogind
+node;node
+yarn;yarn
+cli;cli
+shotwell;shotwell

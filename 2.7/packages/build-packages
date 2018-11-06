@@ -217,7 +217,13 @@ fi
     SOURCE_DIR=`basename $ARCHIVE |cut -d'#' -f1 | cut -d'.' -f1`
     #[ "$SOURCE_DIR" = "core" ] && SOURCE_DIR=libreoffice
     [ -e $SOURCE_DIR/buildok-$ARCH ] && echo -n " $SOURCE_DIR/buildok-$ARCH " && continue
-    [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
+    echo "$SOURCE_DIR"
+    if [ "daemonmap" = "$SOURCE_DIR" ]
+    then
+	git clone --recurse-submodules https://github.com/Unvanquished/daemonmap.git
+    else
+        [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
+    fi
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
     COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`

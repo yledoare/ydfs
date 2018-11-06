@@ -187,7 +187,8 @@ bash
         cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
     fi
 
-    if [ -e xonotic.exe ]
+
+    if [ -e xxxonotic.exe ]
     then
 	install_desktop_dirs
         echo "Custom Xonotic build" && sleep 5

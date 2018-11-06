@@ -150,7 +150,9 @@ else
   [ -e $HOME/$ARCH/include/GL-disabled ] && mv $HOME/$ARCH/include/GL-disabled $HOME/$ARCH/include/GL
   [ -e $HOME/$ARCH/include/utils.h ] && mv $HOME/$ARCH/include/utils.h $HOME/$ARCH/include/utils-cdparanoia.h
   [ -e $HOME/$ARCH/include/util/debug.h ] && mv $HOME/$ARCH/include/util/debug.h $HOME/$ARCH/include/util/debug-samba.h
+  [ -e $HOME/$ARCH/include/gtest ] && mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled 
   
+  [ "$BUILDME" = "OK" ] && echo "Build yourself" && bash # xterm 
   if [ -e src/colord.gresource.xml ]
   then
 	mkdir build
@@ -939,7 +941,6 @@ pwd && sleep 5
   SOURCEDIR=$PWD
   [ -e data/lxinput.desktop.in ] && [ ! -e lxinput.desktop.in ] && cp data/lxinput.desktop.in lxinput.desktop.in
   [ -e build/generic ] && cd build/generic && BUILD_DIR=$SOURCEDIR/build/generic && SOURCEDIR=$SOURCEDIR/build/generic && echo "Xvidcore detected" && sleep 2 # xvidcore
-  [ "$BUILDME" = "OK" ] && echo "Build yourself" && bash # xterm 
   if [ -e runToBuild ] 
   then
 	  sh runToBuild || exit $?
@@ -1022,6 +1023,20 @@ pwd && sleep 5
 
     [ -e krita/main.cc ] &&  mv $HOME/$ARCH/include/python2.7 $HOME/$ARCH/include/python2.7-disabled
     [ -e samples/data/opencv-logo.png  ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
+
+    if [ -e misc/logos/xonotic_logo.png ]
+    then
+	[ ! -e xonotic-0.8.2.zip ] && wget http://dl.xonotic.org/xonotic-0.8.2.zip
+	[ ! -e data ] && unzip xonotic-0.8.2.zip
+	[ ! -e data ] && [ ! -e Xonotic/data ] && exit 1
+	[ ! -e data ] && mv Xonotic/data data
+        echo "Custom Xonotic build" && sleep 5
+	mkdir $PREFIX/share/xonotic
+	cp Xonotic/xonotic-linux* .
+	cp -fR Xonotic/Docs .
+	cp -fR Xonotic/server .
+	cp Xonotic/key_0.d0pk $PREFIX/share/xonotic/key_0.d0pk || exit 1
+    fi
 
     if [ -e icons/radiant-src.png ]
     then
