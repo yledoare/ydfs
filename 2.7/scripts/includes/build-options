@@ -26,7 +26,11 @@ echo $ARCHIVE | grep postgresql && echo "Move HOME/$ARCH/include/sqltypes.h ?" &
 
 echo $ARCHIVE | grep gnome-vfs &&  LC_CONFIGURE_OPTS="--disable-static --disable-hal --enable-avahi --disable-howl --disable-openssl --enable-gnutls" && export CFLAGS="$CFLAGS -fno-strict-aliasing"
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
+    --disable-python-bindings \
+    --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu"
 echo $ARCHIVE | grep libgdata &&  LC_CONFIGURE_OPTS="--disable-goa"
@@ -41,6 +45,9 @@ echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
     --shared-zlib \
     --shared-cares "
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
+echo $ARCHIVE | grep ruby &&  LC_CONFIGURE_OPTS="--enable-shared \
+    --disable-rpath \
+    --with-dbm-type=gdbm_compat"
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
 echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
 echo $ARCHIVE | grep libmtp &&  LC_CONFIGURE_OPTS="--with-udev=$HOME/$ARCH/lib/udev"
@@ -249,7 +256,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
             --disable-mono   --disable-libdaemon  \
             --disable-monodoc    \
             --disable-python     \
-	    --disable-gtk3 --disable-qt4 --disable-gdbm --disable-gtk  --disable-pygtk \
+	    --disable-gtk3 --disable-qt4 --disable-gtk  --disable-pygtk \
             --enable-core-docs   \
             --with-distro=none "
 	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
@@ -476,7 +483,23 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
     -DCMAKE_EXE_LINKER_FLAGS=-ljemalloc" && -DCMAKE_C_FLAGS="-fPIC $CFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -fomit-frame-pointer -fno-delete-null-pointer-checks"  && -DCMAKE_CXX_FLAGS="-fPIC $CXXFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -felide-constructors -fno-rtti -fno-delete-null-pointer-checks" && -DWITH_MYSQLD_LDFLAGS="-pie ${LDFLAGS},-z,now"
 
 	echo $ARCHIVE | grep mysql-5.6 && LC_CONFIGURE_OPTS="-DENABLED_LOCAL_INFILE=ON -DWITH_SSL=$HOME/$ARCH "
-	echo $ARCHIVE | grep httpd && LC_CONFIGURE_OPTS="--enable-so"
+	echo $ARCHIVE | grep httpd && LC_CONFIGURE_OPTS=" --enable-modules=all \
+      --enable-mods-shared=all \
+      --enable-so --with-libxml2=$HOME/$ARCH \
+      --enable-suexec \
+      --with-suexec-caller=http \
+      --enable-authnz-fcgi \
+      --enable-cache --enable-disk-cache --enable-mem-cache --enable-file-cache \
+      --enable-ssl --with-ssl \
+      --enable-deflate --enable-cgi --enable-cgid \
+      --enable-proxy --enable-proxy-connect \
+      --enable-proxy-http --enable-proxy-ftp \
+      --enable-dbd --enable-imagemap --enable-ident --enable-cern-meta \
+      --enable-lua --enable-xml2enc --enable-http2 \
+      --enable-proxy-http2 --enable-md --enable-brotli \
+      --with-apr=$HOME/$ARCH/bin/apr-1-config \
+      --with-apr-util=$HOME/$ARCH/bin/apu-1-config \
+      --with-pcre=$HOME/$ARCH"
 	echo $ARCHIVE | grep wxGTK && LC_CONFIGURE_OPTS="--enable-xrc --enable-graphics_ctx --enable-mediactrl --enable-unicode --disable-optimize --disable-precomp-headers --with-regex=builtin --with-gtk=2 --with-opengl --with-sdl"
 	echo $ARCHIVE | grep neon-0 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --with-ssl=openssl"
 	echo $ARCHIVE | grep lzo-2 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --disable-static"
@@ -488,7 +511,37 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--with-apxs2=$HOME/$ARCH/bin/apxs --with-mysql=$HOME/$ARCH --with-mysql-sock=$HOME/$ARCH/mysql.sock" 	
 	# echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--enable-discard-path --with-config-file-path=$HOME/etc/php --enable-sigchild --with-pcre-regex=$HOME/$ARCH --enable-magic-quotes --enable-short-tags --with-exec-dir=/home/ --with-openssl=$HOME/$ARCH --disable-rpath --enable-libgcc --disable-pic --with-zlib=$HOME/$ARCH --enable-bcmath --enable-calendar --with-curl=$HOME/$ARCH --with-gdbm=$HOME/$ARCH --with-db=$HOME/$ARCH --enable-dbase --enable-xslt=$HOME/$ARCH --with-xslt-sablot=$HOME/$ARCH --with-dom=$HOME/$ARCH --with-dom-xslt=$HOME/$ARCH --with-kerberos --with-dom-exslt=$HOME/$ARCH --enable-exif --enable-mbstring --enable-mbregex --enable-filepro --enable-ftp --with-ming --with-gd --with-expat-dir=$HOME/$ARCH --enable-gd-native-tt=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir=$HOME/$ARCH '--with-ttf=$HOME/$ARCH --with-freetype-dir=$HOME/$ARCH --with-t1lib=$HOME/$ARCH --with-gettext=$HOME/$ARCH --with-imap --with-imap-ssl --with-mcrypt=$HOME/$ARCH --with-mhash=$HOME/$ARCH --with-mysql=$HOME/$ARCH --with-mysqli=$HOME/$ARCH/bin/mysql_config --with-pdflib=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir --with-tiff-dir --enable-trans-sid --with-regex=system --enable-sysvsem --enable-sysvshm --enable-sysvmsg --with-xpm-dir=$HOME/$ARCH --with-zziplib=$HOME/$ARCH --enable-wddx --with-zip=$HOME/$ARCH --with-sablot=$HOME/$ARCH --enable-inline-optimization --with-gnu-ld --enable-soap --with-pspell --with-gmp "
 	echo $ARCHIVE | grep php-5 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
-	echo $ARCHIVE | grep php-7 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
+	echo $ARCHIVE | grep php-7 && LC_CONFIGURE_OPTS="--with-libzip=$HOME/$ARCH --with-png-dir=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH  --with-webp-dir=$HOME/$ARCH --with-xpm-dir=$HOME/$ARCH --with-zlib=$HOME/$ARCH --config-cache \
+		--with-layout=GNU \
+		--disable-rpath \
+		--without-pear \
+		--enable-bcmath=shared \
+		--enable-calendar=shared \
+		--enable-dba=shared \
+		--enable-exif=shared \
+		--enable-ftp=shared \
+		--enable-intl=shared \
+		--enable-mbstring \
+		--enable-shmop=shared \
+		--enable-soap=shared \
+		--enable-sockets=shared \
+		--enable-sysvmsg=shared \
+		--enable-sysvsem=shared \
+		--enable-sysvshm=shared \
+		--enable-zip=shared \
+		--with-bz2=shared,$HOME/$ARCH \
+		--with-curl=shared \
+		--with-db4=$HOME/$ARCH \
+		--with-freetype-dir=$HOME/$ARCH \
+		--with-gd=shared,$HOME/$ARCH \
+		--with-gdbm=$HOME/$ARCH \
+		--with-gettext=shared \
+		--with-gmp=shared,$HOME/$ARCH \
+		--with-iconv=shared \
+		--with-ldap=shared,$HOME/$ARCH \
+		--with-libzip=shared,$HOME/$ARCH \
+		--with-mhash \
+		--with-mysqli=shared,mysqlnd  --with-libxml-dir=$HOME/$ARCH"
 	echo $ARCHIVE | grep x264 && LC_CONFIGURE_OPTS="--enable-shared"
 #	echo $ARCHIVE | grep webkitgtk && LC_CONFIGURE_OPTS="--with-gtk=3.0 --disable-webkit2" # --disable-geolocation --disable-video --disable-web-audio"
 	echo $ARCHIVE | grep libwebp && LC_CONFIGURE_OPTS=" --enable-swap-16bit-csp \

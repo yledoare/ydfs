@@ -21,10 +21,11 @@ export LD_LIBRARY_PATH=$HOME/x86_64/lib
 else
 export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
-echo -n "$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT -e "> $HOME/.mksquasfs-script
-cat $HOME_DIBAB/packages/exclude-data |while read file
-do
-  echo -n " $file" >> $HOME/.mksquasfs-script
-done
+echo -n "$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT "> $HOME/.mksquasfs-script
+#echo -n "$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/$1 $LCMBUILD/$1-$ARCH.squashfs -all-root $MKSQUASHFS_OPT -e "> $HOME/.mksquasfs-script
+#cat $HOME_DIBAB/packages/exclude-data |while read file
+#do
+#  echo -n " $file" >> $HOME/.mksquasfs-script
+#done
 sh $HOME/.mksquasfs-script
 echo
