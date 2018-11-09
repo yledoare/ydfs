@@ -1,10 +1,14 @@
   if [ -e src/VBox/Storage/ ]
   then
-    cp $HOME/$ARCH/include/linux/* $HOME/$ARCH/include
+    # [ ! -e openjdk-1.7.0-u40-unofficial-linux-amd64-image.zip ] && wget https://bitbucket.org/alexkasko/openjdk-unofficial-builds/downloads/openjdk-1.7.0-u40-unofficial-linux-amd64-image.zip
+    # [ ! -e openjdk-1.7.0-u40-unofficial-linux-amd64-image ] && unzip openjdk-1.7.0-u40-unofficial-linux-amd64-image.zip
+    # export PATH=$PWD/openjdk-1.7.0-u40-unofficial-linux-amd64-image/bin/:$PATH
+    # cp openjdk-1.7.0-u40-unofficial-linux-amd64-image/include/* src/libs/xpcom18a4/java/src
+    # cp openjdk-1.7.0-u40-unofficial-linux-amd64-image/include/linux/* src/libs/xpcom18a4/java/src
     if [ ! -e env.sh ]
     then
 	echo "Build Virtualbox" && sleep 1
-	./configure --disable-devmapper --with-linux=$HOME/ydfs/build/linux-x86_64-$KERNEL3 --disable-kmods --disable-hardening --disable-docs || exit $.
+	./configure --disable-java --disable-devmapper --with-linux=$HOME/ydfs/build/linux-x86_64-$KERNEL3 --disable-kmods --disable-hardening --disable-docs || exit $.
     fi
     if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
     then
@@ -16,6 +20,7 @@
 		kmk || exit 1
 	cd ../../../
 	cd ./out/linux.amd64/release/bin/additions/src/
+	install -d $pkgdir/lib/modules
 	for DRIVER in vboxguest  vboxsf  vboxvideo
 	do
 	  cd $DRIVER	

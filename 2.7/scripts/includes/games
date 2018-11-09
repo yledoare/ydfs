@@ -188,34 +188,17 @@ bash
     fi
 
 
-    if [ -e xxxonotic.exe ]
-    then
-	install_desktop_dirs
-        echo "Custom Xonotic build" && sleep 5
-	pkgname="xonotic"
-	# Icon
-
-	cp ./misc/logos/icons_png/xonotic_64.png $PREFIX/share/pixmaps/xonotic.png
-	cp ./misc/logos/icons_png/xonotic_64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/xonotic.png
-
-	# Desktop launcher	
-	
-        BIN=$pkgname-glx
-        NAME="$pkgname (GLX)" GENERICNAME="$pkgname (GLX)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
-        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-	
-        BIN=$pkgname-sdl
-        NAME="$pkgname (SDL)" GENERICNAME="$pkgname (SDL)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
-        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-    fi
-
     if [ -e src/tuxpaint.desktop ]
     then
 	install_desktop_dirs
        cp src/tuxpaint.desktop $PREFIX/share/applications
        cp src/tuxpaint.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
+    fi
+    if [ -e src/dosbox.cpp ]
+    then
+	install_desktop_dirs
+	cp $HOME_DIBAB/logos/dosbox.png $PREFIX/share/pixmaps || exit 4
+	cp $HOME_DIBAB/data/applications/dosbox.desktop $PREFIX/share/applications || exit 5
     fi
     if [ -e dossizola/jeu.c ]
     then

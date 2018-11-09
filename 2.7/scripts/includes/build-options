@@ -251,6 +251,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep sudo- && LC_CONFIGURE_OPTS="--with-timedir=/tmp --sysconfdir=$DIBAB_PREFIX/$MODULE/etc/sudo"
 	echo $ARCHIVE | grep midori && LC_CONFIGURE_OPTS="--enable-gtk3"
 	echo $ARCHIVE | grep rosegarden && LC_CONFIGURE_OPTS="--with-qtdir=$HOME/$ARCH"
+	echo $ARCHIVE | grep mono-4 && LC_CONFIGURE_OPTS=" --with-mcs-docs=no "
 	echo $ARCHIVE | grep dhcpcd && LC_CONFIGURE_OPTS="--dbdir=$DIBAB_PREFIX/$MODULE/var/run"
 	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-qt3 --disable-static     \
             --disable-mono   --disable-libdaemon  \
@@ -555,7 +556,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep wireless_tools && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep gutenprint && export DESTDIR=/
-	echo $ARCHIVE | grep cups && LC_CONFIGURE_OPTS=" --libdir=$DIBAB_PREFIX/$MODULE/lib --disable-acl --without-xinetd --enable-texttops --with-menudir=$DIBAB_PREFIX/$MODULE/share/applications --with-icondir=$DIBAB_PREFIX/$MODULE/share/icons --without-php --with-dbusdir=$DIBAB_PREFIX/$MODULE/etc/dbus-1 --with-rcdir=$DIBAB_PREFIX/$MODULE/etc --disable-pam --enable-cups-level3-ppd  --disable-libusb "
+	echo $ARCHIVE | grep cups && LC_CONFIGURE_OPTS=" --libdir=$DIBAB_PREFIX/$MODULE/lib --disable-acl --without-xinetd --enable-texttops --with-menudir=$DIBAB_PREFIX/$MODULE/share/applications --with-icondir=$DIBAB_PREFIX/$MODULE/share/icons --without-php --with-dbusdir=$DIBAB_PREFIX/$MODULE/etc/dbus-1 --with-rcdir=$DIBAB_PREFIX/$MODULE/etc --disable-pam --enable-cups-level3-ppd --enable-raw-printing -enable-threads --enable-avahi --enable-libpaper --disable-libusb  "
 	#echo $ARCHIVE | grep cairo-1.10 && LC_CONFIGURE_OPTS="--enable-tee=yes "
 	echo $ARCHIVE | grep Linux-PAM && LC_CONFIGURE_OPTS="--enable-db=no"
 	# echo $ARCHIVE | grep ncurses && export PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" && LC_CONFIGURE_OPTS="--with-shared --enable-pc-files --without-debug  --enable-pc-files --enable-widec" # && export BUILD_TWICE=yes

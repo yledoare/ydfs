@@ -185,6 +185,8 @@ https://alioth.debian.org/frs/download.php/file/3958/sane-backends-1.0.24.tar.gz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/vala/0.40/vala-0.40.10.tar.xz
 https://www.freedesktop.org/software/colord/releases/colord-1.4.3.tar.xz
+#First build, needed for cups
+https://github.com/lathiat/avahi/releases/download/v0.6.32/avahi-0.6.32.tar.gz
 https://github.com/apple/cups/releases/download/v2.2.8/cups-2.2.8-source.tar.gz
 http://xorg.freedesktop.org//archive/individual/lib/libXfont2-2.0.1.tar.bz2
 http://xorg.freedesktop.org/releases/individual/data/xbitmaps-1.1.1.tar.bz2
@@ -322,7 +324,8 @@ https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz
 http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.8.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
 http://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
-https://github.com/lathiat/avahi/releases/download/v0.6.32/avahi-0.6.32.tar.gz
+#Second build
+https://github.com/lathiat/avahi/releases/download/v0.7/avahi-0.7.tar.gz
 https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
 https://poppler.freedesktop.org/poppler-0.67.0.tar.xz
 https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
@@ -422,7 +425,8 @@ http://ftp.gnome.org/pub/gnome/sources/glibmm/2.56/glibmm-2.56.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/pangomm/2.36/pangomm-2.36.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/atkmm/2.22/atkmm-2.22.7.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/gtkmm/3.16/gtkmm-3.16.0.tar.xz
-https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-11.99.1.tar.gz
+#First build
+https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.1.tar.xz
 http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
 http://freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol-3.0.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/glade/3.20/glade-3.20.2.tar.xz
@@ -719,7 +723,6 @@ https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.16.tar.xz
 https://pub.mate-desktop.org/releases/1.20/mate-utils-1.20.1.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
-https://github.com/xbmc/xbmc/archive/17.6-Krypton.tar.gz
 #http://ftp.igh.cnrs.fr/pub/gnu/autoconf-archive/autoconf-archive-2017.09.28.tar.xz
 https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utility-3.26.2.tar.xz
@@ -829,6 +832,12 @@ https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz
 http://tecnocode.co.uk/downloads/uhttpmock/uhttpmock-0.5.1.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/libgdata/0.17/libgdata-0.17.9.tar.xz
 https://www.apache.org/dist/apr/apr-util-1.6.1.tar.bz2
+https://github.com/sddm/sddm/archive/v0.18.0.tar.gz
+https://download.mono-project.com/sources/mono/mono-4.6.2.7.tar.bz2
+https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
+http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
+#Last build
+https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
