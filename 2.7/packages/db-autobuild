@@ -203,9 +203,13 @@ else
     --with-zlib=system \
     --enable-unlimited-crypto --disable-warnings-as-errors || exit 1
 	make images || exit 1
+	echo "Install Bin" 
 	cp -fR build/linux-*-normal-server-release/jdk/bin/* $HOME/$ARCH/bin || exit 1
+	echo "Install Lib" 
 	cp -fR build/linux-*-normal-server-release/jdk/lib/* $HOME/$ARCH/lib || exit 1
+	cp $HOME/$ARCH/lib/server/* $HOME/$ARCH/lib 
 	touch buildok-$ARCH
+	echo "All done"
 	exit 0
   fi
 
@@ -240,6 +244,9 @@ else
 	_vscode_arch=x64
 	[ "$ARCH" = "x86" ] && _vscode_arch=ia32
 	yarn install --arch=$_vscode_arch || exit  1
+	cp -fR $PWD $PREFIX || exit 1
+	touch buildok-$ARCH
+	exit 0
   fi  
 
   if [ -e bin/yarn ]
