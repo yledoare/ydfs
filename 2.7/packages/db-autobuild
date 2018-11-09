@@ -1889,6 +1889,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   if [ -e yajl/yajl_version.c ]
   then
 	echo "Argyll"
+	export HOSTTYPE=$ARCH
 	sed -i "s@/usr/local@$HOME/$ARCH@g" Jambase
 	sed -i "s@/usr/local@$HOME/$ARCH@g" Jamtop
 	sed -i "s@/usr/include@$HOME/$ARCH/include@g" Jamtop

@@ -94,5 +94,5 @@ echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
 mount sysfs $MY_CHROOT/sys -t sysfs
 cp /etc/hosts $MY_CHROOT/etc/hosts
 cp /proc/mounts $MY_CHROOT/etc/mtab
-chroot $MY_CHROOT /bin/bash
+linux32 chroot $MY_CHROOT /bin/bash
 ```
