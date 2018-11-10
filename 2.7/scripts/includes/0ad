@@ -1,22 +1,20 @@
   if [ -e build/workspaces/update-workspaces.sh ]
   then
 	echo "Building 0ad"
-	OLDMODULE=$MODULE
-	unset MODULE
 	pkgname=0ad
-  pkgver=0.0.18-alpha
+  pkgver=0.0.23-alpha
   install -d "${pkgdir}"/{bin,data,lib,share/"${pkgname}"/}
  
   if [ ! -e ${pkgdir}/data/mods/mod/mod.zip ]
   then 
   DATA=0ad-$pkgver-unix-data.tar.xz
-  [ ! -e $HOME/ydfs/tarballs/$DATA ] && wget http://freefr.dl.sourceforge.net/project/zero-ad/releases/$DATA --directory-prefix=$HOME/ydfs/tarballs 
+  [ ! -e $HOME/ydfs/tarballs/$DATA ] && wget http://releases.wildfiregames.com/$DATA --directory-prefix=$HOME/ydfs/tarballs 
   install -d $HOME/ydfs/data
-  tar xJvf $HOME/ydfs/tarballs/$DATA --directory=$HOME/ydfs/data
+  tar xJvf $HOME/ydfs/tarballs/$DATA --directory=$HOME/ydfs/data || exit 1
   cp -fR $HOME/ydfs/data/0ad-$pkgver/binaries/data ${pkgdir}/ || exit 12
   fi
 	cd build/workspaces
-	./update-workspaces.sh --disable-atlas  || exit $?
+	./update-workspaces.sh  --without-pch   || exit $?
 	cd gcc
 	CPPFLAGS="-I$HOME/$ARCH/include/X11 -I$HOME/$ARCH/include" make || exit $?
   cd "../../.."

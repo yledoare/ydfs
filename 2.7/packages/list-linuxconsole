@@ -3,7 +3,7 @@ https://github.com/xbmc/xbmc/archive/17.6-Krypton.tar.gz
 https://download.gnome.org/sources/shotwell/0.30/shotwell-0.30.1.tar.xz
 http://dl.xonotic.org/xonotic-0.8.2-source.zip
 https://github.com/mamedev/mame/archive/mame0193.tar.gz
-http://download.virtualbox.org/virtualbox/5.2.22/VirtualBox-5.2.22.tar.bz2
+http://download.virtualbox.org/virtualbox/5.2.22/VirtualBox-5.2.22.tar.bz2 #SKIP-x86#
 http://downloads.sourceforge.net/dosbox/dosbox-0.74-2.tar.gz
 https://ftp.gnome.org/pub/GNOME/sources/gtetrinet/0.7/gtetrinet-0.7.11.tar.bz2
 https://download.kde.org/stable/applications/18.08.2/src/libkmahjongg-18.08.2.tar.xz

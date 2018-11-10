@@ -117,6 +117,8 @@ else
 	. $(dirname $0)/../scripts/includes/setuptools
   fi
 
+  [ -e code/ryzom ] && mv code ryzom && cd ryzom
+  [ -e ryzom/ryzom ] && cd ryzom
   pwd |grep packaging-18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep six-1.11 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep pyparsing && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
