@@ -1634,21 +1634,13 @@ ln -sf $PREFIX/bin/2H4U .
 	  install -d $PREFIX/lib
           install -d $PREFIX/share/applications
           install -d $PREFIX/share/pixmaps
-	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
-	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib
-	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
-	  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
   	  FBBIN=$HOME/frozen-bubble/$HOME/$ARCH/bin/
 	  FBLIB=$HOME/frozen-bubble/$HOME/$ARCH/lib/
 	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
-	  cp -fR $FBBIN/* $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin || exit $?
 	  cp -fR $FBLIB/* $PREFIX/lib | exit $?
-	  cp -fR $FBLIB/* $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib | exit $?
-        cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
-        cp share/icons/frozen-bubble-icon-64x64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/frozen-bubble.png
-	# echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.22.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
-	# chmod +x $PREFIX/bin/start-frozen-bubble
-	# cp $PREFIX/bin/start-frozen-bubble $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/start-frozen-bubble
+          cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
+	  echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.26.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
+	  chmod +x $PREFIX/bin/start-frozen-bubble
 echo '
 [Desktop Entry]
 Type=Application
@@ -1660,7 +1652,6 @@ Exec=start-frozen-bubble
 Terminal=false
 Categories=Game;
 ' > $PREFIX/share/applications/frozen-bubble.desktop
-	cp $PREFIX/share/applications/frozen-bubble.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
 	touch buildok-$ARCH
 	fi
   if [ -e Build.PL ] && [ ! -e bin/frozen-bubble ]

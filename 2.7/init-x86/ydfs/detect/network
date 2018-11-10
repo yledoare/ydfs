@@ -15,6 +15,6 @@ EOF
 #else
   sleep 1 # waiting loading kernel module
   [ -e /ydfs/boot/options/livecd ] && sleep 3 # LiveCD could be very slow
-  ifconfig eth0 up > /var/log/eth0.log
+  ifconfig `/ydfs/detect/eth0` up > /var/log/eth0.log
   udhcpc -t 5 -q -S -s /etc/udhcpc/simple.script >/dev/null &
 #fi

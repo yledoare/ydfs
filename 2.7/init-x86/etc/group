@@ -47,3 +47,5 @@ lpadmin:x:106:
 input:x:107:
 pulse:x:110:
 vboxusers:x:111:
+colord:x:112:
+avahi:x:113:

@@ -65,9 +65,9 @@ fi
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 then
   echo -n "Network ? "
-  ifconfig eth0 up
+  ifconfig `/ydfs/detect/eth0` up
 	sleep 1
-  ifconfig eth0 192.168.1.243
+  ifconfig `/ydfs/detect/eth0` 192.168.1.243
 	sleep 1
   busybox mount -t cifs //192.168.1.25/ydfs-squashfs /media/ydfs/modules -o username=guest
 fi
