@@ -66,7 +66,7 @@ install -d $HOME/ydfs/modules
 [ ! -e ../ydfs/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/ydfs/modules/gui-list-dev
 
 SKIP="find . ! -name '*.la' -a ! -name '*.a' ! -name '*.h' ! -name '*.c'"
-for file in oxygen/256x256 oxygen/128x128 var/cache/fontconfig share/help share/gir-1.0 sql-bench mysql-test smbtorture _embedded $SKIP_FILES src.zip $ICONS_FILES $DOC_FILES $DEV_FILES lib/pkgconfig include $LOCALE_FILES bin/mount bin/umount bin/df
+for file in oxygen/256x256 oxygen/128x128 var/cache/fontconfig share/help share/gir-1.0 sql-bench mysql-test smbtorture _embedded $SKIP_FILES src.zip $ICONS_FILES $DOC_FILES $DEV_FILES lib/pkgconfig $ARCH/include $LOCALE_FILES bin/mount bin/umount bin/df
 do
   SKIP="$SKIP | grep -v '$file'" 
 done
