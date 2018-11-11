@@ -368,6 +368,7 @@ done
 
 cp -a /usr/lib32/* $HOME/$ARCH/lib32
 cp -a /lib32 $HOME/$ARCH/lib32-root
+cp $HOME/llvm-multilib/lib32/libLLVM-6.0.so $HOME/$ARCH/lib32
 
 ls $HOME/$ARCH/lib32/*.a |while read file
 do
