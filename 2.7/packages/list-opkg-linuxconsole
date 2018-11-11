@@ -1,8 +1,12 @@
 #Games
+https://download.kde.org/stable/applications/18.08.1/src/kajongg-18.08.1.tar.xz
+http://download.tuxfamily.org/xmoto/xmoto/0.5.11/xmoto-0.5.11-src.tar.gz
+https://download.bzflag.org/bzflag/source/2.4.16/bzflag-2.4.16.tar.bz2
 https://git.khaganat.net/khaganat/mmorpg_khanat/khanat-opennel-code.git
 https://bitbucket.org/ryzom/ryzomcore/get/552f8d445b7e.zip
 http://releases.wildfiregames.com/0ad-0.0.23-alpha-unix-build.tar.xz
 #Libs
+https://download.mono-project.com/sources/mono/mono-5.16.0.179.tar.bz2
 #Misc
 #git://github.com/Microsoft/vscode.git#tag=1.27.2
 git://github.com/DaemonEngine/daemonmap.git
