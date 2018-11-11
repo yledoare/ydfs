@@ -47,6 +47,7 @@ then
   #si c'est un .dsc(Debian source) alors
   if [ -n "`echo $1 | grep '.dsc'`" ] 
   then
+    echo "Run  db-build-debian-dsc $1"
     # FIXME [ -e $HOME/ydfs/tarballs/`basename $1` ] && echo -n "$HOME/ydfs/tarballs/`basename $1` exists" && exit 0
     db-build-debian-dsc $1 || exit 1
     exit 0
@@ -274,6 +275,7 @@ case "$ARCHIVE" in
   DSC)
     export MYPREFIX=$MYPREFIX
     # FIXME [ -e $HOME/ydfs/tarballs/`basename $1` ] && echo -n "$HOME/ydfs/tarballs/`basename $1` exists" && exit 0
+    echo "Run  db-build-debian-dsc $1"
     db-build-debian-dsc $1 || exit $?
     ;;
   *)

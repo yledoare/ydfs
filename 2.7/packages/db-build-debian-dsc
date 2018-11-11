@@ -85,4 +85,5 @@ done
 grep Description: debian/control
 [ -e debian/control ] && export PKGDESC="`grep Description: debian/control`"
 # echo "Build for $MYPREFIX" && sleep 10
-db-autobuild $MYPREFIX  2>ydfs-error 1>ydfs-log || exit $?
+echo "db-autobuild $MYPREFIX from $PWD"
+bash db-autobuild $MYPREFIX  2>ydfs-error 1>ydfs-log || exit $?
