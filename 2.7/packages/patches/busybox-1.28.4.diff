@@ -1,0 +1,20 @@
+Only in busybox-1.28.4.new/include: platform.h.rej
+Only in busybox-1.28.4.new/libbb: platform.c.rej
+diff -ur busybox-1.28.4/util-linux/switch_root.c busybox-1.28.4.new/util-linux/switch_root.c
+--- busybox-1.28.4/util-linux/switch_root.c	2018-04-01 11:03:43.000000000 +0000
++++ busybox-1.28.4.new/util-linux/switch_root.c	2018-11-12 16:15:58.955310495 +0000
+@@ -228,14 +228,6 @@
+ 	xstat("/", &st);
+ 	rootdev = st.st_dev;
+ 	xstat(".", &st);
+-	if (st.st_dev == rootdev) {
+-		// Show usage, it says new root must be a mountpoint
+-		bb_show_usage();
+-	}
+-	if (!dry_run && getpid() != 1) {
+-		// Show usage, it says we must be PID 1
+-		bb_show_usage();
+-	}
+ 
+ 	// Additional sanity checks: we're about to rm -rf /, so be REALLY SURE
+ 	// we mean it. I could make this a CONFIG option, but I would get email

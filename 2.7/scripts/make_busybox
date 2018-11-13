@@ -19,6 +19,7 @@ fi
 cd  $HOME/ydfs/src/busybox-$BUSYBOX 
 
 patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.24.2.diff
+# patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.28.4.diff
 #echo FIXME & sleep 10 && rm $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
 [ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$ARCH-$BUSYBOX
 if [ $ARCH = "x86" ]

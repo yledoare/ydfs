@@ -3,7 +3,6 @@
 [ -e /ydfs/boot/options/debug01  ] && sh
 . /etc/profile
 
-# mount -a
 mount /proc proc -t proc
 mount /sys sys -t sysfs
 mount -t devtmpfs none /dev

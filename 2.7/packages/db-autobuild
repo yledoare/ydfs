@@ -234,10 +234,10 @@ else
   	sed -i "s@/etc@$PREFIX/etc@" data/meson.build
 	mkdir build
 	cd build
-  	meson ../ --prefix=$PREFIX -Dqt=true -Dvapi=true || exit 1
-     	ninja || exit 1
-     	ninja install || exit 1
-     	DESTDIR="$pkgdir" ninja install 
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dqt=true -Dvapi=true || exit 1
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+     	PYTHONPATH="" DESTDIR="$pkgdir" ninja install 
 	cd ..
 	touch buildok-$ARCH
   fi
