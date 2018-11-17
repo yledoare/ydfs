@@ -21,6 +21,9 @@ echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
+echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
+    --disable-modern-top \
+    --disable-kill"
 
 #Building postgres
 [ -e $HOME/$ARCH/include/sqltypes2.h ] && mv $HOME/$ARCH/include/sqltypes2.h $HOME/$ARCH/include/sqltypes.h

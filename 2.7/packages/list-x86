@@ -28,6 +28,7 @@ http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4
 https://download.gimp.org/pub/babl/0.1/babl-0.1.58.tar.bz2
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
 https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
+https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.15.tar.xz
 http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
 https://www.sqlite.org/2017/sqlite-src-3210000.zip
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
@@ -320,7 +321,7 @@ http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
 ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
 https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz
-http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.8.tar.gz
+http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.6.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
 http://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
 https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
@@ -733,6 +734,7 @@ http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-ev
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.8.tar.gz
 http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 git://github.com/snowballstem/snowball#commit=fc2adaa96b0561506e6c1a80d73de7f4e0fa9663
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz

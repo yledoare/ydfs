@@ -14,8 +14,6 @@ install -d $HOME/.local/share/applications
 update-desktop-database
 which midori && ln -s `which midori` /fix/w3m
 
-pulseaudio &
-
 if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
 then
  xbmc || xterm
