@@ -202,6 +202,7 @@ elementary: packages/list-elementary
 	./scripts/make_packages elementary
 music: packages/list-music
 	./scripts/make_packages music
+	./scripts/make_module music
 audio: packages/list-audio
 	./scripts/make_packages audio
 server: packages/list-server
@@ -211,6 +212,15 @@ pantheon: packages/list-pantheon
 hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
+fps: packages/list-graphics
+	./scripts/make_packages graphics
+	./scripts/make_module graphics
+fps: packages/list-fps
+	./scripts/make_packages fps
+	./scripts/make_module fps
+office: packages/list-office
+	./scripts/make_packages office
+	./scripts/make_module office
 
 new: ${LCMBUILD}new-${ARCH}.squashfs
 ${LCMBUILD}new-${ARCH}.squashfs : packages/list-new

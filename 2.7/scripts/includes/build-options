@@ -19,6 +19,9 @@ echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOM
 echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
 echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
+    --enable-gpm \
+    --disable-java-binding "
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
 echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
@@ -38,10 +41,15 @@ echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu"
+echo $ARCHIVE | grep cogl-1.22 &&  LC_CONFIGURE_OPTS="    --enable-gles1 --enable-gles2 \
+    --enable-kms-egl-platform --enable-wayland-egl-platform \
+    --enable-wayland-egl-server"
 echo $ARCHIVE | grep libgdata &&  LC_CONFIGURE_OPTS="--disable-goa"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
+echo $ARCHIVE | grep telepathy-glib &&  LC_CONFIGURE_OPTS=" --enable-vala-bindings "
+echo $ARCHIVE | grep evolution-data-server &&  LC_CONFIGURE_OPTS="-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON  -DENABLE_WEATHER=OFF -DWITH_KRB5=OFF -DENABLE_GOA=OFF -DENABLE_UOA=OFF"
 echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
 echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \

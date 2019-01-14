@@ -210,7 +210,7 @@ fi
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     continue
   fi
-  if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ]  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libgdata.git'`" ] || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ]
+  if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ]  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME'`" ] || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ]
   then
     cd $HOME/ydfs/src
     # echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
