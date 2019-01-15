@@ -1931,18 +1931,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/lutil/lutil -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && grep lgobject programs/Makefile && sleep 2
-  if [ -e mmmmeson.build ]
-  then
-	echo "meson.build"
-	mkdir build
-	cd build
-  	PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
-     	PYTHONPATH="" ninja || exit 1
-     	PYTHONPATH="" ninja install || exit 1
-	cd ..
-	touch buildok-$ARCH
-  fi
-  # echo "Look for make .. "
+  echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
       echo "Run make "
@@ -1959,13 +1948,13 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
  	  exit 22
 	fi
       fi
-. $(dirname $0)/../scripts/includes/warsow
-. $(dirname $0)/../scripts/includes/mame
-. $(dirname $0)/../scripts/includes/wine
+      . $(dirname $0)/../scripts/includes/warsow
+      . $(dirname $0)/../scripts/includes/mame
+      . $(dirname $0)/../scripts/includes/wine
 
 
-   if [ -e "wx-config.in" ]
-   then
+      if [ -e "wx-config.in" ]
+      then
 	#make -C locale allmo
 	 make install || exit $?
 	 if [ -e contrib/src ] # wx2
@@ -1975,22 +1964,22 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	 fi
          touch buildok-$ARCH
          exit 0
-   fi    
+      fi    
 
       if [ -e librhash ]
 	then
 	echo librhash && sleep 10
-  make PREFIX=$PREFIX install-shared || exit 1
-  make -C librhash PREFIX=$PREFIX install-headers install-lib-shared install-so-link || exit 1
-  if [ "$MODULE" = "opkg" ]
-  then
-    make PREFIX=$PREFIX DESTDIR="$pkgdir" install-shared || exit 1
-    make -C librhash PREFIX=$PREFIX DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR install-headers install-lib-shared install-so-link || exit 1
-    cd $HOME/ydfs/packages-$ARCH/$MYDIR || exit $?
-    $HOME_DIBAB/scripts/make_opkg || exit $?
-  fi
-         touch buildok-$ARCH
-         exit 0
+        make PREFIX=$PREFIX install-shared || exit 1
+        make -C librhash PREFIX=$PREFIX install-headers install-lib-shared install-so-link || exit 1
+        if [ "$MODULE" = "opkg" ]
+        then
+          make PREFIX=$PREFIX DESTDIR="$pkgdir" install-shared || exit 1
+          make -C librhash PREFIX=$PREFIX DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR install-headers install-lib-shared install-so-link || exit 1
+          cd $HOME/ydfs/packages-$ARCH/$MYDIR || exit $?
+          $HOME_DIBAB/scripts/make_opkg || exit $?
+        fi
+        touch buildok-$ARCH
+        exit 0
       fi
       	[ -e "Source/Swig/swig.h" ] && make && make install
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
@@ -2009,8 +1998,8 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
 
-  if [ -e contrib/minizip ] 
-  then
+      if [ -e contrib/minizip ] 
+      then
 	cd contrib/minizip
 	cp Makefile Makefile.orig
 	cp ../README.contrib readme.txt
@@ -2021,9 +2010,9 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	# https://github.com/madler/zlib/pull/229
 	rm $PREFIX/include/minizip/crypt.h
 	cd ../../
-  fi
-  if [ -e libstemmer.so.0.0.0 ]
-  then
+      fi
+    if [ -e libstemmer.so.0.0.0 ]
+    then
 	install -t "$PREFIX/bin" snowball stemwords
 	install -Dm644 {.,$PREFIX}/include/libstemmer.h || exit 1
 	install -D {.,$PREFIX/lib}/libstemmer.so.0.0.0 || exit 1
@@ -2031,7 +2020,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	ln -s libstemmer.so.0 "$PREFIX/lib/libstemmer.so"
         touch buildok-$ARCH
 	exit 0
-  fi
+    fi
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"
@@ -2066,6 +2055,18 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       [ -e Makefile ] && grep INSTALL_ROOT Makefile && make INSTALL_ROOT=$HOME/ydfs/packages-$ARCH/$MYDIR install
       [ -e share/vlc.desktop.in ] && export ARCH=$OLDARCH
       touch buildok-$ARCH
+  else
+    if [ -e "meson.build" ]
+    then
+	echo "meson.build"
+	mkdir build
+	cd build
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+	cd ..
+	touch buildok-$ARCH
+    fi
   fi
 
   [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
