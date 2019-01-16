@@ -313,7 +313,13 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
 	;;
+    atk-2)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib || exit 1
+	;;
     * )
+	pwd
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
   esac
@@ -321,6 +327,9 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   echo "Run make clean" 
   make clean
   case $PKG in
+    atk-2)
+        PYTHONPATH="" ninja || exit 1
+	;;
     readline )
 	make SHLIB_LIBS=-lncurses
 	;;
@@ -339,6 +348,8 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   case $PKG in
     	llvm )
 	;;
+    	atk-2)
+	;;
     * )
   	make || exit $?
 	;;
@@ -353,6 +364,10 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	;;
     openal-soft-1.16 )
   	make install || exit $?
+	cd ..
+	;;
+    atk-2)
+        PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
     * )
