@@ -1,0 +1,6 @@
+mkdir ~/src
+cd ~/src
+git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+cd ydfs 
+cd 2.7 
+make 
