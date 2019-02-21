@@ -1448,6 +1448,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e squashfs-tools ]
     then
 	 cd squashfs-tools
+        sed -i '1,1i#include <sys/sysmacros.h>' mksquashfs.c unsquashfs.c
      	sed -i "s@/usr/local@$PREFIX@g" Makefile
 	echo "Custom make for squasqhfs"
 	 make || exit 1
