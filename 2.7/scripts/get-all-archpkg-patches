@@ -20,7 +20,6 @@ do
  if [ $i -gt 0 ]
  then
 #	echo ${source[i]}
-	https://aur.archlinux.org/cgit/aur.git/plain/curl-ptr.patch?h=warmux
 	PATCHURL=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/${source[i]}?h=packages/$PKG
 	PATCHURL2=https://aur.archlinux.org/cgit/aur.git/plain/${source[i]}?h=$PKG
         PATCHURL3=https://git.archlinux.org/svntogit/community.git/plain/trunk/${source[i]}?h=packages/$PKG
