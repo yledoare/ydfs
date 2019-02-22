@@ -7,7 +7,7 @@ Features :
 * Support x86, x86_64 (and maybe arm ARCH)
 * applications must be buildt from source
 
-#Build ydfs ISO
+# Build ydfs ISO
 
 mkdir ydfs
 
