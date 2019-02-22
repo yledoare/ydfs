@@ -96,3 +96,6 @@ cp /etc/hosts $MY_CHROOT/etc/hosts
 cp /proc/mounts $MY_CHROOT/etc/mtab
 linux32 chroot $MY_CHROOT /bin/bash
 ```
+
+Auto build from Docker :
+docker pull yledoare/ydfs
