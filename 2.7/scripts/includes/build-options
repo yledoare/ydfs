@@ -24,6 +24,7 @@ echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --disable-java-binding "
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
 echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
+echo $ARCHIVE | grep wget-1 && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
 echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
     --disable-modern-top \
     --disable-kill"
