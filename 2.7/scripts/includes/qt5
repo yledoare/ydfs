@@ -1,20 +1,20 @@
 
   if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
   then
+     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/qtbase/lib
      cd qtbase
 	sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
     		mkspecs/common/gcc-base.conf
   	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
     		mkspecs/common/g++-unix.conf
 	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=f8f0f3ee -O qt-delayed-highlight.patch
+  	patch -p1 -i qt-delayed-highlight.patch # https://codereview.qt-project.org/#/c/249881/
+
 	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=fcba9fa8 -O qtbug-69310.patch
-	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=97600d2c - O qt5-base-nouveau-freeze.patch
-  patch -p1 -i qt-delayed-highlight.patch # https://codereview.qt-project.org/#/c/249881/
-	sleep 4
-  patch -p1 -i qtbug-69310.patch # https://bugreports.qt.io/browse/QTBUG-69310
-	sleep 4
-  patch -Rp1 -i qt5-base-nouveau-freeze.patch
-	sleep 4
+  	patch -p1 -i qtbug-69310.patch # https://bugreports.qt.io/browse/QTBUG-69310
+
+	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=97600d2c -O qt5-base-nouveau-freeze.patch
+  	patch -Rp1 -i qt5-base-nouveau-freeze.patch
      cd ..
 #    [ ! -e Makefile ] && 
 ./configure -confirm-license -opensource -v \
@@ -33,7 +33,7 @@
     -optimized-qmake \
     -dbus-linked \
     -no-use-gold-linker \
-    -reduce-relocations -webengine-icu || exit 1
+    -reduce-relocations || exit 1
 	make || exit 1
 	make install || exit 1
     touch buildok-$ARCH
