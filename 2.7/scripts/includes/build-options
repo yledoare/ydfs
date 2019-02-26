@@ -276,6 +276,17 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
 	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
 	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
+	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/" ] && ls $HOME/$ARCH/lib64/ | while read file
+	do
+		echo "link $file"
+		ln -s $HOME/$ARCH/lib64/$file $HOME/$ARCH/lib/$file
+	done
+	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/pkgconfig/" ] && ls $HOME/$ARCH/lib64/pkgconfig/ | while read file
+	do
+		echo "link $file"
+		ln -s $HOME/$ARCH/lib64/pkgconfig/$file $HOME/$ARCH/lib/pkgconfig/$file
+	done
+
 	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa -enable-cxx "
 	echo $ARCHIVE | grep GConf && LC_CONFIGURE_OPTS="--disable-orbit --disable-static "
 	echo $ARCHIVE | grep ghostscript && LC_CONFIGURE_OPTS="--enable-dynamic \
