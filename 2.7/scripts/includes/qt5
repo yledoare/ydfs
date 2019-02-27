@@ -7,17 +7,21 @@
     		mkspecs/common/gcc-base.conf
   	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
     		mkspecs/common/g++-unix.conf
-	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=f8f0f3ee -O qt-delayed-highlight.patch
-  	patch -p1 -i qt-delayed-highlight.patch # https://codereview.qt-project.org/#/c/249881/
+	wget  wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
+	patch -p1 -i qt5-base-glibc-2.28.patch
 
-	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=fcba9fa8 -O qtbug-69310.patch
-  	patch -p1 -i qtbug-69310.patch # https://bugreports.qt.io/browse/QTBUG-69310
+	# wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=f8f0f3ee -O qt-delayed-highlight.patch
+  	# patch -p1 -i qt-delayed-highlight.patch # https://codereview.qt-project.org/#/c/249881/
 
-	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=97600d2c -O qt5-base-nouveau-freeze.patch
-  	patch -Rp1 -i qt5-base-nouveau-freeze.patch
+	# wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=fcba9fa8 -O qtbug-69310.patch
+  	# patch -p1 -i qtbug-69310.patch # https://bugreports.qt.io/browse/QTBUG-69310
+
+	# wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=97600d2c -O qt5-base-nouveau-freeze.patch
+  	# patch -Rp1 -i qt5-base-nouveau-freeze.patch
      cd ..
 #    [ ! -e Makefile ] && 
 ./configure -confirm-license -opensource -v \
+    -platform linux-clang \
     -prefix $HOME/$ARCH \
     -docdir $HOME/$ARCH/share/doc/qt \
     -headerdir $HOME/$ARCH/include/qt \

@@ -354,7 +354,8 @@ http://libass.googlecode.com/files/libass-0.10.2.tar.xz
 https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
 #SDL2 needed for ffplay
 https://ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz
-http://download.qt.io/official_releases/qt/5.12/5.12.1/single/qt-everywhere-src-5.12.1.tar.xz
+http://download.qt.io/official_releases/qt/5.11/5.11.2/single/qt-everywhere-src-5.11.2.tar.xz
+# http://download.qt.io/official_releases/qt/5.12/5.12.1/single/qt-everywhere-src-5.12.1.tar.xz
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
 http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
 http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
