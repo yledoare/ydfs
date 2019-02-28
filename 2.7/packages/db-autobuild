@@ -789,7 +789,7 @@ pwd && sleep 5
 	 autoconf -f
   fi
 
-  if [ -e src/Stk.cpp ] 
+  if [ -e src/Stk.cpp ] || [ -e lib/findutils-version.c ]
   then
          ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   fi
