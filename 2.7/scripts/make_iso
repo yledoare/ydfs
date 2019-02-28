@@ -386,14 +386,15 @@ echo "LinuxConsole 2.3 LTS \"LinuxConsole\" - Release $CPUARCH (2014)" > .disk/i
 install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
-genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
-#genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -eltorito-alt-boot -e isolinux/efiboot.img -no-emul-boot  -o /$ISODIR/$OUT /$ISOTMP/iso/
+# genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
+xorriso -as mkisofs -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
 # isohybrid --uefi $ISODIR/linuxconsole.iso
 
-ln -sf $OUT $ISODIR/linuxconsole.iso
 if [ $? != 0 ]
 then
   echo "Failed !"
 fi
+
+ln -sf $OUT $ISODIR/linuxconsole.iso
 
 rm -fR /$ISOTMP/iso
