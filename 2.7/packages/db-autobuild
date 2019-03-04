@@ -1476,7 +1476,8 @@ ac_cv_file__dev_ptc=no' >  config.site
     	cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
     	cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
     	cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
-    	qmake -- -proprietary-codecs \
+    	cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/third_party/angle/include
+        QMAKE_CXXFLAGS = $CXXFLAGS QMAKE_CFLAGS =$CFLAGS QMAKE_LFLAGS=$LDFLAGS qmake -- -proprietary-codecs \
     		-system-ffmpeg \
     		-webengine-icu -webp
 	make 
