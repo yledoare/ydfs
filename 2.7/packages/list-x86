@@ -681,7 +681,7 @@ git://github.com/Aorimn/dislocker.git
 http://downloads.sourceforge.net/strace/strace-4.20.tar.xz
 ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar.bz2
 http://sourceforge.net/projects/pyqt/files/sip/sip-4.19.12/sip-4.19.12.tar.gz
-http://www.sfml-dev.org/files/SFML-2.3.2-sources.zip
+https://github.com/SFML/SFML/archive/2.5.1.tar.gz
 https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar.xz
 https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
