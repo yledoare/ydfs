@@ -180,7 +180,8 @@ else
 
   if [ -e src/jdk.net ]
   then
-   wget https://pcsclite.apdu.fr/files/pcsc-lite-1.6.1.tar.bz2
+   echo "DEBUG, PATH = $PATH"
+   $HOME/$ARCH/bin/wget https://pcsclite.apdu.fr/files/pcsc-lite-1.6.1.tar.bz2
    tar xjvf pcsc-lite-1.6.1.tar.bz2
    cp pcsc-lite-1.6.1/src/PCSC/*  src/java.smartcardio/share/native/libj2pcsc
   _CFLAGS=$CFLAGS

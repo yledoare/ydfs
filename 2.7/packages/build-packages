@@ -5,6 +5,7 @@ export SRC_PATH=$PWD
 install -d $HOME/tmp
 export TMPDIR=$HOME/tmp
 
+# tail -f /dev/null
 
 if [ "$ARCH" = "arm" ]
 then
