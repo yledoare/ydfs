@@ -1470,7 +1470,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     if [ -e qtwebengine.pro ] 
     then
 	[ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
-	[ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
+	# [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
 	[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
 	[ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
     	cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
@@ -1481,6 +1481,7 @@ ac_cv_file__dev_ptc=no' >  config.site
         QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS qmake -- -proprietary-codecs \
     		-system-ffmpeg \
     		-webengine-icu -webp
+	sleep 5
 	make 
 	make 
 	make || exit $?
