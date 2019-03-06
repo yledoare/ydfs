@@ -23,6 +23,7 @@
      cd ..
 #    [ ! -e Makefile ] && 
      [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+     [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
 ./configure -confirm-license -opensource -v \
     -platform linux-clang \
     -prefix $HOME/$ARCH \
