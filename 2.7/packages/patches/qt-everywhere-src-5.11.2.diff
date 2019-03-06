@@ -31,3 +31,15 @@
  struct JSRegExp; // temporary, remove when fallback is removed.
  
  #if CPU(X86) && !COMPILER(MSVC)
+diff --git a/qtbase/src/gui/configure.json b/src/gui/configure.json
+index 219385a..47e3d51 100644
+--- a/qtbase/src/gui/configure.json
++++ b/qtbase/src/gui/configure.json
+@@ -278,6 +278,7 @@
+                 "main": "jpeg_create_compress(cinfo);"
+             },
+             "sources": [
++                { "type": "pkgConfig", "args": "libjpeg" },
+                 { "libs": "-llibjpeg", "condition": "config.msvc" },
+                 { "libs": "-ljpeg", "condition": "!config.msvc" }
+             ]

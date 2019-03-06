@@ -5,6 +5,8 @@
      cd qtbase
 	sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
     		mkspecs/common/gcc-base.conf
+	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
+    		mkspecs/common/gcc-base.conf
   	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
     		mkspecs/common/g++-unix.conf
 	wget  wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
@@ -31,6 +33,7 @@
     -examplesdir $HOME/$ARCH/share/doc/qt/examples \
     -plugin-sql-sqlite \
     -system-sqlite \
+    -system-libjpeg \
     -openssl-linked \
     -nomake examples \
     -no-rpath \
