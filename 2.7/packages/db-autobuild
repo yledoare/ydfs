@@ -151,6 +151,7 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
    
+  [ -e $HOME/$ARCH/include/unicode-disabled ] && mv $HOME/$ARCH/include/unicode-disabled $HOME/$ARCH/include/unicode
   [ -e $HOME/$ARCH/include//python2.7-disabled ] && mv $HOME/$ARCH/include//python2.7-disabled $HOME/$ARCH/include//python2.7
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
   [ -e $HOME/$ARCH/include/google/protobuf-disabled ] && mv $HOME/$ARCH/include/google/protobuf-disabled $HOME/$ARCH/include/google/protobuf

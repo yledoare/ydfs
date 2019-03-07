@@ -51,7 +51,7 @@ http://ftp.gnome.org/pub/gnome/sources/json-glib/1.0/json-glib-1.0.0.tar.xz
 ftp://ftp.freedesktop.org/pub/individual/lib/pixman-0.34.0.tar.gz 
 https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2
 http://mp4v2.googlecode.com/files/mp4v2-2.0.0.tar.bz2
-https://ssl.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz
+https://ssl.icu-project.org/files/icu4c/63.1/icu4c-63_1-src.tgz
 http://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
 http://miniupnp.free.fr/files/miniupnpc-2.0.tar.gz
 https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz
@@ -294,8 +294,8 @@ https://xorg.freedesktop.org//releases/individual/driver/xf86-video-amdgpu-18.1.
 http://invisible-island.net/datafiles/release/xterm.tar.gz
 http://cairographics.org/snapshots/cairo-1.15.12.tar.xz
 http://xkbcommon.org/download/libxkbcommon-0.6.1.tar.xz
-https://github.com/silnrsi/graphite/releases/download/1.3.10/graphite2-1.3.10.tgz
-https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.8.8.tar.bz2
+https://github.com/silnrsi/graphite/releases/download/1.3.13/graphite2-1.3.13.tgz
+https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.3.1.tar.bz2
 https://github.com/fribidi/fribidi/releases/download/v1.0.5/fribidi-1.0.5.tar.bz2
 http://ftp.acc.umu.se/pub/gnome/sources/pango/1.42/pango-1.42.4.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.30/at-spi2-core-2.30.0.tar.xz
@@ -354,8 +354,7 @@ http://libass.googlecode.com/files/libass-0.10.2.tar.xz
 https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
 #SDL2 needed for ffplay
 https://ffmpeg.org/releases/ffmpeg-4.0.2.tar.xz
-http://download.qt.io/official_releases/qt/5.11/5.11.2/single/qt-everywhere-src-5.11.2.tar.xz
-# http://download.qt.io/official_releases/qt/5.12/5.12.1/single/qt-everywhere-src-5.12.1.tar.xz
+http://download.qt.io/official_releases/qt/5.12/5.12.1/single/qt-everywhere-src-5.12.1.tar.xz
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
 http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
 http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
@@ -730,7 +729,7 @@ https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
-http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.11.2.tar.xz
+http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz

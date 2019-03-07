@@ -1,0 +1,1 @@
+LD_DEBUG=files,libs  /usr/lib64/ld-linux-x86-64.so.2 --inhibit-cache /home/linuxconsole2019/ydfs/src/qt-everywhere-src-5.12.1/qtbase/bin/qvkgen
