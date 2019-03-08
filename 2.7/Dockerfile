@@ -32,5 +32,8 @@ RUN apt-get update && apt-get install -y  apt-utils
 
 RUN apt-get update && apt-get install -y vim ack  wget openjdk-11-jdk-headless libncurses5-dev  rustc python-mako cargo gcc-multilib g++-multilib ant libssl-dev libwrap0 gsoap meson libghc-sandi-dev libghc-regex-tdfa-dev libghc-base-dev libghc-sha-dev libbabeltrace-ctf1 clang cython libclang-7-dev llvm-dev xz-utils libxml-parser-perl patch libunwind8 libclc-dev ftjam locales syslinux-utils ghc libghc-random-dev libghc-zlib-dev libghc-entropy-dev libghc-utf8-string-dev ghc libghc-vector-dev libghc-bytestring-show-dev libghc-network-dev libghc-hslogger-dev makeself iasl doxygen p7zip-full xutils-dev xmlto libelf-dev imagemagick bam fontforge ruby libboost-all-dev libboost-dev nasm libatomic-ops-dev unzip bc lynx cmake xfonts-utils xsltproc zlib1g-dev gperf bzr unicode-data llvm gettext docbook-xsl make mtd-utils pciutils texinfo bzip2 subversion git gawk bison flex automake-1.15 automake autoconf libtool-bin libtool cvs lzma g++ genisoimage libmpfr-dev
 
+# Cross compile for raspbery 
+RUN apt-get install lib32z1
+
 USER linuxconsole2019
 CMD /home/linuxconsole2019/build-lc2019
