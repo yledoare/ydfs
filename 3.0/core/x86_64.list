@@ -17,7 +17,7 @@ archlinux:sqlite
 archlinux:libffi
 archlinux:bzip2
 archlinux:gdbm
-archlinux:db
+archlinuxpatched:db
 archlinux:perl
 archlinux:openssl
 archlinux:python2

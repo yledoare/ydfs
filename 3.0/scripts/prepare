@@ -6,3 +6,18 @@ then
   make distclean # && sleep 5
   echo Done
 fi
+if [ -e $HOME/.archpatches ]
+then
+	pwd
+	cat $HOME/.archpatches
+        sleep 2
+	for URL in `cat $HOME/.archpatches`
+	do
+	echo $URL
+	wget $URL --no-check-certificate -O patch
+	patch -Nfp0 -i patch || patch -Nfp1 -i patch || patch -p0 -i patch || exit 3
+	sleep 3
+	rm patch
+	done
+   rm $HOME/.archpatches
+fi

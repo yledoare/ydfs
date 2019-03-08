@@ -112,11 +112,13 @@ then
   $HOME_DIBAB/scripts/build-archpkg || exit $?
   exit 0
 fi
+[ -e $HOME/.archpatches ] && rm $HOME/.archpatches
   if [  -n "`echo $PKGURL | grep 'archlinuxpatched:'`" ] 
 then
   PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   $HOME_DIBAB/scripts/get-archpkg $PKG
+  # $HOME_DIBAB/scripts/scripts/get-all-archpkg-patches $PKG
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL"
 fi
