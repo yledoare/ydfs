@@ -1,6 +1,14 @@
-if [ -e configure ]
+if [ -e meson.build ]
 then
-  ./configure --prefix=$PREFIX
+  mkdir build-meson
+  cd build-meson
+  meson --prefix=$PREFIX
+  cd ..
 else
-  [ -e Makefile.PL ] && echo Makefile.PL
+  if [ -e configure ]
+  then
+    ./configure --prefix=$PREFIX
+  else
+    [ -e Makefile.PL ] && echo Makefile.PL
+  fi
 fi

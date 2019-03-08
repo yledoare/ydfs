@@ -1,0 +1,1 @@
+    ./configure --prefix=$PREFIX --disable-makeinstall-chown --disable-bash-completion

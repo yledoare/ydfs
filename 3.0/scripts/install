@@ -1,1 +1,8 @@
-make install
+if [ -e meson.build ]
+then
+  cd build-meson
+  ninja install || exit 1
+  cd ..
+else
+  make install
+fi

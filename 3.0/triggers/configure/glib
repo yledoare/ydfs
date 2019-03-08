@@ -1,0 +1,3 @@
+  mkdir build-meson
+  cd build-meson
+  meson --prefix=$PREFIX -Dselinux=false 

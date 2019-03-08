@@ -25,7 +25,9 @@ archlinux:libgpg-error
 archlinux:libgcrypt
 archlinux:pcre
 archlinux:pkg-config
-archlinux:glib2
+archlinux:util-linux
+#archlinux:glib2
+http://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.3.tar.xz
 archlinux:xproto
 archlinux:libxau
 archlinux:libxdmcp
@@ -33,7 +35,6 @@ archlinux:libmnl
 archlinux:libnftnl
 archlinux:iptables
 archlinux:cracklib
-archlinux:util-linux
 archlinux:e2fsprogs
 archlinux:keyutils
 #archlinux:libsasl
