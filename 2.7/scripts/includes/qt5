@@ -38,9 +38,9 @@
 #     [ -e $HOME/$ARCH/include/unicode ] && mv $HOME/$ARCH/include/unicode $HOME/$ARCH/include/unicode-disabled
 #     [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
 #     [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
-  #  -platform linux-clang \
 ./configure -confirm-license -opensource -v \
     -prefix $HOME/$ARCH \
+    -platform linux-clang \
     -docdir $HOME/$ARCH/share/doc/qt \
     -headerdir $HOME/$ARCH/include/qt \
     -archdatadir $HOME/$ARCH/lib/qt \
