@@ -1,6 +1,7 @@
-mkdir ~/src
+install -d ~/src
 cd ~/src
-git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+[ ! -e ydfs ] && git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs 
 cd 2.7 
-make 
+git pull
+make || tail -f /dev/null
