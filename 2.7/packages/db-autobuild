@@ -1939,6 +1939,13 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/llua5.1/llua5.1 -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && sed -i -e 's/lutil/lutil -lgmodule-2.0 -lgobject-2.0/g'  test/Makefile
 	[ -e gnome-vfs-2.0.pc.in ] && grep lgobject programs/Makefile && sleep 2
+      
+    if [ -e bzip2.c ]
+    then
+	cp Makefile{,.orig}
+	sed -e "/^all:/s/ test//" Makefile.orig > Makefile
+    fi
+
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
@@ -2006,7 +2013,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
 
       [ -e liblightdm-gobject ] && make DESTDIR="$HOME/ydfs/packages-$ARCH" -C liblightdm-gobject install
 
-      if [ -e contrib/minizip ] 
+      if [ -e contrib/minizip ] && [ ! "$ARCH" = "arm" ]
       then
 	cd contrib/minizip
 	cp Makefile Makefile.orig

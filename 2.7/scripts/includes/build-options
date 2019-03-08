@@ -604,6 +604,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 		echo $ARCHIVE | grep SDL_ttf && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
 		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
 		echo $ARCHIVE | grep SDL_ttf && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
+		LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=arm-linux-gnueabihf" 
   		export MYPREFIX=$DIBAB_PREFIX/arm/
 	else
 		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  -disable-nasm --enable-alsa --with-x --disable-rpath --disable-static"
