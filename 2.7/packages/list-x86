@@ -348,7 +348,7 @@ https://download.videolan.org/pub/libdvdcss/1.4.2/libdvdcss-1.4.2.tar.bz2
 http://downloads.sourceforge.net/libdv/libdv-1.0.0.tar.gz 
 http://freefr.dl.sourceforge.net/project/libraw1394/libraw1394/libraw1394-2.0.5.tar.gz
 http://freefr.dl.sourceforge.net/project/libavc1394/libavc1394/libavc1394-0.5.4.tar.gz 
-https://github.com/webmproject/libvpx/archive/v1.7.0.tar.gz
+https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz
 #http://freefr.dl.sourceforge.net/project/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz 
 http://libass.googlecode.com/files/libass-0.10.2.tar.xz
 https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
@@ -729,7 +729,7 @@ https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
-http://download.qt.io/official_releases/qt/5.11/5.11.2/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
+http://download.qt.io/official_releases/qt/5.12/5.12.1/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz

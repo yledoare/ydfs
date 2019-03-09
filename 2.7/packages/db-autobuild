@@ -1470,21 +1470,29 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
     then
-	[ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
+	env > ydfs.env
+	# [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
 	# [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
-	[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
-	[ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
-    	cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
-    	cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
-    	cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
-    	cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/
-    	cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/third_party/angle/include
-        QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS qmake -- -proprietary-codecs \
-    		-system-ffmpeg \
-    		-webengine-icu -webp
-	sleep 5
-	make 
-	make 
+	# [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+	# [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
+    	# cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
+    	# cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
+    	# cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
+    	# cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/
+    	# cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/third_party/angle/include
+	# rm -fR build
+        mkdir build
+	cd build
+        export QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS 
+	qmake .. -- -proprietary-codecs \
+		-system-ffmpeg \
+    		-webengine-icu -webp || exit 1
+	# WTF !!!
+	# Why CFLAGS is not working ???	
+      	ls /home/linuxconsole2019/x86_64/include/|while read file; do ln -s /home/linuxconsole2019/x86_64/include/$file ../src/3rdparty/chromium/ ; done
+	rm ../src/3rdparty/chromium/dbus-1
+	rm ../src/3rdparty/chromium/google
+	rm ../src/3rdparty/chromium/openssl	
 	make || exit $?
 	make install || exit $?
 	touch buildok-$ARCH
