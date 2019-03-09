@@ -13,6 +13,22 @@ Section "InputClass"
 EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
 
+[ ! -e /etc/X11/xorg.conf.d/amdgpu.conf ] && echo '
+Section "Device"
+    Option "DRI3" "False"
+    Identifier "Card0"
+    Driver "amdgpu"
+EndSection
+' > /etc/X11/xorg.conf.d/amdgpu.conf
+
+[ ! -e /etc/X11/xorg.conf.d/radeon.conf ] && echo '
+Section "Device"
+    Option "DRI3" "False"
+    Identifier "Card0"
+    Driver "radeon"
+EndSection
+' > /etc/X11/xorg.conf.d/radeon.conf
+
 export HOME=/root
 
 if [ ! -e $HOME/.config/openbox/rc.xml ]
