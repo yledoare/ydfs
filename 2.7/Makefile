@@ -212,7 +212,19 @@ pantheon: packages/list-pantheon
 hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
-fps: packages/list-graphics
+emulators: packages/list-emulators
+	./scripts/make_packages emulators
+	./scripts/make_module emulators
+multimedia: packages/list-multimedia
+	./scripts/make_packages multimedia
+	./scripts/make_module multimedia
+network: packages/list-network
+	./scripts/make_packages network
+	./scripts/make_module network
+games: packages/list-games
+	./scripts/make_packages games
+	./scripts/make_module games
+graphics: packages/list-graphics
 	./scripts/make_packages graphics
 	./scripts/make_module graphics
 fps: packages/list-fps
