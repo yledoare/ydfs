@@ -102,6 +102,40 @@ else
   [ -e src/libmodplug/sndfile.h ] && echo "Fix src/libmodplug/sndfile.h" && cp src/libmodplug/*.h src
   [ -e src/libwebp.pc.in ] && rm CMakeLists.txt
 
+  if [ -e "wx-config.in" ]
+  then
+    	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh || exit 1
+	WXSRCDIR=`basename $PWD`
+	cd ..
+	cp -fR $WXSRCDIR "$WXSRCDIR"-gtk3
+	cd "$WXSRCDIR"-gtk3
+	 ./configure --prefix=$PREFIX --libdir=$PREFIX/lib --with-gtk=3 --with-opengl --enable-unicode \
+    --enable-graphics_ctx --enable-mediactrl --enable-webview --with-regex=builtin \
+    --with-libpng=sys --with-libxpm=sys --with-libjpeg=sys --with-libtiff=sys \
+    --disable-precomp-headers
+	make || exit 1
+	
+	cd ../"$WXSRCDIR"
+	./configure --prefix=$PREFIX --libdir=$PREFIX/lib --with-gtk=2 --with-opengl --enable-unicode \
+    --enable-graphics_ctx --enable-mediactrl --with-regex=builtin \
+    --with-libpng=sys --with-libxpm=sys --with-libjpeg=sys --with-libtiff=sys \
+    --disable-precomp-headers || exit 1		
+
+	make || exit 1
+	make -C locale allmo || exit 1
+	make install || exit $?
+
+	cd ../"$WXSRCDIR"-gtk3
+	make install || exit $?
+	mv "$PREFIX"/bin/wx-config{,-gtk3}
+
+	cd ../"$WXSRCDIR"
+	make install || exit $?
+
+        touch buildok-$ARCH
+
+        exit 0
+  fi    
   if [ -e lirc.pc.in ]
   then
 	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX
@@ -1963,20 +1997,6 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       . $(dirname $0)/../scripts/includes/warsow
       . $(dirname $0)/../scripts/includes/mame
       . $(dirname $0)/../scripts/includes/wine
-
-
-      if [ -e "wx-config.in" ]
-      then
-	#make -C locale allmo
-	 make install || exit $?
-	 if [ -e contrib/src ] # wx2
-	 then
-	   make -C contrib/src || exit $?
-	   make -C contrib/src install || exit $?
-	 fi
-         touch buildok-$ARCH
-         exit 0
-      fi    
 
       if [ -e librhash ]
 	then

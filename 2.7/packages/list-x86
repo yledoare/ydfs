@@ -461,7 +461,7 @@ http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.8/network-manager-applet-1.8.14.tar.xz
 http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
-https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.3.1/wxWidgets-3.0.3.1.tar.bz2
+https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
 http://enet.bespin.org/download/enet-1.3.13.tar.gz
 http://downloads.sourceforge.net/irrlicht/irrlicht-1.8.4.zip
@@ -685,7 +685,6 @@ https://download.gnome.org/sources/gnome-software/3.22/gnome-software-3.22.0.tar
 https://github.com/rdesktop/rdesktop/releases/download/v1.8.3/rdesktop-1.8.3.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
-https://download.filezilla-project.org/libfilezilla/libfilezilla-0.13.2.tar.bz2
 #LibreOffice
 https://github.com/hunspell/hunspell/archive/v1.6.2.tar.gz
 https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
