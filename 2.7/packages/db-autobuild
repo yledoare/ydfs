@@ -1466,21 +1466,9 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e setup.py ] && echo "Run $PYTHON setup.py install --prefix=$PREFIX "
     [ -e setup.py ] && $PYTHON setup.py install --prefix=$PREFIX && touch buildok-$ARCH
     [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && [ ! -e $HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && cp -fR $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 $HOME/$ARCH/lib/python2.7/site-packages/jinja2 && echo "$HOME/$ARCH/lib/python2.7/site-packages/jinja2 fixed" && sleep 3
-    # [ -e qtwebview.pro ] && qmake
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
     then
-	env > ydfs.env
-	# [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled
-	# [ -e $HOME/$ARCH/include/GL ] && mv $HOME/$ARCH/include/GL $HOME/$ARCH/include/GL-disabled
-	# [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
-	# [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
-    	# cp $HOME/$ARCH/include/jpeglib.h src/3rdparty/chromium/ 
-    	# cp $HOME/$ARCH/include/jconfig.h src/3rdparty/chromium/ 
-    	# cp $HOME/$ARCH/include/jmorecfg.h src/3rdparty/chromium/ 
-    	# cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/
-    	# cp -fR $HOME/$ARCH/include/X11 src/3rdparty/chromium/third_party/angle/include
-	# rm -fR build
         mkdir build
 	cd build
         export QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS 
@@ -1495,6 +1483,7 @@ ac_cv_file__dev_ptc=no' >  config.site
 	rm ../src/3rdparty/chromium/openssl	
 	make || exit $?
 	make install || exit $?
+	cd ..
 	touch buildok-$ARCH
 	exit 0
     fi
