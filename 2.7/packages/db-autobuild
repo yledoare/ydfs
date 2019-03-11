@@ -383,12 +383,11 @@ else
 
   fi
 
-  if [ -e xeniarc ]
+  if [ -e ./xenia-build ]
   then
 	echo "Build Xenia"
-	./xb setup
-	./xb pull
-	./xb build
+	./xenia-build setup
+	./xenia-build build
 	exit 1
   fi
 
