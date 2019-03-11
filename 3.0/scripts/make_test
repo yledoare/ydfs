@@ -3,8 +3,8 @@ MEM=32
 MEM=128
 . ./config.ini
 
-which qemu && EMULATOR="QEMU"
-which VBoxManage && EMULATOR="VBOX"
+which qemu-system-x86_64 && EMULATOR="QEMU"
+#which VBoxManage && EMULATOR="VBOX"
 [ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu to make tests !" && exit 1
 
 KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"
@@ -30,9 +30,9 @@ then
   # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$CARCH/$INITRD26 -cdrom $ISO
   if [ -e myfix ]
   then
-  qemu $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
+  qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
   else
-  qemu $DISPLAY_OPT -append "quiet text" -kernel $HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$CARCH/$INITRD26 -cdrom $ISO
+    qemu-system-x86_64 -display -enable-kvm curses -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$CARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$CARCH/$INITRD26 $OPTION
   fi
   exit 0
 fi
@@ -47,6 +47,9 @@ then
   VBoxSDL -fullscreenresize -vm $NAME
   #VBoxManage unregistervm $NAME -delete 
   VBoxManage closemedium dvd $ISO 
+  #VBoxManage modifyvm $NAME --vrde on
+  #BoxManage startvm $NAME --type headless
+
 fi
 fi # end x86
 

@@ -67,7 +67,7 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
-cp -fR $HOME/$CARCH/* $HOME/ydfs/tmp/initramfs-$CARCH/ || exit 1
+# cp -fR $HOME/$CARCH/* $HOME/ydfs/tmp/initramfs-$CARCH/ || exit 1
 rm -f $HOME/ydfs/tmp/initramfs-$CARCH/lib/*.a
 strip $HOME/ydfs/tmp/initramfs-$CARCH/lib/*
 strip $HOME/ydfs/tmp/initramfs-$CARCH/bin/*
