@@ -102,6 +102,10 @@ do
   echo "$PKGURL" | grep "#Multimedia" && export DBEXTRA="multimedia"
   echo "$PKGURL" | grep "#System" && export DBEXTRA="system"
   echo "$PKGURL" | grep "#Misc" && export DBEXTRA="misc"
+  echo "$ARCHIVE" | grep '#tag' >/dev/null || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE_URL=`echo $ARCHIVE | cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#tag' >/dev/null && ARCHIVE_URL=`echo $ARCHIVE`
+  echo "$ARCHIVE" | grep '#commit' >/dev/null && ARCHIVE_URL=`echo $ARCHIVE`
   PKGURL_URL=`echo $PKGURL | cut -d'#' -f1`
   [ "$PKGURL_URL" = "" ] && continue
   if [  -n "`echo $PKGURL | grep 'archsource:'`" ] 
@@ -120,14 +124,14 @@ then
   $HOME_DIBAB/scripts/get-archpkg $PKG
   # $HOME_DIBAB/scripts/scripts/get-all-archpkg-patches $PKG
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
-  echo "Arch linux source for $PKG : $PKGURL_URL"
+  echo "Arch linux source for $PKG : $PKGURL_URL = $PKGURL"
 fi
   if [  -n "`echo $PKGURL | grep 'archlinux:'`" ] 
 then
   PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
-  echo "Arch linux source for $PKG : $PKGURL_URL"
+  echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
 fi
   PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKGNAME ] && echo "$HOME/ydfs/packages/$PKGNAME exists" && continue
@@ -135,7 +139,7 @@ fi
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
   FIRST=`echo $PKGURL | head -c1`
   [ "$FIRST" = '#' ] && continue
-  PKGURL=`echo $PKGURL|cut -d'#' -f1`
+  echo "$ARCHIVE" | grep '#tag' >/dev/null || echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
   [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/_i386.deb/_amd64.deb/"`
   [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/i586.deb/amd64.deb/"`
   export PKGSRC=$PKGURL
@@ -161,12 +165,20 @@ fi
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
-  if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] 
+  if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] || [  -n "`echo $PKGURL | grep 'git+https://'`" ]  
   then
     cd $HOME/ydfs/src
     SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
-    [ ! -e $SOURCE_DIR ] && git clone $PKGURL
+    [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/"`
     cd $SOURCE_DIR
+    echo "DEBUG ARCHIVE = $ARCHIVE"
+    TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
+    COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
+    if [ "$TAG" != "" ]
+    then
+	git checkout tags/$TAG || exit 1
+    fi
+    [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue

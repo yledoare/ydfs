@@ -44,9 +44,6 @@ fi
 
 cd src/linux-"$KERNEL3"
 
-grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && sed -i "s@select SND_DYNAMIC_MINORS@@" sound/pci/hda/Kconfig
-grep SND_DYNAMIC_MINORS sound/pci/hda/Kconfig && exit 1
-
 grep 'nr = 255' drivers/block/loop.c || sed -i "s@nr = 8;@nr = 255;@" drivers/block/loop.c
 [ ! -e fs/exfat ] && patch -p1 < $HOME_DIBAB/packages/patches/exfat.diff
 cp -fR $HOME_DIBAB/tools/src/exfat fs/exfat
