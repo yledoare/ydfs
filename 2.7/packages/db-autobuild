@@ -115,25 +115,23 @@ else
     --disable-precomp-headers
 	make || exit 1
 	
+	# cd ../"$WXSRCDIR"
+	# ./configure --prefix=$PREFIX --libdir=$PREFIX/lib --with-gtk=2 --with-opengl --enable-unicode \
+    	# --enable-graphics_ctx --enable-mediactrl --with-regex=builtin \
+    	# --with-libpng=sys --with-libxpm=sys --with-libjpeg=sys --with-libtiff=sys \
+    	# --disable-precomp-headers || exit 1		
+
+	# make || exit 1
+	# make -C locale allmo || exit 1
+	# make install || exit $?
+
+	# cd ../"$WXSRCDIR"-gtk3
+	make install || exit $?
+	# mv "$PREFIX"/bin/wx-config{,-gtk3}
+
 	cd ../"$WXSRCDIR"
-	./configure --prefix=$PREFIX --libdir=$PREFIX/lib --with-gtk=2 --with-opengl --enable-unicode \
-    --enable-graphics_ctx --enable-mediactrl --with-regex=builtin \
-    --with-libpng=sys --with-libxpm=sys --with-libjpeg=sys --with-libtiff=sys \
-    --disable-precomp-headers || exit 1		
-
-	make || exit 1
-	make -C locale allmo || exit 1
-	make install || exit $?
-
-	cd ../"$WXSRCDIR"-gtk3
-	make install || exit $?
-	mv "$PREFIX"/bin/wx-config{,-gtk3}
-
-	cd ../"$WXSRCDIR"
-	make install || exit $?
-
+	# make install || exit $?
         touch buildok-$ARCH
-
         exit 0
   fi    
   if [ -e lirc.pc.in ]
