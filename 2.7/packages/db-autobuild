@@ -1508,7 +1508,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     		-webengine-icu -webp || exit 1
 	# WTF !!!
 	# Why CFLAGS is not working ???	
-      	ls /home/linuxconsole2019/x86_64/include/|while read file; do ln -s /home/linuxconsole2019/x86_64/include/$file ../src/3rdparty/chromium/ ; done
+      	ls $HOME/$ARCH/include/|while read file; do ln -s $HOME/$ARCH/include/$file ../src/3rdparty/chromium/ ; done
 	rm ../src/3rdparty/chromium/dbus-1
 	rm ../src/3rdparty/chromium/google
 	rm ../src/3rdparty/chromium/openssl	
