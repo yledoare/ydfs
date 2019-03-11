@@ -1,5 +1,7 @@
 . ./config.ini
 
+export PATH=$PATH:$HOME/$CARCH/bin
+echo $PATH
 if [ "$CARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
 then
   [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2
@@ -22,20 +24,11 @@ cp -fR init-$CARCH/* $INITRAMFS
 echo "$DISTRONAME" > $INITRAMFS/ydfs-name
 basename $PWD > $INITRAMFS/ydfs-release
 
-# if [ ! -e $HOME/ydfs/src/yaffs2utils-read-only/src/buildok ]
-# then
-# cd $HOME/ydfs/src
-# svn checkout http://yaffs2utils.googlecode.com/svn/trunk/ yaffs2utils-read-only
-# cd yaffs2utils-read-only
-# cd src
-# make && touch buildok 
-# fi
-
 # mknod needs root
 if [ ! -e $HOME_DIBAB/dev-initramfs.cpio ]
 then
   install -d $INITRAMFS/dev
-  sudo sh /$HOME/ydfs/src/busybox-$BUSYBOX/examples/bootfloppy/mkdevs.sh $INITRAMFS/dev || exit $?
+  sudo sh /$HOME/ydfs/src/busybox-$BUSYBOX/examples/bootfloppy/mkdevs.sh $INITRAMFS/dev || exit $?
   sudo sh $HOME_DIBAB/scripts/make_devs $INITRAMFS/dev
   ls -l $INITRAMFS/dev
   MYPWD=$PWD
@@ -53,9 +46,9 @@ KERNEL=$KERNEL3
 
 [ -n "$1" ] && KERNEL=$1 
   KERNEL_MODULES_PATH=$HOME/ydfs/kernel-$CARCH/modules/$KERNEL
-  cp -a /$HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/_install $INITRAMFS/busybox || exit 2
+#  cp -a /$HOME/ydfs/build/busybox-$CARCH-$BUSYBOX/_install $INITRAMFS/busybox || exit 2
   install -d $INITRAMFS/share
-  cp -a /$HOME/ydfs/src/busybox-$BUSYBOX/examples/udhcp $INITRAMFS/share || exit 3
+#  cp -a /$HOME/ydfs/src/busybox-$BUSYBOX/examples/udhcp $INITRAMFS/share || exit 3
   if [ ! -n "$1" ] 
   then
     INITRD="`echo $KERNEL | tr -d '.'`"
@@ -74,7 +67,14 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
-ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$CARCH/
+cp -fR $HOME/$CARCH/* $HOME/ydfs/tmp/initramfs-$CARCH/ || exit 1
+rm -f $HOME/ydfs/tmp/initramfs-$CARCH/lib/*.a
+strip $HOME/ydfs/tmp/initramfs-$CARCH/lib/*
+strip $HOME/ydfs/tmp/initramfs-$CARCH/bin/*
+rm -fR $HOME/ydfs/tmp/initramfs-$CARCH/include
+rm -fR $HOME/ydfs/tmp/initramfs-$CARCH/docs
+cp -fR $HOME/ydfs/packages/systemd/* $HOME/ydfs/tmp/initramfs-$CARCH/ || exit 1
+# ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$CARCH/
 ROOTFS=/$HOME/ydfs/tmp/initramfs-$CARCH/
 install -d $ROOTFS/$HOME
 install -d $ROOTFS/proc
