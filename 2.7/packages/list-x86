@@ -525,7 +525,7 @@ http://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.1.zip
 http://netcologne.dl.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz
 http://taglib.github.io/releases/taglib-1.11.1.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
-ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.2.tar.gz
+ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
 http://lxml.de/files/lxml-3.3.0.tgz
 http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.25.tar.gz
 http://prdownloads.sourceforge.net/lirc/lirc-0.9.4d.tar.bz2
@@ -741,6 +741,7 @@ https://files.pythonhosted.org/packages/48/69/d87c60746b393309ca30761f8e2b49473d
 https://files.pythonhosted.org/packages/cf/50/1f10d2626df0aa97ce6b62cf6ebe14f605f4e101234f7748b8da4138a8ed/packaging-18.0.tar.gz
 https://files.pythonhosted.org/packages/1a/e2/4a7ad8f2808e03caebd3ec0a250b4afbb26d4ba063c39c3286185dd06dd1/pyparsing-2.2.2.tar.gz
 https://files.pythonhosted.org/packages/6e/9c/6a003320b00ef237f94aa74e4ad66c57a7618f6c79d67527136e2544b728/setuptools-40.4.3.zip
+https://files.pythonhosted.org/packages/source/p/python-dotenv/python-dotenv-0.10.1.tar.gz
 https://www.freedesktop.org/software/appstream/releases/AppStream-0.12.2.tar.xz
 https://github.com/twisted/twisted/archive/twisted-18.7.0.tar.gz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
@@ -759,7 +760,7 @@ https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.
 https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.2.tar.bz2
 https://github.com/g-truc/glm/releases/download/0.9.9.2/glm-0.9.9.2.zip
 https://kohei.us/files/mdds/src/mdds-1.4.3.tar.bz2
-https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.8.tar.xz
+https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.9.tar.xz
 https://dev-www.libreoffice.org/src/libabw/libabw-0.1.2.tar.xz
 https://dev-www.libreoffice.org/src/libzmf/libzmf-0.0.2.tar.xz
 https://github.com/fosnola/libstaroffice/releases/download/0.0.6/libstaroffice-0.0.6.tar.xz
@@ -767,6 +768,7 @@ https://github.com/tdf/libcmis/releases/download/v0.5.1/libcmis-0.5.1.tar.gz
 https://kohei.us/files/ixion/src/libixion-0.14.1.tar.xz
 https://kohei.us/files/orcus/src/liborcus-0.14.1.tar.xz
 https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
+https://github.com/Numbertext/libnumbertext/archive/1.0.5.tar.gz
 https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
 http://download.librdf.org/source/rasqal-0.9.33.tar.gz
 http://download.librdf.org/source/redland-1.0.17.tar.gz
@@ -825,7 +827,8 @@ https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
 https://download.gnome.org/sources/libbonoboui/2.24/libbonoboui-2.24.5.tar.bz2
 https://download.gnome.org/sources/libgnomeui/2.24/libgnomeui-2.24.5.tar.bz2
 https://aubio.org/pub/aubio-0.4.7.tar.bz2
-https://webkitgtk.org/releases/webkitgtk-2.22.2.tar.xz
+#Who needs it ??
+#https://webkitgtk.org/releases/webkitgtk-2.22.2.tar.xz
 https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz
 http://tecnocode.co.uk/downloads/uhttpmock/uhttpmock-0.5.1.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/libgdata/0.17/libgdata-0.17.9.tar.xz
@@ -837,7 +840,7 @@ http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.ta
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
 https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 #For Skype
-https://github.com/elogind/elogind/archive/5814139990daf10155b4fb0951ee456ac9c97a4b.tar.gz
+https://github.com/elogind/elogind/archive/v241.1.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz
 #Warning, unset LDFLAGS for building grub

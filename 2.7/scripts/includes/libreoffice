@@ -22,9 +22,8 @@
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ 
 	CONFIGURE_OPTS=""
 	env > env.log
-        # [ "$ARCH" = "x86" ] && CONFIGURE_OPTS=" --disable-ext-wiki-publisher --disable-ext-nlpsolver --host=i586-linux-gnu"
  	[ "$ARCH" = "x86" ] && sed -i "s/__builtin_mul_overflow/__DISABLE_X86__builtin_mul_overflow/" include/o3tl/safeint.hxx
-        [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --enable-ext-wiki-publisher --enable-ext-nlpsolver "
+        [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --with-boost-libdir=/usr/lib/x86_64-linux-gnu/ "
         if [ "$ARCH" = "x86" ] 
 	then
 		CONFIGURE_OPTS=" --host=i686-linux-gnu --build=i686-linux-gnu"
@@ -38,6 +37,8 @@
 		# Bug at /home/linuxconsole2019/ydfs/src/libreoffice-6.0.6.2/solenv/gbuild/HelpTarget.mk:452
 		sed -i -e '451,452d' solenv/gbuild/HelpTarget.mk
 	fi
+	# Fix a type mismatch introduced by recent versions of Boost-1.69.0:  
+	sed -i 's/loaded;/bool{loaded};/' sfx2/source/appl/shutdownicon.cxx
         # don't run broken tests
 	sed -i "/CppunitTest_sw_ooxmlexport9/d" sw/Module_sw.mk
 	sed -i "/CppunitTest_sw_uiwriter/d" sw/Module_sw.mk
@@ -55,37 +56,45 @@
 	# PYTHON_CFLAGS="-I$HOME/$ARCH/include/python2.7/" PYTHON_LIBS="-lpython2.7 -L$HOME/$ARCH/lib" \
 	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
 	export PYTHON=$HOME/$ARCH/bin/python3
+	export PYTHONPATH=""
 	_additional_source_url="http://dev-www.libreoffice.org/src"
-	_additional_source_url2="http://dev-www.libreoffice.org/extern"
+	_additional_source_url2="https://dev-www.libreoffice.org/extern"
 	install -d tar
-for TAR in ${_additional_source_url}/boost_1_65_1.tar.bz2 ${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip ${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip ${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip ${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz ${_additional_source_url}/language-subtag-registry-2017-08-15.tar.bz2 ${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip ${_additional_source_url}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip ${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip ${_additional_source_url}/Firebird-3.0.0.32483-0.tar.bz2 ${_additional_source_url}/pdfium-3235.tar.bz2 ${_additional_source_url2}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar  ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies+ODFTOOLKIT-460+ODFTOOLKIT-475.jar ${_additional_source_url2}/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+for TAR in ${_additional_source_url}/49a64f3bcf20a7909ba2751349231d6652ded9cd2840e961b5164d09de3ffa63-opens___.ttf ${_additional_source_url}/lxml-4.1.1.tgz ${_additional_source_url}/pdfium-3550.tar.bz2 ${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip ${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip ${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip ${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz ${_additional_source_url}/language-subtag-registry-2017-08-15.tar.bz2 ${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip ${_additional_source_url}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip ${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip ${_additional_source_url}/Firebird-3.0.0.32483-0.tar.bz2 ${_additional_source_url}/pdfium-3235.tar.bz2 ${_additional_source_url2}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar  ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies+ODFTOOLKIT-460+ODFTOOLKIT-475.jar ${_additional_source_url2}/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 do
   NAME=`basename $TAR`
   [ ! -e tar/$NAME ] && wget $TAR -O tar/$NAME
   [ ! -e tar/$NAME ] && echo "$NAME is missing" && exit 1
 done
 
+	export CPPFLAGS="$CPPFLAGS -DU_USING_ICU_NAMESPACE=1"
 	# [ "$ARCH" = "x86" ] &&	./autogen.sh --with-java=/usr/bin/java --with-vendor="YourDistroFromScratch"  --prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc --with-lang="fr en-GB"
-	./autogen.sh --with-vendor="YourDistroFromScratch" \
-		--enable-split-app-modules \
-		--with-parallelism=${_MAKEFLAGS/-j/} \
-		--disable-fetch-external \
+	./autogen.sh --with-vendor="YourDistroFromScratch"  \
 		--with-external-tar=$PWD/tar \
 		--enable-release-build \
 		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
 		--libdir=$PREFIX/lib --mandir=$PREFIX/share/man \
 		--with-lang="fr en-GB" \
-		--with-help \
+		--with-external-dict-dir=$HOME/$ARCH/share/hunspell \
+		--with-external-hyph-dir=$HOME/$ARCH/share/hyphen \
+		--with-external-thes-dir=$HOME/$ARCH/share/mythes \
+		--enable-split-app-modules \
+		--with-parallelism=${_MAKEFLAGS/-j/} \
+		--disable-fetch-external \
+		--enable-release-build \
+		--with-help=html \
 		--disable-avahi \
 		--enable-dbus \
 		--enable-evolution2\
 		--enable-gio\
-		--disable-kde4\
+		--disable-gtk3-kde5 \
+		--disable-kde5 \
+		--enable-qt5 \
 		--enable-gtk3 \
 		--enable-introspection \
 		--disable-gstreamer-0-10 \
 		--enable-openssl \
-		--enable-odk\
+		--disable-odk\
 		--enable-python=system \
 		--enable-scripting-beanshell \
 		--enable-scripting-javascript \
@@ -102,24 +111,22 @@ done
 		--with-system-libexttextcat \
 		--with-system-orcus \
 		--with-system-liblangtag \
-		--with-system-libmwaw \
 		--with-system-libodfgen \
+		--with-system-libmwaw \
 		--with-system-libetonyek \
 		--with-system-libfreehand \
-		--without-system-firebird \
+		--with-system-firebird \
 		--with-system-libtommath \
 		--with-system-libatomic-ops \
 		--with-system-libebook \
 		--with-system-libabw \
 		--with-system-coinmp \
 		--with-system-dicts \
-		--with-external-dict-dir=$HOME/$ARCH/share/hunspell \
-		--with-external-hyph-dir=$HOME/$ARCH/share/hyphen \
-		--with-external-thes-dir=$HOME/$ARCH/share/mythes \
 		--with-system-beanshell \
 		--with-system-cppunit\
 		--with-system-graphite\
 		--with-system-glm \
+		--with-system-libnumbertext \
 		--with-system-libwpg \
 		--with-system-libwps \
 		--with-system-redland\
@@ -127,19 +134,19 @@ done
 		--with-system-gpgmepp \
 		--with-system-libstaroffice \
 		--with-system-serf \
-		--without-system-boost\
 		--with-system-icu \
 		--with-system-cairo \
 		--with-system-libs \
 		--with-system-mythes \
 		--with-system-headers \
 		--without-system-hsqldb \
-		--with-alloc=system \
 		--with-system-clucene \
-		--disable-dependency-tracking --without-java $CONFIGURE_OPTS  || exit $?
+		--disable-dependency-tracking \
+		--with-jdk-home=/$HOME/$ARCH/lib/jdk --without-junit --disable-postgresql-sdbc --disable-firebird-sdbc \
+		$CONFIGURE_OPTS  || exit $?
 
 	echo "Run : make build / make build-nocheck / make distro-pack-install "
-	bash
+	# bash
 	for STEP in 1 2 3 # 4 5 6 7 8 9 
 	do
 		echo "Make $STEP"
