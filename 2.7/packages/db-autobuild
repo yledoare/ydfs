@@ -1512,7 +1512,8 @@ ac_cv_file__dev_ptc=no' >  config.site
     then
         mkdir build
 	cd build
-        export QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS 
+        # [ "$ARCH" = "x86" ] && LDFLAGS="$LDFLAGS -Wl,--as-needed,-latomic,--no-as-needed" 
+        export QMAKE_CXXFLAGS=$CXXFLAGS QMAKE_CFLAGS=$CFLAGS QMAKE_LFLAGS=$LDFLAGS
 	qmake .. -- -proprietary-codecs \
 		-system-ffmpeg \
     		-webengine-icu -webp || exit 1
@@ -1522,6 +1523,8 @@ ac_cv_file__dev_ptc=no' >  config.site
 	rm ../src/3rdparty/chromium/dbus-1
 	rm ../src/3rdparty/chromium/google
 	rm ../src/3rdparty/chromium/openssl	
+	make
+        [ "$ARCH" = "x86" ] && sed -i "s@-lasound@-lasound -latomic@g"  src/core/Makefile.core_module
 	make || exit $?
 	make install || exit $?
 	cd ..
