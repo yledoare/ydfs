@@ -54,8 +54,8 @@ echo " Module list : $MODULE_LIST"
 CPPFLAGS=" -I$HOME/$ARCH/include $CPPFLAGS"
 for QTINC in QtSvg QtTest QtPrintSupport QtOpenG QtX11Extra QtGui QtWidgets
 do
-  CPPFLAGS="$CPPFLAGS -I$HOME/$ARCH/include/$QTINC"
-  install -d $HOME/$ARCH/include/$QTINC
+  CPPFLAGS="$CPPFLAGS -I$HOME/$ARCH/include/qt/$QTINC"
+  install -d $HOME/$ARCH/include/qt/$QTINC
 done
 export RCC=`which rcc`
 export MOC=`which moc`

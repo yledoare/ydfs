@@ -5,10 +5,16 @@
     # export PATH=$PWD/openjdk-1.7.0-u40-unofficial-linux-amd64-image/bin/:$PATH
     # cp openjdk-1.7.0-u40-unofficial-linux-amd64-image/include/* src/libs/xpcom18a4/java/src
     # cp openjdk-1.7.0-u40-unofficial-linux-amd64-image/include/linux/* src/libs/xpcom18a4/java/src
+    [ ! -e $HOME/$ARCH/include/QtCore ] && ln -s $HOME/$ARCH/include/qt/QtCore  $HOME/$ARCH/include/QtCore
+    for QTINC in QtSvg QtTest QtPrintSupport QtOpenG QtX11Extra QtGui QtWidgets QtX11Extras
+ 	do
+    [ ! -e $HOME/$ARCH/include/$QTINC ] && ln -s $HOME/$ARCH/include/qt/$QTINC $HOME/$ARCH/include/$QTINC
+ 	done
+
     if [ ! -e env.sh ]
     then
 	echo "Build Virtualbox" && sleep 1
-	./configure --disable-java --disable-devmapper --with-linux=$HOME/ydfs/build/linux-x86_64-$KERNEL3 --disable-kmods --disable-hardening --disable-docs || exit $.
+	./configure --disable-java --disable-devmapper --with-linux=$HOME/ydfs/build/linux-x86_64-$KERNEL3 --disable-kmods --disable-hardening --disable-docs || exit $
     fi
     if [ ! -e out/linux.amd64/release/bin/VBoxSDL ]
     then
