@@ -307,27 +307,27 @@ else
   if [ -e man/elogind.xml ]
   then
 	echo "Elogind" && sleep 3
-  	echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm meson.build
-	intltoolize
 	mkdir build
 	cd build
-  	PYTHONPATH="" meson ../ --prefix=$PREFIX --libexecdir=$PREFIX/lib --libdir=$PREFIX/lib --sysconfdir=$PREFIX/etc || exit 1
-     	PYTHONPATH="" ninja || exit 1
-     	PYTHONPATH="" ninja install || exit 1
-	cd ..
-	touch buildok-$ARCH
-	exit 0
-
-	./configure --prefix=$PREFIX --with-rootprefix=$PREFIX --disable-smack \
+	meson build ..
+	meson configure   -Drootlibdir=/usr/lib   -Ddocdir=/usr/share/doc/elogind   -Dudevrulesdir=/lib/udev/rules.d  || exit 1
+	echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+	../configure --prefix=$PREFIX \
+        --sysconfdir=$PREFIX/etc \
+        --libdir=/$PREFIX/lib \
+        --libexecdir=/$PREFIX/lib \
+        --enable-split-usr \
+        --disable-smack \
         --enable-acl \
         --enable-pam \
         --disable-kdbus
 
 	make || exit $?
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install || exit 1
-    	cd $HOME/ydfs/packages-$ARCH/$MYDIR
-    	$HOME_DIBAB/scripts/make_opkg || exit $?
+	make install || exit $?
+	cd ..
 	exit 0
+
   fi
 
   if [ -e src/systemd/sd-event.h ] && [ ! -e man/elogind.xml ]
@@ -909,10 +909,10 @@ pwd && sleep 5
   fi
 
   [ -e crypto/bio/bio.h ] && install -d include/openssl
-  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-elf shared
-  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-x86_64 shared
-  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX --libdir=lib linux-generic32 shared
-  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX linux-generic32 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-elf shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86_64" ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-x86_64 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "x86" ] && CC=gcc ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl --libdir=lib linux-generic32 shared
+  [ -e Configure ] && [ -e include/openssl/ ] && [ "$ARCH" = "arm" ] && CROSS_COMPILE="" LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$SUBARCH/lib" ./Configure --prefix=$PREFIX --openssldir=$PREFIX/etc/ssl linux-generic32 shared
   [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
   
   [ -e src/gallium/targets/opencl/Makefile.am ] && sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am

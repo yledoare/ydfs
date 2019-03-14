@@ -30,8 +30,9 @@ COPY ./build-lc2019 /home/linuxconsole2019/build-lc2019
 
 RUN apt-get update && apt-get install -y  apt-utils
 
-RUN apt-get update && apt-get install -y vim kmod ack  wget autopoint libncurses5-dev  rustc python-mako cargo ant libssl-dev libwrap0 gsoap meson libbabeltrace-ctf1 clang cython libclang-7-dev llvm-dev xz-utils libxml-parser-perl patch libunwind8 libclc-dev ftjam locales syslinux-utils makeself iasl p7zip-full xutils-dev xmlto libelf-dev imagemagick bam ruby libboost-all-dev libboost-dev nasm libatomic-ops-dev unzip bc cmake xfonts-utils xsltproc zlib1g-dev gperf unicode-data llvm gettext make mtd-utils pciutils texinfo bzip2 subversion git gawk bison flex automake-1.15 automake autoconf libtool-bin libtool lzma g++ genisoimage libmpfr-dev
+RUN apt-get update && apt-get install -y vim ack wget autopoint libncurses5-dev  rustc python-mako cargo ant libssl-dev libwrap0 gsoap meson libbabeltrace-ctf1 clang cython libclang-7-dev llvm-dev xz-utils libxml-parser-perl patch libunwind8 libclc-dev ftjam locales syslinux-utils makeself iasl p7zip-full xutils-dev xmlto libelf-dev imagemagick bam ruby libboost-all-dev libboost-dev nasm libatomic-ops-dev unzip bc cmake xfonts-utils xsltproc zlib1g-dev gperf unicode-data llvm gettext make mtd-utils pciutils texinfo bzip2 subversion git gawk bison flex automake-1.15 automake autoconf libtool-bin libtool lzma g++ genisoimage libmpfr-dev
 
+RUN apt-get install -y cpio kmod xorriso
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
 
