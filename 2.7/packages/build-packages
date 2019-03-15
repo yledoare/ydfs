@@ -200,7 +200,7 @@ fi
     [ ! -e $SOURCE_DIR ] && svn co $ARCHIVE
     cd $SOURCE_DIR
     [ -e libc ] && cd libc # eglibc
-    db-autobuild $DIBAB_PREFIX/$MODULE || exit $?
+    db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || exit $?
     continue
   fi
   if [  -n "`echo $ARCHIVE | grep 'lp:'`" ] 
@@ -209,7 +209,7 @@ fi
     SOURCE_DIR=`echo $ARCHIVE | cut -d':' -f2`
     [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $ARCHIVE
     cd $SOURCE_DIR
-    db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     continue
   fi
@@ -237,7 +237,7 @@ fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
   . $HOME_DIBAB/scripts/includes/build-options
-    db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     continue
   fi

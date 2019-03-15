@@ -214,6 +214,8 @@ else
 
   if [ -e src/jdk.net ]
   then
+   [ -e env.debug ] && env > env.debug2
+   [ ! -e env.debug ] && env > env.debug
    echo "DEBUG, PATH = $PATH"
    $HOME/$ARCH/bin/wget https://pcsclite.apdu.fr/files/pcsc-lite-1.6.1.tar.bz2
    tar xjvf pcsc-lite-1.6.1.tar.bz2
