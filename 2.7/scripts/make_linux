@@ -27,7 +27,7 @@ then
   then
     wget --directory-prefix=tarballs http://jukebox.linuxconsole.org/mini2440/linux-2.6.32.2-mini2440_20110305.tgz
   fi
-  [ ! -e src/linux-"$KERNEL3" ] && tar xzvf tarballs/linux-2.6.32.2-mini2440_20110305.tgz  --directory=src 
+  [ ! -e src/linux-"$KERNEL3" ] && tar xzf tarballs/linux-2.6.32.2-mini2440_20110305.tgz  --directory=src 
 else
   if [ ! -e tarballs/linux-"$KERNEL3".tar.xz ]
   then
@@ -37,7 +37,7 @@ fi
 
 if [ ! -e src/linux-"$KERNEL3" ]
 then
-  tar xJvf tarballs/linux-"$KERNEL3".tar.xz  --directory=src || exit 1
+  tar xJf tarballs/linux-"$KERNEL3".tar.xz  --directory=src || exit 1
 fi
 
 [ ! -e src/linux-"$KERNEL3" ] && exit 1
