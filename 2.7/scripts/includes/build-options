@@ -1,6 +1,7 @@
 echo $ARCHIVE | grep mozjs && . $HOME/ydfs/firstenv 
 # echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep jdk11 && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
