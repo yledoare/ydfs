@@ -583,6 +583,7 @@ https://download.gnome.org/sources/system-tools-backends/2.10/system-tools-backe
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
 # For PlayOnLinux
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
+https://github.com/HOST-Oman/libraqm/releases/download/v0.5.0/raqm-0.5.0.tar.gz
 http://www.imagemagick.org/download/ImageMagick-6.9.5-7.tar.xz
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
 http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src_all.tar.bz2

@@ -1068,22 +1068,22 @@ pwd && sleep 5
 
   if [ -e hedgewars ]
   then
-      export PATH=$HOME/fpc-2.6.4/bin:$PATH
-      if [ ! -e $HOME/fpc-2.6.4/bin/fpc ]
+      export PATH=$HOME/fpc-3.0.4/bin:$PATH
+      if [ ! -e $HOME/fpc-3.0.4/bin/fpc ]
       then
 	cd $HOME
-	FILE=fpc-2.6.4.x86_64
-	[ "$ARCH" = "x86" ] && FILE=fpc-2.6.4.i386
+	FILE=fpc-3.0.4.x86_64
+	[ "$ARCH" = "x86" ] && FILE=fpc-3.0.4.i386
         TAR=$FILE-linux.tar
-	[ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/2.6.4/"$TAR"
+	[ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
 	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
 	sh install.sh
 	cd $HOME/ydfs/src/$MYDIR
       fi
-      [ ! -e $HOME/fpc-2.6.4/bin/fpc ] && echo "Please install $HOME/fpc-2.6.4/bin/fpc !" && exit 67
-      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-2.6.4/bin/fpc"
+      [ ! -e $HOME/fpc-3.0.4/bin/fpc ] && echo "Please install $HOME/fpc-3.0.4/bin/fpc !" && exit 67
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-3.0.4/bin/fpc"
       install -d $PREFIX/share/applications/
       install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
