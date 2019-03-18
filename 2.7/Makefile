@@ -104,7 +104,7 @@ endif
 INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
-all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux modules firmware drivers $(DISTRONAME) iso
+all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) iso modules
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
 busybox-toolchain: ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
@@ -179,7 +179,7 @@ endif
 	
 ${HOME}/${ARCH}/buildenv: packages/list-${LIST}
 	./scripts/make_packages ${LIST}
-modules: ${LCMBUILD}/${ARCH}.squashfs 
+core: ${LCMBUILD}/${ARCH}.squashfs 
 drivers: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/drivers-${ARCH}.squashfs
 firmware: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config ${LCMBUILD}/firmware-${ARCH}.squashfs
 
@@ -196,22 +196,23 @@ archives: ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2
 
 ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
-video: packages/list-video
-	./scripts/make_packages video
 elementary: packages/list-elementary
 	./scripts/make_packages elementary
-music: packages/list-music
-	./scripts/make_packages music
-	./scripts/make_module music
-audio: packages/list-audio
-	./scripts/make_packages audio
-server: packages/list-server
-	./scripts/make_packages server
 pantheon: packages/list-pantheon
 	./scripts/make_packages pantheon
 hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
+
+
+modules: games music video multimedia fps network server emulators grapics # office 
+video: packages/list-video
+	./scripts/make_packages video
+music: packages/list-music
+	./scripts/make_packages music
+	./scripts/make_module music
+server: packages/list-server
+	./scripts/make_packages server
 emulators: packages/list-emulators
 	./scripts/make_packages emulators
 	./scripts/make_module emulators
