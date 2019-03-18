@@ -4,20 +4,20 @@ MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 # Locale
 RUN apt-get update && apt-get install -y locales 
 # RUN localedef -i fr_FR -c -f UTF-8 -A /usr/share/locale/locale.alias fr_FR.UTF-8 
-RUN echo "fr_FR.UTF-8 UTF-8 \
-br_FR.UTF-8 UTF-8 \
-de_DE.UTF-8 UTF-8 \
-en_US.UTF-8 UTF-8 \
-es_ES.UTF-8 UTF-8 \
-fr_CA.UTF-8 UTF-8 \
-fr_FR.UTF-8 UTF-8 \
-pt_BR.UTF-8 UTF-8 \
-ru_RU.UTF-8 UTF-8 \
-zh_CN.UTF-8 UTF-8 \
-cs_CZ.UTF-8 UTF-8 \
-pl_PL.UTF-8 UTF-8 \
-ar_TN.UTF-8 UTF-8 \
-ja_JP.UTF-8 UTF-8" > /etc/locale.gen
+RUN echo "fr_FR.UTF-8 UTF-8"> /etc/locale.gen
+RUN ECHO "br_FR.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "de_DE.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "en_US.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "es_ES.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "fr_CA.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "fr_FR.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "pt_BR.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "ru_RU.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "zh_CN.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "cs_CZ.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "pl_PL.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "ar_TN.UTF-8 UTF-8">> /etc/locale.gen
+RUN ECHO "ja_JP.UTF-8 UTF-8">> /etc/locale.gen
 RUN locale-gen
 ENV LANG fr_FR.utf8
 
