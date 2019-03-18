@@ -205,40 +205,57 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 
-modules: games music video multimedia fps network server emulators grapics # office 
-video: packages/list-video
-	./scripts/make_packages video
-music: packages/list-music
-	./scripts/make_packages music
-	./scripts/make_module music
-server: packages/list-server
-	./scripts/make_packages server
-emulators: packages/list-emulators
-	./scripts/make_packages emulators
-	./scripts/make_module emulators
-multimedia: packages/list-multimedia
-	./scripts/make_packages multimedia
-	./scripts/make_module multimedia
-network: packages/list-network
-	./scripts/make_packages network
-	./scripts/make_module network
-games: packages/list-games
+modules: games music video multimedia fps network server emulators grapics office 
+
+games: ${LCMBUILD}/games-${ARCH}.squashfs
+${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
 	./scripts/make_packages games
 	./scripts/make_module games
-graphics: packages/list-graphics
+
+video: ${LCMBUILD}/video-${ARCH}.squashfs
+${LCMBUILD}/video-${ARCH}.squashfs : packages/list-video
+	./scripts/make_packages video
+	./scripts/make_module video
+
+video: ${LCMBUILD}/music-${ARCH}.squashfs
+${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
+	./scripts/make_packages music
+	./scripts/make_module music
+
+video: ${LCMBUILD}/server-${ARCH}.squashfs
+${LCMBUILD}/server-${ARCH}.squashfs : packages/list-server
+	./scripts/make_packages server
+	./scripts/make_module server
+
+video: ${LCMBUILD}/emulators-${ARCH}.squashfs
+${LCMBUILD}/emulators-${ARCH}.squashfs : packages/list-emulators
+	./scripts/make_packages emulators
+	./scripts/make_module emulators
+
+video: ${LCMBUILD}/multimedia-${ARCH}.squashfs
+${LCMBUILD}/multimedia-${ARCH}.squashfs : packages/list-multimedia
+	./scripts/make_packages multimedia
+	./scripts/make_module multimedia
+
+video: ${LCMBUILD}/nework-${ARCH}.squashfs
+${LCMBUILD}/network-${ARCH}.squashfs : packages/list-network
+	./scripts/make_packages network
+	./scripts/make_module network
+
+video: ${LCMBUILD}/graphics-${ARCH}.squashfs
+${LCMBUILD}/grapics-${ARCH}.squashfs : packages/list-graphics
 	./scripts/make_packages graphics
 	./scripts/make_module graphics
-fps: packages/list-fps
+
+video: ${LCMBUILD}/fps-${ARCH}.squashfs
+${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
 	./scripts/make_packages fps
 	./scripts/make_module fps
-office: packages/list-office
+
+video: ${LCMBUILD}/office-${ARCH}.squashfs
+${LCMBUILD}/office-${ARCH}.squashfs : packages/list-office
 	./scripts/make_packages office
 	./scripts/make_module office
-
-new: ${LCMBUILD}new-${ARCH}.squashfs
-${LCMBUILD}new-${ARCH}.squashfs : packages/list-new
-	./scripts/make_packages new
-#	./scripts/make_module new
 
 clean-linuxconsole:
 	# rm ${HOME}/ydfs/build/modules/linuxconsole-${ARCH}.squashfs

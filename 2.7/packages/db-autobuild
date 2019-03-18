@@ -834,6 +834,17 @@ pwd && sleep 5
 	 autoconf -f
   fi
 
+  if [ -e libindicator ]
+  then 
+    sed '/-Werror/s/$/ -Wno-deprecated-declarations/' -i Makefile.{am,in}
+    sed 's/LIBINDICATOR_LIBS+="$LIBM"/LIBINDICATOR_LIBS+=" $LIBM"/g' -i configure
+    sed 's/LIBM="-lmw"/LIBM=" -lmw"/g' -i configure
+    sed 's/LIBM="-lm"/LIBM=" -lm"/g' -i configure
+    sed 's/LIBS="-lm  $LIBS"/LIBS=" -lm  $LIBS"/g' -i configure
+    sed 's/LIBS="-lmw  $LIBS"/LIBS=" -lmw  $LIBS"/g' -i configure
+    sed 's/LIBM="-lm"/LIBM=" -lm"/g' -i m4/libtool.m4
+    ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+  fi
   if [ -e src/Stk.cpp ] || [ -e lib/findutils-version.c ] || [ -e libnumbertext.pc.in ]
   then
          ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
@@ -918,7 +929,7 @@ pwd && sleep 5
   [ -e Configure ] && [ -e lsof.h ] && CC=gcc ./Configure -n linux
   
   [ -e src/gallium/targets/opencl/Makefile.am ] && sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
-  
+ 
   if [ -e DISABLE/src/mesa ] && [ "$ARCH" != "arm" ]
   then
     ./configure --prefix=$DIBAB_PREFIX/$MODULE \
@@ -1180,6 +1191,12 @@ pwd && sleep 5
         touch buildok-$ARCH
         exit 0
     fi
+
+if [ -e data/supertuxkart.desktop ]
+then
+	svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets && mv stk-assets ..
+	svn checkout https://svn.code.sf.net/p/supertuxkart/code/media/trunk stk-media-repo && mv stk-media-repo ..
+fi
  
 if [ -e source/glest_game ]
 then
@@ -1208,7 +1225,6 @@ fi
     [ -e glew.pc.in ] && sed -i 's|lib64|lib|' config/Makefile.linux
 
     # Do not build with cmake
-
     if [ -e CMakeLists.txt ] \
  && [ ! -e doc/nghttp2_version.rst ] \
  && [ ! -e enet.dsp ] \
