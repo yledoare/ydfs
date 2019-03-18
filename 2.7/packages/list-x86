@@ -441,7 +441,7 @@ http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz
 http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz
 http://www.lua.org/ftp/lua-5.1.5.tar.gz # xmoto ...
 #http://www.lua.org/ftp/lua-5.2.4.tar.gz # xmoto ...
-http://www.lua.org/ftp/lua-5.3.4.tar.gz
+http://www.lua.org/ftp/lua-5.3.5.tar.gz
 https://bitbucket.org/odedevs/ode/downloads/ode-0.15.2.tar.gz
 https://github.com/devnev/libxdg-basedir/archive/libxdg-basedir-1.2.0.tar.gz
 http://roy.marples.name/downloads/dhcpcd/dhcpcd-6.11.5.tar.xz

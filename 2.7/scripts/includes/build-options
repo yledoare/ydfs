@@ -443,7 +443,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
               --enable-kwallet \
               --disable-update-check \
               --enable-notify \
-              --enable-libplacebo  --enable-vlc "
+              --enable-libplacebo  --enable-vlc " && export LUA_LIBS="$(pkg-config --libs lua)"
 	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
 	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"

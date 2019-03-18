@@ -1949,10 +1949,30 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       make install || exit $?
       cp src/liblua.so $PREFIX/lib || exit $?
       make INSTALL_TOP=$PREFIX install || exit $?
-      pkgver=5.3.4
+      pkgver=5.3.5
 	_majorver=${pkgver%.*}
-      wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lua.pc?h=packages/lua -O lua.pc
-      sed "s/%VER%/$_majorver/g;s/%REL%/$pkgver/g" lua.pc > $PREFIX/lib/pkgconfig/lua.pc
+      # wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lua.pc?h=packages/lua -O lua.pc
+echo 'V=%VER%
+R=%REL%
+
+prefix=/usr
+INSTALL_BIN=${prefix}/bin
+INSTALL_INC=${prefix}/include
+INSTALL_LIB=${prefix}/lib
+INSTALL_MAN=${prefix}/man/man1
+INSTALL_LMOD=${prefix}/share/lua/${V}
+INSTALL_CMOD=${prefix}/lib/lua/${V}
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Lua
+Description: An Extensible Extension Language
+Version: ${R}
+Requires: 
+Libs: -L${libdir} -llua -lm
+Cflags: -I${includedir}' > lua.pc
+     sed "s/%VER%/$_majorver/g;s/%REL%/$pkgver/g" lua.pc > $PREFIX/lib/pkgconfig/lua.pc
      sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/lua.pc
     fi
     touch buildok-$ARCH && exit 0
