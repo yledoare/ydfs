@@ -217,42 +217,42 @@ ${LCMBUILD}/video-${ARCH}.squashfs : packages/list-video
 	./scripts/make_packages video
 	./scripts/make_module video
 
-video: ${LCMBUILD}/music-${ARCH}.squashfs
+music: ${LCMBUILD}/music-${ARCH}.squashfs
 ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/make_packages music
 	./scripts/make_module music
 
-video: ${LCMBUILD}/server-${ARCH}.squashfs
+server: ${LCMBUILD}/server-${ARCH}.squashfs
 ${LCMBUILD}/server-${ARCH}.squashfs : packages/list-server
 	./scripts/make_packages server
 	./scripts/make_module server
 
-video: ${LCMBUILD}/emulators-${ARCH}.squashfs
+emulators: ${LCMBUILD}/emulators-${ARCH}.squashfs
 ${LCMBUILD}/emulators-${ARCH}.squashfs : packages/list-emulators
 	./scripts/make_packages emulators
 	./scripts/make_module emulators
 
-video: ${LCMBUILD}/multimedia-${ARCH}.squashfs
+multimedia: ${LCMBUILD}/multimedia-${ARCH}.squashfs
 ${LCMBUILD}/multimedia-${ARCH}.squashfs : packages/list-multimedia
 	./scripts/make_packages multimedia
 	./scripts/make_module multimedia
 
-video: ${LCMBUILD}/nework-${ARCH}.squashfs
+network: ${LCMBUILD}/network-${ARCH}.squashfs
 ${LCMBUILD}/network-${ARCH}.squashfs : packages/list-network
 	./scripts/make_packages network
 	./scripts/make_module network
 
-video: ${LCMBUILD}/graphics-${ARCH}.squashfs
+graphics: ${LCMBUILD}/graphics-${ARCH}.squashfs
 ${LCMBUILD}/grapics-${ARCH}.squashfs : packages/list-graphics
 	./scripts/make_packages graphics
 	./scripts/make_module graphics
 
-video: ${LCMBUILD}/fps-${ARCH}.squashfs
+fps: ${LCMBUILD}/fps-${ARCH}.squashfs
 ${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
 	./scripts/make_packages fps
 	./scripts/make_module fps
 
-video: ${LCMBUILD}/office-${ARCH}.squashfs
+office: ${LCMBUILD}/office-${ARCH}.squashfs
 ${LCMBUILD}/office-${ARCH}.squashfs : packages/list-office
 	./scripts/make_packages office
 	./scripts/make_module office
