@@ -237,8 +237,14 @@ fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
   . $HOME_DIBAB/scripts/includes/build-options
-    echo "run db-autobuild $DIBAB_PREFIX/$MODULE 2>$PWD/ydfs-error 1>$PWD/ydfs-log" 
-    db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
+    if [ "$DIBAB_VERBOSE_BUILD" = "YES" ] 
+    then
+      db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    else
+      echo "run db-autobuild $DIBAB_PREFIX/$MODULE 2>$PWD/ydfs-error 1>$PWD/ydfs-log" 
+      db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
+    fi
+
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi

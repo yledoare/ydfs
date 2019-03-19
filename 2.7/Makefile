@@ -139,7 +139,7 @@ iso: ${ISOPATH}
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD} config.ini #  ${LCMBUILD}/${ARCH}.squashfs
+${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs config.ini #  ${LCMBUILD}
 	./scripts/make_iso
 synciso: initramfs iso
 	scp /home/linuxconsole25/ydfs/iso/linuxconsole.iso yann@192.168.1.47:.
