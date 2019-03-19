@@ -205,7 +205,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 
-modules: games music video multimedia fps network server emulators grapics office 
+modules: games music office video multimedia fps network server emulators graphics
 
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
