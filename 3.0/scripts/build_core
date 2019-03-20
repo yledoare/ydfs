@@ -168,8 +168,8 @@ fi
   if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] || [  -n "`echo $PKGURL | grep 'git+https://'`" ]  
   then
     cd $HOME/ydfs/src
-    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
-    [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/"`
+    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1 | cut -d'#' -f1`
+    [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/" | cut -d'#' -f1` 
     cd $SOURCE_DIR
     echo "DEBUG ARCHIVE = $ARCHIVE"
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
