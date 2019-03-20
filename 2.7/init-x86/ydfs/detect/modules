@@ -132,6 +132,7 @@ mount tmpfs /dev/shm -t tmpfs -o 'defaults,noexec,nosuid,nodev'
 
 install -d $HOME/var/log # Xorg log
 install -d /var/run # Xorg optimus
+install -d /var/tmp # amdgpu OpenGL
 mkdir $HOME/multilib
 ln -s $HOME/$ARCH/lib32 $HOME/multilib
 ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib

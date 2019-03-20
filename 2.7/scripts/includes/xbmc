@@ -2,10 +2,6 @@
 if [ -e xbmc-xrandr.c ]
 then
 
-#    OLDPWD=$PWD
-#    cd /home/linuxconsole2018/ydfs/src/xbmc-17.6-Krypton/kodi-build/build/libdvd/src/dvdread/
-#	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif
-#	cd $OLDPWD
 
     mkdir kodi-build
     cd kodi-build
@@ -26,8 +22,12 @@ then
     -DENABLE_INTERNAL_FFMPEG=OFF \
     -DENABLE_OPTICAL=OFF \
     -DLIRC_DEVICE=/run/lirc/lircd \
-    ../project/cmake 
+    ../project/cmake || exit 1
 
+#    OLDPWD=$PWD
+#    cd /home/linuxconsole2018/ydfs/src/xbmc-17.6-Krypton/kodi-build/build/libdvd/src/dvdread/
+#	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif
+#    cd $OLDPWD
     sed -i -e 's/PKG_CHECK_MODULES(DVDREAD, dvdread >= 5.0.3)//' build/libdvd/src/dvdnav/configure
     sed -i -e 's/PKG_CHECK_MODULES(CSS, $CSS_REQUIRES)//' build/libdvd/src/dvdread/configure
 

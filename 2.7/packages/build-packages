@@ -299,7 +299,7 @@ fi
   echo $ARCHIVE | grep jasper && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC"
   echo $ARCHIVE | grep foomatic-db-engine && export LIBDIR=$DIBAB_PREFIX/$MODULE/share/foomatic 
   echo $ARCHIVE | grep gtk+-2.24 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/gtk+-2.24.9/gdk/.libs/"
-  echo $ARCHIVE | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS"
+  echo $ARCHIVE | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS" 
   echo $ARCHIVE | grep udev-164 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/udev-164/libudev/.libs/"
   echo $ARCHIVE | grep gst-plugins-bad && ln -s $HOME/$ARCH/include/openjpeg-2.2 $HOME/$ARCH/include/openjpeg-2.1
   echo $ARCHIVE | grep minetest && export LDFLAGS="$LDFLAGS -lIrrlicht" 
