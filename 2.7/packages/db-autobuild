@@ -1394,6 +1394,8 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 	exit 0
   fi
 
+. $(dirname $0)/../scripts/includes/xbmc
+
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
   [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
@@ -2157,7 +2159,6 @@ Cflags: -I${includedir}' > lua.pc
 
   [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
 . $(dirname $0)/../scripts/includes/games
-. $(dirname $0)/../scripts/includes/xbmc
   echo $HOME/ydfs/packages-$ARCH/$MYDIR
   if [ ! -e $HOME/ydfs/packages-$ARCH/$MYDIR ] 
   then 

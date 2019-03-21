@@ -205,7 +205,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 
-modules: games music office video multimedia fps network server emulators graphics
+modules: games music office video multimedia fps network emulators graphics
 
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
@@ -243,7 +243,7 @@ ${LCMBUILD}/network-${ARCH}.squashfs : packages/list-network
 	./scripts/make_module network
 
 graphics: ${LCMBUILD}/graphics-${ARCH}.squashfs
-${LCMBUILD}/grapics-${ARCH}.squashfs : packages/list-graphics
+${LCMBUILD}/graphics-${ARCH}.squashfs : packages/list-graphics
 	./scripts/make_packages graphics
 	./scripts/make_module graphics
 

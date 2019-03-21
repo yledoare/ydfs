@@ -1,10 +1,12 @@
 #!/bin/sh
 if [ -e xbmc-xrandr.c ]
 then
-
+	echo "Build Kodi" && sleep 5
 
     mkdir kodi-build
     cd kodi-build
+	_crossguid_version=8f399e8bd4
+    [ ! -e crossguid.tar.gz ] && wget http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz && mv crossguid-$_crossguid_version.tar.gz crossguid.tar.gz
     [ ! -e libdvdcss.tar.gz ] && wget https://github.com/xbmc/libdvdcss/archive/1.4.1-Leia-Alpha-3.tar.gz && mv 1.4.1-Leia-Alpha-3.tar.gz libdvdcss.tar.gz
     [ ! -e libdvdnav.tar.gz ] && wget https://github.com/xbmc/libdvdnav/archive/6.0.0-Leia-Alpha-3.tar.gz && mv 6.0.0-Leia-Alpha-3.tar.gz libdvdnav.tar.gz
     [ ! -e libdvdread.tar.gz ] && wget https://github.com/xbmc/libdvdread/archive/6.0.0-Leia-Alpha-3.tar.gz && mv 6.0.0-Leia-Alpha-3.tar.gz libdvdread.tar.gz
@@ -35,6 +37,7 @@ then
     -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
     -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
     -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
+    -DCROSSGUID_URL="$PWD/crossguid.tar.gz" \
     -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
     -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
     -DENABLE_EVENTCLIENTS=ON \
