@@ -26,7 +26,7 @@
         [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --with-boost-libdir=/usr/lib/x86_64-linux-gnu/ "
         if [ "$ARCH" = "x86" ] 
 	then
-		CONFIGURE_OPTS=" --host=i686-linux-gnu --build=i686-linux-gnu"
+		CONFIGURE_OPTS="--with-boost-libdir=/usr/lib/i386-linux-gnu/ --host=i686-linux-gnu --build=i686-linux-gnu"
 		for dir in sbasic  scalc  schart  sdatabase  sdraw  shared  simpress  smath  swriter
 		do 
 			for lang in fr en-GB en-US
