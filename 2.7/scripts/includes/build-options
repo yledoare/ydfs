@@ -57,8 +57,9 @@ echo $ARCHIVE | grep telepathy-glib &&  LC_CONFIGURE_OPTS=" --enable-vala-bindin
 echo $ARCHIVE | grep evolution-data-server &&  LC_CONFIGURE_OPTS="-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON  -DENABLE_WEATHER=OFF -DWITH_KRB5=OFF -DENABLE_GOA=OFF -DENABLE_UOA=OFF"
 echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
+    # --without-npm \
 echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
-    --without-npm \
+    --shared-nghttp2 \
     --shared-openssl \
     --shared-zlib \
     --shared-cares "

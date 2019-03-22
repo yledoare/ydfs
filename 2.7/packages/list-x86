@@ -31,7 +31,7 @@ ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
 https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
 https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.15.tar.xz
 http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
-https://www.sqlite.org/2017/sqlite-src-3210000.zip
+https://www.sqlite.org/2019/sqlite-src-3270200.zip
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.gz
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.30.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/glib/2.58/glib-2.58.1.tar.xz
@@ -67,7 +67,7 @@ ftp://xmlsoft.org/libxml2/libxml2-2.9.9.tar.gz
 http://files.itstool.org/itstool/itstool-2.0.2.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.8.tar.gz
-http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.25.tar.xz
+http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.36.tar.xz
 #http://www.ijg.org/files/jpegsrc.v9b.tar.gz/
 https://downloads.sourceforge.net/project/libjpeg-turbo/1.5.2/libjpeg-turbo-1.5.2.tar.gz
 http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
@@ -133,7 +133,7 @@ http://people.freedesktop.org/~hughsient/releases/libgusb-0.2.9.tar.xz
 http://downloads.sourceforge.net/sourceforge/lcms/lcms2-2.8.tar.gz
 http://ftp.gnu.org/gnu/bash/bash-4.4.tar.gz
 https://github.com/scop/bash-completion/releases/download/2.4/bash-completion-2.4.tar.xz
-https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.16/src/nspr-4.16.tar.gz
+https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.21/src/nspr-4.21.tar.gz
 http://ftpmirror.gnu.org/autoconf/autoconf-2.13.tar.gz
 http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-52.2.1gnome1.tar.gz
 https://www.freedesktop.org/software/polkit/releases/polkit-0.115.tar.gz
@@ -379,7 +379,7 @@ https://github.com/pmem/ndctl/archive/v61.1.tar.gz
 http://rpm5.org/files/popt/popt-1.16.tar.gz
 https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz
 https://github.com/thom311/libnl/releases/download/libnl3_2_28/libnl-3.2.28.tar.gz
-https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_39_RTM/src/nss-3.39.tar.gz
+https://archive.mozilla.org/pub/security/nss/releases/NSS_3_42_1_RTM/src/nss-3.42.1.tar.gz
 https://releases.pagure.org/volume_key/volume_key-0.3.10.tar.xz
 git://github.com/Distrotech/dmraid.git
 https://github.com/storaged-project/libbytesize/releases/download/1.3/libbytesize-1.3.tar.gz
@@ -556,7 +556,7 @@ http://download.gnome.org/sources/gcr/3.12/gcr-3.12.2.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/evince-3.6.1.tar.xz 
-http://downloads.webmproject.org/releases/webp/libwebp-1.0.0.tar.gz
+http://downloads.webmproject.org/releases/webp/libwebp-1.0.2.tar.gz
 https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz  
 http://www.freedesktop.org/software/geoclue/releases/2.1/geoclue-2.1.8.tar.xz   
 http://camaya.net/download/gloox-1.0.20.tar.bz2  
@@ -676,7 +676,7 @@ ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 https://dl.winehq.org/wine/source/3.x/wine-3.16.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
-https://tls.mbed.org/download/mbedtls-2.3.0-gpl.tgz
+https://tls.mbed.org/download/mbedtls-2.16.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git
 http://downloads.sourceforge.net/strace/strace-4.20.tar.xz
 ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar.bz2

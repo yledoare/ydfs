@@ -1,0 +1,32 @@
+cat > mozconfig << "EOF"
+ac_add_options --disable-dbus
+ac_add_options --disable-necko-wifi
+ac_add_options --enable-system-sqlite
+ac_add_options --with-system-libevent
+ac_add_options --with-system-webp
+ac_add_options --with-system-icu
+ac_add_options --with-system-nspr
+ac_add_options --with-system-nss
+ac_add_options --enable-linker=gold
+ac_add_options --enable-official-branding
+ac_add_options --prefix=$PREFIX
+ac_add_options --enable-application=browser
+ac_add_options --disable-crashreporter
+ac_add_options --disable-updater
+ac_add_options --disable-tests
+ac_add_options --enable-optimize
+ac_add_options --enable-system-ffi
+ac_add_options --enable-system-pixman
+ac_add_options --with-system-bz2
+ac_add_options --with-system-jpeg
+ac_add_options --with-system-png
+ac_add_options --with-system-zlib
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
+EOF
+
+cp /home/linuxconsole2019/x86_64/include/nss/seccomon.h security/nss/lib/freebl/mpi/
+# LD_LIBRARY_PATH=/home/linuxconsole2019/x86_64/lib/:/home/linuxconsole2019/devtools/lib PATH=/home/linuxconsole2019/x86_64/bin/:/home/linuxconsole2019/devtools/bin/:$PATH SHELL=/bin/bash ./mach build
+# SHELL=/bin/bash ./mach build
+sed -e 's/checkImpl/checkFFImpl/g' -i js/src/vm/JSContext*.h &&
+CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I/home/linuxconsole2019/x86_64/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar NM=llvm-nm RANLIB=llvm-ranlib && MOZBUILD_STATE_PATH=${PWD}/mozbuild && ./mach build
+./mach install || exit 1
