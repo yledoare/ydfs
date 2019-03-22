@@ -222,10 +222,10 @@ ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/make_packages music
 	./scripts/make_module music
 
-server: ${LCMBUILD}/server-${ARCH}.squashfs
-${LCMBUILD}/server-${ARCH}.squashfs : packages/list-server
-	./scripts/make_packages server
-	./scripts/make_module server
+devtools: ${LCMBUILD}/devtools-${ARCH}.squashfs
+${LCMBUILD}/devtools-${ARCH}.squashfs : packages/list-devtools
+	./scripts/make_packages devtools
+	./scripts/make_module devtools
 
 emulators: ${LCMBUILD}/emulators-${ARCH}.squashfs
 ${LCMBUILD}/emulators-${ARCH}.squashfs : packages/list-emulators

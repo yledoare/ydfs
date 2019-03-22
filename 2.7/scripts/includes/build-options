@@ -167,7 +167,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep abe_1.1 && export LC_CONFIGURE_OPTS="--with-data-dir=$HOME/$MODULE/share/abe" 
 	echo $ARCHIVE | grep apr-util && export LC_CONFIGURE_OPTS="--with-apr=$HOME/$MODULE" 
 	echo $ARCHIVE | grep SuperTux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_BUILD_TYPE=Release" && export LDFLAGS="$LDFLAGS -lphysfs"
-	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
+	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" # && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
