@@ -19,6 +19,7 @@
 	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
 	export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/gpgme++/ "
+	export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/nss/ "
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ 
 	CONFIGURE_OPTS=""
 	env > env.log
@@ -67,7 +68,7 @@ do
   [ ! -e tar/$NAME ] && echo "$NAME is missing" && exit 1
 done
 
-	export CPPFLAGS="$CPPFLAGS -DU_USING_ICU_NAMESPACE=1"
+	export CPPFLAGS="$CPPFLAGS -DU_USING_ICU_NAMESPACE=1 "
 	# [ "$ARCH" = "x86" ] &&	./autogen.sh --with-java=/usr/bin/java --with-vendor="YourDistroFromScratch"  --prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc --with-lang="fr en-GB"
 	./autogen.sh --with-vendor="YourDistroFromScratch"  \
 		--with-external-tar=$PWD/tar \

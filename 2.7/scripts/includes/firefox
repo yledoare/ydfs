@@ -25,11 +25,12 @@ EOF
 
 echo "ac_add_options --prefix=$PREFIX" >> mozconfig
 [ "$ARCH" == "x86" ] && echo 'ac_add_options --host=i686-pc-linux-gnu
+ac_add_options --disable-rust
 ac_add_options --target=i686-pc-linux-gnu' >> mozconfig
 
 sed -e 's/checkImpl/checkFFImpl/g' -i js/src/vm/JSContext*.h
 
-CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I/home/linuxconsole2019/x86_64/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar NM=llvm-nm RANLIB=llvm-ranlib && MOZBUILD_STATE_PATH=${PWD}/mozbuild && ./mach build
+CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I$HOME/$ARCH/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar NM=llvm-nm RANLIB=llvm-ranlib && MOZBUILD_STATE_PATH=${PWD}/mozbuild && ./mach build
 
 ./mach install || exit 1
 
