@@ -1129,10 +1129,9 @@ pwd && sleep 5
     fi
 
 
+    [ -e config_unix.py ] && [ -e src/pygame.h ] &&  sed -i "s#/usr/local#/$HOME/$ARCH#" config_unix.py 
     if [ -e pm_linux/pmlinux.c ]
     then
-	cp $HOME/$ARCH/bin/../jre/lib/amd64/jli/libjli.so $HOME/$ARCH/lib
-	cp $HOME/$ARCH/bin/../jre/lib/i386/jli/libjli.so $HOME/$ARCH/lib
 	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
 	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
 	install -d pm_java/Release
