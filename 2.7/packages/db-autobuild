@@ -1135,9 +1135,46 @@ pwd && sleep 5
 	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
 	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
 	install -d pm_java/Release
-        install -d build/pm_java/ 
 	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
+
+	JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_i386.deb
+	[ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_amd64.deb
+
+	JREDEB=openjdk-8-jre-headless_8u212-b01-1_i386.deb
+	[ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1_amd64.deb
+	
+	JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-i386
+	[ "$ARCH" = "x86_64" ] && JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64
+
+	JDKLDLIBRARY_PATH=$PWD/usr/lib/jvm/java-8-openjdk-i386/lib/i386/jli
+	[ "$ARCH" = "x86_64" ] && JDKLDLIBRARY_PATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/jli
+
+	JDKPATH=$PWD/usr/lib/jvm/java-8-openjdk-i386/bin
+	[ "$ARCH" = "x86_64" ] && JDKPATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64/bin
+
+	[ ! -e $JDKDEB ] && wget http://ftp.us.debian.org/debian/pool/main/o/openjdk-8/$JDKDEB
+	[ ! -e $JREDEB ] && wget http://ftp.us.debian.org/debian/pool/main/o/openjdk-8/$JREDEB
+
+	if [ ! -e usr ]
+	then
+	  ar -x $JREDEB || exit 1
+	  tar xJvf data.tar.xz
+	  ar -x $JDKDEB
+	  tar xJvf data.tar.xz
+	fi
+
+	$JDK8PATH/bin/javac -version || exit 1
 	echo PORTMIDI
+		PATH=$JDKPATH:$PATH LD_LIBRARY_PATH=JDKLDLIBRARY_PATH:$LD_LIBRARY_PATH cmake . -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release \
+    -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release \
+    -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release || exit 1
+	make || exit 1
+	make install || exit 1
+	ln -s libportmidi.so $HOME/$ARCH/lib/libporttime.so
+        touch buildok-$ARCH
+        exit 0
+
     fi
 
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
