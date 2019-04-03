@@ -4,6 +4,11 @@ echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv
 echo $ARCHIVE | grep jdk11 && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
+
+echo $ARCHIVE | grep fstrcmp && install -d $HOME/$PREFIX/share/doc/fstrcmp
+
+echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
+
 echo $ARCHIVE | grep lmms && echo "LMMS "
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \

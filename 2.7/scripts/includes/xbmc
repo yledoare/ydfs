@@ -5,59 +5,55 @@ then
 
     mkdir kodi-build
     cd kodi-build
-	_crossguid_version=8f399e8bd4
-    [ ! -e crossguid.tar.gz ] && wget http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz && mv crossguid-$_crossguid_version.tar.gz crossguid.tar.gz
-    [ ! -e libdvdcss.tar.gz ] && wget https://github.com/xbmc/libdvdcss/archive/1.4.1-Leia-Alpha-3.tar.gz && mv 1.4.1-Leia-Alpha-3.tar.gz libdvdcss.tar.gz
-    [ ! -e libdvdnav.tar.gz ] && wget https://github.com/xbmc/libdvdnav/archive/6.0.0-Leia-Alpha-3.tar.gz && mv 6.0.0-Leia-Alpha-3.tar.gz libdvdnav.tar.gz
-    [ ! -e libdvdread.tar.gz ] && wget https://github.com/xbmc/libdvdread/archive/6.0.0-Leia-Alpha-3.tar.gz && mv 6.0.0-Leia-Alpha-3.tar.gz libdvdread.tar.gz
-    [ ! -e 3.1.11-Krypton-17.5.tar.gz ] && wget https://github.com/xbmc/FFmpeg/archive/3.1.11-Krypton-17.5.tar.gz
-	pwd
+_codename=Leia
+_libdvdcss_version="1.4.2-$_codename-Beta-5"
+_libdvdnav_version="6.0.0-$_codename-Alpha-3"
+_libdvdread_version="6.0.0-$_codename-Alpha-3"
+_ffmpeg_version="4.0.3-$_codename-RC5"
+_fmt_version="5.1.0"
+_crossguid_version="8f399e8bd4"
 
+for LIST in "https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "https://github.com/xbmc/FFmpeg/archive/$_ffmpeg_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" 
+do
+	FILE=`basename $LIST`
+	[ ! -e "$FILE" ] && wget $LIST
+	[ ! -e "$FILE" ] && sleep 20 && exit 1
+done
 	
-    CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
-    -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
-    -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
-    -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
-    -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
+    # -Dlibdvdread_URL=$PWD/$_libdvdread_version.tar.gz \
+    # -Dlibdvdnav_URL=$PWD/$_libdvdnav_version.tar.gz \
+    OPTS=" -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    -Dlibdvdcss_URL=$PWD/$_libdvdcss_version.tar.gz \
+    -DFMT_URL=$PWD/fmt-$_fmt_version.tar.gz \
+    -DCROSSGUID_URL=$PWD/crossguid-$_crossguid_version.tar.gz \
+    -DFSTRCMP_URL=$PWD/fstrcmp-$_fstrcmp_version.tar.gz \
+    -DFFMPEG_URL=$PWD/3.1.11-Krypton-17.5.tar.gz \
     -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
     -DENABLE_EVENTCLIENTS=ON \
     -DENABLE_INTERNAL_FFMPEG=OFF \
     -DENABLE_OPTICAL=OFF \
-    -DLIRC_DEVICE=/run/lirc/lircd \
-    ../project/cmake 
+    -DLIRC_DEVICE=/run/lirc/lircd"
+    echo " OPTS : $OPTS"
 
-    sed -i -e 's/PKG_CHECK_MODULES(DVDREAD, dvdread >= 5.0.3)//' build/libdvd/src/dvdnav/configure
-    sed -i -e 's/PKG_CHECK_MODULES(CSS, $CSS_REQUIRES)//' build/libdvd/src/dvdread/configure
+    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ 
 
-    CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
-    -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
-    -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
-    -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
-    -DCROSSGUID_URL="$PWD/crossguid.tar.gz" \
-    -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
-    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
-    -DENABLE_EVENTCLIENTS=ON \
-    -DENABLE_INTERNAL_FFMPEG=OFF \
-    -DENABLE_OPTICAL=OFF \
-    -DLIRC_DEVICE=/run/lirc/lircd \
-    ../project/cmake 
+    echo "BUILD 1 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdread/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
 
-    sed -i -e 's/PKG_CHECK_MODULES(DVDREAD, dvdread >= 5.0.3)//' build/libdvd/src/dvdnav/configure
-    sed -i -e 's/PKG_CHECK_MODULES(CSS, $CSS_REQUIRES)//' build/libdvd/src/dvdread/configure
+    echo "BUILD 2 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdnav/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
 
-    CXX="g++ -I$PWD/build/include/" cmake -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
-    -Dlibdvdcss_URL="$PWD/libdvdcss.tar.gz" \
-    -Dlibdvdnav_URL="$PWD/libdvdnav.tar.gz" \
-    -Dlibdvdread_URL="$PWD/libdvdread.tar.gz" \
-    -DFFMPEG_URL="$PWD/3.1.11-Krypton-17.5.tar.gz" \
-    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
-    -DENABLE_EVENTCLIENTS=ON \
-    -DENABLE_INTERNAL_FFMPEG=OFF \
-    -DENABLE_OPTICAL=OFF \
-    -DLIRC_DEVICE=/run/lirc/lircd \
-    ../project/cmake || exit $?
+    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
 
-     VERBOSE=1 make || exit $?
+    VERBOSE=1 make || exit $?
      make install || exit $?
      DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
   if [ "$MODULE" = "opkg" ]
