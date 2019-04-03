@@ -484,6 +484,7 @@ else
 
 . $(dirname $0)/../scripts/includes/login
 
+. $(dirname $0)/../scripts/includes/xbmc
 
   if [ -e src/SFML ] && [ -e $PREFIX/include/SFML ]
   then
@@ -1417,7 +1418,6 @@ Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromena
 
   fi
 
-. $(dirname $0)/../scripts/includes/xbmc
 
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
