@@ -5,7 +5,7 @@ echo $ARCHIVE | grep jdk11 && . $HOME/ydfs/firstenv
 echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
 echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
 
-echo $ARCHIVE | grep fstrcmp && install -d $HOME/$PREFIX/share/doc/fstrcmp
+echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
 
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
 
@@ -643,6 +643,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep gdb && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep mozjs-52 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep libodfgen && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep libass && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep strace && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep gegl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep php-7 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"

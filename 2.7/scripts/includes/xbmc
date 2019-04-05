@@ -11,9 +11,10 @@ _libdvdnav_version="6.0.0-$_codename-Alpha-3"
 _libdvdread_version="6.0.0-$_codename-Alpha-3"
 _ffmpeg_version="4.0.3-$_codename-RC5"
 _fmt_version="5.1.0"
+_fstrcmp_version="0.7.D001"
 _crossguid_version="8f399e8bd4"
 
-for LIST in "https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "https://github.com/xbmc/FFmpeg/archive/$_ffmpeg_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" 
+for LIST in "http://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "https://github.com/xbmc/FFmpeg/archive/$_ffmpeg_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" 
 do
 	FILE=`basename $LIST`
 	[ ! -e "$FILE" ] && wget $LIST
@@ -31,6 +32,7 @@ done
     -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
     -DENABLE_EVENTCLIENTS=ON \
     -DENABLE_INTERNAL_FFMPEG=OFF \
+    -DENABLE_INTERNAL_FSTRCMP=ON \
     -DENABLE_OPTICAL=OFF \
     -DLIRC_DEVICE=/run/lirc/lircd"
     echo " OPTS : $OPTS"
