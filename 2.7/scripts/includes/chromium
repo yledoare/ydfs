@@ -1,0 +1,90 @@
+if [ -e LICENSE.chromium_os ]
+then
+  echo "Chromium"
+
+wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/chromium-system-icu.patch?h=packages/chromium -O patch
+patch -p1 < patch
+# BoringSSL
+[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+
+# cp -fR $HOME/ydfs/src/protobuf-*/* third_party/protobuf/
+
+gn_system_libraries=(
+		flac
+		fontconfig
+		freetype
+		libdrm
+		libjpeg
+		libpng
+		libwebp
+		libxml
+		libxslt
+		re2
+		snappy
+		yasm
+		zlib
+		icu
+	)
+gn_system_libraries+=( ffmpeg opus )
+build/linux/unbundle/replace_gn_files.py --system-libraries "${gn_system_libraries[@]}" || exit 1
+
+sed -i '/fPIC/a  ldflags += [ "-L'$HOME"/"$ARCH'/lib" ]' build/config/compiler/BUILD.gn
+
+install -d third_party/llvm-build
+ln -s /usr third_party/llvm-build/Release+Asserts
+ls $HOME/$ARCH/include | while read include
+do
+  [ ! -e third_party/angle/include/$include ] && ln -s $HOME/$ARCH/include/$include third_party/angle/include/
+  [ ! -e $include ] && ln -s $HOME/$ARCH/include/$include .
+done
+
+rm json
+rm google
+
+# echo ninja -C out/Release chrome 
+#  bash
+  python build/linux/unbundle/replace_gn_files.py     \
+    --system-libraries flac libjpeg libxml libevent \
+                       libwebp libxslt opus yasm    || exit 1
+  python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
+
+  _flags=(
+'clang_use_chrome_plugins=false'
+'enable_nacl=false'
+'enable_nacl_nonsfi=false'
+'enable_swiftshader=false'
+'enable_widevine=true'
+'fatal_linker_warnings=false'
+'ffmpeg_branding="Chrome"'
+'is_debug=false'
+'link_pulseaudio=true'
+'linux_use_bundled_binutils=false'
+'proprietary_codecs=true'
+'remove_webcore_debug_symbols=true'
+'symbol_level=0'
+'treat_warnings_as_errors=false'
+'use_allocator="none"'
+'use_cups=true'
+'use_gnome_keyring=false'
+'use_gold=false'
+'use_kerberos=false'
+'use_pulseaudio=true'
+'use_sysroot=false'
+'use_system_freetype=true'
+'use_system_harfbuzz=true'
+)
+
+  export CC=clang
+  export CXX=clang++
+  export AR=ar
+  export NM=nm
+
+python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
+out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
+
+mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
+
+ninja -C out/Release chrome || exit 100
+
+  sleep 100
+fi
