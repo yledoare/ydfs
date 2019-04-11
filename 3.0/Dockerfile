@@ -36,5 +36,8 @@ RUN apt-get install -y cpio kmod xorriso
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
 
+# To build chromium
+RUN apt-get install lld
+
 USER linuxconsole2019
 CMD /home/linuxconsole2019/build-lc2019

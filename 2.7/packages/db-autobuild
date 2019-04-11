@@ -174,6 +174,7 @@ else
   [ -e libparted/arch/linux.c ] && sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c 
   [ -e src/tuxpaint.desktop ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/tuxpaint.desktop ] && sed -i "s@kbuildsycoca4@echo kbuildsycoca4@" Makefile
+  [ -e openh264.pc.in ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
@@ -454,7 +455,17 @@ else
 	done
   fi
 
+  if [ -e pciutils.h ]
+  then
+   echo "pciutils.h" 
+   make OPT="${CFLAGS}" ZLIB=no SHARED=yes PREFIX=$PREFIX SBINDIR=$PREFIX/bin SHAREDIR=$PREFIX/share/hwdata MANDIR=$PREFIX/share/man all || exit 1
+   make PREFIX=$PREFIX SBINDIR=$PREFIX/bin SHAREDIR=$PREFIX/share/hwdata MANDIR=$PREFIX/share/man install install-lib || exit 1
+   ln -s libpci.so.3 $PREFIX/lib/libpci.so
+   touch buildok-$ARCH
+   exit 0
+  fi
 
+. $(dirname $0)/../scripts/includes/chromium
 . $(dirname $0)/../scripts/includes/qt5
 . $(dirname $0)/../scripts/includes/virtualbox
 . $(dirname $0)/../scripts/includes/gmic
