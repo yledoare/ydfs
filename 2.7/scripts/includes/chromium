@@ -22,7 +22,6 @@ gn_system_libraries=(
 		re2
 		snappy
 		yasm
-		zlib
 		icu
 	)
 gn_system_libraries+=( ffmpeg opus )

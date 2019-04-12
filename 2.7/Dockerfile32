@@ -36,7 +36,7 @@ RUN ln -s /usr/lib/i386-linux-gnu/libmpfr.so.6 /usr/lib/i386-linux-gnu/libmpfr.s
 RUN apt-get install -y cpio kmod xorriso
 
 # To build chromium
-RUN apt-get install lld
+RUN apt-get install lld-7
 
 USER linuxconsole2019
 CMD /home/linuxconsole2019/build-lc2019

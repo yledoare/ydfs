@@ -37,7 +37,7 @@ RUN apt-get install -y cpio kmod xorriso
 RUN apt-get install lib32z1
 
 # To build chromium
-RUN apt-get install lld
+RUN apt-get install lld-7
 
 USER linuxconsole2019
 CMD /home/linuxconsole2019/build-lc2019

@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y vim ack wget openjdk-11-jdk-headless li
 RUN apt-get install -y cpio kmod xorriso
 
 # To build chromium
-RUN apt-get install lld
+RUN apt-get install lld-7
 # To build firefox
 RUN apt-get install cbindgen
 # Cross compile for raspbery 
