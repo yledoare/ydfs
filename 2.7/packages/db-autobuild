@@ -153,6 +153,7 @@ else
   [ -e ryzom/ryzom ] && cd ryzom
   export SHELL=/bin/bash
   pwd | grep wget-1 && export PYTHON=/usr/bin/python3 
+  pwd |grep mozo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep speech-dispatcher && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep pycairo-1.18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep elogind && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
