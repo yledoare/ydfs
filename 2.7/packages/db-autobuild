@@ -1150,11 +1150,16 @@ pwd && sleep 5
 	install -d pm_java/Release
 	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
 
-	JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_i386.deb
-	[ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_amd64.deb
+	# JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_i386.deb
+	JDKDEB=openjdk-8-jdk-headless_8u212-b01-1~deb9u1_i386.deb
+        # http://security.debian.org/debian-security/pool/updates/main/o/openjdk-8/
+	# [ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_amd64.deb
+	[ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8/openjdk-8-jdk-headless_8u212-b01-1~deb9u1_amd64.deb
 
-	JREDEB=openjdk-8-jre-headless_8u212-b01-1_i386.deb
-	[ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1_amd64.deb
+	# JREDEB=openjdk-8-jre-headless_8u212-b01-1_i386.deb
+        JREDEB=openjdk-8-jre-headless_8u212-b01-1~deb9u1_i386.deb
+	# [ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1_amd64.deb
+	[ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1~deb9u1_amd64.deb
 	
 	JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-i386
 	[ "$ARCH" = "x86_64" ] && JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64
@@ -1167,7 +1172,8 @@ pwd && sleep 5
 
 	[ ! -e $JDKDEB ] && wget http://ftp.us.debian.org/debian/pool/main/o/openjdk-8/$JDKDEB
 	[ ! -e $JREDEB ] && wget http://ftp.us.debian.org/debian/pool/main/o/openjdk-8/$JREDEB
-
+        [ ! -e $JDKDEB ] && exit 1
+        [ ! -e $JREDEB ] && exit 1
 	if [ ! -e usr ]
 	then
 	  ar -x $JREDEB || exit 1
