@@ -39,6 +39,8 @@ done
 
 rm json
 rm google
+rm zlib.h
+rm zconf.h
 
 # echo ninja -C out/Release chrome 
 #  bash
