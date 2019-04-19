@@ -1,4 +1,4 @@
-if [ -e LICENSE.chromium_os ]
+if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
   echo "Chromium"
 
