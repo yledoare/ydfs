@@ -15,7 +15,6 @@ gn_system_libraries=(
 		freetype
 		libdrm
 		libjpeg
-		libpng
 		libwebp
 		libxml
 		libxslt

@@ -232,6 +232,11 @@ ${LCMBUILD}/devtools-${ARCH}.squashfs : packages/list-devtools
 	./scripts/make_packages devtools
 	./scripts/make_module devtools
 
+accessibility: ${LCMBUILD}/accessibility-${ARCH}.squashfs
+${LCMBUILD}/accessibility-${ARCH}.squashfs : packages/list-accessibility
+	./scripts/make_packages accessibility
+	./scripts/make_module accessibility
+
 emulators: ${LCMBUILD}/emulators-${ARCH}.squashfs
 ${LCMBUILD}/emulators-${ARCH}.squashfs : packages/list-emulators
 	./scripts/make_packages emulators

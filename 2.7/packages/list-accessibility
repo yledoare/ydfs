@@ -1,6 +1,10 @@
+https://download.kde.org/stable/applications/18.12.3/src/kmag-18.12.3.tar.xz
 git://github.com/williamh/dotconf.git
+https://github.com/espeak-ng/pcaudiolib/archive/1.1/pcaudiolib-1.1.tar.gz
+https://github.com/espeak-ng/espeak-ng/archive/1.49.2.tar.gz
+# FIXME
+# http://www.cstr.ed.ac.uk/downloads/festival/2.4/festival-2.4-release.tar.gz
 https://www.freebsoft.org/pub/projects/speechd/speech-dispatcher-0.8.8.tar.gz
-#http://downloads.sourceforge.net/espeak/espeak-1.48.04-source.zip
 http://mielke.cc/brltty/archive/brltty-5.6.tar.xz
 https://telepathy.freedesktop.org/releases/telepathy-glib/telepathy-glib-0.24.1.tar.gz
 https://download.gnome.org/sources/cogl/1.22/cogl-1.22.2.tar.xz
