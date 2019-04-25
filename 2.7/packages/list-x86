@@ -716,7 +716,6 @@ https://download.gnome.org/sources/libpeas/1.22/libpeas-1.22.0.tar.xz
 https://pub.mate-desktop.org/releases/1.22/eom-1.22.0.tar.xz
 https://pub.mate-desktop.org/releases/1.22/pluma-1.22.0.tar.xz
 https://pub.mate-desktop.org/releases/1.22/engrampa-1.22.0.tar.xz
-http://pub.mate-desktop.org/releases/1.22/mozo-1.22.0.tar.xz
 http://http.debian.net/debian/pool/main/libg/libgtop2/libgtop2_2.28.4.orig.tar.bz2
 https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.19.tar.xz
 https://pub.mate-desktop.org/releases/1.22/mate-utils-1.22.0.tar.xz
@@ -735,6 +734,7 @@ http://download.qt.io/official_releases/qt/5.12/5.12.1/submodules/qtwebengine-ev
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+http://pub.mate-desktop.org/releases/1.22/mozo-1.22.0.tar.xz
 http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.8.tar.gz
 http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 git://github.com/snowballstem/snowball#commit=fc2adaa96b0561506e6c1a80d73de7f4e0fa9663
