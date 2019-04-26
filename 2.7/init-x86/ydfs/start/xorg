@@ -13,7 +13,17 @@ Section "InputClass"
 EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
 
-[ ! -e /etc/X11/xorg.conf.d/amdgpu.conf ] && echo '
+AMD=""
+lspci | grep VGA | grep AMD && AMD=OK
+
+if [ "$AMD" == "OK" ]
+then
+
+Xorg -configure
+grep amdgpu /xorg.conf.new && AMD=amdgpu
+grep radeon /xorg.conf.new && AMD=radeon
+
+[ "$AMD" == "amdgpu" ] && [ ! -e /etc/X11/xorg.conf.d/amdgpu.conf ] && echo '
 Section "Device"
     Option "DRI3" "False"
     Identifier "Card0"
@@ -21,13 +31,15 @@ Section "Device"
 EndSection
 ' > /etc/X11/xorg.conf.d/amdgpu.conf
 
-[ ! -e /etc/X11/xorg.conf.d/radeon.conf ] && echo '
+[ "$AMD" = "radeon" ] && [ ! -e /etc/X11/xorg.conf.d/radeon.conf ] && echo '
 Section "Device"
     Option "DRI3" "False"
     Identifier "Card0"
     Driver "radeon"
 EndSection
 ' > /etc/X11/xorg.conf.d/radeon.conf
+
+fi
 
 export HOME=/root
 
