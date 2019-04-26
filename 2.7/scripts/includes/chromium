@@ -4,6 +4,8 @@ if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
   echo "Chromium"
 
+  if [ ! -e out/Release/chrome ]
+  then
 wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/chromium-system-icu.patch?h=packages/chromium -O patch
 patch -p1 < patch
 # BoringSSL
@@ -106,7 +108,53 @@ out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/
 
 mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
 
-ninja -C out/Release chrome || exit 100
+# ninja -C out/Release chrome || exit 100
+ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
 
-  sleep 100
+  fi
+
+  _launcher_ver=6
+  wget https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz || exit 1
+  tar xzvf  v$_launcher_ver.tar.gz
+  cd chromium-launcher-$_launcher_ver
+  make PREFIX=$PREFIX install || exit 1
+  cd ..
+
+  install -D out/Release/chrome "$PREFIX/lib/chromium/chromium"
+  install -Dm4755 out/Release/chrome_sandbox "$PREFIX/lib/chromium/chrome-sandbox"
+  ln -s $PREFIX/lib/chromium/chromedriver "$PREFIX/bin/chromedriver"
+
+  install -Dm644 chrome/installer/linux/common/desktop.template \
+    "$PREFIX/share/applications/chromium.desktop"
+  install -Dm644 chrome/app/resources/manpage.1.in \
+    "$PREFIX/share/man/man1/chromium.1"
+  sed -i \
+    -e "s/@@MENUNAME@@/Chromium/g" \
+    -e "s/@@PACKAGE@@/chromium/g" \
+    -e "s/@@USR_BIN_SYMLINK_NAME@@/chromium/g" \
+    "$PREFIX/share/applications/chromium.desktop" \
+    "$PREFIX/share/man/man1/chromium.1"
+
+  cp \
+    out/Release/{chrome_{100,200}_percent,resources}.pak \
+    out/Release/{*.bin,chromedriver} \
+    "$PREFIX/lib/chromium/"
+  install -Dm644 -t "$PREFIX/lib/chromium/locales" out/Release/locales/*.pak
+
+  if [[ -z ${_system_libs[icu]+set} ]]; then
+    cp out/Release/icudtl.dat "$PREFIX/lib/chromium/"
+  fi
+
+  for size in 22 24 48 64 128 256; do
+    install -Dm644 "chrome/app/theme/chromium/product_logo_$size.png" \
+      "$PREFIX/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+  done
+
+  for size in 16 32; do
+    install -Dm644 "chrome/app/theme/default_100_percent/chromium/product_logo_$size.png" \
+      "$PREFIX/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+  done
+
+  touch buildok-$ARCH
+  exit 0 
 fi
