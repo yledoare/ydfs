@@ -140,7 +140,8 @@ install -d $HOME/ydfs/modules/$ARCH/include/python2.7 && cp $HOME/$ARCH/include/
 ln -sf libcurl.so.4 $HOME/ydfs/modules/$ARCH/lib/libcurl-gnutls.so.4
 ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
 ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
-# cp -a /etc/ssl/ $HOME/ydfs/modules/$ARCH/etc
+install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
+cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 
 [ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
 chmod +s $HOME/ydfs/modules/$ARCH/bin/su
