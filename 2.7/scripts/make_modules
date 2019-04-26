@@ -78,7 +78,7 @@ LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module > $HOM
 grep 'What is wrong with' $HOME/ydfs/modules/$ARCH.log && exit 1
 LDLINUX="ld-linux.so.2 libunwind-x86.so.8"
 [ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8"
-LIBLLVM=6.0
+LIBLLVM=7.0
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
 LIBBOOST=67
 
