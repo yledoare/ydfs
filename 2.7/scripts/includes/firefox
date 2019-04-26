@@ -47,5 +47,8 @@ LDFLAGS="$LDFLAGS -Wl,--no-keep-memory -Wl,--no-keep-memory -Wl,--no-keep-files-
 
 ./mach install || exit 1
 
+wget https://ftp.mozilla.org/pub/firefox/releases/66.0.3/linux-x86_64/xpi/fr.xpi
+mv fr.xpi $PREFIX/lib/firefox/browser/extensions/langpack-fr@firefox.mozilla.org.xpi
+ 
 touch buildok-$ARCH
 exit 0 
