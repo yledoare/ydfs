@@ -61,6 +61,35 @@ rm re2
                        libwebp libxslt opus yasm    || exit 1
   python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
 
+if [ "$ARCH" = "x86" ] 
+then
+  _flags=(
+'target_cpu = "x86"'
+'clang_use_chrome_plugins=false'
+'enable_nacl=false'
+'enable_nacl_nonsfi=false'
+'enable_swiftshader=false'
+'enable_widevine=true'
+'fatal_linker_warnings=false'
+'ffmpeg_branding="Chrome"'
+'is_debug=false'
+'link_pulseaudio=true'
+'linux_use_bundled_binutils=false'
+'proprietary_codecs=true'
+'remove_webcore_debug_symbols=true'
+'symbol_level=0'
+'treat_warnings_as_errors=false'
+'use_allocator="none"'
+'use_cups=true'
+'use_gnome_keyring=false'
+'use_gold=false'
+'use_kerberos=false'
+'use_pulseaudio=true'
+'use_sysroot=false'
+'use_system_freetype=true'
+'use_system_harfbuzz=true'
+)
+else
   _flags=(
 'clang_use_chrome_plugins=false'
 'enable_nacl=false'
@@ -86,6 +115,7 @@ rm re2
 'use_system_freetype=true'
 'use_system_harfbuzz=true'
 )
+fi
 
   export CC=clang
   export CXX=clang++
@@ -102,14 +132,23 @@ rm re2
     CXXFLAGS+=' -fno-unwind-tables -fno-asynchronous-unwind-tables'
     CPPFLAGS+=' -DNO_UNWIND_TABLES'
 
+	mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
+if [ "$ARCH" = "x86" ] 
+then
+#	export 'CXX=clang++ -m32'
+#  	LDFLAGS+='  -m32 '
+#  	CFLAGS+='  -m32 '
+#	CXXFLAGS+=' -m32 '
+#mkdir -p third_party/node/linux/node-linux-x86/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x86/bin/
+	linux32 python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
+	linux32 out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
+	linux32 ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
+else
+	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
+	out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
+	ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
+fi
 
-python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
-out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
-
-mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
-
-# ninja -C out/Release chrome || exit 100
-ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
 
   fi
 
