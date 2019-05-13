@@ -11,3 +11,4 @@ http://distfiles.audacious-media-player.org/audacious-plugins-3.5.1.tar.bz2
 #https://github.com/andrewrk/libsoundio/archive/2.0.0.tar.gz
 #git://github.com/LMMS/lmms.git
 git://github.com/lmms/lmms.git#tag=v1.2.0-rc8
+https://github.com/mixxxdj/mixxx/archive/release-2.2.1.tar.gz

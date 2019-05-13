@@ -76,8 +76,8 @@ BOOT=NAND
 	    then
           echo "KERNEL3=4.1.48" >> config.ini
 	    else
-          # echo "KERNEL3=4.19.15" >> config.ini
-          echo "KERNEL3=4.19.36" >> config.ini
+          echo "KERNEL3=4.19.42" >> config.ini
+          # echo "KERNEL3=4.14.117" >> config.ini
 	    fi
         # autres cas non prévus
         echo "ARCH=$arch" >> config.ini
