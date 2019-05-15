@@ -1,0 +1,6 @@
+if [ "$USER" = "root" ]
+then
+  $HOME_DIBAB/linuxconsole/bin/falkon --no-sandbox "$@"
+else
+  $HOME_DIBAB/linuxconsole/bin/falkon "$@"
+fi

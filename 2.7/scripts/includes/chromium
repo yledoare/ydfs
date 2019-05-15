@@ -171,8 +171,10 @@ fi
     -e "s/@@MENUNAME@@/Chromium/g" \
     -e "s/@@PACKAGE@@/chromium/g" \
     -e "s/@@USR_BIN_SYMLINK_NAME@@/chromium/g" \
-    "$PREFIX/share/applications/chromium.desktop" \
-    "$PREFIX/share/man/man1/chromium.1"
+    "$PREFIX/share/applications/chromium.desktop" 
+  sed -i \
+    -e "s@/usr/bin/chromium@chromium@g" \
+    "$PREFIX/share/applications/chromium.desktop" 
 
   cp \
     out/Release/{chrome_{100,200}_percent,resources}.pak \
