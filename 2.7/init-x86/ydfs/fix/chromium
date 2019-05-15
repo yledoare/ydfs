@@ -1,0 +1,1 @@
+[ ! -e /usr/lib/chromium ] && ln -s $HOME_DIBAB/linuxconsole/lib/chromium/ /usr/lib

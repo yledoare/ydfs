@@ -71,6 +71,7 @@ fi
 chmod +x /etc/X11/Xsession
 
 /ydfs/fix/r128
+/ydfs/fix/chromium
 /ydfs/install/desktop-install-menus &
 
 

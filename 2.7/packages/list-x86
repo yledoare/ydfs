@@ -457,7 +457,7 @@ http://libndp.org//files/libndp-1.6.tar.gz
 https://github.com/akheron/jansson/archive/v2.11.tar.gz
 ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.19.tar.bz2
 https://download.gnome.org/sources/NetworkManager/1.12/NetworkManager-1.12.0.tar.xz
-https://github.com/blueman-project/blueman/releases/download/2.0.6/blueman-2.0.6.tar.xz 
+https://github.com/blueman-project/blueman/releases/download/2.0.8/blueman-2.0.8.tar.xz 
 http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
 https://download.gnome.org/sources/network-manager-applet/1.8/network-manager-applet-1.8.14.tar.xz
 http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
@@ -495,6 +495,7 @@ http://search.cpan.org/CPAN/authors/id/C/CA/CADE/Text-Patch-1.8.tar.gz
 http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/Alien-SDL-1.444.tar.gz 
 http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/SDL-2.546.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/ack-2.24.tar.gz
+http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/File-Next-1.16.tar.gz
 http://icculus.org/physfs/downloads/physfs-3.0.1.tar.bz2
 http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.1.tar.gz
 https://downloads.sourceforge.net/infozip/zip30.tar.gz
