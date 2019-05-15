@@ -3,6 +3,9 @@ echo 'mount -t aufs -o dirs=/$1:/$2 aufs $2' > /bin/mountsfsrw
 chmod +x /bin/mountsfsrw
 
 install -d /etc/modprobe.d
+
+[ ! -e /etc/modprobe.d/snd_hda_codec_hdmi ] && echo "blacklist snd_hda_codec_hdmi" > /etc/modprobe.d/snd_hda_codec_hdmi
+
 echo "blacklist pcspkr" > /etc/modprobe.d/pcspkr
 echo "blacklist snd_pcsp" > /etc/modprobe.d/snd_pcsp
 #echo "options iwlwifi power_level=3" > /etc/modprobe.d/test.conf
