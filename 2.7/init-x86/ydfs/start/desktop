@@ -5,6 +5,7 @@ install -d $HOME/Desktop
 # echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root
 echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
 
+
 # Fix wine startup
 # [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
 # sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
@@ -12,7 +13,6 @@ sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gpa
 
 install -d $HOME/.local/share/applications
 update-desktop-database
-which midori && ln -s `which midori` /fix/w3m
 
 if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
 then
@@ -26,6 +26,7 @@ else
  else
    if [ -e /usr/bin/mate-session ]
    then
+	/ydfs/start/plogoff  &
 	/usr/libexec/bluetooth/obexd &
 	caja --force-desktop -n &
 	gsettings set org.mate.background picture-filename '/etc/ydfs.png'

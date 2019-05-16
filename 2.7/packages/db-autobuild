@@ -189,6 +189,8 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
    
+  [ -e $HOME/$ARCH/include/vamp-hostsdk-disabled ] && mv $HOME/$ARCH/include/vamp-hostsdk-disabled $HOME/$ARCH/include/vamp-hostsdk
+  [ -e $HOME/$ARCH/include/vamp-sdk-disabled ] && mv $HOME/$ARCH/include/vamp-sdk-disabled $HOME/$ARCH/include/vamp-sdk
   [ -e $HOME/$ARCH/include/libavcodec-disabled ] && mv $HOME/$ARCH/include/libavcodec-disabled $HOME/$ARCH/include/libavcodec
   [ -e $HOME/$ARCH/include/gtest-disabled ] && mv $HOME/$ARCH/include/gtest-disabled $HOME/$ARCH/include/gtest
   [ -e $HOME/$ARCH/include/libavutil-disabled ] && mv $HOME/$ARCH/include/libavutil-disabled $HOME/$ARCH/include/libavutil
@@ -1867,6 +1869,8 @@ echo "At BUILDPERL"
 	if [ -e src/mixxx.cpp ] 
         then
 	  echo "Mixx build"
+          mv $HOME/$ARCH/include/vamp-hostsdk $HOME/$ARCH/include/vamp-hostsdk-disabled
+          mv $HOME/$ARCH/include/vamp-sdk $HOME/$ARCH/include/vamp-sdk-disabled
 	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
   	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
 	  scons $SCONS_OPT build=release qt5=1 qtdir=$HOME/$ARCH/ optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT || exit $?

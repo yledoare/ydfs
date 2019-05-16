@@ -1,0 +1,14 @@
+#!/bin/bash
+LIST_USERS=""
+while read -r file
+do
+  LIST_USERS="$LIST_USERS FALSE $file"
+done <<<$(ls /home)
+echo $LIST_USERS
+
+USER=$(zenity  --list --hide-header --width=400 --height=200  --text "Choose user for Parental LogOff" --radiolist  --column "Choice" --column "Type" $LIST_USERS)
+VALUE=$(zenity --scale --text="Max time, in hour for $USER"  --value=2 --min-value=1 --max-value=12)
+echo "USER =$USER, VALUE=$VALUE"
+
+install -d /home/$USER/.config/
+echo $VALUE > /home/$USER/.config/plogoff

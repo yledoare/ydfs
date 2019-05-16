@@ -1,0 +1,43 @@
+#!/bin/bash
+
+[ "$USER" == "root" ] && exit 0
+[ ! -e ${HOME}/.config/plogoff ] && exit 0
+
+DATADIR=$HOME/.local/data/plogoff/
+DATESTAMP=$(date +%d%m%Y)
+
+install -d $HOME/.local/data/plogoff
+
+ls $HOME/.local/data/plogoff|while read file
+do
+  echo $file | grep $DATESTAMP || rm $DATADIR/$file
+done
+
+[ ! -e $DATADIR/$DATESTAMP ] && echo 1 > $DATADIR/$DATESTAMP
+
+MAX=$(cat ${HOME}/.config/plogoff)
+
+MAXMIN=$(($MAX * 60))
+
+echo "Max : $MAXMIN"
+
+while [ 1 ]
+do
+	COUNT=$(cat $DATADIR/$DATESTAMP)
+	echo "Count : $COUNT"
+	sleep 60
+	MINUTES=$(($MAXMIN - $COUNT))
+	[ $MINUTES -lt 2 ] && break
+	echo $MINUTES
+	if [ $MINUTES -lt 50 ]
+        then
+ 	  zenity --info --text="logoff in $MINUTES minutes .." &
+        fi
+	echo $(($COUNT + 1)) > $DATADIR/$DATESTAMP
+done
+
+zenity --info --text="logoff in 1 minute " &
+sleep 60
+
+killall x-session-manager
+killall mate-session
