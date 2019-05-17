@@ -128,7 +128,7 @@ http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz
 http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz 
 http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.54/gobject-introspection-1.54.1.tar.xz
 https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz 
-http://pkg-shadow.alioth.debian.org/releases/shadow-4.2.1.tar.xz 
+https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 http://ftp.de.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu2.tar.gz
 http://people.freedesktop.org/~hughsient/releases/libgusb-0.2.9.tar.xz
 http://downloads.sourceforge.net/sourceforge/lcms/lcms2-2.8.tar.gz
