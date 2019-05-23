@@ -4,6 +4,8 @@ if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
   echo "Chromium"
 
+
+
   if [ ! -e out/Release/chrome ]
   then
 wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/chromium-system-icu.patch?h=packages/chromium -O patch
@@ -61,6 +63,8 @@ rm re2
                        libwebp libxslt opus yasm    || exit 1
   python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
 
+_google_api_key=AIzaSyAsY2XziAFgSzJszeM96SB-J2GFuAIFnQk
+
 if [ "$ARCH" = "x86" ] 
 then
   _flags=(
@@ -114,6 +118,7 @@ else
 'use_sysroot=false'
 'use_system_freetype=true'
 'use_system_harfbuzz=true'
+"google_api_key=\"${_google_api_key}\""
 )
 fi
 

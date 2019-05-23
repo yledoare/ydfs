@@ -731,7 +731,7 @@ https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
 https://download.kde.org/stable/frameworks/5.50/ki18n-5.50.0.tar.xz
-http://download.qt.io/official_releases/qt/5.12/5.12.1/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
+#http://download.qt.io/official_releases/qt/5.12/5.12.1/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 # Python-3 to build Libreoffice
 https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
