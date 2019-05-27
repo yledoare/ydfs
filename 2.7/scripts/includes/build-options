@@ -197,11 +197,12 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep zynaddsubfx && export LC_CONFIGURE_OPTS=" -DGuiModule=fltk -DDefaultOutput=jack -DDefaultInput=jack "
 	echo $ARCHIVE | grep lxappearance && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep minetest && export LC_CONFIGURE_OPTS="-DBUILD_SERVER=0 -DIRRLICHT_INCLUDE_DIR=$HOME/include/irrlicht -DIRRLICHT_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE \
+    -DENABLE_LUAJIT=0 \
     -DBUILD_CLIENT=1 \
     -DENABLE_GETTEXT=1 \
     -DENABLE_FREETYPE=1 \
     -DENABLE_LEVELDB=0 \
-    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-0.4.15/src/lua/src $CFLAGS"
+    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-5.0.1/src -I$HOME/ydfs/src/minetest-5.0.1/lib/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-5.0.1/src -I$HOME/ydfs/src/minetest-5.0.1/lib/lua/src $CFLAGS"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
 	echo $ARCHIVE | grep xbmc && export LC_CONFIGURE_OPTS="--disable-debug"

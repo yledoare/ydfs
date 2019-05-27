@@ -23,7 +23,7 @@ done
 	
     # -Dlibdvdread_URL=$PWD/$_libdvdread_version.tar.gz \
     # -Dlibdvdnav_URL=$PWD/$_libdvdnav_version.tar.gz \
-    OPTS=" -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+    OPTS=" -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -Dlibdvdcss_URL=$PWD/$_libdvdcss_version.tar.gz \
     -DFMT_URL=$PWD/fmt-$_fmt_version.tar.gz \
     -DCROSSGUID_URL=$PWD/crossguid-$_crossguid_version.tar.gz \

@@ -84,7 +84,7 @@ fi
 	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
     fi
 
-    if [ -e ../bin/minetest ]
+    if [ -e ../bin/minetestold ]
     then
       echo "Install libjsoncpp.so"
       install -d $PREFIX/lib

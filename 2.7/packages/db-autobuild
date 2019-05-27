@@ -1724,6 +1724,18 @@ ln -sf $PREFIX/bin/2H4U .
     exit 0
   fi
 
+  if [ -e gvfs.doap ]
+  then
+	rm -fR build
+	mkdir build
+	cd build
+	echo "Gvfs"
+	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
+	PYTHONPATH="" ninja || exit $?
+	PYTHONPATH="" ninja install || exit $?
+	exit 0	
+  fi
+
   if [ -e gnome-disk-utility.doap ]
   then
 	mkdir build

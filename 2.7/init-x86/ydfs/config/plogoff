@@ -2,6 +2,7 @@
 LIST_USERS=""
 while read -r file
 do
+	echo $file | grep linuxconsole2019 && continue
   LIST_USERS="$LIST_USERS FALSE $file"
 done <<<$(ls /home)
 echo $LIST_USERS
