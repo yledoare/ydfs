@@ -1106,7 +1106,8 @@ pwd && sleep 5
 	FILE=fpc-3.0.4.x86_64
 	[ "$ARCH" = "x86" ] && FILE=fpc-3.0.4.i386
         TAR=$FILE-linux.tar
-	[ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	# [ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	[ ! -e "$TAR" ] && wget https://freefr.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
 	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
