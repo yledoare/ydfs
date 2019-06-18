@@ -188,7 +188,6 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
-   
   [ -e $HOME/$ARCH/include/vamp-hostsdk-disabled ] && mv $HOME/$ARCH/include/vamp-hostsdk-disabled $HOME/$ARCH/include/vamp-hostsdk
   [ -e $HOME/$ARCH/include/vamp-sdk-disabled ] && mv $HOME/$ARCH/include/vamp-sdk-disabled $HOME/$ARCH/include/vamp-sdk
   [ -e $HOME/$ARCH/include/libavcodec-disabled ] && mv $HOME/$ARCH/include/libavcodec-disabled $HOME/$ARCH/include/libavcodec
@@ -1258,6 +1257,8 @@ pwd && sleep 5
 
 if [ -e data/supertuxkart.desktop ]
 then
+	echo "Disable irrlicht includes"
+	mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
 	LD_LIBRARY_PATH="" svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets && mv stk-assets ..
 	LD_LIBRARY_PATH="" svn checkout https://svn.code.sf.net/p/supertuxkart/code/media/trunk stk-media-repo && mv stk-media-repo ..
 fi
@@ -1388,6 +1389,18 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	else
 	  VERBOSE=1 make || exit 13
 	fi
+      if [ -e ../man/mariadb-service-convert.1 ]
+      then
+	echo "Maria DB"
+  	for dir in libmariadb libservices include; do
+    		make -C "$dir" install || exit 1
+  	done
+
+  	ln -s mariadb_config "$PREFIX"/bin/mysql_config
+  	install -D -m0644 support-files/mariadb.pc "$PREFIX"/share/pkgconfig/mariadb.pc || exit 1
+   	touch ../buildok-$ARCH
+	exit 0
+      fi 
       if [ -e ../build/AstroMenace ]
       then
 	cd ..
@@ -1727,13 +1740,15 @@ ln -sf $PREFIX/bin/2H4U .
 
   if [ -e gvfs.doap ]
   then
-	rm -fR build
+	# rm -fR build
 	mkdir build
 	cd build
 	echo "Gvfs"
 	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
+    	touch buildok-$ARCH
+    	exit 0
 	exit 0	
   fi
 
