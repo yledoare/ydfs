@@ -2191,6 +2191,17 @@ Cflags: -I${includedir}' > lua.pc
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
 
+
+      if [ -e chntpw ]
+      then
+	for file in chntpw reged cpnt
+        do
+          cp $file $PREFIX/bin || exit 1
+        done 
+        touch buildok-$ARCH
+        exit 0
+      fi
+
       if [ -e qtquickcontrols ]
       then
 	for QTDIR in `ls`
