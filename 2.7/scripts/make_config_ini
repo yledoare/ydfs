@@ -19,8 +19,13 @@ HOME_DIBAB=${PWD}
 
 # enable this to configure toolchain, busybox and kernel
 # MENUCONFIG=YES
-# DIBAB_VERBOSE_BUILD=YES
 ' > config.ini
+if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
+then
+echo 'DIBAB_VERBOSE_BUILD=YES' >> config.ini
+else
+echo '#DIBAB_VERBOSE_BUILD=YES' >> config.ini
+fi
 
 # récupération de l'architecture par défaut(type de processeur)
 def_arch=`uname -m | sed -e s/i.86/x86/`

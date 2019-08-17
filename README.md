@@ -10,7 +10,7 @@ Features :
 # Build ydfs ISO
 
 * mkdir ydfs
-* chmod 77 ydfs
+* chmod 777 ydfs
 
 Automatic Build :
 
