@@ -8,8 +8,7 @@ then
 
   if [ ! -e out/Release/chrome ]
   then
-wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/chromium-system-icu.patch?h=packages/chromium -O patch
-patch -p1 < patch
+patch -p1 < $HOME_DIBAB/packages/patches/chromium-system-icu.patch || sleep 10
 # BoringSSL
 [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
 

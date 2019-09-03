@@ -210,7 +210,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 
-modules: games music chromium office video multimedia fps network emulators graphics
+modules: chromium games music office video multimedia fps network emulators graphics
 
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
