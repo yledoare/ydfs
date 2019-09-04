@@ -8,7 +8,11 @@
 }
 
 if [ -e bsnes ]
-then
+then 
+	ls $HOME/$ARCH/include | while read dir
+do
+	ln -s $HOME/$ARCH/include/$dir bsnes
+done
     make -C bsnes || exit 1
     make -C bsnes prefix="$PREFIX" install || exit 1
     touch buildok-$ARCH
