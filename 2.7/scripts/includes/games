@@ -7,6 +7,14 @@
 	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
 }
 
+if [ -e bsnes ]
+then
+    make -C bsnes || exit 1
+    make -C bsnes prefix="$PREFIX" install || exit 1
+    touch buildok-$ARCH
+    exit 0 
+fi
+
 if [ -e unix/chessx.desktop ]
 then
   install -Dm644 "unix/chessx.desktop" $PREFIX/share/applications
