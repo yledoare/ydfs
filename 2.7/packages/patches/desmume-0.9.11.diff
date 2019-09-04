@@ -1,0 +1,66 @@
+diff --git a/src/MMU_timing.h b/src/MMU_timing.h
+index 9da0a09..a9520c1 100755
+--- a/src/MMU_timing.h
++++ b/src/MMU_timing.h
+@@ -155,8 +155,8 @@ private:
+ 	enum { ASSOCIATIVITY = 1 << ASSOCIATIVESHIFT };
+ 	enum { BLOCKSIZE = 1 << BLOCKSIZESHIFT };
+ 	enum { TAGSHIFT = SIZESHIFT - ASSOCIATIVESHIFT };
+-	enum { TAGMASK = (u32)(~0 << TAGSHIFT) };
+-	enum { BLOCKMASK = ((u32)~0 >> (32 - TAGSHIFT)) & (u32)(~0 << BLOCKSIZESHIFT) };
++	enum { TAGMASK = (u32)(~0U << TAGSHIFT) };
++	enum { BLOCKMASK = ((u32)~0U >> (32 - TAGSHIFT)) & (u32)(~0U << BLOCKSIZESHIFT) };
+ 	enum { WORDSIZE = sizeof(u32) };
+ 	enum { WORDSPERBLOCK = (1 << BLOCKSIZESHIFT) / WORDSIZE };
+ 	enum { DATAPERWORD = WORDSIZE * ASSOCIATIVITY };
+diff --git a/src/ctrlssdl.cpp b/src/ctrlssdl.cpp
+index 8ae5d5c..03c2691 100755
+--- a/src/ctrlssdl.cpp
++++ b/src/ctrlssdl.cpp
+@@ -200,7 +200,7 @@ u16 get_joy_key(int index) {
+           break;
+         case SDL_JOYAXISMOTION:
+           /* Dead zone of 50% */
+-          if( (abs(event.jaxis.value) >> 14) != 0 )
++          if( ((u32)abs(event.jaxis.value) >> 14) != 0 )
+             {
+               key = ((event.jaxis.which & 15) << 12) | JOY_AXIS << 8 | ((event.jaxis.axis & 127) << 1);
+               if (event.jaxis.value > 0) {
+@@ -370,7 +370,7 @@ do_process_joystick_events( u16 *keypad, SDL_Event *event) {
+          Note: button constants have a 1bit offset. */
+     case SDL_JOYAXISMOTION:
+       key_code = ((event->jaxis.which & 15) << 12) | JOY_AXIS << 8 | ((event->jaxis.axis & 127) << 1);
+-      if( (abs(event->jaxis.value) >> 14) != 0 )
++      if( ((u32)abs(event->jaxis.value) >> 14) != 0 )
+         {
+           if (event->jaxis.value > 0)
+             key_code |= 1;
+diff --git a/src/utils/libfat/directory.cpp b/src/utils/libfat/directory.cpp
+index 765d7ae..b6d7f01 100755
+--- a/src/utils/libfat/directory.cpp
++++ b/src/utils/libfat/directory.cpp
+@@ -139,7 +139,7 @@ static size_t _FAT_directory_mbstoucs2 (ucs2_t* dst, const char* src, size_t len
+ 	int bytes;
+ 	size_t count = 0;
+ 
+-	while (count < len-1 && src != '\0') {
++	while (count < len-1 && *src != '\0') {
+ 		bytes = mbrtowc (&tempChar, src, MB_CUR_MAX, &ps);
+ 		if (bytes > 0) {
+ 			*dst = (ucs2_t)tempChar;
+diff --git a/src/wifi.cpp b/src/wifi.cpp
+index 299cebc..2712276 100755
+--- a/src/wifi.cpp
++++ b/src/wifi.cpp
+@@ -314,9 +314,9 @@ WifiComInterface* wifiCom;
+ 
+ #if (WIFI_LOGGING_LEVEL >= 1)
+ 	#if WIFI_LOG_USE_LOGC
+-		#define WIFI_LOG(level, ...) if(level <= WIFI_LOGGING_LEVEL) LOGC(8, "WIFI: "__VA_ARGS__);
++		#define WIFI_LOG(level, ...) if(level <= WIFI_LOGGING_LEVEL) LOGC(8, "WIFI: " __VA_ARGS__);
+ 	#else
+-		#define WIFI_LOG(level, ...) if(level <= WIFI_LOGGING_LEVEL) printf("WIFI: "__VA_ARGS__);
++		#define WIFI_LOG(level, ...) if(level <= WIFI_LOGGING_LEVEL) printf("WIFI: " __VA_ARGS__);
+ 	#endif
+ #else
+ #define WIFI_LOG(level, ...) {}
