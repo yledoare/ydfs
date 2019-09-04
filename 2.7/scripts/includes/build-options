@@ -30,6 +30,9 @@ echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
     --disable-java-binding "
 
+echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
+              --enable-shared \
+              --with-pic " 
 echo $ARCHIVE | grep FileZilla_Client &&  LC_CONFIGURE_OPTS=" --disable-manualupdatecheck --disable-autoupdatecheck --with-pugixml=builtin --with-wx-config=/$HOME/$ARCH/bin/wx-config-gtk3"
 
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
