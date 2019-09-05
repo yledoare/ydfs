@@ -78,7 +78,8 @@ http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
 http://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip
 https://www.alsa-project.org/files/pub/utils/alsa-utils-1.1.8.tar.bz2 
 https://www.alsa-project.org/files/pub/oss-lib/alsa-oss-1.1.8.tar.bz2
-https://github.com/ivmai/libatomic_ops/archive/libatomic_ops-7_4_4.zip
+https://github.com/ivmai/libatomic_ops/releases/download/v7.6.10/libatomic_ops-7.6.10.tar.gz
+https://github.com/ivmai/bdwgc/releases/download/v7.6.8/gc-7.6.8.tar.gz
 #http://www.hpl.hp.com/research/linux/atomic_ops/download/atomic_ops-0.5.tar.gz 
 http://ftp.gnu.org/pub/gnu/gperf/gperf-3.0.4.tar.gz
 https://ftp.gnu.org/pub/gnu/texinfo/texinfo-6.3.tar.xz
@@ -646,7 +647,7 @@ https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.t
 https://github.com/google/protobuf/archive/v3.7.0.tar.gz
 http://hg.openjdk.java.net/jdk-updates/jdk11u/archive/jdk-11.0.2+7.tar.gz
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
-ftp://ftp.gnu.org/pub/gnu/guile/guile-2.0.11.tar.gz 
+https://ftp.gnu.org/pub/gnu/guile/guile-2.0.14.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
 https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-0.6.3.tar.xz
