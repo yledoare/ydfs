@@ -2194,6 +2194,7 @@ Cflags: -I${includedir}' > lua.pc
 
       if [ -e chntpw ]
       then
+        install -d $PREFIX/bin
 	for file in chntpw reged cpnt
         do
           cp $file $PREFIX/bin || exit 1
