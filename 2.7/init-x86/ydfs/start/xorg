@@ -92,6 +92,7 @@ else
   xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err
   if [ $? != 0 ]
   then
+    grep EE /var/log/xinit.err
     echo "Error when loading Xorg" > /dev/tty1
     echo "Rescue shell with ALT+F2 " > /dev/tty1
     echo "enter exit to poweroff " > /dev/tty1
