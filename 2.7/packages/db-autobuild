@@ -188,6 +188,7 @@ else
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
+  [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
   [ -e $HOME/$ARCH/include/vamp-hostsdk-disabled ] && mv $HOME/$ARCH/include/vamp-hostsdk-disabled $HOME/$ARCH/include/vamp-hostsdk
   [ -e $HOME/$ARCH/include/vamp-sdk-disabled ] && mv $HOME/$ARCH/include/vamp-sdk-disabled $HOME/$ARCH/include/vamp-sdk
   [ -e $HOME/$ARCH/include/libavcodec-disabled ] && mv $HOME/$ARCH/include/libavcodec-disabled $HOME/$ARCH/include/libavcodec
