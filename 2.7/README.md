@@ -14,7 +14,8 @@ Verbose Build, without sharing output ISO :
 
 Manual :
 
-* docker run yledoare/ydfs bash
+* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null
+* docker exec -ti ydfs bash
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
 * cd 2.7
