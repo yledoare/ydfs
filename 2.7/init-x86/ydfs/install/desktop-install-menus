@@ -4,19 +4,18 @@ cd /
 
 while [ 1 ]
 do
-  busybox sleep 5
-  wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.tar.gz 
-  if [ -e desktop-install-menus.tar.gz ]
+  busybox sleep 9
+  busybox wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.sh
+  if [ -e desktop-install-menus.sh ]
   then
-    tar xzvhf desktop-install-menus.tar.gz && break
-    tar xzvhf desktop-install-menus.tar.gz || break
-    rm desktop-install-menus.tar.gz
+    sh desktop-install-menus.sh
+    break
   fi
   [ -e /tmp/stop ] && break
 done
 
-[ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe /etc/localtime
-ntpdate 1.fr.pool.ntp.org
+# [ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe /etc/localtime
+# ntpdate 1.fr.pool.ntp.org
 
-opkg-cl update
-opkg-cl install fixes
+# opkg-cl update
+# opkg-cl install fixes

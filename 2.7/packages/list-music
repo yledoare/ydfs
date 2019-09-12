@@ -4,6 +4,7 @@
 #https://launchpad.net/libindicator/12.10/12.10.1/+download/libindicator-12.10.1.tar.gz
 #http://launchpad.net/libappindicator/12.10/12.10.0/+download/libappindicator-12.10.0.tar.gz
 #https://launchpad.net/audio-recorder/trunk/stable/+download/audio-recorder_2.2.3.tar.xz
+http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
 git://github.com/hydrogen-music/hydrogen.git#commit=538eaeb9f4e9be2febf02e36a08e3e9fca2ae317
 https://github.com/audacity/audacity/archive/Audacity-2.2.2.tar.gz
 http://distfiles.audacious-media-player.org/audacious-3.5.1.tar.bz2  
