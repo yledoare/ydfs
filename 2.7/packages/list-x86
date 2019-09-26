@@ -121,8 +121,8 @@ http://www.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
 ftp://ftp.gnu.org/gnu/groff/groff-1.22.3.tar.gz
 http://ftp.igh.cnrs.fr/pub/nongnu//attr/attr-2.4.47.src.tar.gz 
 https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.25.tar.xz
-https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-25.tar.xz
-https://github.com/gentoo/eudev/archive/v3.2.2.tar.gz
+https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-26.tar.xz
+https://github.com/gentoo/eudev/archive/v3.2.5.tar.gz
 https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2
 https://downloads.sourceforge.net/libmtp/libmtp-1.1.15.tar.gz
 http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz

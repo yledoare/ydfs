@@ -99,13 +99,13 @@ chmod u+s /usr/libexec/dbus-daemon-launch-helper
 mkdir /run
 
 
-#udevd --daemon --debug
-if [ -e /ydfs/boot/options/debug ]
-then
-  udevd --daemon --debug
-else
-  udevd --daemon
-fi
+udevd --daemon --debug
+#if [ -e /ydfs/boot/options/debug ]
+#then
+#  udevd --daemon --debug
+#else
+#  udevd --daemon
+#fi
   
 dbus-daemon --system
 
