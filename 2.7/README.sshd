@@ -15,7 +15,12 @@ ssh-keygen -t rsa -f $HOME/x86_64/etc/ssh/ssh_host_rsa_key -N ""
 ssh-keygen -t dsa -f $HOME/x86_64/etc/ssh/ssh_host_dsa_key -N ""
 exit
 
+docker exec -u root -ti sshd bash
 useradd sshd
 chown root /home/linuxconsole2019/
-passd linuxconsole2019
+passwd linuxconsole2019
 /home/linuxconsole2019/x86_64/sbin/sshd
+
+...
+
+ssh linuxconsole2019@X.X.X.X -p 2222
