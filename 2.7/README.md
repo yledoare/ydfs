@@ -19,3 +19,9 @@ Manual :
 * cd ydfs
 * cd 2.7
 * make 
+
+Troubleshooting :
+
+Error when build QT ?
+Add "--security-opt seccomp:unconfined" option on Debian Strech
+https://stackoverflow.com/questions/52705124/why-qdirexists-do-not-work-in-docker-container
