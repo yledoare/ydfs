@@ -1,0 +1,26 @@
+# Build and run sshd
+docker run -d -p 2222:22 --name sshd yledoare/ydfs tail -f /dev/null
+docker exec -ti sshd bash
+git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+cd ydfs
+cd 2.7
+echo https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.9p1.tar.gz > packages/list-x86
+make
+...
+git checkout packages/list-x86
+
+install -d $HOME/x86_64/etc/ssh
+ssh-keygen -f $HOME/x86_64/etc/ssh/ssh_host_key -N ""
+ssh-keygen -t rsa -f $HOME/x86_64/etc/ssh/ssh_host_rsa_key -N ""
+ssh-keygen -t dsa -f $HOME/x86_64/etc/ssh/ssh_host_dsa_key -N ""
+exit
+
+docker exec -u root -ti sshd bash
+useradd sshd
+chown root /home/linuxconsole2019/
+passwd linuxconsole2019
+/home/linuxconsole2019/x86_64/sbin/sshd
+
+...
+
+ssh linuxconsole2019@X.X.X.X -p 2222

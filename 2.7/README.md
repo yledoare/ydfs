@@ -1,12 +1,11 @@
 # Build ydfs ISO
 
-* mkdir ydfs
-* chmod 777 ydfs
+* mkdir iso
+* chmod 777 iso
 
 Automatic Build :
 
-* docker pull yledoare/ydfs
-* docker run --mount type=bind,source="$(pwd)"/ydfs,target=/home/linuxconsole2019/ydfs  yledoare/ydfs
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs 
 
 Verbose Build, without sharing output ISO :
 

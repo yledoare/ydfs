@@ -11,7 +11,7 @@ LCBUILD=`date +"%Y-%m-%d"`
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
 LCMBUILD=${HOME}/ydfs/build/modules/
 
-ISOTMP=${HOME}/ydfs/iso
+ISOTMP=${HOME}/iso
 # MODULES="${ARCH}"
 MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH}"
 MODULES="chromium-${ARCH} games-${ARCH} music-${ARCH} office-${ARCH} video-${ARCH} multimedia-${ARCH} fps-${ARCH} network-${ARCH} emulators-${ARCH} graphics-${ARCH}"
