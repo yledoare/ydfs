@@ -620,7 +620,7 @@ http://freefr.dl.sourceforge.net/project/dssi/dssi/1.1.1/dssi-1.1.1.tar.gz
 http://downloads.sourceforge.net/liblo/liblo-0.28.tar.gz
 http://download.librdf.org/source/raptor2-2.0.15.tar.gz
 https://github.com/swh/LRDF/archive/0.5.0.tar.gz
-http://lv2plug.in/spec/lv2-1.12.0.tar.bz2
+http://lv2plug.in/spec/lv2-1.16.0.tar.bz2
 https://code.soundsoftware.ac.uk/attachments/download/2450/vamp-plugin-sdk-2.8.0.tar.gz
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 #tools
@@ -633,11 +633,11 @@ https://launchpad.net/python-distutils-extra/trunk/2.38/+download/python-distuti
 http://www.greenwoodsoftware.com/less/less-479.tar.gz
 ftp://ftp.astron.com/pub/file/file-5.24.tar.gz
 ftp://ftp.gnu.org/gnu/a2ps/a2ps-4.14.tar.gz
-http://download.drobilla.net/serd-0.20.0.tar.bz2
-http://download.drobilla.net/sord-0.12.2.tar.bz2
+https://download.drobilla.net/serd-0.30.2.tar.bz2
+https://download.drobilla.net/sord-0.16.4.tar.bz2
 http://download.drobilla.net/sratom-0.4.6.tar.bz2
-http://download.drobilla.net/suil-0.8.2.tar.bz2
-http://download.drobilla.net/lilv-0.20.0.tar.bz2
+https://download.drobilla.net/suil-0.10.6.tar.bz2
+https://download.drobilla.net/lilv-0.24.6.tar.bz2
 http://download.librdf.org/source/raptor2-2.0.15.tar.gz
 https://github.com/swh/LRDF/archive/0.5.0.tar.gz
 http://code.breakfastquay.com/attachments/download/34/rubberband-1.8.1.tar.bz2
@@ -834,7 +834,7 @@ https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar
 https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
 https://download.gnome.org/sources/libbonoboui/2.24/libbonoboui-2.24.5.tar.bz2
 https://download.gnome.org/sources/libgnomeui/2.24/libgnomeui-2.24.5.tar.bz2
-https://aubio.org/pub/aubio-0.4.7.tar.bz2
+https://aubio.org/pub/aubio-0.4.9.tar.bz2
 #Who needs it ??
 #https://webkitgtk.org/releases/webkitgtk-2.22.2.tar.xz
 https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz

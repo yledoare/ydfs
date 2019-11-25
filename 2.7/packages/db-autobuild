@@ -1949,21 +1949,18 @@ echo "At BUILDPERL"
      touch buildok-$ARCH
      if [ -e ardour.1 ] 
      then
-       ./waf install --destdir=$HOME/ydfs/packages-$ARCH/$MYDIR
-       cd $HOME/ydfs/packages-$ARCH/$MYDIR
-      install -d $PREFIX/share/applications/
-echo "[Desktop Entry]
-Name=Ardour 4
-Comment=Multitrack hard disk recorder
-Exec=ardour4
-Icon=$PREFIX/share/ardour4/icons/ardour_icon_256px.png
-Terminal=false
-Type=Application
-X-MultipleArgs=false
-Categories=GTK;Audio;AudioVideoEditing;AudioVideo;Video;" > $PREFIX/share/applications/ardour.desktop
-	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-       cp $PREFIX/share/applications/ardour.desktop  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
-       $HOME_DIBAB/scripts/make_opkg || exit $?
+          pkgname=ardour
+          ./waf i18n --destdir="${pkgdir}" || exit 1
+          ./waf install --destdir="${pkgdir}" || exit 1
+          # xdg integration
+          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}.xml" \
+              -t "${pkgdir}/share/mime/packages/" || exit 1
+          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}${pkgver%%.*}.desktop" \
+               "${pkgdir}/share/applications/${pkgname}.desktop" || exit 1
+          for size in 16 22 32 48 256 512; do
+            install -vDm 644 "gtk2_${pkgname}/resources/${_name}-icon_${size}px.png" \
+            "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}${pkgver%%.*}.png" || exit 1
+          done
        exit 0
      fi
   fi
