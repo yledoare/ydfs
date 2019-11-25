@@ -1937,6 +1937,15 @@ echo "At BUILDPERL"
   then
 	[ -e ydfs.env ] && mv ydfs.env ydfs.env.bak 
 	env > ydfs.env
+       pwd | grep ardour &&  LC_CONFIGURE_OPTS=" --with-backends=jack,alsa,dummy \
+                        --libjack=weak \
+                        --nls \
+                        --optimize \
+                        --cxx11 \
+                        --freedesktop \
+                        --ptformat \
+                        --lxvst \
+                        --no-phone-home"
       echo "Run ./waf "
 	 if [ -e src/plugins/avcodec ]
 	   then
@@ -1944,25 +1953,26 @@ echo "At BUILDPERL"
 		 else
      ./waf configure --prefix=$PREFIX $LC_CONFIGURE_OPTS
      fi
+     [ -e ardour.1 ] && echo "DEBUG LC_CONFIGURE_OPTS $LC_CONFIGURE_OPTS" && sleep 10
      ./waf || exit $?
      ./waf install || exit $?
-     touch buildok-$ARCH
      if [ -e ardour.1 ] 
      then
           pkgname=ardour
-          ./waf i18n --destdir="${pkgdir}" || exit 1
-          ./waf install --destdir="${pkgdir}" || exit 1
+          ./waf i18n || exit 1
+          ./waf install || exit 1
           # xdg integration
           install -vDm 644 "build/gtk2_${pkgname}/${pkgname}.xml" \
               -t "${pkgdir}/share/mime/packages/" || exit 1
-          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}${pkgver%%.*}.desktop" \
+          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}5.desktop" \
                "${pkgdir}/share/applications/${pkgname}.desktop" || exit 1
           for size in 16 22 32 48 256 512; do
-            install -vDm 644 "gtk2_${pkgname}/resources/${_name}-icon_${size}px.png" \
-            "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}${pkgver%%.*}.png" || exit 1
+            install -vDm 644 "gtk2_${pkgname}/resources/Ardour-icon_${size}px.png" \
+            "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}5.png" || exit 1
           done
        exit 0
      fi
+     touch buildok-$ARCH
   fi
   # Fix building CUPS
   if [ -e cups-config.in ]
