@@ -282,6 +282,7 @@ du -sL /$ISOTMP/iso
 
 [ "$NOLCM" = "OK" ] && rm /$ISOTMP/iso/modules/*
 
+cp boot/isohdpfx.bin /$ISOTMP/iso/isolinux || exit 1
 cp boot/isolinux.bin /$ISOTMP/iso/isolinux || exit 1
 cp boot/chain.c32 /$ISOTMP/iso/isolinux || exit 1
 #cp boot/ldlinux.c32 /$ISOTMP/iso/isolinux || exit 1
@@ -387,7 +388,7 @@ install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
 # genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
-xorriso -as mkisofs -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
+xorriso -as mkisofs -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -isohybrid-mbr isolinux/boot/isohdpfx.bin -isohybrid-gpt-basdat -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
 # isohybrid --uefi $ISODIR/linuxconsole.iso
 
 if [ $? != 0 ]
