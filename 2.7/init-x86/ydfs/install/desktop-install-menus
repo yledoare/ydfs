@@ -14,8 +14,8 @@ do
   [ -e /tmp/stop ] && break
 done
 
-# [ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe /etc/localtime
-# ntpdate 1.fr.pool.ntp.org
+[ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+ntpdate 1.fr.pool.ntp.org
 
 # opkg-cl update
 # opkg-cl install fixes

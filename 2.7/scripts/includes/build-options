@@ -82,6 +82,7 @@ echo $ARCHIVE | grep graphviz &&  LC_CONFIGURE_OPTS="--enable-perl=no --disable-
 echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS=" --without-gtk-doc --without-nvdimm --without-dm --without-dmraid --disable-introspection"
 echo $ARCHIVE | grep librevenge &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86" ] && export ABI=32 && LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-fat"
 echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
