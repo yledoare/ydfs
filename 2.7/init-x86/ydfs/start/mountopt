@@ -6,7 +6,7 @@ do
   echo $module | grep firmware > /dev/null && continue
   echo $module | grep linuxconsole > /dev/null && continue
   MODULE=`echo $module | cut -d'-' -f1`
-if [ -e /ydfs/modules/$MODULE ]
+if [ ! -e /ydfs/modules/$MODULE ]
 then
  echo " $MODULE "
  install -d /ydfs/modules/$MODULE

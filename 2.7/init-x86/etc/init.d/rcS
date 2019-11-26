@@ -70,6 +70,8 @@ echo "Benchmark" && sleep 5
 . /ydfs/start/benchmark || ash
 fi
 
+/ydfs/start/mountopt
+
 # echo -n " 1" > /dev/tty1
 /fix/libs
 
