@@ -383,7 +383,7 @@ CPUARCH="amd64"
 [ "$ARCH" = "x86" ] && CPUARCH="i386"
 
 install -d .disk
-echo "LinuxConsole 2.3 LTS \"LinuxConsole\" - Release $CPUARCH (2014)" > .disk/info
+echo "LinuxConsole \"LinuxConsole\" - Release $CPUARCH (2014)" > .disk/info
 install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
