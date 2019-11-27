@@ -16,6 +16,11 @@ then
 	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
 	export LDFLAGS="-L $HOME/multilib/lib -L $HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib"
 
+        for INC in odbcinst.h sql.h sqltypes.h
+        do
+          mv $HOME/multilib/include/$INC $HOME/multilib/include/"$INC"-disabled
+        done
+
 	echo "Configure Win32"
 	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --with-gstreamer --libdir=$HOME/multilib/lib/ --with-wine64=$WINEBUILD || exit 1
 	echo "Make Win32"

@@ -683,6 +683,7 @@ ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 #Wine
 https://dl.winehq.org/wine/source/4.0/wine-4.0.3.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
+http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.tar.xz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
 https://tls.mbed.org/download/mbedtls-2.16.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git

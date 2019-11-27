@@ -2308,6 +2308,7 @@ Cflags: -I${includedir}' > lua.pc
     fi
   fi
 
+  pwd |grep wine-installer && cp -r usr/* $PREFIX/ && cp -r etc/* $PREFIX/etc && exit 0
   [ -e growisofs ] &&  install -d "$HOME/ydfs/packages-$ARCH/$MYDIR/bin" && install -m755 growisofs dvd+rw-booktype dvd+rw-format dvd+rw-mediainfo dvd-ram-control "HOME/ydfs/packages-$ARCH/$MYDIR/bin"
 . $(dirname $0)/../scripts/includes/games
   echo $HOME/ydfs/packages-$ARCH/$MYDIR
