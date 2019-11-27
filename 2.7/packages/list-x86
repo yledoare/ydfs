@@ -248,6 +248,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
 https://github.com/libical/libical/archive/v2.0.0.tar.gz
+https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz
 https://www.kernel.org/pub/linux/bluetooth/bluez-5.52.tar.xz
 http://xorg.freedesktop.org//releases/individual/lib/libxshmfence-1.1.tar.bz2
 http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2
@@ -379,7 +380,6 @@ https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.177.tgz
 https://ftp.gnu.org/gnu/parted/parted-3.2.tar.xz
 #For udisk
-https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz
 https://github.com/pmem/ndctl/archive/v61.1.tar.gz
 http://rpm5.org/files/popt/popt-1.16.tar.gz
 https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz
