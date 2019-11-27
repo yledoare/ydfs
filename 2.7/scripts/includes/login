@@ -5,7 +5,9 @@
 	srcdir="."
 	for file in pam-login pam-common pam-su
 	do
+	  https://github.com/shadow-maint/shadow/releases/download/4.7/shadow-4.7.tar.xz
 	  [ ! -e $file ] && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/util-linux --output-document=$file
+	  [ ! -e $file ] && exit 1
 	done
 	 # install PAM files for login-utils
 echo "Install /etc/pam.d files"
@@ -21,13 +23,11 @@ sleep 4
   then
 	echo "Build Shadow"
 	srcdir="."
-	for file in    chgpasswd chpasswd defaults.pam login.defs newusers passwd shadow.{timer,service} useradd.defaults xstrdup.patch shadow-strncpy-usage.patch lastlog.tmpfiles
+	for file in    chgpasswd chpasswd defaults.pam login.defs newusers passwd shadow.{timer,service} useradd.defaults 
 	do
 	[ ! -e $file ] && wget --no-check-certificate  https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/shadow --output-document=$file
 	# echo $file
 	done
-	 patch -Np1 <"$srcdir/xstrdup.patch"
-  patch -Np1 <"$srcdir/shadow-strncpy-usage.patch"
 
   # supress etc/pam.d/*, we provide our own
   sed -i '/^SUBDIRS/s/pam\.d//' etc/Makefile.in
@@ -78,9 +78,6 @@ EOF
       useradd usermod userdel; do
     install -Dm644 "$srcdir/defaults.pam" "$pkgdir/etc/pam.d/$file"
   done
-
-  # lastlog log file creation
-  install -Dm644 "$srcdir/lastlog.tmpfiles" "$pkgdir/lib/tmpfiles.d/lastlog.conf"
 
   # Remove evil/broken tools
   rm "$pkgdir"/sbin/logoutd

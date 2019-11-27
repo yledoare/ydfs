@@ -17,7 +17,7 @@ then
 	export LDFLAGS="-L $HOME/multilib/lib -L $HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib"
 
 	echo "Configure Win32"
-	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --libdir=$HOME/multilib/lib/ --with-wine64=$WINEBUILD || exit 1
+	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --with-gstreamer --libdir=$HOME/multilib/lib/ --with-wine64=$WINEBUILD || exit 1
 	echo "Make Win32"
 	make || exit 1
 	echo "Make install Win32"
