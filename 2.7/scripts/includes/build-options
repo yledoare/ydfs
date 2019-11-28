@@ -30,6 +30,10 @@ echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
     --disable-java-binding "
 
+echo $ARCHIVE | grep gtk-vnc &&  LC_CONFIGURE_OPTS="--with-gtk=3.0 \
+            --enable-vala \
+            --without-sasl"
+
 echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
               --enable-shared \
               --with-pic " 

@@ -1,0 +1,6 @@
+if [ "$USER" = "root" ]
+then
+  $HOME_DIBAB/music/bin/lmms --allowroot "$@"
+else
+  $HOME_DIBAB/music/bin/lmms "$@"
+fi

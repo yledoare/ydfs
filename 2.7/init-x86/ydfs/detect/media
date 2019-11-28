@@ -71,3 +71,10 @@ then
 	sleep 1
   busybox mount -t cifs //192.168.1.25/ydfs-squashfs /media/ydfs/modules -o username=guest
 fi
+
+if [ ! -e /media/ydfs/modules/$ARCH.squashfs ] && [ ! -e /tmp/waitusb ]
+then
+	sleep 10
+	touch /tmp/waitusb
+	/ydfs/detect/media
+fi

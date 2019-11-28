@@ -107,8 +107,8 @@ export ISOPATH
 all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) modules iso sleep
 
 sleep:
-	echo "Sleeping 10 minutes .. "
-	sleep 600
+	echo "Sleeping 60 minutes .. "
+	sleep 6000
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
@@ -211,6 +211,11 @@ hackerOS: packages/list-hackerOS
 
 
 modules: chromium games music office video multimedia fps network emulators graphics
+
+virtualbox: ${LCMBUILD}/virtualbox-${ARCH}.squashfs
+${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
+	./scripts/make_packages virtualbox
+	./scripts/make_module virtualbox
 
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
