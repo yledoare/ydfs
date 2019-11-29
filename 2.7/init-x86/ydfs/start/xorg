@@ -92,6 +92,19 @@ else
   xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err
   if [ $? != 0 ]
   then
+AMD=""
+lspci | grep VGA | grep AMD && AMD=OK
+
+if [ "$AMD" == "OK" ]
+then
+rm  /etc/X11/xorg.conf.d/amdgpu.conf
+echo 'Section "Device"
+    Identifier "Card0"
+    Driver "radeon"
+EndSection
+' > /etc/X11/xorg.conf.d/radeon.conf
+  xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err
+fi
     grep EE /var/log/xinit.err
     echo "Error when loading Xorg" > /dev/tty1
     echo "Rescue shell with ALT+F2 " > /dev/tty1
