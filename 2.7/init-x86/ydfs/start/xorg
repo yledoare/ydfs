@@ -103,7 +103,7 @@ echo 'Section "Device"
     Driver "radeon"
 EndSection
 ' > /etc/X11/xorg.conf.d/radeon.conf
-  xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err
+  xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err && echo > /var/log/xinit.err
 fi
     grep EE /var/log/xinit.err
     echo "Error when loading Xorg" > /dev/tty1
