@@ -62,7 +62,9 @@ rm re2
                        libwebp libxslt opus yasm    || exit 1
   python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
 
-_google_api_key=AIzaSyAsY2XziAFgSzJszeM96SB-J2GFuAIFnQk
+_google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
+_google_default_client_id=413772536636.apps.googleusercontent.com
+_google_default_client_secret=0ZChLK6AxeA3Isu96MkwqDR4
 
 if [ "$ARCH" = "x86" ] 
 then
@@ -91,6 +93,9 @@ then
 'use_sysroot=false'
 'use_system_freetype=true'
 'use_system_harfbuzz=true'
+"google_api_key=\"${_google_api_key}\""
+"google_default_client_id=\"${_google_default_client_id}\""
+"google_default_client_secret=\"${_google_default_client_secret}\""
 )
 else
   _flags=(
@@ -118,6 +123,8 @@ else
 'use_system_freetype=true'
 'use_system_harfbuzz=true'
 "google_api_key=\"${_google_api_key}\""
+"google_default_client_id=\"${_google_default_client_id}\""
+"google_default_client_secret=\"${_google_default_client_secret}\""
 )
 fi
 
