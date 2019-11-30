@@ -1,30 +1,50 @@
-Ydfs (Your Distro From Scratch) is a tool to build a linux distribution 
+# About Ydfs
 
-Features :
-
-* Buildt from user account (no root or sudo needed)
-* Fast boot
-* Support x86, x86_64 (and maybe arm ARCH)
-* applications must be buildt from source
+(Your Distro From Scratch) is a tool to build your own linux distribution 
 
 # Build ydfs ISO
 
-* mkdir ydfs
-* chmod 777 ydfs
+(from docker, Linux terminal or Windows powershell)
 
-Automatic Build :
+* mkdir iso
+* chmod 777 iso
 
-* docker pull yledoare/ydfs
-* docker run --mount type=bind,source="$(pwd)"/ydfs,target=/home/linuxconsole2019/ydfs  yledoare/ydfs
+## Automatic 64 bits ISO Build
 
-Manual :
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs 
 
-* docker run yledoare/ydfs bash
+## Automatic 32 bits ISO Build
+
+* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs32
+
+## Verbose Build, without sharing output ISO on host :
+
+* docker run --name linuxconsole2019 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs
+
+# Manual build
+
+
+* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null
+* docker exec -ti ydfs bash
+* cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
 * cd 2.7
 * make 
 
+# Troubleshooting :
+
+Error when build QT ?
+Add "--security-opt seccomp:unconfined" option on Debian Strech
+https://stackoverflow.com/questions/52705124/why-qdirexists-do-not-work-in-docker-container
+
+
+# Features 
+
+* Buildt from user account (no root or sudo needed)
+* Fast boot
+* Support x86, x86_64 ( arm not tested )
+* applications are buildt from source
 
 # Build process 
 * Select arch to build
@@ -42,21 +62,3 @@ You can :
   * Use crosstool-ng instead of host toolchain
   * build your own toolchain
   * enable MENUCONFIG=YES to select your kernel options
-
-# Install debootstrap for 32 bit release 
-You can build 32 and 64 bit on one computer
-
-```
-#!shell
-MY_CHROOT=/home/debian-buster-32
-apt-get install debootstrap
-install -d $MY_CHROOT
-debootstrap --arch i386 buster $MY_CHROOT http://http.debian.net/debian/
-echo "proc $MY_CHROOT/proc proc defaults 0 0" >> /etc/fstab
-mount proc $MY_CHROOT/proc -t proc
-echo "sysfs $MY_CHROOT/sys sysfs defaults 0 0" >> /etc/fstab
-mount sysfs $MY_CHROOT/sys -t sysfs
-cp /etc/hosts $MY_CHROOT/etc/hosts
-cp /proc/mounts $MY_CHROOT/etc/mtab
-chroot $MY_CHROOT /bin/bash
-```
