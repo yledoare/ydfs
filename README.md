@@ -12,10 +12,12 @@
 ## Automatic 64 bits ISO Build
 
 * docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs 
+* docker logs --tail=10 -f ydfs
 
 ## Automatic 32 bits ISO Build
 
 * docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs32
+* docker logs --tail=10 -f ydfs32
 
 ## Verbose Build, without sharing output ISO on host :
 
