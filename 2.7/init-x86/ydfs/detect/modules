@@ -55,9 +55,9 @@ fi
  install -d $DBDATADIR/updir-module
  install -d $DBDATADIR/work-etc
  install -d $DBDATADIR/updir-etc
- mount -t overlay overlay -olowerdir=/ydfs/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
- mount -t overlay overlay -olowerdir=/ydfs/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /ydfs/modules/module 
- mount -t overlay overlay -olowerdir=/etc,upperdir=$DBDATADIR/updir-etc,workdir=$DBDATADIR/work-etc /etc || ash
+ mount -t overlay overlay -oindex=off,lowerdir=/ydfs/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
+ mount -t overlay overlay -olindex=off,owerdir=/ydfs/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /ydfs/modules/module 
+ mount -t overlay overlay -olindex=off,owerdir=/etc,upperdir=$DBDATADIR/updir-etc,workdir=$DBDATADIR/work-etc /etc || ash
 
 [ -e /ydfs/modules/$MODULE/logo.png ] && cp /ydfs/modules/$MODULE/logo.png /etc/ydfs.png
 
