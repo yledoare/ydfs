@@ -1949,6 +1949,7 @@ echo "At BUILDPERL"
                         --ptformat \
                         --lxvst \
                         --no-phone-home"
+      [ "$ARCH" = "x86" ] && pwd | grep ardour &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --dist-target=i686"
       echo "Run ./waf "
 	 if [ -e src/plugins/avcodec ]
 	   then
