@@ -1064,14 +1064,14 @@ pwd && sleep 5
       then
         cd ..
         rm -fR xcursorgen 
-        git clone git://anongit.freedesktop.org/xorg/app/xcursorgen || exit 8
+        git clone git://anongit.freedesktop.org/xorg/app/xcursorgen >/dev/null || exit 8
         cd xcursorgen 
-        db-autobuild $PREFIX 
+        db-autobuild $PREFIX 1>ydfs-log 2>ydfs-error || exit 9
         touch ../buildok-$ARCH 
         cd .. && continue
       fi
       echo "$PWD : db-autobuild $PREFIX"
-      db-autobuild $PREFIX || exit 9
+      db-autobuild $PREFIX 1>ydfs-log 2>ydfs-error || exit 9
       cd ..
     done
     touch buildok-$ARCH

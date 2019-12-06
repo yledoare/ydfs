@@ -13,6 +13,7 @@
 
 * docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs 
 * docker logs --tail=10 -f ydfs
+* docker logs -f ydfs 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
