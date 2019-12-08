@@ -2168,6 +2168,7 @@ Cflags: -I${includedir}' > lua.pc
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
       echo "Run make "
+      . $(dirname $0)/../scripts/includes/mame
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
@@ -2182,7 +2183,6 @@ Cflags: -I${includedir}' > lua.pc
 	fi
       fi
       . $(dirname $0)/../scripts/includes/warsow
-      . $(dirname $0)/../scripts/includes/mame
       . $(dirname $0)/../scripts/includes/wine
 
       if [ -e lib/bluez.pc.in ]
