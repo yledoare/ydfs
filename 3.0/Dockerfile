@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:10.2
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
@@ -25,8 +25,8 @@ ENV LANG fr_FR.utf8
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN useradd linuxconsole2019 --create-home
-COPY ./build-lc2019 /home/linuxconsole2019/build-lc2019
+RUN useradd ydfs3 --create-home
+COPY ./build /home/ydfs3/build
 
 RUN apt-get update && apt-get install -y  apt-utils
 
@@ -39,5 +39,5 @@ RUN apt-get install lib32z1
 # To build chromium
 RUN apt-get install lld-7
 
-USER linuxconsole2019
-CMD /home/linuxconsole2019/build-lc2019
+USER ydfs3
+CMD /home/ydfs3/build
