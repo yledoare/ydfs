@@ -1,4 +1,4 @@
-FROM i386/debian:buster
+FROM i386/debian:10.2
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale

@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:10.2
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
