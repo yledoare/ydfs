@@ -29,7 +29,7 @@ done
     -DCROSSGUID_URL=$PWD/crossguid-$_crossguid_version.tar.gz \
     -DFSTRCMP_URL=$PWD/fstrcmp-$_fstrcmp_version.tar.gz \
     -DFFMPEG_URL=$PWD/3.1.11-Krypton-17.5.tar.gz \
-    -DCMAKE_INSTALL_LIBDIR=$HOME/$ARCH/lib \
+    -DCMAKE_INSTALL_LIBDIR=$PREFIX/lib \
     -DENABLE_EVENTCLIENTS=ON \
     -DENABLE_INTERNAL_FFMPEG=OFF \
     -DENABLE_INTERNAL_FSTRCMP=ON \
