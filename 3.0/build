@@ -1,0 +1,7 @@
+install -d ~/src
+cd ~/src
+[ ! -e ydfs ] && git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+cd ydfs 
+cd 3.0 
+git pull
+make || make || make || make || make || tail -f /dev/null
