@@ -1220,17 +1220,16 @@ pwd && sleep 5
 	cp -fR Xonotic/server .
 	cp Xonotic/key_0.d0pk $PREFIX/share/xonotic/key_0.d0pk || exit 1
         echo "Custom Xonotic build" && sleep 5
-	cp ./misc/logos/icons_png/xonotic_64.png $PREFIX/share/pixmaps/xonotic.png
-	cp ./misc/logos/icons_png/xonotic_64.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/xonotic.png
+	install -d $PREFIX/share/pixmaps
+	install -d $PREFIX/share/applications
+	cp ./misc/logos/icons_png/xonotic_64.png $PREFIX/share/pixmaps/xonotic.png || exit 1
  	pkgname=xonotic	
         BIN=$pkgname-glx
         NAME="$pkgname (GLX)" GENERICNAME="$pkgname (GLX)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
-        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop || exit 1
         BIN=$pkgname-sdl
         NAME="$pkgname (SDL)" GENERICNAME="$pkgname (SDL)" COMMENT="a free open-source first person shooter" EXEC="$BIN" ICON=$pkgname.png CATEGORIES="Game;" \
-        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop
-	cp $PREFIX/share/applications/$BIN.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop || exit 1
     fi
 
     if [ -e icons/radiant-src.png ]
