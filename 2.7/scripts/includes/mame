@@ -54,4 +54,6 @@ then
   sed -i 's|KEYCODE_6_PAD|KEYCODE_6PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
   sed -i 's|KEYCODE_8_PAD|KEYCODE_8PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
   MAKE_INSTALL=OFF
+  install -d $PREFIX/share/applications
+  cp $HOME_DIBAB/data/applications/mame.desktop $PREFIX/share/applications || exit 5
 fi
