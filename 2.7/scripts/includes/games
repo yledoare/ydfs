@@ -15,6 +15,8 @@ do
 done
     make -C bsnes || exit 1
     make -C bsnes prefix="$PREFIX" install || exit 1
+    install -d $PREFIX/share/pixmaps
+    cp $PREFIX/share/icons/bsnes.png  $PREFIX/share/pixmaps
     touch buildok-$ARCH
     exit 0 
 fi

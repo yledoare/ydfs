@@ -1406,25 +1406,14 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
    	touch ../buildok-$ARCH
 	exit 0
       fi 
-      if [ -e ../build/AstroMenace ]
+      if [ -e ../build/astromenace ]
       then
 	cd ..
-	./build/AstroMenace --pack --rawdata=./RAW_VFS_DATA --dir=build
-	 install -Dm755 build/AstroMenace $pkgdir/bin/astromenace || exit $?
-         install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit $?
-	 install -d $pkgdir/share/applications
-	 echo "[Desktop Entry]
-Encoding=UTF-8
-Name=Astromenace
-Comment=Space shooter
-Exec=astromenace --dir=$PREFIX/share/astromenace
-Icon=astromenace.png
-StartupNotify=true
-Terminal=false
-Type=Application
-Categories=Application;Game;ArcadeGame;" >> $pkgdir/share/applications/astromenace.desktop
-	 install -d $pkgdir/share/pixmaps
-         wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/astromenace.png?h=packages/astromenace -O $pkgdir/share/pixmaps/astromenace.png
+        install -Dm755 build/astromenace $pkgdir/bin/astromenace || exit 1
+        install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit 1
+        install -Dm644 share/astromenace_128.png $pkgdir/share/pixmaps/astromenace.png || exit 1
+        install -Dm644 share/astromenace.desktop $pkgdir/share/applications/astromenace.desktop || exit 1
+        install -Dm644 share/astromenace.appdata.xml $pkgdir/share/appdata/astromenace.appdata.xml || exit 1
          touch buildok-$ARCH
 	 exit 0
       fi

@@ -4,6 +4,8 @@
 #https://launchpad.net/libindicator/12.10/12.10.1/+download/libindicator-12.10.1.tar.gz
 #http://launchpad.net/libappindicator/12.10/12.10.0/+download/libappindicator-12.10.0.tar.gz
 #https://launchpad.net/audio-recorder/trunk/stable/+download/audio-recorder_2.2.3.tar.xz
+git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5
+git://github.com/mtytel/helm.git#tag=v0.9.0
 git://github.com/falkTX/Carla.git#tag=v2.0.0
 git://github.com/ardour/ardour.git#tag=5.12
 http://www.xwax.co.uk/releases/xwax-1.7.tar.gz

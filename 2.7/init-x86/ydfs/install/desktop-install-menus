@@ -4,6 +4,7 @@ cd /
 
 while [ 1 ]
 do
+  grep noinstallmenu /proc/cmdline && continue
   busybox sleep 9
   busybox wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.sh
   if [ -e desktop-install-menus.sh ]
@@ -14,6 +15,7 @@ do
   [ -e /tmp/stop ] && break
 done
 
+grep nontpdate /proc/cmdline && exit 1
 [ ! -e /etc/localtime ] && ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 ntpdate 1.fr.pool.ntp.org
 

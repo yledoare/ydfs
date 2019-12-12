@@ -12,12 +12,20 @@ then
  install -d /ydfs/modules/$MODULE
  ln -s /ydfs/modules/$MODULE $HOME_DIBAB
  mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
- for subdir in bin lib share/applications share/pixmaps
+ for subdir in bin lib share/applications share/pixmaps 
  do
    [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
    ls /ydfs/modules/$MODULE/$subdir | while read file
    do
      ln -s  /ydfs/modules/$MODULE/$subdir/$file /$subdir/$file
+   done
+ done
+ for subdir in share/icons/hicolor/48x48/apps share/icons/hicolor/128x128/apps
+ do
+   [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
+   ls /ydfs/modules/$MODULE/$subdir | while read file
+   do
+     ln -s /ydfs/modules/$MODULE/$subdir/$file /share/pixmaps
    done
  done
 fi

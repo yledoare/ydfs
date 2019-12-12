@@ -48,7 +48,7 @@ echo -n " Build : $DBDATE"
 echo -n -e '\e[0m'
 echo " - Yann Le Doaré - GNU GPL v3"
 echo
-for WAIT in 5 4 3 2 1 
+for WAIT in 9 8 7 6 5 4 3 2 1 
 do
   echo -n "$WAIT "
   /busybox/bin/sleep 2
@@ -56,4 +56,5 @@ do
 done
 #sleep 60
 #[ -e /rescue-shell ] && . /rescue-shell
+grep rescue-shell /proc/cmdline && /busybox/bin/sh
 echo
