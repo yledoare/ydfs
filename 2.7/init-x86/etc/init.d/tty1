@@ -54,7 +54,4 @@ do
   /busybox/bin/sleep 2
   [ -e /tmp/xorg-start-date ] && break
 done
-#sleep 60
-#[ -e /rescue-shell ] && . /rescue-shell
-grep rescue-shell /proc/cmdline && /busybox/bin/sh
 echo
