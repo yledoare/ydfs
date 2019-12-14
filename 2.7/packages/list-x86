@@ -855,3 +855,4 @@ https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
+https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_48_RTM/src/nss-3.48.tar.gz

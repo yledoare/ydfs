@@ -1,3 +1,5 @@
+export NODEJS=/home/linuxconsole2019/linuxconsole/bin/node
+
 cat > mozconfig << "EOF"
 ac_add_options --disable-dbus
 ac_add_options --disable-necko-wifi

@@ -210,7 +210,8 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 
-modules: chromium games music office video multimedia fps network emulators graphics
+# modules: firefox games music office video multimedia fps network emulators graphics
+modules: firefox games music office video multimedia fps network emulators graphics
 
 virtualbox: ${LCMBUILD}/virtualbox-${ARCH}.squashfs
 ${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
@@ -271,6 +272,11 @@ chromium: ${LCMBUILD}/chromium-${ARCH}.squashfs
 ${LCMBUILD}/chromium-${ARCH}.squashfs : packages/list-chromium
 	./scripts/make_packages chromium
 	./scripts/make_module chromium
+
+firefox: ${LCMBUILD}/firefox-${ARCH}.squashfs
+${LCMBUILD}/firefox-${ARCH}.squashfs : packages/list-firefox
+	./scripts/make_packages firefox
+	./scripts/make_module firefox
 
 office: ${LCMBUILD}/office-${ARCH}.squashfs
 ${LCMBUILD}/office-${ARCH}.squashfs : packages/list-office
