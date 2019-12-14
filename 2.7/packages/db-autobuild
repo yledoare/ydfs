@@ -474,6 +474,7 @@ else
 
 . $(dirname $0)/../scripts/includes/chromium
 . $(dirname $0)/../scripts/includes/qt5
+. $(dirname $0)/../scripts/includes/zyn-fusion
 . $(dirname $0)/../scripts/includes/virtualbox
 . $(dirname $0)/../scripts/includes/gmic
 
