@@ -147,7 +147,8 @@ else
   if [ -e src/standalone/helm_editor.cpp ]
   then
     echo src/standalone/helm_editor.cpp
-    sed -i "s@/usr@@" Makefile
+    sed -i "s@/usr@@g" Makefile
+    [ "$ARCH" = "x86" ] && sed -i "s@ __sigemptyset@sigemptyset@" JUCE/modules/juce_audio_formats/codecs/flac/libFLAC/cpu.c
   fi
 
   if [ -e setuptools/command/easy_install.py ] && [ -e $HOME/$ARCH/bin/python3 ]

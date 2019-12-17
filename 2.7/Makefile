@@ -211,7 +211,7 @@ hackerOS: packages/list-hackerOS
 
 
 # modules: firefox games music office video multimedia fps network emulators graphics
-modules: firefox games music office video multimedia fps network emulators graphics
+modules: firefox games music office video multimedia fps network emulators graphics chromium
 
 virtualbox: ${LCMBUILD}/virtualbox-${ARCH}.squashfs
 ${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
