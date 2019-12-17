@@ -14,7 +14,7 @@ LCMBUILD=${HOME}/ydfs/build/modules/
 ISOTMP=${HOME}/iso
 # MODULES="${ARCH}"
 MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} firefox-${ARCH} games-${ARCH} music-${ARCH} office-${ARCH} video-${ARCH} multimedia-${ARCH} fps-${ARCH} network-${ARCH} emulators-${ARCH} graphics-${ARCH}"
-MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} firefox-${ARCH} chromium-{$ARCH}"
+MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} firefox-${ARCH} chromium-${ARCH}"
 
 HOME_DIBAB=${PWD}
 
