@@ -30,3 +30,17 @@ then
  done
 fi
 done
+
+for LIBDIR in vst lv2 dssi 
+do
+  if [ -e $HOME_DIBAB/music/lib/$LIBDIR ]
+  then
+   ls $HOME_DIBAB/music/lib/$LIBDIR | while read FILE
+   do
+     if [ ! -e /usr/$LIB/$LIBDIR/$FILE ]
+     then
+       ln -s $HOME_DIBAB/music/lib/$LIBDIR/$FILE /usr/lib/$LIBDIR/$FILE
+     fi
+   done
+  fi
+done
