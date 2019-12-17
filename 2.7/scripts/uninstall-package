@@ -16,8 +16,8 @@ done
 cd home/*
 find | while read file 
 do
-  [ -f "$HOME/ydfs/modules/"$file ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
-  [ -h "$HOME/ydfs/modules/"$file ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
+  [ -f "$HOME/ydfs/modules/$file" ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
+  [ -h "$HOME/ydfs/modules/$file" ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
 done
 
 if [ -e $HOME/ydfs/build-$ARCH/$1 ]

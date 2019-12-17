@@ -47,6 +47,7 @@ then
   touch "$pkgdir"/opt/"$pkgname"/qml/MainWindow.qml || exit 1
 
   ln -s "$pkgdir"/opt/"$pkgname"/zyn-fusion "$pkgdir"/bin/ || exit 1
+  ln -s "$pkgdir"/opt/"$pkgname"/libzest.so "$pkgdir"/lib/ || exit 1
   cd $SRCDIR
   touch buildok-$ARCH
   exit 0

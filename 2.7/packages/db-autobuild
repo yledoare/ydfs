@@ -144,6 +144,12 @@ else
 	exit 0
   fi
 
+  if [ -e src/standalone/helm_editor.cpp ]
+  then
+    echo src/standalone/helm_editor.cpp
+    sed -i "s@/usr@@" Makefile
+  fi
+
   if [ -e setuptools/command/easy_install.py ] && [ -e $HOME/$ARCH/bin/python3 ]
   then
 	. $(dirname $0)/../scripts/includes/setuptools
