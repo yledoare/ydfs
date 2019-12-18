@@ -59,7 +59,7 @@ libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1  libffi dbus-1.12.10 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 gtk+-2 \
-unixODBC libtheora gstreamer-1 libgudev gst-plugins-base" 
+unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 wayland-1 libva" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -129,6 +129,12 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 # --libdir=$HOME/multilib/lib32
 	;;
 
+    bzip2 )
+	echo "No config for Bzip2"
+        ;;
+    wayland-1 )
+	./configure --prefix=$HOME/multilib --disable-documentation
+	;;
     libxslt )
 	./configure --prefix=$HOME/multilib --without-python
 	;;
@@ -340,6 +346,7 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   	export CXX="g++ -m32 -mstackrealign"
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+        touch ../ydfs-multilib-buildt
 	;;
     openal-soft-1.16 )
 	mkdir build
@@ -363,6 +370,12 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   echo "Run make clean" 
   make clean
   case $PKG in
+    bzip2 )
+        make -f Makefile-libbz2_so || exit 17
+	install -d $HOME/multilib/lib
+	cp libbz2.so.1.0 $HOME/multilib/lib
+	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
+	;;
     atk-2)
         PYTHONPATH="" ninja || exit 1
 	;;
