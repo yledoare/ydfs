@@ -20,6 +20,9 @@ then
   mv usr/lib $PREFIX/
   mkdir $PREFIX/bin
   ln -s $PREFIX/lib/chromium/chromium $PREFIX/bin
+  sed -i \
+    -e "s@/usr/bin/chromium@chromium@g" \
+    "$PREFIX/share/applications/chromium.desktop"
 
   touch buildok-$ARCH
   exit 0 
