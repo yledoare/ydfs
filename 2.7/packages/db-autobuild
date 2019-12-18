@@ -102,6 +102,27 @@ else
   [ -e src/libmodplug/sndfile.h ] && echo "Fix src/libmodplug/sndfile.h" && cp src/libmodplug/*.h src
   [ -e src/libwebp.pc.in ] && rm CMakeLists.txt
 
+  if [ -e source/zita-resampler ]
+  then
+    echo source/zita-resampler
+     sed -e '/native/d' -e 's/ldconfig/echo/' -i source/Makefile
+     make -C source || exit 1
+     LIBDIR=$PREFIX/lib make PREFIX=$PREFIX install -C source || exit 1
+     install -vDm 644 {AUTHORS,README} -t "${pkgdir}/share/doc/${pkgname}"
+     touch buildok-$ARCH
+     exit 0
+   fi
+  if [ -e source/zita-convolver.cc ]
+  then
+    echo source/zita-convolver.cc
+     sed -e '/native/d' -e 's/ldconfig/& -N $(DESTDIR)\/$(LIBDIR)/' -i source/Makefile
+     make -C source || exit 1
+     LIBDIR=$PREFIX/lib make PREFIX=$PREFIX install -C source || exit 1
+     install -vDm 644 {AUTHORS,README} -t "${pkgdir}/share/doc/${pkgname}"
+     touch buildok-$ARCH
+     exit 0
+   fi
+
   if [ -e "wx-config.in" ]
   then
     	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh || exit 1
@@ -1949,7 +1970,7 @@ echo "At BUILDPERL"
                         --lxvst \
                         --no-phone-home"
       [ "$ARCH" = "x86" ] && pwd | grep ardour &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --dist-target=i686"
-      echo "Run ./waf "
+      echo "Run ./waf  $LC_CONFIGURE_OPTS "
 	 if [ -e src/plugins/avcodec ]
 	   then
      ./waf configure --prefix=$PREFIX --without-plugins avcodec

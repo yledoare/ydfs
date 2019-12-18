@@ -7,12 +7,8 @@ export TMPDIR=$HOME/tmp
 
 # tail -f /dev/null
 
-if [ "$ARCH" = "arm" ]
-then
- install -d $HOME/$ARCH/share/aclocal
-fi
-
-install -d $HOME/opkg/share/aclocal/
+install -d $HOME/opkg/share/aclocal
+install -d $HOME/opkg/share/pixmaps
 
 echo $SRC_PATH/list-$1
 # normalement c'est un double crochet, le simple crochet est utilisé pour des raisons de compatibilité

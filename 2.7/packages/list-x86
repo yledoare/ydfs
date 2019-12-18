@@ -854,6 +854,9 @@ http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
 https://luajit.org/download/LuaJIT-2.0.5.tar.gz
 #For Skype
 #https://github.com/elogind/elogind/archive/v241.1.tar.gz
+#Guitarx
+https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-4.0.3.tar.bz2
+https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar.bz2
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz
 #Warning, unset LDFLAGS for building grub
