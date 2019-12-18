@@ -160,6 +160,7 @@ else
   [ -e ryzom/ryzom ] && cd ryzom
   export SHELL=/bin/bash
   pwd | grep wget-1 && export PYTHON=/usr/bin/python3 
+  pwd |grep meson- && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep cython && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep pyliblo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
   pwd |grep mozo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
