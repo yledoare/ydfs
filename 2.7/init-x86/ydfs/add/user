@@ -9,6 +9,17 @@ then
   [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Merci de saisir le mot de passe root"
   zenity --warning --text="$MESSAGE" 2>/dev/null
   passwd
+  if [ $? = 0 ]
+  then
+    MESSAGE="Error while setting password"
+    [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du mot de passe"
+    zenity --warning --text="$MESSAGE" 2>/dev/null
+    exit 1
+  fi
+  rm /etc/login.defs
+  cp /ydfs/modules/$ARCH/etc/login.defs /etc/login.defs
+  echo "ENV_SUPATH	PATH=$PATH" >> /etc/login.defs 
+  echo "ENV_PATH	PATH=$PATH" >> /etc/login.defs
 fi
 
 MESSAGE="User login :"
