@@ -8,12 +8,13 @@ DATESTAMP=$(date +%d%m%Y)
 
 install -d $HOME/.local/data/plogoff
 
-env > $HOME/.local/data/plogoff/debug.txt
 
 ls $HOME/.local/data/plogoff|while read file
 do
   echo $file | grep $DATESTAMP || rm $DATADIR/$file
 done
+
+env > $HOME/.local/data/plogoff/debug.txt
 
 [ ! -e $DATADIR/$DATESTAMP ] && echo 1 > $DATADIR/$DATESTAMP
 
