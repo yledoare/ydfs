@@ -9,7 +9,7 @@ then
   [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Merci de saisir le mot de passe root"
   zenity --warning --text="$MESSAGE" 2>/dev/null
   passwd
-  if [ $? = 0 ]
+  if [ $? != 0 ]
   then
     MESSAGE="Error while setting password"
     [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du mot de passe"
@@ -31,15 +31,16 @@ then
   MESSAGE="Error while creating $user"
   [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du compte $user"
   zenity --warning --text="$MESSAGE" 2>/dev/null
-  passwd
+  exit 1
 fi
+
 clear
 
 MESSAGE="Please set $user password"
-[ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Mot de passe pour $user"
+[ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Mot de passe pour $user a saisir "
 zenity --warning --text="$MESSAGE" 2>/dev/null
 passwd $user
-if [ $? = 0 ]
+if [ $? != 0 ]
 then
   MESSAGE="Error while setting password"
   [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du mot de passe"
