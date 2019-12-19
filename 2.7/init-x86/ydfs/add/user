@@ -1,5 +1,5 @@
 MESSAGE="You must be root to add a user"
-if [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Vous devez être root pour ajouter un utilisateur"
+[ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Vous devez être root pour ajouter un utilisateur"
 [ "$USER" != "root" ] && zenity --info --text="$MESSAGE" && exit 0
 
 test -s /etc/shadow
