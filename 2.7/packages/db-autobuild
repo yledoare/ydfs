@@ -102,6 +102,13 @@ else
   [ -e src/libmodplug/sndfile.h ] && echo "Fix src/libmodplug/sndfile.h" && cp src/libmodplug/*.h src
   [ -e src/libwebp.pc.in ] && rm CMakeLists.txt
 
+  if [ -e src/unetbootin/build-nostatic ]
+  then
+    cd src/unetbootin/
+    bash build-nostatic
+exit 1
+  fi
+
   if [ -e source/zita-resampler ]
   then
     echo source/zita-resampler

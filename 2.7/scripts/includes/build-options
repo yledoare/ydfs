@@ -361,7 +361,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
 	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
-	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/share \
+	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
           --enable-btpclient \
           --enable-midi \
           --enable-sixaxis \
