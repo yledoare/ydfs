@@ -3,15 +3,24 @@ if [ $? = 0 ]
 then
   echo "Root password is set"
 else
-  zenity --warning --text="Please set your root password" 2>/dev/null
+  MESSAGE="Please set your root password"
+  [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Merci de saisir le mot de passe root"
+  zenity --warning --text="$MESSAGE" 2>/dev/null
   passwd
 fi
-user=$(zenity --entry --text="user login")
+
+MESSAGE="User login :"
+[ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Login de l'utilisateur à créér :"
+user=$(zenity --entry --text="$MESSAGE")
 useradd --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user
 clear
-zenity --warning --text="Please set $user password" 2>/dev/null
+
+MESSAGE="Please set $user password"
+[ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Mot de passe pour $user"
+zenity --warning --text="$MESSAGE" 2>/dev/null
 passwd $user
-zenity --warning --text="You will need to logout to use $user account" 2>/dev/null
+
+# zenity --warning --text="You will need to logout to use $user account" 2>/dev/null
 
 if [ -e /media/ydfs/home ]
 then
