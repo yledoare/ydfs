@@ -25,19 +25,24 @@ while [ 1 ]
 do
 	COUNT=$(cat $DATADIR/$DATESTAMP)
 	echo "Count : $COUNT"
-	sleep 60
 	MINUTES=$(($MAXMIN - $COUNT))
 	[ $MINUTES -lt 2 ] && break
 	echo $MINUTES
-	if [ $MINUTES -lt 50 ]
+	if [ $MINUTES -lt 5 ]
         then
- 	  zenity --info --text="logoff in $MINUTES minutes .." &
+          if [ "$LANG" = "fr_FR.UTF8" ]
+	  then
+ 	    zenity --info --text="Déconnexion dans $MINUTES minutes .." &
+	  else
+ 	    zenity --info --text="logoff in $MINUTES minutes .." &
+	  fi
         fi
+	sleep 60
 	echo $(($COUNT + 1)) > $DATADIR/$DATESTAMP
 done
 
-zenity --info --text="logoff in 1 minute " &
-sleep 60
+#zenity --info --text="logoff in 1 minute " &
+#sleep 60
 
 killall x-session-manager
 killall mate-session

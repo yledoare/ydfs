@@ -1,0 +1,12 @@
+#scp 91.121.77.65:/home/yann/iso/*.squashfs /home/jukebox.linuxconsole.org/www/modules/x86_64
+# scp 91.121.77.65:/home/yann/iso/linuxconsole.2019-12-19* /home/jukebox.linuxconsole.org/www/testing
+# scp 91.121.77.65:/home/yann/iso/linuxconsole.2019-12-19-x86.iso /home/jukebox.linuxconsole.org/www/testing
+ scp 91.121.77.65:/home/yann/iso/linuxconsole.2019-12-19-x86_64.iso /home/jukebox.linuxconsole.org/www/testing
+ls /home/jukebox.linuxconsole.org/www/modules/x86 | while read file
+do
+  name=$( echo $file |cut -d'-' -f1)
+  echo $name
+  install -d /home/jukebox.linuxconsole.org/www/modules/sources
+  cp packages/list-$name /home/jukebox.linuxconsole.org/www/modules/sources/$name.source.txt
+done
+
