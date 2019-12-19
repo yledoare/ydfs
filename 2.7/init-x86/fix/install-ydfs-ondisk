@@ -21,6 +21,7 @@ then
 which gpartedbin || opkg-cl install gparted
 zenity --info --text="Please create a partition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
 
+echo "Please wait ..."
 # To disable remounting while running gparted
 echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
 udevadm trigger --action=add
