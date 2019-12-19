@@ -38,11 +38,13 @@ do
 	  fi
         fi
 	sleep 60
+	# If we have no more session
+	ps xuw|grep Xession || exit 0
 	echo $(($COUNT + 1)) > $DATADIR/$DATESTAMP
 done
 
-#zenity --info --text="logoff in 1 minute " &
-#sleep 60
+zenity --info --text="Logoff" &
+sleep 60
 
 killall x-session-manager
 killall mate-session
