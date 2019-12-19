@@ -42,7 +42,7 @@ do
 	sleep 60
 	# If we have no more session
 	ps xuw >> $HOME/.local/data/plogoff/ps.txt
-	ps xuw|grep Xession || exit 0
+	ps xuw|egrep [X]session || exit 0
 	echo $(($COUNT + 1)) > $DATADIR/$DATESTAMP
 done
 
