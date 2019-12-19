@@ -1,8 +1,10 @@
+MESSAGE="You must be root to add a user"
+if [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Vous devez être root pour ajouter un utilisateur"
+[ "$USER" != "root" ] && zenity --info --text="$MESSAGE" && exit 0
+
 test -s /etc/shadow
-if [ $? = 0 ]
+if [ $? != 0 ]
 then
-  echo "Root password is set"
-else
   MESSAGE="Please set your root password"
   [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Merci de saisir le mot de passe root"
   zenity --warning --text="$MESSAGE" 2>/dev/null
@@ -11,14 +13,28 @@ fi
 
 MESSAGE="User login :"
 [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Login de l'utilisateur à créér :"
-user=$(zenity --entry --text="$MESSAGE")
-useradd --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user
+user=$(zenity --entry --text="$MESSAGE" 2>/dev/null)
+useradd --groups tty,users,audio,video,root,vboxusers,pulse,lpadmin,lp,disk,colord $user 2>/tmp/useradd.log
+if [ $? != 0 ]
+then
+  MESSAGE="Error while creating $user"
+  [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du compte $user"
+  zenity --warning --text="$MESSAGE" 2>/dev/null
+  passwd
+fi
 clear
 
 MESSAGE="Please set $user password"
 [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="Mot de passe pour $user"
 zenity --warning --text="$MESSAGE" 2>/dev/null
 passwd $user
+if [ $? = 0 ]
+then
+  MESSAGE="Error while setting password"
+  [ "$LANG" = "fr_FR.UTF8" ] && MESSAGE="erreur à la création du mot de passe"
+  zenity --warning --text="$MESSAGE" 2>/dev/null
+  exit 1
+fi
 
 # zenity --warning --text="You will need to logout to use $user account" 2>/dev/null
 
