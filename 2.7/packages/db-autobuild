@@ -108,7 +108,7 @@ else
     bash build-nostatic
 exit 1
   fi
-
+  [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
   if [ -e source/zita-resampler ]
   then
     echo source/zita-resampler
