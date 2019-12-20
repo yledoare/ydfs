@@ -299,6 +299,7 @@ cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/i386/boot/bzImage /$ISOTMP/iso/is
 else
 cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/isolinux/$KERNEL36 || exit 1
 fi
+cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/.config /$ISOTMP/iso/isolinux/config-kernel.txt || exit 1
 cp /$HOME/ydfs/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
 
 echo "

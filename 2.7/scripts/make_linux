@@ -108,6 +108,6 @@ git add /$HOME_DIBAB/config/kernel-$ARCH/linux-"$KERNEL3"/
     make modules O=$BUILD_DIR || exit 0
     make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
     /sbin/depmod -b $HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3" -m "$KERNEL3"
-    [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
+    [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && [ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/"$KERNEL3"-pae/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/"$KERNEL3"/modules.dep not found" && exit 2
   fi
   echo buildt

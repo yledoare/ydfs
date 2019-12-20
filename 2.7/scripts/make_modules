@@ -62,6 +62,8 @@ done
 
 cd $GUI_PATH
 
+[ "$ARCH" = "x86" ] && cp $HOME/x86/lib64/girepository-1.0/Atk-1.0.typelib $HOME/x86/lib/girepository-1.0/Atk-1.0.typelib
+
 install -d $HOME/ydfs/modules
 [ ! -e ../ydfs/modules/gui-list ] && find > $HOME/ydfs/modules/gui-list
 [ ! -e ../ydfs/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/ydfs/modules/gui-list-dev
