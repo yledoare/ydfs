@@ -837,6 +837,7 @@ https://download.gnome.org/sources/libglade/2.6/libglade-2.6.4.tar.bz2
 https://download.gnome.org/sources/libbonoboui/2.24/libbonoboui-2.24.5.tar.bz2
 https://download.gnome.org/sources/libgnomeui/2.24/libgnomeui-2.24.5.tar.bz2
 https://aubio.org/pub/aubio-0.4.9.tar.bz2
+https://pm-utils.freedesktop.org/releases/pm-utils-1.4.1.tar.gz
 #Who needs it ??
 #https://webkitgtk.org/releases/webkitgtk-2.22.2.tar.xz
 https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz
@@ -865,4 +866,3 @@ https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.2.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
 #END-linuxconsole
-https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_48_RTM/src/nss-3.48.tar.gz
