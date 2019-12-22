@@ -824,6 +824,7 @@ pwd && sleep 5
   	exit 0
   fi
 
+. $(dirname $0)/../scripts/includes/docker
 . $(dirname $0)/../scripts/includes/os-prober
 . $(dirname $0)/../scripts/includes/libreoffice
   if [ -e makefile.linux_amd64_asm ]
