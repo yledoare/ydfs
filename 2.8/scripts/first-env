@@ -1,0 +1,6 @@
+echo "Store first env VAR ..."
+
+echo "export CFLAGS=\"$CFLAGS\"" > $HOME/ydfs/firstenv
+echo "export CXXFLAGS=\"$CXXFLAGS\"" >> $HOME/ydfs/firstenv
+echo "export CXX=\"$CXX\"" >> $HOME/ydfs/firstenv
+echo "export LDFLAGS=\"$LDFLAGS\"" >> $HOME/ydfs/firstenv

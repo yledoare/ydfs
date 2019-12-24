@@ -1,0 +1,43 @@
+diff --git a/Makefile b/Makefile
+index fa61d7e..b0ba29c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -13,6 +13,10 @@
+ ###########################################################################
+ # MAKE = make
+ 
++all:
++	make x11
++install:
++	make x11-install
+ 
+ ###########################################################################
+ # If no system/compiler is specified, display a list of available options
+diff --git a/compile.sh b/compile.sh
+index 359317b..46058ae 100644
+--- a/compile.sh
++++ b/compile.sh
+@@ -65,8 +65,8 @@ fi
+ # They are also used by the compile and link tests below
+ # Note that CFLAGS and LFLAGS remain unmodified and are checked again
+ # before file generation
+-GLFW_CFLAGS="$CFLAGS"
+-GLFW_LFLAGS="$LFLAGS -lGL"
++GLFW_CFLAGS="$CFLAGS -I$HOME/$ARCH/include"
++GLFW_LFLAGS="$LFLAGS -lGL -L$HOME/$ARCH/lib"
+ 
+ # These will contain flags needed by the GLFW library
+ GLFW_LIB_CFLAGS=
+diff --git a/lib/x11/Makefile.x11.in b/lib/x11/Makefile.x11.in
+index 6f85880..078f611 100644
+--- a/lib/x11/Makefile.x11.in
++++ b/lib/x11/Makefile.x11.in
+@@ -2,7 +2,7 @@
+ ##########################################################################
+ # Installation prefix (default to /usr/local)
+ ##########################################################################
+-PREFIX ?= /usr/local
++PREFIX ?= $(HOME)/$(ARCH)
+ 
+ 
+ ##########################################################################

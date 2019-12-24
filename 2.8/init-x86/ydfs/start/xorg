@@ -1,0 +1,142 @@
+#!/bin/bash
+
+. /etc/profile
+install -d /etc/X11/xorg.conf.d/ 
+
+[ ! -e /etc/X11/xorg.conf.d/kb.conf ] && echo '
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+# 	Option "XkbLayout" "fr"
+# 	Option "XkbVariant" "latin9" # accès aux caractères spéciaux plus logique avec "Alt Gr" (ex : « » avec "Alt Gr" w x)
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf
+
+AMD=""
+lspci | grep VGA | grep AMD && AMD=OK
+
+if [ "$AMD" == "OK" ]
+then
+
+Xorg -configure
+grep amdgpu /xorg.conf.new && AMD=amdgpu
+grep radeon /xorg.conf.new && AMD=radeon
+
+[ "$AMD" == "amdgpu" ] && [ ! -e /etc/X11/xorg.conf.d/amdgpu.conf ] && echo '
+Section "Device"
+    Option "DRI3" "False"
+    Identifier "Card0"
+    Driver "amdgpu"
+EndSection
+' > /etc/X11/xorg.conf.d/amdgpu.conf
+
+[ "$AMD" = "radeon" ] && [ ! -e /etc/X11/xorg.conf.d/radeon.conf ] && echo '
+Section "Device"
+    Option "DRI3" "False"
+    Identifier "Card0"
+    Driver "radeon"
+EndSection
+' > /etc/X11/xorg.conf.d/radeon.conf
+
+fi
+
+export HOME=/root
+
+if [ ! -e $HOME/.config/openbox/rc.xml ]
+then
+  install -d $HOME/.config/openbox
+  cp /etc/openbox/rc.xml $HOME/.config/openbox/rc.xml
+fi
+[ ! -e $HOME/.etracer/options ] && install -d $HOME/.etracer/ && cp /ydfs/config/etracer/options $HOME/.etracer/options
+[ ! -e $HOME/.etr/options ] && install -d $HOME/.etr && cp /ydfs/config/etr/options $HOME/.etr/options
+
+
+if [ ! -e /etc/X11/Xsession ]
+then
+install -d /etc/X11
+echo "
+export PATH=$PATH
+cat /proc/cmdline | grep lxterminal && lxterminal &
+cat /proc/cmdline | grep xterm && xterm &
+#openbox &
+marco &
+. /ydfs/detect/lang
+. /ydfs/detect/kbd
+. /ydfs/start/child-limits &
+. /ydfs/start/desktop
+" > /etc/X11/Xsession
+fi
+
+chmod +x /etc/X11/Xsession
+
+/ydfs/fix/r128
+/ydfs/fix/chromium
+/ydfs/install/desktop-install-menus &
+
+
+chown root:users /tmp
+chmod 775 /tmp
+[ ! -e /etc/xprofile ] && ln -s /etc/profile /etc/xprofile
+
+test -s /etc/shadow
+if [ $? = 0 ]
+then
+  #chmod 777 /dev/*
+  #chmod 777 /dev/*/*
+  # /ydfs/config/dev
+  [ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
+  [ "$lang" = "french" ] && export LC_ALL=fr_FR.UTF8 && export LANG=fr_FR.UTF8
+  lxdm
+  if [ $? != 0 ]
+  then
+    AMD=""
+    lspci | grep VGA | grep AMD && AMD=OK
+
+    if [ "$AMD" == "OK" ]
+    then
+      rm  /etc/X11/xorg.conf.d/amdgpu.conf
+      echo 'Section "Device"
+      Identifier "Card0"
+      Driver "radeon"
+      EndSection
+    ' > /etc/X11/xorg.conf.d/radeon.conf
+    lxdm
+    fi
+  fi 
+else
+  xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err
+  if [ $? != 0 ]
+  then
+AMD=""
+lspci | grep VGA | grep AMD && AMD=OK
+
+if [ "$AMD" == "OK" ]
+then
+rm  /etc/X11/xorg.conf.d/amdgpu.conf
+echo 'Section "Device"
+    Identifier "Card0"
+    Driver "radeon"
+EndSection
+' > /etc/X11/xorg.conf.d/radeon.conf
+  xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err && echo > /var/log/xinit.err
+fi
+    grep EE /var/log/xinit.err
+    echo "Error when loading Xorg" > /dev/tty1
+    echo "Rescue shell with ALT+F2 " > /dev/tty1
+    echo "enter exit to poweroff " > /dev/tty1
+    /busybox/bin/ash
+  fi 
+  while [ -e /root/reconfigure-lang ]
+  do
+    rm /root/reconfigure-lang
+    xinit /etc/X11/Xsession 1>/var/log/xinit.log 2>/var/log/xinit.err 
+  done
+  test -s /etc/shadow 
+  if [ $? = 0 ]
+  then
+    [ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
+    [ "$lang" = "french" ] && export LC_ALL=fr_FR.UTF8 && export LANG=fr_FR.UTF8
+    lxdm
+  fi
+fi

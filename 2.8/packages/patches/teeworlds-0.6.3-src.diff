@@ -1,0 +1,12 @@
+diff --git a/bam.lua b/bam.lua
+index 11ac7b9..9919a71 100644
+--- a/bam.lua
++++ b/bam.lua
+@@ -143,6 +143,7 @@ function build(settings)
+ 	--settings.objdir = Path("objs")
+ 	settings.cc.Output = Intermediate_Output
+ 
++	settings.cc.flags:Add("`pkg-config --cflags gl`")
+ 	if config.compiler.driver == "cl" then
+ 		settings.cc.flags:Add("/wd4244")
+ 	else

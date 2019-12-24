@@ -1,0 +1,22 @@
+diff --git a/Imakefile b/Imakefile
+index bd2be2b..281c52c 100644
+--- a/Imakefile
++++ b/Imakefile
+@@ -18,14 +18,13 @@ OBJS = arg.o blank.o board.o bonus.o bonuslif.o bonuspnt.o \
+ 	t180.o t270.o t90.o timing.o usrinter.o vertwall.o \
+ 	walls.o
+ 
+-CURSES = -lcurses
++CURSES = -lcurses -L$(HOME)/$(ARCH)/lib
+ 
+ /* most X11 screens are rather large, you might wisht to use "double" mode */
+-CXXEXTRA_DEFINES = -DDOUBLE -fno-rtti -fno-exceptions -fPIC
++CXXEXTRA_DEFINES = -DDOUBLE -fno-rtti -fno-exceptions -fPIC -L$(HOME)/$(ARCH)/lib
+ CCLINK = g++
+ 
+ NormalProgramTarget(pacman,$(OBJS),$(DEPXLIB),$(CURSES),$(XLIB))
+-InstallProgram(pacman,$(BINDIR))
+-InstallManPage(pacman,$(MANDIR))
++InstallProgram(pacman,$(MYPREFIX)/bin)
+ AllTarget(pacman)
+ DependTarget()

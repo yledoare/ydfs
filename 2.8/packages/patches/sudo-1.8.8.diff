@@ -1,0 +1,12 @@
+diff --git a/plugins/sudoers/Makefile.in b/plugins/sudoers/Makefile.in
+index cff7bfa..45be7cc 100644
+--- a/plugins/sudoers/Makefile.in
++++ b/plugins/sudoers/Makefile.in
+@@ -285,7 +285,6 @@ install-dirs:
+ 	    $(DESTDIR)$(visudodir) $(DESTDIR)$(replaydir) \
+ 	    $(DESTDIR)$(sudoersdir) $(DESTDIR)$(docdir) \
+ 	    `echo $(DESTDIR)$(timedir)|sed 's,/[^/]*$$,,'`
+-	$(INSTALL) -d -O $(install_uid) -G $(install_gid) -m 0700 $(DESTDIR)$(timedir)
+ 
+ install-binaries: visudo sudoreplay install-dirs
+ 	$(INSTALL) -b~ -O $(install_uid) -G $(install_gid) -m 0755 sudoreplay $(DESTDIR)$(replaydir)/sudoreplay

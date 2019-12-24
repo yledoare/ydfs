@@ -1,0 +1,20 @@
+. ./config.ini
+[ ! -e $HOME/ydfs/modules/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/ydfs/modules/$ARCH/bin/mksquashfs" && exit 0
+export LD_LIBRARY_PATH=$HOME/x86/lib
+rm $LCMBUILD/firmware-$ARCH.squashfs
+if [ "$ARCH" = "x86_64" ]
+then
+export LD_LIBRARY_PATH=$HOME/x86_64/lib
+else
+export LD_LIBRARY_PATH=$HOME/x86/lib
+fi
+install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
+cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
+
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+cd linux-firmware
+make DESTDIR="$HOME/firmware" FIRMWAREDIR=/lib/firmware install
+# cp -fR linux-firmware lib/firmware || exit 3
+ls $HOME/firmware/lib/firmware/radeon/R600* || exit 1
+$HOME/ydfs/modules/$ARCH/bin/mksquashfs $HOME/firmware/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs
+echo

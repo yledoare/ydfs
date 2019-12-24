@@ -1,0 +1,13 @@
+diff --git a/games/guile-compile b/games/guile-compile
+index 32dedfc..d3136e5 100755
+--- a/games/guile-compile
++++ b/games/guile-compile
+@@ -56,8 +56,6 @@ exec $GUILE $GUILE_FLAGS -e '(@@ (guild) main)' -s "$0" "$@"
+   (resolve-module (list 'scripts (string->symbol s)) #:ensure #f))
+ 
+ (define (main args)
+-  (if (defined? 'setlocale)
+-      (setlocale LC_ALL ""))
+ 
+   (let* ((options (getopt-long args *option-grammar*
+                                #:stop-at-first-non-option #t))

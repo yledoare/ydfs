@@ -1,0 +1,173 @@
+# $ARCH : the core module
+
+. ./config.ini
+
+[ "$ARCH" = "arm" ] && exit 0
+GUI_PATH=$HOME/$ARCH
+
+# $HOME/$ARCH/bin/fc-cache
+
+install -d $HOME/ydfs/modules/$ARCH
+
+DOC_FILES="25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
+# ICONS_FILES="icons/handhelds icons/nuoveXT2  icons/redglass icons/ whiteglass"
+LOCALE_FILES="share/locale"
+DEV_FILES="lib/scons lib/tcl8.5 python2.7/test pygame/tests"
+
+SKIP_FILES="lib/libjs_static.ajs bin/mariabackup bin/js52 mysql-test"
+[ "$DISTRONAME" = "hackerOS" ] && SKIP_FILES=""
+
+link_module()
+{
+for FILES in $FIND_FILES
+do
+  echo "find $FILES"
+  echo "cat $LIST | grep $FILES" 
+  cat $LIST | grep $FILES | while read file
+  do
+	echo "DEBUG $file 1" >> $HOME/ydfs/tmp/debug
+    test "$file" = "./bin/ls" && echo "Skip ./bin/ls" && continue
+	echo "DEBUG $file 2" >> $HOME/ydfs/tmp/debug
+    test -f "$file" && test ! -e `dirname $HOME/ydfs/modules/$MOD/"$file"` && install -d `dirname $HOME/ydfs/modules/$MOD/"$file"` 
+	echo "DEBUG $file 3" >> $HOME/ydfs/tmp/debug
+	  test $HOME/$ARCH/"$file" -nt $HOME/ydfs/modules/$MOD/"$file" && echo "Update $HOME/ydfs/modules/$MOD/$file" && cp $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" && continue
+	echo "DEBUG $file 4" >> $HOME/ydfs/tmp/debug
+    test -e $HOME/ydfs/modules/$MOD/"$file" && continue
+	echo "DEBUG $file 5" >> $HOME/ydfs/tmp/debug
+    echo -n $(basename "$file")
+	echo "DEBUG $file 6" >> $HOME/ydfs/tmp/debug
+    echo -n " "
+	echo "DEBUG $file 7" >> $HOME/ydfs/tmp/debug
+    test -d "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && install -d $HOME/ydfs/modules/$MOD/"$file" && continue
+	echo "DEBUG $file 8" >> $HOME/ydfs/tmp/debug
+    test -f "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && cp -a $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" 
+	echo "DEBUG $file 9" >> $HOME/ydfs/tmp/debug
+    echo $file|grep 'grub/i386-pc' >/dev/null && continue
+    echo $file|grep 'mysql-test' >/dev/null && continue
+    echo $file|grep 'sql-bench' >/dev/null && continue
+    echo $file|grep 'share/doc' >/dev/null && continue
+    echo $file|grep 'multi-user.target.wants/shadow.timer' >/dev/null && continue
+    echo $file|grep 'share/icons' >/dev/null && continue
+    [ "$MKSQUASHFS_OPT" = "" ] && test -f $HOME/ydfs/modules/$MOD/$file && strip $HOME/ydfs/modules/$MOD/$file
+ 	  test -f $HOME/ydfs/modules/$MOD/"$file" && continue
+ 	  test -L $HOME/ydfs/modules/$MOD/"$file" && continue
+    echo "What is wrong with $HOME/ydfs/modules/$MOD/$file ?"
+    break
+    exit 5
+  done
+done
+}
+
+[ ! -e "$GUI_PATH" ] && echo "$GUI_PATH not found !" && exit 1
+
+cd $GUI_PATH
+
+#FIXME
+[ "$ARCH" = "x86" ] && cp $HOME/x86/lib64/girepository-1.0/* $HOME/x86/lib/girepository-1.0/
+
+install -d $HOME/ydfs/modules
+[ ! -e ../ydfs/modules/gui-list ] && find > $HOME/ydfs/modules/gui-list
+[ ! -e ../ydfs/modules/gui-list-dev ] && find -name '*.la' -o -name '*.h'-o -name 'pkgconfig' -o -name '*.a' > $HOME/ydfs/modules/gui-list-dev
+
+SKIP="find . ! -name '*.la' -a ! -name '*.a' ! -name '*.h' ! -name '*.c'"
+for file in oxygen/256x256 oxygen/128x128 var/cache/fontconfig share/help share/gir-1.0 sql-bench mysql-test smbtorture _embedded $SKIP_FILES src.zip $ICONS_FILES $DOC_FILES $DEV_FILES lib/pkgconfig $ARCH/include $LOCALE_FILES bin/mount bin/umount bin/df
+do
+  SKIP="$SKIP | grep -v '$file'" 
+done
+
+echo $SKIP > $HOME/ydfs/modules/run-find && sh $HOME/ydfs/modules/run-find > $HOME/ydfs/modules/gui-list-all
+echo "Make module .. log in  $HOME/ydfs/modules/$ARCH.log"
+LIST=$HOME/ydfs/modules/gui-list-all MOD=$ARCH FIND_FILES="/" link_module > $HOME/ydfs/modules/$ARCH.log 2> $HOME/ydfs/modules/$ARCH.log.err
+grep 'What is wrong with' $HOME/ydfs/modules/$ARCH.log && exit 1
+LDLINUX="ld-linux.so.2 libunwind-x86.so.8"
+[ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8"
+LIBLLVM=7
+[ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
+LIBBOOST=67
+
+
+[ -e /usr/lib/libboost_filesystem.so.1.49.0 ] && LIBBOOST=49
+LIBFFI=libffi.so.6
+
+
+[ -e /usr/lib/$ARCH-linux-gnu/libffi.so.5 ] && LIBFFI=libffi.so.5
+GLIBC_LIBS="$LDLINUX libatomic.so.1 libomp.so.5 libnuma.so.1 libwrap.so.0 libunwind-ptrace.so.0 libunwind.so.8 libbabeltrace.so.1 libbabeltrace-ctf.so.1 libmvec.so.1 libltdl.so.7 libedit.so.2 libbsd.so.0 libquadmath.so.0 libelf.so.1 libtinfo.so.6 $LIBFFI libLLVM-$LIBLLVM.so.1 libpcre.so.3 libboost_locale.so.1.$LIBBOOST.0 libboost_chrono.so.1.$LIBBOOST.0 libboost_thread.so.1.$LIBBOOST.0 libboost_iostreams.so.1.$LIBBOOST.0 libboost_regex.so.1.$LIBBOOST.0  libboost_system.so.1.$LIBBOOST.0 \
+libboost_filesystem.so.1.$LIBBOOST.0 \
+libboost_atomic.so.1.$LIBBOOST.0 \
+ libboost_program_options.so.1.$LIBBOOST.0 libgomp.so.1 libmpfr.so.6 libtinfo.so.5 libanl.so.1 libBrokenLocale.so.1 libcrypt.so.1 libc.so.6 libdl.so.2 libstdc++.so.6 libgcc_s.so libgcc_s.so.1 libm.so.6 libnsl.so.1 libnss_compat.so.2 libnss_dns.so.2 libnss_files.so.2 libnss_hesiod.so.2 libnss_nisplus.so.2 libnss_nis.so.2 libpthread.so.0 libresolv.so.2 librt.so.1 libstdc++.so libstdc++.so.6 libthread_db.so.1 libutil.so.1"
+GLIBC_BIN="ldd"
+
+if [ "$TOOLCHAIN" = "crosstool-ng" ]
+then
+  cp -a $HOME/ydfs/x-tools/$CROSS_PREFIX/$CROSS_PREFIX/sysroot/lib/* $HOME/ydfs/modules/$ARCH/lib
+else
+  for file in $GLIBC_BIN
+  do
+	  install -d $HOME/ydfs/modules/$ARCH/bin
+	  cp /usr/bin/$file $HOME/ydfs/modules/$ARCH/bin || exit $?
+  done
+	  install -d $HOME/ydfs/modules/$ARCH/lib
+  for file in $GLIBC_LIBS
+  do
+    for directory in /lib64 /libx32/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/8/ /usr/lib/gcc/x86_64-linux-gnu/8/ /usr/lib/gcc/i686-linux-gnu/7/ /usr/lib/gcc/x86_64-linux-gnu/7/ /usr/lib/llvm-$LIBLLVM/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/6/
+    do
+	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
+    done
+    [ ! -e $HOME/ydfs/modules/$ARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
+  done
+fi
+
+cd $HOME/ydfs/modules/$ARCH/share/doc
+ls $HOME/ydfs/modules/$ARCH/share/doc | while read file
+do
+  test "$file" = "cups" && continue
+  echo "Delete $file"
+  rm -fR $HOME/ydfs/modules/$ARCH/share/doc/$file
+done
+ 
+[ "$ARCH" = "x86" ] && [ -e /usr/lib/i386-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu && cp -fR /usr/lib/i386-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu
+[ "$ARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu
+[ -e /usr/lib/gconv ] && cp -fR /usr/lib/gconv $HOME/ydfs/modules/$ARCH/lib/
+install -d $HOME/ydfs/modules/$ARCH/share/locale 
+cp -fR $HOME/$ARCH/share/locale/br $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/ar $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/fr $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/es $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/it $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/de $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/pt $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/cs $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/pl $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/zh_CN $HOME/ydfs/modules/$ARCH/share/locale
+cp -fR $HOME/$ARCH/share/locale/ru $HOME/ydfs/modules/$ARCH/share/locale
+# Enable wanted locales like es_ES.UTF-8 with 'dpkg-reconfigure locales' on debian
+install -d $HOME/ydfs/modules/$ARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME/ydfs/modules/$ARCH/lib/locale
+install -d $HOME/ydfs/modules/$ARCH/include/python2.7 && cp $HOME/$ARCH/include/python2.7/pyconfig.h $HOME/ydfs/modules/$ARCH/include/python2.7
+ln -sf libcurl.so.4 $HOME/ydfs/modules/$ARCH/lib/libcurl-gnutls.so.4
+ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
+ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
+install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
+cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
+
+[ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
+chmod +s $HOME/ydfs/modules/$ARCH/bin/su
+
+[ "$ARCH" = "x86_64" ] && QTMORE="translations resources"
+
+cp -fR /usr/share/zoneinfo/ $HOME/ydfs/modules/$ARCH/share
+rmdir $HOME/ydfs/modules/$ARCH/lib64
+ln -s $HOME/$ARCH/lib $HOME/ydfs/modules/$ARCH/lib64
+
+if [ "$ARCH" = "x86_64" ]
+then
+export LD_LIBRARY_PATH=$HOME/x86_64/lib
+else
+export LD_LIBRARY_PATH=$HOME/x86/lib
+fi
+install -d $LCMBUILD
+# rm $LCMBUILD/devtools-$ARCH.squashfs
+MKSQUASHFS="$HOME/ydfs/modules/$ARCH/bin/mksquashfs "
+MKSQUASHFS="$HOME/$ARCH/bin/mksquashfs "
+[ "$ARCH" = "arm" ] && MKSQUASHFS=mksquashfs
+rm $LCMBUILD/$ARCH.squashfs
+$MKSQUASHFS $HOME/ydfs/modules/$ARCH $LCMBUILD/$ARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE

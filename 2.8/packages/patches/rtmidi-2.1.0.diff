@@ -1,0 +1,13 @@
+diff --git a/Makefile.in b/Makefile.in
+index 82ad7ad..622e029 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -30,7 +30,7 @@ tests:
+ $(LIBRARIES): $(OBJECTS)
+ 	$(AR) ruv $(STATIC) $(OBJECTS)
+ 	ranlib $(STATIC)
+-	$(CC) -fPIC @libflags@ $(OBJECTS) @LIBS@
++	$(CC) -fPIC @libflags@ $(OBJECTS) @LIBS@ -L${HOME}/${ARCH}/lib
+ 	$(LN) -sf @sharedname@ $(SHARED)
+ 	$(LN) -sf @sharedname@ $(SHARED).$(MAJOR)
+ 

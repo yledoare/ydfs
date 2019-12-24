@@ -1,0 +1,14 @@
+diff -ur /home/ydfs-32/ydfs/src/fceux-2.2.2.orig/SConstruct /home/ydfs-32/ydfs/src/fceux-2.2.2/SConstruct
+--- fceux-2.2.2.orig/SConstruct	2013-09-23 21:49:16.000000000 +0200
++++ fceux-2.2.2/SConstruct	2013-09-24 17:41:47.585084336 +0200
+@@ -33,7 +33,9 @@
+ AddOption('--prefix', dest='prefix', type='string', nargs=1, action='store', metavar='DIR', help='installation prefix')
+ 
+ prefix = GetOption('prefix')
+-env = Environment(options = opts)
++env = Environment(options = opts,ENV = {'PATH' : os.environ['PATH'], 'ARCH' : os.environ['ARCH'],
++                           'HOME' : os.environ['HOME']})
++ 
+ 
+ if env['RELEASE']:
+   env.Append(CPPDEFINES=["PUBLIC_RELEASE"])

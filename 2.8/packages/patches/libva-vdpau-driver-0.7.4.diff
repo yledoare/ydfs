@@ -1,0 +1,74 @@
+diff --git a/src/utils_glx.h b/src/utils_glx.h
+index 19d03e4..998cb12 100644
+--- a/src/utils_glx.h
++++ b/src/utils_glx.h
+@@ -48,6 +48,13 @@ typedef void (*PFNGLXBINDTEXIMAGEEXTPROC)(Display *, GLXDrawable, int, const int
+ typedef void (*PFNGLXRELEASETEXIMAGEEXTPROC)(Display *, GLXDrawable, int);
+ #endif
+ 
++#if GL_GLEXT_VERSION >= 85
++/* XXX: PFNGLMULTITEXCOORD2FPROC got out of the GL_VERSION_1_3_DEPRECATED
++   block and is not defined if GL_VERSION_1_3 is defined in <GL/gl.h>
++   Redefine the type here as an interim solution */
++typedef void (*PFNGLMULTITEXCOORD2FPROC) (GLenum target, GLfloat s, GLfloat t);
++#endif
++                    
+ #ifndef GL_FRAMEBUFFER_BINDING
+ #define GL_FRAMEBUFFER_BINDING GL_FRAMEBUFFER_BINDING_EXT
+ #endif
+diff --git a/src/vdpau_decode.c b/src/vdpau_decode.c
+index 4a402d7..0ffe452 100644
+--- a/src/vdpau_decode.c
++++ b/src/vdpau_decode.c
+@@ -1289,7 +1289,7 @@ vdpau_EndPicture(
+             driver_data,
+             obj_context->vdp_decoder,
+             obj_surface->vdp_surface,
+-            (VdpPictureInfo)&obj_context->vdp_picture_info,
++            (VdpPictureInfo *)&obj_context->vdp_picture_info,
+             obj_context->vdp_bitstream_buffers_count,
+             obj_context->vdp_bitstream_buffers
+         );
+diff --git a/src/vdpau_dump.c b/src/vdpau_dump.c
+index 899888b..610e7cd 100644
+--- a/src/vdpau_dump.c
++++ b/src/vdpau_dump.c
+@@ -59,8 +59,6 @@ const char *string_of_VABufferType(VABufferType type)
+         _(VAEncSequenceParameterBufferType);
+         _(VAEncPictureParameterBufferType);
+         _(VAEncSliceParameterBufferType);
+-        _(VAEncH264VUIBufferType);
+-        _(VAEncH264SEIBufferType);
+ #endif
+ #if VA_CHECK_VERSION(0,31,1)
+         _(VAQMatrixBufferType);
+diff --git a/src/vdpau_video.c b/src/vdpau_video.c
+index 41d4573..4f7ba38 100644
+--- a/src/vdpau_video.c
++++ b/src/vdpau_video.c
+@@ -927,8 +927,10 @@ VAStatus
+ vdpau_CreateSurfaceFromV4L2Buf(
+     VADriverContextP    ctx,
+     int                 v4l2_fd,
++    /*
+     struct v4l2_format *v4l2_fmt,
+     struct v4l2_buffer *v4l2_buf,
++    */
+     VASurfaceID        *surface
+ )
+ {
+diff --git a/src/vdpau_video.h b/src/vdpau_video.h
+index 667a6d7..476d52f 100644
+--- a/src/vdpau_video.h
++++ b/src/vdpau_video.h
+@@ -274,8 +274,10 @@ VAStatus
+ vdpau_CreateSurfaceFromV4L2Buf(
+     VADriverContextP    ctx,
+     int                 v4l2_fd,
++    /*
+     struct v4l2_format *v4l2_fmt,
+     struct v4l2_buffer *v4l2_buf,
++    */
+     VASurfaceID        *surface
+ ) attribute_hidden;
+ 

@@ -1,0 +1,30 @@
+#!/bin/bash
+install -d $HOME/archpkg
+cd $HOME/archpkg
+URL=https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages
+URL2=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages
+PKG=$1
+SHORT=${PKG:0:2}
+URL3=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
+URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
+#[ -e $PKG ] && rm $PKG
+if [ ! -e $HOME/archpkg/$PKG ]
+then
+wget --no-check-certificate -q "$URL""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget --no-check-certificate -q "$URL3" -O $HOME/archpkg/$PKG || wget --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
+fi
+
+. $HOME/archpkg/$PKG
+
+for i in ${!source[*]}
+do 
+ if [ $i -gt 0 ]
+ then
+#	echo ${source[i]}
+	PATCHURL=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/${source[i]}?h=packages/$PKG
+	PATCHURL2=https://aur.archlinux.org/cgit/aur.git/plain/${source[i]}?h=$PKG
+        PATCHURL3=https://git.archlinux.org/svntogit/community.git/plain/trunk/${source[i]}?h=packages/$PKG
+	install -d /tmp/patches
+	wget $PATCHURL -O /tmp/patches/${source[i]} || wget $PATCHURL2 -O /tmp/patches/${source[i]} || wget $PATCHURL3 -O /tmp/patches/${source[i]}
+ fi
+ #break
+done

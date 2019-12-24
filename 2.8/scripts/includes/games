@@ -1,0 +1,397 @@
+#!/bin/sh
+  install_desktop_dirs ()
+{
+	install -d $PREFIX/share/pixmaps
+	install -d $PREFIX/share/applications
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+}
+
+if [ -e bsnes ]
+then 
+	ls $HOME/$ARCH/include | while read dir
+do
+	ln -s $HOME/$ARCH/include/$dir bsnes
+done
+    make -C bsnes || exit 1
+    make -C bsnes prefix="$PREFIX" install || exit 1
+    install -d $PREFIX/share/pixmaps
+    cp $PREFIX/share/icons/bsnes.png  $PREFIX/share/pixmaps
+    touch buildok-$ARCH
+    exit 0 
+fi
+
+if [ -e unix/chessx.desktop ]
+then
+  install -Dm644 "unix/chessx.desktop" $PREFIX/share/applications
+  install -Dm644 data/images/chessx.png $PREFIX/share/pixmaps
+  install -Dm755 release/chessx $PREFIX/bin
+fi
+
+if [ -e openarena.i386 ]
+then
+  echo openarena.i386
+  rm *.dll *.exe
+  rm -rf __MACOSX *.app
+  install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena
+  wget https://aur.archlinux.org/cgit/aur.git/snapshot/openarena.tar.gz
+  tar xzvf openarena.tar.gz 
+  
+  install -dm755 $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/ $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/ $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
+
+  chmod 755 *.{i386,x86_64}
+
+  install -Dm 644 openarena/openarena{,-server}.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/
+  install -Dm 644 openarena/openarena{,-server}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
+
+  install -Dm 755 openarena/openarena-runner.sh $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena/openarena-runner.sh
+
+  BIN=openarena.i386
+  [ "$ARCH" == "x86_64" ] && BIN=openarena.x86_64
+  SERVER=oa_ded.i386
+  [ "$ARCH" == "x86_64" ] && SERVER=oa_ded.x86_64
+
+  echo "cd $PREFIX/openarena" > $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+  echo "$PREFIX/openarena/$BIN" >> $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+  chmod +x $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena
+
+  echo "cd $PREFIX/openarena" >  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+  echo "$PREFIX/openarena/$SERVER" >> $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+  chmod +x  $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin/openarena-server
+
+  mv * $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/openarena
+fi
+
+    if [ -e src/vegastrike.h ]
+    then
+ _pkgname=vegastrike
+ pkgver=0.5.1.r1
+    for DATA in http://downloads.sourceforge.net/vegastrike/vegastrike-music-0.5.1.r1.tar http://downloads.sourceforge.net/vegastrike/vegastrike-speech-0.5.1.r1.tar
+    do
+	[ ! -e $(basename $DATA) ] && wget $DATA
+	tar xvf $(basename $DATA)
+    done
+    for DATA in http://downloads.sourceforge.net/vegastrike/vegastrike-data-0.5.1.r1.tar.bz2 http://downloads.sourceforge.net/vegastrike/vegastrike-extra-0.5.1.r1.tar.bz2 
+    do
+	[ ! -e $(basename $DATA) ] && wget $DATA
+	tar xjvf $(basename $DATA)
+    done
+	install -d ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-data-${pkgver}/* ${pkgdir}/share/${_pkgname}/ || exit $?
+  cp -rf ${_pkgname}-data-${pkgver}/\.vegastrike ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-extra-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-music-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-speech-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+
+ 	pkgdir=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX
+	install -d ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-data-${pkgver}/* ${pkgdir}/share/${_pkgname}/ || exit $?
+  cp -rf ${_pkgname}-data-${pkgver}/\.vegastrike ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-extra-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-music-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+  cp -rf ${_pkgname}-speech-${pkgver}/* ${pkgdir}/share/${_pkgname}/
+
+	install_desktop_dirs
+	cp ${_pkgname}-data-${pkgver}/vegastrike.desktop $PREFIX/share/applications
+	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $PREFIX/share/pixmaps
+	cp ${_pkgname}-data-${pkgver}/vegastrike.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+    fi
+
+    if [ -e ../bin/minetestold ]
+    then
+      echo "Install libjsoncpp.so"
+      install -d $PREFIX/lib
+      install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib
+      cp ./src/json/libjsoncpp.so $PREFIX/lib
+      cp ./src/json/libjsoncpp.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
+      cp ./src/cguittfont/libcguittfont.so $PREFIX/lib
+      cp ./src/cguittfont/libcguittfont.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
+    fi
+ 
+    if [ -e src/komat/Berusky3d_castice.h ]
+    then
+	install_desktop_dirs
+ 	pkgdir=$HOME/ydfs/packages-$ARCH/$MYDIR/usr
+	cp data/berusky2.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/berusky2.png || exit $?
+        cp data//berusky2.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/ || exit $?
+	[ ! -e berusky2-data-0.9.tar.bz2 ] && wget http://downloads.sourceforge.net/project/berusky2/berusky2-data-0.9/berusky2-data-0.9.tar.bz2
+	tar xjvf berusky2-data-0.9.tar.bz2 || exit $?
+	cd berusky2-data-0.9 || exit $?
+  	mkdir -p "$pkgdir"/share/berusky2/
+  	install -m 755 -d "$pkgdir"/share/berusky2
+  	install -m 755 -d "$pkgdir"/share/berusky2/game
+  	for s in `ls game`;do
+	  echo $s 
+    	  install -m 755 -d "$pkgdir"/share/berusky2/game/$s
+    	  install -m 644 -t "$pkgdir"/share/berusky2/game/$s game/$s/*
+  	done
+   	for s in bitmap data game_data materials textures items out music sound;do
+	  echo $s
+     	  install -m 755 -d "$pkgdir"/share/berusky2/$s
+     	  install -m 644 -t "$pkgdir"/share/berusky2/$s $s/*
+  	done
+  	install -m 755 -d "$pkgdir"/share/berusky2/Save/profiles
+    fi
+    if [ -e ./debian/abe.desktop ]
+    then
+	install_desktop_dirs
+	# from debian/rules
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR images $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR sounds $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	cp -fR maps $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/abe
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/games
+	cp src/abe $HOME/ydfs/packages-$ARCH/$MYDIR/usr/games
+	tar xf images/images.tar tom4.bmp	
+	convert -resize 24x32 tom4.bmp tom4.xpm
+	sed -e "s/#000000/None/" < tom4.xpm > abe.xpm
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/usr/share/pixmaps/
+	cp abe.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/usr/share/pixmaps/
+	cp ./debian/abe.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+    fi
+
+    if [ -e desktop/icons/small/armagetronad.png ]
+	then
+		cp desktop/icons/small/armagetronad.png "$PREFIX"/share/pixmaps
+		cp desktop/icons/small/armagetronad.png "$pkgdir"/share/pixmaps/
+		cp desktop/armagetronad.desktop "$PREFIX"/share/applications || exit $?
+		cp desktop/armagetronad.desktop "$pkgdir"/share/applications/
+	fi
+
+    if [ -e torcs.desktop ]
+	then
+	     install -D -m644 Ticon.png "$pkgdir"/share/pixmaps/torcs.png
+	     install -D -m644 Ticon.png "$PREFIX"/share/pixmaps/torcs.png
+	     install -D -m644 torcs.desktop "$pkgdir"/share/applications/torcs.desktop 
+	     install -D -m644 torcs.desktop "$PREFIX"/share/applications/torcs.desktop 
+		 make DESTDIR="$pkgdir" datainstall
+		 make datainstall
+bash
+	fi 
+
+    if [ -e game/egoboo-2.x ]
+    then
+	install_desktop_dirs
+	pkgname="egoboo"
+        convert ../egoboo1.ico $PREFIX/share/pixmaps/egoboo.png
+        cp $PREFIX/share/pixmaps/egoboo.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+        NAME="$pkgname" GENERICNAME="$pkgname" EXEC="$PREFIX/games/egoboo-2.x" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+    fi
+
+    if [ -e build/linux/dangerdeep  ]
+    then
+	echo "Custom DangerDeep" && sleep 10
+	install_desktop_dirs
+	pkgname="dangerdeep"
+        [ ! -e dangerdeep-data-0.3.0.zip ] && wget http://freefr.dl.sourceforge.net/project/dangerdeep/danger_from_the_deep-data/0.3.0/dangerdeep-data-0.3.0.zip
+        install -d $PREFIX/share/dangerdeep
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
+        install -d $PREFIX/bin
+        cp build/linux/dangerdeep $PREFIX/bin
+        cp build/linux/dangerdeep $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/bin
+	install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
+        unzip dangerdeep-data-0.3.0.zip -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/dangerdeep
+	cp dftd_icon.png $PREFIX/share/pixmaps/${pkgname}.png
+        cp dftd_icon.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+        NAME="$pkgname" GENERICNAME="$pkgname " EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+        cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+    fi
+
+
+    if [ -e src/tuxpaint.desktop ]
+    then
+	install_desktop_dirs
+       cp src/tuxpaint.desktop $PREFIX/share/applications
+       cp src/tuxpaint.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/
+    fi
+    if [ -e src/dosbox.cpp ]
+    then
+	install_desktop_dirs
+	cp $HOME_DIBAB/logos/dosbox.png $PREFIX/share/pixmaps || exit 4
+	cp $HOME_DIBAB/data/applications/dosbox.desktop $PREFIX/share/applications || exit 5
+    fi
+    if [ -e dossizola/jeu.c ]
+    then
+	install_desktop_dirs
+	cp $HOME_DIBAB/logos/dossizola.png $PREFIX/share/pixmaps || exit 4
+	cp $HOME_DIBAB/logos/dossizola.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
+	cp $HOME_DIBAB/desktop/dossizola.desktop $PREFIX/share/applications || exit 5
+	cp $HOME_DIBAB/desktop/dossizola.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+    fi
+  if [ -e xmoto.6 ]
+  then
+	install_desktop_dirs
+    cp extra/xmoto.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications || exit 1
+    cp extra/xmoto.desktop $PREFIX/share/applications || exit 1
+
+    cp extra/xmoto.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/ || exit 1
+    cp extra/xmoto.xpm $PREFIX/share/pixmaps/ || exit 1
+  fi
+  if [ -e hedgewars ]
+  then
+      install_desktop_dirs
+      cd ..
+      install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications/hedgewars.desktop || exit 1
+      cp misc/hedgewars.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps/hedgewars.png || exit 1
+  fi
+    if [ -e pacman.cc ]
+    then
+	install_desktop_dirs
+	pkgname="pacman"
+        NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+	convert debian/pacman.xpm $PREFIX/share/pixmaps/$pkgname.png
+    fi  
+    if [ -e BomberInstinct.spec ]
+    then
+	install_desktop_dirs
+	pkgname="BomberInstinct"
+        NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="bi" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+    fi  
+    if [ -e data/bzflag-48x48.png ]
+    then
+	install_desktop_dirs
+	pkgname="bzflag"
+	cp data/bzflag-48x48.png $PREFIX/share/pixmaps/$pkgname.png
+        NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+	cp $PREFIX/share/pixmaps/$pkgname.png $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/$pkgname.png
+    fi  
+    if [ -e src/gltron.c ]
+    then
+	install_desktop_dirs
+	pkgname="gltron"
+        NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="$pkgname" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/${pkgname}.desktop
+	cp $PREFIX/share/applications/${pkgname}.desktop $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/applications
+    fi 
+  
+  if [ -e src/Egoboo.workspace ]
+  then
+    ln -s src egoboo
+    cd egoboo
+  fi
+
+  if [ -e src/openttd.cpp ]
+  then
+    pkgname=openttd
+    echo "install $PREFIX/share/openttd/data"
+    sed -i "s@/mingw/include@$HOME/$ARCH/include@" config.lib
+    sed -i "s@/mingw/lib@$HOME/$ARCH/lib@" config.lib
+    install -d $PREFIX/share/games/openttd/data
+    [ ! -e opensfx-0.2.3.zip ] && wget http://bundles.openttdcoop.org/opensfx/releases/opensfx-0.2.3.zip && unzip opensfx-0.2.3.zip  && mv opensfx-0.2.3/* $PREFIX/share/games/openttd/data
+    [ ! -e opengfx-0.5.0.zip ] && wget http://bundles.openttdcoop.org/opengfx/releases/0.5.0/opengfx-0.5.0.zip && unzip opengfx-0.5.0.zip && tar xvf opengfx-0.5.0.tar &&  mv opengfx-0.5.0/* $PREFIX/share/games/openttd/data
+    ./configure \
+    --prefix=$PREFIX \
+    --binary-dir=bin \
+    --menu-name="OpenTTD" \
+    --personal-dir=.${pkgname}||exit $?
+    make || exit $?
+    make install || exit $?
+    touch  $PREFIX/share/games/openttd/data/*
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0 
+  fi
+  if [ -e foobillardplus.desktop ]
+  then
+    pkgdir=$PREFIX
+    aclocal --force
+    autoconf -f
+    autoheader -f
+    automake -a -c -f 
+     ./configure --prefix=$PREFIX 
+    make
+    pkgname=foobillardplus
+      NAME=$pkgname GENERICNAME=$pkgname COMMENT="" EXEC="${pkgdir}"/foobillardplus/bin/foobillardplus ICON=$pkgname.png CATEGORIES="Game;" \
+      $HOME_DIBAB/scripts/print_desktop > ${pkgname}.desktop
+    # to install it into packages dirs
+    find . | while read file
+    do
+      touch $file
+    done
+    make install
+    install -d "${pkgdir}"/{bin,share/{applications,pixmaps}}
+    mv "${pkgdir}"/foobillardplus/foobillardplus.desktop "${pkgdir}"/share/applications
+    mv "${pkgdir}"/foobillardplus/foobillardplus.{png,xbm} "${pkgdir}"/share/pixmaps
+    #install -d "${pkgdir}"/bin
+    #ln -s "${pkgdir}"/foobillardplus/bin/foobillardplus "${pkgdir}"/bin/foobillardplus
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0 
+  fi
+  [ -e src/gltron.c ] && export CPPFLAGS="-I$PWD/lua/include  $CPPFLAGS"
+  [ -e ./bootstrap ] && [ -e tecnoballz.conf ] && [ ! -e configure ] && ./bootstrap
+
+#traitement du jeu Oad------------------------  
+. $(dirname $0)/../scripts/includes/0ad
+
+#traitement de Box2D(Linuxfr.org)------------------------  
+  if [ -e Box2D ]
+  then
+    cd Box2D
+  fi
+#correction pour libes(linuxfr.org)nécessaire pour le jeu GeneticInvasion------------------------  
+  if [ -e src/libes0.pc.in  ]
+  then
+	cd src
+  fi
+#correction pour libtmx(linuxfr.org)nécessaire pour le jeu Akagoria------------------------  
+  if [ -e src/libtmx0.pc.in  ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/pkgconfig/tinyxml2.pc $HOME/$ARCH/lib/pkgconfig/
+	cd src
+  fi
+#correction pour le jeu Akagoria(linuxfr.org) ------------------------  
+  if [ -e src/games/akagoria.cc ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/* $HOME/$ARCH/lib
+	cd src
+  fi
+
+if [ -e bam.lua ]
+then
+  pkgname=teeworlds
+
+  sed -i "s@/opt/teeworlds/data@$pkgdir/share/$pkgname/data@" src/engine/shared/storage.cpp
+  bam -v server_release client_release || exit $?
+  mkdir -p ${pkgdir}//share/${pkgname}/data
+  cp -r data/* ${pkgdir}/share/${pkgname}/data || exit $?
+  
+  install -Dm755 ${pkgname} ${pkgdir}/bin/${pkgname}
+  install -Dm755 ${pkgname}_srv ${pkgdir}/bin/${pkgname}_srv
+  echo "[Desktop Entry]
+Name=$pkgname
+GenericName=$pkgname
+Comment=
+Exec=$pkgname
+Icon=$pkgname.png
+Type=Application
+Categories=Game;" > $pkgname.desktop
+  
+  install -Dm644 ${pkgname}.desktop ${pkgdir}/share/applications/${pkgname}.desktop || exit $?
+  convert other/icons/Teeworlds.ico ${pkgname}.png
+  cp ${pkgname}-0.png  ${pkgdir}/share/pixmaps/${pkgname}.png || exit $?
+  
+  install -Dm644 license.txt ${pkgdir}/share/licenses/${pkgname}/license.txt
+  ydfs-install-package
+  touch buildok-$ARCH
+  exit 0
+fi
+
+  if [ -e lutris.desktop.in ]
+  then
+    # sed -i 's|^#!.*python$|#!/$HOME/$ARCH/bin/python2|' $(grep -rl '^#!.*python')
+    python setup.py install --prefix=$PREFIX || exit $?
+    install -d $PREFIX/data/
+    cp -fR data/* $PREFIX/data/
+    ydfs-install-package 
+    touch buildok-$ARCH
+    exit 0
+  fi

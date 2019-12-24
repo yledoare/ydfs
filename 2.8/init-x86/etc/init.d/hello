@@ -1,0 +1,10 @@
+#!/busybox/bin/ash
+
+WELCOME="Welcome into Ydfs"
+[ "$lang" = "fr" ] && WELCOME="Bienvenue sur Ydfs"
+[ "$lang" = "bzh" ] && WELCOME="Deger mad Ydfs"
+[ "$lang" = "de" ] && WELCOME="Willkommen in Ydfs"
+[ "$lang" = "it" ] && WELCOME="Benvenuto in Ydfs"
+[ "$lang" = "nl" ] && WELCOME="Onthaal in Ydfs"
+
+echo -e "\033[33m$WELCOME - (c) 2001-2014 Yann Le Doare\033[39m" 

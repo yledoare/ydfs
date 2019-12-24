@@ -1,0 +1,42 @@
+diff --git a/Makefile b/Makefile
+index 730ed91..135b314 100644
+--- a/Makefile
++++ b/Makefile
+@@ -109,17 +109,12 @@ windows_PREFIX:=/usr/local
+ osx_PREFIX:=/usr/local
+ 
+ beos_PREFIX=$(shell finddir B_APPS_DIRECTORY)/TuxPaint
+-linux_PREFIX:=/usr/local
++linux_PREFIX:=$(MYPREFIX)
+ PREFIX:=$($(OS)_PREFIX)
+ 
+ # Root directory to place files when creating packages.
+ # PKG_ROOT is the old name for this, and should be undefined.
+ # "TuxPaint-1" is the OLPC XO name. Installing to ./ is bad!
+-ifeq ($(PREFIX),./)
+-DESTDIR:=TuxPaint-1
+-else
+-DESTDIR:=$(PKG_ROOT)
+-endif
+ 
+ # Program:
+ BIN_PREFIX:=$(DESTDIR)$(PREFIX)/bin
+@@ -148,7 +143,7 @@ MAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
+ DEVMAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
+ 
+ # BASH tab-completion file:
+-COMPLETIONDIR:=$(DESTDIR)/etc/bash_completion.d
++COMPLETIONDIR:=$(DESTDIR)$(PREFIX)/etc/bash_completion.d
+ 
+ # 'System-wide' Config file:
+ ifeq ($(PREFIX),/usr)
+@@ -225,7 +220,8 @@ endif
+ # The entire set of CFLAGS:
+ 
+ #-ffast-math
+-OPTFLAGS:=-O2
++OPTFLAGS:=-O2 -I$(HOME)/$(ARCH)/include/SDL -lpaper -lpng
++
+ CFLAGS:=$(CPPFLAGS) $(OPTFLAGS) -W -Wall -fno-common -ffloat-store \
+ 	$(if $(filter windows,$(OS)),,$(call comptest,-fvisibility=hidden,)) \
+ 	-Wcast-align -Wredundant-decls \

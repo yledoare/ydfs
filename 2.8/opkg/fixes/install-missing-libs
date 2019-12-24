@@ -1,0 +1,9 @@
+exit 0
+for file in libboost_locale.so.1.54.0 libboost_thread.so.1.54.0
+do
+  for directory in /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/gcc/x86_64-linux-gnu/4.7 /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/
+  do
+        [ -e $directory/$file ] && echo cp $directory/$file usr/lib/ && sleep 1 && cp $directory/$file usr/lib/
+    done
+  [ ! -e usr/lib/$file ] && echo "where is $file ?" && exit 45
+done

@@ -1,0 +1,50 @@
+SRCDIR=$PWD
+rm -r {pkg_resources,setuptools}/{extern,_vendor}
+
+  # Upstream devendoring logic is badly broken, see:
+  # https://bugs.archlinux.org/task/58670
+  # https://github.com/pypa/pip/issues/5429
+  # https://github.com/pypa/setuptools/issues/1383
+  # The simplest fix is to simply rewrite import paths to use the canonical
+  # location in the first place
+  for _module in setuptools pkg_resources '' ; do
+      find $_module -name \*.py -exec sed -i \
+          -e 's/from '$_module.extern' import/import/' \
+          -e 's/from '$_module.extern'./from /' \
+          -e 's/import '$_module.extern'./import /' \
+          -e "s/__import__('$_module.extern./__import__('/" \
+          {} +
+    done
+
+  # Remove post-release tag since we are using stable tags
+  sed -e '/tag_build = .post/d' \
+      -e '/tag_date = 1/d' \
+      -i setup.cfg
+
+  # 'Clean' installation is expected to fail since we removed bundled packages
+  sed -i '/^def test_clean_env_install/i import pytest\n\n@pytest.mark.xfail' setuptools/tests/test_virtualenv.py
+
+  # Tests failed. Importing an unbundled new setuptools in a virtualenv does not work, but this won't
+  # affect normal virtualenv usage (which don't have to import the unbundled setuptools in *current*
+  # dir.
+  sed -e '/^def test_pip_upgrade_from_source/i @pytest.mark.xfail' \
+      -e '/^def test_test_command_install_requirements/i @pytest.mark.xfail' \
+      -i setuptools/tests/test_virtualenv.py
+
+  cp -fR $SRCDIR $SRCDIR-py2
+  sed -i -e "s|^#\!.*/usr/bin/env python|#!/usr/bin/env python3|" setuptools/command/easy_install.py
+
+  cd $SRCDIR-py2
+  sed -i -e "s|^#\!.*/usr/bin/env python|#!/usr/bin/env python2|" setuptools/command/easy_install.py
+
+  cd $SRCDIR
+  python3 bootstrap.py || exit 1
+  python3 setup.py build || exit 1
+  python3 setup.py install --prefix=$PREFIX --root="$pkgdir" --optimize=1 --skip-build || exit 1
+
+#  cd $SRCDIR-py2
+#  python2 bootstrap.py || exit 1
+#  python2 setup.py build || exit 1
+#  python2 setup.py install --prefix=$PREFIX --root="$pkgdir" --optimize=1 --skip-build || exit 1
+
+

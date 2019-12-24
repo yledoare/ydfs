@@ -1,0 +1,21 @@
+#!/busybox/bin/sh
+# ****************************************************************************
+#
+# Copyright (C) 2001-2013 Yann Le Doaré  - GPL Licence
+#
+# ****************************************************************************
+
+install -d /ydfs/boot/options
+for OPTION in `cat /proc/cmdline`
+do
+  case $OPTION in 
+    kbd=*) 
+	/busybox/sbin/loadkmap < /share/kmap/$kbd.kmap ;;
+  esac
+	#grep fr_FR.UTF-8 /proc/cmdline && install -d 
+	echo $OPTION | grep "=" >/dev/null && continue
+	install -d /ydfs/boot/options/$OPTION
+done
+
+cat /proc/cmdline | grep layoutcode=fr >/dev/null && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap
+[ -e /ydfs/boot/options/fr ] && /busybox/sbin/loadkmap < /share/kmap/azerty.kmap

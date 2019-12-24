@@ -1,0 +1,9 @@
+#!/bin/sh
+. ./config.ini
+BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
+cd /$HOME/ydfs
+cd src/linux-"$KERNEL3"
+make modules_install O=$BUILD_DIR INSTALL_MOD_PATH=$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 || exit 1
+depmod -b $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3 -m $KERNEL3
+[ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.pcimap ] && echo "modules.pcimap not found " && exit 1
+[ ! -e $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/lib/modules/$KERNEL3/modules.dep ] && echo "$HOME/ydfs/kernel-$ARCH/modules/$KERNEL3/modules.dep not found" && exit 2

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Setup locale
+Name[fr]=Configurer la langue
+Exec=/ydfs/detect/lang reconfigure
+Terminal=false
+Icon=flag-fr
+Type=Application
+Categories=Settings

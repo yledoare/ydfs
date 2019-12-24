@@ -1,0 +1,59 @@
+if [ -e src/mame/mame.cpp ]
+then
+    echo "Build Mame"
+    if [ "$ARCH" = "x86" ]
+    then
+      ARCH="" make \
+      NOWERROR=1 \
+      OPTIMIZE=2 \
+      TOOLS=1 \
+      ARCHOPTS=-flifetime-dse=1 linux_x86 || exit 1
+    else
+      ARCH="" make \
+      NOWERROR=1 \
+      OPTIMIZE=2 \
+      TOOLS=1 \
+      ARCHOPTS=-flifetime-dse=1 || exit 1
+    fi
+  pkgname=mame
+# Install the sdlmame script
+  install -Dm755 $srcdir/${pkgname}.sh $pkgdir/bin/${pkgname}
+
+  # Install the applications and the UI font in /share
+  install -Dm755 mame $pkgdir/share/${pkgname}/${pkgname} || \
+  install -Dm755 mame64 $pkgdir/share/${pkgname}/${pkgname}
+
+  install -m755 chdman $pkgdir/share/${pkgname}/chdman
+  install -m755 jedutil $pkgdir/share/${pkgname}/jedutil
+  install -m755 regrep $pkgdir/share/${pkgname}/regrep
+  install -m755 romcmp $pkgdir/share/${pkgname}/romcmp
+  install -m755 testkeys $pkgdir/share/${pkgname}/testkeys
+  install -m755 src2html $pkgdir/share/${pkgname}/src2html
+  install -m755 srcclean $pkgdir/share/${pkgname}/srcclean
+  install -m755 ldverify $pkgdir/share/${pkgname}/ldverify
+  install -m755 ldresample $pkgdir/share/${pkgname}/ldresample
+
+  # Install the extra bits
+  install -d $pkgdir/share/${pkgname}/{artwork,ctrlr,keymaps,shader}
+  install -d $pkgdir/share/man/man1
+  install -d $pkgdir/share/man/man6
+  install -m644 src/osd/sdl/shader/glsl*.*h $pkgdir/share/${pkgname}/shader/
+  install -m644 src/osd/sdl/man/*.1* $pkgdir/share/man/man1/
+  install -m644 src/osd/sdl/man/*.6* $pkgdir/share/man/man6/
+
+  install -m644 $srcdir/artwork/* $pkgdir/share/${pkgname}/artwork/
+  install -m644 $srcdir/ctrlr/* $pkgdir/share/${pkgname}/ctrlr/
+  install -m644 src/osd/sdl/keymaps/* $pkgdir/share/${pkgname}/keymaps/
+
+  # Include the license
+  install -Dm644 docs/license.txt $pkgdir/share/licenses/${pkgname}/license.txt
+
+  # FS#28203
+  sed -i 's|KEYCODE_2_PAD|KEYCODE_2PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
+  sed -i 's|KEYCODE_4_PAD|KEYCODE_4PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
+  sed -i 's|KEYCODE_6_PAD|KEYCODE_6PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
+  sed -i 's|KEYCODE_8_PAD|KEYCODE_8PAD|' $pkgdir/share/sdlmame/ctrlr/*.cfg
+  MAKE_INSTALL=OFF
+  install -d $PREFIX/share/applications
+  cp $HOME_DIBAB/data/applications/mame.desktop $PREFIX/share/applications || exit 5
+fi

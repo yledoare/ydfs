@@ -1,0 +1,38 @@
+if [ -e programs/winecfg ] && [ "$ARCH" == "x86_64" ]
+then
+#	$HOME_DIBAB/scripts/make_multilib
+#	$HOME_DIBAB/scripts/make_multilib
+	bash $HOME_DIBAB/scripts/make_multilib || exit 1
+	WINEBUILD=$PWD
+
+	WINEVER=$(basename $PWD)
+
+	echo "Run scripts from $WINEBUILD"
+	sleep 10
+	mkdir $HOME/ydfs/build-wine32
+	cd $HOME/ydfs/build-wine32
+
+	export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig/
+	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
+	export LDFLAGS="-L $HOME/multilib/lib -L $HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib"
+
+        for INC in odbcinst.h sql.h sqltypes.h sqlucode.h sqlext.h
+        do
+          mv $HOME/multilib/include/$INC $HOME/multilib/include/"$INC"-disabled
+        done
+
+	echo "Configure Win32"
+	$HOME/ydfs/src/$WINEVER/configure --prefix=$PREFIX --with-x --with-gstreamer --libdir=$HOME/multilib/lib/ --with-wine64=$WINEBUILD || exit 1
+	echo "Make Win32"
+	make || exit 1
+	echo "Make install Win32"
+	make prefix="$PREFIX" libdir=$PREFIX/lib32 dlldir=$PREFIX/lib32/wine install || exit 1
+    
+	cd $WINEBUILD
+	echo "Make install Win64"
+	make install || exit 1
+	# make prefix="$PREFIX" libdir="$PREFIX/lib" dlldir="$PREFIX/lib/wine" install || exit 1
+	touch buildok-$ARCH
+        exit 0
+
+fi

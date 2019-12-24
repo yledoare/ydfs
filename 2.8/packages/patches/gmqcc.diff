@@ -1,0 +1,12 @@
+diff --git a/include.mk b/include.mk
+index 23c3fb9..e721cb5 100644
+--- a/include.mk
++++ b/include.mk
+@@ -1,6 +1,6 @@
+ # default directories and paths
+ DESTDIR :=
+-PREFIX  := /usr/local
++PREFIX  := $(MYPREFIX)
+ BINDIR  := $(PREFIX)/bin
+ DATADIR := $(PREFIX)/share
+ MANDIR  := $(DATADIR)/man

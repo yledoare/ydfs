@@ -1,0 +1,51 @@
+
+if [ ! -e /newroot ]
+then
+ 
+mkdir -p /proc
+mount -t proc proc /proc
+
+mkdir -p /sys
+mount -t sysfs sysfs /sys
+
+mkdir -p /sys/dev
+mkdir -p /var/run
+mkdir -p /dev
+
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
+
+# Populate /dev
+# echo /busybox/sbin/mdev > /proc/sys/kernel/hotplug
+
+
+/busybox/sbin/mdev -s
+
+mkdir -p /newroot
+# mount -t tmpfs -o size=1500m tmpfs /newroot || /busybox/bin/ash 
+mount -t tmpfs tmpfs /newroot || /busybox/bin/ash 
+
+mkdir /newroot/sys
+mkdir /newroot/proc
+mkdir /newroot/dev
+mkdir /newroot/newroot
+
+mount --move /sys /newroot/sys
+mount --move /proc /newroot/proc
+# mount --move /dev /newroot/dev
+
+cp -a /busybox /newroot
+cp -a /ydfs /newroot
+cp -a /etc /newroot
+cp /* /newroot
+
+# echo exec switch_root -c /dev/console /newroot /newroot/etc/init.d/rcS
+exec switch_root /newroot /etc/init.d/rcS
+echo "Please reboot"
+/busybox/bin/ash
+else
+  echo "Inside /newroot"
+fi
+
+
+# mount -a

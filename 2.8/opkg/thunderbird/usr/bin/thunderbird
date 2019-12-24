@@ -1,0 +1,24 @@
+LANG=en-US
+
+[ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
+
+[ "$lang" = "french" ] && LANG=fr
+[ "$lang" = "spanish" ] && LANG=es-ES
+
+cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
+THUNDERBIRD=31.2.0
+if [ "$ARCH" = "x86" ]
+then
+  URL=http://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/$THUNDERBIRD/linux-i686/$LANG/thunderbird-"$THUNDERBIRD".tar.bz2
+else
+  URL=http://ftp.mozilla.org/pub/mozilla.org/thunderbird/releases/$THUNDERBIRD/linux-$ARCH/$LANG/thunderbird-"$THUNDERBIRD".tar.bz2
+fi
+
+if [ ! -e $HOME/thunderbird ]
+then
+  cd $HOME
+  DEST=$HOME /ydfs/start/download  $URL
+  tar xjvf thunderbird-"$THUNDERBIRD".tar.bz2 && rm thunderbird-"$THUNDERBIRD".tar.bz2
+fi
+
+$HOME/thunderbird/thunderbird $@

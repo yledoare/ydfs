@@ -1,0 +1,10 @@
+PROCESS_KILL_LIST="polkitd NetworkManager udevd dbus-daemon rsyslogd wpa_supplicant sshd"
+for PROCESS in $PROCESS_KILL_LIST
+do
+  ps ax | grep $PROCESS >/dev/null && killall $PROCESS 
+done
+sleep 1
+for PROCESS in $PROCESS_KILL_LIST
+do
+  ps ax | grep $PROCESS >/dev/null && killall -9 $PROCESS
+done

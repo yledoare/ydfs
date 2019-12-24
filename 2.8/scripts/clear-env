@@ -1,0 +1,19 @@
+echo "Clear env VAR ..."
+sleep 5
+
+rm /tmp/env
+env | while read VAR
+do
+  THEENV=$(echo $VAR|cut -d '=' -f1)
+  [ "$THEENV" = "HOME" ] && continue
+  [ "$THEENV" = "ARCH" ] && continue
+  [ "$THEENV" = "SOURCEDIR" ] && continue
+  [ "$THEENV" = "HOME" ] && continue
+  [ "$THEENV" = "MYPWD" ] && continue
+  [ "$THEENV" = "MYDIR" ] && continue
+  [ "$THEENV" = "HOME" ] && continue
+  [ "$THEENV" = "PATH" ] && continue
+  [ "$THEENV" = "_" ] && continue
+  echo "$THEENV"
+  echo "unset" $VAR|cut -d '=' -f1 >> /tmp/env
+done

@@ -1,0 +1,37 @@
+echo $HOME_DIBAB
+echo $PATH
+cd $HOME
+cd ydfs || exit 1
+
+
+BUSYBOX=$1
+
+[ ! -e $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 ] && wget --no-check-certificate --directory-prefix=$HOME/ydfs/tarballs http://busybox.net/downloads/busybox-$BUSYBOX.tar.bz2
+[ ! -e $HOME/ydfs/src/busybox-$BUSYBOX ] && tar xjf  $HOME/ydfs/tarballs/busybox-$BUSYBOX.tar.bz2 --directory=$HOME/ydfs/src
+
+install -d  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX
+if [ $ARCH = "x86" ] || [ $ARCH = "x86_64" ]
+then
+[ ! -e  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
+else
+[ ! -e  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-arm/config  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
+fi
+cd  $HOME/ydfs/src/busybox-$BUSYBOX 
+
+patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.24.2.diff
+# patch -p1 < $HOME_DIBAB/packages/patches/busybox-1.28.4.diff
+#echo FIXME & sleep 10 && rm $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
+[ "$MENUCONFIG" = "YES" ] && make menuconfig O=../../build/busybox-$ARCH-$BUSYBOX
+if [ $ARCH = "x86" ]
+then
+# wget jukebox.linuxconsole.org/toolchains/libmpfr.so.4 && mv libmpfr.so.4 $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/lib32/
+ export PATH=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/:$PATH
+# export LD_LIBRARY_PATH=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/lib32/:$LD_LIBRARY_PATH
+ export LD_LIBRARY_PATH=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/lib/:$LD_LIBRARY_PATH
+ make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc || exit 1
+ make O=../../build/busybox-$ARCH-$BUSYBOX CC=i386-unknown-linux-uclibc-gcc install
+else
+  make O=../../build/busybox-$ARCH-$BUSYBOX || exit 1
+  make O=../../build/busybox-$ARCH-$BUSYBOX install
+fi
+

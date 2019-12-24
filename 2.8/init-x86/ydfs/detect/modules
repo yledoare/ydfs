@@ -1,0 +1,142 @@
+#!/bin/sh
+
+mkdir /tmp
+
+#install -d $HOME/$ARCH
+
+install -d /ydfs/modules/$ARCH
+
+mount /media/ydfs/modules/$ARCH.squashfs /ydfs/modules/$ARCH || ash
+
+install -d /lib/modules
+KERNEL_VERSION=`uname -r`
+if [ -e /media/ydfs/modules/drivers-$ARCH-"$KERNEL_VERSION".squashfs ]
+then
+  mount /media/ydfs/modules/drivers-$ARCH-"$KERNEL_VERSION".squashfs /lib/modules
+else
+  mount /media/ydfs/modules/drivers-$ARCH.squashfs /lib/modules
+fi
+install -d /lib/firmware
+mount /media/ydfs/modules/firmware-$ARCH.squashfs /lib/firmware
+
+cp -fR /ydfs/modules/$ARCH/var /
+
+/ydfs/start/restore-persistant-data
+
+if [ -e /media/ydfs/mount-myusr ] 
+then
+  /media/ydfs/mount-myusr
+else
+  mkdir /usr
+  ln -s /usr $HOME/$ARCH
+fi
+
+#sachant que ydfs-name est créé par le fichier 
+#scripts/make_initramfs et la commande:echo "$DISTRONAME" > $INITRAMFS/ydfs-name
+#et la variable DISTRONAME est définie dans config.ini (attention,vérifier ce fichier,car cette variable peut-être restée à "linuxconsole")
+MODULE=`cat /ydfs-name`
+if [ -e /media/ydfs/modules/$MODULE-$ARCH.squashfs ] && [ ! -e /ydfs/modules/module ]
+then
+ echo " $MODULE "
+ install -d /ydfs/modules/$MODULE
+ ln -s /ydfs/modules/$MODULE $HOME
+ ln -s /ydfs/modules/$MODULE /ydfs/modules/module
+ mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
+fi
+ if [ -e /overlay ]
+ then
+	DBDATADIR=/overlay
+ else
+	DBDATADIR=/tmp
+ fi
+ install -d $DBDATADIR/work
+ install -d $DBDATADIR/work-module
+ install -d $DBDATADIR/updir
+ install -d $DBDATADIR/updir-module
+ install -d $DBDATADIR/work-etc
+ install -d $DBDATADIR/updir-etc
+ mount -t overlay overlay -oindex=off,lowerdir=/ydfs/modules/$ARCH,upperdir=$DBDATADIR/updir,workdir=$DBDATADIR/work /usr || ash
+ mount -t overlay overlay -oindex=off,lowerdir=/ydfs/modules/module,upperdir=$DBDATADIR/updir-module,workdir=$DBDATADIR/work-module /ydfs/modules/module 
+ mount -t overlay overlay -oindex=off,lowerdir=/etc,upperdir=$DBDATADIR/updir-etc,workdir=$DBDATADIR/work-etc /etc || ash
+
+[ -e /ydfs/modules/$MODULE/logo.png ] && cp /ydfs/modules/$MODULE/logo.png /etc/ydfs.png
+
+if [ ! -e /usr/lib/opkg ]
+then
+  install -d /etc/opkg
+  install -d /usr/lib/opkg
+  RELEASE=`cat /ydfs-release`
+  if [ ! -e /etc/opkg/ydfs.conf ]
+  then
+    if [ -e /media/ydfs/pkg ]
+    then
+      # local
+      echo "src linuxconsole file:///media/ydfs/pkg" > /etc/opkg/ydfs.conf
+    else
+      # Network
+      # echo "src linuxconsole http://linuxconsole.linux-live-cd.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+      echo "src linuxconsole http://opkg.linuxconsole.org/$MODULE/$RELEASE/$ARCH" > /etc/opkg/ydfs.conf
+    fi
+  fi
+fi
+
+install -d /usr/persistant/fontconfig
+mount /var /usr/var -o bind
+install -d /usr/var/cache/fontconfig/
+mount /usr/persistant/fontconfig /usr/var/cache/fontconfig/ -o bind
+
+#ln -s $HOME/$ARCH /usr
+
+ln -s /usr/lib/ld-linux.so.2 /lib 
+ln -s /usr/lib /lib64
+
+
+ln -s /busybox/sbin /
+
+chmod u+s /usr/libexec/dbus-daemon-launch-helper
+
+/ydfs/start/syslog
+mkdir /run
+
+
+udevd --daemon --debug
+#if [ -e /ydfs/boot/options/debug ]
+#then
+#  udevd --daemon --debug
+#else
+#  udevd --daemon
+#fi
+  
+dbus-daemon --system
+
+mkdir /bin
+ln -s /busybox/bin/ash /bin/sh
+ln -s /lib/ld-linux.so.2 /lib/ld-lsb.so.3
+
+for file in `ls /usr/etc`
+do
+	[ ! -e /etc/$file ] && ln -s /usr/etc/$file /etc/$file
+done
+
+if [ ! -e $HOME/$ARCH/etc/machine-id ]
+then
+  dbus-uuidgen > $HOME/$ARCH/etc/machine-id
+fi
+
+[ ! -e etc/machine-id ] && ln -s $HOME/$ARCH/etc/machine-id /etc
+
+ln -s /usr/bin/bash /bin/bash
+
+mkdir /dev/shm # Steam
+mount tmpfs /dev/shm -t tmpfs -o 'defaults,noexec,nosuid,nodev'
+
+install -d $HOME/var/log # Xorg log
+install -d /var/run # Xorg optimus
+install -d /var/tmp # amdgpu OpenGL
+chmod 777 /var/tmp # amdgpu OpenGL
+mkdir $HOME/multilib
+ln -s $HOME/$ARCH/lib32 $HOME/multilib
+ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+ln -s $HOME/$ARCH/etc $HOME/multilib
+ln -s $HOME/$ARCH/share $HOME/multilib
+

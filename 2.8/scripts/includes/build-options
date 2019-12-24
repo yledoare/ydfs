@@ -1,0 +1,679 @@
+echo $ARCHIVE | grep mozjs && . $HOME/ydfs/firstenv 
+# echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep jdk11 && . $HOME/ydfs/firstenv 
+echo $ARCHIVE | grep parted && . $HOME/ydfs/firstenv  # Fix LVM2 CFLAGS
+echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv 
+
+echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
+
+echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
+echo $ARCHIVE | grep guitarix &&  LC_CONFIGURE_OPTS=" --enable-nls \
+                        --ladspa \
+                        --new-ladspa \
+                        --faust \
+                        --shared-lib \
+                        --lib-dev --install-roboto-font
+                        --ldflags=-L$HOME/$ARCH/lib"
+
+echo $ARCHIVE | grep lmms && echo "LMMS "
+	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
+    --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
+    --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
+
+echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_INTROSPECTION=OFF \
+        -DCMAKE_SKIP_RPATH=ON "
+[ "$ARCH" = "x86" ] && echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DCMAKE_CXX_LIBRARY_ARCHITECTURE=x86"
+
+echo $ARCHIVE | grep exiv2-0.26 &&  LC_CONFIGURE_OPTS=" -DEXIV2_ENABLE_VIDEO=ON \
+    -DEXIV2_ENABLE_BUILD_PO=ON \
+    -DEXIV2_ENABLE_BUILD_SAMPLES=OFF "
+echo $ARCHIVE | grep icu4c &&  export LDFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib -L$HOME/ydfs/build-$ARCH/icu/stubdata $LDFLAGS " && export CFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib -L$HOME/ydfs/build-$ARCH/icu/stubdata $CFLAGS " && export CXXFLAGS="-L$HOME/ydfs/build-$ARCH/icu/lib  -L$HOME/ydfs/build-$ARCH/icu/stubdata $CXXFLAGS " 
+echo $ARCHIVE | grep sddm &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_SYSCONFDIR=$HOME/$ARCH/etc -DDBUS_CONFIG_DIR=$HOME/$ARCH/etc/dbus-1/system.d"
+echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE_DIR=$PREFIX"
+echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
+echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
+    --enable-gpm \
+    --disable-java-binding "
+
+echo $ARCHIVE | grep gtk-vnc &&  LC_CONFIGURE_OPTS="--with-gtk=3.0 \
+            --enable-vala \
+            --without-sasl"
+
+echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
+              --enable-shared \
+              --with-pic " 
+echo $ARCHIVE | grep FileZilla_Client &&  LC_CONFIGURE_OPTS=" --disable-manualupdatecheck --disable-autoupdatecheck --with-pugixml=builtin --with-wx-config=/$HOME/$ARCH/bin/wx-config-gtk3"
+
+echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
+echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
+echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
+    --disable-modern-top \
+    --disable-kill"
+
+#Building postgres
+[ -e $HOME/$ARCH/include/sqltypes2.h ] && mv $HOME/$ARCH/include/sqltypes2.h $HOME/$ARCH/include/sqltypes.h
+echo $ARCHIVE | grep postgresql && echo "Move HOME/$ARCH/include/sqltypes.h ?" && [ -e $HOME/$ARCH/include/sqltypes.h ] && mv  $HOME/$ARCH/include/sqltypes.h $HOME/$ARCH/include/sqltypes2.h && echo "Yes"
+
+echo $ARCHIVE | grep gnome-vfs &&  LC_CONFIGURE_OPTS="--disable-static --disable-hal --enable-avahi --disable-howl --disable-openssl --enable-gnutls" && export CFLAGS="$CFLAGS -fno-strict-aliasing"
+echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
+echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
+    --disable-python-bindings \
+    --enable-lib-only"
+echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu --with-python=$HOME/$ARCH/bin/python2"
+echo $ARCHIVE | grep cogl-1.22 &&  LC_CONFIGURE_OPTS="    --enable-gles1 --enable-gles2 \
+    --enable-kms-egl-platform --enable-wayland-egl-platform \
+    --enable-wayland-egl-server"
+echo $ARCHIVE | grep libgdata &&  LC_CONFIGURE_OPTS="--disable-goa"
+echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
+echo $ARCHIVE | grep telepathy-glib &&  LC_CONFIGURE_OPTS=" --enable-vala-bindings "
+echo $ARCHIVE | grep evolution-data-server &&  LC_CONFIGURE_OPTS="-DENABLE_INTROSPECTION=ON -DENABLE_VALA_BINDINGS=ON  -DENABLE_WEATHER=OFF -DWITH_KRB5=OFF -DENABLE_GOA=OFF -DENABLE_UOA=OFF"
+echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
+echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
+    # --without-npm \
+echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
+    --shared-nghttp2 \
+    --shared-openssl \
+    --shared-zlib \
+    --shared-cares "
+echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
+echo $ARCHIVE | grep ruby &&  LC_CONFIGURE_OPTS="--enable-shared \
+    --disable-rpath \
+    --with-dbm-type=gdbm_compat"
+echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
+echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
+echo $ARCHIVE | grep libmtp &&  LC_CONFIGURE_OPTS="--with-udev=$HOME/$ARCH/lib/udev"
+echo $ARCHIVE | grep graphviz &&  LC_CONFIGURE_OPTS="--enable-perl=no --disable-perl"
+echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS=" --without-gtk-doc --without-nvdimm --without-dm --without-dmraid --disable-introspection"
+echo $ARCHIVE | grep librevenge &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86" ] && export ABI=32 && LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-fat"
+echo $ARCHIVE | grep bubblewrap &&  LC_CONFIGURE_OPTS="--with-priv-mode=setuid"
+echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
+echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --with-priv-mode=setuid"
+echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
+echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
+echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
+echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
+    -DENABLE_LTO='TRUE' \
+    -DUSE_SHARED_ENET='TRUE' \
+    -DDISTRIBUTOR='linuxconsole.org'"
+echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
+echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
+echo $ARCHIVE | grep gtksourceview &&  LC_CONFIGURE_OPTS="--disable-static \
+      --enable-glade-catalog --enable-gtk-doc --disable-Werror --enable-introspection=yes"
+echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
+	--disable-amalgamation \
+	--enable-fts3 \
+	--enable-fts4 \
+	--enable-fts5 \
+	--enable-rtree \
+	--enable-json1" && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+                             -DSQLITE_ENABLE_UNLOCK_NOTIFY \
+                             -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
+                             -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \
+                             -DSQLITE_SECURE_DELETE \
+                             -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
+                             -DSQLITE_MAX_EXPR_DEPTH=10000"
+ 
+		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
+    --with-gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast \
+    --with-dri-drivers=i915,i965,r200,nouveau \
+    --with-vulkan-drivers=intel,radeon \
+    --with-egl-platforms=x11,wayland,drm,surfaceless \
+    --enable-llvm-shared-libs \
+    --enable-egl \
+    --enable-gbm \
+    --enable-shared-glapi \
+    --enable-glx \
+    --enable-glx-tls \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-texture-float \
+    --enable-xa \
+    --enable-vdpau \
+    --enable-nine \
+    --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
+	echo $ARCHIVE | grep ftgl && LC_CONFIGURE_OPTS=" -with-pic --disable-static "
+	echo $ARCHIVE | grep audit && LC_CONFIGURE_OPTS="--without-python3 --disable-zos-remote "
+	echo $ARCHIVE | grep kmod && LC_CONFIGURE_OPTS="--sysconfdir=/etc --disable-tools"
+	echo $ARCHIVE | grep libcap-ng && LC_CONFIGURE_OPTS=" --enable-static=no --with-python=no "
+	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
+	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS=" --disable-latex "
+        echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
+        echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
+	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
+    --enable-pcre2-32 \
+    --enable-jit \
+    --enable-pcre2grep-libz \
+    --enable-pcre2grep-libbz2 \
+    --enable-pcre2test-libreadline"
+ 
+	echo $ARCHIVE | grep pcre- && export LC_CONFIGURE_OPTS="    --enable-unicode-properties \
+    --enable-pcre16 \
+    --enable-pcre32 \
+    --enable-jit \
+    --enable-pcregrep-libz \
+    --enable-pcregrep-libbz2 \
+    --enable-pcretest-libreadline" 
+	echo $ARCHIVE | grep mozjs-52 && export LC_CONFIGURE_OPTS="--prefix=$HOME/$ARCH       \
+            --with-intl-api     \
+            --with-system-zlib  \
+            --with-system-nspr  \
+            --with-system-icu   \
+            --enable-threadsafe \
+            --enable-readline"
+	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
+    --enable-double-precision \
+    --enable-libccd \
+    --enable-ou \
+    --enable-silent-rules"
+	echo $ARCHIVE | grep mozjs-24 && unset MODULE && unset CPPFLAGS && CXXFLAGS+=' -fno-delete-null-pointer-checks' && LC_CONFIGURE_OPTS=" --with-system-nspr --enable-system-ffi --enable-readline --enable-threadsafe"
+	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
+	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 
+	echo $ARCHIVE | grep libfuse && export LC_CONFIGURE_OPTS="--enable-lib --enable-util --disable-example" 
+	echo $ARCHIVE | grep hplip && export LC_CONFIGURE_OPTS="--with-icondir=$HOME/$MODULE/share/applications  --with-systraydir=$HOME/$MODULE//etc/xdg/autostart --with-cupsbackenddir=$DIBAB_PREFIX/$MODULE/lib/cups/backend --enable-libusb01_build --with-cupsfilterdir=$DIBAB_PREFIX/$MODULE/lib/cups/filter  --with-mimedir=$DIBAB_PREFIX/$MODULE/share/cups/mime/"
+	echo $ARCHIVE | grep net-snmp && export LC_CONFIGURE_OPTS=" --with-default-snmp-version=3 --with-sys-contact=root@localhost --with-sys-location=Unknown --with-logfile=/var/log/snmpd.log --with-persistent-directory='/var/net-snmp'"
+#	echo $ARCHIVE | grep kino && export LC_CONFIGURE_OPTS=" --enable-local-ffmpeg" 
+	echo $ARCHIVE | grep v4l-utils && export LC_CONFIGURE_OPTS=" --with-udevdir=$HOME/$MODULE/lib/udev" 
+	echo $ARCHIVE | grep abe_1.1 && export LC_CONFIGURE_OPTS="--with-data-dir=$HOME/$MODULE/share/abe" 
+	echo $ARCHIVE | grep apr-util && export LC_CONFIGURE_OPTS="--with-apr=$HOME/$MODULE" 
+	echo $ARCHIVE | grep SuperTux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_BUILD_TYPE=Release" && export LDFLAGS="$LDFLAGS -lphysfs"
+	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" # && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
+	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
+	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
+	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
+	# echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
+	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS=" -DWANT_QT5=ON -DWANT_SOUNDIO=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo "
+	echo $ARCHIVE | grep lmms && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DWINE_INCLUDE_DIR=$HOME/$ARCH/include/wine/windows -DWINE_LIBRARY=/$HOME/$ARCH/lib32/wine" 
+
+	echo $ARCHIVE | grep libsoundio && export LC_CONFIGURE_OPTS="        -D BUILD_EXAMPLE_PROGRAMS=OFF \
+        -D BUILD_TESTS=OFF \
+        -D BUILD_STATIC_LIBS=OFF \
+        -D ENABLE_JACK=ON"
+	echo $ARCHIVE | grep libunique && export LC_CONFIGURE_OPTS="--disable-static --disable-dbus"
+	echo $ARCHIVE | grep lxterminal && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep lxpanel && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep FileZilla && export LC_CONFIGURE_OPTS="--with-pugixml=builtin"
+	echo $ARCHIVE | grep apt-1 && export LC_CONFIGURE_OPTS="--enable-nonportable-atomics"
+	echo $ARCHIVE | grep calf && export LC_CONFIGURE_OPTS="--enable-experimental --enable-sse"
+	echo $ARCHIVE | grep mbedtls && export LC_CONFIGURE_OPTS="-DUSE_SHARED_MBEDTLS_LIBRARY=On -DCMAKE_C_FLAGS='-fPIC'"
+	echo $ARCHIVE | grep fluidsynth && export LC_CONFIGURE_OPTS="-Denable-ladspa=ON"
+	echo $ARCHIVE | grep zynaddsubfx && export LC_CONFIGURE_OPTS=" -DGuiModule=fltk -DDefaultOutput=jack -DDefaultInput=jack "
+	echo $ARCHIVE | grep lxappearance && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep minetest && export LC_CONFIGURE_OPTS="-DBUILD_SERVER=0 -DIRRLICHT_INCLUDE_DIR=$HOME/$ARCH/include/irrlicht -DIRRLICHT_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE \
+    -DENABLE_LUAJIT=0 \
+    -DBUILD_CLIENT=1 \
+    -DENABLE_GETTEXT=1 \
+    -DENABLE_FREETYPE=1 \
+    -DENABLE_LEVELDB=0 \
+    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-5.0.1/src -I$HOME/ydfs/src/minetest-5.0.1/lib/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-5.0.1/src -I$HOME/ydfs/src/minetest-5.0.1/lib/lua/src $CFLAGS"
+	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
+	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
+	echo $ARCHIVE | grep xbmc && export LC_CONFIGURE_OPTS="--disable-debug"
+	echo $ARCHIVE | grep celestia && export LC_CONFIGURE_OPTS="-without-lua --with-gtk --disable-rpath "
+	echo $ARCHIVE | grep lxinput && export LC_CONFIGURE_OPTS="--enable-man"
+	echo $ARCHIVE | grep gnome-system-tools && export LC_CONFIGURE_OPTS="--disable-nautilus --disable-scrollkeeper --disable-static --disable-services " && export LIBS="-lm -lgthread-2.0"
+	echo $ARCHIVE | grep lxrandr && export LC_CONFIGURE_OPTS="--enable-man"
+	#echo $ARCHIVE | grep etlegacy && export LC_CONFIGURE_OPTS="-DBUNDLED_LIBS=ON -DBUNDLED_LUA=ON"
+        echo $ARCHIVE | grep wxPython-src-2 && LC_CONFIGURE_OPTS="--with-gtk=2 --with-opengl --enable-unicode \
+    --enable-graphics_ctx --disable-optimize --enable-mediactrl \
+    --with-regex=sys --with-libpng=sys --with-libxpm=sys --with-libjpeg=sys --with-libtiff=sys \
+    --disable-precomp-headers --with-sdl"
+        echo $ARCHIVE | grep guile && LC_CONFIGURE_OPTS="--disable-static  --disable-error-on-warning"
+	echo $ARCHIVE | grep wxsvg && LC_CONFIGURE_OPTS="--disable-static --enable-static=no"
+	echo $ARCHIVE | grep freetuxtv && LC_CONFIGURE_OPTS="--with-gtk=3.0"
+	echo $ARCHIVE | grep freetype && LC_CONFIGURE_OPTS="--without-bzip2 --enable-freetype-config "
+	echo $ARCHIVE | grep armagetronad && LC_CONFIGURE_OPTS="--enable-uninstall=no"
+	echo $ARCHIVE | grep lxdm && LC_CONFIGURE_OPTS="--sysconfdir=$HOME/$ARCH/etc --enable-gtk3"
+	unset LIBS
+	echo $ARCHIVE | grep gcompris && LC_CONFIGURE_OPTS="--enable-sdlmixer" && export LIBS="-lgmodule-2.0"
+	echo $ARCHIVE | grep squeak-vm && LC_CONFIGURE_OPTS="--without-quartz --with-x --enable-mpg-mmx"
+	echo $ARCHIVE | grep inkscape && LC_CONFIGURE_OPTS="--disable-strict-build"
+	echo $ARCHIVE | grep libomxil-bellagio && LC_CONFIGURE_OPTS="-disable-static"
+	echo $ARCHIVE | grep e2fsprogs && LC_CONFIGURE_OPTS="--enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck"
+#	echo $ARCHIVE | grep ode-0.15 && LC_CONFIGURE_OPTS="--enable-libccd --enable-double-precision"
+	echo $ARCHIVE | grep Alien-SDL && LC_CONFIGURE_OPTS="--with-sdl-config"
+	echo $ARCHIVE | grep gobject-introspection && LC_CONFIGURE_OPTS="--disable-tests" && [ "$ARCH" == "arm" ] && export PATH=$HOME/$ARCH/bin/:$PATH
+	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
+	echo $ARCHIVE | grep dossizola && LC_CONFIGURE_OPTS="--datadir=$DIBAB_PREFIX/$MODULE"
+	echo $ARCHIVE | grep pcmanfm && LC_CONFIGURE_OPTS="--enable-debug"
+	echo $ARCHIVE | grep openldap && LC_CONFIGURE_OPTS="--with-tls=no  --disable-static  --enable-dynamic  --disable-debug "
+	#echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-udisks --enable-debug"
+	echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-debug"
+	echo $ARCHIVE | grep wayland && LC_CONFIGURE_OPTS="--disable-documentation"
+	echo $ARCHIVE | grep pulseaudio- && LC_CONFIGURE_OPTS="--with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
+	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--disable-systemd-login --with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
+	echo $ARCHIVE | grep glib-2 && LC_CONFIGURE_OPTS="--enable-debug" # Debug pcmanfm
+	echo $ARCHIVE | grep evince && LC_CONFIGURE_OPTS="--disable-nautilus --without-keyring"
+	echo $ARCHIVE | grep gdb && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls"
+	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
+	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
+	echo $ARCHIVE | grep NetworkManager && LC_CONFIGURE_OPTS="--with-libnm-glib --enable-more-warnings --with-udev-dir=$DIBAB_PREFIX/$MODULE/lib/udev --without-dhcpcanon --with-dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
+	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
+	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
+	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
+	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
+	echo $ARCHIVE | grep alsa-plugins && LC_CONFIGURE_OPTS="--with-alsalconfdir=$HOME/$ARCH/etc/alsa/conf.d"
+	echo $ARCHIVE | grep foomatic-filters && LC_CONFIGURE_OPTS=" --enable-avahi \
+    --with-browseremoteprotocols=DNSSD,CUPS \
+    --enable-auto-setup-driverless"  && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib
+	echo $ARCHIVE | grep foomatic-db-engine && LC_CONFIGURE_OPTS="--sysconfdir=$DIBAB_PREFIX/$MODULE/etc"
+	echo $ARCHIVE | grep LVM &&  LC_CONFIGURE_OPTS="--with-default-system-dir=$DIBAB_PREFIX/$MODULE/etc/ --with-confdir=$DIBAB_PREFIX/$MODULE/etc/lvm --enable-pkgconfig      --enable-applib     \
+            --enable-cmdlib     \
+            --enable-udev_sync  --enable-dmeventd --enable-lvmetad --enable-lvmpolld --enable-readline --enable-udev_rules --enable-udev_sync --enable-use-lvmetad --with-cache=internal --with-default-dm-run-dir=/run --with-default-locking-dir=/run/lock/lvm --with-default-pid-dir=/run --with-default-run-dir=/run/lvm --with-thin=internal "
+	echo $ARCHIVE | grep Python-2 && LC_CONFIGURE_OPTS=" --with-ssl  --enable-shared \
+              --with-threads \
+              --with-lto \
+              --enable-ipv6 \
+              --enable-unicode=ucs4 \
+              --with-system-expat \
+              --with-system-ffi \
+              --with-dbmliborder=gdbm:ndbm \
+              --without-ensurepip  " #--enable-unicode=ucs4
+	echo $ARCHIVE | grep fltk && LC_CONFIGURE_OPTS="--enable-shared" 
+	echo $ARCHIVE | grep Python-3 && LC_CONFIGURE_OPTS=" --enable-shared \
+              --with-threads \
+              --with-computed-gotos \
+              --enable-ipv6 \
+              --with-system-expat \
+              --with-dbmliborder=gdbm:ndbm \
+              --with-system-ffi \
+              --with-system-libmpdec \
+              --without-ensurepip"
+	echo $ARCHIVE | grep mpeg2dec && LC_CONFIGURE_OPTS="--enable-shared"
+	echo $ARCHIVE | grep lame && LC_CONFIGURE_OPTS="--enable-nasm --enable-shared"
+	echo $ARCHIVE | grep libvpx && LC_CONFIGURE_OPTS="--enable-pic --enable-shared --disable-unit-tests"
+	echo $ARCHIVE | grep lirc && LC_CONFIGURE_OPTS="--enable-sandboxed --with-driver=userspace --with-transmitter"
+	echo $ARCHIVE | grep gltron && LC_CONFIGURE_OPTS="--disable-warn"
+	echo $ARCHIVE | grep sudo- && LC_CONFIGURE_OPTS="--with-timedir=/tmp --sysconfdir=$DIBAB_PREFIX/$MODULE/etc/sudo"
+	echo $ARCHIVE | grep midori && LC_CONFIGURE_OPTS="--enable-gtk3"
+	echo $ARCHIVE | grep rosegarden && LC_CONFIGURE_OPTS="--with-qtdir=$HOME/$ARCH"
+	echo $ARCHIVE | grep mono-4 && LC_CONFIGURE_OPTS=" --with-mcs-docs=no "
+	echo $ARCHIVE | grep dhcpcd && LC_CONFIGURE_OPTS="--dbdir=$DIBAB_PREFIX/$MODULE/var/run"
+	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-qt3 --disable-static     \
+            --disable-mono   --disable-libdaemon  \
+            --disable-monodoc    \
+            --disable-python     \
+	    --disable-gtk3 --disable-qt4 --disable-gtk  --disable-pygtk \
+            --enable-core-docs   \
+            --with-distro=none "
+	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
+	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
+	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
+	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/" ] && ls $HOME/$ARCH/lib64/ | while read file
+	do
+		echo "link $file"
+		ln -s $HOME/$ARCH/lib64/$file $HOME/$ARCH/lib/$file
+	done
+	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/pkgconfig/" ] && ls $HOME/$ARCH/lib64/pkgconfig/ | while read file
+	do
+		echo "link $file"
+		ln -s $HOME/$ARCH/lib64/pkgconfig/$file $HOME/$ARCH/lib/pkgconfig/$file
+	done
+
+	echo $ARCHIVE | grep portaudio && LC_CONFIGURE_OPTS="--with-alsa -enable-cxx "
+	echo $ARCHIVE | grep GConf && LC_CONFIGURE_OPTS="--disable-orbit --disable-static "
+	echo $ARCHIVE | grep ghostscript && LC_CONFIGURE_OPTS="--enable-dynamic \
+	--with-ijs \
+	--with-jbig2dec \
+	--with-omni \
+	--with-x \
+	--with-drivers=ALL\
+	--with-fontpath=/usr/share/fonts/Type1:/usr/share/fonts \
+	--enable-fontconfig \
+	--enable-freetype \
+	--enable-openjpeg \
+	--without-luratech \
+	--without-omni \
+	--with-system-libtiff \
+	--with-libpaper \
+	--disable-compile-inits"
+	echo $ARCHIVE | grep nspr && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
+	echo $ARCHIVE | grep wine && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
+	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
+	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="   --with-libsndfile="system" \
+    --with-ffmpeg="system" \
+    --with-expat="system" \
+    --with-lame="system" \
+    --with-libsoxr="system" \
+    --with-libflac \
+    --with-libid3tag \
+    --with-libsamplerate \
+    --with-sbsms \
+    --with-soundtouch \
+    --with-libtwolame \
+    --with-libvorbis \
+    --with-lv2 \
+    --with-portaudio \
+    --with-portmidi "
+	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
+	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
+	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
+	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
+	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
+          --enable-btpclient \
+          --enable-midi \
+          --enable-sixaxis \
+          --enable-mesh \
+          --enable-experimental"
+	echo $ARCHIVE | grep libav && LC_CONFIGURE_OPTS="--disable-static --enable-shared"
+	echo $ARCHIVE | grep db-6 && LC_CONFIGURE_OPTS="--enable-compat185 --enable-dbm --disable-static --enable-cxx"
+	echo $ARCHIVE | grep pkg-config && [ "$ARCH" != "arm" ] && LC_CONFIGURE_OPTS="--with-internal-glib"
+	echo $ARCHIVE | grep ffmpeg-4 && LC_CONFIGURE_OPTS="   --disable-debug \
+    --disable-static \
+    --enable-avresample \
+    --enable-fontconfig \
+    --enable-gnutls \
+    --enable-gpl \
+    --enable-libass \
+    --enable-libbluray \
+    --enable-libfreetype \
+    --enable-libmp3lame \
+    --enable-libtheora \
+    --enable-libvorbis \
+    --enable-libvpx \
+    --enable-libx264 \
+    --enable-libxvid \
+    --enable-pic \
+    --enable-postproc \
+    --enable-runtime-cpudetect \
+    --enable-shared \
+    --enable-vdpau \
+    --enable-version3 "
+echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
+	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="--with-x11"
+#WRITE HERE NEW RULES
+	echo $ARCHIVE | grep clamav && LC_CONFIGURE_OPTS="--with-user=root --with-group=root "
+	echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--enable-run-as-root               --disable-rpath \
+              --enable-nls \
+              --enable-archive \
+              --enable-live555 \
+              --enable-dc1394 \
+              --enable-dv1394 \
+              --enable-dvdread \
+              --enable-dvdnav \
+              --enable-bluray \
+              --disable-opencv \
+              --enable-smbclient \
+              --enable-sftp \
+              --enable-nfs \
+              --enable-realrtsp \
+              --enable-dvbpsi \
+              --enable-gme \
+              --enable-ogg \
+              --enable-shout \
+              --enable-matroska \
+              --enable-mod \
+              --enable-mpc \
+              --enable-mad \
+              --enable-mpg123 \
+              --enable-gst-decode \
+              --enable-avcodec \
+              --enable-libva \
+              --enable-avformat \
+              --enable-postproc \
+              --enable-faad \
+              --enable-vpx \
+              --enable-twolame \
+              --disable-fdkaac \
+              --enable-a52 \
+              --enable-dca \
+              --enable-flac \
+              --enable-libmpeg2 \
+              --enable-vorbis \
+              --enable-speex \
+              --enable-opus \
+              --enable-oggspots \
+              --disable-schroedinger \
+              --enable-png \
+              --enable-jpeg \
+              --enable-x264 \
+              --enable-x265 \
+              --enable-zvbi \
+              --enable-libass \
+              --enable-vdpau \
+              --enable-wayland \
+              --enable-sdl-image \
+              --enable-freetype \
+              --enable-fribidi \
+              --enable-harfbuzz \
+              --enable-fontconfig \
+              --enable-svg \
+              --enable-svgdec \
+              --enable-aa \
+              --enable-caca \
+              --enable-pulse \
+              --enable-alsa \
+              --enable-jack \
+              --enable-samplerate \
+              --enable-soxr \
+              --enable-chromaprint \
+              --enable-chromecast \
+              --enable-qt \
+              --enable-skins2 \
+              --enable-libtar \
+              --enable-ncurses \
+              --enable-lirc \
+              --enable-goom \
+              --enable-projectm \
+              --enable-avahi \
+              --enable-mtp \
+              --enable-upnp \
+              --enable-microdns \
+              --enable-libxml2 \
+              --disable-libgcrypt \
+              --enable-gnutls \
+              --enable-taglib \
+              --enable-secret \
+              --enable-kwallet \
+              --disable-update-check \
+              --enable-notify \
+              --enable-libplacebo  --enable-vlc " && export LUA_LIBS="$(pkg-config --libs lua)"
+	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
+	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
+	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
+	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
+	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown --disable-bash-completion"
+	echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
+	echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
+	#QT5 
+	#[ -e $HOME/$ARCH/include-Qt ] && mv $HOME/$ARCH/include-Qt/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep qtractor && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep stellarium && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	#echo $ARCHIVE | grep qt-everywhere-opensource-src-5 && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
+	echo $ARCHIVE | grep qt-everywhere-opensource-src-5 && LC_CONFIGURE_OPTS="-icu -confirm-license -opensource \
+    -system-sqlite \
+    -openssl-linked \
+    -nomake examples \
+    -no-rpath \
+    -reduce-relocations -v " && export QMAKE_LDFLAGS="$CFLAGS" && export QMAKE_CFLAGS="$CFLAGS"
+
+	echo $ARCHIVE | grep qt-everywhere-opensource-src-4 && LC_CONFIGURE_OPTS="-headerdir $HOME/$ARCH/include/qt4 -no-pch -icu -release -webkit -javascript-jit  -no-qt3support -openssl -opengl -v -make libs -opensource -dbus-linked       \
+            -openssl-linked    \
+            -system-sqlite     \
+            -no-phonon         \
+            -no-phonon-backend \
+            -no-nis            \
+            -no-openvg         \
+            -nomake demos      \
+            -nomake examples   \
+            -optimized-qmake  -make tools -confirm-license" && unset QTDIR && export QMAKESPEC=linux-g++ && export QMAKE_CFLAGS="$CFLAGS" && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/ydfs/build-$ARCH/`basename $ARCHIVE | cut -d'.' -f1,2,3`/lib"
+	echo $ARCHIVE | grep mariadb && LC_CONFIGURE_OPTS="-DWITHOUT_TOKUDB_STORAGE_ENGINE=1 -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib .. -DOPENSSL_INCLUDE_DIR=$HOME/$ARCH/include -DOPENSSL_LIBRARIES=$HOME/$ARCH/lib/libssl.so -DCRYPTO_LIBRARY=$HOME/$ARCH/lib/libcrypto.so"
+	echo $ARCHIVE | grep mmmariadb && LC_CONFIGURE_OPTS="
+    -DDEFAULT_CHARSET=utf8mb4 \
+    -DDEFAULT_COLLATION=utf8mb4_unicode_ci \
+    -DENABLED_LOCAL_INFILE=ON \
+    -DINSTALL_DOCDIR=share/doc/mariadb \
+    -DINSTALL_DOCREADMEDIR=share/doc/mariadb \
+    -DINSTALL_MANDIR=share/man \
+    -DINSTALL_PLUGINDIR=lib/mysql/plugin \
+    -DINSTALL_SCRIPTDIR=bin \
+    -DINSTALL_SYSCONFDIR=/etc/mysql \
+    -DINSTALL_SYSCONF2DIR=/etc/mysql \
+    -DINSTALL_INCLUDEDIR=include/mysql \
+    -DINSTALL_SUPPORTFILESDIR=share/mysql \
+    -DINSTALL_MYSQLSHAREDIR=share/mysql \
+    -DINSTALL_SHAREDIR=share/mysql \
+    -DINSTALL_SYSTEMD_SYSUSERSDIR=$PREFIX/lib/sysusers.d/ \
+    -DINSTALL_SYSTEMD_TMPFILESDIR=$PREFIX/lib/tmpfiles.d/ \
+    -DINSTALL_SYSTEMD_UNITDIR=$PREFIX/lib/systemd/system/ \
+    -DWITH_SYSTEMD=yes \
+    -DWITH_READLINE=ON \
+    -DWITH_ZLIB=system \
+    -DWITH_SSL=system \
+    -DWITH_PCRE=bundled \
+    -DWITH_LIBWRAP=OFF \
+    -DWITH_JEMALLOC=ON \
+    -DWITH_EXTRA_CHARSETS=complex \
+    -DWITH_EMBEDDED_SERVER=ON \
+    -DWITH_ARCHIVE_STORAGE_ENGINE=1 \
+    -DWITH_BLACKHOLE_STORAGE_ENGINE=1 \
+    -DWITH_INNOBASE_STORAGE_ENGINE=1 \
+    -DWITH_PARTITION_STORAGE_ENGINE=1 \
+    -DWITH_TOKUDB_STORAGE_ENGINE=1 \
+    -DWITHOUT_EXAMPLE_STORAGE_ENGINE=1 \
+    -DWITHOUT_FEDERATED_STORAGE_ENGINE=1 \
+    -DWITHOUT_PBXT_STORAGE_ENGINE=1 \
+    -DCMAKE_EXE_LINKER_FLAGS=-ljemalloc" && -DCMAKE_C_FLAGS="-fPIC $CFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -fomit-frame-pointer -fno-delete-null-pointer-checks"  && -DCMAKE_CXX_FLAGS="-fPIC $CXXFLAGS -fno-strict-aliasing -DBIG_JOINS=1 -felide-constructors -fno-rtti -fno-delete-null-pointer-checks" && -DWITH_MYSQLD_LDFLAGS="-pie ${LDFLAGS},-z,now"
+
+	echo $ARCHIVE | grep mysql-5.6 && LC_CONFIGURE_OPTS="-DENABLED_LOCAL_INFILE=ON -DWITH_SSL=$HOME/$ARCH "
+	echo $ARCHIVE | grep httpd && LC_CONFIGURE_OPTS=" --enable-modules=all \
+      --enable-mods-shared=all \
+      --enable-so --with-libxml2=$HOME/$ARCH \
+      --enable-suexec \
+      --with-suexec-caller=http \
+      --enable-authnz-fcgi \
+      --enable-cache --enable-disk-cache --enable-mem-cache --enable-file-cache \
+      --enable-ssl --with-ssl \
+      --enable-deflate --enable-cgi --enable-cgid \
+      --enable-proxy --enable-proxy-connect \
+      --enable-proxy-http --enable-proxy-ftp \
+      --enable-dbd --enable-imagemap --enable-ident --enable-cern-meta \
+      --enable-lua --enable-xml2enc --enable-http2 \
+      --enable-proxy-http2 --enable-md --enable-brotli \
+      --with-apr=$HOME/$ARCH/bin/apr-1-config \
+      --with-apr-util=$HOME/$ARCH/bin/apu-1-config \
+      --with-pcre=$HOME/$ARCH"
+	echo $ARCHIVE | grep wxGTK && LC_CONFIGURE_OPTS="--enable-xrc --enable-graphics_ctx --enable-mediactrl --enable-unicode --disable-optimize --disable-precomp-headers --with-regex=builtin --with-gtk=2 --with-opengl --with-sdl"
+	echo $ARCHIVE | grep neon-0 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --with-ssl=openssl"
+	echo $ARCHIVE | grep libetonyek && LC_CONFIGURE_OPTS="--with-mdds=1.4"
+	echo $ARCHIVE | grep lzo-2 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --disable-static"
+	echo $ARCHIVE | grep harfbuzz && LC_CONFIGURE_OPTS="   --with-cairo \
+    --with-freetype \
+    --with-glib \
+    --with-gobject \
+    --with-icu --with-graphite2  "
+	echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--with-apxs2=$HOME/$ARCH/bin/apxs --with-mysql=$HOME/$ARCH --with-mysql-sock=$HOME/$ARCH/mysql.sock" 	
+	# echo $ARCHIVE | grep php-4 && LC_CONFIGURE_OPTS="--enable-discard-path --with-config-file-path=$HOME/etc/php --enable-sigchild --with-pcre-regex=$HOME/$ARCH --enable-magic-quotes --enable-short-tags --with-exec-dir=/home/ --with-openssl=$HOME/$ARCH --disable-rpath --enable-libgcc --disable-pic --with-zlib=$HOME/$ARCH --enable-bcmath --enable-calendar --with-curl=$HOME/$ARCH --with-gdbm=$HOME/$ARCH --with-db=$HOME/$ARCH --enable-dbase --enable-xslt=$HOME/$ARCH --with-xslt-sablot=$HOME/$ARCH --with-dom=$HOME/$ARCH --with-dom-xslt=$HOME/$ARCH --with-kerberos --with-dom-exslt=$HOME/$ARCH --enable-exif --enable-mbstring --enable-mbregex --enable-filepro --enable-ftp --with-ming --with-gd --with-expat-dir=$HOME/$ARCH --enable-gd-native-tt=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir=$HOME/$ARCH '--with-ttf=$HOME/$ARCH --with-freetype-dir=$HOME/$ARCH --with-t1lib=$HOME/$ARCH --with-gettext=$HOME/$ARCH --with-imap --with-imap-ssl --with-mcrypt=$HOME/$ARCH --with-mhash=$HOME/$ARCH --with-mysql=$HOME/$ARCH --with-mysqli=$HOME/$ARCH/bin/mysql_config --with-pdflib=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH --with-png-dir --with-tiff-dir --enable-trans-sid --with-regex=system --enable-sysvsem --enable-sysvshm --enable-sysvmsg --with-xpm-dir=$HOME/$ARCH --with-zziplib=$HOME/$ARCH --enable-wddx --with-zip=$HOME/$ARCH --with-sablot=$HOME/$ARCH --enable-inline-optimization --with-gnu-ld --enable-soap --with-pspell --with-gmp "
+	echo $ARCHIVE | grep php-5 && LC_CONFIGURE_OPTS="--enable-mbstring --with-mysql --with-libxml-dir=$HOME/$ARCH"
+	echo $ARCHIVE | grep php-7 && LC_CONFIGURE_OPTS="--with-libzip --with-png-dir=$HOME/$ARCH --with-jpeg-dir=$HOME/$ARCH  --with-webp-dir=$HOME/$ARCH --with-xpm-dir=$HOME/$ARCH --with-zlib=$HOME/$ARCH --config-cache \
+		--with-layout=GNU \
+		--disable-rpath \
+		--without-pear \
+		--enable-bcmath=shared \
+		--enable-calendar=shared \
+		--enable-dba=shared \
+		--enable-exif=shared \
+		--enable-ftp=shared \
+		--enable-intl=shared \
+		--enable-mbstring \
+		--enable-shmop=shared \
+		--enable-soap=shared \
+		--enable-sockets=shared \
+		--enable-sysvmsg=shared \
+		--enable-sysvsem=shared \
+		--enable-sysvshm=shared \
+		--enable-zip=shared \
+		--with-bz2=shared,$HOME/$ARCH \
+		--with-curl=shared \
+		--with-db4=$HOME/$ARCH \
+		--with-freetype-dir=$HOME/$ARCH \
+		--with-gd=shared,$HOME/$ARCH \
+		--with-gdbm=$HOME/$ARCH \
+		--with-gettext=shared \
+		--with-gmp=shared,$HOME/$ARCH \
+		--with-iconv=shared \
+		--with-ldap=shared,$HOME/$ARCH \
+		--with-mhash \
+		--with-mysqli=shared,mysqlnd  --with-libxml-dir=$HOME/$ARCH"
+	echo $ARCHIVE | grep x264 && LC_CONFIGURE_OPTS="--enable-shared"
+#	echo $ARCHIVE | grep webkitgtk && LC_CONFIGURE_OPTS="--with-gtk=3.0 --disable-webkit2" # --disable-geolocation --disable-video --disable-web-audio"
+	echo $ARCHIVE | grep libwebp && LC_CONFIGURE_OPTS=" --enable-swap-16bit-csp \
+     --enable-experimental \
+     --enable-libwebpmux \
+     --enable-libwebpdemux \
+     --enable-libwebpdecoder \
+     --disable-static"
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--disable-sdltest --with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua" && CPPFLAGS+=' -fpermissive -D_GLIBCXX_USE_CXX11_ABI=0'
+
+	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
+	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
+	echo $ARCHIVE | grep wireless_tools && export PREFIX=$DIBAB_PREFIX/$MODULE
+	echo $ARCHIVE | grep gutenprint && export DESTDIR=/
+	echo $ARCHIVE | grep cups && LC_CONFIGURE_OPTS=" --libdir=$DIBAB_PREFIX/$MODULE/lib --disable-acl --without-xinetd --enable-texttops --with-menudir=$DIBAB_PREFIX/$MODULE/share/applications --with-icondir=$DIBAB_PREFIX/$MODULE/share/icons --without-php --with-dbusdir=$DIBAB_PREFIX/$MODULE/etc/dbus-1 --with-rcdir=$DIBAB_PREFIX/$MODULE/etc --disable-pam --enable-cups-level3-ppd --enable-raw-printing -enable-threads --enable-avahi --enable-libpaper --disable-libusb  "
+	#echo $ARCHIVE | grep cairo-1.10 && LC_CONFIGURE_OPTS="--enable-tee=yes "
+	echo $ARCHIVE | grep Linux-PAM && LC_CONFIGURE_OPTS="--enable-db=no"
+	# echo $ARCHIVE | grep ncurses && export PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" && LC_CONFIGURE_OPTS="--with-shared --enable-pc-files --without-debug  --enable-pc-files --enable-widec" # && export BUILD_TWICE=yes
+	# echo $ARCHIVE | grep glib-networking && LC_CONFIGURE_OPTS="--without-ca-certificates"
+  	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
+  	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
+  	echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
+  	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower --without-systemd "
+	echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
+	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
+	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
+        echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
+        echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
+	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
+	echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
+	if [ "$ARCH" = "arm" ] 
+	then
+		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 
+		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--disable-glx --disable-dri --disable-dri2 --disable-dri3 " 
+		echo $ARCHIVE | grep udev && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-introspection --disable-extras"
+		echo $ARCHIVE | grep SDL_ttf && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
+		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
+		echo $ARCHIVE | grep SDL_ttf && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
+		LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=arm-linux-gnueabihf" 
+  		export MYPREFIX=$DIBAB_PREFIX/arm/
+	else
+		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  -disable-nasm --enable-alsa --with-x --disable-rpath --disable-static"
+		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--enable-kdrive --enable-dmx --enable-composite --enable-dri2 --enable-glx --enable-aiglx --with-log-dir=/var/log" 
+#		echo $ARCHIVE | grep ode-0.15 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --target=i686-linux-gnu --build=i686-linux-gnu"
+	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+#	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"
+	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep libdv-1 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep x264 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep gst-plugins && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep mpg123 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep babl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep gimp && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep gdb && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep mozjs-52 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep libodfgen && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep libass && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep strace && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep gegl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep php-7 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep opkg && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep libunwind && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
+		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep v6.10.0 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --arch=i386 --target-arch=i386"
+		echo $ARCHIVE | grep mesa && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep gtkglext && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+		echo $ARCHIVE | grep libjpeg-turbo && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+	fi

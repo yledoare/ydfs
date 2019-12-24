@@ -1,0 +1,265 @@
+diff --git a/Config.kmk b/Config.kmk
+index caac8c9..fd94d6d 100644
+--- a/Config.kmk
++++ b/Config.kmk
+@@ -1560,7 +1560,7 @@ ASTOOL = $(VBOX_ASTOOL)
+ #
+ # Note! The __SOMETHING__ #defines are deprecated as they violate the C/C++ specs.
+ #
+-INCS += $(PATH_ROOT)/include $(PATH_OUT)
++INCS +=  ${HOME}/{$ARCH}/include  ${HOME}/${ARCH}/include $(PATH_ROOT)/include $(PATH_OUT)
+ DEFS += VBOX
+ DEFS.debug      := DEBUG DEBUG_$(subst $(subst _, ,_),_,$(USERNAME)) DEBUG_USERNAME=$(subst $(subst _, ,_),_,$(USERNAME))
+ DEFS.dbgopt      = $(DEFS.debug)
+@@ -2081,9 +2081,9 @@ endif
+ 
+ # The X11 LIBPATH. (The amd64 hack is for RHEL4.)
+ ifeq ($(KBUILD_TARGET_ARCH),amd64)
+- VBOX_LIBPATH_X11 ?= /usr/X11R6/lib64 /usr/X11R6/lib
++ VBOX_LIBPATH_X11 ?= ${HOME}/${ARCH}/lib
+ else
+- VBOX_LIBPATH_X11 ?= /usr/X11R6/lib
++ VBOX_LIBPATH_X11 ?= ${HOME}/${ARCH}/lib
+ endif
+ 
+ # 32bit X11 LIBPATH for building 32bit guest additions
+@@ -2642,6 +2642,7 @@ else # !darwin
+    VBOX_JAVA_HOME := $(firstword $(wildcard \
+ 	$(KBUILD_DEVTOOLS)/linux.x86/jdk1.6.0_27 \
+ 	/usr/lib/jvm/java-6-sun  \
++	$(HOME)/$(ARCH)  \
+ 	/usr/lib/jvm/java-6-openjdk \
+ 	/usr/lib/jvm/java-6-openjdk-i386 \
+ 	/usr/lib/jvm/java-6-openjdk-amd64 \
+@@ -4825,7 +4826,7 @@ TEMPLATE_VBOXR3EXE_LDFLAGS.x86         = -m32
+ TEMPLATE_VBOXR3EXE_LDFLAGS.amd64       = -m64
+ TEMPLATE_VBOXR3EXE_LDFLAGS.sparc32     = -m32
+ TEMPLATE_VBOXR3EXE_LDFLAGS.sparc64     = -m64
+-TEMPLATE_VBOXR3EXE_LDFLAGS.linux       = -Wl,-z,noexecstack,-z,relro $(VBOX_LD_as_needed)
++TEMPLATE_VBOXR3EXE_LDFLAGS.linux       = -Wl,-z,noexecstack,-z,relro $(VBOX_LD_as_needed) -L${HOME}/${ARCH}/lib
+ TEMPLATE_VBOXR3EXE_LDFLAGS.solaris     = -Wl,-z,ignore # same as VBOX_LD_as_needed
+ TEMPLATE_VBOXR3EXE_LDFLAGS.debug       = $(VBOX_GCC_SANITIZER_FLAGS)
+ 
+@@ -5666,7 +5667,7 @@ TEMPLATE_VBOXMAINEXE_LDFLAGS.amd64       = -m64
+ TEMPLATE_VBOXMAINEXE_LDFLAGS.debug       = $(VBOX_GCC_SANITIZER_FLAGS)
+  ifeq ($(KBUILD_TARGET),linux)
+ TEMPLATE_VBOXMAINEXE_LIBS                = pthread m rt $(LIB_RUNTIME) dl
+-TEMPLATE_VBOXMAINEXE_LDFLAGS.linux       = -Wl,-z,noexecstack,-z,relro $(VBOX_LD_as_needed)
++TEMPLATE_VBOXMAINEXE_LDFLAGS.linux       = -Wl,-z,noexecstack,-z,relro $(VBOX_LD_as_needed) -L${HOME}/${ARCH}/lib
+  else ifeq ($(KBUILD_TARGET),os2)
+ TEMPLATE_VBOXMAINEXE_TOOL                = GXX3OMF
+ TEMPLATE_VBOXMAINEXE_LIBS                = $(LIB_RUNTIME)
+diff --git a/configure b/configure
+index 128da55..28bef75 100755
+--- a/configure
++++ b/configure
+@@ -20,7 +20,7 @@ export LC_ALL
+ # append some extra paths
+ PATH="$PATH:/opt/gnome/bin"
+ # Solaris (order of paths important for tr, grep, sed to work)
+-PATH="/usr/xpg4/bin:$PATH:/usr/local/bin:/usr/sfw/bin:/usr/ccs/bin"
++PATH="/usr/xpg4/bin:$PATH:${HOME}/${ARCH}/bin:/usr/sfw/bin:/usr/ccs/bin"
+ ORGPATH=$PATH
+ 
+ # Wrapper for ancient /usr/bin/which on darwin that always returns 0
+@@ -115,13 +115,13 @@ IASL="iasl"
+ XSLTPROC="xsltproc"
+ GENISOIMAGE="genisoimage"
+ INCCRYPTO=""
+-LIBCRYPTO="-lssl -lcrypto"
++LIBCRYPTO="-lssl -lcrypto -L${HOME}/${ARCH}/lib -I${HOME}/${ARCH}/include  "
+ LIBPTHREAD="-lpthread"
+-LIBCAP="-lcap"
++LIBCAP="-lcap -L${HOME}/${ARCH}/lib -I${HOME}/${ARCH}/include"
+ GSOAP=""
+ GSOAP_IMPORT=""
+-INCX11="/usr/local/include"
+-LIBX11="-L/usr/X11R6/lib -L/usr/X11R6/lib64 -L/usr/local/lib -lXext -lX11"
++INCX11="${HOME}/${ARCH}/include"
++LIBX11="-L${HOME}/${ARCH}/lib -L${HOME}/${ARCH}/lib64 -L${HOME}/${ARCH}/lib -lXext -lX11"
+ LIBXCURSOR="-lXcursor"
+ LIBXMU="-lXmu"
+ LIBXINERAMA="-lXinerama"
+@@ -143,16 +143,18 @@ if [ "$OS" = "freebsd" ]; then
+   INCPNG="-I/usr/local/include"
+   LIBPNG="-L/usr/local/lib -lpng"
+ else
+-  INCCURL=""
+-  LIBCURL="-lcurl"
+-  INCPNG=""
+-  LIBPNG="-lpng"
++  INCCURL="-I${HOME}/${ARCH}/include"
++  LIBCURL="-L${HOME}/${ARCH}/lib -lcurl"
++  INCPNG="-I${HOME}/${ARCH}/include"
++  LIBPNG="-L${HOME}/${ARCH}/lib -lpng"
++  INCPULSE="-I${HOME}/${ARCH}/include"
++  LIBPULSE="-L${HOME}/${ARCH}/lib -lpulse"
+ fi
+ INCVPX=""
+ LIBVPX="-lvpx"
+ PKGCONFIG="`which_wrapper pkg-config`"
+ PYTHONDIR="/usr /usr/local"
+-QT5DIR="/usr/lib/qt5 /usr/share/qt5 /usr/lib64/qt5 /usr /usr/local"
++QT5DIR="/usr/lib/qt5 ${HOME}/${ARCH} /usr/lib64/qt5 /usr /usr/local"
+ QT5DIR_PKGCONFIG=1
+ QT5MAJ=5
+ QT5MIN=6
+@@ -439,7 +441,7 @@ check_gcc()
+       elif [ $cc_maj -lt 4 \
+              -o \( $cc_maj -eq 4 -a $cc_min -lt 4 -a "$OS" != "darwin" \) \
+              -o \( $cc_maj -eq 4 -a $cc_min -lt 2 -a "$OS"  = "darwin" \) \
+-             -o $cc_maj -gt 7 ]; then
++             -o $cc_maj -gt 8 ]; then
+         log_failure "gcc version $cc_maj.$cc_min found, expected gcc 4.x...7.x"
+         fail really
+       else
+@@ -1204,7 +1206,7 @@ extern "C" int main(void)
+ #endif
+ }
+ EOF
+-  if test_compile "-lasound" asound asound; then
++  if test_compile "-lasound -L${HOME}/${ARCH}/lib -I${HOME}/${ARCH}/include" asound asound; then
+     test_execute
+   fi
+ }
+@@ -1644,7 +1646,7 @@ check_libopus()
+       fi
+       cat > $ODIR.tmp_src.cc << EOF
+ #include <cstdio>
+-#include <opus/opus.h>
++#include <opus.h>
+ extern "C" int main(void)
+ {
+   OpusEncoder *test;
+diff --git a/kBuild/sdks/LIBSDL.kmk b/kBuild/sdks/LIBSDL.kmk
+index dbec4c2..e4ae38a 100644
+--- a/kBuild/sdks/LIBSDL.kmk
++++ b/kBuild/sdks/LIBSDL.kmk
+@@ -55,7 +55,7 @@ ifndef PATH_SDK_LIBSDL
+     _SDK_LIBSDK_IS_FRAMEWORK := yes
+    endif
+   endif
+-
++  PATH_SDK_LIBSDL=/usr
+   ifeq ($(PATH_SDK_LIBSDL),)
+    PATH_SDK_LIBSDL := $(firstword $(foreach root,$(KBUILD_LIB_SEARCH_ROOTS) \
+    	,$(if $(wildcard $(addsuffix libSDL.*,$(addprefix $(root),$(KBUILD_LIB_SEARCH_SUBS)))),$(root),) ))
+diff --git a/src/VBox/Additions/linux/Makefile b/src/VBox/Additions/linux/Makefile
+index da78fa1..09abb2c 100644
+--- a/src/VBox/Additions/linux/Makefile
++++ b/src/VBox/Additions/linux/Makefile
+@@ -27,11 +27,11 @@ KBUILD_VERBOSE =
+ 
+ all:
+ 	@echo "=== Building 'vboxguest' module ==="
+-	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest
++	@echo $(MAKE) KERN_DIR=$(HOME)/ydfs/build/linux-x86_64-$(KERNEL3)/ KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest
+ 	@if [ -f vboxguest/vboxguest.ko ]; then \
+-	    cp vboxguest/vboxguest.ko .; \
++	    echo cp vboxguest/vboxguest.ko .; \
+ 	 else \
+-	    cp vboxguest/vboxguest.o .; \
++	    echo cp vboxguest/vboxguest.o .; \
+ 	 fi
+ 	@echo
+ 	@if [ -d vboxsf ]; then \
+@@ -39,11 +39,11 @@ all:
+ 	        cp vboxguest/Module.symvers vboxsf; \
+ 	    fi; \
+ 	    echo "=== Building 'vboxsf' module ==="; \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxsf || exit 1; \
++	    echo $(MAKE) KERN_DIR=$(HOME)/ydfs/build/linux-x86_64-$(KERNEL3)/ KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxsf || exit 1; \
+ 	    if [ -f vboxsf/vboxsf.ko ]; then \
+-	        cp vboxsf/vboxsf.ko .; \
++	        echo cp vboxsf/vboxsf.ko .; \
+ 	    else \
+-	        cp vboxsf/vboxsf.o .; \
++	        echo cp vboxsf/vboxsf.o .; \
+ 	    fi; \
+ 	    echo; \
+ 	fi
+@@ -62,23 +62,8 @@ all:
+ 	fi
+ 
+ install:
+-	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest install
+-	@if [ -d vboxsf ]; then \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxsf install; \
+-	fi
+-	@if [ -d vboxvideo ]; then \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxvideo install; \
+-	fi
+ 
+ clean:
+-	@$(MAKE) -C vboxguest clean
+-	@if [ -d vboxsf ]; then \
+-	    $(MAKE) -C vboxsf clean; \
+-	fi
+-	@if [ -d vboxvideo ]; then \
+-	    $(MAKE) -C vboxvideo clean; \
+-	fi
+-	rm -f vboxguest.*o vboxsf.*o vboxvideo.*o
+ 
+ check:
+ 	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxguest check
+diff --git a/src/VBox/HostDrivers/Makefile.kmk b/src/VBox/HostDrivers/Makefile.kmk
+index 8886637..59ad9d6 100644
+--- a/src/VBox/HostDrivers/Makefile.kmk
++++ b/src/VBox/HostDrivers/Makefile.kmk
+@@ -68,7 +68,7 @@ endif # !defined(VBOX_ONLY_DOCS) && !defined(VBOX_ONLY_VALIDATIONKIT)
+ #
+ # Build test for the linux host kernel modules.
+ #
+-if   defined(VBOX_WITH_TESTCASES) \
++if   defined(VVVBOX_WITH_TESTCASES) \
+  && !defined(VBOX_ONLY_SDK) \
+  && !defined(VBOX_ONLY_DOCS) \
+  && !defined(VBOX_ONLY_VALIDATIONKIT) \
+diff --git a/src/VBox/HostDrivers/linux/Makefile b/src/VBox/HostDrivers/linux/Makefile
+index b91520d..9e4f267 100644
+--- a/src/VBox/HostDrivers/linux/Makefile
++++ b/src/VBox/HostDrivers/linux/Makefile
+@@ -46,7 +46,7 @@ KBUILD_VERBOSE =
+ 
+ all:
+ 	@echo "=== Building 'vboxdrv' module ==="
+-	@$(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxdrv
++	@make  KERN_DIR=$(HOME)/ydfs/build/linux-x86_64-$(KERNEL3)  KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxdrv
+ 	@cp vboxdrv/vboxdrv.ko .
+ 	@echo
+ 	@if [ -d vboxnetflt ]; then \
+@@ -54,8 +54,8 @@ all:
+ 	        cp vboxdrv/Module.symvers vboxnetflt; \
+ 	    fi; \
+ 	    echo "=== Building 'vboxnetflt' module ==="; \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetflt || exit 1; \
+-	    cp vboxnetflt/vboxnetflt.ko .; \
++	    echo make  KERN_DIR=$(HOME)/ydfs/build/linux-x86_64-$(KERNEL3) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetflt || exit 1; \
++	    echo cp vboxnetflt/vboxnetflt.ko .; \
+ 	    echo; \
+ 	fi
+ 	@if [ -d vboxnetadp ]; then \
+@@ -63,8 +63,8 @@ all:
+ 	        cp vboxdrv/Module.symvers vboxnetadp; \
+ 	    fi; \
+ 	    echo "=== Building 'vboxnetadp' module ==="; \
+-	    $(MAKE) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetadp || exit 1; \
+-	    cp vboxnetadp/vboxnetadp.ko .; \
++	    echo make  KERN_DIR=$(HOME)/ydfs/build/linux-x86_64-$(KERNEL3) KBUILD_VERBOSE=$(KBUILD_VERBOSE) -C vboxnetadp || exit 1; \
++	    echo cp vboxnetadp/vboxnetadp.ko .; \
+ 	    echo; \
+ 	fi
+ 	@if [ -d vboxpci ]; then \
+diff --git a/src/VBox/Installer/linux/Makefile.include.header b/src/VBox/Installer/linux/Makefile.include.header
+index 2cb2cc7..4b46cad 100644
+--- a/src/VBox/Installer/linux/Makefile.include.header
++++ b/src/VBox/Installer/linux/Makefile.include.header
+@@ -136,7 +136,7 @@ else # neq($(KERNELRELEASE),)
+ endif # neq($(KERNELRELEASE),)
+ 
+ # Kernel build folder
+-KERN_DIR := /lib/modules/$(KERN_VER)/build
++KERN_DIR := $(HOME)/ydfs/build/linux-x86_64-$(KERNEL3)/
+ ifneq ($(shell if test -d $(KERN_DIR); then echo yes; fi),yes)
+  $(error Error: unable to find the headers of the Linux kernel to build against. \
+           Specify KERN_VER=<version> (currently $(KERN_VER)) and run Make again)

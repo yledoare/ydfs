@@ -1,0 +1,2 @@
+FILE="$1"
+curl -F "uploadedfile=@$FILE" http://jukebox.linuxconsole.org/uploader.php 

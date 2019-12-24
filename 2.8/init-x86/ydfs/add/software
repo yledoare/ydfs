@@ -1,0 +1,64 @@
+cd $HOME
+
+. /etc/profile
+export PATH=$PATH:$HOME/firefox:$HOME/thunderbird
+
+SOFT=$1
+which $1
+if [ $? = 0 ]
+then
+  $1
+else
+  DBNAME=$(/busybox/bin/cat /ydfs-name)
+  DBREL=$(/busybox/bin/cat /ydfs-release)
+  FILE=installsoft-$DBREL
+  [ -e $FILE ] && rm $FILE
+  wget http://jukebox.linuxconsole.org/ydfs/$FILE 
+  if [ $? = 0 ]
+  then
+    sh $FILE $1
+    rm $FILE
+  else
+
+if [ "$SOFT" == "gcompris" ]
+then
+  opkg-cl update
+  xterm -e opkg-cl install gcompris
+  gcompris
+  exit 0
+fi
+
+if [ "$SOFT" == "hedgewars" ]
+then
+  opkg-cl update
+  xterm -e opkg-cl install hedgewars-src
+  hedgewars
+  exit 0
+fi
+
+if [ "$SOFT" == "libreoffice" ]
+then
+  opkg-cl update
+  xterm -e opkg-cl install libreoffice
+  libreoffice
+  exit 0
+fi
+
+if [ "$SOFT" == "vlc" ]
+then
+  opkg-cl update
+  xterm -e opkg-cl install vlc
+  vlc
+  exit 0
+fi
+
+if [ "$SOFT" == "0ad" ]
+then
+  opkg-cl update
+  xterm -e opkg-cl install 0ad-0.0.18
+  0ad
+  exit 0
+fi
+    zenity --info --text="Error when downloading http://jukebox.linuxconsole.org/ydfs/$FILE"
+  fi
+fi

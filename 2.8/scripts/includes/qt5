@@ -1,0 +1,71 @@
+
+  if [ -e qtbase/src/corelib/Qt5CoreMacros.cmake ]
+  then
+     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/qtbase/lib
+     cd qtbase
+
+	grep $HOME/$ARCH/lib mkspecs/features/qt_configure.prf || sed -i -e "s|paths =|paths = $HOME/$ARCH/lib |" mkspecs/features/qt_configure.prf
+	grep $HOME/$ARCH/include mkspecs/features/qt_configure.prf || sed -i -e "s|QMAKE_DEFAULT_INCDIRS|QMAKE_DEFAULT_INCDIRS $HOME/$ARCH/include |" mkspecs/features/qt_configure.prf
+	sed -i -e "s|^\(QMAKE_CFLAGS_RELEASE.*\)|\1 ${CFLAGS}|" \
+    		mkspecs/common/gcc-base.conf
+	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
+    		mkspecs/common/gcc-base.conf
+  	sed -i -e "s|^\(QMAKE_LFLAGS_RELEASE.*\)|\1 ${LDFLAGS}|" \
+    		mkspecs/common/g++-unix.conf
+
+	# https://forums.gentoo.org/viewtopic-t-1085314-start-0.html
+	sed -i -e "s|11|9|"	src/corelib/global/minimum-linux_p.h
+
+	# wget  wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=25feee4e -O qt5-base-glibc-2.28.patch
+	# patch -p1 -i qt5-base-glibc-2.28.patch
+
+	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=f8f0f3ee -O qt-delayed-highlight.patch
+  	patch -p1 -i qt-delayed-highlight.patch # https://codereview.qt-project.org/#/c/249881/
+
+	wget https://code.qt.io/cgit/qt/qtbase.git/patch/?id=fcba9fa8 -O qtbug-69310.patch
+  	patch -p1 -i qtbug-69310.patch # https://bugreports.qt.io/browse/QTBUG-69310
+
+	wget http://code.qt.io/cgit/qt/qtbase.git/patch?id=97600d2c -O qt5-base-nouveau-freeze.patch
+  	patch -Rp1 -i qt5-base-nouveau-freeze.patch
+     cd ..
+
+     sed -i "s/volatile//" \
+  qtscript/src/3rdparty/javascriptcore/JavaScriptCore/jit/JITStubs.cpp
+
+  export EXTRA_LIBDIR=$HOME/$ARCH/lib
+  export QMAKE_DEFAULT_LIBDIRS=$HOME/$ARCH/lib
+
+#     [ -e $HOME/$ARCH/include/unicode ] && mv $HOME/$ARCH/include/unicode $HOME/$ARCH/include/unicode-disabled
+#     [ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+#     [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
+./configure -confirm-license -opensource -v \
+    -prefix $HOME/$ARCH \
+    -platform linux-clang \
+    -docdir $HOME/$ARCH/share/doc/qt \
+    -headerdir $HOME/$ARCH/include/qt \
+    -archdatadir $HOME/$ARCH/lib/qt \
+    -datadir $HOME/$ARCH/share/qt \
+    -sysconfdir $HOME/$ARCH/xdg \
+    -examplesdir $HOME/$ARCH/share/doc/qt/examples \
+    -plugin-sql-sqlite \
+    -openssl-linked \
+    -system-sqlite \
+    -system-libjpeg \
+    -nomake examples \
+    -no-rpath \
+    -optimized-qmake \
+    -dbus-linked \
+    -no-use-gold-linker \
+    -reduce-relocations -system-harfbuzz -icu -skip qtwebengine || exit 1
+	echo "BUILD 1" && sleep 5
+	make
+	echo "BUILD 2" && sleep 5
+	cd qtdeclarative/src/qml
+	mv $HOME/$ARCH/include/unicode $HOME/$ARCH/include/unicode-disabled
+	make || exit 1 
+	cd ../../..
+	make || exit 1
+	make install || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi

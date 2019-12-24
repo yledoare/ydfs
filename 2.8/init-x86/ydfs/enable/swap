@@ -1,0 +1,34 @@
+SWAP=0
+
+grep '0 sd' /proc/diskstats |tr -s ' '|cut -d' ' -f4 | while read disk
+do
+  busybox fdisk -l /dev/$disk | grep swap | while read swap
+  do
+    SWAP=`echo $swap | cut -d' ' -f1`
+    grep $SWAP /proc/swaps && continue
+    echo "Enable swap $SWAP"
+    swapon $SWAP
+    SWAP=1
+  done
+done
+
+for PARTITION in `ls /media`
+do
+  for SWAPFILE in ydfs/disks/swap.disk pagefile.sys
+  do
+    if [ -e /media/$PARTITION/$SWAPFILE ]
+    then
+      mkswap /media/$PARTITION/$SWAPFILE
+      swapon /media/$PARTITION/$SWAPFILE
+      SWAP=1
+    fi
+  done
+done
+
+if [ "$SWAP" = "1" ] && [ ! -e /root/usr ]
+then
+  install -d /tmp
+  mount tmpfs /tmp -t tmpfs -o size=1G 
+  install -d $HOME_DIBAB/opkg
+  mount tmpfs $HOME_DIBAB/opkg -t tmpfs -o size=1G 
+fi

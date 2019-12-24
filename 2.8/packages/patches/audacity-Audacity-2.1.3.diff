@@ -1,0 +1,13 @@
+diff --git a/lib-src/portmixer/configure b/lib-src/portmixer/configure
+index 71de4a9..dc41bc9 100755
+--- a/lib-src/portmixer/configure
++++ b/lib-src/portmixer/configure
+@@ -12179,7 +12179,7 @@ if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+   $EGREP "Pa_GetStreamHostApiType" >/dev/null 2>&1; then :
+ 
+ else
+-  have_portaudio=no
++  have_portaudio=yes
+ fi
+ rm -f conftest*
+ 

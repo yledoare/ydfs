@@ -1,0 +1,82 @@
+diff --git a/Makefile b/Makefile
+index a22fed1..db0a401 100644
+--- a/Makefile
++++ b/Makefile
+@@ -27,8 +27,8 @@ endif
+ # Paths (packagers might want to set DATADIR and LOCALEDIR)
+ 
+ USERDIR   := .neverball
+-DATADIR   := ./data
+-LOCALEDIR := ./locale
++DATADIR   := ${MYPREFIX}/share/neverball
++LOCALEDIR := ${MYPREFIX}/share/locale
+ 
+ ifdef MINGW
+     USERDIR := Neverball
+@@ -46,7 +46,7 @@ ifeq ($(DEBUG),1)
+     CPPFLAGS :=
+ else
+     CFLAGS   := -O2
+-    CPPFLAGS := -DNDEBUG
++    CPPFLAGS := -DNDEBUG -LX11 -I${HOME}/${ARCH}/include -Wl,-rpath-link,${HOME}/${ARCH}/lib
+ endif
+ 
+ #------------------------------------------------------------------------------
+@@ -111,7 +111,7 @@ ifeq ($(ENABLE_WII),1)
+     TILT_LIBS := -lcwiimote -lbluetooth
+ endif
+ 
+-OGL_LIBS := -lGL -lm
++OGL_LIBS := -lGL -lm -lX11
+ 
+ ifdef MINGW
+     ifneq ($(ENABLE_NLS),0)
+@@ -308,9 +308,14 @@ DESKTOPS := $(basename $(wildcard dist/*.desktop.in))
+ 	echo "1 ICON \"$<\"" | $(WINDRES) -o $@
+ 
+ #------------------------------------------------------------------------------
+-
+ all : $(BALL_TARG) $(PUTT_TARG) $(MAPC_TARG) sols locales desktops
+ 
++install :
++	bash ydfs.install
++ifdef DESTDIR
++	echo ${DESTDIR}
++	echo install -d ${DESTDIR}
++endif
+ $(BALL_TARG) : $(BALL_OBJS)
+ 	$(CC) $(ALL_CFLAGS) -o $(BALL_TARG) $(BALL_OBJS) $(LDFLAGS) $(ALL_LIBS)
+ 
+diff -ur --new-file a/ydfs.install b/ydfs.install
+--- a/ydfs.install	1970-01-01 01:00:00.000000000 +0100
++++ b/ydfs.install	2014-03-23 15:48:04.395068864 +0100
+@@ -0,0 +1,16 @@
++install -d "${MYPREFIX}//bin"
++install -d "${MYPREFIX}"//share/{neverball,locale,applications,doc/neverball}
++install -d "${MYPREFIX}"//share/man/man{1,6}
++
++install -m755 neverball neverputt mapc "${MYPREFIX}//bin"
++cp -r locale/* "${MYPREFIX}//share/locale/"
++cp -r data/* "${MYPREFIX}//share/neverball/"
++# install -m644 doc/* "${MYPREFIX}//share/doc/neverball/"
++install -m644 dist/*.desktop "${MYPREFIX}//share/applications/"
++
++for i in 16 24 32 48 64 128 256; do
++  install -D -m644 dist/neverball_$i.png "${MYPREFIX}//share/icons/hicolor/${i}x$i/apps/neverball.png"
++  install -D -m644 dist/neverputt_$i.png "${MYPREFIX}//share/icons/hicolor/${i}x$i/apps/neverputt.png"
++done
++
++chmod -R u=rwX,go=rX "${MYPREFIX}//share/neverball"
+diff --git a/Makefile b/Makefile
+index a22fed1..96a807c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -98,7 +98,7 @@ ALL_CPPFLAGS += $(CPPFLAGS)
+ 
+ SDL_LIBS := $(shell sdl-config --libs)
+ PNG_LIBS := $(shell libpng-config --libs)
+-FS_LIBS := -lphysfs
++FS_LIBS := -lphysfs -lm
+ 
+ # The  non-conditionalised values  below  are specific  to the  native
+ # system. The native system of this Makefile is Linux (or GNU+Linux if

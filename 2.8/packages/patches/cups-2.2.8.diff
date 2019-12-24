@@ -1,0 +1,46 @@
+diff --git a/conf/Makefile b/conf/Makefile
+index f4d63f8..0756465 100644
+--- a/conf/Makefile
++++ b/conf/Makefile
+@@ -81,10 +81,10 @@ install-data:
+ 	$(INSTALL_DIR) -m 755 $(DATADIR)/mime
+ 	for file in $(REPLACE); do \
+ 		if test -r $(DATADIR)/mime/$$file ; then \
+-			$(MV) $(DATADIR)/mime/$$file $(DATADIR)/mime/$$file.O ; \
++			cp -fR $(DATADIR)/mime/$$file $(DATADIR)/mime/$$file.O ; \
+ 		fi ; \
+ 		if test -r $(SERVERROOT)/$$file ; then \
+-			$(MV) $(SERVERROOT)/$$file $(DATADIR)/mime/$$file.O ; \
++			cp -fR $(SERVERROOT)/$$file $(DATADIR)/mime/$$file.O ; \
+ 		fi ; \
+ 		$(INSTALL_DATA) $$file $(DATADIR)/mime ; \
+ 	done
+diff --git a/configure b/configure
+index 1b36f72..fadfca6 100755
+--- a/configure
++++ b/configure
+@@ -5679,9 +5679,6 @@ if test "x$ac_cv_func_dbus_threads_init" = xyes; then :
+ fi
+ 
+ 		LIBS="$SAVELIBS"
+-		if test -d /etc/dbus-1; then
+-			DBUSDIR="/etc/dbus-1"
+-		fi
+ 	else
+ 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+diff --git a/scheduler/env.c b/scheduler/env.c
+index 620c99c..4ed86cf 100644
+--- a/scheduler/env.c
++++ b/scheduler/env.c
+@@ -218,8 +218,8 @@ cupsdUpdateEnv(void)
+   set_if_undefined("LD_PRELOAD", NULL);
+   set_if_undefined("NLSPATH", NULL);
+   if (find_env("PATH") < 0)
+-    cupsdSetEnvf("PATH", "%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR
+-			 ":/bin:/usr/bin", ServerBin);
++    cupsdSetEnvf("PATH", "/fix:%s/filter:" CUPS_BINDIR ":" CUPS_SBINDIR
++			 ":/bin:/usr/bin:/busybox/bin/:/busybox/sbin/:/busybox/usr/bin/:/busybox/usr/sbin/", ServerBin);
+   set_if_undefined("SERVER_ADMIN", ServerAdmin);
+   set_if_undefined("SHLIB_PATH", NULL);
+   set_if_undefined("SOFTWARE", CUPS_MINIMAL);

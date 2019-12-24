@@ -1,0 +1,38 @@
+diff --git a/Makefile.am b/Makefile.am
+index 107c3ba..9bdf0db 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -11,7 +11,6 @@ include Makefile-bwrap.am
+ 
+ install-exec-hook:
+ if PRIV_MODE_SETUID
+-	$(SUDO_BIN) chown root $(DESTDIR)$(bindir)/bwrap
+ 	$(SUDO_BIN) chmod u+s $(DESTDIR)$(bindir)/bwrap
+ endif
+ 
+@@ -21,7 +20,6 @@ test-bwrap: bwrap
+ 	rm -rf test-bwrap
+ 	cp bwrap test-bwrap
+ if PRIV_MODE_SETUID
+-	$(SUDO_BIN) chown root test-bwrap
+ 	$(SUDO_BIN) chmod u+s test-bwrap
+ endif
+ 
+diff --git a/Makefile.in b/Makefile.in
+index 4bfcffb..74395d0 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1328,13 +1328,11 @@ uninstall-man: uninstall-man1
+ 
+ 
+ install-exec-hook:
+-@PRIV_MODE_SETUID_TRUE@	$(SUDO_BIN) chown root $(DESTDIR)$(bindir)/bwrap
+ @PRIV_MODE_SETUID_TRUE@	$(SUDO_BIN) chmod u+s $(DESTDIR)$(bindir)/bwrap
+ 
+ test-bwrap: bwrap
+ 	rm -rf test-bwrap
+ 	cp bwrap test-bwrap
+-@PRIV_MODE_SETUID_TRUE@	$(SUDO_BIN) chown root test-bwrap
+ @PRIV_MODE_SETUID_TRUE@	$(SUDO_BIN) chmod u+s test-bwrap
+ 
+ .xml.1:

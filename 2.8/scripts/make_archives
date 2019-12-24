@@ -1,0 +1,3 @@
+install -d $HOME/ydfs/archives/
+cd $HOME/ydfs/x-tools
+tar cjvf $HOME/ydfs/archives/$CPU-$VENDOR-linux-toolchain.tar.bz2 $CPU-$VENDOR-linux-$GNU

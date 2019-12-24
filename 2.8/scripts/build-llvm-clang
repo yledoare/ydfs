@@ -1,0 +1,33 @@
+	RELEASE=6.0.0
+	cd $HOME/ydfs/tarballs
+	[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
+	[ ! -e ../src/llvm-$RELEASE.src ] && cd ../src/ && tar -xJf ../tarballs/llvm-$RELEASE.src.tar.xz
+	cd llvm-$RELEASE.src/tools || exit 1
+
+	[ ! -e cfe-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/cfe-$RELEASE.src.tar.xz
+	[ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
+	[ ! -e clang ] && mv cfe-$RELEASE.src clang 
+
+	cd ..
+	sed -i "s|-pedantic|-pedantic -ldl|" cmake/modules/HandleLLVMOptions.cmake
+	mkdir build
+	cd build
+	PKG_CONFIG_PATH="$HOME/multilib/lib32/pkgconfig" cmake .. -G Ninja \
+    -DCMAKE_C_FLAGS="-ldl -L$HOME/multilib/lib32" -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=$HOME/llvm-multilib \
+    -DLLVM_LIBDIR_SUFFIX=32 \
+    -DCMAKE_C_FLAGS:STRING=-m32 \
+    -DCMAKE_CXX_FLAGS:STRING=-m32 \
+    -DLLVM_TARGET_ARCH:STRING=i686 \
+    -DLLVM_DEFAULT_TARGET_TRIPLE="i686-pc-linux-gnu" \
+    -DLLVM_BUILD_LLVM_DYLIB=ON \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLVM_ENABLE_RTTI=ON \
+    -DLLVM_ENABLE_FFI=ON \
+    -DLLVM_BUILD_DOCS=OFF \
+    -DLLVM_ENABLE_SPHINX=OFF \
+    -DLLVM_ENABLE_DOXYGEN=OFF \
+    -DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) || exit $?
+ 	ninja all || exit $?
+	# DESTDIR="$HOME/llvm-multilib" ninja install
+	ninja install

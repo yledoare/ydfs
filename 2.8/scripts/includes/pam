@@ -1,0 +1,36 @@
+  if [ -e libpam/pam_auth.c ]
+  then
+	echo "Build PAM"
+	for file in system-auth system-local-login system-login system-remote-login system-services other
+	do
+	  [ ! -e $pkgdir/etc/pam.d/$file ] && install -d $pkgdir/etc/pam.d && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/pambase --output-document=$pkgdir/etc/pam.d/$file
+	done
+
+       ./configure --prefix=$PREFIX --libdir=$PREFIX/lib --sbindir=$PREFIX/bin --disable-db || exit 1
+	make || exit 1
+        make SCONFIGDIR=$PREFIX/etc/security install || exit 1
+
+
+  # add the realtime permissions for audio users
+  sed -i 's|# End of file||' $pkgdir/etc/security/limits.conf
+  cat >>$pkgdir/etc/security/limits.conf <<_EOT
+*               -       rtprio          0
+*               -       nice            0
+@audio          -       rtprio          65
+@audio          -       nice           -10
+@audio          -       memlock         40000
+_EOT
+
+  # fix some missing symlinks from old pam for compatibility
+  cd $pkgdir/lib/security
+  ln -s pam_unix.so pam_unix_acct.so
+  ln -s pam_unix.so pam_unix_auth.so
+  ln -s pam_unix.so pam_unix_passwd.so
+  ln -s pam_unix.so pam_unix_session.so
+
+  # set unix_chkpwd uid
+  chmod +s $pkgdir/bin/unix_chkpwd
+  ydfs-install-package
+  touch buildok-$ARCH
+  exit 0
+  fi

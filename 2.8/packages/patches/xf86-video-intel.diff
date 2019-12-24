@@ -1,0 +1,69 @@
+diff --git a/src/sna/compiler.h b/src/sna/compiler.h
+index 0f3775ec..c4056913 100644
+--- a/src/sna/compiler.h
++++ b/src/sna/compiler.h
+@@ -32,7 +32,7 @@
+ #define likely(expr) (__builtin_expect (!!(expr), 1))
+ #define unlikely(expr) (__builtin_expect (!!(expr), 0))
+ #define noinline __attribute__((noinline))
+-#define force_inline inline __attribute__((always_inline))
++#define force_inline inline
+ #define fastcall __attribute__((regparm(3)))
+ #define must_check __attribute__((warn_unused_result))
+ #define constant __attribute__((const))
+diff --git a/src/sna/sna_accel.c b/src/sna/sna_accel.c
+index 7fd00b9a..7217ce2e 100644
+--- a/src/sna/sna_accel.c
++++ b/src/sna/sna_accel.c
+@@ -17514,7 +17514,11 @@ static bool has_offload_slaves(struct sna *sna)
+ 	PixmapDirtyUpdatePtr dirty;
+ 
+ 	xorg_list_for_each_entry(dirty, &screen->pixmap_dirty_list, ent) {
++#ifdef HAS_DIRTYTRACKING_DRAWABLE_SRC
++		assert(dirty->src == &sna->front->drawable);
++#else
+ 		assert(dirty->src == sna->front);
++#endif
+ 		if (RegionNotEmpty(DamageRegion(dirty->damage)))
+ 			return true;
+ 	}
+@@ -17675,7 +17679,11 @@ static void sna_accel_post_damage(struct sna *sna)
+ 		if (RegionNil(damage))
+ 			continue;
+ 
++#ifdef HAS_DIRTYTRACKING_DRAWABLE_SRC
++		src = get_drawable_pixmap(dirty->src);
++#else
+ 		src = dirty->src;
++#endif
+ 		dst = dirty->slave_dst->master_pixmap;
+ 
+ 		region.extents.x1 = dirty->x;
+@@ -17926,9 +17934,15 @@ migrate_dirty_tracking(PixmapPtr old_front, PixmapPtr new_front)
+ 	PixmapDirtyUpdatePtr dirty, safe;
+ 
+ 	xorg_list_for_each_entry_safe(dirty, safe, &screen->pixmap_dirty_list, ent) {
++#ifdef HAS_DIRTYTRACKING_DRAWABLE_SRC
++		assert(dirty->src == &old_front->drawable);
++		if (dirty->src != &old_front->drawable)
++			continue;
++#else
+ 		assert(dirty->src == old_front);
+ 		if (dirty->src != old_front)
+ 			continue;
++#endif
+ 
+ 		DamageUnregister(&dirty->src->drawable, dirty->damage);
+ 		DamageDestroy(dirty->damage);
+@@ -17943,7 +17957,11 @@ migrate_dirty_tracking(PixmapPtr old_front, PixmapPtr new_front)
+ 		}
+ 
+ 		DamageRegister(&new_front->drawable, dirty->damage);
++#ifdef HAS_DIRTYTRACKING_DRAWABLE_SRC
++		dirty->src = &new_front->drawable;
++#else
+ 		dirty->src = new_front;
++#endif
+ 	}
+ #endif
+ }

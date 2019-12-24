@@ -1,0 +1,25 @@
+PLUGPATH=~/.mozilla/plugins
+install -d $PLUGPATH
+if [ -e $PLUGPATH/libflashplayer.so ]
+then
+  zenity --question --text="Warning, flash is installed, Do you want an update ?" &>/dev/null
+           ans=$?
+           echo $ans
+           [ "$ans" != "0" ] && exit 1
+fi
+
+cd $PLUGPATH
+[ "$ARCH" = "x86" ] && ARCH=i386
+wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/flashplugin --output-document=flashplugin
+#pkgver=$(grep pkgver= flashplugin | cut -d'=' -f2)
+. flashplugin
+rm flashplugin
+URL=https://fpdownload.adobe.com/get/flashplayer/pdc/$pkgver/flash_player_npapi_linux.x86_64.tar.gz
+#URL=$(echo $source_x86_64 | cut -d ':' -f3,4)
+#[ "$ARCH" = "x86" ] && URL=$(echo $source_i686 | cut -d ':' -f3,4)
+DEST=$PLUGPATH /ydfs/start/download $URL 
+tar xzvf $(basename $URL)
+rm $(basename $URL)
+cd $HOME
+
+# ln -sf /usr/lib/mozilla/plugins/libflashplayer.so /usr/lib/qupzilla/libflashplayer.so

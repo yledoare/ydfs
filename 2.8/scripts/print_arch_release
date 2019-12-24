@@ -1,0 +1,12 @@
+#!/bin/bash
+source=""
+pkg=$1
+rm /tmp/pkg
+wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/$pkg -O /tmp/pkg -o /tmp/out
+. /tmp/pkg
+if [ "$source" = "" ]
+then
+  wget https://git.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages/$pkg -O /tmp/pkg -o /tmp/out 
+  . /tmp/pkg
+fi
+echo $source

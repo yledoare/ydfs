@@ -1,0 +1,1 @@
+dmesg |grep rename | grep eth0 |cut -d':' -f4 | cut -d' ' -f4

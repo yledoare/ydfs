@@ -1,0 +1,68 @@
+#!/bin/sh
+if [ -e xbmc-xrandr.c ]
+then
+	echo "Build Kodi" && sleep 5
+
+    mkdir kodi-build
+    cd kodi-build
+_codename=Leia
+_libdvdcss_version="1.4.2-$_codename-Beta-5"
+_libdvdnav_version="6.0.0-$_codename-Alpha-3"
+_libdvdread_version="6.0.0-$_codename-Alpha-3"
+_ffmpeg_version="4.0.3-$_codename-RC5"
+_fmt_version="5.1.0"
+_fstrcmp_version="0.7.D001"
+_crossguid_version="8f399e8bd4"
+
+for LIST in "http://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "https://github.com/xbmc/FFmpeg/archive/$_ffmpeg_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" 
+do
+	FILE=`basename $LIST`
+	[ ! -e "$FILE" ] && wget $LIST
+	[ ! -e "$FILE" ] && sleep 20 && exit 1
+done
+	
+    # -Dlibdvdread_URL=$PWD/$_libdvdread_version.tar.gz \
+    # -Dlibdvdnav_URL=$PWD/$_libdvdnav_version.tar.gz \
+    OPTS=" -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -Dlibdvdcss_URL=$PWD/$_libdvdcss_version.tar.gz \
+    -DFMT_URL=$PWD/fmt-$_fmt_version.tar.gz \
+    -DCROSSGUID_URL=$PWD/crossguid-$_crossguid_version.tar.gz \
+    -DFSTRCMP_URL=$PWD/fstrcmp-$_fstrcmp_version.tar.gz \
+    -DFFMPEG_URL=$PWD/3.1.11-Krypton-17.5.tar.gz \
+    -DCMAKE_INSTALL_LIBDIR=$PREFIX/lib \
+    -DENABLE_EVENTCLIENTS=ON \
+    -DENABLE_INTERNAL_FFMPEG=OFF \
+    -DENABLE_INTERNAL_FSTRCMP=ON \
+    -DENABLE_OPTICAL=OFF \
+    -DLIRC_DEVICE=/run/lirc/lircd"
+    echo " OPTS : $OPTS"
+
+    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ 
+
+    echo "BUILD 1 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdread/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
+    echo "BUILD 2 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdnav/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
+    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
+
+    VERBOSE=1 make || exit $?
+     make install || exit $?
+     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+     touch buildok-$ARCH
+     exit 0 
+fi 

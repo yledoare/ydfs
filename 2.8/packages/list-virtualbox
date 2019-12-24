@@ -1,0 +1,9 @@
+http://ftp.gnome.org/pub/gnome/sources/gtk-vnc/0.5/gtk-vnc-0.5.0.tar.xz
+https://libvirt.org/sources/libvirt-5.9.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/cogl/1.22/cogl-1.22.4.tar.xz
+https://download.gnome.org/sources/clutter/1.26/clutter-1.26.2.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/clutter-gst/3.0/clutter-gst-3.0.27.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/clutter-gtk/1.8/clutter-gtk-1.8.4.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gnome-boxes/3.4/gnome-boxes-3.4.1.tar.xz
+# https://download.virtualbox.org/virtualbox/6.1.0/VirtualBox-6.1.0.tar.bz2
+# https://download.virtualbox.org/virtualbox/6.0.14/VirtualBox-6.0.14.tar.bz2 #SKIP-x86#

@@ -1,0 +1,13 @@
+if [ -e components/engine/dockerversion/ ]
+then
+  echo "Building docker"
+  [ ! -e go ] && wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz && tar xzvf go1.13.5.linux-amd64.tar.gz 
+  export PATH=$PATH:$PWD/go/bin
+  export GOPATH=$PATH:$PWD/go
+  [ ! -e go/src/github.com/docker/docker ] && install -d go/src/github.com/docker/docker
+  [ ! -e go/src/github.com/docker/docker ] && ln -s $HOME/ydfs/src/docker-ce/components/engine/cmd go/src/github.com/docker/docker 
+  cd components/engine 
+  DOCKER_GITCOMMIT=633a0ea838f10e000b7c6d6eed1623e6e988b5bb bash hack/make.sh
+  bash 
+  exit 1
+fi

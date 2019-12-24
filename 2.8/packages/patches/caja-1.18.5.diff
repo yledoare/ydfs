@@ -1,0 +1,25 @@
+diff --git a/libcaja-private/org.mate.caja.gschema.xml b/libcaja-private/org.mate.caja.gschema.xml
+index 559d70f..78f1960 100644
+--- a/libcaja-private/org.mate.caja.gschema.xml
++++ b/libcaja-private/org.mate.caja.gschema.xml
+@@ -363,17 +363,17 @@
+       <description>If this is set to true, an icon linking to the home folder will be put on the desktop.</description>
+     </key>
+     <key name="computer-icon-visible" type="b">
+-      <default>true</default>
++      <default>false</default>
+       <summary>Computer icon visible on desktop</summary>
+       <description>If this is set to true, an icon linking to the computer location will be put on the desktop.</description>
+     </key>
+     <key name="trash-icon-visible" type="b">
+-      <default>true</default>
++      <default>false</default>
+       <summary>Trash icon visible on desktop</summary>
+       <description>If this is set to true, an icon linking to the trash will be put on the desktop.</description>
+     </key>
+     <key name="volumes-visible" type="b">
+-      <default>true</default>
++      <default>true</default>
+       <summary>Show mounted volumes on the desktop</summary>
+       <description>If this is set to true, icons linking to mounted volumes will be put on the desktop.</description>
+     </key>

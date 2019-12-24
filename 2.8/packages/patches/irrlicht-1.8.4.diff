@@ -1,0 +1,33 @@
+diff --git a/source/Irrlicht/Makefile b/source/Irrlicht/Makefile
+index 9119725..1c4e37e 100644
+--- a/source/Irrlicht/Makefile
++++ b/source/Irrlicht/Makefile
+@@ -86,7 +86,7 @@ endif
+ staticlib sharedlib install: SYSTEM = Linux
+ STATIC_LIB = libIrrlicht.a
+ LIB_PATH = ../../lib/$(SYSTEM)
+-INSTALL_DIR = /usr/local/lib
++INSTALL_DIR = $(HOME)/$(ARCH)
+ sharedlib install: SHARED_LIB = libIrrlicht.so
+ sharedlib: LDFLAGS += -L/usr/X11R6/lib$(LIBSELECT) -lGL -lXxf86vm
+ staticlib sharedlib: CXXINCS += -I/usr/X11R6/include
+@@ -150,13 +150,12 @@ sharedlib_osx: $(LINKOBJ)
+ 
+ # Installs Irrlicht if it was created as shared lib
+ install install_osx:
+-	$(RM) -r $(INSTALL_DIR)/../include/irrlicht
+-	mkdir -p $(INSTALL_DIR)/../include/irrlicht
+-	cp ../../include/*.h $(INSTALL_DIR)/../include/irrlicht/
+-	cp $(LIB_PATH)/$(SHARED_FULLNAME) $(INSTALL_DIR)
+-	cd $(INSTALL_DIR) && ln -s -f $(SHARED_FULLNAME) $(SONAME)
+-	cd $(INSTALL_DIR) && ln -s -f $(SONAME) $(SHARED_LIB)
+-#	ldconfig -n $(INSTALL_DIR)
++	$(RM) -r $(INSTALL_DIR)/include/irrlicht
++	mkdir -p $(INSTALL_DIR)/include/irrlicht
++	cp ../../include/*.h $(INSTALL_DIR)/include/irrlicht/
++	cp $(LIB_PATH)/$(SHARED_FULLNAME) $(INSTALL_DIR)/lib
++	cd $(INSTALL_DIR)/lib && ln -s -f $(SHARED_FULLNAME) $(SONAME)
++	cd $(INSTALL_DIR)/lib && ln -s -f $(SONAME) $(SHARED_LIB)
+ 
+ TAGS:
+ 	ctags *.cpp ../../include/*.h *.h

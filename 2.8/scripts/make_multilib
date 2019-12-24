@@ -1,0 +1,443 @@
+# rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
+# apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
+
+export PYTHON=/usr/bin/python
+export PYTHON2=/usr/bin/python
+unset PYTHONPATH
+export PATH=$HOME/llvm-multilib/bin/:$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/lib32/pkgconfig:$HOME/multilib/share/pkgconfig
+export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
+export CC="gcc -m32"
+export CXX="g++ -m32"
+export CPPFLAGS="-I$HOME/multilib/include"
+export CFLAGS="-I$HOME/multilib/include"
+export LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
+
+install -d $HOME/multilib
+install -d $HOME/$ARCH/lib32 || exit 1
+
+install -d $HOME/multilib/include
+#FIXME !
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/uapi/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/linux/ $HOME/multilib/include/
+#ln -s /usr/src/linux-headers-3.16.0-4-common/include/asm-generic/ $HOME/multilib/include/
+
+[ ! -e $HOME/multilib/lib32 ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
+[ ! -e $HOME/multilib/lib ] && ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+
+  
+# libFS-1 libdmx- \
+
+PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+xtrans libXau libpthread-stubs xcb-proto libxcb \
+libX11-1 \
+libXext-1 \
+libICE-1 \
+libSM-1 \
+libXScrnSaver-1 \
+libXt-1 \
+libXmu-1 \
+libXpm-3 \
+libXaw-1 \
+libXfixes-5 \
+libXcomposite-0 \
+libXrender-0 \
+libXcursor-1 \
+libXdamage-1 \
+libfontenc-1 \
+libXfont-1 \
+libXft-2 \
+libXi-1 \
+libXinerama-1 \
+libXrandr-1 \
+libXres-1 \
+libXtst-1 \
+libXv-1 \
+libXvMC-1 \
+libXxf86dga-1 \
+libXxf86vm-1 \
+libpciaccess-0 \
+libxkbfile-1 \
+libxshmfence-1  libffi dbus-1.12.10 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 gtk+-2 \
+unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 wayland-1 libva-2" 
+# attr acl kmod eudev"
+ # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
+for PKG in $PKGMULTILIB
+do
+  [ "$PKG" = "llvm" ] && install -d $HOME/ydfs/src/$PKG && continue
+  echo -n "Test $PKG dir " # && sleep 1
+  cd $HOME/ydfs/src/$PKG* || exit $?
+done
+
+for PKG in $PKGMULTILIB
+do
+  echo -n "$PKG " # && sleep 1
+  cd $HOME/ydfs/src/$PKG* || exit $?
+
+  if [ ! -L $HOME/multilib/lib32 ]
+  then
+    echo "$PKG : $HOME/multilib/lib32 is not a link"
+    cp -fR $HOME/multilib/lib32/* $HOME/$ARCH/lib32
+    rm -fR $HOME/multilib/lib32/
+    ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib32
+  else
+    echo "$PKG : $HOME/multilib/lib32 is a link"
+  fi
+
+  if [ ! -L $HOME/multilib/lib ]
+  then
+    echo "$PKG : $HOME/multilib/lib is not a link"
+    cp -fR $HOME/multilib/lib/* $HOME/$ARCH/lib32
+    rm -fR $HOME/multilib/lib
+    ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
+  else
+    echo "$PKG : $HOME/multilib/lib32 is a link"
+  fi
+
+  [ "$1" != "force" ] && [ -e ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e unix/ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
+  [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
+  pwd
+  case $PKG in
+    acl )
+	cp -fR $HOME/x86_64/include/attr $HOME/multilib/include
+	;;
+  esac
+  case $PKG in
+    mesa* )
+PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
+    --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
+    --prefix=$HOME/multilib \
+	--with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl \
+    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
+    --with-egl-platforms=x11,drm \
+    --enable-gallium-llvm \
+    --enable-llvm-shared-libs \
+    --enable-shared-glapi \
+    --enable-glx-tls \
+    --enable-egl \
+    --enable-glx \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-gbm \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-texture-float \
+    --enable-nine \
+    --enable-vdpau  --disable-debug
+# --libdir=$HOME/multilib/lib32
+	;;
+
+    bzip2 )
+	echo "No config for Bzip2"
+        ;;
+    wayland-1 )
+	./configure --prefix=$HOME/multilib --disable-documentation
+	;;
+    libxslt )
+	./configure --prefix=$HOME/multilib --without-python
+	;;
+    libgcrypt )
+	 sed 's:path="amd64":path="i586 i386":' -i mpi/config.links
+  	./configure --prefix=$HOME/multilib --disable-static --disable-padlock-support --enable-shared
+	;;
+
+    gnutls )
+  	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --with-zlib \
+    --with-included-unistring \
+    --disable-static \
+    --disable-guile \
+    --disable-valgrind-tests --disable-doc || exit $?
+	;;
+    libtheora )
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --host=i686-pc-linux-gnu
+	;;
+    libgudev )
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --host=i686-pc-linux-gnu \
+    --disable-umockdev
+	;;
+    libunwind )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --host=i686-pc-linux-gnu \
+    --disable-documentation 
+	;;
+    gst-plugins-base )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib \
+	--disable-wayland    --disable-static\
+    --disable-examples\
+    --disable-gtk-doc-html\
+    --enable-experimental 
+	;;
+    gstreamer-1 )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --disable-maintainer-mode\
+    --disable-examples\
+    --disable-tests\
+    --disable-static\
+    --disable-gtk-doc-html\
+    --disable-gtk-doc-pdf\
+    --disable-gtk-doc\
+    --disable-valgrind\
+    --disable-benchmarks
+	;;
+    nettle )
+	 export CC="gcc -m32"
+	 export CXX="g++ -m32"
+	./configure  --build=i686-pc-linux-gnu --prefix=$HOME/multilib --enable-shared --with-include-path=$HOME/multilib/lib32/gmp
+	;;
+    gmp )
+	make clean
+	export ABI=32
+  	./configure  --enable-fat --enable-cxx --libdir=$HOME/multilib/lib32 --includedir=$HOME/multilib/lib32/gmp  --prefix=$HOME/multilib || exit $?
+	;;
+    libxml )
+  	./configure --without-python --prefix=$HOME/multilib || exit $?
+	;;
+    alsa-lib )
+  	./configure --disable-python --prefix=$HOME/multilib || exit $?
+	;;
+    qt-everywhere-opensource-src-4 )
+	patch -p1 < $HOME_DIBAB/packages/patches/qt-everywhere-opensource-src-build32.diff 
+	# make
+	# From https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/lib32-qt4
+  sed -i "/^QMAKE_LINK\s/s|g++|g++ -m32|g" mkspecs/common/g++-base.conf
+  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/g++-base.conf
+  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/gcc-base.conf
+  sed -i "/^QMAKE_LFLAGS_RPATH/s| -Wl,-rpath,||g" mkspecs/common/gcc-base-unix.conf
+  sed -i "/^QMAKE_LFLAGS\s/s|+=|+= ${LDFLAGS} -m32|g" mkspecs/common/gcc-base.conf
+  sed -i "s|-Wl,-O1|-m32 -Wl,-O1|" mkspecs/common/g++-unix.conf
+  sed -e "s|-O2|$CXXFLAGS -m32|" \
+      -e "/^QMAKE_RPATH/s| -Wl,-rpath,||g" \
+      -e "/^QMAKE_LINK\s/s|g++|g++ -m32|g" \
+      -e "/^QMAKE_LFLAGS\s/s|+=|+= $LDFLAGS|g" \
+      -i mkspecs/common/g++.conf
+	ARCH=multilib ./configure -confirm-license -opensource -v -platform linux-g++-32 \
+    -prefix $HOME/multilib -system-sqlite \
+    -no-phonon \
+    -no-phonon-backend \
+    -no-gtkstyle -webkit \
+    -graphicssystem raster \
+    -openssl-linked \
+    -nomake demos \
+    -nomake examples \
+    -nomake docs \
+    -optimized-qmake \
+    -no-rpath \
+    -dbus-linked \
+    -reduce-relocations \
+    -no-openvg || exit $?
+
+    ;;
+    pulseaudio )
+	if [ ! -e libtool-2.4.6 ]
+	then
+	  wget ftp://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.xz
+	  tar xJvf libtool-2.4.6.tar.xz
+	  cd libtool-2.4.6
+		./configure  --prefix=$HOME/multilib || exit $?
+		make || exit $?
+		make install || exit $?
+	  cd ..	
+	fi
+  	# NOCONFIGURE=1 ./bootstrap.sh
+	./configure  --prefix=$HOME/multilib     --disable-tcpwrap \
+    --disable-udev --disable-gconf --disable-avahi --disable-jack --disable-bluez4 \
+    --disable-samplerate \
+    --without-fftw --disable-rpath \
+    --disable-default-build-tests --without-caps ||exit 1
+    ;;
+    ncurses )
+
+	 mkdir ncursesw-build
+	 mkdir ncurses-build
+
+  cd ncursesw-build
+  ../configure --prefix=$HOME/multilib \
+     --with-shared --with-normal --without-debug --without-ada \
+     --enable-widec
+  make
+  make install
+	cd ..
+  cd ncurses-build
+  ../configure --prefix=$HOME/multilib \
+    --with-shared --with-normal --without-debug --without-ada 
+    ;;
+    tcl8* )
+	cd unix
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    fontconfig* )
+	./configure --prefix=$HOME/multilib --disable-docs || exit $?
+    ;;
+    pcre-* )
+	./configure --prefix=$HOME/multilib --enable-unicode-properties || exit $?
+    ;;
+    icu )
+	cd source
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    util-linux* )
+	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
+	autoreconf
+  	./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
+    ;;
+    dbus-1.10.14 )
+  	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
+    ;;
+    freetype-2* )
+	if [ -e $HOME/multilib/lib/libharfbuzz.so ]
+	then
+  	  ./configure --prefix=$HOME/multilib || exit $?
+	else
+  	  ./configure --prefix=$HOME/multilib --with-harfbuzz=no || exit $?
+	fi
+    ;;
+    harfbuzz* )
+	./configure --prefix=$HOME/multilib -disable-silent-rules --with-graphite2=no --without-cairo || exit $?
+    ;;
+    readline )
+	sed -i 's|-Wl,-rpath,$(libdir) ||g' support/shobj-conf
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+    openssl* )
+	./Configure --prefix=$HOME/multilib --openssldir=$HOME/multilib/etc/ssl --libdir=lib32 \
+		shared zlib no-ssl3-method \
+		linux-elf \
+		"-Wa,--noexecstack ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}"
+
+	make MAKEDEPPROG="${CC}" depend
+    ;;
+    llvm )
+	[ -e $HOME/llvm-multilib ] && continue
+	cd $HOME
+	[ ! -e llvm6-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm6-multilib.tar.gz
+	tar xzvhf llvm6-multilib.tar.gz
+	#	$HOME_DIBAB/scripts/build-llvm-clang
+    ;;
+    cairo-1* )
+	# echo "Disable Test .." && sleep 2
+  	sed -i "s| test perf| perf|g" Makefile.am
+	# echo "Done" && sleep 2
+  	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
+	autoreconf
+  	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
+    ;;
+    poppler )
+  	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
+    ;;
+    flac )
+  	./configure --prefix=$HOME/multilib --disable-sse || exit $?
+    ;;
+    gtk+-2 )
+  	./configure --prefix=$HOME/multilib --disable-cups || exit $?
+    ;;
+    libjpeg-turbo )
+  	./configure --prefix=$HOME/multilib --without-simd || exit $?
+    ;;
+    soxr )
+	mkdir build32
+	 cd build32
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+        touch ../ydfs-multilib-buildt
+	;;
+    openal-soft-1.16 )
+	mkdir build
+	 cd build
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
+	;;
+    atk-2)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+    * )
+	pwd
+  	./configure --prefix=$HOME/multilib || exit $?
+    ;;
+  esac
+
+  echo "Run make clean" 
+  make clean
+  case $PKG in
+    bzip2 )
+        make -f Makefile-libbz2_so || exit 17
+	install -d $HOME/multilib/lib
+	cp libbz2.so.1.0 $HOME/multilib/lib
+	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
+	;;
+    atk-2)
+        PYTHONPATH="" ninja || exit 1
+	;;
+    readline )
+	make SHLIB_LIBS=-lncurses
+	;;
+    llvm )
+	;;
+    openal-soft-1.16 )
+	cd build
+	make
+	;;
+    * )
+  	echo "Run make "
+  	make || exit $?
+	;;
+  esac
+	
+  case $PKG in
+    	llvm )
+	;;
+    	atk-2)
+	;;
+    * )
+  	make || exit $?
+	;;
+  esac
+
+  case $PKG in
+    llvm-build* )
+  	make install || exit $?
+	cd ..
+	;;
+    llvm )
+	;;
+    openal-soft-1.16 )
+  	make install || exit $?
+	cd ..
+	;;
+    atk-2)
+        PYTHONPATH="" ninja install || exit 1
+	cd ..
+	;;
+    * )
+  	echo "Run make install "
+  	make install || exit $?
+        [ -e getfacl/getfacl.c ] && make install-lib install-dev
+	[ -e getfattr/getfattr.c ] && make install-lib install-dev
+	;;
+  esac
+  touch ydfs-multilib-buildt
+  cd ..
+done
+
+cp -a /usr/lib32/* $HOME/$ARCH/lib32
+cp -a /lib32 $HOME/$ARCH/lib32-root
+cp $HOME/llvm-multilib/lib32/libLLVM-6.0.so $HOME/$ARCH/lib32
+
+ls $HOME/$ARCH/lib32/*.a |while read file
+do
+  echo  $file
+  rm  $file
+done
+
+echo

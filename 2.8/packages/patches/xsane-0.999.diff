@@ -1,0 +1,35 @@
+diff --git a/src/xsane-save.c b/src/xsane-save.c
+index 84f5d59..f53f5e6 100644
+--- a/src/xsane-save.c
++++ b/src/xsane-save.c
+@@ -4910,7 +4910,7 @@ int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *
+     return -1; /* error */
+   }
+ 
+-  if (setjmp(png_ptr->jmpbuf))
++  if (setjmp(png_jmpbuf(png_ptr)))
+   {
+     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
+     xsane_back_gtk_error(buf, TRUE);
+@@ -5100,7 +5100,7 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
+     return -1; /* error */
+   }
+ 
+-  if (setjmp(png_ptr->jmpbuf))
++  if (setjmp(png_jmpbuf(png_ptr)))
+   {
+     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
+     xsane_back_gtk_error(buf, TRUE);
+diff --git a/src/xsane.h b/src/xsane.h
+index 67f06d4..c63d19a 100644
+--- a/src/xsane.h
++++ b/src/xsane.h
+@@ -251,7 +251,7 @@
+ # elif defined(HAVE_OS2_H)
+ #  define DEFAULT_BROWSER "netscape"
+ # else
+-#  define DEFAULT_BROWSER "netscape"
++#  define DEFAULT_BROWSER "xdg-open"
+ # endif
+ #endif
+ 

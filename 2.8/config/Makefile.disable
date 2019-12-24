@@ -1,0 +1,4 @@
+all:
+	echo DISABLED
+install:
+	echo DISABLED

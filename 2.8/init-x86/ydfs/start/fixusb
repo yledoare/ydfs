@@ -1,0 +1,11 @@
+ls /media |while read media
+do
+  if [ -e /media/$media/fixusb ]
+  then
+     ls /media/$media/fixusb |while read file
+     do
+       echo /media/$media/fixusb/$file
+       bash /media/$media/fixusb/$file
+     done
+  fi
+done

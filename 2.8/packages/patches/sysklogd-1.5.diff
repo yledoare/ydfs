@@ -1,0 +1,27 @@
+Seulement dans sysklogd-1.5.new/: buildok-x86
+Seulement dans sysklogd-1.5.new/: ydfs-patched
+Seulement dans sysklogd-1.5.new/: klogd
+diff -ur sysklogd-1.5/Makefile sysklogd-1.5.new//Makefile
+--- sysklogd-1.5/Makefile	2007-05-30 17:28:48.000000000 +0200
++++ sysklogd-1.5.new//Makefile	2012-10-08 10:15:21.391291916 +0200
+@@ -30,8 +30,8 @@
+ INSTALL = /usr/bin/install
+ 
+ # Destination paths, set prefix=/opt if required
+-BINDIR = $(prefix)/usr/sbin
+-MANDIR = $(prefix)/usr/share/man
++BINDIR = $(prefix)/$(ARCH)/sbin
++MANDIR = $(prefix)/$(ARCH)/share/man
+ 
+ # There is one report that under an all ELF system there may be a need to
+ # explicilty link with libresolv.a.  If linking syslogd fails you may wish
+@@ -77,7 +77,7 @@
+ 
+ test: syslog_tst ksym oops.ko tsyslogd
+ 
+-install: install_man install_exec
++install: install_exec
+ 
+ syslogd: syslogd.o pidfile.o
+ 	${CC} ${LDFLAGS} -o syslogd syslogd.o pidfile.o ${LIBS}
+Seulement dans sysklogd-1.5.new/: syslogd

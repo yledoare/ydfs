@@ -1,0 +1,10 @@
+[ -e /usr/share/dbus-1/system-services/org.freedesktop.ModemManager1.service ] && rm /usr/share/dbus-1/system-services/org.freedesktop.ModemManager1.service
+echo > /dev/tty1
+echo "Stop process ..." > /dev/tty1
+ls /proc |while read line
+do
+  [ "$line" = "self" ] && continue
+  [ -e /proc/$line/cmdline ] && grep rsyslogd /proc/$line/cmdline && kill $line
+  [ -e /proc/$line/cmdline ] && grep ModemManager /proc/$line/cmdline && kill $line
+  [ -e /proc/$line/cmdline ] && grep at-spi-bus-launcher /proc/$line/cmdline && kill $line
+done

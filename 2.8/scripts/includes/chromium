@@ -1,0 +1,229 @@
+#!/bin/bash
+
+if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
+then
+  echo "Chromium"
+
+  echo "Get from Slackware .. sorry !"
+  if [ "$ARCH" = "x86" ] 
+  then
+     [ ! -e chromium-78.0.3904.108-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-78.0.3904.108-i586-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-i586-1alien.txz
+  else
+     [ ! -e chromium-78.0.3904.108-x86_64-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg64/14.2/chromium-78.0.3904.108-x86_64-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-x86_64-1alien.txz
+  fi
+
+  install -d $PREFIX
+  cp -fR usr/share/* $PREFIX/share
+  mv usr/lib64 $PREFIX/lib
+  mv usr/lib $PREFIX/
+  mkdir $PREFIX/bin
+  ln -s $PREFIX/lib/chromium/chromium $PREFIX/bin
+  sed -i \
+    -e "s@/usr/bin/chromium@chromium@g" \
+    "$PREFIX/share/applications/chromium.desktop"
+
+  touch buildok-$ARCH
+  exit 0 
+
+  if [ ! -e out/Release/chrome ]
+  then
+patch -p1 < $HOME_DIBAB/packages/patches/chromium-system-icu.patch || sleep 10
+# BoringSSL
+[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+
+# cp -fR $HOME/ydfs/src/protobuf-*/* third_party/protobuf/
+
+gn_system_libraries=(
+		ffmpeg
+		flac
+		fontconfig
+		icu
+		freetype
+		libdrm
+		libjpeg
+		libvpx
+		libwebp
+		libxml
+		libxslt
+		opus
+		snappy
+		yasm
+	)
+
+build/linux/unbundle/replace_gn_files.py --system-libraries "${gn_system_libraries[@]}" || exit 1
+
+sed -i '/fPIC/a  ldflags += [ "-L'$HOME"/"$ARCH'/lib" ]' build/config/compiler/BUILD.gn
+
+
+install -d third_party/llvm-build
+ln -s /usr third_party/llvm-build/Release+Asserts
+ls $HOME/$ARCH/include | while read include
+do
+  [ ! -e third_party/angle/include/$include ] && ln -s $HOME/$ARCH/include/$include third_party/angle/include/
+  [ ! -e $include ] && ln -s $HOME/$ARCH/include/$include .
+done
+
+rm json
+rm google
+rm zlib.h
+rm zconf.h
+rm openssl
+rm libpng16  pngconf.h  png.h  pnglibconf.h
+rm re2
+# echo ninja -C out/Release chrome 
+#  bash
+  python build/linux/unbundle/replace_gn_files.py     \
+    --system-libraries flac libjpeg libxml libevent \
+                       libwebp libxslt opus yasm    || exit 1
+  python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
+
+_google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
+_google_default_client_id=413772536636.apps.googleusercontent.com
+_google_default_client_secret=0ZChLK6AxeA3Isu96MkwqDR4
+
+if [ "$ARCH" = "x86" ] 
+then
+  _flags=(
+'target_cpu = "x86"'
+'clang_use_chrome_plugins=false'
+'enable_nacl=false'
+'enable_nacl_nonsfi=false'
+'enable_swiftshader=false'
+'enable_widevine=true'
+'fatal_linker_warnings=false'
+'ffmpeg_branding="Chrome"'
+'is_debug=false'
+'link_pulseaudio=true'
+'linux_use_bundled_binutils=false'
+'proprietary_codecs=true'
+'remove_webcore_debug_symbols=true'
+'symbol_level=0'
+'treat_warnings_as_errors=false'
+'use_allocator="none"'
+'use_cups=true'
+'use_gnome_keyring=false'
+'use_gold=false'
+'use_kerberos=false'
+'use_pulseaudio=true'
+'use_sysroot=false'
+'use_system_freetype=true'
+'use_system_harfbuzz=true'
+"google_api_key=\"${_google_api_key}\""
+"google_default_client_id=\"${_google_default_client_id}\""
+"google_default_client_secret=\"${_google_default_client_secret}\""
+)
+else
+  _flags=(
+'clang_use_chrome_plugins=false'
+'enable_nacl=false'
+'enable_nacl_nonsfi=false'
+'enable_swiftshader=false'
+'enable_widevine=true'
+'fatal_linker_warnings=false'
+'ffmpeg_branding="Chrome"'
+'is_debug=false'
+'link_pulseaudio=true'
+'linux_use_bundled_binutils=false'
+'proprietary_codecs=true'
+'remove_webcore_debug_symbols=true'
+'symbol_level=0'
+'treat_warnings_as_errors=false'
+'use_allocator="none"'
+'use_cups=true'
+'use_gnome_keyring=false'
+'use_gold=false'
+'use_kerberos=false'
+'use_pulseaudio=true'
+'use_sysroot=false'
+'use_system_freetype=true'
+'use_system_harfbuzz=true'
+"google_api_key=\"${_google_api_key}\""
+"google_default_client_id=\"${_google_default_client_id}\""
+"google_default_client_secret=\"${_google_default_client_secret}\""
+)
+fi
+
+  export CC=clang
+  export CXX=clang++
+  export AR=ar
+  export NM=nm
+
+  CFLAGS+='   -Wno-builtin-macro-redefined'
+  CXXFLAGS+=' -Wno-builtin-macro-redefined'
+  CPPFLAGS+=' -D__DATE__=  -D__TIME__=  -D__TIMESTAMP__='
+
+
+    # Mimic exclude_unwind_tables=true
+    CFLAGS+='   -fno-unwind-tables -fno-asynchronous-unwind-tables'
+    CXXFLAGS+=' -fno-unwind-tables -fno-asynchronous-unwind-tables'
+    CPPFLAGS+=' -DNO_UNWIND_TABLES'
+
+	mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
+if [ "$ARCH" = "x86" ] 
+then
+#	export 'CXX=clang++ -m32'
+#  	LDFLAGS+='  -m32 '
+#  	CFLAGS+='  -m32 '
+#	CXXFLAGS+=' -m32 '
+#mkdir -p third_party/node/linux/node-linux-x86/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x86/bin/
+	linux32 python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
+	linux32 out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
+	linux32 ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
+else
+	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
+	out/Release/gn gen out/Release --args="${_flags[*]}" --script-executable=/$HOME/$ARCH/bin/python2 || exit 1
+	ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100
+fi
+
+
+  fi
+
+  _launcher_ver=6
+  wget https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz || exit 1
+  tar xzvf  v$_launcher_ver.tar.gz
+  cd chromium-launcher-$_launcher_ver
+  make PREFIX=$PREFIX install || exit 1
+  cd ..
+
+  install -D out/Release/chrome "$PREFIX/lib/chromium/chromium"
+  install -Dm4755 out/Release/chrome_sandbox "$PREFIX/lib/chromium/chrome-sandbox"
+  ln -s $PREFIX/lib/chromium/chromedriver "$PREFIX/bin/chromedriver"
+
+  install -Dm644 chrome/installer/linux/common/desktop.template \
+    "$PREFIX/share/applications/chromium.desktop"
+  install -Dm644 chrome/app/resources/manpage.1.in \
+    "$PREFIX/share/man/man1/chromium.1"
+  sed -i \
+    -e "s/@@MENUNAME@@/Chromium/g" \
+    -e "s/@@PACKAGE@@/chromium/g" \
+    -e "s/@@USR_BIN_SYMLINK_NAME@@/chromium/g" \
+    "$PREFIX/share/applications/chromium.desktop" 
+  sed -i \
+    -e "s@/usr/bin/chromium@chromium@g" \
+    "$PREFIX/share/applications/chromium.desktop" 
+
+  cp \
+    out/Release/{chrome_{100,200}_percent,resources}.pak \
+    out/Release/{*.bin,chromedriver} \
+    "$PREFIX/lib/chromium/"
+  install -Dm644 -t "$PREFIX/lib/chromium/locales" out/Release/locales/*.pak
+
+  if [[ -z ${_system_libs[icu]+set} ]]; then
+    cp out/Release/icudtl.dat "$PREFIX/lib/chromium/"
+  fi
+
+  for size in 22 24 48 64 128 256; do
+    install -Dm644 "chrome/app/theme/chromium/product_logo_$size.png" \
+      "$PREFIX/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+  done
+
+  for size in 16 32; do
+    install -Dm644 "chrome/app/theme/default_100_percent/chromium/product_logo_$size.png" \
+      "$PREFIX/share/icons/hicolor/${size}x${size}/apps/chromium.png"
+  done
+
+  touch buildok-$ARCH
+  exit 0 
+fi

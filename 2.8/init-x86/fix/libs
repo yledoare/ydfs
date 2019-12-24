@@ -1,0 +1,15 @@
+[ ! -e /usr/lib/libncurses.so.5 ] && ln -s /usr/lib/libncursesw.so.6 /usr/lib/libncurses.so.5
+ln -s /usr/lib/libgnutls.so.28 /lib/libgnutls.so.26
+ln -s /usr/lib/libLLVM-3.8.so /lib/libLLVM-3.8.so.1
+ln -s /usr/lib/libpng16.so.16 /lib/libpng12.so.0
+ln -s /usr/lib/libexpat.so /lib/libexpat.so.1
+if [ -e /usr/lib32-root ]
+then
+  ln -s /usr/lib32-root /lib32
+  rm /lib/ld-linux.so.2
+  ln -s /lib32/ld-linux.so.2 /lib/ld-linux.so.2
+fi
+ln -s /usr/lib/libicuuc.so.59 /lib/libicuuc.so.57 
+ln -s /usr/lib/libicui18n.so.59 /lib/libicui18n.so.57 
+ln -s /usr/lib/libicudata.so.59 /lib/libicudata.so.57 
+

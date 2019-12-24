@@ -1,0 +1,17 @@
+cd $HOME/ydfs/opkg
+$HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
+[ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
+HOME_DIST=`basename $HOME_DIBAB`
+if [ -e $HOME/ydfs/opkg ]
+then
+	# find $HOME/ydfs/opkg/ -type f -size -500k | while read file
+	find $HOME/ydfs/opkg/ -type f | while read file
+	do
+		echo "Send $file"
+		echo scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file)
+		scp $file opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH/$(basename $file) || exit 1
+	done
+	# rsync --size-only -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+	# rsync -vr $HOME/ydfs/opkg/ opkg.linuxconsole.org@opkg.linuxconsole.org:www/linuxconsole/$HOME_DIST/$ARCH
+fi
+echo "OK"

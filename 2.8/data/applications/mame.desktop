@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Mame Emulator
+GenericName=Mame Emulator
+Exec=mame
+Terminal=false
+Icon=mame
+Type=Application
+Categories=Emulator
