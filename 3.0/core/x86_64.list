@@ -20,7 +20,7 @@ archlinux:gdbm
 archlinuxpatched:db
 archlinux:perl
 archlinux:openssl
-archlinux:python2
+archlinux:python
 archlinux:libgpg-error
 archlinux:libgcrypt
 archlinux:pcre
@@ -58,13 +58,15 @@ archlinux:expat
 https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz 
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
 #archlinux:dbus
+archlinux:libunwind
 archlinux:strace
 archlinux:intltool
 https://github.com/systemd/systemd/archive/v241.tar.gz
 archlinux:cpio
-#END-linuxconsole
 archlinux:wayland
 archlinux:elfutils
+archlinux:meson
+archlinux:gtk-doc
 archlinux:libgudev
 archlinux:libusb
 archlinux:libgusb
@@ -106,7 +108,6 @@ archlinux:libevdev
 archlinux:libwacom
 archlinux:mtdev 
 archlinux:libinput
-archlinux:libunwind
 archlinux:renderproto
 archlinux:libxrender
 archlinux:libxcursor
@@ -129,3 +130,4 @@ archlinux:sane
 archlinux:colord
 archlinux:wayland-protocols
 archlinux:weston
+#END-linuxconsole
