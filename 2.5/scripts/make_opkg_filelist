@@ -1,4 +1,0 @@
-cd $HOME/ydfs/opkg
-$HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
-[ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
-echo "OK"
