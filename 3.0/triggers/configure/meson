@@ -1,0 +1,3 @@
+echo  patch -Np1 -i ../skip-test.diff
+echo  patch -Np1 -i ../meson-python-3.8.patch
+
