@@ -1,6 +1,7 @@
 SRCDIR=$PWD
 rm -r {pkg_resources,setuptools}/{extern,_vendor}
 
+echo "Clean"
   # Upstream devendoring logic is badly broken, see:
   # https://bugs.archlinux.org/task/58670
   # https://github.com/pypa/pip/issues/5429
@@ -38,8 +39,11 @@ rm -r {pkg_resources,setuptools}/{extern,_vendor}
   sed -i -e "s|^#\!.*/usr/bin/env python|#!/usr/bin/env python2|" setuptools/command/easy_install.py
 
   cd $SRCDIR
+echo "Make bootstrap"
   python3 bootstrap.py || exit 1
+echo "Make setup build"
   python3 setup.py build || exit 1
+echo "Make setup install"
   python3 setup.py install --prefix=$PREFIX --root="$pkgdir" --optimize=1 --skip-build || exit 1
 
 #  cd $SRCDIR-py2

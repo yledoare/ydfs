@@ -263,7 +263,8 @@ fi
 
   # First pass, go into source LinuxConsole
   echo
-  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo "Get $ARCHIVE .. " && LD_LIBRARY_PATH="" wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
+  echo "$ARCHIVE" | grep '::' >/dev/null && ARCHIVE=`echo $ARCHIVE | cut -d':' -f3,4`
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo "Get $ARCHIVE .... " && LD_LIBRARY_PATH="" wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
     test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
    file $HOME/ydfs/tarballs/`basename $ARCHIVE` | grep HTML && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " 

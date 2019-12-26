@@ -188,24 +188,30 @@ exit 1
   [ -e ryzom/ryzom ] && cd ryzom
   export SHELL=/bin/bash
   pwd | grep wget-1 && export PYTHON=/usr/bin/python3 
-  pwd |grep meson- && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep cython && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep pyliblo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep mozo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep speech-dispatcher && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep pycairo-1.18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep elogind && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep packaging-18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep pygobject-3.30 && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep dbus-python-1.2.8 && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep folks && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep six-1.11 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  [ `basename $PWD` == "orca" ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep pyparsing && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep appdirs-1.4 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep kajongg && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep twisted && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
-  pwd |grep setuptools-40 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.7/site-packages
+  pwd | grep tizonia && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd | grep mesa && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd | grep Mako && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep meson- && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep cython && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep six-1 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep ordered-set- && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep packaging-1 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep pyliblo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep mozo && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep speech-dispatcher && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep pycairo-1.18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep elogind && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep packaging-18 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep pygobject-3.30 && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep dbus-python-1.2.8 && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep folks && [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep six-1.11 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  [ `basename $PWD` == "orca" ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep pyparsing && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep appdirs-1.4 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep kajongg && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep twisted && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
+  pwd |grep setuptools-4 && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
   [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
   [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
@@ -697,12 +703,12 @@ exit 1
 	echo "step 4"
 	  make install -C sipgen
 	  make install -C siplib
-  	  install -Dm644 sipconfig.py $PREFIX/lib/python3.7/site-packages/sipconfig.py
+  	  install -Dm644 sipconfig.py $PREFIX/lib/python3.8/site-packages/sipconfig.py
 	cd ..
-  	  install -Dm644 sipdistutils.py $PREFIX/lib/python3.7/site-packages/sipdistutils.py
+  	  install -Dm644 sipdistutils.py $PREFIX/lib/python3.8/site-packages/sipdistutils.py
 	echo "step 5" && sleep 2
         cd ../PyQt5* || exit 1
-	PYTHONPATH=$PREFIX/lib/python3.7 $PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
+	PYTHONPATH=$PREFIX/lib/python3.8 $PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
 	make install || exit $?
 	make -C pyrcc install || exit $?
 	make -C pylupdate install || exit $?
@@ -890,6 +896,68 @@ pwd && sleep 5
 
   [ -e php7.spec.in ] &&  autoconf -f
 
+  if [ -e libmad.list.in ]
+  then
+cat <<'EOF' > patch-makefilein
+diff --git a/Makefile.in b/Makefile.in
+index 7a2d963..24ef5e1 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -14,6 +14,8 @@
+ 
+ @SET_MAKE@
+ 
++pkgconfigdir = $(libdir)/pkgconfig
++pkgconfig_DATA = mad.pc
+ 
+ 
+ VPATH = @srcdir@
+@@ -505,6 +507,28 @@ $(srcdir)/config.h.in:  $(am__configure_deps)
+ 	rm -f stamp-h1
+ 	touch $@
+ 
++mad.pc: $(top_builddir)/config.status mad.pc.in
++	cd $(top_builddir) && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
++
++install-pkgconfigDATA: $(pkgconfig_DATA)
++	@$(NORMAL_INSTALL)
++	$(mkinstalldirs) $(DESTDIR)$(pkgconfigdir)
++	@list='$(pkgconfig_DATA)'; for p in $$list; do \
++	  if test -f $(srcdir)/$$p; then \
++	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(pkgconfigdir)/$$p"; \
++	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(pkgconfigdir)/$$p; \
++	  else if test -f $$p; then \
++	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(pkgconfigdir)/$$p"; \
++	    $(INSTALL_DATA) $$p $(DESTDIR)$(pkgconfigdir)/$$p; \
++	  fi; fi; \
++	done
++
++uninstall-pkgconfigDATA:
++	@$(NORMAL_UNINSTALL)
++	list='$(pkgconfig_DATA)'; for p in $$list; do \
++	  rm -f $(DESTDIR)$(pkgconfigdir)/$$p; \
++	done
++
+ distclean-hdr:
+ 	-rm -f config.h stamp-h1
+ libmad.list: $(top_builddir)/config.status $(srcdir)/libmad.list.in
+EOF
+    #ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoconf
+    #rm libtool 
+   touch NEWS
+   touch  AUTHORS
+   touch  ChangeLog
+   ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vfi || exit 1
+   # ./configure
+    ./configure --prefix=$PREFIX || exit 1
+    make
+    patch -p1 < patch-makefilein
+    make || exit 1
+    make install || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi
+  [ -e libtizonia ] && [ ! -e configure ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   if [ -e songs/Rondino-Rameau.mid ]
   then
 	 autoconf -f
@@ -991,98 +1059,6 @@ pwd && sleep 5
   
   [ -e src/gallium/targets/opencl/Makefile.am ] && sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
  
-  if [ -e DISABLE/src/mesa ] && [ "$ARCH" != "arm" ]
-  then
-    ./configure --prefix=$DIBAB_PREFIX/$MODULE \
-    --with-dri-driverdir=$DIBAB_PREFIX/$MODULE/lib/dri \
-    --with-dri-drivers=unichrome,i810,mach64,mga,r128,savage,sis,tdfx \
-    --with-gallium-drivers= \
-    --disable-gallium-llvm \
-    --enable-glx-tls \
-    --with-driver=dri \
-    --enable-xcb \
-    --disable-glut \
-    --enable-gles1 \
-    --enable-gles2 \
-    --enable-egl \
-    --enable-texture-float \
-    --disable-shared-dricore
-    make 
-    make -C src/mesa/drivers/dri/unichrome install || exit 45
-    make -C src/mesa/drivers/dri/i810 install || exit 45
-    make -C src/mesa/drivers/dri/mach64 install || exit 45
-    make -C src/mesa/drivers/dri/mga install || exit 45
-    make -C src/mesa/drivers/dri/r128 install || exit 45
-    make -C src/mesa/drivers/dri/savage install || exit 45
-    make -C src/mesa/drivers/dri/sis install || exit 45
-    make -C src/mesa/drivers/dri/tdfx install || exit 45
-    touch buildok-$ARCH 
-    exit 0
-  fi
-  if [ -n "`basename $PWD | grep DELETEMExorg-server`" ]
-  then
-    if [ ! -e $HOME/ydfs/llvm ] && grep '8.' /etc/debian_version
-    then
-	echo "Build $HOME/ydfs/llvm"
-	scripts/build-llvm-clang
-        # mkdir build-llvm
-        # cd build-llvm
-	# wget http://llvm.org/releases/3.8.1/llvm-3.8.1.src.tar.xz
-        # tar xJvf llvm-3.8.1.src.tar.xz
-	# mv llvm-3.8.1.src $HOME/ydfs/src/
-	$HOME_DIBAB/scripts/build-llvm-clang
-      $HOME/ydfs/src/llvm-3.8.1.src/configure --prefix=$HOME/ydfs/llvm --enable-shared || exit $?
-      make || exit $?
-      make install || exit $?	
-      cd ..
-    fi
-    cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
-    export CPPFLAGS=" -I""$PWD""/include $CFLAGS"
-    if [ ! -e Mesa ] && [ "$ARCH" != "arm" ]
-    then
-    MESA=12.0.4 && MESALIB=mesa
-    [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && wget --directory-prefix=$HOME/ydfs/tarballs ftp://ftp.freedesktop.org/pub/mesa/$MESA/$MESALIB-$MESA.tar.xz 
-    [ ! -e $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz ] && exit 4
-    tar xJvf $HOME/ydfs/tarballs/$MESALIB-$MESA.tar.xz || exit $?
-    mv Mesa-$MESA Mesa || mv mesa-$MESA Mesa
-    fi
-    echo "look $PREFIX/lib/libGL.so" # && sleep 20
-    if [ ! -e $PREFIX/lib/libGL.so ] && [ "$ARCH" != "arm" ]
-    then
-    cd Mesa
-    BUILDOPT=""
-    [ "$ARCH" = "x86" ] && BUILDOPT=" --host=i586-linux-gnu "
-    sed -i "s@/etc/OpenCL/vendors@$HOME/$ARCH/etc/OpenCL/vendors@" src/gallium/targets/opencl/Makefile.am
-    ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
-    LLVMOPT=""
-    [ -e $HOME/ydfs/llvm/lib/ ] && LLVMOPT=" --with-clang-libdir=$HOME/ydfs/llvm/lib/ "
-./configure $BUILDOPT --prefix=$PREFIX --sysconfdir=$PREFIX/etc \
-   --with-gallium-drivers=r300,r600,radeonsi,nouveau,svga,swrast \
-    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
-    --with-egl-platforms=x11,drm,wayland \
-    --enable-llvm-shared-libs \
-    --enable-egl \
-    --enable-gbm \
-    --enable-gallium-llvm \
-    --enable-shared-glapi \
-    --enable-glx \
-    --enable-glx-tls \
-    --enable-dri \
-    --enable-osmesa \
-    --enable-gles1 \
-    --enable-gles2 \
-    --enable-texture-float \
-    --enable-xa \
-    --enable-vdpau \
-    --enable-omx \
-    --enable-nine \
-    --enable-opencl --enable-opencl-icd $LLVMOPT || exit 5
-    make || exit 6
-    make install || exit 7
-    cd ..
-    fi
-    # cvs -z3 -d:pserver:anonymous@anoncvs.freedesktop.org:/cvs/mesa co Mesa
-  fi
   for XORG_TOOLS in x11-apps x11-xkb-utils x11-xserver-utils x11-utils
   do
     basename $PWD | grep $XORG_TOOLS || continue
@@ -1660,10 +1636,11 @@ ac_cv_file__dev_ptc=no' >  config.site
     fi
 
     [ -e box2d.pro ] && echo INCLUDEPATH += $HOME/$ARCH/include >> box2d_lib.pri && echo LIBS += -L$HOME/$ARCH/lib >>  box2d_lib.pri && qmake && make &&  make INSTALL_ROOT="$PREFIX" install && touch buildok-$ARCH && exit 0
-    [ -e setup.py ] && echo "Run $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX"
-    [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
     [ -e setup.py ] && echo "Run $PYTHON setup.py install --prefix=$PREFIX "
     [ -e setup.py ] && $PYTHON setup.py install --prefix=$PREFIX && touch buildok-$ARCH
+    [ -e setup.py ] && pwd |grep Mako && $PYTHON setup.py install --prefix=$PREFIX --root=/ && echo "Fix for Mako" && sleep 5
+    [ -e setup.py ] && echo "Run $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX"
+    [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
     [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && [ ! -e $HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && cp -fR $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 $HOME/$ARCH/lib/python2.7/site-packages/jinja2 && echo "$HOME/$ARCH/lib/python2.7/site-packages/jinja2 fixed" && sleep 3
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
@@ -1925,6 +1902,7 @@ echo "At BUILDPERL"
 	  install -d $PREFIX
 	  cp -fR * $PREFIX
   fi
+  [ -e SConstruct ] && [ -e src/mesa ] && echo "Delete Sconstruct for mesa" && rm SConstruct && sleep 5
   if [ -e SConstruct ] || [ -e Sconstruct ] # && [ "$ARCH" != "arm" ]
   then
 	if [ -e src/mixxx.cpp ] 
@@ -1939,12 +1917,16 @@ echo "At BUILDPERL"
 	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
   	  [ -e $HOME/$ARCH/include/util-smb ] && mv $HOME/$ARCH/include/util-smb $HOME/$ARCH/include/util
 	else
-	  SCONS_OPT=""
-	  [ -e src/fceu.cpp ] && SCONS_OPT="--prefix $PREFIX"
-          echo "Run scons PREFIX=$PREFIX $SCONS_OPT"
-          scons -c PREFIX=$PREFIX $SCONS_OPT || exit 23
-	  echo "Run scons install"
-          scons PREFIX=$PREFIX $SCONS_OPT install
+          if [ -e site_scons ]
+            then . $(dirname $0)/../scripts/includes/scons
+          else
+	    SCONS_OPT=""
+	    [ -e src/fceu.cpp ] && SCONS_OPT="--prefix $PREFIX"
+            echo "Run scons PREFIX=$PREFIX $SCONS_OPT"
+            scons -c PREFIX=$PREFIX $SCONS_OPT || exit 23
+	    echo "Run scons install"
+            scons PREFIX=$PREFIX $SCONS_OPT install
+	  fi
 	fi
   fi
   if [ -e ./bootstrap.sh ]  # boost
@@ -2327,9 +2309,12 @@ Cflags: -I${includedir}' > lua.pc
 	echo "meson.build"
 	mkdir build
 	cd build
-  	PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
-     	PYTHONPATH="" ninja || exit 1
-     	PYTHONPATH="" ninja install || exit 1
+  	meson ../ --prefix=$PREFIX || exit 1
+  	# PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
+     	ninja || exit 1
+     	# PYTHONPATH="" ninja || exit 1
+     	ninja install || exit 1
+     	# PYTHONPATH="" ninja install || exit 1
 	cd ..
 	touch buildok-$ARCH
     fi
