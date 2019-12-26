@@ -53,6 +53,7 @@ pkgver=3.1.2
     -t "${pkgdir}/share/doc/${pkgname}/"
   # removing Windows only script
   rm -vf "${pkgdir}/bin/scons"*.bat
+  cd ..
   touch buildok-$ARCH
   exit 0
 

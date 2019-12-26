@@ -1,4 +1,4 @@
-FROM debian:10.2
+FROM debian:buster-backports
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
