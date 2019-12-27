@@ -165,19 +165,16 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-pcregrep-libz \
     --enable-pcregrep-libbz2 \
     --enable-pcretest-libreadline" 
-	echo $ARCHIVE | grep mozjs-52 && export LC_CONFIGURE_OPTS="--prefix=$HOME/$ARCH       \
+	echo $ARCHIVE | grep mozjs-60 && export LC_CONFIGURE_OPTS="--prefix=$HOME/$ARCH       \
             --with-intl-api     \
             --with-system-zlib  \
-            --with-system-nspr  \
             --with-system-icu   \
-            --enable-threadsafe \
             --enable-readline"
 	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
     --enable-double-precision \
     --enable-libccd \
     --enable-ou \
     --enable-silent-rules"
-	echo $ARCHIVE | grep mozjs-24 && unset MODULE && unset CPPFLAGS && CXXFLAGS+=' -fno-delete-null-pointer-checks' && LC_CONFIGURE_OPTS=" --with-system-nspr --enable-system-ffi --enable-readline --enable-threadsafe"
 	echo $ARCHIVE | grep wxWidgets-3 && export LC_CONFIGURE_OPTS="--disable-precomp-headers" 
 	echo $ARCHIVE | grep portmidi && export LC_CONFIGURE_OPTS="-DJAVA_JVM_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release -DJAVA_INCLUDE_PATH=$HOME/$ARCH/include -DJAVA_INCLUDE_PATH2=$HOME/$ARCH/include/linux" 
 	echo $ARCHIVE | grep libfuse && export LC_CONFIGURE_OPTS="--enable-lib --enable-util --disable-example" 
@@ -671,7 +668,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep opkg && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libunwind && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep cdparanoia && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --build=i686-linux-gnu"
-		echo $ARCHIVE | grep mozjs17 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep v6.10.0 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --arch=i386 --target-arch=i386"
 		echo $ARCHIVE | grep mesa && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep gtkglext && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
