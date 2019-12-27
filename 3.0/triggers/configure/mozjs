@@ -1,0 +1,6 @@
+ cd js/src
+./configure --prefix=$HOME/$CARCH  \
+            --with-intl-api     \
+            --with-system-zlib  \
+            --with-system-icu   \
+            --enable-readline

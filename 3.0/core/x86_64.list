@@ -1,4 +1,5 @@
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
+http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2
 archlinux:xorg-util-macros 
 archlinux:scrnsaverproto
 archlinux:randrproto
@@ -70,12 +71,14 @@ pip::pygments
 archlinux:meson
 archlinux:gtk-doc
 archlinux:libusb
+archlinux:gobject-introspection
+archlinux:graphviz
+http://ftp.gnome.org/pub/gnome/sources/vala/0.46/vala-0.46.5.tar.xz
 archlinux:libgusb
 archlinux:lcms2
 archlinux:bash-completion
 archlinux:nspr
-archlinux:js17
-archlinux:gobject-introspection
+http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2
 archlinux:polkit
 archlinux:libpciaccess
 archlinux:libdrm

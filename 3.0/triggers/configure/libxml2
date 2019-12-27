@@ -1,0 +1,5 @@
+./configure --prefix=$PREFIX --with-threads \
+    --with-history \
+    --with-python=$PREFIX/bin/python3 \
+    --with-icu
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' libtool
