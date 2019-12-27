@@ -1,11 +1,4 @@
-./configure --prefix=$PREFIX || exit 1
-exit 0
-./configure      --enable-lz4 \
-      --enable-compat-libs \
-      --enable-gnuefi \
-      --disable-audit \
-      --disable-ima \
-      --disable-kdbus \
-      --with-sysvinit-path= \
-      --with-sysvrcnd-path= \
-      --prefix=$PREFIX --with-efi-libdir=$PREFIX/lib --with-efi-ldsdir=$PREFIX/lib --with-efi-includedir=$PREFIX/include
+  mkdir build-meson
+  cd build-meson
+  meson --prefix=$PREFIX -Drootlibdir="$PREFIX"/lib
+  cd ..

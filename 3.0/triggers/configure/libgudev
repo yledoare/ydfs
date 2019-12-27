@@ -1,0 +1,3 @@
+./configure --prefix=$PREFIX \
+ --disable-umockdev  
+sed -i 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
