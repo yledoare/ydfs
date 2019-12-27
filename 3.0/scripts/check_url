@@ -6,6 +6,7 @@ do
   echo $URL | grep "git://" && continue
   echo $URL | grep "archlinux:" && continue
   echo $URL | grep "CPAN:/" && continue
+  echo $URL | grep "pip::" && continue
   wget -q $URL || ERROR="$ERROR $URL not found !"
   echo $ERROR
 done 

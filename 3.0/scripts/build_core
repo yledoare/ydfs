@@ -68,7 +68,11 @@ PATH=$HOME/ydfs/llvm-clang/bin/:$PATH
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
 # initialisation de différents variables pour la compilation
-export PYTHONPATH=$DIBAB_PREFIX/$CARCH/lib/python2.7/site-packages:$DIBAB_PREFIX/$MODULE/lib/python2.7/site-packages
+if [ -e "$HOME/$CARCH/bin/python3" ]
+then
+  export PYTHONPATH=$DIBAB_PREFIX/$CARCH/lib/python3.8/site-packages:$DIBAB_PREFIX/$MODULE/lib/python3.8/site-packages
+  export PYTHON=$HOME/$CARCH/bin/python3
+fi
 export MAKE=`which make` MSGFMT=`which msgfmt` MSGMERGE=`which msgmerge` XGETTEXT=`which xgettext`
 
 export PYTHON_PREFIX=$DIBAB_PREFIX/$MODULE/
@@ -183,6 +187,14 @@ fi
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
+  if [  -n "`echo $PKGURL | grep 'pip::'`" ] 
+  then
+    modpython=`echo $PKGURL | cut -d ':' -f3` 
+    echo "Run  pip install $modpython" 
+	  pip3 install $modpython || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
   if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
   then
     modperl=`echo $PKGURL | cut -d '/' -f2` 
@@ -195,6 +207,7 @@ fi
   then
     test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
   fi
+  echo "$PKGURL" | grep '::' >/dev/null && PKGURL=`echo $PKGURL | cut -d':' -f3,4`
   [ -e $HOME/ydfs/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && rm $HOME/ydfs/tarballs/`basename $PKGURL`
   [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
   test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`

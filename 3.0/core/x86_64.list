@@ -61,13 +61,14 @@ https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
 archlinux:libunwind
 archlinux:strace
 archlinux:intltool
-https://github.com/systemd/systemd/archive/v241.tar.gz
+archlinux:systemd
 archlinux:cpio
 archlinux:wayland
 archlinux:elfutils
+archlinux:itstool
+pip::pygments
 archlinux:meson
 archlinux:gtk-doc
-archlinux:libgudev
 archlinux:libusb
 archlinux:libgusb
 archlinux:lcms2

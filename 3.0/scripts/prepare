@@ -2,7 +2,7 @@ if [ -e autogen.sh ] && [ ! -e configure ] && [ ! -e meson.build ]
 then
   pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$CARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
   echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
-  sh autogen.sh  || exit 3
+  NOCONFIGURE=1 sh autogen.sh  || exit 3
   make distclean # && sleep 5
   echo Done
 fi

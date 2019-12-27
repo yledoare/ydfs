@@ -1,0 +1,1 @@
+$HOME/$CARCH/bin/python3 setup.py install --prefix=$PREFIX
