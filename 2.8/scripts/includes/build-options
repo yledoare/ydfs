@@ -166,10 +166,22 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-pcregrep-libbz2 \
     --enable-pcretest-libreadline" 
 	echo $ARCHIVE | grep mozjs-60 && export LC_CONFIGURE_OPTS="--prefix=$HOME/$ARCH       \
-            --with-intl-api     \
-            --with-system-zlib  \
-            --with-system-icu   \
-            --enable-readline"
+    --disable-debug \
+    --disable-debug-symbols \
+    --disable-jemalloc \
+    --disable-strip \
+    --enable-hardening \
+    --enable-linker=gold \
+    --enable-optimize \
+    --enable-posix-nspr-emulation \
+    --enable-readline \
+    --enable-release \
+    --enable-shared-js \
+    --enable-tests \
+    --with-intl-api \
+    --with-system-zlib \
+    --without-system-icu"
+            
 	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
     --enable-double-precision \
     --enable-libccd \
@@ -287,7 +299,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
               --with-dbmliborder=gdbm:ndbm \
               --with-system-ffi \
               --with-system-libmpdec \
-              --without-ensurepip"
+              --with-ensurepip"
 	echo $ARCHIVE | grep mpeg2dec && LC_CONFIGURE_OPTS="--enable-shared"
 	echo $ARCHIVE | grep lame && LC_CONFIGURE_OPTS="--enable-nasm --enable-shared"
 	echo $ARCHIVE | grep libvpx && LC_CONFIGURE_OPTS="--enable-pic --enable-shared --disable-unit-tests"
@@ -659,7 +671,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep babl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep gimp && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep gdb && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
-	        echo $ARCHIVE | grep mozjs-52 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep mozjs-60 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep libodfgen && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libass && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep strace && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"

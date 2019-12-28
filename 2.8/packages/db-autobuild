@@ -766,12 +766,12 @@ pwd && sleep 5
   then
     echo "Build mozjs"
     cd js/src
-    echo "$LC_CONFIGURE_OPTS"
-    sleep 5
-    ./configure $LC_CONFIGURE_OPTS
+    mkdir obj
+    cd obj
+    PYTHON=/usr/bin/python2 ../configure $LC_CONFIGURE_OPTS
     make || exit $?
     make install || exit $?
-    cd ../..
+    cd ../../..
     touch buildok-$ARCH
     exit 0
 
