@@ -252,8 +252,8 @@ fi
   if [  -n "`echo $ARCHIVE | grep 'pip::'`" ] 
   then
     modpython=`echo $ARCHIVE | cut -d ':' -f3` 
-    echo "Run  pip install $modpython" 
-	  pip install $modpython || touch $HOME/ydfs-error
+    echo "Run  pip3 install $modpython" 
+	  pip3 install $modpython || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     continue
   fi
