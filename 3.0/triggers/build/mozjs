@@ -1,2 +1,2 @@
 cd js/src/obj
-make
+make && cd ../../..

@@ -82,7 +82,6 @@ http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60
 archlinux:polkit
 archlinux:libpciaccess
 archlinux:libdrm
-archlinux:libomxil-bellagio
 archlinux:libtxc_dxtn
 archlinux:damageproto
 archlinux:fixesproto
@@ -106,6 +105,7 @@ archlinux:dri2proto
 archlinux:dri3proto
 archlinux:presentproto
 archlinux:libvdpau
+https://github.com/tizonia/tizonia-openmax-il/archive/v0.19.0.tar.gz
 archlinux:mesa
 archlinux:glu
 archlinux:libevdev
