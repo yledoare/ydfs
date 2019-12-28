@@ -218,6 +218,11 @@ ${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
 	./scripts/make_packages virtualbox
 	./scripts/make_module virtualbox
 
+lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
+${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
+	./scripts/make_packages lxqt
+	./scripts/make_module lxqt
+
 games: ${LCMBUILD}/games-${ARCH}.squashfs
 ${LCMBUILD}/games-${ARCH}.squashfs : packages/list-games
 	./scripts/make_packages games
