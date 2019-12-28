@@ -31,7 +31,7 @@ unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD
 
 # initialisation de variables
 export ACLOCAL="aclocal"
-
+export SHELL=/bin/bash
 export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$CARCH/share/aclocal/"
 # création d'un répertoire
 # initialisations des variables utilisées 
@@ -191,6 +191,7 @@ fi
   then
     modpython=`echo $PKGURL | cut -d ':' -f3` 
     echo "Run  pip install $modpython" 
+#    python3.8 -m pip install --upgrade pip setuptools wheel
 	  pip3 install $modpython || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue

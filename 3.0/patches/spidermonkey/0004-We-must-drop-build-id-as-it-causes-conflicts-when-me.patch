@@ -1,0 +1,31 @@
+From ac95fd9c9eb0bd3994ffebb02e95702743bc7e3a Mon Sep 17 00:00:00 2001
+From: Jory Pratt <anarchy@gentoo.org>
+Date: Tue, 30 Apr 2019 13:33:02 -0500
+Subject: [PATCH 4/7] We must drop build id as it causes conflicts when merging
+ thunderbird/firefox/seamonkey on same system when using splitdebug
+
+---
+ js/src/old-configure.in | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/js/src/old-configure.in b/js/src/old-configure.in
+index 3d53ee1c..e220b0a9 100644
+--- a/js/src/old-configure.in
++++ b/js/src/old-configure.in
+@@ -482,13 +482,6 @@ if test "$GNU_CC"; then
+                   AC_MSG_RESULT([no])
+                   LDFLAGS=$_SAVE_LDFLAGS)
+ 
+-    AC_MSG_CHECKING([for --build-id option to ld])
+-    _SAVE_LDFLAGS=$LDFLAGS
+-    LDFLAGS="$LDFLAGS -Wl,--build-id"
+-    AC_TRY_LINK(,,AC_MSG_RESULT([yes]),
+-                  AC_MSG_RESULT([no])
+-                  LDFLAGS=$_SAVE_LDFLAGS)
+-
+     _DEFINES_CFLAGS="-include $jsconfdefs -DMOZILLA_CLIENT"
+     _USE_CPP_INCLUDE_FLAG=1
+ fi
+-- 
+2.21.0
+

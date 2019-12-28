@@ -1,3 +1,0 @@
-cd js/src
-# Fix incompatibility with Perl 5.22
-sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl

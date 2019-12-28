@@ -1,0 +1,52 @@
+From 8d69a40ac5b3fb16dc979f5fb50ba2ae39c76fdc Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip.chimento@gmail.com>
+Date: Tue, 30 Apr 2019 13:31:37 -0500
+Subject: [PATCH 3/7] build: Include configure script, be nicer about options
+
+A configure script is not included in the SpiderMonkey tarball by
+default. Also, we have to account for JHbuild passing extra unknown
+options like --disable-Werror.
+
+https://bugzilla.mozilla.org/show_bug.cgi?id=1379540
+
+MODIFIED by Ian Stakenvicius, to *not* attempt to overwrite the existing
+js/src/configure that 'make-source-package.sh' apparently adds to the
+tarball.
+---
+ python/mozbuild/mozbuild/configure/__init__.py | 2 +-
+ python/mozbuild/mozbuild/configure/options.py  | 6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/python/mozbuild/mozbuild/configure/__init__.py b/python/mozbuild/mozbuild/configure/__init__.py
+index d0361570..0ee5f6fd 100644
+--- a/python/mozbuild/mozbuild/configure/__init__.py
++++ b/python/mozbuild/mozbuild/configure/__init__.py
+@@ -421,7 +421,7 @@ class ConfigureSandbox(dict):
+         # All options should have been removed (handled) by now.
+         for arg in self._helper:
+             without_value = arg.split('=', 1)[0]
+-            raise InvalidOptionError('Unknown option: %s' % without_value)
++            print('Ignoring', without_value, ': Unknown option')
+ 
+         # Run the execution queue
+         for func, args in self._execution_queue:
+diff --git a/python/mozbuild/mozbuild/configure/options.py b/python/mozbuild/mozbuild/configure/options.py
+index 53ae2ae6..ec4f7db3 100644
+--- a/python/mozbuild/mozbuild/configure/options.py
++++ b/python/mozbuild/mozbuild/configure/options.py
+@@ -420,7 +420,11 @@ class CommandLineHelper(object):
+ 
+     def add(self, arg, origin='command-line', args=None):
+         assert origin != 'default'
+-        prefix, name, values = Option.split_option(arg)
++        try:
++            prefix, name, values = Option.split_option(arg)
++        except InvalidOptionError as e:
++            print('Ignoring', arg, ':', e)
++            return
+         if args is None:
+             args = self._extra_args
+         if args is self._extra_args and name in self._extra_args:
+-- 
+2.21.0
+

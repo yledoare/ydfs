@@ -1,6 +1,19 @@
  cd js/src
-./configure --prefix=$HOME/$CARCH  \
-            --with-intl-api     \
-            --with-system-zlib  \
-            --with-system-icu   \
-            --enable-readline
+mkdir obj
+cd obj
+PYTHON=/usr/bin/python2 ../configure --prefix=$HOME/$CARCH  \
+    --disable-debug \
+    --disable-debug-symbols \
+    --disable-jemalloc \
+    --disable-strip \
+    --enable-hardening \
+    --enable-linker=gold \
+    --enable-optimize \
+    --enable-posix-nspr-emulation \
+    --enable-readline \
+    --enable-release \
+    --enable-shared-js \
+    --enable-tests \
+    --with-intl-api \
+    --with-system-zlib \
+    --without-system-icu

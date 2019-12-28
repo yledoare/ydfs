@@ -1,5 +1,4 @@
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
-http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2
 archlinux:xorg-util-macros 
 archlinux:scrnsaverproto
 archlinux:randrproto
@@ -78,7 +77,8 @@ archlinux:libgusb
 archlinux:lcms2
 archlinux:bash-completion
 archlinux:nspr
-http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2
+https://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz
+archlinux:js60
 archlinux:polkit
 archlinux:libpciaccess
 archlinux:libdrm

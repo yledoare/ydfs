@@ -1,0 +1,33 @@
+From f0c08e6b4962ebda8f5daa990d58b53637b3f43f Mon Sep 17 00:00:00 2001
+From: Jory Pratt <anarchy@gentoo.org>
+Date: Tue, 30 Apr 2019 13:33:40 -0500
+Subject: [PATCH 5/7] CFLAGS must contain -fPIC when checking the linker
+
+---
+ build/autoconf/compiler-opts.m4 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/build/autoconf/compiler-opts.m4 b/build/autoconf/compiler-opts.m4
+index 7c62bf4d..71aa7acf 100644
+--- a/build/autoconf/compiler-opts.m4
++++ b/build/autoconf/compiler-opts.m4
+@@ -221,6 +221,8 @@ MOZ_ARG_ENABLE_BOOL(pie,
+ 
+ if test "$GNU_CC$CLANG_CC" -a -n "$MOZ_PIE"; then
+     AC_MSG_CHECKING([for PIE support])
++    _SAVE_CFLAGS=$CFLAGS
++    CFLAGS="$CFLAGS -fPIC"
+     _SAVE_LDFLAGS=$LDFLAGS
+     LDFLAGS="$LDFLAGS $DSO_PIC_CFLAGS -pie"
+     AC_TRY_LINK(,,AC_MSG_RESULT([yes])
+@@ -228,6 +230,7 @@ if test "$GNU_CC$CLANG_CC" -a -n "$MOZ_PIE"; then
+                   AC_MSG_RESULT([no])
+                   AC_MSG_ERROR([--enable-pie requires PIE support from the linker.]))
+     LDFLAGS=$_SAVE_LDFLAGS
++    CFLAGS=$_SAVE_CFLAGS
+ fi
+ 
+ AC_SUBST(MOZ_PROGRAM_LDFLAGS)
+-- 
+2.21.0
+

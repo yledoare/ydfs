@@ -64,6 +64,8 @@ FORCED=0
 [ -e $HOME_DIBAB/data/fixdirs/$(basename $FILE) ] && . $HOME_DIBAB/data/fixdirs/$(basename $FILE)
 echo "$FILE" |grep libclc && DIR2=libclc-0~git20140101 && FORCED=1
 echo "$FILE" |grep xvidcore && DIR2=xvidcore && FORCED=1
+echo "$FILE" |grep firefox-60.9.0esr && DIR2=firefox-60.9.0 && FORCED=1
+echo "$FILE" |grep firefox-68.3.0esr && DIR2=firefox-68.3.0 && FORCED=1
 #echo "$FILE" |grep x264 && DIR2=x264-snapshot-20141218-2245 && FORCED=1
 echo "$FILE" |grep x11-xserver-utils && DIR2=x11-xserver-utils && FORCED=1
 echo "$FILE" |grep x11-xkb-utils && DIR2=x11-xkb-utils && FORCED=1

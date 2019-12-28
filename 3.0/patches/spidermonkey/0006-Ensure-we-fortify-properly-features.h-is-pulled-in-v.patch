@@ -1,0 +1,25 @@
+From deba400a8777aefed0f789c1f49c1804d93cb1b9 Mon Sep 17 00:00:00 2001
+From: Jory Pratt <anarchy@gentoo.org>
+Date: Tue, 30 Apr 2019 13:34:03 -0500
+Subject: [PATCH 6/7] Ensure we fortify properly, features.h is pulled in via
+ fortification.
+
+---
+ config/system-headers.mozbuild | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/config/system-headers.mozbuild b/config/system-headers.mozbuild
+index 0872969a..792b7a65 100644
+--- a/config/system-headers.mozbuild
++++ b/config/system-headers.mozbuild
+@@ -229,7 +229,6 @@ system_headers = [
+     'execinfo.h',
+     'extras.h',
+     'fcntl.h',
+-    'features.h',
+     'fenv.h',
+     'ffi.h',
+     'fibdef.h',
+-- 
+2.21.0
+

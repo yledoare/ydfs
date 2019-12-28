@@ -1,0 +1,11 @@
+
+ls $HOME_DIBAB/patches/js60/ | while read file
+#ls $HOME_DIBAB/patches/spidermonkey/ | while read file
+do
+#patch -p1 < $HOME_DIBAB/patches/spidermonkey/$file
+patch -p1 < $HOME_DIBAB/patches/js60/$file
+done
+
+# cd js/src
+# pwd && ACLOCAL_FLAGS="-I $PREFIX/share/aclocal -I $HOME/$CARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS " 
+# PYTHON=/usr/bin/python2 autoreconf -fiv
