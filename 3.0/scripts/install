@@ -4,5 +4,6 @@ then
   ninja install || exit 1
   cd ..
 else
+  [ -e build-cmake-ydfs ] && cd build-cmake-ydfs
   make install
 fi

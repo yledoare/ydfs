@@ -8,6 +8,7 @@ else
   then
     perl Makefile.PL INSTALLDIRS=vendor
   else
+    [ -e build-cmake-ydfs ] && cd build-cmake-ydfs
     make
   fi
 fi
