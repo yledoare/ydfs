@@ -1,0 +1,7 @@
+ mkdir build-cmake-ydfs
+ cd build-cmake-ydfs
+ cmake .. \
+    -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
+    -DPYTHON_EXECUTABLE:FILE=/usr/bin/python2 \
+    -Dbuild_doc:BOOL=OFF \
+    -Dbuild_wizard:BOOL=OFF

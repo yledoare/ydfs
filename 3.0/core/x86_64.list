@@ -64,6 +64,7 @@ archlinux:intltool
 archlinux:systemd
 archlinux:cpio
 archlinux:wayland
+archlinux:wayland-protocols
 archlinux:elfutils
 archlinux:itstool
 pip::pygments
@@ -109,17 +110,19 @@ https://github.com/libcheck/check/archive/0.13.0.tar.gz
 pip::soundcloud
 # https://github.com/tizonia/tizonia-openmax-il/archive/v0.19.0.tar.gz
 pip::mako
-archlinux:mesa
-archlinux:glu
+archlinux:libxrender
+archlinux:libxrandr 
 archlinux:libevdev
+archlinux:libgudev
 archlinux:libwacom
 archlinux:mtdev 
-archlinux:libinput
+archlinux:doxygen
 archlinux:renderproto
-archlinux:libxrender
 archlinux:libxcursor
 archlinux:libxkbcommon
 archlinux:freetype2
+archlinux:mesa
+archlinux:glu
 archlinux:graphite
 archlinux:harfbuzz
 archlinux:fontconfig
@@ -131,10 +134,10 @@ archlinux:libthai
 archlinux:pango
 archlinux:ftjam
 archlinux:libxinerama
-archlinux:libxrandr 
 archlinux:argyllcms
 archlinux:sane
 archlinux:colord
-archlinux:wayland-protocols
+archlinux:gtk3
+archlinux:libinput
 archlinux:weston
 #END-linuxconsole
