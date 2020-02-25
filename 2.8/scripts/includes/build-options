@@ -64,7 +64,7 @@ echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
     --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
-echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu --with-python=$HOME/$ARCH/bin/python2"
+echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu --with-python=$HOME/$ARCH/bin/python3"
 echo $ARCHIVE | grep cogl-1.22 &&  LC_CONFIGURE_OPTS="    --enable-gles1 --enable-gles2 \
     --enable-kms-egl-platform --enable-wayland-egl-platform \
     --enable-wayland-egl-server"

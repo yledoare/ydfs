@@ -1,5 +1,4 @@
 #Begin
-http://xcb.freedesktop.org//dist/xcb-proto-1.13.tar.bz2
 https://github.com/nghttp2/nghttp2/releases/download/v1.34.0/nghttp2-1.34.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
@@ -62,11 +61,16 @@ http://downloads.sourceforge.net/sourceforge/expat/expat-2.2.0.tar.bz2
 http://www.cpan.org/src/5.0/perl-5.30.1.tar.xz
 https://www.openssl.org/source/openssl-1.1.1d.tar.gz
 https://libzip.org/download/libzip-1.5.1.tar.xz
-http://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz 
+#Try remove python 2 for builds
+#http://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz 
 https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tar.xz
+https://github.com/mesonbuild/meson/releases/download/0.52.1/meson-0.52.1.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/libIDL/0.8/libIDL-0.8.14.tar.bz2  
 http://xmlsoft.org/sources/libxml2-2.9.10.tar.gz
-http://files.itstool.org/itstool/itstool-2.0.2.tar.bz2
+#https://gitlab.freedesktop.org/xdg/shared-mime-info.git#tag=Release-1-15
+http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
+http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
+http://files.itstool.org/itstool/itstool-2.0.6.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.37.tar.xz
@@ -103,7 +107,6 @@ http://curl.haxx.se/download/curl-7.50.3.tar.gz
 http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz
 http://www.cpan.org/authors/id/T/TI/TINITA/YAML-1.24.tar.gz
 http://cpan.metacpan.org/authors/id/O/OA/OALDERS/Net-HTTP-6.17.tar.gz
-http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
 http://www.cpan.org/authors/id/M/MI/MIROD/XML-Twig-3.52.tar.gz
 http://www.cpan.org/authors/id/D/DA/DANBERR/Net-DBus-1.1.0.tar.gz
 http://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.60.tar.gz
@@ -186,9 +189,11 @@ http://www.argyllcms.com/Argyll_V2.0.1_src.zip
 https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz
 https://alioth.debian.org/frs/download.php/file/3958/sane-backends-1.0.24.tar.gz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
-ftp://ftp.gnome.org/pub/gnome/sources/vala/0.40/vala-0.40.10.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/vala/0.46/vala-0.46.6.tar.xz
 pip::pygments
 pip::sphinx
+pip::recommonmark
+pip::sphinx_rtd_theme
 https://www.freedesktop.org/software/colord/releases/colord-1.4.4.tar.xz
 https://github.com/lathiat/avahi/releases/download/v0.7/avahi-0.7.tar.gz
 https://github.com/apple/cups/releases/download/v2.3.1/cups-2.3.1-source.tar.gz
@@ -289,11 +294,11 @@ https://github.com/silnrsi/graphite/releases/download/1.3.13/graphite2-1.3.13.tg
 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.6.4.tar.xz
 https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/pango/1.44/pango-1.44.7.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.1.tar.xz
-http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/atk/2.30/atk-2.30.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.40/gdk-pixbuf-2.40.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.30/at-spi2-atk-2.30.0.tar.xz
+https://xkbcommon.org/download/libxkbcommon-0.9.1.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.13.tar.xz
 https://freedesktop.org/software/libinput/libinput-1.14.3.tar.xz
 https://xorg.freedesktop.org/releases/individual/xserver/xorg-server-1.20.6.tar.bz2
@@ -323,7 +328,6 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
 https://xorg.freedesktop.org/archive/individual/driver/xf86-video-nouveau-1.0.15.tar.bz2
 https://xorg.freedesktop.org//releases/individual/driver/xf86-video-amdgpu-19.0.1.tar.bz2
 ftp://ftp.invisible-island.net/xterm/xterm-351.tgz
-https://xkbcommon.org/download/libxkbcommon-0.9.1.tar.xz
 http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.110.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/zenity/3.14/zenity-3.14.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/libnotify/0.7/libnotify-0.7.6.tar.xz
