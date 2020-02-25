@@ -40,5 +40,7 @@ RUN apt-get install lib32z1
 # To build chromium
 RUN apt-get install lld-7
 
+RUN apt-get install -y  docbook-xsl-ns
+
 USER ydfs3
 CMD /home/ydfs3/build

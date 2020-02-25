@@ -1,4 +1,5 @@
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
+archlinux:colord
 archlinux:xorg-util-macros 
 archlinux:scrnsaverproto
 archlinux:randrproto

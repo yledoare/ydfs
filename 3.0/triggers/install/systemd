@@ -2,4 +2,7 @@ echo "fix install"
 pwd
 cd build-meson
 DESTDIR="$HOME/ydfs/packages/systemd" meson install 
+
+sed -i -e "s|systemdsystemunitdir=${rootprefix}/lib/systemd/system|systemdsystemunitdir=${prefix}/lib/systemd/system|" $HOME/$CARCH/share/pkgconfig/systemd.pc
+
 cp -a $HOME/ydfs/packages/systemd/$HOME/$CARCH/* $HOME/$CARCH/

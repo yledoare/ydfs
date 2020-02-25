@@ -181,8 +181,9 @@ case "$ARCHIVE" in
       fi
       # [ ! -e $DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u`
       [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/zip.$$.log  | cut -d':' -f2 | cut -d'/' -f1 | sort -u | tac | head -1`
-      cd $DIR2
+      echo $DIR2 | grep Argyll && DIR2=argyllcms &&  mv $HOME/ydfs/src/`echo $DIR2 | tr -d ' '` $HOME/ydfs/src/argyllcms
       export DIR2
+      cd $DIR2
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
       build_the_archive
     ;;
