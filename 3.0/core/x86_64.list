@@ -1,11 +1,12 @@
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
-archlinux:colord
 archlinux:xorg-util-macros 
 archlinux:scrnsaverproto
 archlinux:randrproto
 archlinux:xineramaproto
 archlinux:libjpeg-turbo
 archlinux:zlib
+http://download.savannah.gnu.org/releases/lzip/lunzip/lunzip-1.11.tar.gz
+archlinux:lzip
 archlinux:attr
 archlinux:acl
 archlinux:libpng

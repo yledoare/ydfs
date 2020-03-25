@@ -41,18 +41,19 @@ DIR2=`basename $FILE |  sed 's/\.[^\.]*$//'`
 case "$FILE" in
   *.dsc)  ARCHIVE=DSC;;
   *.tar)  ARCHIVE=TAR; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
-   *rar)  ARCHIVE=RAR;;
- *.7z) ARCHIVE=SEVENZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
-   *.xz) ARCHIVE=TARXZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
- *.tbz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
-   *.tar.bz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
- *.tar.gz) ARCHIVE=TARGZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
-   *bz2)  ARCHIVE=BZ;;
- *deb)  ARCHIVE=DEB;;
-   *rpm)  ARCHIVE=RPM;;
- *zip)  ARCHIVE=ZIP;;
-   *.tgz)  ARCHIVE=TARGZ;;
-   *.run)  ARCHIVE=RUN; DIR=`basename $FILE | sed 's/\.[^\.]*$//'`;;
+  *rar)  ARCHIVE=RAR;;
+  *.7z) ARCHIVE=SEVENZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+  *.xz) ARCHIVE=TARXZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+  *.tbz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+  *.tar.bz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+  *.tar.gz) ARCHIVE=TARGZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+  *bz2)  ARCHIVE=BZ;;
+  *.tar.lz)  ARCHIVE=TARLZ;;
+  *deb)  ARCHIVE=DEB;;
+  *rpm)  ARCHIVE=RPM;;
+  *zip)  ARCHIVE=ZIP;;
+  *.tgz)  ARCHIVE=TARGZ;;
+  *.run)  ARCHIVE=RUN; DIR=`basename $FILE | sed 's/\.[^\.]*$//'`;;
  *)     ;;
 esac
 
@@ -144,6 +145,22 @@ case "$ARCHIVE" in
       if [ ! -e $DIR2 ]
       then
         echo $FILE
+        tar xvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
+      fi
+      [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
+      cd $DIR2
+      export DIR2=$DIR2
+      export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
+      build_the_archive
+    ;;
+  TARLZ)
+      install -d $HOME/ydfs/src/
+      cd $HOME/ydfs/src/
+      if [ ! -e $DIR2 ]
+      then
+        echo $FILE
+        lunzip "$FILE"
+	TARBALL=`basename $FILE | sed 's/\.[^\.]*$//'` 
         tar xvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
       [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
