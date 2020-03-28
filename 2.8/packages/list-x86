@@ -34,7 +34,7 @@ http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
 https://www.sqlite.org/2019/sqlite-src-3270200.zip
 https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.bz2
 https://downloads.sourceforge.net/pcre/pcre2-10.34.tar.bz2
-http://ftp.gnome.org/pub/gnome/sources/glib/2.62/glib-2.62.4.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/glib/2.64/glib-2.64.1.tar.xz
 https://download.savannah.gnu.org/releases/libunwind/libunwind-1.3.1.tar.gz
 https://github.com/libfuse/libfuse/releases/download/fuse-2.9.7/fuse-2.9.7.tar.gz
 ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz
@@ -255,7 +255,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.16.tar.gz
-ftp://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.34/at-spi2-core-2.34.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.2.tar.xz
 https://github.com/libical/libical/archive/v2.0.0.tar.gz
 https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.tar.gz
 https://www.kernel.org/pub/linux/bluetooth/bluez-5.52.tar.xz
@@ -294,20 +294,19 @@ https://github.com/silnrsi/graphite/releases/download/1.3.13/graphite2-1.3.13.tg
 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.6.4.tar.xz
 https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/pango/1.44/pango-1.44.7.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.0.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.1.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.40/gdk-pixbuf-2.40.0.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.30/at-spi2-atk-2.30.0.tar.xz
 https://xkbcommon.org/download/libxkbcommon-0.9.1.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.13.tar.xz
-https://freedesktop.org/software/libinput/libinput-1.14.3.tar.xz
-https://xorg.freedesktop.org/releases/individual/xserver/xorg-server-1.20.6.tar.bz2
+http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.16.tar.xz
+http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
+http://www.freedesktop.org/software/libevdev/libevdev-1.4.2.tar.xz
+https://sourceforge.net/projects/linuxwacom/files/libwacom/libwacom-0.24.tar.bz2
+https://freedesktop.org/software/libinput/libinput-1.15.4.tar.xz
+https://xorg.freedesktop.org/releases/individual/xserver/xorg-server-1.20.7.tar.bz2
 https://mesa.freedesktop.org/archive/glu/glu-9.0.1.tar.xz
 http://downloads.sourceforge.net/freeglut/freeglut-2.8.1.tar.gz
 http://downloads.sourceforge.net/ftgl/ftgl-2.1.3-rc5.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-vesa-2.3.3.tar.bz2
-http://www.freedesktop.org/software/libevdev/libevdev-1.4.2.tar.xz
-http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.10.5.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.gz 
 #git://anongit.freedesktop.org/xorg/driver/glamor
@@ -319,7 +318,6 @@ https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.3.tar.bz2 
 #ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-r128-6.10.0.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-keyboard-1.9.0.tar.bz2 
-https://sourceforge.net/projects/linuxwacom/files/libwacom/libwacom-0.24.tar.bz2
 https://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.29.0.tar.bz2
 https://xorg.freedesktop.org//releases/individual/driver/xf86-input-mouse-1.9.3.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-dummy-0.3.7.tar.gz 
@@ -338,9 +336,7 @@ http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.2.tar.bz2
 http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz 
 https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.11.tar.gz
 http://ekyo.nerim.net/software/pyogg/pyogg-1.3.tar.gz
-#http://openbox.org/dist/openbox/openbox-3.5.2.tar.gz
-http://ftp.acc.umu.se/pub/GNOME/sources/pygobject/2.28/pygobject-2.28.6.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/pygobject/3.26/pygobject-3.26.1.tar.xz # for gtk3
+http://ftp.gnome.org/pub/gnome/sources/pygobject/3.36/pygobject-3.36.0.tar.xz
 http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
 ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
@@ -695,7 +691,6 @@ http://pub.mate-desktop.org/releases/1.22/mate-backgrounds-1.22.2.tar.xz
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-2.8.4.tar.gz
-ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.31.tar.xz
 #Wine
 https://dl.winehq.org/wine/source/4.0/wine-4.0.3.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
@@ -719,9 +714,6 @@ https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
 https://download.kde.org/stable/frameworks/5.65/extra-cmake-modules-5.65.0.tar.xz
 #https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
-http://ftp.gnome.org/pub/gnome/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
-http://http.debian.net/debian/pool/main/p/pangox-compat/pangox-compat_0.0.2.orig.tar.xz
-http://downloads.sourceforge.net/sourceforge/gtkglext/gtkglext-1.2.0.tar.bz2
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.11.tar.gz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
