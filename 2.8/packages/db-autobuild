@@ -516,6 +516,7 @@ exit 1
   [ -e mount.cifs.c  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e src/lib/libebook_utils.cpp  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
   [ -e celestia.cfg  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
+  [ -e adwaita-icon-theme.pc.in  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  autoreconf -fvi
   [ -e libexfat ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --install
   [ -e cdparanoia.1 ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --force --install
   [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
@@ -564,6 +565,8 @@ exit 1
     $HOME_DIBAB/scripts/make_opkg || exit $?
     exit 0
   fi
+
+  [ -e libraries/liblmdb ] && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
 
   if [ -e pppyrcc/pyrcc.pro ]
   then

@@ -26,7 +26,7 @@
   	# patch -Rp1 -i qt5-base-nouveau-freeze.patch
      cd ..
 
-     # sed -i "s/volatile//" qtscript/src/3rdparty/javascriptcore/JavaScriptCore/jit/JITStubs.cpp
+    sed -i "s/volatile//" qtscript/src/3rdparty/javascriptcore/JavaScriptCore/jit/JITStubs.cpp
     sed -i 's/python /python3 /' qtdeclarative/qtdeclarative.pro \
                              qtdeclarative/src/3rdparty/masm/masm.pri
   export EXTRA_LIBDIR=$HOME/$ARCH/lib
