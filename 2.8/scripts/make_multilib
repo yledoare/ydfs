@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils glib-2 freetype-2 icu harfbuzz freetype-2 expat fontconfig-2 \
+PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils expat dbus glib-2 freetype-2 icu harfbuzz freetype-2 fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi dbus-1.12.10 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 gtk+-2 \
+libxshmfence-1  libffi openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 wayland-1 libva-2" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
@@ -132,6 +132,9 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
     bzip2 )
 	echo "No config for Bzip2"
         ;;
+    elfutils )
+	./configure --prefix=$HOME/multilib --disable-debuginfod
+	;;
     wayland-1 )
 	./configure --prefix=$HOME/multilib --disable-documentation
 	;;
@@ -286,7 +289,7 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	autoreconf
   	./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
-    dbus-1.10.14 )
+    dbus )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
     freetype-2* )
@@ -356,6 +359,16 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   	cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
 	;;
+    glib-2)
+	patch -p1 < $HOME_DIBAB/packages/patches/lib32-glib2.diff
+	sleep 5
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 -D b_lto=false \
+    -D b_pie=false \
+    -D selinux=disabled \
+     || exit 1
+	;;
     atk-2)
 	mkdir build-32
 	cd build-32
@@ -375,6 +388,9 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	install -d $HOME/multilib/lib
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
+	;;
+    glib-2)
+        PYTHONPATH="" ninja || exit 1
 	;;
     atk-2)
         PYTHONPATH="" ninja || exit 1
@@ -397,6 +413,8 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   case $PKG in
     	llvm )
 	;;
+    	glib-2)
+	;;
     	atk-2)
 	;;
     * )
@@ -413,6 +431,10 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	;;
     openal-soft-1.16 )
   	make install || exit $?
+	cd ..
+	;;
+    glib-2)
+        PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
     atk-2)
