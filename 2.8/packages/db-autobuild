@@ -295,7 +295,18 @@ exit 1
   fi
 
 
-  if [ -e gnome-software.doap ] || [ -e shotwell.doap ]
+  if [ -e nm-applet.desktop.in ]
+  then
+	mkdir build
+	cd build
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dselinux=false || exit 1
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+	cd ..
+	touch buildok-$ARCH
+  fi
+
+  if [ -e gnome-software.doap ] || [ -e shotwell.doap ] 
   then
 	mkdir build
 	cd build
@@ -1313,6 +1324,7 @@ fi
  && [ ! -e libpng.3 ] \
  && [ ! -e poppler-glib.pc.in ] \
  && [ ! -e curl-config.in ] \
+ && [ ! -e jansson.pc.in ] \
  && [ ! -e libgig.spec.in ] \
  && [ ! -e turbojpeg.h ] \
  && [ ! -e libapr.dsp ] \
@@ -1431,10 +1443,11 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
       then
 	echo "Lutris"
 	python2 setup.py install --optimize='1'
-         touch buildok-$ARCH
+        touch buildok-$ARCH
 	exit 0
 	# cp -fR data $PREFIX
       fi
+
   if [ -e grub-core ] && [ "$ARCH" == "x86_64" ]
   then
      unset CPPFLAGS && unset CFLAGS && unset LDFLAGS
@@ -1596,6 +1609,13 @@ ac_cv_file__dev_ptc=no' >  config.site
        touch buildok-$ARCH
        exit 0
     fi 
+  if [ -e cython.py ]
+  then
+	python setup.py build || exit $?
+	python setup.py install --root="$pkgdir" --skip-build || exit $?
+        touch buildok-$ARCH
+	exit 0
+  fi
     if [ -e setup.py ] 
     then
 	# pwd | grep beautifulsoup4 && export PREFIX=$HOME/$ARCH && echo "Prefix : $PREFIX"

@@ -55,7 +55,7 @@ http://github.com/unicode-org/icu/releases/download/release-66-1/icu4c-66_1-src.
 http://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.gz
 http://miniupnp.free.fr/files/miniupnpc-2.0.tar.gz
 https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz
-https://sourceware.org/elfutils/ftp/0.171/elfutils-0.171.tar.bz2
+https://sourceware.org/elfutils/ftp/0.178/elfutils-0.178.tar.bz2
 ftp://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.1.tar.gz
 http://downloads.sourceforge.net/sourceforge/expat/expat-2.2.0.tar.bz2
 http://www.cpan.org/src/5.0/perl-5.30.1.tar.xz
@@ -341,7 +341,6 @@ http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
 ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
 https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz
-# FIXME https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/archive/3.36.0/adwaita-icon-theme-3.36.0.tar.gz
 http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.6.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
 https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
@@ -457,13 +456,15 @@ https://github.com/LMDB/lmdb/archive/LMDB_0.9.24.tar.gz
 https://www.cpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-1.21.tar.gz
 http://www.digip.org/jansson/releases/jansson-2.12.tar.gz
 https://www.samba.org/ftp/samba/stable/samba-4.12.0.tar.gz
-git://github.com/libimobiledevice/libplist#commit=ec9ba8bff6a4469aa75f6d570ab5109c061c6a9e
-git://github.com/libimobiledevice/libusbmuxd.git#commit=9db5747cd823b1f59794f81560a4af22a031f5c9
-git://github.com/libimobiledevice/libimobiledevice#commit=92c5462adef87b1e577b8557b6b9c64d5a089544
-http://download.gnome.org/sources/gcr/3.12/gcr-3.12.2.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gcr/3.36/gcr-3.36.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/libsecret/0.18/libsecret-0.18.6.tar.xz
 https://github.com/sahlberg/libnfs/archive/libnfs-2.0.0.tar.gz
-http://ftp.gnome.org/pub/gnome/sources/gvfs/1.40/gvfs-1.40.1.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/gsettings-desktop-schemas/3.36/gsettings-desktop-schemas-3.36.0.tar.xz
+https://github.com/libfuse/libfuse/releases/download/fuse-3.9.1/fuse-3.9.1.tar.xz
+git://github.com/libimobiledevice/libplist
+git://github.com/libimobiledevice/libusbmuxd.git
+git://github.com/libimobiledevice/libimobiledevice
+http://ftp.acc.umu.se/pub/gnome/sources/gvfs/1.44/gvfs-1.44.1.tar.xz
 http://xorg.freedesktop.org//releases/individual/app/xinit-1.3.4.tar.bz2
 https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz
 http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz
@@ -474,14 +475,15 @@ https://bitbucket.org/odedevs/ode/downloads/ode-0.15.2.tar.gz
 https://github.com/devnev/libxdg-basedir/archive/libxdg-basedir-1.2.0.tar.gz
 http://roy.marples.name/downloads/dhcpcd/dhcpcd-6.11.5.tar.xz
 https://w1.fi/releases/wpa_supplicant-2.6.tar.gz
-https://www.freedesktop.org/software/libmbim/libmbim-1.16.2.tar.xz
+https://www.freedesktop.org/software/libmbim/libmbim-1.22.0.tar.xz
 http://www.freedesktop.org/software/libqmi/libqmi-1.24.0.tar.xz
-https://www.freedesktop.org/software/ModemManager/ModemManager-1.8.0.tar.xz
+https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
 ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.19.tar.bz2
-https://download.gnome.org/sources/NetworkManager/1.12/NetworkManager-1.12.0.tar.xz
+https://download.gnome.org/sources/NetworkManager/1.22/NetworkManager-1.22.10.tar.xz
 https://github.com/blueman-project/blueman/releases/download/2.0.8/blueman-2.0.8.tar.xz 
-https://download.gnome.org/sources/network-manager-applet/1.8/network-manager-applet-1.8.14.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
 http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
@@ -497,10 +499,13 @@ http://jukebox.linuxconsole.org/sources/liberation-fonts-ttf-1.07.3.tar.gz
 ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2
 https://ezix.org/software/files/lshw-B.02.18.tar.gz
 https://pypi.io/packages/source/p/pygame/pygame-1.9.4.tar.gz
-http://freefr.dl.sourceforge.net/project/numpy/NumPy/1.7.0/numpy-1.7.0.tar.gz 
+https://github.com/cython/cython/archive/0.29.16.tar.gz
+https://github.com/numpy/numpy/archive/v1.18.2.tar.gz
 http://netcologne.dl.sourceforge.net/project/pmw/Pmw/Pmw.1.3.3/Pmw_1_3_3b.tar.gz 
-https://pypi.python.org/packages/source/P/Pillow/Pillow-2.6.1.tar.gz
-https://launchpadlibrarian.net/33676762/duo-0.10.tar.gz
+#https://files.pythonhosted.org/packages/source/P/Pillow/Pillow-6.2.1.tar.gz
+pip::pillow
+#https://launchpadlibrarian.net/33676762/duo-0.10.tar.gz
+pip::duo
 http://downloads.sourceforge.net/project/sdlpango/SDL_Pango/0.1.2/SDL_Pango-0.1.2.tar.gz 
 http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-1.59.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PJ/PJF/IPC-System-Simple-1.25.tar.gz
@@ -525,7 +530,8 @@ http://xorg.freedesktop.org/archive/individual/app/xlsfonts-1.0.4.tar.gz
 http://optimate.dl.sourceforge.net/project/glfw/glfw/2.7.9/glfw-2.7.9.tar.bz2 
 http://ftp.gnome.org/pub/gnome/sources/GConf/3.2/GConf-3.2.6.tar.xz
 http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.22.tar.xz
-http://pycurl.sourceforge.net/download/pycurl-7.19.0.3.tar.gz
+pip::pycurl
+#http://pycurl.sourceforge.net/download/pycurl-7.19.0.3.tar.gz
 http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-7.2e.tar.gz
 https://launchpad.net/libgc/main/7.4.0/+download/gc-7.4.0.tar.gz
 ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz
@@ -549,7 +555,7 @@ http://downloads.sourceforge.net/swig/swig-3.0.12.tar.gz
 http://taglib.github.io/releases/taglib-1.11.1.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
-http://lxml.de/files/lxml-3.3.0.tgz
+pip::lxml
 http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.25.tar.gz
 http://prdownloads.sourceforge.net/lirc/lirc-0.9.4d.tar.bz2
 http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2
@@ -576,19 +582,17 @@ http://freefr.dl.sourceforge.net/project/acpid2/acpid-2.0.25.tar.xz
 http://kcat.strangesoft.net/openal-releases/openal-soft-1.15.1.tar.bz2 
 http://libspectre.freedesktop.org/releases/libspectre-0.2.8.tar.gz 
 http://download.gnome.org/sources/libgxps/0.2/libgxps-0.2.2.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/libgnome-keyring/3.12/libgnome-keyring-3.12.0.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/gnome-keyring/3.12/gnome-keyring-3.12.2.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/evince-3.6.1.tar.xz 
 http://downloads.webmproject.org/releases/webp/libwebp-1.0.2.tar.gz
-https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz  
-http://www.freedesktop.org/software/geoclue/releases/2.1/geoclue-2.1.8.tar.xz   
+https://launchpadlibrarian.net/100152436/libzeitgeist-0.3.18.tar.gz 
+https://gitlab.freedesktop.org/geoclue/geoclue.git#commit=555d676a91494b98ad0d52639590608a9594a8d3 
 http://camaya.net/download/gloox-1.0.20.tar.bz2  
 #Steam
 #Xbmc 13.1
 http://downloads.sourceforge.net/galculator/galculator/2.1.3/galculator-2.1.3.tar.bz2
 git://github.com/vancegroup/freealut.git
 git://github.com/leethomason/tinyxml2.git
-https://bitbucket.org/anthony_tuininga/cx_freeze/get/553fb70dc819.zip
+pip::cx-Freeze
 ftp://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_1.65.tar.xz
 #git://github.com/graphitemaster/gmqcc.git
 http://mirror0.sfml-dev.org/files/SFML-1.6-sdk-linux-32.tar.gz
@@ -640,7 +644,8 @@ https://code.soundsoftware.ac.uk/attachments/download/2450/vamp-plugin-sdk-2.8.0
 http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 #tools
 #https://github.com/QupZilla/qupzilla/releases/download/v2.0.1/QupZilla-2.0.1.tar.xz
-http://pkgs.fedoraproject.org/repo/pkgs/oxygen-icon-theme/oxygen-icons-15.04.1.tar.xz/a742bb1634c5b1f9d63771fc14aae95a/oxygen-icons-15.04.1.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/adwaita-icon-theme/3.34/adwaita-icon-theme-3.34.3.tar.xz
+http://download.kde.org/stable/frameworks/5.67/oxygen-icons5-5.67.0.tar.xz
 ftp://ftp.vim.org/pub/vim/unix/vim-8.2.tar.bz2
 http://pypi.python.org/packages/source/P/PyOpenGL/PyOpenGL-3.1.0.tar.gz
 https://pypi.org/packages/source/J/Jinja2/Jinja2-2.10.tar.gz
@@ -661,11 +666,10 @@ https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.t
 https://github.com/google/protobuf/archive/v3.7.0.tar.gz
 http://hg.openjdk.java.net/jdk-updates/jdk11u/archive/jdk-11.0.2+7.tar.gz
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
-https://ftp.gnu.org/pub/gnu/guile/guile-2.0.14.tar.gz
+https://ftp.gnu.org/pub/gnu/guile/guile-2.2.6.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.2/json-glib-1.2.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
 https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-0.6.3.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/gsettings-desktop-schemas/3.22/gsettings-desktop-schemas-3.22.0.tar.xz
 http://www.abisource.com/downloads/enchant/1.6.0/enchant-1.6.0.tar.gz
 http://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.9.tar.xz
 #Mate desktop
@@ -714,12 +718,11 @@ https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
 http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/librevenge-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
-https://download.kde.org/stable/frameworks/5.65/extra-cmake-modules-5.65.0.tar.xz
+http://download.kde.org/stable/frameworks/5.67/extra-cmake-modules-5.67.0.tar.xz
 #https://github.com/sddm/sddm/archive/v0.16.0.tar.gz
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.11.tar.gz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
-https://www.freedesktop.org/software/geoclue/releases/2.4/geoclue-2.4.7.tar.xz
 https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
 https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
@@ -742,7 +745,8 @@ http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utility-3.26.2.tar.xz
 https://pypi.python.org/packages/bf/3e/31d502c25302814a7c2f1d3959d2a3b3f78e509002ba91aea64993936876/enum34-1.1.6.tar.gz
-https://files.pythonhosted.org/packages/8f/26/02c4016aa95f45479eea37c90c34f8fab6775732ae62587a874b619ca097/incremental-17.5.0.tar.gz
+#https://files.pythonhosted.org/packages/8f/26/02c4016aa95f45479eea37c90c34f8fab6775732ae62587a874b619ca097/incremental-17.5.0.tar.gz
+pip::incremental
 https://github.com/projectatomic/bubblewrap/releases/download/v0.3.0/bubblewrap-0.3.0.tar.xz
 https://github.com/ostreedev/ostree/releases/download/v2018.8/libostree-2018.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.0.2/flatpak-1.0.2.tar.xz
@@ -754,7 +758,8 @@ http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.8.tar.gz
 http://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.11.2/PyQt5_gpl-5.11.2.tar.gz
 git://github.com/snowballstem/snowball#commit=fc2adaa96b0561506e6c1a80d73de7f4e0fa9663
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
-https://files.pythonhosted.org/packages/source/p/python-dotenv/python-dotenv-0.10.1.tar.gz
+#https://files.pythonhosted.org/packages/source/p/python-dotenv/python-dotenv-0.10.1.tar.gz
+pip::python-dotenv
 https://www.freedesktop.org/software/appstream/releases/AppStream-0.12.2.tar.xz
 https://github.com/twisted/twisted/archive/twisted-18.7.0.tar.gz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
@@ -856,8 +861,6 @@ https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
 http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
 https://github.com/opencv/opencv/archive/3.4.3.tar.gz
-#Carla, to build liblo
-https://github.com/cython/cython/archive/0.29.14.tar.gz
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
 #Minetest
