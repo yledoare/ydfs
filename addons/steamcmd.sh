@@ -1,5 +1,5 @@
-install -d $HOME/src/steam
-cd $HOME/src/steam
+install -d $HOME/src/steamcmd
+cd $HOME/src/steamcmd
 [ ! -e steamcmd_linux.tar.gz ] && wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
 [ ! -e linux32 ] && tar xzvf steamcmd_linux.tar.gz
 
