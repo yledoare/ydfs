@@ -491,6 +491,9 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
               --enable-notify \
               --enable-libplacebo  --enable-vlc " && export LUA_LIBS="$(pkg-config --libs lua)"
 	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
+	echo $ARCHIVE | grep extra-cmake-modules &&  LC_CONFIGURE_OPTS="-DBUILD_HTML_DOCS=OFF -DBUILD_MAN_DOCS=OFF \
+    -DBUILD_QTHELP_DOCS=OFF \
+    -DBUILD_TESTING=OFF"
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
 	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"

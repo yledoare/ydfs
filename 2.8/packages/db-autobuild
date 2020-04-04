@@ -187,11 +187,11 @@ exit 1
   [ -e ryzom/ryzom ] && cd ryzom
   export SHELL=/bin/bash
   [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
-#  pwd | grep gtk-doc && export PYTHON=$HOME/$ARCH/bin/python2 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python2.7/site-packages
   [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
   [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
   [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e lib/sensors.conf.5 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e libparted/arch/linux.c ] && sed -i '/utsname.h/a#include <sys/sysmacros.h>' libparted/arch/linux.c 
   [ -e src/tuxpaint.desktop ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e src/tuxpaint.desktop ] && sed -i "s@kbuildsycoca4@echo kbuildsycoca4@" Makefile
@@ -218,7 +218,6 @@ exit 1
   [ -e $HOME/$ARCH/include/libavformat-disabled ] && mv $HOME/$ARCH/include/libavformat-disabled $HOME/$ARCH/include/libavformat
   [ -e $HOME/$ARCH/include/libswscale-disabled ] && mv $HOME/$ARCH/include/libswscale-disabled $HOME/$ARCH/include/libswscale
   [ -e $HOME/$ARCH/include/unicode-disabled ] && mv $HOME/$ARCH/include/unicode-disabled $HOME/$ARCH/include/unicode
-  [ -e $HOME/$ARCH/include//python2.7-disabled ] && mv $HOME/$ARCH/include//python2.7-disabled $HOME/$ARCH/include//python2.7
   [ -e $HOME/$ARCH/include/openssl-disabled ] && mv $HOME/$ARCH/include/openssl-disabled $HOME/$ARCH/include/openssl
   [ -e $HOME/$ARCH/include/google/protobuf-disabled ] && mv $HOME/$ARCH/include/google/protobuf-disabled $HOME/$ARCH/include/google/protobuf
   [ -e $HOME/$ARCH/include/GLES2-disabled ] && mv $HOME/$ARCH/include/GLES2-disabled $HOME/$ARCH/include/GLES2
@@ -623,28 +622,6 @@ exit 1
 	make install || exit 1
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
      cd ..
-    touch buildok-$ARCH
-    exit 0
-  fi
-
-  if [ -e sipdistutils.py ]
-  then
-        mkdir build-qt5
-	cd build-qt5
-	  python ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" --sip-module PyQt5.sip --no-tools || exit $?
-	  make || exit $?
-	  make install || exit $?
-        cd ..
-	mkdir build
-        cd build
-	  python ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
-	  make || exit $?
-	  make install -C sipgen
-	  make install -C siplib
-  	  install -Dm644 sipconfig.py "$pkgdir"/lib/python2.7/site-packages/sipconfig.py
-  	  install -Dm644 sipdistutils.py "$pkgdir"/lib/python2.7/site-packages/sipdistutils.py
-        cd ..
-
     touch buildok-$ARCH
     exit 0
   fi
@@ -1210,7 +1187,6 @@ EOF
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
     [ -e deps/npm/lib/doctor/get-latest-nodejs-version.js ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
     [ -e support/cmake/fmt.pc.in ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
-    [ -e krita/main.cc ] &&  mv $HOME/$ARCH/include/python2.7 $HOME/$ARCH/include/python2.7-disabled
     [ -e samples/data/opencv-logo.png  ] && [ -e $HOME/$ARCH/include/google/protobuf ] && mv $HOME/$ARCH/include/google/protobuf $HOME/$ARCH/include/google/protobuf-disabled
 
     if [ -e misc/logos/xonotic_logo.png ]
@@ -1502,7 +1478,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -1641,7 +1617,6 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e setup.py ] && pwd |grep Mako && $PYTHON setup.py install --prefix=$PREFIX --root=/ && echo "Fix for Mako" && sleep 5
     [ -e setup.py ] && echo "Run $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX"
     [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
-    [ -e $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && [ ! -e $HOME/$ARCH/lib/python2.7/site-packages/jinja2 ] && cp -fR $HOME/ydfs/packages-$ARCH/$MYDIR/$HOME/$ARCH/lib/python2.7/site-packages/jinja2 $HOME/$ARCH/lib/python2.7/site-packages/jinja2 && echo "$HOME/$ARCH/lib/python2.7/site-packages/jinja2 fixed" && sleep 3
     [ -e chessx.pro ] && qmake
     if [ -e qtwebengine.pro ] 
     then

@@ -1,15 +1,19 @@
-	RELEASE=6.0.0
+	RELEASE=9.0.1
 	cd $HOME/ydfs/tarballs
-	[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/llvm-$RELEASE.src.tar.xz
+	[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$RELEASE/llvm-$RELEASE.src.tar.xz
 	[ ! -e ../src/llvm-$RELEASE.src ] && cd ../src/ && tar -xJf ../tarballs/llvm-$RELEASE.src.tar.xz
-	cd llvm-$RELEASE.src/tools || exit 1
+	cd $HOME/ydfs/src/llvm-$RELEASE.src/tools || exit 1
 
-	[ ! -e cfe-$RELEASE.src.tar.xz ] && wget http://www.llvm.org/releases/$RELEASE/cfe-$RELEASE.src.tar.xz
-	[ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
-	[ ! -e clang ] && mv cfe-$RELEASE.src clang 
+	# [ ! -e cfe-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$RELEASE/cfe-$RELEASE.src.tar.xz 
+	[ ! -e clang-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/clang-9.0.1.src.tar.xz 
+	# [ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
+	[ ! -e clang-$RELEASE.src ] && tar -xJf clang-$RELEASE.src.tar.xz
+	# [ ! -e clang ] && mv cfe-$RELEASE.src clang 
+	[ ! -e clang ] && mv clang-$RELEASE.src clang 
 
 	cd ..
-	sed -i "s|-pedantic|-pedantic -ldl|" cmake/modules/HandleLLVMOptions.cmake
+	sed -i '/add_clang_subdirectory(clang-shlib)/d' tools/CMakeLists.txt
+	# sed -i "s|-pedantic|-pedantic -ldl|" cmake/modules/HandleLLVMOptions.cmake
 	mkdir build
 	cd build
 	PKG_CONFIG_PATH="$HOME/multilib/lib32/pkgconfig" cmake .. -G Ninja \
@@ -25,9 +29,28 @@
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_FFI=ON \
     -DLLVM_BUILD_DOCS=OFF \
+    -DCLANG_LINK_CLANG_DYLIB=OFF \
+    -DLLVM_BUILD_TESTS=OFF \
     -DLLVM_ENABLE_SPHINX=OFF \
     -DLLVM_ENABLE_DOXYGEN=OFF \
-    -DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) || exit $?
+    -DLLVM_MAIN_SRC_DIR="$HOME/ydfs/src/llvm-$RELEASE.src" \
+    -DFFI_LIBRARY_DIR=$HOME/multilib/lib32 \
+    -DFFI_INCLUDE_DIR=$($HOME/x86_64/bin/pkg-config --variable=includedir libffi)  || exit $?
  	ninja all || exit $?
 	# DESTDIR="$HOME/llvm-multilib" ninja install
-	ninja install
+	ninja install || exit 1
+
+exit 0
+
+
+rules.ninja => Ajout ldl Si CIndexer.cpp:(.text._ZN5clang8CIndexer21getClangResourcesPathB5cxx11Ev+0x73): undefined reference to `dladdr'
+
+
+#############################################
+# Rule for linking CXX shared library.
+
+rule CXX_SHARED_LIBRARY_LINKER__libclang
+  command = $PRE_LINK && /usr/bin/c++ -fPIC $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared $SONAME_FLAG$SONAME -ldl -o $TARGET_FILE $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  description = Linking CXX shared library $TARGET_FILE
+  restat = $RESTAT
+

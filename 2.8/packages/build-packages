@@ -105,7 +105,7 @@ test -n "$1" && MODULE="$1"
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
 # initialisation de différents variables pour la compilation
-export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python2.7/site-packages:$DIBAB_PREFIX/$MODULE/lib/python2.7/site-packages
+export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages:$DIBAB_PREFIX/$MODULE/lib/python3.8/site-packages
 export MAKE=`which make` MSGFMT=`which msgfmt` MSGMERGE=`which msgmerge` XGETTEXT=`which xgettext`
 
 export PYTHON_PREFIX=$DIBAB_PREFIX/$MODULE/

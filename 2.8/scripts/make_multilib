@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils expat dbus glib-2 freetype-2 icu harfbuzz freetype-2 fontconfig-2 \
+PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -58,8 +58,8 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1  libffi openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
-unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 wayland-1 libva-2" 
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
+unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -105,28 +105,38 @@ do
 	;;
   esac
   case $PKG in
-    mesa* )
-PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
-    --build=i686-pc-linux-gnu --host=i686-pc-linux-gnu \
-    --prefix=$HOME/multilib \
-	--with-gallium-drivers=r300,r600,radeonsi,nouveau,swrast,virgl \
-    --with-dri-drivers=i915,i965,r200,radeon,nouveau,swrast \
-    --with-egl-platforms=x11,drm \
-    --enable-gallium-llvm \
-    --enable-llvm-shared-libs \
-    --enable-shared-glapi \
-    --enable-glx-tls \
-    --enable-egl \
-    --enable-glx \
-    --enable-gles1 \
-    --enable-gles2 \
-    --enable-gbm \
-    --enable-dri \
-    --enable-osmesa \
-    --enable-texture-float \
-    --enable-nine \
-    --enable-vdpau  --disable-debug
-# --libdir=$HOME/multilib/lib32
+    mesa )
+	mkdir build-32
+	cd build-32
+	echo 
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 \
+    -D b_lto=false \
+    -D b_ndebug=true \
+    -D platforms=x11,wayland,drm,surfaceless \
+    -D dri-drivers=i915,i965,r100,r200,nouveau \
+    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris \
+    -D vulkan-drivers=amd,intel \
+    -D swr-arches=avx,avx2 \
+    -D dri3=true \
+    -D egl=true \
+    -D gallium-extra-hud=true \
+    -D gallium-nine=true \
+    -D gallium-omx=disabled \
+    -D gallium-opencl=icd \
+    -D gallium-va=true \
+    -D gallium-vdpau=true \
+    -D gallium-xa=true \
+    -D gallium-xvmc=false \
+    -D gbm=true \
+    -D gles1=false \
+    -D gles2=true \
+    -D glvnd=true \
+    -D glx=dri \
+    -D libunwind=false \
+    -D llvm=true \
+    -D osmesa=gallium \
+    -D shared-glapi=true \
+    -D valgrind=false
 	;;
 
     bzip2 )
@@ -289,7 +299,7 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	autoreconf
   	./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
     ;;
-    dbus )
+    dbus-1.12.16 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
     freetype-2* )
@@ -318,8 +328,8 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
     llvm )
 	[ -e $HOME/llvm-multilib ] && continue
 	cd $HOME
-	[ ! -e llvm6-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm6-multilib.tar.gz
-	tar xzvhf llvm6-multilib.tar.gz
+	[ ! -e llvm9-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm9-multilib.tar.gz
+	tar xzvhf llvm9-multilib.tar.gz
 	#	$HOME_DIBAB/scripts/build-llvm-clang
     ;;
     cairo-1* )
@@ -369,7 +379,23 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
     -D selinux=disabled \
      || exit 1
 	;;
+    libglvnd)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32    -D headers=false \
+    -D gles1=false || exit 1
+	;;
+    pango-1)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
+	;;
     atk-2)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+    gdk-pixbuf)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -383,6 +409,9 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
   echo "Run make clean" 
   make clean
   case $PKG in
+    libxslt )
+	touch doc/xsltproc.1
+	;;
     bzip2 )
         make -f Makefile-libbz2_so || exit 17
 	install -d $HOME/multilib/lib
@@ -392,7 +421,19 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
     glib-2)
         PYTHONPATH="" ninja || exit 1
 	;;
+    mesa)
+        PYTHONPATH="" ninja || exit 1
+	;;
+    libglvnd)
+        PYTHONPATH="" ninja || exit 1
+	;;
+    pango-1)
+        PYTHONPATH="" ninja || exit 1
+	;;
     atk-2)
+        PYTHONPATH="" ninja || exit 1
+	;;
+    gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -415,7 +456,15 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
 	;;
     	glib-2)
 	;;
+    	mesa)
+	;;
+    	libglvnd)
+	;;
+    	pango-1)
+	;;
     	atk-2)
+	;;
+    	gdk-pixbuf)
 	;;
     * )
   	make || exit $?
@@ -437,7 +486,27 @@ PYTHON2=/usr/bin/python LDFLAGS="$LDFLAGS -lm " ./configure \
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
+    mesa)
+        PYTHONPATH="" ninja install || exit 1
+    cp $HOME/x86_64/include/GL/gl* $HOME/multilib/include/GL/
+    cp -a $HOME/x86_64/include/KHR/ $HOME/multilib/include/
+    cp -a $HOME/x86_64/include/EGL/ $HOME/multilib/include/
+
+	cd ..
+	;;
+    libglvnd)
+        PYTHONPATH="" ninja install || exit 1
+	cd ..
+	;;
+    pango-1)
+        PYTHONPATH="" ninja install || exit 1
+	cd ..
+	;;
     atk-2)
+        PYTHONPATH="" ninja install || exit 1
+	cd ..
+	;;
+    gdk-pixbuf)
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;

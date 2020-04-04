@@ -12,7 +12,7 @@ install -d $HOME/ydfs/modules/$ARCH
 DOC_FILES="25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
 # ICONS_FILES="icons/handhelds icons/nuoveXT2  icons/redglass icons/ whiteglass"
 LOCALE_FILES="share/locale"
-DEV_FILES="lib/scons lib/tcl8.5 python2.7/test pygame/tests"
+DEV_FILES="lib/scons lib/tcl8.5 python3.8/test pygame/tests"
 
 SKIP_FILES="lib/libjs_static.ajs bin/mariabackup bin/js52 mysql-test"
 [ "$DISTRONAME" = "hackerOS" ] && SKIP_FILES=""
@@ -142,7 +142,6 @@ cp -fR $HOME/$ARCH/share/locale/zh_CN $HOME/ydfs/modules/$ARCH/share/locale
 cp -fR $HOME/$ARCH/share/locale/ru $HOME/ydfs/modules/$ARCH/share/locale
 # Enable wanted locales like es_ES.UTF-8 with 'dpkg-reconfigure locales' on debian
 install -d $HOME/ydfs/modules/$ARCH/lib/locale && cp /usr/lib/locale/locale-archive $HOME/ydfs/modules/$ARCH/lib/locale
-install -d $HOME/ydfs/modules/$ARCH/include/python2.7 && cp $HOME/$ARCH/include/python2.7/pyconfig.h $HOME/ydfs/modules/$ARCH/include/python2.7
 ln -sf libcurl.so.4 $HOME/ydfs/modules/$ARCH/lib/libcurl-gnutls.so.4
 ln -sf $HOME/$ARCH/bin/gpg2 $HOME/ydfs/modules/$ARCH/bin/gpg
 ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
