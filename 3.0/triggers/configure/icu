@@ -1,0 +1,3 @@
+pwd
+cd source
+CFLAGS="$CFLAGS -fPIC" ./configure --prefix=$PREFIX

@@ -1,0 +1,3 @@
+echo "Run autoreconf .."
+pwd
+NOCONFIGURE=1 ACLOCAL_FLAGS="-I $HOME/$CARCH/share/aclocal " ACLOCAL="aclocal $ACLOCAL_FLAGS "  ./autogen.sh
