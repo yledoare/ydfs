@@ -1,25 +1,4 @@
 diff --git a/util/install_helper.sh b/util/install_helper.sh
-index cb649a7..a220540 100755
---- a/util/install_helper.sh
-+++ b/util/install_helper.sh
-@@ -26,16 +26,6 @@ fi
- install -D -m 644 "${MESON_SOURCE_ROOT}/util/fuse.conf" \
- 	"${DESTDIR}${sysconfdir}/fuse.conf"
- 
--if $useroot; then
--    chown root:root "${DESTDIR}${bindir}/fusermount3"
--    chmod u+s "${DESTDIR}${bindir}/fusermount3"
--
--    if test ! -e "${DESTDIR}/dev/fuse"; then
--        mkdir -p "${DESTDIR}/dev"
--        mknod "${DESTDIR}/dev/fuse" -m 0666 c 10 229
--    fi
--fi
--
- install -D -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
-         "${DESTDIR}${udevrulesdir}/99-fuse3.rules"
- 
-diff --git a/util/install_helper.sh b/util/install_helper.sh
 index cb649a7..82e87ea 100755
 --- a/util/install_helper.sh
 +++ b/util/install_helper.sh

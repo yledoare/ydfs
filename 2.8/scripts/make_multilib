@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite zlib-1 libpng libffi p11-kit gnutls pcre- elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite libpng libffi p11-kit gnutls pcre- elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -59,7 +59,7 @@ libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 mesa expat glu fftw-3.3.4 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
-unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2" 
+unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2 curl" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
 for PKG in $PKGMULTILIB
@@ -523,7 +523,7 @@ done
 
 cp -a /usr/lib32/* $HOME/$ARCH/lib32
 cp -a /lib32 $HOME/$ARCH/lib32-root
-cp $HOME/llvm-multilib/lib32/libLLVM-6.0.so $HOME/$ARCH/lib32
+cp $HOME/llvm-multilib/lib32/libLLVM-9.so $HOME/$ARCH/lib32 || exit 1
 
 ls $HOME/$ARCH/lib32/*.a |while read file
 do

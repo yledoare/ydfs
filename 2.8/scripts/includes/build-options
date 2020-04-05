@@ -60,6 +60,8 @@ echo $ARCHIVE | grep gnome-vfs &&  LC_CONFIGURE_OPTS="--disable-static --disable
 echo $ARCHIVE | grep grub-2 &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS=" --disable-static \
+    --enable-threading"
 echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS="--disable-debuginfod"
 echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
@@ -70,6 +72,10 @@ echo $ARCHIVE | grep cogl-1.22 &&  LC_CONFIGURE_OPTS="    --enable-gles1 --enabl
     --enable-kms-egl-platform --enable-wayland-egl-platform \
     --enable-wayland-egl-server"
 echo $ARCHIVE | grep libgdata &&  LC_CONFIGURE_OPTS="--disable-goa"
+echo $ARCHIVE | grep mlt-6 &&  LC_CONFIGURE_OPTS="--avformat-swscale \
+	--enable-gpl \
+        --enable-gpl3 \
+        --enable-opencv"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
@@ -258,6 +264,9 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
 	echo $ARCHIVE | grep dossizola && LC_CONFIGURE_OPTS="--datadir=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep pcmanfm && LC_CONFIGURE_OPTS="--enable-debug"
+	echo $ARCHIVE | grep mate-power-manager && LC_CONFIGURE_OPTS="--enable-applets \
+        	--disable-strict \
+        	--without-keyring"
 	echo $ARCHIVE | grep openldap && LC_CONFIGURE_OPTS="--with-tls=no  --disable-static  --enable-dynamic  --disable-debug "
 	#echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-udisks --enable-debug"
 	echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-debug"
@@ -641,7 +650,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	# echo $ARCHIVE | grep glib-networking && LC_CONFIGURE_OPTS="--without-ca-certificates"
   	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
-  	echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
+  	# echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
   	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower --without-systemd "
 	echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"

@@ -11,9 +11,9 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso  yledoare/ydfs 
-* docker logs --tail=10 -f ydfs
-* docker logs -f ydfs 2>&1 |grep build
+* docker run --name ydfs28 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso yledoare/ydfs28
+* docker logs --tail=10 -f ydfs28
+* docker logs -f ydfs28 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
@@ -22,7 +22,7 @@
 
 ## Verbose Build, without sharing output ISO on host :
 
-* docker run --name linuxconsole2020 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs
+* docker run --name linuxconsole2020 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs28
 
 # Manual build
 
@@ -32,7 +32,7 @@
 * cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
-* cd 2.7
+* cd 2.8
 * make 
 
 # Troubleshooting :
