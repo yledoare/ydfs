@@ -829,6 +829,7 @@ pwd && sleep 5
   # inetutils
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
 
+  [ -e src/paperconf.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/hunspell/hunspell.cxx ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/openvpn/openvpn.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
@@ -1153,42 +1154,7 @@ EOF
     then
 	sed -i "s#/usr/local#/$HOME/$ARCH#" */CMakeLists.txt pm_python/setup.py
 	sed -i "s#/usr/#/$HOME/$ARCH#" */CMakeLists.txt
-	install -d pm_java/Release
-	ln -s $HOME/ydfs/src/portmidi/pm_java/ build/pm_java/pm_java
-
-	JDKDEB=openjdk-8-jdk-headless_8u212-b01-1~deb9u1_i386.deb
-	# [ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8-jdk-headless_8u212-b01-1_amd64.deb
-	[ "$ARCH" = "x86_64" ] && JDKDEB=openjdk-8-jdk-headless_8u212-b01-1~deb9u1_amd64.deb
-
-	# JREDEB=openjdk-8-jre-headless_8u212-b01-1_i386.deb
-        JREDEB=openjdk-8-jre-headless_8u212-b01-1~deb9u1_i386.deb
-	# [ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1_amd64.deb
-	[ "$ARCH" = "x86_64" ] && JREDEB=openjdk-8-jre-headless_8u212-b01-1~deb9u1_amd64.deb
-	
-	JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-i386
-	[ "$ARCH" = "x86_64" ] && JDK8PATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64
-
-	JDKLDLIBRARY_PATH=$PWD/usr/lib/jvm/java-8-openjdk-i386/lib/i386/jli
-	[ "$ARCH" = "x86_64" ] && JDKLDLIBRARY_PATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/jli
-
-	JDKPATH=$PWD/usr/lib/jvm/java-8-openjdk-i386/bin
-	[ "$ARCH" = "x86_64" ] && JDKPATH=$PWD/usr/lib/jvm/java-8-openjdk-amd64/bin
-
-	[ ! -e $JDKDEB ] && wget http://jukebox.linuxconsole.org/sources/$JDKDEB
-	[ ! -e $JREDEB ] && wget http://jukebox.linuxconsole.org/sources/$JREDEB
-        [ ! -e $JDKDEB ] && exit 1
-        [ ! -e $JREDEB ] && exit 1
-	if [ ! -e usr ]
-	then
-	  ar -x $JREDEB || exit 1
-	  tar xJvf data.tar.xz
-	  ar -x $JDKDEB
-	  tar xJvf data.tar.xz
-	fi
-
-	$JDK8PATH/bin/javac -version || exit 1
-	echo PORTMIDI
-		PATH=$JDKPATH:$PATH LD_LIBRARY_PATH=JDKLDLIBRARY_PATH:$LD_LIBRARY_PATH cmake . -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
+		cmake . -DCMAKE_INSTALL_PREFIX=$HOME/$ARCH \
     -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release \
     -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release \
     -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release || exit 1

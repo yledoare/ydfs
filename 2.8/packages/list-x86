@@ -125,10 +125,10 @@ https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2
 https://downloads.sourceforge.net/libmtp/libmtp-1.1.15.tar.gz
 http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz
 http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz 
-http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.62/gobject-introspection-1.62.0.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.64/gobject-introspection-1.64.1.tar.xz
 https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz 
 https://github.com/shadow-maint/shadow/releases/download/4.7/shadow-4.7.tar.xz
-http://ftp.de.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.24+nmu2.tar.gz
+http://ftp.de.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.28.tar.gz
 http://people.freedesktop.org/~hughsient/releases/libgusb-0.2.9.tar.xz
 http://downloads.sourceforge.net/sourceforge/lcms/lcms2-2.8.tar.gz
 http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz

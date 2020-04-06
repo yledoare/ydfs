@@ -86,6 +86,7 @@ export GTKMM_BASEPATH=$HOME/$ARCH
 [ "$ARCH" = "x86" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib"
 [ "$ARCH" = "x86_64" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$MODULE/lib64 -Wl,-rpath-link,$HOME/$MODULE/lib"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/$MODULE/lib"
+[ "$ARCH" = "x86_64" ] && export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/$MODULE/lib64" 
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/$MODULE/lib/pkgconfig/:$HOME/$MODULE/share/pkgconfig/:$HOME/$MODULE/lib64/pkgconfig"
 MODULEPATH="$HOME/$MODULE/bin/:$HOME/$MODULE/sbin/:$MODULEPATH"
 export XDG_DATA_DIRS="$HOME/$MODULE/share/:$XDG_DATA_DIRS"
@@ -280,7 +281,7 @@ fi
   # First pass, go into source LinuxConsole
   echo
   echo "$ARCHIVE" | grep '::' >/dev/null && ARCHIVE=`echo $ARCHIVE | cut -d':' -f3,4`
-  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo "Get $ARCHIVE .... " && LD_LIBRARY_PATH="" wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
+  [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo "Get $ARCHIVE .... " && LD_LIBRARY_PATH="" /usr/bin/wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` $ARCHIVE && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
     test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
    file $HOME/ydfs/tarballs/`basename $ARCHIVE` | grep HTML && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " 
