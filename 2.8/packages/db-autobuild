@@ -446,6 +446,7 @@ exit 1
 	exit 1
   fi
 
+  [ -e json-glib.doap ] && [ -e configure ] && rm configure 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
   [ -e gnome-vfs-2.0.pc.in ] && [ -e configure ] && rm configure && echo " delete configure "
