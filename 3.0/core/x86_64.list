@@ -1,5 +1,4 @@
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
-archlinux:icu
 archlinux:xorg-util-macros 
 archlinux:scrnsaverproto
 archlinux:randrproto
@@ -12,8 +11,11 @@ archlinux:attr
 archlinux:acl
 archlinux:libpng
 archlinux:ncurses
-archlinux:readline
+#archlinux:readline
+http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
 archlinux:bash
+#http://ftp.gnu.org/gnu/bash/bash-4.4.tar.gz
+archlinux:icu
 archlinux:xz
 archlinux:libtiff
 archlinux:sqlite
