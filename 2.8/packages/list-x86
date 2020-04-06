@@ -5,7 +5,7 @@ https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
 re2-20200401.tar.gz::https://github.com/google/re2/archive/2020-04-01.tar.gz
 https://github.com/google/snappy/archive/1.1.7.tar.gz
 https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
-https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
+libraw-0.19.5.tar.gz::https://github.com/LibRaw/LibRaw/archive/0.19.5.tar.gz
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.10.tar.xz 
 http://downloads.sourceforge.net/infozip/unzip60.tar.gz 
@@ -22,7 +22,7 @@ http://zlib.net/current/zlib-1.2.11.tar.gz
 https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
 https://github.com/maxmind/geoip-api-c/archive/v1.6.12.tar.gz
 http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.6-src.tar.gz
-http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz 
+https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 https://download.savannah.gnu.org/releases/lzip/lzip-1.20.tar.gz
 git://github.com/plougher/squashfs-tools
 http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
@@ -91,14 +91,14 @@ https://gitlab.gnome.org/GNOME/gtk-doc.git#commit=7fce5688c973fca10951bfdbeab9ac
 http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz 
 https://download.samba.org/pub/ppp/ppp-2.4.7.tar.gz
 https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
-http://p11-glue.freedesktop.org/releases/p11-kit-0.23.2.tar.gz 
+git://github.com/p11-glue/p11-kit?signed#tag=0.23.20
 http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
 https://ftp.gnu.org/gnu/nettle/nettle-3.5.1.tar.gz
 https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.11.1.tar.xz
 https://ftp.gnu.org/gnu/wget/wget-1.20.1.tar.gz
 http://curl.haxx.se/download/curl-7.50.3.tar.gz
 http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz
-http://www.cpan.org/authors/id/T/TI/TINITA/YAML-1.24.tar.gz
+https://www.cpan.org/authors/id/T/TI/TINITA/YAML-1.30.tar.gz
 http://cpan.metacpan.org/authors/id/O/OA/OALDERS/Net-HTTP-6.17.tar.gz
 http://www.cpan.org/authors/id/M/MI/MIROD/XML-Twig-3.52.tar.gz
 http://www.cpan.org/authors/id/D/DA/DANBERR/Net-DBus-1.1.0.tar.gz
@@ -106,7 +106,7 @@ http://search.cpan.org/CPAN/authors/id/S/SB/SBECK/Date-Manip-6.60.tar.gz
 http://www.cpan.org/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
 http://www.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-Base-1.09.tar.gz
 http://www.cpan.org/authors/id/G/GR/GRANTM/XML-SAX-0.99.tar.gz
-ftp://ftp.cpan.org/pub/CPAN/authors/id/G/GR/GRANTM/XML-Simple-2.24.tar.gz
+https://www.cpan.org/authors/id/G/GR/GRANTM/XML-Simple-2.25.tar.gz
 http://search.cpan.org/CPAN/authors/id/C/CH/CHORNY/Tie-IxHash-1.23.tar.gz
 http://search.cpan.org/CPAN/authors/id/H/HA/HANENKAMP/Tie-Simple-1.04.tar.gz
 https://cpan.metacpan.org/authors/id/M/MA/MANWAR/XML-XPath-1.40.tar.gz
@@ -374,14 +374,14 @@ http://freefr.dl.sourceforge.net/project/flex/flex-2.5.37.tar.gz
 https://github.com/ConsoleKit2/ConsoleKit2/releases/download/1.2.1/ConsoleKit2-1.2.1.tar.bz2
 https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
 http://samba.org/ftp/talloc/talloc-2.1.10.tar.gz
-https://github.com/cracklib/cracklib/releases/download/cracklib-2.9.6/cracklib-2.9.6.tar.gz
+https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-2.9.7.tar.gz
 https://github.com/libpwquality/libpwquality/releases/download/libpwquality-1.4.0/libpwquality-1.4.0.tar.bz2
 https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.177.tgz
 https://ftp.gnu.org/gnu/parted/parted-3.2.tar.xz
 #For udisk
 https://github.com/pmem/ndctl/archive/v61.1.tar.gz
-http://rpm5.org/files/popt/popt-1.16.tar.gz
+popt-1.16.tar.gz::https://deb.debian.org/debian/pool/main/p/popt/popt_1.16.orig.tar.gz
 https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz
 https://github.com/thom311/libnl/releases/download/libnl3_2_28/libnl-3.2.28.tar.gz
 https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_48_RTM/src/nss-3.48.tar.gz
@@ -403,14 +403,14 @@ http://libmpeg2.sourceforge.net/files/libmpeg2-0.5.1.tar.gz
 http://download.videolan.org/pub/libdvbpsi/1.3.1/libdvbpsi-1.3.1.tar.bz2 
 http://download.videolan.org/videolan/libdvdread/6.0.0/libdvdread-6.0.0.tar.bz2
 http://download.videolan.org/videolan/libdvdnav/6.0.0/libdvdnav-6.0.0.tar.bz2
-http://live555.com/liveMedia/public/live.2019.12.10.tar.gz
+http://live555.com/liveMedia/public/live.2020.04.06.tar.gz
 http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.0.tar.xz 
 http://gstreamer.freedesktop.org/src/gst-python/gst-python-1.2.0.tar.gz 
 http://gstreamer.freedesktop.org//src/gst-libav/gst-libav-1.14.0.tar.xz 
 http://www.fftw.org/fftw-3.3.3.tar.gz 
 http://freefr.dl.sourceforge.net/project/libexif/libexif/0.6.20/libexif-0.6.20.tar.bz2
 http://portland.freedesktop.org/download/xdg-utils-1.1.0-rc1.tar.gz
-ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/pciutils-3.6.2.tar.gz
+git://github.com/pciutils/pciutils.git#tag=v3.6.4
 ftp://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/gnome-menus/3.35/gnome-menus-3.35.3.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/glib-networking/2.64/glib-networking-2.64.1.tar.xz
@@ -475,7 +475,7 @@ https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f82
 https://github.com/blueman-project/blueman/releases/download/2.0.8/blueman-2.0.8.tar.xz 
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
-http://ftp.de.debian.org/debian/pool/main/d/dpkg/dpkg_1.18.10.tar.xz
+https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
@@ -500,7 +500,7 @@ http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-1.59.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PJ/PJF/IPC-System-Simple-1.25.tar.gz
 http://search.cpan.org/CPAN/authors/id/D/DR/DRTECH/Locale-Maketext-Lexicon-1.00.tar.gz
 https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Compress-Bzip2-2.26.tar.gz
-https://www.cpan.org/authors/id/P/PL/PLICEASE/File-Which-1.22.tar.gz
+https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/File-Which-1.23.tar.gz
 http://www.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
 http://search.cpan.org/CPAN/authors/id/R/RE/REHSACK/File-ShareDir-1.102.tar.gz
 http://search.cpan.org/CPAN/authors/id/B/BI/BINGOS/Archive-Extract-0.80.tar.gz
@@ -516,7 +516,7 @@ http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.1.tar.gz
 https://downloads.sourceforge.net/infozip/zip30.tar.gz
 http://freefr.dl.sourceforge.net/project/tinyxml/tinyxml/2.6.2/tinyxml_2_6_2.tar.gz
 http://xorg.freedesktop.org/archive/individual/app/xlsfonts-1.0.4.tar.gz
-http://optimate.dl.sourceforge.net/project/glfw/glfw/2.7.9/glfw-2.7.9.tar.bz2 
+https://github.com/glfw/glfw/archive/3.3.2.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/GConf/3.2/GConf-3.2.6.tar.xz
 http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.22.tar.xz
 pip::pycurl
@@ -528,7 +528,7 @@ https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs921/gh
 http://www.openprinting.org/download/ijs/download/ijs-0.35.tar.bz2 
 http://freefr.dl.sourceforge.net/project/qpdf/qpdf/5.1.1/qpdf-5.1.1.tar.gz 
 https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs922/jbig2dec-0.14.tar.gz
-https://mupdf.com/downloads/mupdf-1.13.0-source.tar.xz
+https://mupdf.com/downloads/archive/mupdf-1.16.1-source.tar.xz
 https://github.com/liblouis/liblouis/releases/download/v3.9.0/liblouis-3.9.0.tar.gz
 https://www.openprinting.org/download/cups-filters/cups-filters-1.20.4.tar.xz
 http://www.openprinting.org/download/foomatic/foomatic-db-engine-4.0.8.tar.gz
@@ -544,7 +544,7 @@ http://taglib.github.io/releases/taglib-1.11.1.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
 pip::lxml
-http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.25.tar.gz
+https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.29.tar.gz
 http://prdownloads.sourceforge.net/lirc/lirc-0.9.4d.tar.bz2
 http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2
 http://freefr.dl.sourceforge.net/project/libcddb/libcddb/1.3.2/libcddb-1.3.2.tar.bz2 
@@ -554,7 +554,7 @@ https://fossies.org/linux/www/neon-0.30.2.tar.gz
 https://download.gimp.org/pub/gegl/0.4/gegl-0.4.12.tar.bz2
 https://gitlab.gnome.org/GNOME/gegl/-/archive/GEGL_0_3_34/gegl-GEGL_0_3_34.tar.gz
 https://github.com/jemalloc/jemalloc/releases/download/5.1.0/jemalloc-5.1.0.tar.bz2
-https://mirrors.n-ix.net/mariadb/mariadb-10.3.15/source/mariadb-10.3.15.tar.gz
+https://mirrors.n-ix.net/mariadb/mariadb-10.4.12/source/mariadb-10.4.12.tar.gz
 http://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.63.tar.gz 
 http://liba52.sourceforge.net/files/a52dec-0.7.4.tar.gz 
 https://downloads.sourceforge.net/cdrdao/cdrdao-1.2.3.tar.bz2
@@ -579,24 +579,24 @@ http://downloads.sourceforge.net/galculator/galculator/2.1.3/galculator-2.1.3.ta
 git://github.com/vancegroup/freealut.git
 git://github.com/leethomason/tinyxml2.git
 pip::cx-Freeze
-ftp://ftp.debian.org/debian/pool/main/o/os-prober/os-prober_1.65.tar.xz
-http://mirror0.sfml-dev.org/files/SFML-1.6-sdk-linux-32.tar.gz
+http://http.debian.net/debian/pool/main/o/os-prober/os-prober_1.77.tar.xz
+https://www.sfml-dev.org/files/SFML-1.6-sdk-linux-32.tar.gz
 https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
 https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.tar.gz
 https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
 https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.2.tar.gz
 http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 http://savannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
-http://cgit.freedesktop.org/libxklavier/snapshot/libxklavier-5.4.zip
+https://anongit.freedesktop.org/git/libxklavier#commit=396955bd2ba2db34a42b3807b03155fcc11dfe50
 http://www.freedesktop.org/software/accountsservice/accountsservice-0.6.39.tar.xz
 archlinuxpatched:intltool
-http://downloads.sourceforge.net/sourceforge/giflib/giflib-5.1.1.tar.bz2
+https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz
 https://download.gnome.org/sources/system-tools-backends/2.10/system-tools-backends-2.10.2.tar.bz2
 ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
 # For PlayOnLinux
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
 https://github.com/HOST-Oman/libraqm/releases/download/v0.7.0/raqm-0.7.0.tar.gz
-http://www.imagemagick.org/download/ImageMagick-6.9.5-7.tar.xz
+https://imagemagick.org/download/ImageMagick-7.0.10-5.tar.xz
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
 http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src_all.tar.bz2
 http://linuxtv.org/downloads/v4l-utils/v4l-utils-1.16.3.tar.bz2
@@ -611,7 +611,7 @@ http://downloads.sourceforge.net/sox/sox-14.4.2.tar.bz2
 git://git.xiph.org/users/oggk/kate.git
 http://libcaca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz
 https://download.videolan.org/pub/videolan/libdca/0.0.6/libdca-0.0.6.tar.bz2
-https://downloads.sourceforge.net/twolame/twolame-0.3.13.tar.gz
+https://github.com/njh/twolame/releases/download/0.4.0/twolame-0.4.0.tar.gz
 http://downloads.sourceforge.net/modplug-xmms/libmodplug-0.8.9.0.tar.gz
 https://bitbucket.org/mpyne/game-music-emu/downloads/game-music-emu-0.6.2.tar.xz
 https://www.libssh2.org/download/libssh2-1.8.0.tar.gz
@@ -712,11 +712,11 @@ http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-1.1.0/gparted-1.1.0.tar.gz
 https://download.gnome.org/sources/vte/0.55/vte-0.55.92.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-terminal-1.24.0.tar.xz
-https://download.gnome.org/sources/libpeas/1.26/libpeas-1.26.0.tar.xz
+https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d701d8e6bdf88
 https://pub.mate-desktop.org/releases/1.24/eom-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/pluma-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/engrampa-1.24.0.tar.xz
-https://download.gnome.org/sources/libgtop/2.40/libgtop-2.40.0.tar.xz
+https://gitlab.gnome.org/GNOME/libgtop.git#commit=31db82efced79d1ceee465d9b50da2fe6fd16482
 #https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-utils-1.24.0.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
@@ -769,7 +769,7 @@ http://downloads.sourceforge.net/clucene/clucene-core-2.3.3.4.tar.gz
 http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
 http://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.5/lp_solve_5.5.2.5_source.tar.gz
-https://files.dyne.org/frei0r/frei0r-plugins-1.6.1.tar.gz
+https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
 https://github.com/google/googletest/archive/release-1.8.1.tar.gz
 http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
 https://movit.sesse.net/movit-1.6.2.tar.gz
