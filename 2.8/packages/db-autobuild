@@ -829,6 +829,7 @@ pwd && sleep 5
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
 
   [ -e src/hunspell/hunspell.cxx ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
+  [ -e src/openvpn/openvpn.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
   # Fix kimsufi bug
   # [ -e src/mp4atom.cpp ] && echo "Run /configure --prefix=$PREFIX" && sleep 5

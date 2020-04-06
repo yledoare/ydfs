@@ -845,3 +845,7 @@ https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.04.tar.xz
 #END-linuxconsole
+https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
+git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
+https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
+#https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2

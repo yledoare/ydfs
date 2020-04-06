@@ -212,6 +212,7 @@ fi
   if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/orca.git'`" ] \
+	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/gtk-doc.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ] 
   then
