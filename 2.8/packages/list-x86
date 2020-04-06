@@ -1,9 +1,8 @@
 #Begin
-https://github.com/HOST-Oman/libraqm/releases/download/v0.7.0/raqm-0.7.0.tar.gz
 https://github.com/nghttp2/nghttp2/releases/download/v1.34.0/nghttp2-1.34.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
-https://github.com/google/re2/archive/2019-04-01.tar.gz
+re2-20200401.tar.gz::https://github.com/google/re2/archive/2020-04-01.tar.gz
 https://github.com/google/snappy/archive/1.1.7.tar.gz
 https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 https://www.libraw.org/data/LibRaw-0.18.12.tar.gz
@@ -723,7 +722,6 @@ http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utilit
 pip::incremental
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
-#http://download.qt.io/official_releases/qt/5.12/5.12.1/submodules/qtwebengine-everywhere-src-5.12.1.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
 http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
@@ -809,6 +807,9 @@ https://download.kde.org/stable/frameworks/5.68/knotifications-5.68.0.tar.xz
 https://download.kde.org/stable/frameworks/5.68/kpackage-5.68.0.tar.xz
 https://download.kde.org/stable/frameworks/5.68/kdeclarative-5.68.0.tar.xz
 https://download.kde.org/stable/frameworks/5.68/kitemmodels-5.68.0.tar.xz
+https://download.kde.org/stable/frameworks/5.68/kidletime-5.68.0.tar.xz
+https://download.kde.org/stable/frameworks/5.68/kwayland-5.68.0.tar.xz
+https://download.kde.org/stable/plasma/5.18.4/libkscreen-5.18.4.1.tar.xz
 download.kde.org/stable/frameworks/5.68/knotifyconfig-5.68.0.tar.xz
 https://ftp.postgresql.org/pub/source/v12.2/postgresql-12.2.tar.bz2
 https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
@@ -830,10 +831,10 @@ https://github.com/mono/libgdiplus/archive/5.6.tar.gz
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
 http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
-https://github.com/opencv/opencv/archive/3.4.3.tar.gz
+https://downloads.sourceforge.net/project/libjpeg-turbo/2.0.4/libjpeg-turbo-2.0.4.tar.gz
+#https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 # Carla depths
-pip::liblo
-#http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
+http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
 #Minetest
 https://luajit.org/download/LuaJIT-2.0.5.tar.gz
 #Guitarx

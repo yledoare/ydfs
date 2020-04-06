@@ -767,7 +767,7 @@ pwd && sleep 5
      sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
   fi
 
-  if [ -e js/src/configure ]
+  if [ -e js/src/configure ] && [ ! -e mozilla-config.h.in ]
   then
     echo "Build mozjs"
     cd js/src
@@ -1318,7 +1318,6 @@ fi
  && [ ! -e curl-config.in ] \
  && [ ! -e jansson.pc.in ] \
  && [ ! -e libgig.spec.in ] \
- && [ ! -e turbojpeg.h ] \
  && [ ! -e libapr.dsp ] \
  && [ ! -e libaprutil.dsp ] \
  && [ ! -e src/harfbuzz.pc.in ] \
@@ -1647,11 +1646,12 @@ ac_cv_file__dev_ptc=no' >  config.site
     		-webengine-icu -webp || exit 1
 	# WTF !!!
 	# Why CFLAGS is not working ???	
-      	ls $HOME/$ARCH/include/|while read file; do ln -s $HOME/$ARCH/include/$file ../src/3rdparty/chromium/ ; done
-      	ls $HOME/$ARCH/include/|while read file; do ln -s $HOME/$ARCH/include/$file ../src/3rdparty/chromium/third_party/angle/include/ ; done
-	rm ../src/3rdparty/chromium/dbus-1
-	rm ../src/3rdparty/chromium/google
-	rm ../src/3rdparty/chromium/openssl	
+      	 ls $HOME/$ARCH/include/|while read file; do ln -s $HOME/$ARCH/include/$file ../src/3rdparty/chromium/ ; done
+      	 ls $HOME/$ARCH/include/|while read file; do ln -s $HOME/$ARCH/include/$file ../src/3rdparty/chromium/third_party/angle/include/ ; done
+	 rm ../src/3rdparty/chromium/dbus-1
+	 rm ../src/3rdparty/chromium/google
+	 rm ../src/3rdparty/chromium/openssl	
+	 rm ../src/3rdparty/chromium/brotli
 	make
         [ "$ARCH" = "x86" ] && sed -i "s@-lasound@-lasound -latomic@g"  src/core/Makefile.core_module
 	make || exit $?

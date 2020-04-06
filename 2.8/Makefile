@@ -213,7 +213,7 @@ hackerOS: packages/list-hackerOS
 
 
 # modules: firefox games music office video multimedia fps network emulators graphics
-modules: firefox games music office video multimedia fps network emulators graphics chromium
+modules: firefox games music office video multimedia fps network emulators graphics falkon
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
@@ -275,10 +275,17 @@ ${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
 	./scripts/make_packages fps
 	./scripts/make_module fps
 
+falkon: ${LCMBUILD}/falkon-${ARCH}.squashfs
+${LCMBUILD}/falkon-${ARCH}.squashfs : packages/list-falkon
+	./scripts/make_packages falkon
+	./scripts/make_module falkon
+
 chromium: ${LCMBUILD}/chromium-${ARCH}.squashfs
 ${LCMBUILD}/chromium-${ARCH}.squashfs : packages/list-chromium
 	./scripts/make_packages chromium
 	./scripts/make_module chromium
+
+firefox: ${LCMBUILD}/firefox-${ARCH}.squashfs
 
 firefox: ${LCMBUILD}/firefox-${ARCH}.squashfs
 ${LCMBUILD}/firefox-${ARCH}.squashfs : packages/list-firefox
