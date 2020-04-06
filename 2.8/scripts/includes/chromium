@@ -3,15 +3,15 @@
 if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
   echo "Chromium"
-
+  VERSION="80.0.3987.149"
   echo "Get from Slackware .. sorry !"
   if [ "$ARCH" = "x86" ] 
   then
-     [ ! -e chromium-78.0.3904.108-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-78.0.3904.108-i586-1alien.txz
-     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-i586-1alien.txz
+     [ ! -e chromium-$VERSION-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-$VERSION-i586-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-$VERSION-i586-1alien.txz
   else
-     [ ! -e chromium-78.0.3904.108-x86_64-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg64/14.2/chromium-78.0.3904.108-x86_64-1alien.txz
-     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-x86_64-1alien.txz
+     [ ! -e chromium-$VERSION-x86_64-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg64/14.2/chromium-$VERSION-x86_64-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-$VERSION-x86_64-1alien.txz
   fi
 
   install -d $PREFIX

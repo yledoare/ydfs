@@ -11,9 +11,9 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs28 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso yledoare/ydfs28
-* docker logs --tail=10 -f ydfs28
-* docker logs -f ydfs28 2>&1 |grep build
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
+* docker logs --tail=10 -f ydfs
+* docker logs -f ydfs 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
@@ -26,8 +26,7 @@
 
 # Manual build
 
-
-* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null
+* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null 
 * docker exec -ti ydfs bash
 * cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
