@@ -1,4 +1,4 @@
-FROM debian:bullseye-backports
+FROM ubuntu:eoan
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale

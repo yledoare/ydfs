@@ -87,11 +87,11 @@ http://download.oracle.com/berkeley-db/db-5.3.28.tar.gz
 http://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz  
 https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.bz2
 https://download.videolan.org/pub/videolan/libbluray/1.1.2/libbluray-1.1.2.tar.bz2
-https://gitlab.gnome.org/GNOME/gtk-doc.git#commit=7fce5688c973fca10951bfdbeab9acca034aa095
+ftp://ftp.gnome.org/pub/GNOME/sources/gtk-doc/1.32/gtk-doc-1.32.tar.xz
 http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz 
 https://download.samba.org/pub/ppp/ppp-2.4.7.tar.gz
 https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
-git://github.com/p11-glue/p11-kit?signed#tag=0.23.20
+https://github.com/p11-glue/p11-kit/releases/download/0.23.20/p11-kit-0.23.20.tar.xz
 http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
 https://ftp.gnu.org/gnu/nettle/nettle-3.5.1.tar.gz
 https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.11.1.tar.xz
@@ -178,7 +178,7 @@ ftp://ftp.freedesktop.org/pub/individual/lib/libXdamage-1.1.4.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/lib/libXtst-1.2.2.tar.gz 
 http://www.argyllcms.com/Argyll_V2.0.1_src.zip
 https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz
-https://alioth.debian.org/frs/download.php/file/3958/sane-backends-1.0.24.tar.gz
+https://gitlab.com/sane-project/backends/uploads/e9e9ac4bb4b1761a69fdd643769a2b6d/sane-backends-1.0.24.tar.gz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/vala/0.46/vala-0.46.6.tar.xz
 pip::pygments
