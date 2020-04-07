@@ -825,7 +825,8 @@ pwd && sleep 5
 
   # inetutils
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
-  [ -e libraw.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " ./mkdist.sh
+  [ -e libraw.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
+  # [ -e libraw.pc.in ] && echo "libraw.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " ./mkdist.sh
   [ -e src/paperconf.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/hunspell/hunspell.cxx ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/openvpn/openvpn.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
