@@ -575,7 +575,7 @@ exit 1
     exit 0
   fi
 
-  # [ -e libraries/liblmdb ] && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e libraries/liblmdb ] && pwd | grep lmdb-LMDB && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
 
   if [ -e pppyrcc/pyrcc.pro ]
   then
