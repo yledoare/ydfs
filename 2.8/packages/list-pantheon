@@ -1,5 +1,7 @@
-archlinux:libxkbcommon
-archlinux:gsettings-desktop-schemas
+git://github.com/ricotz/plank.git#tag=0.11.89
+git://github.com/elementary/granite.git
+https://github.com/elementary/gala/archive/3.3.0.tar.gz
+git://github.com/elementary/session-settings.git
 archlinux:cogl
 archlinux:clutter
 archlinux:clutter-gtk

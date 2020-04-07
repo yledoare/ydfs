@@ -120,7 +120,7 @@ ftp://ftp.gnu.org/gnu/groff/groff-1.22.3.tar.gz
 http://ftp.igh.cnrs.fr/pub/nongnu//attr/attr-2.4.47.src.tar.gz 
 https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.25.tar.xz
 https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-26.tar.xz
-https://github.com/gentoo/eudev/archive/v3.2.5.tar.gz
+https://github.com/gentoo/eudev/archive/v3.2.9.tar.gz
 https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2
 https://downloads.sourceforge.net/libmtp/libmtp-1.1.15.tar.gz
 http://www.kernel.org/pub/linux/utils/usb/usbutils/usbutils-008.tar.xz
@@ -164,7 +164,7 @@ ftp://ftp.freedesktop.org/pub/individual/lib/libXcomposite-0.4.2.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/lib/libXrender-0.9.6.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXcursor-1.1.10.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXv-1.0.10.tar.gz 
-ftp://ftp.freedesktop.org/pub/individual/lib/libXi-1.7.2.tar.bz2 
+ftp://ftp.freedesktop.org/pub/individual/lib/libXi-1.7.9.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXScrnSaver-1.2.2.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXres-1.0.7.tar.gz 
 ftp://ftp.freedesktop.org/pub/individual/lib/libXinerama-1.1.3.tar.gz 
@@ -258,8 +258,8 @@ http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
 https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
 https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
-http://wayland.freedesktop.org/releases/wayland-1.16.0.tar.xz
-http://wayland.freedesktop.org/releases/wayland-protocols-1.16.tar.xz
+http://wayland.freedesktop.org/releases/wayland-1.18.0.tar.xz
+http://wayland.freedesktop.org/releases/wayland-protocols-1.18.tar.xz
 pip::six
 pip::appdirs
 pip::packaging
@@ -329,7 +329,7 @@ ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
 https://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz
 http://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.2.6.tar.gz
-ftp://ftp.gnome.org/pub/gnome/sources/startup-notification/0.9/startup-notification-0.9.tar.bz2 
+https://www.freedesktop.org/software/startup-notification/releases/startup-notification-0.12.tar.gz
 https://github.com/uclouvain/openjpeg/archive/v2.2.0.tar.gz
 https://poppler.freedesktop.org/poppler-0.67.0.tar.xz
 https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz
@@ -835,6 +835,15 @@ https://github.com/mono/libgdiplus/archive/5.6.tar.gz
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
 http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
+#Pantheon
+https://github.com/elogind/elogind/archive/v243.7.tar.gz
+git://git.launchpad.net/bamf
+https://github.com/ubuntu-mate/mate-dock-applet/archive/20.04.0.tar.gz
+https://gitlab.gnome.org/GNOME/gnome-desktop/-/archive/3.35.2/gnome-desktop-3.35.2.tar.bz2
+https://gitlab.gnome.org/GNOME/geocode-glib/-/archive/3.26.2/geocode-glib-3.26.2.tar.bz2
+https://gitlab.gnome.org/GNOME/libgweather/-/archive/3.36.0/libgweather-3.36.0.tar.bz2
+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=GNOME_SETTINGS_DAEMON_3_32_1
+https://gitlab.gnome.org/GNOME/mutter/-/archive/3.34.5/mutter-3.34.5.tar.bz2
 #https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz

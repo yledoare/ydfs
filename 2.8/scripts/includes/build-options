@@ -282,6 +282,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--disable-systemd-login --with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
 	echo $ARCHIVE | grep glib-2 && LC_CONFIGURE_OPTS="--enable-debug" # Debug pcmanfm
 	echo $ARCHIVE | grep evince && LC_CONFIGURE_OPTS="--disable-nautilus --without-keyring"
+	echo $ARCHIVE | grep mate-dock-applet && LC_CONFIGURE_OPTS="--with-gtk3"
 	echo $ARCHIVE | grep gdb && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls"
 	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"

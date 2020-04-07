@@ -349,30 +349,27 @@ exit 1
 	ln -s "$pkgdir"/lib/node_modules/yarn/bin/yarn.js "$pkgdir"/bin/yarnpkg
   fi
  
+  if [ -e gnome-session/pantheon.session.in ]
+  then
+	mkdir build
+	cd build
+	meson -Dpatched-ubuntu-autostarts=false -Dfallback-session=gnome .. || exit 1
+	cd ..
+  	DESTDIR="${pkgdir}" meson install -C build || exit 1
+  fi
+
   if [ -e man/elogind.xml ]
   then
 	echo "Elogind" && sleep 3
 	mkdir build
 	cd build
-	meson build ..
-	meson configure   -Drootlibdir=/usr/lib   -Ddocdir=/usr/share/doc/elogind   -Dudevrulesdir=/lib/udev/rules.d  || exit 1
-	echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
-	../configure --prefix=$PREFIX \
-        --sysconfdir=$PREFIX/etc \
-        --libdir=/$PREFIX/lib \
-        --libexecdir=/$PREFIX/lib \
-        --enable-split-usr \
-        --disable-smack \
-        --enable-acl \
-        --enable-pam \
-        --disable-kdbus
-
-	make || exit $?
-	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install || exit 1
-	make install || exit $?
+	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
+	# meson configure   -Drootlibdir=/usr/lib   -Ddocdir=/usr/share/doc/elogind   -Dudevrulesdir=/lib/udev/rules.d .. || exit 1
+	PYTHONPATH="" ninja || exit $?
+	PYTHONPATH="" ninja install || exit $?
 	cd ..
 	exit 0
-
+	touch buildok-$ARCH
   fi
 
   if [ -e src/systemd/sd-event.h ] && [ ! -e man/elogind.xml ]
@@ -978,6 +975,8 @@ EOF
   	autoconf -f
 	sleep 2
   fi
+
+  pwd | grep mate-dock-applet && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
 
   if [ -e calf.desktop.in ] 
   then
