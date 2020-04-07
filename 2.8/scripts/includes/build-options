@@ -107,6 +107,8 @@ echo $ARCHIVE | grep flatpak &&  LC_CONFIGURE_OPTS="--with-system-bubblewrap --w
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep librsvg &&  LC_CONFIGURE_OPTS=" --disable-static --enable-vala \
+    --disable-gtk-doc "
 echo $ARCHIVE | grep hunspell &&  LC_CONFIGURE_OPTS="--disable-static --with-ui --with-readline"
 echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
     -DENABLE_LTO='TRUE' \
