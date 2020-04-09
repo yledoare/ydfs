@@ -350,8 +350,15 @@ do
   	./configure --prefix=$HOME/multilib --disable-cups || exit $?
     ;;
     libjpeg-turbo )
-  	./configure --prefix=$HOME/multilib --without-simd || exit $?
-    ;;
+  	# ./configure --prefix=$HOME/multilib --without-simd || exit $?
+	mkdir build32
+	 cd build32
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+  	cmake .. \
+    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib 
+        touch ../ydfs-multilib-buildt
+	;;
     soxr )
 	mkdir build32
 	 cd build32

@@ -74,7 +74,7 @@ fi
 # Environement variables
 
 export SDLDIR=$HOME/$ARCH
-[ -e $DIBAB_PREFIX/$ARCH/bin/perl ] && export PERL=$DIBAB_PREFIX/$ARCH/bin/perl
+[ -e $DIBAB_PREFIX/$ARCH/bin/perl ] && export PERL=$DIBAB_PREFIX/$ARCH/bin/perl # PERL5LIB=$HOME/$ARCH/lib/perl5/site_perl/5.30.1/${CPU}-linux/
 [ -e /usr/bin/pkg-config ] && export PKG_CONFIG=/usr/bin/pkg-config
 [ -e $DIBAB_PREFIX/$ARCH/bin/pkg-config ] && [ "$ARCH" != "arm" ] && export PKG_CONFIG=$DIBAB_PREFIX/$ARCH/bin/pkg-config
 [ "$ARCH" = "arm" ] && export  XGETTEXT=/usr/bin/xgettext
@@ -172,6 +172,7 @@ exit 1
 	exit 0
   fi
 
+  pwd | grep giflib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   if [ -e src/standalone/helm_editor.cpp ]
   then
     echo src/standalone/helm_editor.cpp
@@ -294,6 +295,18 @@ exit 1
 	exit 0
   fi
 
+  if [ -e pipewire-alsa ]
+  then
+	patch -p1 < $HOME_DIBAB/packages/patches/pipewire.diff || exit $?
+	mkdir build
+	cd build
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dpipewire-pulseaudio=false || exit 1
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+	cd ..
+	touch buildok-$ARCH
+	exit 0
+  fi
 
   if [ -e nm-applet.desktop.in ]
   then
@@ -317,6 +330,18 @@ exit 1
 	touch buildok-$ARCH
   fi
 
+  if [ -e mutter.doap ]
+  then
+	mkdir build
+	cd build
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dprofiler=false || exit 1
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+     	PYTHONPATH="" DESTDIR="$pkgdir" ninja install 
+	cd ..
+	touch buildok-$ARCH
+	exit 0
+  fi
   if [ -e src/appstream.pc.in ] # || [ -e libappstream-glib ]
   then
   	sed -i "s@/etc@$PREFIX/etc@" data/meson.build
@@ -363,10 +388,11 @@ exit 1
 	echo "Elogind" && sleep 3
 	mkdir build
 	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
+	PYTHONPATH="" meson --prefix=$PREFIX  -Dpolkit=false -Drootlibdir=$PREFIX/lib -Dudevrulesdir=$PREFIX/lib/udev/rules.d --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
 	# meson configure   -Drootlibdir=/usr/lib   -Ddocdir=/usr/share/doc/elogind   -Dudevrulesdir=/lib/udev/rules.d .. || exit 1
 	PYTHONPATH="" ninja || exit $?
-	PYTHONPATH="" ninja install || exit $?
+	PYTHONPATH="" ninja install # || exit $?
+	cp ./src/libelogind/libelogind.pc $PREFIX/lib/pkgconfig || exit $?
 	cd ..
 	exit 0
 	touch buildok-$ARCH
@@ -507,7 +533,19 @@ exit 1
 . $(dirname $0)/../scripts/includes/virtualbox
 . $(dirname $0)/../scripts/includes/gmic
 
-  [ -e source/tools/mutool.c ] && sed '/^JBIG2DEC_CFLAGS :=/s|$| -I./include/mupdf|' -i Makethird && sed -i 's/pkg-config --exists \(libcrypto\|openssl\)/false/' Makerules && rm -rf thirdparty/{curl,freeglut,freetype,harfbuzz,jbig2dec,lcms2,libjpeg,openjpeg,zlib} && make build=release libs apps extra
+  
+  # remove bundled packages, we want our system libraries
+
+if [ -e source/tools/mutool.c ]
+  then
+  rm -rf thirdparty/{freeglut,freetype,harfbuzz,jbig2dec,libjpeg,openjpeg,zlib}
+  CFLAGS+=' -fPIC' CXXFLAGS+=' -fPIC' USE_SYSTEM_LIBS='yes' make build=release || exit 1
+  CFLAGS+=' -fPIC' CXXFLAGS+=' -fPIC' USE_SYSTEM_LIBS='yes' make build=release prefix="$PREFIX" install || exit 1
+  touch buildok-$ARCH
+  exit 0
+fi
+
+  # [ -e source/tools/mutool.c ] && sed '/^JBIG2DEC_CFLAGS :=/s|$| -I./include/mupdf|' -i Makethird && sed -i 's/pkg-config --exists \(libcrypto\|openssl\)/false/' Makerules && rm -rf thirdparty/{curl,freeglut,freetype,harfbuzz,jbig2dec,lcms2,libjpeg,openjpeg,zlib} && make build=release libs apps extra
   [ -e source/tools/mutool.c ] && make build=release prefix="$PREFIX" install
 
   if [ -e fuse.pc.in ] 
@@ -827,6 +865,7 @@ pwd && sleep 5
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
   [ -e libraw.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   # [ -e libraw.pc.in ] && echo "libraw.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " ./mkdist.sh
+  pwd | grep dpkg-1  &&  echo "1.20.0" > .dist-version && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " ./autogen
   [ -e src/paperconf.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/hunspell/hunspell.cxx ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
   [ -e src/openvpn/openvpn.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
@@ -1455,6 +1494,12 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 
   fi
 
+  if [ -e src/backend/utils/misc/postgresql.conf.sample ]
+  then
+    LDFLAGS="" CFLAGS="" CPPFLAGS="-I$PWD/src/backend -I$PWD/src/backend/lmgr $CPPFLAGS" LLVM_CONFIG=/usr/bin/llvm-config-9 ./configure --prefix=$PREFIX --without-readline # --with-perl --with-libxml --with-openssl  --with-python --with-tcl --with-pam --with-uuid=e2fs --with-icu --with-ldap --with-llvm --enable-nls --enable-thread-safety --disable-rpath || exit 1
+    make || bash
+    exit 1
+  fi
 
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
@@ -1787,15 +1832,11 @@ ln -sf $PREFIX/bin/2H4U .
     touch buildok-$ARCH
     exit 0
   fi
-  if [ -e ./configure.gnu ]
+  if [ -e ./configure.gnu ] && [ -e perl.c ]
   then
-    # install -d $BUILD_DIR
-    # cd $BUILD_DIR || exit $?
-	# FIXME : build perl outside source dir
-    echo "Run $SOURCEDIR/configure.gnu --prefix=$PREFIX"
-    # build miniperl on LinuxConsole
-	echo $PATH
-    $SOURCEDIR/configure.gnu --prefix=$PREFIX 
+    echo "Build Perl"
+     # ./Configure -Dprefix=/$PREFIX -Dvendorprefix=/$PREFIX
+     ./Configure -des -Dusethreads -Duseshrplib -Doptimize="${CFLAGS}" -Dprefix=/$PREFIX -Dvendorprefix=/$PREFIX
     [ $? != 0 ] && exit 15
   fi
   if [ -e bin/frozen-bubble ]
@@ -1811,7 +1852,7 @@ ln -sf $PREFIX/bin/2H4U .
 	  cp -fR $FBBIN/* $PREFIX/bin || exit $?
 	  cp -fR $FBLIB/* $PREFIX/lib | exit $?
           cp share/icons/frozen-bubble-icon-64x64.png $PREFIX/share/pixmaps/frozen-bubble.png
-	  echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.26.0/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
+	  echo "PERL5LIB=$PREFIX/lib/perl5/site_perl/5.30.1/$CPU-linux/ $PREFIX/bin/frozen-bubble" > $PREFIX/bin/start-frozen-bubble
 	  chmod +x $PREFIX/bin/start-frozen-bubble
 echo '
 [Desktop Entry]

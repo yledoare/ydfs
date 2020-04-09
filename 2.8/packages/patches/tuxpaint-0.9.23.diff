@@ -40,3 +40,53 @@ index 730ed91..135b314 100644
  CFLAGS:=$(CPPFLAGS) $(OPTFLAGS) -W -Wall -fno-common -ffloat-store \
  	$(if $(filter windows,$(OS)),,$(call comptest,-fvisibility=hidden,)) \
  	-Wcast-align -Wredundant-decls \
+diff --git a/Makefile b/Makefile
+index c1dc400..aedf2f7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -173,7 +173,7 @@ MAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
+ DEVMAN_PREFIX:=$(DESTDIR)$(PREFIX)/share/man
+ 
+ # BASH tab-completion file:
+-COMPLETIONDIR:=$(DESTDIR)/etc/bash_completion.d
++COMPLETIONDIR:=$(DESTDIR)$(PREFIX)/etc/bash_completion.d
+ 
+ # 'System-wide' Config file:
+ ifeq ($(PREFIX),/usr)
+@@ -205,7 +205,7 @@ CURSOR_SHAPES:=LARGE
+ # CURSOR_SHAPES:=SMALL
+ 
+ # Libraries, paths, and flags:
+-SDL_LIBS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lSDL_image -lSDL_ttf -lz $(PNG)
++SDL_LIBS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lpaper -lpng -lSDL_image -lSDL_ttf -lz $(PNG)
+ 
+ # Sound support
+ SDL_MIXER_LIB:=$(call linktest,-lSDL_mixer,$(SDL_LIBS))
+@@ -252,7 +252,8 @@ endif
+ # The entire set of CFLAGS:
+ 
+ #-ffast-math
+-OPTFLAGS:=-O2
++OPTFLAGS:=-O2 -I$(HOME)/$(ARCH)/include/SDL -lpaper -lpng
++
+ CFLAGS:=$(CPPFLAGS) $(OPTFLAGS) -W -Wall -fno-common -ffloat-store \
+ 	$(if $(filter windows,$(OS)),,$(call comptest,-fvisibility=hidden,)) \
+ 	-Wcast-align -Wredundant-decls \
+@@ -786,7 +787,7 @@ install-kde:
+ 	  cp src/tuxpaint.desktop $(DESTDIR)$(KDE_PREFIX)/; \
+ 	  chmod 644 $(DESTDIR)$(KDE_PREFIX)/tuxpaint.desktop; \
+ 	fi
+-	kbuildsycoca4
++	echo echo echo echo kbuildsycoca4
+ 
+ .PHONY: install-kde-icons
+ install-kde-icons:
+@@ -1217,7 +1218,7 @@ obj:
+ ######
+ 
+ MAGIC_SDL_CPPFLAGS:=$(shell $(PKG_CONFIG) $(SDL_PCNAME) --cflags)
+-MAGIC_SDL_LIBS:=-L/usr/local/lib $(LIBMINGW) $(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lSDL_image -lSDL_ttf $(SDL_MIXER_LIB)
++MAGIC_SDL_LIBS:=-L/usr/local/lib $(LIBMINGW) $(shell $(PKG_CONFIG) $(SDL_PCNAME) --libs) -lpaper -lpng -lSDL_image -lSDL_ttf $(SDL_MIXER_LIB)
+ MAGIC_ARCH_LINKS:=-lintl $(PNG)
+ 
+ windows_PLUGIN_LIBS:=$(MAGIC_SDL_LIBS) $(MAGIC_ARCH_LINKS)

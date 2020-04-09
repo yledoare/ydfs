@@ -260,7 +260,7 @@ https://xcb.freedesktop.org/dist/xcb-util-renderutil-0.3.9.tar.bz2
 http://xcb.freedesktop.org/dist/xcb-util-keysyms-0.4.0.tar.bz2
 https://xcb.freedesktop.org/dist/xcb-util-wm-0.4.1.tar.bz2
 http://wayland.freedesktop.org/releases/wayland-1.18.0.tar.xz
-http://wayland.freedesktop.org/releases/wayland-protocols-1.18.tar.xz
+http://wayland.freedesktop.org/releases/wayland-protocols-1.19.tar.xz
 pip::six
 pip::appdirs
 pip::packaging
@@ -395,6 +395,7 @@ https://github.com/storaged-project/libblockdev/releases/download/2.21-1/libbloc
 http://0pointer.de/public/libatasmart-0.19.tar.xz
 https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
 https://github.com/acoustid/chromaprint/releases/download/v1.4.3/chromaprint-1.4.3.tar.gz
+https://github.com/ebassi/graphene/releases/download/1.10.0/graphene-1.10.0.tar.xz
 https://gstreamer.freedesktop.org//src/gstreamer/gstreamer-1.14.4.tar.xz
 http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.14.4.tar.xz 
 http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.14.4.tar.xz 
@@ -474,7 +475,7 @@ https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
 https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
-https://github.com/blueman-project/blueman/releases/download/2.0.8/blueman-2.0.8.tar.xz 
+https://github.com/blueman-project/blueman/releases/download/2.1.2/blueman-2.1.2.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
 https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
@@ -537,7 +538,7 @@ http://www.openprinting.org/download/foomatic/foomatic-db-engine-4.0.8.tar.gz
 http://www.openprinting.org/download/foomatic/foomatic-db-current.tar.gz
 http://www.openprinting.org/download/foomatic/foomatic-filters-4.0.12.tar.gz
 http://freefr.dl.sourceforge.net/project/gimp-print/gutenprint-5.2/5.2.10/gutenprint-5.2.10.tar.bz2 
-http://cyberelk.net/tim/data/pycups/pycups-1.9.72.tar.bz2 
+pip::pycups
 http://cyberelk.net/tim/data/system-config-printer/1.4/system-config-printer-1.4.4.tar.xz 
 git://github.com/lloyd/yajl.git
 http://downloads.sourceforge.net/swig/swig-3.0.12.tar.gz
@@ -588,7 +589,7 @@ https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
 https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.2.tar.gz
 http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 http://savannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
-https://anongit.freedesktop.org/git/libxklavier#commit=396955bd2ba2db34a42b3807b03155fcc11dfe50
+git://anongit.freedesktop.org/git/libxklavier#commit=396955bd2ba2db34a42b3807b03155fcc11dfe50
 http://www.freedesktop.org/software/accountsservice/accountsservice-0.6.39.tar.xz
 archlinuxpatched:intltool
 https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz
@@ -597,7 +598,9 @@ ftp://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
 # For PlayOnLinux
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
 https://github.com/HOST-Oman/libraqm/releases/download/v0.7.0/raqm-0.7.0.tar.gz
-https://imagemagick.org/download/ImageMagick-7.0.10-5.tar.xz
+#https://imagemagick.org/download/ImageMagick-7.0.10-6.tar.xz
+#it changes always ..
+archlinux:imagemagick
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
 http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src_all.tar.bz2
 http://linuxtv.org/downloads/v4l-utils/v4l-utils-1.16.3.tar.bz2
@@ -700,7 +703,7 @@ https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
 https://github.com/hunspell/hunspell/archive/v1.6.2.tar.gz
 https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
 http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/librevenge-0.0.4.tar.xz
-https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.4.tar.xz
+https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.6.tar.xz
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.2/libe-book-0.1.2.tar.xz
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
@@ -716,7 +719,6 @@ https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d70
 https://pub.mate-desktop.org/releases/1.24/eom-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/pluma-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/engrampa-1.24.0.tar.xz
-https://gitlab.gnome.org/GNOME/libgtop.git#commit=31db82efced79d1ceee465d9b50da2fe6fd16482
 #https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-utils-1.24.0.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
@@ -752,7 +754,7 @@ https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.2.tar.bz2
 https://github.com/g-truc/glm/releases/download/0.9.9.2/glm-0.9.9.2.zip
 https://kohei.us/files/mdds/src/mdds-1.4.3.tar.bz2
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.9.tar.xz
-https://dev-www.libreoffice.org/src/libabw/libabw-0.1.2.tar.xz
+https://dev-www.libreoffice.org/src/libabw/libabw-0.1.3.tar.xz
 https://dev-www.libreoffice.org/src/libzmf/libzmf-0.0.2.tar.xz
 https://github.com/fosnola/libstaroffice/releases/download/0.0.6/libstaroffice-0.0.6.tar.xz
 https://github.com/tdf/libcmis/releases/download/v0.5.1/libcmis-0.5.1.tar.gz
@@ -815,7 +817,7 @@ https://download.kde.org/stable/frameworks/5.68/kidletime-5.68.0.tar.xz
 https://download.kde.org/stable/frameworks/5.68/kwayland-5.68.0.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/libkscreen-5.18.4.1.tar.xz
 download.kde.org/stable/frameworks/5.68/knotifyconfig-5.68.0.tar.xz
-https://ftp.postgresql.org/pub/source/v12.2/postgresql-12.2.tar.bz2
+#https://ftp.postgresql.org/pub/source/v12.2/postgresql-12.2.tar.bz2
 https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
 https://download.gnome.org/sources/gnome-mime-data/2.18/gnome-mime-data-2.18.0.tar.bz2
 https://download.gnome.org/sources/gnome-vfs/2.24/gnome-vfs-2.24.4.tar.bz2
@@ -831,7 +833,8 @@ http://tecnocode.co.uk/downloads/uhttpmock/uhttpmock-0.5.1.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/libgdata/0.17/libgdata-0.17.9.tar.xz
 https://www.apache.org/dist/apr/apr-util-1.6.1.tar.bz2
 https://github.com/sddm/sddm/archive/v0.18.0.tar.gz
-https://github.com/mono/libgdiplus/archive/5.6.tar.gz
+https://downloads.sourceforge.net/project/giflib/giflib-5.2.1.tar.gz
+https://github.com/mono/libgdiplus/archive/5.6.1/libgdiplus-5.6.1.tar.gz
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
 http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
@@ -843,7 +846,14 @@ https://gitlab.gnome.org/GNOME/gnome-desktop/-/archive/3.35.2/gnome-desktop-3.35
 https://gitlab.gnome.org/GNOME/geocode-glib/-/archive/3.26.2/geocode-glib-3.26.2.tar.bz2
 https://gitlab.gnome.org/GNOME/libgweather/-/archive/3.36.0/libgweather-3.36.0.tar.bz2
 https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=GNOME_SETTINGS_DAEMON_3_32_1
-https://gitlab.gnome.org/GNOME/mutter/-/archive/3.34.5/mutter-3.34.5.tar.bz2
+https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.4.tar.xz
+vulkan-headers-1.2.137.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.2.137.tar.gz
+https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.135.tar.gz
+https://github.com/PipeWire/pipewire/archive/0.3.2.tar.gz
+https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.bz2
+http://www.sysprof.com/sysprof-1.2.0.tar.gz
+#https://gitlab.gnome.org/GNOME/sysprof/-/archive/sysprof-3.36.0/sysprof-sysprof-3.36.0.tar.bz2
+https://gitlab.gnome.org/GNOME/mutter/-/archive/3.36.1/mutter-3.36.1.tar.bz2
 #https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
