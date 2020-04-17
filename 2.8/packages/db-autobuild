@@ -383,6 +383,8 @@ exit 1
   	DESTDIR="${pkgdir}" meson install -C build || exit 1
   fi
 
+  pwd | grep session-settings && install -d build && cd build && PYTHONPATH="" meson --prefix=$PREFIX  --sysconfdir=$PREFIX/etc .. && PYTHONPATH="" ninja
+
   if [ -e man/elogind.xml ]
   then
 	echo "Elogind" && sleep 3
@@ -393,6 +395,8 @@ exit 1
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install # || exit $?
 	cp ./src/libelogind/libelogind.pc $PREFIX/lib/pkgconfig || exit $?
+	install -d $PREFIX/include/systemd 
+	cp ../src/systemd/*.h $PREFIX/include/systemd || exit $?
 	cd ..
 	exit 0
 	touch buildok-$ARCH

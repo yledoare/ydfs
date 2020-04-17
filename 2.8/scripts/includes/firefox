@@ -3,7 +3,6 @@ export NODEJS=/home/linuxconsole2020/linuxconsole/bin/node
 cat > mozconfig << "EOF"
 ac_add_options --disable-dbus
 ac_add_options --disable-necko-wifi
-ac_add_options --enable-system-sqlite
 ac_add_options --with-system-libevent
 ac_add_options --with-system-webp
 ac_add_options --with-system-icu
@@ -45,7 +44,7 @@ export RUSTFLAGS="-Cdebuginfo=0"
 sed -e 's/checkImpl/checkFFImpl/g' -i js/src/vm/JSContext*.h
 
 # LDFLAGS="$LDFLAGS -Wl,--no-keep-memory -Wl,--no-keep-memory -Wl,--no-keep-files-mapped -Wl,--no-map-whole-files -Wl,--no-mmap-output-file" CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I$HOME/$ARCH/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar NM=llvm-nm RANLIB=llvm-ranlib MOZBUILD_STATE_PATH=${PWD}/mozbuild 
-PYTHONPATH="" PYTHON="" LDFLAGS="$LDFLAGS -Wl,--no-keep-memory -Wl,--no-keep-memory -Wl,--no-keep-files-mapped -Wl,--no-map-whole-files -Wl,--no-mmap-output-file" CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I$HOME/$ARCH/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar NM=llvm-nm RANLIB=llvm-ranlib MOZBUILD_STATE_PATH=${PWD}/mozbuild ./mach build || bash
+PYTHONPATH="" PYTHON="" LDFLAGS="$LDFLAGS -Wl,--no-keep-memory -Wl,--no-keep-memory -Wl,--no-keep-files-mapped -Wl,--no-map-whole-files -Wl,--no-mmap-output-file" CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I$HOME/$ARCH/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar-9 NM=llvm-nm-9 RANLIB=llvm-ranlib-9 MOZBUILD_STATE_PATH=${PWD}/mozbuild ./mach build || exit 1
 
 ./mach install || exit 1
 
