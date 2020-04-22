@@ -38,6 +38,7 @@ echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
     --disable-java-binding "
 
+echo $ARCHIVE | grep a52dec &&  LC_CONFIGURE_OPTS="--enable-shared"
 echo $ARCHIVE | grep gtk-vnc &&  LC_CONFIGURE_OPTS="--with-gtk=3.0 \
             --enable-vala \
             --without-sasl"
@@ -457,7 +458,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
               --enable-vpx \
               --enable-twolame \
               --disable-fdkaac \
-              --enable-a52 \
               --enable-dca \
               --enable-flac \
               --enable-libmpeg2 \

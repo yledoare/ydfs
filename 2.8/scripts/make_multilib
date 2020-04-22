@@ -529,7 +529,7 @@ do
 done
 
 cp -a /usr/lib32/* $HOME/$ARCH/lib32
-cp -a /lib32 $HOME/$ARCH/lib32-root
+cp -a /usr/lib32 $HOME/$ARCH/lib32-root
 cp $HOME/llvm-multilib/lib32/libLLVM-9.so $HOME/$ARCH/lib32 || exit 1
 
 ls $HOME/$ARCH/lib32/*.a |while read file

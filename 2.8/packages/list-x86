@@ -628,9 +628,6 @@ http://freefr.dl.sourceforge.net/project/dssi/dssi/1.1.1/dssi-1.1.1.tar.gz
 http://downloads.sourceforge.net/liblo/liblo-0.28.tar.gz
 http://download.librdf.org/source/raptor2-2.0.15.tar.gz
 https://github.com/swh/LRDF/archive/0.5.0.tar.gz
-http://lv2plug.in/spec/lv2-1.16.0.tar.bz2
-https://code.soundsoftware.ac.uk/attachments/download/2450/vamp-plugin-sdk-2.8.0.tar.gz
-http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 #tools
 #https://github.com/QupZilla/qupzilla/releases/download/v2.0.1/QupZilla-2.0.1.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/adwaita-icon-theme/3.34/adwaita-icon-theme-3.34.3.tar.xz
@@ -778,6 +775,14 @@ https://movit.sesse.net/movit-1.6.2.tar.gz
 http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.113.0.tar.xz
 zstd-1.4.4.tar.gz::https://github.com/facebook/zstd/archive/v1.4.4.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
+#Gtkmm For Ardour
+https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
+# Music - Begin
+http://lv2plug.in/spec/lv2-1.16.0.tar.bz2
+https://code.soundsoftware.ac.uk/attachments/download/2588/vamp-plugin-sdk-2.9.0.tar.gz
+fluidsynth-2.1.2.tar.gz::https://github.com/fluidsynth/fluidsynth/archive/v2.1.2.tar.gz
+#http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
+# Music - End
 https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz
 https://github.com/google/brotli/archive/v1.0.6.tar.gz
 git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
