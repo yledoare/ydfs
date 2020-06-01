@@ -477,6 +477,7 @@ git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
 https://github.com/blueman-project/blueman/releases/download/2.1.2/blueman-2.1.2.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
+https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2
 https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
 https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
@@ -687,7 +688,7 @@ ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 http://downloads.xiph.org/releases/libshout/libshout-2.3.1.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-2.8.4.tar.gz
 #Wine
-https://dl.winehq.org/wine/source/5.x/wine-5.4.tar.xz
+https://dl.winehq.org/wine/source/5.x/wine-5.9.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.tar.xz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
@@ -718,7 +719,7 @@ https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d70
 https://pub.mate-desktop.org/releases/1.24/eom-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/pluma-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/engrampa-1.24.0.tar.xz
-#https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
+https://gitlab.gnome.org/GNOME/libgtop/-/archive/2.40.0/libgtop-2.40.0.tar.gz
 https://pub.mate-desktop.org/releases/1.24/mate-utils-1.24.0.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
@@ -777,6 +778,7 @@ https://movit.sesse.net/movit-1.6.2.tar.gz
 http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.113.0.tar.xz
 zstd-1.4.4.tar.gz::https://github.com/facebook/zstd/archive/v1.4.4.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
+https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
 #Gtkmm For Ardour
 https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 fluidsynth-2.1.2.tar.gz::https://github.com/fluidsynth/fluidsynth/archive/v2.1.2.tar.gz
