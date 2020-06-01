@@ -474,10 +474,10 @@ https://download.gnome.org/sources/NetworkManager/1.22/NetworkManager-1.22.10.ta
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
-https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
 https://github.com/blueman-project/blueman/releases/download/2.1.2/blueman-2.1.2.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
+https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
 https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
@@ -612,7 +612,8 @@ https://downloads.sourceforge.net/sourceforge/pupnp/libupnp-1.6.25.tar.bz2
 http://downloads.sourceforge.net/project/goom/goom2k4/0/goom-2k4-0-src.tar.gz
 http://downloads.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
 http://downloads.sourceforge.net/sox/sox-14.4.2.tar.bz2
-git://git.xiph.org/users/oggk/kate.git
+#dead link
+#git://git.xiph.org/users/oggk/kate.git
 http://libcaca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz
 https://download.videolan.org/pub/videolan/libdca/0.0.6/libdca-0.0.6.tar.bz2
 https://github.com/njh/twolame/releases/download/0.4.0/twolame-0.4.0.tar.gz
@@ -642,11 +643,13 @@ ftp://ftp.astron.com/pub/file/file-5.24.tar.gz
 ftp://ftp.gnu.org/gnu/a2ps/a2ps-4.14.tar.gz
 https://download.drobilla.net/serd-0.30.2.tar.bz2
 https://download.drobilla.net/sord-0.16.4.tar.bz2
+http://lv2plug.in/spec/lv2-1.16.0.tar.bz2
 http://download.drobilla.net/sratom-0.4.6.tar.bz2
 https://download.drobilla.net/suil-0.10.6.tar.bz2
 https://download.drobilla.net/lilv-0.24.6.tar.bz2
 http://download.librdf.org/source/raptor2-2.0.15.tar.gz
 https://github.com/swh/LRDF/archive/0.5.0.tar.gz
+https://code.soundsoftware.ac.uk/attachments/download/2588/vamp-plugin-sdk-2.9.0.tar.gz
 http://code.breakfastquay.com/attachments/download/34/rubberband-1.8.1.tar.bz2
 http://fltk.org/pub/fltk/1.3.4/fltk-1.3.4-source.tar.gz
 https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.tar.gz
@@ -776,12 +779,8 @@ zstd-1.4.4.tar.gz::https://github.com/facebook/zstd/archive/v1.4.4.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
 #Gtkmm For Ardour
 https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
-# Music - Begin
-http://lv2plug.in/spec/lv2-1.16.0.tar.bz2
-https://code.soundsoftware.ac.uk/attachments/download/2588/vamp-plugin-sdk-2.9.0.tar.gz
 fluidsynth-2.1.2.tar.gz::https://github.com/fluidsynth/fluidsynth/archive/v2.1.2.tar.gz
 #http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
-# Music - End
 https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz
 https://github.com/google/brotli/archive/v1.0.6.tar.gz
 git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
