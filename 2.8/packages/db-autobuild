@@ -129,6 +129,8 @@ exit 1
      exit 0
    fi
 
+  [ -e libuv.pc.in ] && rm ./autogen.sh
+
   [ -e "json-c.pc.in" ] && echo " json-c.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   if [ -e "wx-config.in" ]
   then
@@ -180,6 +182,20 @@ exit 1
     [ "$ARCH" = "x86" ] && sed -i "s@__sigemptyset@sigemptyset@" JUCE/modules/juce_audio_formats/codecs/flac/libFLAC/cpu.c
   fi
 
+  if [ -e doc/appdev/refs/types/krb5_int32.rst ]
+  then
+	. $(dirname $0)/../scripts/includes/krb5
+    	touch buildok-$ARCH
+	exit 0
+  fi
+
+  if [ -e fftw.pc.in ]
+  then
+	. $(dirname $0)/../scripts/includes/fftw
+    	touch buildok-$ARCH
+	exit 0
+  fi
+
   if [ -e setuptools/command/easy_install.py ] && [ -e $HOME/$ARCH/bin/python3 ]
   then
 	. $(dirname $0)/../scripts/includes/setuptools
@@ -212,6 +228,9 @@ exit 1
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
   [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
+  [ -e $HOME/$ARCH/include/zita-resampler-disabled ] && mv $HOME/$ARCH/include/zita-resampler-disabled $HOME/$ARCH/include/zita-resampler
+  [ -e $HOME/$ARCH/include/fluidsynth-disabled ] && mv $HOME/$ARCH/include/fluidsynth-disabled $HOME/$ARCH/include/fluidsynth
+  [ -e $HOME/$ARCH/include/fluidsynth-disabled.h ] && mv $HOME/$ARCH/include/fluidsynth-disabled.h $HOME/$ARCH/include/fluidsynth.h
   [ -e $HOME/$ARCH/include/vamp-hostsdk-disabled ] && mv $HOME/$ARCH/include/vamp-hostsdk-disabled $HOME/$ARCH/include/vamp-hostsdk
   [ -e $HOME/$ARCH/include/vamp-sdk-disabled ] && mv $HOME/$ARCH/include/vamp-sdk-disabled $HOME/$ARCH/include/vamp-sdk
   [ -e $HOME/$ARCH/include/libavcodec-disabled ] && mv $HOME/$ARCH/include/libavcodec-disabled $HOME/$ARCH/include/libavcodec
@@ -1221,6 +1240,10 @@ EOF
 
     fi
 
+    pwd | grep ardour && mv $HOME/$ARCH/include/zita-resampler  $HOME/$ARCH/include/zita-resampler-disabled 
+    pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth  $HOME/$ARCH/include/fluidsynth-disabled
+    pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth.h  $HOME/$ARCH/include/fluidsynth-disabled.h
+
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
     [ -e deps/npm/lib/doctor/get-latest-nodejs-version.js ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
     [ -e support/cmake/fmt.pc.in ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
@@ -1523,7 +1546,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in NetworkManager-pptp.doap src/a52dec.c librsvg.pc.in backend/saned.conf.in NetworkManager-openvpn.doap src/backend/utils/misc/postgresql.conf.sample docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in libuv.pc.in NetworkManager-pptp.doap src/a52dec.c librsvg.pc.in backend/saned.conf.in NetworkManager-openvpn.doap src/backend/utils/misc/postgresql.conf.sample docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
@@ -1968,7 +1991,7 @@ echo "At BUILDPERL"
   then
 	[ -e ydfs.env ] && mv ydfs.env ydfs.env.bak 
 	env > ydfs.env
-       pwd | grep ardour &&  LC_CONFIGURE_OPTS=" --with-backends=jack,alsa,dummy \
+       pwd | grep ardour &&  LC_CONFIGURE_OPTS=" --with-backends=jack,alsa,dummy,pulseaudio \
                         --libjack=weak \
                         --nls \
                         --optimize \

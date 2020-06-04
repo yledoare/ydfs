@@ -520,8 +520,8 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
 	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown --disable-bash-completion"
-	echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
-	echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
+	#echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
+	#echo $ARCHIVE | grep fftw-3.3.4 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads"
 	#QT5 
 	#[ -e $HOME/$ARCH/include-Qt ] && mv $HOME/$ARCH/include-Qt/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include-Qt
 	#echo $ARCHIVE | grep qtractor && install -d $HOME/$ARCH/include-Qt && mv $HOME/$ARCH/include/Qt* $HOME/$ARCH/include-Qt
