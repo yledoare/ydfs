@@ -1949,6 +1949,8 @@ echo "At BUILDPERL"
 	if [ -e src/mixxx.cpp ] 
         then
 	  echo "Mixx build"
+	  ls  $HOME_DIBAB/mixxx/controllers && sleep 4
+	  cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
           mv $HOME/$ARCH/include/vamp-hostsdk $HOME/$ARCH/include/vamp-hostsdk-disabled
           mv $HOME/$ARCH/include/vamp-sdk $HOME/$ARCH/include/vamp-sdk-disabled
 	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
