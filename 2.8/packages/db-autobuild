@@ -2019,11 +2019,11 @@ echo "At BUILDPERL"
           # xdg integration
           install -vDm 644 "build/gtk2_${pkgname}/${pkgname}.xml" \
               -t "${pkgdir}/share/mime/packages/" || exit 1
-          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}5.desktop" \
+          install -vDm 644 "build/gtk2_${pkgname}/${pkgname}6.desktop" \
                "${pkgdir}/share/applications/${pkgname}.desktop" || exit 1
           for size in 16 22 32 48 256 512; do
             install -vDm 644 "gtk2_${pkgname}/resources/Ardour-icon_${size}px.png" \
-            "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}5.png" || exit 1
+            "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}6.png" || exit 1
           done
        exit 0
      fi
