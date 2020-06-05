@@ -463,6 +463,9 @@ exit 1
 	touch buildok-$ARCH
 	exit 0
   fi
+  
+  # Samba 
+  [ -e wscript_configure_system_mitkrb5 ] && sed -i -e "s@/usr/lib/mit/sbin@$HOME/$ARCH/bin@" wscript_configure_system_mitkrb5 && grep kdc_path_list wscript_configure_system_mitkrb5 && sleep 10
 
   if [ -e lpsolve55 ]
   then
