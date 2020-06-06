@@ -349,14 +349,28 @@ exit 1
 	touch buildok-$ARCH
   fi
 
+  if [ -e eglexternalplatform.pc ] 
+  then
+    sed -i "s@/usr/include/EGL@$PREFIX/include/EGL@" eglexternalplatform.pc
+    cp eglexternalplatform.pc $PREFIX/share/pkgconfig || exit 1
+    cp interface/* $PREFIX/include/EGL || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi
+
   if [ -e mutter.doap ]
   then
 	mkdir build
 	cd build
-  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dprofiler=false || exit 1
+	echo "RUN MESON"
+  	PYTHONPATH="" meson .. --prefix=$PREFIX -D profiler=false  -D egl_device=true \
+    -D wayland_eglstream=true \
+    -D xwayland_initfd=disabled \
+    -D installed_tests=false || exit 1
+	echo "RUN NINJA"
      	PYTHONPATH="" ninja || exit 1
      	PYTHONPATH="" ninja install || exit 1
-     	PYTHONPATH="" DESTDIR="$pkgdir" ninja install 
+     	# PYTHONPATH="" DESTDIR="$pkgdir" ninja install 
 	cd ..
 	touch buildok-$ARCH
 	exit 0
