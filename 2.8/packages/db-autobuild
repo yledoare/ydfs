@@ -349,6 +349,27 @@ exit 1
 	touch buildok-$ARCH
   fi
 
+  if [ -e surge.def ]
+  then
+    install -d build
+    # cd build-headless
+      LDFLAGS="${LDFLAGS},-z,noexecstack"  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -B build \
+        -S . || exit 1
+      #FIXME
+      mv $HOME/$ARCH/include/tinyxml.h $HOME/$ARCH/include/tinyxml-disabled.h
+      make surge-headless -C build VERBOSE=1 || exit 1
+      #make Surge.vst3 -C build VERBOSE=1 || exit 1
+      wget https://git.archlinux.org/svntogit/community.git/plain/trunk/surge-lv2.make?h=packages/surge -O surge-lv2.make
+      wget https://git.archlinux.org/svntogit/community.git/plain/trunk/surge-vst3.make?h=packages/surge -O surge-vst3.make
+      wget https://git.archlinux.org/svntogit/community.git/plain/trunk/Makefile?h=packages/surge -O Makefile
+      make config=release_x64 || exit 1
+      install -d $PREFIX/lib/lv2
+      cp -fR target/lv2/Release/Surge.lv2 $PREFIX/lib/lv2 || exit 1
+    touch buildok-$ARCH
+    exit 0
+  fi
+
   if [ -e eglexternalplatform.pc ] 
   then
     sed -i "s@/usr/include/EGL@$PREFIX/include/EGL@" eglexternalplatform.pc

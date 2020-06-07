@@ -1,0 +1,8 @@
+group="$1"
+group=lv2-plugins
+
+wget https://www.archlinux.org/groups/x86_64/$group -O "$group"
+grep detail $group | cut -d'>' -f3 | cut -d'<' -f1 | while read package
+do
+  echo $package
+done

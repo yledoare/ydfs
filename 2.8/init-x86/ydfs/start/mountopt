@@ -31,16 +31,12 @@ then
 fi
 done
 
-for LIBDIR in vst lv2 dssi 
+[ -e /etc/env.dyn ] && rm /etc/env.dyn
+
+ls /ydfs/modules/ | while read MODULE
 do
-  if [ -e $HOME_DIBAB/music/lib/$LIBDIR ]
-  then
-   ls $HOME_DIBAB/music/lib/$LIBDIR | while read FILE
-   do
-     if [ ! -e /usr/$LIB/$LIBDIR/$FILE ]
-     then
-       ln -s $HOME_DIBAB/music/lib/$LIBDIR/$FILE /usr/lib/$LIBDIR/$FILE
-     fi
-   done
-  fi
+  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/vl2 ] && echo 'LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
 done
