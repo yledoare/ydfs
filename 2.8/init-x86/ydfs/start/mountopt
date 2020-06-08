@@ -35,8 +35,9 @@ done
 
 ls /ydfs/modules/ | while read MODULE
 do
-  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/vl2 ] && echo 'LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'VST_PATH=$VST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/ladspa ] && echo 'LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lv2 ] && echo 'LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lxvst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
   [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
 done

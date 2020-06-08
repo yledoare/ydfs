@@ -20,7 +20,7 @@ then
 else
  /ydfs/config/lxde
  /ydfs/config/gtk2
- /ydfs/config/env
+. /ydfs/config/env
  if [ -e $HOME/ydfs/mysession ] 
  then
    $HOME/ydfs/mysession
