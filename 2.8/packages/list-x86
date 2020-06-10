@@ -439,7 +439,7 @@ http://ftp.gnome.org/pub/gnome/sources/gtksourceview/3.22/gtksourceview-3.22.0.t
 #https://git.yoctoproject.org/cgit/cgit.cgi/opkg/snapshot/opkg-0.3.6.tar.gz
 https://downloads.yoctoproject.org/releases/opkg/opkg-0.2.0.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/libgee/0.20/libgee-0.20.1.tar.xz
-ftp://ftp.gnome.org/pub/gnome/sources/gnome-icon-theme/2.30/gnome-icon-theme-2.30.3.tar.bz2
+https://download.gnome.org/sources/gnome-icon-theme/3.12/gnome-icon-theme-3.12.0.tar.xz
 http://freefr.dl.sourceforge.net/project/gphoto/libgphoto/2.5.10/libgphoto2-2.5.10.tar.bz2
 ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-2.4.49.tgz
 https://web.mit.edu/kerberos/dist/krb5/1.18/krb5-1.18.2.tar.gz

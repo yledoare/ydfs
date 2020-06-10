@@ -4,4 +4,5 @@ cd ~/src
 cd ydfs 
 cd 2.8 
 git pull
-make || make || make || make || make || tail -f /dev/null
+# make || make || make || make || make || tail -f /dev/null
+make || tail -f /dev/null
