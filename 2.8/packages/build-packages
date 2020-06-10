@@ -221,6 +221,7 @@ fi
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libgtop.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'gnome-settings-daemon.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git'`" ] \
+	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/NetworkManager-pptp.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/gtk-doc.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'git.khaganat.net/khaganat'`" ] 
   then

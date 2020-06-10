@@ -1,0 +1,15 @@
+diff --git a/Makefile b/Makefile
+index cf470d0..48a9f79 100644
+--- a/Makefile
++++ b/Makefile
+@@ -72,8 +72,8 @@ test: vector_test
+ 
+ install:
+ 	mkdir -p $(BINDIR)
+-	install -o root -m 555 pptp $(BINDIR)
+-	install -o root -m 555 pptpsetup $(BINDIR)
++	install pptp $(BINDIR)
++	install pptpsetup $(BINDIR)
+ 	mkdir -p $(MANDIR)
+ 	install -m 644 pptp.8 $(MANDIR)
+ 	install -m 644 pptpsetup.8 $(MANDIR)
