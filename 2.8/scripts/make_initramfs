@@ -75,7 +75,13 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
-ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
+#echo "exec /busybox/usr/bin/setsid /busybox/bin/ash -c 'exec /busybox/bin/ash </dev/tty1 >/dev/tty1 2>&1" > $HOME/ydfs/tmp/initramfs-$ARCH/init
+echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init
+echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
+echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
+#echo "PATH=/busybox/bin:/busybox/sbin /busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
+chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init
+#ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
 ROOTFS=/$HOME/ydfs/tmp/initramfs-$ARCH/
 install -d $ROOTFS/$HOME
 install -d $ROOTFS/proc

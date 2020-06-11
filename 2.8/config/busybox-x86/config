@@ -749,7 +749,7 @@ CONFIG_FEATURE_MAKEDEVS_TABLE=y
 # CONFIG_READAHEAD is not set
 # CONFIG_RUNLEVEL is not set
 # CONFIG_RX is not set
-# CONFIG_SETSID is not set
+CONFIG_SETSID=y
 # CONFIG_STRINGS is not set
 # CONFIG_TIME is not set
 # CONFIG_TIMEOUT is not set
