@@ -23,7 +23,6 @@ echo "search into hard/usb disks"
 mkdir /disk
 for device in `ls /sys/class/block/`
 do
-
 	if [ ! -e /dev/$device ]
 	then
 		echo "Creating $device"
@@ -35,14 +34,10 @@ do
         then
           find /sys |grep $device|grep usb >/dev/null || continue
           echo "is removable"
-          #[ -e /sys/class/block/$device/removable ] || continue
-          #grep 1 /sys/class/block/$device/removable >/dev/null || continue
         fi
 	/ntfs-3g  /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
 	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
-	#[ -e /disk/$DISTRONAME/install/ydfs-"$ARCH".iso ] && mount /disk/$DISTRONAME/install/ydfs-"$ARCH".iso /media/ydfs && break
-	#[ -e /disk/$DISTRONAME/install/test.iso ] && mount /disk/$DISTRONAME/install/test.iso /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
@@ -74,7 +69,9 @@ fi
 
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ] && [ ! -e /tmp/waitusb ]
 then
-	sleep 10
+	rm /ydfs/boot/options/livecd
+	# sleep 10
+	touch /ydfs/boot/options/liveusb
 	touch /tmp/waitusb
 	/ydfs/detect/media
 fi

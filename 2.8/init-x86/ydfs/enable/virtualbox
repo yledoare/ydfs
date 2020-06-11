@@ -1,4 +1,4 @@
-if [ -e  $HOME_DIBAB/$DISTRONAME/lib/modules/vboxdrv.ko ]
+if [ -e  $HOME_DIBAB/virtualbox/lib/modules/vboxdrv.ko ]
 then
 
 echo "Enable virtualbox"
@@ -11,15 +11,15 @@ SUBSYSTEM=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device", RUN+="/usr/share/vi
 SUBSYSTEM=="usb_device", ACTION=="remove", RUN+="/usr/share/virtualbox/VBoxCreateUSBNode.sh --remove $major $minor"
 SUBSYSTEM=="usb", ACTION=="remove", ENV{DEVTYPE}=="usb_device", RUN+="/usr/share/virtualbox/VBoxCreateUSBNode.sh --remove $major $minor"' > /usr/lib/udev/rules.d/60-vboxdrv.rules
 
-insmod $HOME_DIBAB/$DISTRONAME/lib/modules/vboxdrv.ko
-insmod $HOME_DIBAB/$DISTRONAME/lib/modules/vboxnetadp.ko
-insmod $HOME_DIBAB/$DISTRONAME/lib/modules/vboxnetflt.ko
-insmod $HOME_DIBAB/$DISTRONAME/lib/modules/vboxpci.ko
+insmod $HOME_DIBAB/virtualbox/lib/modules/vboxdrv.ko
+insmod $HOME_DIBAB/virtualbox/lib/modules/vboxnetadp.ko
+insmod $HOME_DIBAB/virtualbox/lib/modules/vboxnetflt.ko
+insmod $HOME_DIBAB/virtualbox/lib/modules/vboxpci.ko
 mkdir /dev/vboxusb
 
 [ ! -e /opt ] && mkdir /opt
-ln -s $HOME_DIBAB/$DISTRONAME/lib/virtualbox /usr/lib
-ln -s $HOME_DIBAB/$DISTRONAME/share/virtualbox /usr/share
-cp -fR $HOME_DIBAB/$DISTRONAME/lib/virtualbox /opt/VirtualBox
+ln -s $HOME_DIBAB/virtualbox/lib/virtualbox /usr/lib
+ln -s $HOME_DIBAB/virtualbox/share/virtualbox /usr/share
+cp -fR $HOME_DIBAB/virtualbox/lib/virtualbox /opt/VirtualBox
 
 fi

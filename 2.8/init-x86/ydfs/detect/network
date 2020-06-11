@@ -2,6 +2,9 @@
 
 [ ! -e /etc/hosts ] && echo "127.0.0.1	localhost" > /etc/hosts
 
+[ ! -e /dev/ppp ] && mknod /dev/ppp c 108 0
+[ ! -e /usr/sbin/pppd ] && ln -s /usr/bin/pppd /usr/sbin/pppd
+ 
 ifconfig lo 127.0.0.1
 
 #Bug NetworkManager sometimes don't start dhcpd on eth0

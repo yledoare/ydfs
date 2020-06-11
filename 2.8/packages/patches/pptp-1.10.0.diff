@@ -1,7 +1,28 @@
 diff --git a/Makefile b/Makefile
-index cf470d0..48a9f79 100644
+index cf470d0..61282fb 100644
 --- a/Makefile
 +++ b/Makefile
+@@ -4,15 +4,15 @@ RELEASE=
+ 
+ #################################################################
+ # CHANGE THIS LINE to point to the location of binaries
+-PPPD = /usr/sbin/pppd
++PPPD = ${HOME}/${ARCH}/bin/pppd
+ # Solaris
+ # PPPD = /usr/bin/pppd
+-IP = /bin/ip
++IP = $HOME/$ARCH/sbin/ip
+ #################################################################
+ 
+-BINDIR=$(DESTDIR)/usr/sbin
+-MANDIR=$(DESTDIR)/usr/share/man/man8
+-PPPDIR=$(DESTDIR)/etc/ppp
++BINDIR=$(DESTDIR)/${HOME}/${ARCH}/sbin
++MANDIR=$(DESTDIR)/${HOME}/${ARCH}/share/man/man8
++PPPDIR=$(DESTDIR)/${HOME}/${ARCH}/etc/ppp
+ 
+ CC	= gcc
+ RM	= rm -f
 @@ -72,8 +72,8 @@ test: vector_test
  
  install:
