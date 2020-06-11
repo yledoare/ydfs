@@ -161,7 +161,7 @@ case "$ARCHIVE" in
         echo $FILE
         lunzip "$FILE"
 	TARBALL=`basename $FILE | sed 's/\.[^\.]*$//'` 
-        tar xvf "$FILE" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
+        tar xvf `dirname $FILE`/"$TARBALL" 1> $HOME/ydfs/tmp/tar.$$.log || exit $?
       fi
       [ ! -e $DIR2 ] && echo "ERROR : What DIR2 for $FILE ? " && sleep 1 && DIR2=`cat /$HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && install -d $HOME_DIBAB/data/fixdirs && echo "DIR2=$DIR2 && FORCED=1" > $HOME_DIBAB/data/fixdirs/$(basename $FILE) && git add $HOME_DIBAB/data/fixdirs/$(basename $FILE)
       cd $DIR2
