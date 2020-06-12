@@ -1,0 +1,11 @@
+diff --git a/data/caja.desktop.in.in b/data/caja.desktop.in.in
+index 900068c3a..7fbaaaf58 100644
+--- a/data/caja.desktop.in.in
++++ b/data/caja.desktop.in.in
+@@ -11,5 +11,5 @@ NoDisplay=true
+ OnlyShowIn=MATE;
+ X-MATE-Autostart-Phase=Desktop
+ X-MATE-Autostart-Notify=true
+-X-MATE-AutoRestart=true
++X-MATE-AutoRestart=false
+ X-MATE-Provides=filemanager

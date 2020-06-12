@@ -213,7 +213,7 @@ hackerOS: packages/list-hackerOS
 
 
 # modules: firefox games music office video multimedia fps network emulators graphics
-# modules: firefox games music office video multimedia fps network emulators graphics falkon
+all-modules: firefox games music office video multimedia fps network emulators graphics falkon
 modules: chromium
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs

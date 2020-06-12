@@ -1991,11 +1991,12 @@ echo "At BUILDPERL"
 	  echo "Mixx build"
 	  ls  $HOME_DIBAB/mixxx/controllers && sleep 4
 	  cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
-          mv $HOME/$ARCH/include/vamp-hostsdk $HOME/$ARCH/include/vamp-hostsdk-disabled
-          mv $HOME/$ARCH/include/vamp-sdk $HOME/$ARCH/include/vamp-sdk-disabled
+          # mv $HOME/$ARCH/include/vamp-hostsdk $HOME/$ARCH/include/vamp-hostsdk-disabled
+          # mv $HOME/$ARCH/include/vamp-sdk $HOME/$ARCH/include/vamp-sdk-disabled
+
 	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
   	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
-	  scons $SCONS_OPT build=release qt5=1 qtdir=$HOME/$ARCH/ optimize=portable virtualize=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT || exit $?
+	  scons $SCONS_OPT build=release qt5=1 qtdir=$HOME/$ARCH/ optimize=portable virtualize=0 vamp=0 localecompare=1 qt_sqlite_plugin=0 opus=1 faad=1 $MIXOPT || exit $?
 	  scons $SCONS_OPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
 	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
   	  [ -e $HOME/$ARCH/include/util-smb ] && mv $HOME/$ARCH/include/util-smb $HOME/$ARCH/include/util
