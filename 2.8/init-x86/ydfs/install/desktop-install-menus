@@ -5,8 +5,8 @@ cd /
 while [ 1 ]
 do
   grep noinstallmenu /proc/cmdline && continue
-  busybox sleep 9
-  busybox wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.sh
+  busybox sleep 21
+  busybox wget http://opkg.linuxconsole.org/$MODULE/$RELEASE/desktop-install-menus.sh 2>/dev/null
   if [ -e desktop-install-menus.sh ]
   then
     sh desktop-install-menus.sh

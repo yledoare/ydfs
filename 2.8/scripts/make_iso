@@ -32,7 +32,11 @@ print_menu_options
 if [ "$LIVECD" = "1" ]
 then
   LIVE=livecd
-  echo ONTIMEOUT LiveCD
+  echo ONTIMEOUT Auto
+
+  echo LABEL Auto
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON"
 
   echo LABEL LiveCD
   echo KERNEL $KERNEL36

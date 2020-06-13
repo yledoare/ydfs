@@ -111,6 +111,21 @@ echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep raqm &&  LC_CONFIGURE_OPTS="--disable-Werror"
 echo $ARCHIVE | grep NetworkManager-pptp &&  LC_CONFIGURE_OPTS="--without-libnm-glib"
+echo $ARCHIVE | grep vinagre &&  LC_CONFIGURE_OPTS=" --enable-rdp --enable-compile-warnings=minimum "
+echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE -DWITH_DSP_FFMPEG=ON \
+        -DWITH_FFMPEG=ON \
+        -DWITH_PULSE=ON \
+        -DWITH_CUPS=ON \
+        -DWITH_PCSC=ON \
+        -DWITH_JPEG=ON \
+        -DWITH_SERVER=ON \
+        -DWITH_SWSCALE=ON \
+        -DWITH_CHANNELS=ON \
+        -DWITH_CLIENT_CHANNELS=ON \
+        -DWITH_SERVER_CHANNELS=ON \
+        -DCHANNEL_URBDRC_CLIENT=ON \
+        -DCMAKE_BUILD_TYPE='None' \
+        -Wno-dev "
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
@@ -139,7 +154,34 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
                              -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
                              -DSQLITE_MAX_EXPR_DEPTH=10000"
  
-		echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
+	echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc -D b_lto=true \
+    -D b_ndebug=true \
+    -D platforms=x11,wayland,drm,surfaceless \
+    -D dri-drivers=i915,i965,r100,r200,nouveau \
+    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,swr,iris \
+    -D vulkan-drivers=amd,intel \
+    -D vulkan-overlay-layer=true \
+    -D vulkan-device-select-layer=true \
+    -D swr-arches=avx,avx2 \
+    -D dri3=true \
+    -D egl=true \
+    -D gallium-extra-hud=true \
+    -D gallium-nine=true \
+    -D gallium-omx=bellagio \
+    -D gallium-va=true \
+    -D gallium-vdpau=true \
+    -D gallium-xa=true \
+    -D gallium-xvmc=false \
+    -D gbm=true \
+    -D gles1=false \
+    -D gles2=true \
+    -D glvnd=true \
+    -D glx=dri \
+    -D libunwind=true \
+    -D lmsensors=true \
+    -D osmesa=gallium \
+    -D shared-glapi=true" 
+	echo $ARCHIVE | grep mesaold- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
     --with-gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast \
     --with-dri-drivers=i915,i965,r200,nouveau \
     --with-vulkan-drivers=intel,radeon \

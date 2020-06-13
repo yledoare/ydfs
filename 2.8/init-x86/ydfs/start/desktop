@@ -1,5 +1,10 @@
 install -d $HOME/Desktop
 [ -e $HOME/tmp ] && export TMPDIR=$HOME/tmp
+
+# for DBUS
+install -d $HOME_DIBAB/tmp
+chmod 777  $HOME_DIBAB/tmp
+
 # echo $HOME | grep root && cp /share/applications/opkg.desktop $HOME/Desktop
 # echo $HOME | grep root && cp /usr/share/applications/lutris.desktop $HOME/Desktop
 # echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root

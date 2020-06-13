@@ -15,6 +15,8 @@ SHORTNAME=$(basename $MYPWD | cut -d'-' -f1)
 echo $MYPWD | grep lightdm-gtk-greeter && SHORTNAME=lightdm-gtk-greeter
 echo $MYPWD | grep kde-l10n && SHORTNAME=kde-l10n
 echo $MYPWD | grep file && SHORTNAME=file-
+echo $MYPWD | grep mesa-2 && SHORTNAME=mesa-2
+echo $MYPWD | grep mesa-1 && SHORTNAME=mesa-1
 echo $MYPWD | grep gc- && SHORTNAME=gc-
 echo $MYPWD | grep gnome-vfs && SHORTNAME=gnomevfs 
 echo $MYPWD | grep gst-plugins-base && SHORTNAME=gst-plugins-base
@@ -921,6 +923,8 @@ pwd && sleep 5
     touch buildok-$ARCH
     exit 0
   fi
+
+  [ -e vinagre.doap ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "   ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
   # inetutils
   [ -e ifconfig/system/linux.h ] && echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h 
@@ -2390,14 +2394,19 @@ Cflags: -I${includedir}' > lua.pc
   else
     if [ -e "meson.build" ]
     then
-	echo "meson.build"
+	echo "Running meson.build"
 	mkdir build
 	cd build
-  	meson ../ --prefix=$PREFIX || exit 1
+	echo "Running meson with $LC_CONFIGURE_OPTS"
+  	meson ../ --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 1
   	# PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
      	ninja || exit 1
      	# PYTHONPATH="" ninja || exit 1
+	echo "Running ninja install"
      	ninja install || exit 1
+	echo "ninja install done"
+	echo "Install to $pkgdir"
+     	PYTHONPATH="" DESTDIR="$HOME/ydfs/packages-$ARCH/$MYDIR" ninja install 
      	# PYTHONPATH="" ninja install || exit 1
 	cd ..
 	touch buildok-$ARCH
