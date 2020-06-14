@@ -203,10 +203,9 @@ ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 updates: packages/list-updates
 	./scripts/make_packages updates
-elementary: packages/list-elementary
-	./scripts/make_packages elementary
 pantheon: packages/list-pantheon
 	./scripts/make_packages pantheon
+	./scripts/make_module pantheon
 hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
@@ -214,7 +213,7 @@ hackerOS: packages/list-hackerOS
 
 # modules: firefox games music office video multimedia fps network emulators graphics
 all-modules: firefox games music office video multimedia fps network emulators graphics falkon
-modules: chromium
+modules: chromium lxqt
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt

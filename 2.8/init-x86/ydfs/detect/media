@@ -2,7 +2,7 @@
 
 export ARCH=`uname -m`
 [ "$ARCH" = "i686" ] && ARCH=x86 # FIXME : enable sed in busybox
-echo -n "Creating "
+#echo -n "Creating "
 for device in `ls /sys/class/block/`
 do
 	if [ ! -e /dev/$device ]
@@ -19,7 +19,7 @@ install -d /media/ydfs
 
 if [ ! -e /ydfs/boot/options/livecd ] # look only on cdrom drive
 then
-echo "search into hard/usb disks"
+echo "Search into hard/usb disks .. "
 mkdir /disk
 for device in `ls /sys/class/block/`
 do
@@ -33,7 +33,7 @@ do
         if [ -e /ydfs/boot/options/liveusb  ]
         then
           find /sys |grep $device|grep usb >/dev/null || continue
-          echo "is removable"
+          echo " Using $device as LiveUSB"
         fi
 	/ntfs-3g  /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
@@ -50,7 +50,7 @@ fi
 
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
 then
-	echo -n "livecd ? "
+	echo -n "Search in CD drive .. "
 	for CDROM in sr0 sr1 sr2 sr3 sr4 sr5 sr6
 	do
 	  [ -e /dev/$CDROM ] && mount /dev/$CDROM /media/ydfs && echo "$CDROM" && install -d /var/ydfs/boot/media/cdrom/$CDROM && break

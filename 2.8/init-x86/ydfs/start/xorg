@@ -13,6 +13,9 @@ Section "InputClass"
 EndSection
 ' > /etc/X11/xorg.conf.d/kb.conf
 
+if [ ! -e /ydfs/boot/options/noamdfix ]
+then
+
 AMD=""
 lspci | grep VGA | grep AMD && AMD=OK
 
@@ -39,6 +42,10 @@ Section "Device"
 EndSection
 ' > /etc/X11/xorg.conf.d/radeon.conf
 
+fi
+else
+	[ -e /etc/X11/xorg.conf.d/radeon.conf ] && rm /etc/X11/xorg.conf.d/radeon.conf
+	[ -e /etc/X11/xorg.conf.d/amdgpu.conf ] && rm /etc/X11/xorg.conf.d/amdgpu.conf
 fi
 
 export HOME=/root

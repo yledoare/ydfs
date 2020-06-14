@@ -1,9 +1,14 @@
 #!/busybox/bin/ash
 
-[ -e /ydfs/boot/options/debug01  ] && sh
+/busybox/bin/mount /proc proc -t proc
+#/busybox/bin/echo 1 && /busybox/bin/sleep 2
+
+. /ydfs/detect/boot_options
+
+[ -e /ydfs/boot/options/debug01  ] && echo /busybox/bin/echo /ydfs/boot/options/debug01 && /busybox/bin/ash
+
 . /etc/profile
 
-mount /proc proc -t proc
 mount /sys sys -t sysfs
 mount -t devtmpfs none /dev
 mkdir /dev/pts
@@ -13,28 +18,24 @@ ln -s /proc/mounts /etc/mtab # For Gparted
 
 if [ -e /ydfs/boot/options/ash  ]; then
 /busybox/bin/ash 
-else
-. /ydfs/detect/boot_options
+fi
 
 ln -s /ydfs /dibab
 [ -e /ydfs/boot/options/debug02  ] && sh
 
-echo "Detect media"
+echo -n "Detect media"
 # echo -n "5" > /dev/tty1
 . /ydfs/detect/media
 
 [ -e /ydfs/boot/options/debug03  ] && sh
 
-echo "Mount ydfs modules"
+echo -n "Mount ydfs modules"
 . /ydfs/detect/modules
 
 # echo -n " 4" > /dev/tty1
 [ -e /ydfs/boot/options/debug04  ] && sh
 
-echo -n "Start font cache .. "
-/ydfs/enable/fonts
-fc-cache
-echo "ok"
+[ ! -e /ydfs/boot/options/nofcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
 
 # echo -n " 3" > /dev/tty1
 
@@ -42,13 +43,15 @@ echo "ok"
 
 [ -e /ydfs/boot/options/debug1  ] && sh
 . /ydfs/start/automount
+[ -e /ydfs/boot/options/debug05  ] && sh
 echo "Detect hardware"
 . /ydfs/detect/hardware
+[ -e /ydfs/boot/options/debug06  ] && sh
 echo "Detect Network"
 . /ydfs/detect/network & #> /dev/tty2 2>/dev/tty2
-echo "Set up sound mixer"
+# echo "Set up sound mixer"
 # echo -n " 2" > /dev/tty1
-. /ydfs/detect/mixer 
+. /ydfs/detect/mixer &
 . /ydfs/enable/swap &
 . /ydfs/detect/cups &
 
@@ -58,7 +61,6 @@ if [ -e /ydfs/boot/options/fixusb  ]; then
 echo "FIXUSB mode, looking into usb disks ..." && sleep 9
 . /ydfs/start/fixusb || ash
 fi
-
 
 if [ -e /ydfs/boot/options/fixme  ]; then 
 echo "FIXME mode" && sleep 5
@@ -80,12 +82,11 @@ fi
 date > /tmp/xorg-start-date
 
 if [ -e /ydfs/boot/options/text  ]; then
-sh
-echo "You can now start /ydfs/start/xorg"
+  echo "You can now start /ydfs/start/xorg"
+  sh
 else
-echo "Start Xorg"
-/ydfs/start/xorg
-fi
+  echo "Start Xorg"
+  /ydfs/start/xorg
 fi
 
 /ydfs/start/save-persistant-data
@@ -101,15 +102,14 @@ busybox sh /ydfs/stop/all
 
 echo "Stoping all process ... "
 touch /tmp/stop
-killall NetworkManager
-killall ModemManager
-killall dbus-launch
-killall pulseaudio
+#killall NetworkManager
+#killall ModemManager
+#killall dbus-launch
+#killall pulseaudio
 killall5 
 
 [ -e /ydfs/boot/options/debug4  ] && sh
 echo -n "Stoping network interfaces ... "
-
 ls /sys/class/net/| while read NET
 do
 echo -n "$NET "
@@ -119,10 +119,12 @@ done
 /sbin/swapoff -a
 /busybox/bin/umount -l /dev
 sync
-sleep 2
+sleep 1
 echo
+/busybox/bin/umount /usr/var/cache/fontconfig
 /busybox/bin/umount /usr/var
-/busybox/bin/umount -a
+[ $? != 0 ] && [ -e /ydfs/boot/options/debugpoweroff ] && echo "debugpoweroff mode on" && /busybox/bin/ash
+/busybox/bin/umount -a >/dev/null 2>/dev/null
 lsof | grep usr
 if [ $? = 0 ] 
 then
@@ -152,5 +154,7 @@ fi
 
 [ -e /ydfs/boot/options/debug6  ] && sh
 [ -e /run-before-poweroof  ] && sh /run-before-poweroof
-grep RESTART /var/log/ConsoleKit/history && reboot
+
+[ -e /var/log/ConsoleKit/history ] && grep RESTART /var/log/ConsoleKit/history && echo "Rebooting" && reboot
+echo "Poweroff"
 poweroff

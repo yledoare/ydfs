@@ -9,8 +9,7 @@ chmod 777  $HOME_DIBAB/tmp
 # echo $HOME | grep root && cp /usr/share/applications/lutris.desktop $HOME/Desktop
 # echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root
 echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
-
-
+[ "$(id -u)" = "0" ] && export USER="root"
 # Fix wine startup
 # [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
 # sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop

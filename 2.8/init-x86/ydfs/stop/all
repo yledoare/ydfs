@@ -4,7 +4,9 @@ echo "Stop process ..." > /dev/tty1
 ls /proc |while read line
 do
   [ "$line" = "self" ] && continue
-  [ -e /proc/$line/cmdline ] && grep rsyslogd /proc/$line/cmdline && kill $line
-  [ -e /proc/$line/cmdline ] && grep ModemManager /proc/$line/cmdline && kill $line
-  [ -e /proc/$line/cmdline ] && grep at-spi-bus-launcher /proc/$line/cmdline && kill $line
+  [ "$line" = "thread-self" ] && continue
+  [ -e /proc/$line/cmdline ] && grep rsyslogd /proc/$line/cmdline >/dev/null && kill $line
+  [ -e /proc/$line/cmdline ] && grep ModemManager /proc/$line/cmdline >/dev/null && kill $line
+  [ -e /proc/$line/cmdline ] && grep pulseaudio /proc/$line/cmdline >/dev/null && kill $line
+  [ -e /proc/$line/cmdline ] && grep at-spi-bus-launcher /proc/$line/cmdline >/dev/null && kill $line
 done

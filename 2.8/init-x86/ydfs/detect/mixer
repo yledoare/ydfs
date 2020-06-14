@@ -3,15 +3,20 @@
 modprobe snd-pcm-oss
 modprobe snd-seq-midi
 
-echo -n "Mixer : "
+ALSA_CARD=0
 sleep 3 # waiting loading sound modules
+echo -n "Mixer : "
+if [ ! -e /proc/asound/card"$ALSA_CARD"/id ] 
+then
+	echo "no sound card found"
+else
 if [ ! -e "$HOME_DIBAB/$ARCH/lib/alsa/var/asound.state" ] 
 then
 #  install -d $HOME_DIBAB/$ARCH/lib/alsa/var
 #  ln -s $HOME_DIBAB/$ARCH/var/lib $HOME_DIBAB/var/lib
 #  alsactl store
-ALSA_CARD=0
 
+cat /proc/asound/card"$ALSA_CARD"/id
 cat /proc/asound/card"$ALSA_CARD"/id
 
 # Output mode (SPDIF or analog)
@@ -109,4 +114,6 @@ else
   # ln -s $HOME_DIBAB/$ARCH/var/lib $HOME_DIBAB/$THEHOME/var/lib
   echo "alsactl restore"
   alsactl restore
+fi
+
 fi

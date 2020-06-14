@@ -30,7 +30,7 @@ fi
 
 /ydfs/enable/virtualbox
 
-echo "Loading kernel modules "
+echo -n "Loading kernel modules "
 echo -n "."
 udevadm trigger --action=add --type=subsystems
 echo -n "."
@@ -38,15 +38,15 @@ udevadm trigger --action=add --type=devices
 echo -n "."
 # udevadm trigger --subsystem-match=pci --attr-match=modalias --attr-nomatch=driver
 # udevadm trigger --subsystem-match=usb --attr-match=modalias --attr-nomatch=driver
-echo -n "udevadm settle ..."
+echo -n " udevadm settle "
 udevadm settle
 echo -n "."
-modprobe psmouse
+#modprobe psmouse
 modprobe evdev
 modprobe analog
 echo -n "."
 #busybox mdev -s
-echo "Ok"
+echo " Done"
 # mkdir /tmp/drivers
 #/bin/mountsfsrw /tmp/drivers /lib/modules/
 #rm /lib/modules/*/kernel/drivers/gpu/drm/i915/i915.ko

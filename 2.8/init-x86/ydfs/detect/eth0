@@ -1,1 +1,1 @@
-dmesg |grep rename | grep eth0 |cut -d':' -f4 | cut -d' ' -f4
+ip a |grep 2: |head -1|cut -d' ' -f2|cut -d':' -f1

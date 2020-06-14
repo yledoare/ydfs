@@ -1,3 +1,4 @@
+echo -n "Detecting optional modules "
 ls /media/ydfs/modules/| while read module
 do
   [ "$module" == "x86_64.squashfs" ] && continue
@@ -8,7 +9,7 @@ do
   MODULE=`echo $module | cut -d'-' -f1`
 if [ ! -e /ydfs/modules/$MODULE ]
 then
- echo " $MODULE "
+ echo -n "$MODULE "
  install -d /ydfs/modules/$MODULE
  ln -s /ydfs/modules/$MODULE $HOME_DIBAB
  mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
@@ -17,7 +18,7 @@ then
    [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
    ls /ydfs/modules/$MODULE/$subdir | while read file
    do
-     ln -s  /ydfs/modules/$MODULE/$subdir/$file /$subdir/$file
+     [ ! -e /$subdir/$file ] && ln -s  /ydfs/modules/$MODULE/$subdir/$file /$subdir/$file
    done
  done
  for subdir in share/icons/hicolor/48x48/apps share/icons/hicolor/128x128/apps
@@ -25,7 +26,7 @@ then
    [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
    ls /ydfs/modules/$MODULE/$subdir | while read file
    do
-     ln -s /ydfs/modules/$MODULE/$subdir/$file /share/pixmaps
+     [ ! -e /share/pixmaps/$file ] && ln -s /ydfs/modules/$MODULE/$subdir/$file /share/pixmaps
    done
  done
 fi
