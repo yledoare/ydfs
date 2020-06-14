@@ -961,6 +961,7 @@ pwd && sleep 5
 
   [ -e xmoto.6 ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
 
+  # [ -e util/grub-setup.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   [ -e src/libplist.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   if [ -e autogen.sh ] && [ -e gtksourceview-3.0.pc.in ]
   then
@@ -1548,6 +1549,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	--with-platform="efi" \
 		--target="x86_64" 
 	make && make install
+	# https://www.mail-archive.com/grub-devel@gnu.org/msg29840.html
+	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
 	make clean
   fi
   if [ -e jack.pc.in ]
