@@ -9,7 +9,7 @@ GUI_PATH=$HOME/$ARCH
 
 install -d $HOME/ydfs/modules/$ARCH
 
-DOC_FILES="25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
+DOC_FILES="share/doc 25-ttf-arphic-uming-bitmaps.conf q3porting.xml README INSTALL-BINARY COPYING /man/ /docs/ bin/man gtk-doc share/info gnome/help"
 # ICONS_FILES="icons/handhelds icons/nuoveXT2  icons/redglass icons/ whiteglass"
 LOCALE_FILES="share/locale"
 DEV_FILES="lib/scons lib/tcl8.5 python3.8/test pygame/tests"
@@ -26,6 +26,10 @@ do
   cat $LIST | grep $FILES | while read file
   do
 #	echo "DEBUG $file 1" >> $HOME/ydfs/tmp/debug
+    echo $file|grep 'mysql-test' >/dev/null && continue
+    echo $file|grep 'sql-bench' >/dev/null && continue
+    echo $file|grep 'share/doc' >/dev/null && continue
+
     test "$file" = "./bin/ls" && echo "Skip ./bin/ls" && continue
 #	echo "DEBUG $file 2" >> $HOME/ydfs/tmp/debug
     test -f "$file" && test ! -e `dirname $HOME/ydfs/modules/$MOD/"$file"` && install -d `dirname $HOME/ydfs/modules/$MOD/"$file"` 
@@ -43,9 +47,6 @@ do
     test -f "$file" && test ! -e $HOME/ydfs/modules/$MOD/"$file" && cp -a $HOME/$ARCH/"$file" $HOME/ydfs/modules/$MOD/"$file" 
 #	echo "DEBUG $file 9" >> $HOME/ydfs/tmp/debug
     echo $file|grep 'grub/i386-pc' >/dev/null && continue
-    echo $file|grep 'mysql-test' >/dev/null && continue
-    echo $file|grep 'sql-bench' >/dev/null && continue
-    echo $file|grep 'share/doc' >/dev/null && continue
     echo $file|grep 'multi-user.target.wants/shadow.timer' >/dev/null && continue
     echo $file|grep 'share/icons' >/dev/null && continue
     [ "$MKSQUASHFS_OPT" = "" ] && test -f $HOME/ydfs/modules/$MOD/$file && strip $HOME/ydfs/modules/$MOD/$file
@@ -117,13 +118,15 @@ else
   done
 fi
 
-cd $HOME/ydfs/modules/$ARCH/share/doc
-ls $HOME/ydfs/modules/$ARCH/share/doc | while read file
-do
-  test "$file" = "cups" && continue
-  echo "Delete $file"
-  rm -fR $HOME/ydfs/modules/$ARCH/share/doc/$file
-done
+cp -a $HOME/$ARCH/share/doc/cups $HOME/ydfs/modules/$ARCH/share/doc
+
+#cd $HOME/ydfs/modules/$ARCH/share/doc
+#ls $HOME/ydfs/modules/$ARCH/share/doc | while read file
+#do
+#  test "$file" = "cups" && continue
+#  echo "Delete $file"
+#  rm -fR $HOME/ydfs/modules/$ARCH/share/doc/$file
+#done
  
 [ "$ARCH" = "x86" ] && [ -e /usr/lib/i386-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu && cp -fR /usr/lib/i386-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/i386-linux-gnu
 [ "$ARCH" = "x86_64" ] && [ -e /usr/lib/x86_64-linux-gnu/gconv ] && install -d $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu && cp -fR /usr/lib/x86_64-linux-gnu/gconv $HOME/ydfs/modules/$ARCH/lib/x86_64-linux-gnu

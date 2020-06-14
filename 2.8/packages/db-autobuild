@@ -1551,7 +1551,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	make && make install
 	# https://www.mail-archive.com/grub-devel@gnu.org/msg29840.html
 	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
-	make clean
+        touch buildok-$ARCH
+	exit 0
   fi
   if [ -e jack.pc.in ]
   then
