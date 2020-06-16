@@ -27,6 +27,7 @@ if [ "$DISPLAY" = "" ] || [ "$EMULATOR" = "QEMU" ]
 then
   echo "Run Qemu"
   [ "$DISPLAY" = "" ] && DISPLAY_OPT="-curses"
+  [ "$1" = "curses" ] && DISPLAY_OPT="-curses"
   # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cdrom $ISO
   if [ -e myfix ]
   then

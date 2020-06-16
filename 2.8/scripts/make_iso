@@ -70,6 +70,10 @@ fi
   echo KERNEL $KERNEL36
   echo "APPEND $COMMON text $LIVE"
 
+  echo LABEL Custom initramfs
+  echo KERNEL $KERNEL36
+  echo "APPEND initrd=$INITRD26C quiet"
+
 echo '
 MENU SEPARATOR
 
@@ -238,6 +242,7 @@ install -d $LCMBUILD
 
 KERNEL36="$KERNEL_PREFIX`echo $KERNEL3 | tr -d '.'`"
 INITRD26="`echo $KERNEL3 | tr -d '.'`"
+INITRD26C="`echo $KERNEL3 | tr -d '.'`""-custom"
 
 
 install -d $ISOTMP/iso/isolinux
@@ -305,6 +310,7 @@ cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage /$ISOTMP/iso/i
 fi
 cp /$HOME/ydfs/build/linux-$ARCH-$KERNEL3/.config /$ISOTMP/iso/isolinux/config-kernel.txt || exit 1
 cp /$HOME/ydfs/build-$ARCH/$INITRD26 /$ISOTMP/iso/isolinux || exit 4
+cp /$HOME/ydfs/build-$ARCH/$INITRD26C /$ISOTMP/iso/isolinux || exit 4
 
 echo "
 [autorun]

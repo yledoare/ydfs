@@ -104,7 +104,7 @@ endif
 INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
-all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) modules iso sleep
+all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs initramfs2 linux core firmware drivers $(DISTRONAME) modules iso sleep
 
 sleep:
 	echo "Sleeping 60 minutes .. "
@@ -132,6 +132,8 @@ ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: config.ini init-${ARCH}/ydfs/detect/med
 	./scripts/make_initramfs
 
 initramfs: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS}
+initramfs2: 
+	CUSTOMINIT=OK ./scripts/make_initramfs
 
 crosstool-ng-x86_64:
 	echo Bug with recursion
@@ -146,8 +148,6 @@ metalink:
 
 ${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs config.ini #  ${LCMBUILD}
 	./scripts/make_iso
-synciso: initramfs iso
-	scp /home/linuxconsole25/ydfs/iso/linuxconsole.iso yann@192.168.1.47:.
 
 config.ini:
 	./scripts/make_config_ini
@@ -164,8 +164,7 @@ wineprogs:
 test:
 	./scripts/make_test
 test2:
-	@echo ${ISOPATH}
-#	@echo ${KERNEL3} | tr -d '.'
+	./scripts/make_test curses
 cleanmultilib:
 	./scripts/make_clean_multilib
 distclean:
