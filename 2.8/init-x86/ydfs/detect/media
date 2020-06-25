@@ -35,14 +35,14 @@ do
           find /sys |grep $device|grep usb >/dev/null || continue
           echo " Using $device as LiveUSB"
         fi
-	/ntfs-3g  /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
+	/ntfs-3g -o remove_hiberfile /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
 	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
           umount /disk 
-          /ntfs-3g /dev/$device /media/ydfs 2>/dev/null || mount /dev/$device /media/ydfs -o rw && break
+          /ntfs-3g -o remove_hiberfile /dev/$device /media/ydfs 2>/dev/null || mount /dev/$device /media/ydfs -o rw && break
         fi
         umount /disk
 done
