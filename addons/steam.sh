@@ -17,7 +17,7 @@ else
 
 install -d src/steam
 cd src/steam
-[ ! -e steam ] && wget http://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.61.tar.gz && tar xzvf steam_1.0.0.61.tar.gz
+[ ! -e steam-launcher ] && wget http://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.62.tar.gz && tar xzvf steam_1.0.0.62.tar.gz
 # sed -i "s@id -u@echo@g" steam/steam
 # mkdir bootstrap
 # cd bootstrap
@@ -28,7 +28,7 @@ cd src/steam
 #sed -i "s@LD_LIBRARY_PATH@DISABLE_LINUXCONSOLE@g" steam.sh
 #tar cJvf ../steam/bootstraplinux_ubuntu12_32.tar.xz *
 # cd ..
-
-LIBGL_DRIVERS_PATH=/usr/lib32/dri/ steam/steam
+cd steam-launcher && DESTDIR=/tmp make install
+#LIBGL_DRIVERS_PATH=/usr/lib32/dri/ steam/steam
 
 fi
