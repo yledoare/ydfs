@@ -11,7 +11,7 @@ index cf470d0..61282fb 100644
  # Solaris
  # PPPD = /usr/bin/pppd
 -IP = /bin/ip
-+IP = ${HOME}/{$ARCH}/sbin/ip
++IP = ${HOME}/${ARCH}/sbin/ip
  #################################################################
  
 -BINDIR=$(DESTDIR)/usr/sbin

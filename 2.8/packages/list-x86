@@ -867,6 +867,7 @@ http://www.sysprof.com/sysprof-1.2.0.tar.gz
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
 https://gitlab.gnome.org/GNOME/mutter/-/archive/3.36.1/mutter-3.36.1.tar.bz2
+freerdp-2.1.1.tar.gz::https://github.com/freerdp/freerdp/archive/2.1.1.tar.gz
 #https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz

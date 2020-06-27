@@ -27,11 +27,15 @@
 	cd ../../../
 	cd ./out/linux.amd64/release/bin/additions/src/
 	install -d $pkgdir/lib/modules
-	for DRIVER in vboxguest  vboxsf  vboxvideo
+	for DRIVER in vboxguest vboxvideo vboxsf
 	do
 	  cd $DRIVER	
-	  echo "Building $DRIVER  .. " && sleep 1
-	  make KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
+	  echo 
+	  echo make  KBUILD_EXTRA_SYMBOLS=$PWD/../vboxguest/Module.symvers KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/"
+	  echo "Building $DRIVER  .. " && sleep 3
+	  [ $DRIVER = "vboxsf" ] && cat ../vboxguest/Module.symvers >> Module.symvers
+	  make  KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
+	  # make  KBUILD_EXTRA_SYMBOLS=../vboxguest/Module.symvers KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
 	  cd ..
 	  find . -name *.ko | while read file; do cp $file $pkgdir/lib/modules; done
 	done
