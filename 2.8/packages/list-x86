@@ -326,7 +326,7 @@ http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.2.tar.bz2
 http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz 
 https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.11.tar.gz
 pip::PyOgg
-http://ftp.gnome.org/pub/gnome/sources/pygobject/3.36/pygobject-3.36.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/pygobject/3.36/pygobject-3.36.1.tar.xz
 http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
 ftp://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
@@ -547,7 +547,7 @@ http://www.openprinting.org/download/foomatic/foomatic-db-current.tar.gz
 http://www.openprinting.org/download/foomatic/foomatic-filters-4.0.12.tar.gz
 http://freefr.dl.sourceforge.net/project/gimp-print/gutenprint-5.2/5.2.10/gutenprint-5.2.10.tar.bz2 
 pip::pycups
-http://cyberelk.net/tim/data/system-config-printer/1.4/system-config-printer-1.4.4.tar.xz 
+https://github.com/OpenPrinting/system-config-printer/archive/1.5.12.tar.gz
 git://github.com/lloyd/yajl.git
 http://downloads.sourceforge.net/swig/swig-3.0.12.tar.gz
 http://taglib.github.io/releases/taglib-1.11.1.tar.gz
