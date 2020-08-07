@@ -9,6 +9,7 @@ which qemu-system-x86_64 && EMULATOR="QEMU"
 
 KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"
 INITRD26="`echo $KERNEL3 | tr -d '.'`"
+# INITRD26="custom-`echo $KERNEL3 | tr -d '.'`"
 if [ "$ARCH" = "x86" ] ||[ "$ARCH" = "x86_64" ]
 then
 ISO=$ISOTMP/linuxconsole"$NUM"."$LCBUILD"-"$ARCH".iso
@@ -34,7 +35,7 @@ then
   qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
   else
     [ -e $ISO ] && OPTION="-cdrom $ISO" 
-    qemu-system-x86_64 $DISPLAY_OPT -append "nofcc livecd quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    qemu-system-x86_64 $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
   fi
   exit 0

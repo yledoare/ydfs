@@ -63,7 +63,7 @@ KERNEL=$KERNEL3
   else
     INITRD="`echo $1 | tr -d '.'`"
   fi 
-  [ "$CUSTOMINIT" = "OK" ] && INITRD="$INITRD""-custom"
+# [ "$CUSTOMINIT" = "OK" ] && INITRD="custom"-"$INITRD"
   install -d $INITRAMFS/lib/modules/$KERNEL/
   cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
   DEPS=""
@@ -76,17 +76,18 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
-if [ "$CUSTOMINIT" = "OK" ]
-then
+#if [ "$CUSTOMINIT" = "OK" ]
+#then
  echo "Custom init"
- echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init
- echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
- echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
+ echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  # echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
- chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init
-else
+ chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init2
+#else
  ln -sf /busybox/sbin/init  $HOME/ydfs/tmp/initramfs-$ARCH/
-fi
+#fi
 ROOTFS=/$HOME/ydfs/tmp/initramfs-$ARCH/
 install -d $ROOTFS/$HOME
 install -d $ROOTFS/proc
