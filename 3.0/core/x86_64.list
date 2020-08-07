@@ -55,7 +55,7 @@ archlinux:libidn
 archlinux:coreutils
 #archlinux:squashfs-tools
 #https://github.com/Cyan4973/lz4/archive/r131.tar.gz
-archlinux:gnu-efi-libs
+archlinux:gnu-efi
 archlinux:libxml2
 archlinux:pam
 archlinux:expat
