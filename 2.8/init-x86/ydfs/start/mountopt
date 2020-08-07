@@ -36,9 +36,9 @@ done
 
 ls /ydfs/modules/ | while read MODULE
 do
-  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'VST_PATH=$VST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/ladspa ] && echo 'LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/lv2 ] && echo 'LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/lxvst ] && echo 'LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
-  [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'export VST_PATH=$VST_PATH:'$HOME_DIBAB/$MODULE/lib/vst >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/ladspa ] && echo 'export LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/$MODULE/lib/ladspa >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lv2 ] && echo 'export LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE/lib/lv2 >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lxvst ] && echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE/lib/lxvst >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'export DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE/lib/dssi >> /etc/env.dyn
 done
