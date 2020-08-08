@@ -1,11 +1,12 @@
+git://github.com/mtytel/helm.git#tag=v0.9.0
 git://github.com/surge-synthesizer/surge.git#tag=release_1.7.1
+git://github.com/DISTRHO/DISTRHO-Ports.git
+git://github.com/falkTX/Carla.git#tag=v2.1.1
 https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
 lvtk-1.2.0.tar.gz::https://github.com/lvtk/lvtk/archive/1.2.0.tar.gz
 ams-lv2-1.2.2.tar.gz::https://github.com/blablack/ams-lv2/archive/v1.2.2.tar.gz
 git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5
-git://github.com/falkTX/Carla.git#tag=v2.0.0
-git://github.com/ardour/ardour.git#tag=6.0
+git://github.com/ardour/ardour.git#tag=6.2
 http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
 git://github.com/hydrogen-music/hydrogen.git#commit=538eaeb9f4e9be2febf02e36a08e3e9fca2ae317
-https://github.com/LMMS/lmms/releases/download/v1.2.1/lmms_1.2.1.tar.xz
-#git://github.com/mtytel/helm.git#tag=v0.9.0
+https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms_1.2.2.tar.xz

@@ -368,8 +368,10 @@ else
     git submodule update --init --recursive
     echo 2
     install -d build
+    sed -e "s|/usr/share/Surge|$PREFIX/share/Surge|" -i src/common/SurgeStorage.cpp
+grep share/Surge src/common/SurgeStorage.cpp
     # cd build-headless
-      LDFLAGS="${LDFLAGS},-z,noexecstack" cmake -DCMAKE_INSTALL_PREFIX='/usr' \
+      LDFLAGS="${LDFLAGS},-z,noexecstack" cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
         -DCMAKE_BUILD_TYPE='None' \
         -W no-dev \
         -B build \
@@ -384,8 +386,8 @@ else
       #wget https://git.archlinux.org/svntogit/community.git/plain/trunk/Makefile?h=packages/surge -O Makefile
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/lib/lv2
-      install -d $PREFIX/share/surge
-      cp -av resources/data/* $PREFIX/share/surge || exit 2
+      install -d $PREFIX/share/Surge
+      cp -av resources/data/* $PREFIX/share/Surge || exit 2
       cp -fR build/surge_products/Surge.lv2 $PREFIX/lib/lv2 || exit 1
       cp -fR build/surge_products/Surge.vst3 $PREFIX/lib/vst3 || exit 1
     touch buildok-$ARCH
