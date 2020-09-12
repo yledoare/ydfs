@@ -1,5 +1,5 @@
 # FROM debian:buster-backports
-FROM ubuntu:eoan
+FROM ubuntu:focal
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
