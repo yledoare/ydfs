@@ -316,7 +316,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep e2fsprogs && LC_CONFIGURE_OPTS="--enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck"
 #	echo $ARCHIVE | grep ode-0.15 && LC_CONFIGURE_OPTS="--enable-libccd --enable-double-precision"
 	echo $ARCHIVE | grep Alien-SDL && LC_CONFIGURE_OPTS="--with-sdl-config"
-	echo $ARCHIVE | grep gobject-introspection && LC_CONFIGURE_OPTS="--disable-tests" && [ "$ARCH" == "arm" ] && export PATH=$HOME/$ARCH/bin/:$PATH
+#	echo $ARCHIVE | grep gobject-introspection && LC_CONFIGURE_OPTS="--disable-tests" && [ "$ARCH" == "arm" ] && export PATH=$HOME/$ARCH/bin/:$PATH
 	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
 	echo $ARCHIVE | grep dossizola && LC_CONFIGURE_OPTS="--datadir=$DIBAB_PREFIX/$MODULE"
 	echo $ARCHIVE | grep pcmanfm && LC_CONFIGURE_OPTS="--enable-debug"
