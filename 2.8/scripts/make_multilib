@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline util-linux tcl8 sqlite libpng libffi p11-kit gnutls pcre- elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng libffi p11-kit gnutls elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -294,11 +294,12 @@ do
 	cd source
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
-    util-linux* )
-	cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
-	autoreconf
-  	./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
-    ;;
+    #util-linux* )
+  #	./configure CC="${CC:-cc} -m32" --libdir=/usr/lib32 || exit $?
+	# cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
+	# autoreconf
+  	#./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
+  #  ;;
     dbus-1.12.16 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;

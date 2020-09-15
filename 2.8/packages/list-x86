@@ -15,7 +15,8 @@ git://github.com/lz4/lz4.git#tag=v1.9.2
 https://github.com/facebook/zstd/releases/download/v1.4.5/zstd-1.4.5.tar.gz
 http://people.redhat.com/sgrubb/libcap-ng/libcap-ng-0.7.8.tar.gz
 https://github.com/linux-pam/linux-pam/releases/download/v1.3.1/Linux-PAM-1.3.1.tar.xz
-https://www.kernel.org/pub/linux/utils/util-linux/v2.32/util-linux-2.32.1.tar.xz
+libxcrypt-4.4.17.tar.gz::https://github.com/besser82/libxcrypt//archive/v4.4.17.tar.gz
+https://www.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz
 http://www-us.apache.org/dist/apr/apr-1.6.5.tar.bz2
 https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.4/e2fsprogs-1.45.4.tar.xz
 http://www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.xz
@@ -27,7 +28,7 @@ https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 https://download.savannah.gnu.org/releases/lzip/lzip-1.20.tar.gz
 git://github.com/plougher/squashfs-tools
 http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
-https://download.gimp.org/pub/babl/0.1/babl-0.1.58.tar.bz2
+https://download.gimp.org/pub/babl/0.1/babl-0.1.78.tar.xz
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
 https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
 https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.15.tar.xz
@@ -561,8 +562,9 @@ http://freefr.dl.sourceforge.net/project/libcddb/libcddb/1.3.2/libcddb-1.3.2.tar
 http://freefr.dl.sourceforge.net/project/mpg123/mpg123/1.18.0/mpg123-1.18.0.tar.bz2 
 https://fossies.org/linux/www/neon-0.30.2.tar.gz
 #GEGL-0.4-for-Gimp 
-https://download.gimp.org/pub/gegl/0.4/gegl-0.4.12.tar.bz2
-https://gitlab.gnome.org/GNOME/gegl/-/archive/GEGL_0_3_34/gegl-GEGL_0_3_34.tar.gz
+https://download.gimp.org/pub/babl/0.1/babl-0.1.78.tar.xz
+https://download.gimp.org/pub/gegl/0.4/gegl-0.4.26.tar.xz
+#https://gitlab.gnome.org/GNOME/gegl/-/archive/GEGL_0_3_34/gegl-GEGL_0_3_34.tar.gz
 https://github.com/jemalloc/jemalloc/releases/download/5.1.0/jemalloc-5.1.0.tar.bz2
 https://mirrors.n-ix.net/mariadb/mariadb-10.4.13/source/mariadb-10.4.13.tar.gz
 http://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.63.tar.gz 
@@ -666,7 +668,8 @@ http://hg.openjdk.java.net/jdk-updates/jdk11u/archive/jdk-11.0.2+7.tar.gz
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 https://ftp.gnu.org/pub/gnu/guile/guile-2.2.6.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/gcab/0.7/gcab-0.7.tar.xz
-https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-0.6.3.tar.xz
+git://github.com/snowballstem/snowball#commit=8c73aa900e168a96e046ec9ed6f13739c3dfacb0
+https://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-0.7.18.tar.xz
 http://www.abisource.com/downloads/enchant/1.6.0/enchant-1.6.0.tar.gz
 http://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.9.tar.xz
 #Mate desktop

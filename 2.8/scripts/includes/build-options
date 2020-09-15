@@ -265,6 +265,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
+	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
 	# echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS=" -DWANT_QT5=ON -DWANT_SOUNDIO=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo "
@@ -712,10 +713,10 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	#echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
-        echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
+        #echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-python"
         echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
-	echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
+	# echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
 	if [ "$ARCH" = "arm" ] 
 	then
 		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 
