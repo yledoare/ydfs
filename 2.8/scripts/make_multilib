@@ -5,7 +5,7 @@ export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
 unset PYTHONPATH
 export PATH=$HOME/llvm-multilib/bin/:$HOME/multilib/bin:$HOME/x86_64/bin/:$PATH
-export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/lib32/pkgconfig:$HOME/multilib/share/pkgconfig
+export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig:$HOME/multilib/lib32/pkgconfig:$HOME/multilib/share/pkgconfig:/usr/share/pkgconfig/
 export LD_LIBRARY_PATH=$HOME/multilib/lib:$HOME/multilib/lib32:$HOME/x86_64/lib/:$LD_LIBRARY_PATH
 export CC="gcc -m32"
 export CXX="g++ -m32"
@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2 curl" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
@@ -108,8 +108,9 @@ do
     mesa )
 	mkdir build-32
 	cd build-32
-	echo 
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 \
+	echo "[binaries]
+llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
     -D b_lto=false \
     -D b_ndebug=true \
     -D platforms=x11,wayland,drm,surfaceless \
@@ -139,6 +140,9 @@ do
     -D valgrind=false
 	;;
 
+    zstd )
+	echo "No config for zstd"
+        ;;
     bzip2 )
 	echo "No config for Bzip2"
         ;;
