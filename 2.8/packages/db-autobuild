@@ -642,7 +642,8 @@ fi
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
   [ -e dotconf.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e luit.c ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
-  [ -e libomxil-bellagio.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
+  [ -e libgtop-2.0.pc.in ] && sed -e 's/0.19.4/0.20/g' -i configure.ac # && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
+  [ -e libomxil-bellagio.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -v
   [ -e sox.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif && rm CMakeLists.txt
   [ -e liboauth.lsm.in  ] && install -d m4 && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e mount.cifs.c  ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vi
@@ -1405,6 +1406,7 @@ fi
     # Do not build with cmake
     if [ -e CMakeLists.txt ] \
  && [ ! -e doc/nghttp2_version.rst ] \
+ && [ ! -e libvncserver.pc.in ] \
  && [ ! -e enet.dsp ] \
  && [ ! -e mlt++.pc.in ] \
  && [ ! -e src/lzo_crc.c ] \

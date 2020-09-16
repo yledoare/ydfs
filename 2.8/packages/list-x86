@@ -710,7 +710,8 @@ https://github.com/SFML/SFML/archive/2.5.1.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
 #LibreOffice
-https://github.com/hunspell/hunspell/archive/v1.6.2.tar.gz
+hunspell-1.7.0.tar.gz::https://github.com/hunspell/hunspell/archive/v1.7.0.tar.gz
+#https://github.com/hunspell/hunspell/archive/v1.6.2.tar.gz
 https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
 http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/librevenge-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.6.tar.xz
