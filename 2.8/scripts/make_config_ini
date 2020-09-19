@@ -2,7 +2,7 @@
 #ce script est lancé par ?
 # commande echo pour créer le fichier
 echo '
-BUSYBOX=1.24.2
+BUSYBOX=1.31.1
 KERNEL_PREFIX=k
 DISTRONAME=linuxconsole
 CROSSTOOL=1.15.3
