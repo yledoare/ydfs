@@ -84,7 +84,7 @@ LDLINUX="ld-linux.so.2 libunwind-x86.so.8"
 [ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8"
 LIBLLVM=9
 [ -e $HOME/ydfs/llvm-clang/lib/libLLVM-3.6.so ] && LIBLLVM=3.6
-LIBBOOST=67
+LIBBOOST=71
 
 
 [ -e /usr/lib/libboost_filesystem.so.1.49.0 ] && LIBBOOST=49
@@ -110,7 +110,7 @@ else
 	  install -d $HOME/ydfs/modules/$ARCH/lib
   for file in $GLIBC_LIBS
   do
-    for directory in /lib64 /libx32/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/8/ /usr/lib/gcc/x86_64-linux-gnu/8/ /usr/lib/gcc/i686-linux-gnu/7/ /usr/lib/gcc/x86_64-linux-gnu/7/ /usr/lib/llvm-$LIBLLVM/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/6/
+    for directory in /lib64 /libx32/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/9/ /usr/lib/gcc/x86_64-linux-gnu/9/ /usr/lib/llvm-$LIBLLVM/lib/ /usr/lib/gcc/i586-linux-gnu/4.9/ /lib /usr/lib/gcc/i486-linux-gnu/4.7 /usr/lib/gcc/i686-linux-gnu/4.8 /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib /usr/lib/gcc/i486-linux-gnu/4.4 /usr/lib/gcc/x86_64-linux-gnu/4.8/ $HOME/ydfs/llvm-clang/lib/ /lib/i386-linux-gnu/ /usr/lib/gcc/i686-linux-gnu/6/
     do
 	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
     done
