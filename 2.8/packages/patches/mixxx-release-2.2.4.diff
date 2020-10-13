@@ -1,0 +1,39 @@
+diff --git a/src/SConscript.env b/src/SConscript.env
+index 209cad5..876a395 100644
+--- a/src/SConscript.env
++++ b/src/SConscript.env
+@@ -92,7 +92,7 @@ for feature in available_features:
+ 
+ if unmet_dependencies:
+         logging.error("Build had unmet dependencies. Exiting.")
+-        Exit(1)
++        # Exit(1)
+ 
+ sources = []
+ 
+diff --git a/lib/vamp/src/vamp-hostsdk/PluginHostAdapter.cpp b/lib/vamp/src/vamp-hostsdk/PluginHostAdapter.cpp
+index 77ebf9f..04e6acb 100644
+--- a/lib/vamp/src/vamp-hostsdk/PluginHostAdapter.cpp
++++ b/lib/vamp/src/vamp-hostsdk/PluginHostAdapter.cpp
+@@ -37,7 +37,7 @@
+ #include <vamp-hostsdk/PluginHostAdapter.h>
+ #include <cstdlib>
+ 
+-#if ( VAMP_SDK_MAJOR_VERSION != 2 || VAMP_SDK_MINOR_VERSION != 7 )
++#if ( VAMP_SDK_MAJOR_VERSION != 2 )
+ #error Unexpected version of Vamp SDK header included
+ #endif
+ 
+diff --git a/lib/vamp/src/vamp-sdk/PluginAdapter.cpp b/lib/vamp/src/vamp-sdk/PluginAdapter.cpp
+index e3ed0c4..6bf7b21 100644
+--- a/lib/vamp/src/vamp-sdk/PluginAdapter.cpp
++++ b/lib/vamp/src/vamp-sdk/PluginAdapter.cpp
+@@ -39,7 +39,7 @@
+ #include <cstring>
+ #include <cstdlib>
+ 
+-#if ( VAMP_SDK_MAJOR_VERSION != 2 || VAMP_SDK_MINOR_VERSION != 7 )
++#if ( VAMP_SDK_MAJOR_VERSION != 2 )
+ #error Unexpected version of Vamp SDK header included
+ #endif
+ 

@@ -72,6 +72,8 @@ http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
 http://files.itstool.org/itstool/itstool-2.0.6.tar.bz2
 http://www.labs.hpe.com/personal/Jean_Tourrilhes/Linux/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
+#PNG12
+https://sourceforge.net/projects/libpng/files/libpng-1.2.59.tar.xz
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.37.tar.xz
 https://downloads.sourceforge.net/project/libjpeg-turbo/2.0.4/libjpeg-turbo-2.0.4.tar.gz
 http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
@@ -892,6 +894,9 @@ https://gitlab.gnome.org/GNOME/orca/-/archive/ORCA_3_36_3/orca-ORCA_3_36_3.tar.g
 git://github.com/elementary/session-settings.git
 git://github.com/elementary/cerbere.git#commit=dd63f099e325d8fd8cd5c3a8bb9aeb09de6f59bb
 #End-pantheon
+# deps for mixx
+qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v0.11.1.tar.gz
+http://www.wavpack.com/wavpack-5.3.0.tar.bz2
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz
 #Warning, unset LDFLAGS for building grub

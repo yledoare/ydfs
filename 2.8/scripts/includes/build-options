@@ -154,7 +154,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
                              -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
                              -DSQLITE_MAX_EXPR_DEPTH=10000"
  
-	echo $ARCHIVE | grep mesa- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc -D b_lto=true \
+	echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc -D b_lto=true \
     -D b_ndebug=true \
     -D platforms=x11,wayland,drm,surfaceless \
     -D dri-drivers=i915,i965,r100,r200,nouveau \
@@ -262,7 +262,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep apr-util && export LC_CONFIGURE_OPTS="--with-apr=$HOME/$MODULE" 
 	echo $ARCHIVE | grep SuperTux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_BUILD_TYPE=Release" && export LDFLAGS="$LDFLAGS -lphysfs"
 	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" # && CFLAGS="-I/$HOME/ydfs/src/supertuxkart-0.9.2/lib/irrlicht/include/ $CFLAGS -fpermissive -std=gnu++98" && CXXFLAGS=$CFLAGS
-	echo $ARCHIVE | grep mixxx && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$HOME/$MODULE -USE=vst" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false"
