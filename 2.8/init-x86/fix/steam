@@ -1,0 +1,20 @@
+cd $HOME/
+install -d .fonts
+cd .fonts
+[ ! -e SteamFonts.zip ] && wget https://support.steampowered.com/downloads/1974-YFKL-4947/SteamFonts.zip && unzip SteamFonts.zip && fc-cache
+cd ..
+install -d Steam
+cd Steam
+[ ! -e steam_1.0.0.66.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.66.tar.gz
+[ ! -e steam-launcher ] && tar xzvf steam_1.0.0.66.tar.gz
+cd steam-launcher 
+sed -i "s@id -u@echo@g" ./bin_steam.sh
+[ ! -e  $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu ] && ./bin_steam.sh
+cp /home/linuxconsole2020/x86_64/lib32-root/libgcc_s.so.1 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
+cp /home/linuxconsole2020/x86_64/lib32-root/libstdc++.so.6 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
+[ ! -e $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu.valve ] && mv $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/ $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu.valve
+[ ! -e $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu.valve ] && mv $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu/ $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu.valve
+install -d $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/ 
+ln -s /usr/lib/libc.so.6 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/libselinux.so.1
+ln -s /usr/lib/libc.so.6 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/libkeyutils.so.1
+LIBGL_DEBUG=verbose LIBGL_DEBUG=verbose STEAM_RUNTIME_PREFER_HOST_LIBRARIES=1 ./bin_steam.sh
