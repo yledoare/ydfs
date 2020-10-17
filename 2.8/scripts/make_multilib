@@ -28,7 +28,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng libffi p11-kit gnutls elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit gnutls elfutils expat dbus-1.12.16 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft-1.16 fribidi pango-1 atk-2 \
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2 curl" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
@@ -373,13 +373,14 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
         touch ../ydfs-multilib-buildt
 	;;
-    openal-soft-1.16 )
-	mkdir build
-	 cd build
+    openal-soft )
 	export CC="gcc -m32 -mstackrealign"
   	export CXX="g++ -m32 -mstackrealign"
+	cmake -DCMAKE_INSTALL_PREFIX=$HOME/multilib -Bbuild \
+    -DCMAKE_BUILD_TYPE=None -DALSOFT_NO_CONFIG_UTIL=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib32
+        cmake --build build
   	cmake .. \
-    	-DCMAKE_INSTALL_PREFIX=$HOME/multilib -DALSOFT_EXAMPLES=OFF
 	;;
     glib-2)
 	patch -p1 < $HOME_DIBAB/packages/patches/lib32-glib2.diff
@@ -453,7 +454,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     llvm )
 	;;
-    openal-soft-1.16 )
+    openal-soft )
 	cd build
 	make
 	;;
@@ -490,7 +491,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     llvm )
 	;;
-    openal-soft-1.16 )
+    openal-soft )
   	make install || exit $?
 	cd ..
 	;;
