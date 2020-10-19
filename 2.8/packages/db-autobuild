@@ -264,7 +264,7 @@ else
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dman=false -Dargyllcms_sensor=false  -Dsystemd=false -D libcolordcompat=true \
+	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dman=false -Dsystemd=false -D libcolordcompat=true \
     -D sane=true \
     -D vapi=true \
     -D print_profiles=true \
