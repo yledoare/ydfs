@@ -1416,6 +1416,7 @@ fi
  && [ ! -e src/yaml_private.h ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e expat.pc.in ] \
+ && [ ! -e wavpack.pc.in ] \
  && [ ! -e src/gd.h ] \
  && [ ! -e json-c.pc.in ] \
  && [ ! -e zlib.pc.in ] \

@@ -881,7 +881,7 @@ https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-4.0.3.tar
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar.bz2
 #Begin-pantheon
 git://github.com/ricotz/plank.git#tag=0.11.89
-git://github.com/elementary/granite.git
+git://github.com/elementary/granite.git#tag=5.5.0
 https://github.com/elementary/gala/archive/3.3.0.tar.gz
 https://gitlab.gnome.org/GNOME/gnome-keyring/-/archive/3.36.0/gnome-keyring-3.36.0.tar.gz
 https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz
