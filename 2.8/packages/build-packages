@@ -246,6 +246,7 @@ fi
     fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
+    LC_CONFIGURE_OPTS=""
   . $HOME_DIBAB/scripts/includes/build-options
     if [ "$DIBAB_VERBOSE_BUILD" = "YES" ] 
     then
