@@ -2304,6 +2304,7 @@ Cflags: -I${includedir}' > lua.pc
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
       echo "Run make "
+      [ -e RPM/net-tools.spec ] && echo "Config for net-tools" && yes "" | make config
       . $(dirname $0)/../scripts/includes/mame
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
