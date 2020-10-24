@@ -1,4 +1,6 @@
 cd $HOME
+install -d .local/bin
+cd .local/bin
 
 . /etc/profile
 export PATH=$PATH:$HOME/firefox:$HOME/thunderbird
@@ -41,14 +43,6 @@ then
   opkg-cl update
   xterm -e opkg-cl install libreoffice
   libreoffice
-  exit 0
-fi
-
-if [ "$SOFT" == "vlc" ]
-then
-  opkg-cl update
-  xterm -e opkg-cl install vlc
-  vlc
   exit 0
 fi
 

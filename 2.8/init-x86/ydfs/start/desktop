@@ -1,6 +1,8 @@
 install -d $HOME/Desktop
 [ -e $HOME/tmp ] && export TMPDIR=$HOME/tmp
 
+export PATH=$HOME/.local/bin:$PATH
+
 # for DBUS
 install -d $HOME_DIBAB/tmp
 chmod 777  $HOME_DIBAB/tmp

@@ -1425,6 +1425,7 @@ fi
  && [ ! -e src/lzo_crc.c ] \
  && [ ! -e libpcre2-8.pc.in ] \
  && [ ! -e src/yaml_private.h ] \
+ && [ ! -e libtiff-4.pc.in ] \
  && [ ! -e raptor2.pc.in ] \
  && [ ! -e expat.pc.in ] \
  && [ ! -e wavpack.pc.in ] \
