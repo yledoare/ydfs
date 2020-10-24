@@ -1899,7 +1899,12 @@ ln -sf $PREFIX/bin/2H4U .
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
+	if [ "$ARCH" = "x86" ]
+        then
+	   PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc --libdir=$DIBAB_PREFIX/$MODULE/lib ../ 
+        else
+	   PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
+        fi
 	PYTHONPATH="" ninja
   	cp $HOME_DIBAB/packages/patches/GUsb-1.0.gir gusb
 	PYTHONPATH="" ninja || exit $?
