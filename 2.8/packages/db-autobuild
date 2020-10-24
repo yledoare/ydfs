@@ -1422,6 +1422,7 @@ fi
  && [ ! -e libvncserver.pc.in ] \
  && [ ! -e enet.dsp ] \
  && [ ! -e mlt++.pc.in ] \
+ && [ ! -e misc/mdds.pc.in ] \
  && [ ! -e src/lzo_crc.c ] \
  && [ ! -e libpcre2-8.pc.in ] \
  && [ ! -e src/yaml_private.h ] \
