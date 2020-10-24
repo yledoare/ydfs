@@ -141,7 +141,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
 
     zstd )
-	echo "No config for zstd"
+	sed -i "s@$HOME/$ARCH@$HOME/multilib@g" */Makefile
         ;;
     bzip2 )
 	echo "No config for Bzip2"
