@@ -975,7 +975,16 @@ pwd && sleep 5
   [ -e gtk-sharp.snk ] &&  ./bootstrap-2.12 --prefix=$PREFIX --sysconfdir=/$PREFIX/etc --disable-static
   [ -e geoip.pc.in ] &&  ./bootstrap
 
-  [ -e xmoto.6 ] &&  ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vfi
+  if [ -e dddoc/xmoto.6 ] 
+  then
+    mkdir build
+    cd build
+    cmake ../ -GNinja -DCMAKE_INSTALL_PREFIX=$PREFIX || exit 2
+    ninja || exit 1
+    ninja xmoto_pack
+    ninja install
+    exit 1
+  fi
 
   # [ -e util/grub-setup.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   [ -e src/libplist.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh

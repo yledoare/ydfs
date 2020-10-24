@@ -279,6 +279,10 @@ ${LCMBUILD}/falkon-${ARCH}.squashfs : packages/list-falkon
 	./scripts/make_packages falkon
 	./scripts/make_module falkon
 
+chromium2: 
+	./scripts/make_packages chromium
+	./scripts/make_module chromium
+
 chromium: ${LCMBUILD}/chromium-${ARCH}.squashfs
 ${LCMBUILD}/chromium-${ARCH}.squashfs : packages/list-chromium
 	./scripts/make_packages chromium

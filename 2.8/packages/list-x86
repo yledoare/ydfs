@@ -642,7 +642,6 @@ https://github.com/swh/LRDF/archive/0.5.0.tar.gz
 ftp://ftp.gnome.org/pub/gnome/sources/adwaita-icon-theme/3.34/adwaita-icon-theme-3.34.3.tar.xz
 http://download.kde.org/stable/frameworks/5.68/extra-cmake-modules-5.68.0.tar.xz
 http://download.kde.org/stable/frameworks/5.68/oxygen-icons5-5.68.0.tar.xz
-ftp://ftp.vim.org/pub/vim/unix/vim-8.2.tar.bz2
 pip::PyOpenGL
 pip::Jinja2
 https://launchpad.net/python-distutils-extra/trunk/2.39/+download/python-distutils-extra-2.39.tar.gz
@@ -729,7 +728,7 @@ https://pub.mate-desktop.org/releases/1.24/eom-1.24.1.tar.xz
 https://pub.mate-desktop.org/releases/1.24/pluma-1.24.1.tar.xz
 https://pub.mate-desktop.org/releases/1.24/engrampa-1.24.1.tar.xz
 https://gitlab.gnome.org/GNOME/libgtop/-/archive/2.40.0/libgtop-2.40.0.tar.gz
-https://pub.mate-desktop.org/releases/1.24/mate-utils-1.24.1.tar.xz
+https://pub.mate-desktop.org/releases/1.24/mate-utils-1.24.0.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
@@ -738,7 +737,7 @@ pip::incremental
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
-http://pub.mate-desktop.org/releases/1.24/mozo-1.24.1.tar.xz
+http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
 pip::PyQt5
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
