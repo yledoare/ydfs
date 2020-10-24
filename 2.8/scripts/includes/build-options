@@ -74,6 +74,8 @@ echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep mutter &&  LC_CONFIGURE_OPTS="-Dprofiler=false"
+# echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="-Ddocs=false"
+# echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="--disable-gtk-doc"
 echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu --with-python=$HOME/$ARCH/bin/python3"
 echo $ARCHIVE | grep cogl-1.22 &&  LC_CONFIGURE_OPTS="    --enable-gles1 --enable-gles2 \
     --enable-kms-egl-platform --enable-wayland-egl-platform \
@@ -734,6 +736,8 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 #		echo $ARCHIVE | grep ode-0.15 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --target=i686-linux-gnu --build=i686-linux-gnu"
 	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep glib-2 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+	        echo $ARCHIVE | grep json-glib && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+	        echo $ARCHIVE | grep gobject-introspection && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"
 	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
