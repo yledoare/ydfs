@@ -92,7 +92,6 @@ done
 		--enable-qt5 \
 		--enable-gtk3 \
 		--enable-introspection \
-		--disable-gstreamer-0-10 \
 		--enable-openssl \
 		--disable-odk\
 		--enable-python=system \
@@ -103,7 +102,6 @@ done
 		--without-fonts\
 		--with-system-apr \
 		--with-system-libcdr \
-		--with-system-mdds\
 		--without-myspell-dicts \
 		--with-system-libvisio \
 		--with-system-libcmis \

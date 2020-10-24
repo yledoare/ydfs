@@ -9,7 +9,7 @@ do
   [ -e $HOME/$MODULE/lib/dssi ] && echo 'export DSSI_PATH=$DSSI_PATH:'$HOME/$MODULE/lib/dssi >> /$HOME/env.dyn
 done
 
-source $HOME/env.dyn
+. $HOME/env.dyn
 export PATH=$PATH:$HOME/music/bin
 
 GI_TYPELIB_PATH=$HOME/$ARCH/lib/girepository-1.0/ PYTHONPATH=$HOME/$ARCH/lib/python3.8/site-packages LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/$DISTRONAME/usr/lib:$HOME/$DISTRONAME/lib:$HOME/multilib/lib PATH=$PATH:$HOME/opkg/bin:$HOME/$DISTRONAME/bin:$HOME/$DISTRONAME/usr/bin:$HOME/$DISTRONAME/usr/games bash
