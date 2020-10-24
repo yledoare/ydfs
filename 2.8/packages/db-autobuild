@@ -188,6 +188,8 @@ else
   fi
 
   pwd | grep giflib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
+  pwd | grep lua-5.4 &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
+  pwd | grep lua-5.4 &&  sed -i "s@/usr/local@$PREFIX@g" src/luaconf.h
   if [ -e src/standalone/helm_editor.cpp ]
   then
     echo src/standalone/helm_editor.cpp
@@ -2208,8 +2210,10 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   if [ -e src/lua.c ]
   then
     echo "Build LUA"
-    pwd | grep lua-5.2 && BUILDLUA52=OK
     pwd | grep lua-5.1 && BUILDLUA51=OK
+    pwd | grep lua-5.2 && BUILDLUA52=OK
+    pwd | grep lua-5.3 && BUILDLUA53=OK
+    pwd | grep lua-5.4 && BUILDLUA54=OK
 
     if [ "$BUILDLUA52" == "OK" ]
     then
@@ -2235,12 +2239,15 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
     TO_BIN='lua5.1 luac5.1' \
     TO_LIB="liblua5.1.a liblua5.1.so liblua5.1.so.5.1 liblua5.1.so.$pkgver" \
     INSTALL_TOP=$PREFIX install || exit $?
-    else
-      make MYCFLAGS="$CFLAGS -fPIC -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1" MYLDFLAGS="$LDFLAGS" linux || exit $?
+    fi
+
+    if [ "$BUILDLUA54" == "OK" ]
+    then 
+      make MYCFLAGS="$CFLAGS -fPIC -DLUA_COMPAT_5_3 -DLUA_COMPAT_5_2" MYLDFLAGS="$LDFLAGS" linux || exit $?
       make install || exit $?
       cp src/liblua.so $PREFIX/lib || exit $?
       make INSTALL_TOP=$PREFIX install || exit $?
-      pkgver=5.3.5
+      pkgver=5.4.1
 	_majorver=${pkgver%.*}
       # wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lua.pc?h=packages/lua -O lua.pc
 echo 'V=%VER%
