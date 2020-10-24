@@ -53,8 +53,8 @@ https://libzip.org/download/libzip-1.7.3.tar.xz
 https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
 http://github.com/unicode-org/icu/releases/download/release-66-1/icu4c-66_1-src.tgz
 https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.66/gobject-introspection-1.66.1.tar.xz 
 https://github.com/mesonbuild/meson/releases/download/0.54.2/meson-0.54.2.tar.gz
+http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.66/gobject-introspection-1.66.1.tar.xz 
 https://download.gimp.org/pub/babl/0.1/babl-0.1.82.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.4/json-glib-1.4.4.tar.xz
 ftp://ftp.freedesktop.org/pub/individual/lib/pixman-0.34.0.tar.gz 
