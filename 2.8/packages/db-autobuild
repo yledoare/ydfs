@@ -1897,6 +1897,25 @@ ln -sf $PREFIX/bin/2H4U .
 	exit 0	
   fi
 
+<<<<<<< HEAD
+=======
+  if [ -e gusb/gusb-device.c ]
+  then
+	mkdir build
+	cd build
+	if [ "$ARCH" = "x86" ]
+        then
+	   PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc --libdir=$DIBAB_PREFIX/$MODULE/lib ../ 
+        else
+	   PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
+        fi
+	PYTHONPATH="" ninja
+  	cp $HOME_DIBAB/packages/patches/GUsb-1.0.gir gusb
+	PYTHONPATH="" ninja || exit $?
+	PYTHONPATH="" ninja install || exit $?
+	exit 0	
+  fi
+>>>>>>> ba9ecea216e4324604e3ca755af8fdf0e5dec9f8
   if [ -e gnome-disk-utility.doap ]
   then
 	mkdir build
