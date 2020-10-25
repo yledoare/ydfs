@@ -1,6 +1,7 @@
 if [ -e src/mame/mame.cpp ]
 then
     echo "Build Mame"
+	mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
     if [ "$ARCH" = "x86" ]
     then
       ARCH="" make \
@@ -10,7 +11,10 @@ then
       ARCHOPTS=-flifetime-dse=1 linux_x86 || exit 1
     else
       echo "Building .."
-      ARCH="" LDFLAGS="$LDFLAGS -llua5.1" make \
+      # sed -e 's|\# USE_SYSTEM_LIB|USE_SYSTEM_LIB|g' -i makefile
+      # sed -e 's|USE_SYSTEM_LIB_ASIO|\# USE_SYSTEM_LIB_ASIO|g' -i makefile
+      # sed -e 's|USE_SYSTEM_LIB_LUA|\# USE_SYSTEM_LIB_LUA|g' -i makefile
+      CPPFLAGS="-I$PWD/src/lib/util -I$PWD/3rdparty/lua/src $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.1" make \
       NOWERROR=1 \
       OPTIMIZE=2 \
       TOOLS=1 \
