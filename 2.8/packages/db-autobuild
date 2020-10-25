@@ -563,7 +563,8 @@ grep share/Surge src/common/SurgeStorage.cpp
   [ -e gnome-vfs-2.0.pc.in ] && sed -i -s 's|$(srcdir)/auto-test|auto-test|' test/Makefile.am
   [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="/usr/bin/clang++ $CPPFLAGS" && export CC="/usr/bin/clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
-  [ -e src/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
+  . $(dirname $0)/../scripts/includes/mame
+  [ -e sssrc/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=/usr/bin/python2 \
     TOOLS=1 \
@@ -642,6 +643,7 @@ fi
   fi
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
+  # [ -e audacity.dox ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e dotconf.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e luit.c ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e libgtop-2.0.pc.in ] && sed -e 's/0.19.4/0.20/g' -i configure.ac 
@@ -1417,6 +1419,7 @@ fi
 
     [ -e RapidJSONConfig.cmake.in ] && find -name CMakeLists.txt | xargs sed -e 's|-Werror||' -i # Don't use -Werror 
     # Do not build with cmake
+ # && [ ! -e audacity.dox ] \
     if [ -e CMakeLists.txt ] \
  && [ ! -e doc/nghttp2_version.rst ] \
  && [ ! -e libvncserver.pc.in ] \
@@ -1447,7 +1450,6 @@ fi
  && [ ! -e libpng.3 ] \
  && [ ! -e poppler-glib.pc.in ] \
  && [ ! -e curl-config.in ] \
- && [ ! -e audacity.dox ] \
  && [ ! -e jansson.pc.in ] \
  && [ ! -e libgig.spec.in ] \
  && [ ! -e libapr.dsp ] \
@@ -1630,15 +1632,15 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
-  [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
+  # [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
-    for SKIP_DIR in libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap src/a52dec.c librsvg.pc.in backend/saned.conf.in NetworkManager-openvpn.doap src/backend/utils/misc/postgresql.conf.sample docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c gdb/gdb.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
+    for SKIP_DIR in libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap src/a52dec.c librsvg.pc.in backend/saned.conf.in NetworkManager-openvpn.doap src/backend/utils/misc/postgresql.conf.sample docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp include/mp4v2/mp4v2.h src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
     done
-    [ "$MODULE" != "$ARCH" ] && [ ! -e "programs/winecfg" ] && SKIP_DIR=""
+    [ "$MODULE" != "$ARCH" ] && [ ! -e "programs/winecfg" ] && [ ! -e gdb/gdb.c ] && SKIP_DIR=""
     MYPREFIX="--prefix=$PREFIX"
     [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
     [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
@@ -1895,17 +1897,6 @@ ln -sf $PREFIX/bin/2H4U .
 	exit 0	
   fi
 
-  if [ -e gusb/gusb-device.c ]
-  then
-	mkdir build
-	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
-	PYTHONPATH="" ninja
-  	cp $HOME_DIBAB/packages/patches/GUsb-1.0.gir gusb
-	PYTHONPATH="" ninja || exit $?
-	PYTHONPATH="" ninja install || exit $?
-	exit 0	
-  fi
   if [ -e gnome-disk-utility.doap ]
   then
 	mkdir build
@@ -2334,7 +2325,7 @@ Cflags: -I${includedir}' > lua.pc
   then
       echo "Run make "
       [ -e RPM/net-tools.spec ] && echo "Config for net-tools" && yes "" | make config
-      . $(dirname $0)/../scripts/includes/mame
+      # . $(dirname $0)/../scripts/includes/mame
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 

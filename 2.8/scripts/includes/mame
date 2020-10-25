@@ -9,11 +9,13 @@ then
       TOOLS=1 \
       ARCHOPTS=-flifetime-dse=1 linux_x86 || exit 1
     else
-      ARCH="" make \
+      echo "Building .."
+      ARCH="" LDFLAGS="$LDFLAGS -llua5.1" make \
       NOWERROR=1 \
       OPTIMIZE=2 \
       TOOLS=1 \
       ARCHOPTS=-flifetime-dse=1 || exit 1
+      echo "OK"
     fi
   pkgname=mame
 # Install the sdlmame script

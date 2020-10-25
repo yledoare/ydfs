@@ -1,7 +1,8 @@
 #!/bin/bash
 install -d $HOME/archpkg
 cd $HOME/archpkg
-URL1=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD
+URL0=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD
+URL1=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
 URL=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/
 URL2=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages
 PKG=$1
@@ -11,7 +12,7 @@ URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
 
 if [ ! -e $HOME/archpkg/$PKG ]
 then
-wget -q --no-check-certificate "$URL1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL""/""$1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL3" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
+wget --no-check-certificate "$URL1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL""/""$1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL2""/""$1" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL3" -O $HOME/archpkg/$PKG || wget -q --no-check-certificate "$URL4" -O $HOME/archpkg/$PKG || ERROR=1
 fi
 
 test -s $HOME/archpkg/$PKG

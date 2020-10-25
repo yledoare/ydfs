@@ -137,7 +137,8 @@ https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz
 https://github.com/shadow-maint/shadow/releases/download/4.7/shadow-4.7.tar.xz
 http://ftp.de.debian.org/debian/pool/main/libp/libpaper/libpaper_1.1.28.tar.gz
 https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz
-http://ftp.gnome.org/pub/gnome/sources/vala/0.46/vala-0.46.9.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/vala/0.50/vala-0.50.1.tar.xz
+git://gitlab.gnome.org/GNOME/vala.git#commit=1c976d3704ca2318bef27ab7537ee98b8eaa9c59
 http://people.freedesktop.org/~hughsient/releases/libgusb-0.3.5.tar.xz
 http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
 https://github.com/scop/bash-completion/releases/download/2.4/bash-completion-2.4.tar.xz

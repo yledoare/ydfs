@@ -1,9 +1,9 @@
 #git://github.com/xenia-project/xenia.git
 #for bsnes
+https://github.com/mamedev/mame/archive/mame0225.tar.gz #SKIP-x86#
 https://download.gnome.org/sources/gtksourceview/2.10/gtksourceview-2.10.5.tar.bz2
 https://byuu.org/download/bsnes/bsnes_v115-source.zip
 https://downloads.sourceforge.net/desmume/desmume-0.9.11.tar.gz
-https://github.com/mamedev/mame/archive/mame0216.tar.gz #SKIP-x86#
 http://downloads.sourceforge.net/dosbox/dosbox-0.74-2.tar.gz
 https://github.com/mgba-emu/mgba/archive/0.7.1.tar.gz
 #https://github.com/frealgagu/PCSX-Reloaded/archive/1.9.95.tar.gz
