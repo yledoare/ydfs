@@ -136,6 +136,7 @@ do
   echo 
   echo -n -e "\e[94m$COUNT\e[0m " 
   echo -n " / $MAX : "
+  echo "$ARCHIVE" | grep "#SKIP-""$ARCH""#" && continue
   echo "$ARCHIVE" | grep "#END-$DISTRONAME" && break
   echo "$ARCHIVE" | grep "#SKIP-$DISTRONAME" && continue
   echo "$ARCHIVE" | grep "#SKIP-""$ARCH""#" && continue
