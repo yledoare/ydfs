@@ -14,7 +14,10 @@ then
       # sed -e 's|\# USE_SYSTEM_LIB|USE_SYSTEM_LIB|g' -i makefile
       # sed -e 's|USE_SYSTEM_LIB_ASIO|\# USE_SYSTEM_LIB_ASIO|g' -i makefile
       # sed -e 's|USE_SYSTEM_LIB_LUA|\# USE_SYSTEM_LIB_LUA|g' -i makefile
-      CPPFLAGS="-I$PWD/src/lib/util -I$PWD/3rdparty/lua/src $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.1" make \
+      echo "Copy $PWD/3rdparty/lua/src/*.h inside $PREFIX/include"
+      install -d $PREFIX/include
+      cp $PWD/3rdparty/lua/src/*.h  $PREFIX/include
+      CPPFLAGS="-I$PWD/src/lib/util -I$PWD/3rdparty/lua/src $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.1" VERBOSE=1 make \
       NOWERROR=1 \
       OPTIMIZE=2 \
       TOOLS=1 \

@@ -21,6 +21,21 @@ done
     exit 0 
 fi
 
+if [ -e linux-amd64.zip ] && ls pkg/unvanquished*
+then
+	echo "Unvanquished $PREFIX"
+	install -d $PREFIX/bin
+	install -d $PREFIX/share/icons
+	install -d $PREFIX/share/applications
+	unzip linux-amd64.zip -d $PREFIX/bin
+	cp -a pkg $PREFIX/bin
+	wget https://raw.githubusercontent.com/Unvanquished/Unvanquished/master/debian/unvanquished.desktop -O $PREFIX/share/applications/unvanquished.desktop
+	sed -i "s@/usr/games@$PREFIX/bin@" $PREFIX/share/applications/unvanquished.desktop
+	wget https://github.com/Unvanquished/Unvanquished/raw/master/dist/icons/64x64/unvanquished.png -O $PREFIX/share/icons/unvanquished.png
+	cat $PREFIX/share/applications/unvanquished.desktop
+	sleep 10
+fi
+
 if [ -e unix/chessx.desktop ]
 then
   install -Dm644 "unix/chessx.desktop" $PREFIX/share/applications
