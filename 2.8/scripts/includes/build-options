@@ -390,6 +390,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
             --enable-core-docs   \
             --with-distro=none "
 	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
+	echo $ARCHIVE | grep poppler && [ "$ARCH" == "x86" ] && LC_CONFIGURE_OPTS="-DENABLE_XPDF_HEADERS=ON -DICONV_LIBRARIES=/usr/lib/i386-linux-gnu/libc.so "
 	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
 	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
 	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/" ] && ls $HOME/$ARCH/lib64/ | while read file
