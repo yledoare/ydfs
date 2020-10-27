@@ -384,6 +384,8 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     glib-2)
 	patch -p1 < $HOME_DIBAB/packages/patches/lib32-glib2.diff
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
 	sleep 5
 	mkdir build-32
 	cd build-32
@@ -432,6 +434,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
     glib-2)
+	echo "Build glib-2"
         PYTHONPATH="" ninja || exit 1
 	;;
     mesa)
