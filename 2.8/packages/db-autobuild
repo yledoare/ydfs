@@ -867,11 +867,19 @@ fi
   fi
 
   [ -e scripts/onto2cpp.py ] &&  sed -i 's|/usr/bin/env python|/usr/bin/env python2|'  scripts/onto2cpp.py && echo "scripts/onto2cpp.py patched" && sleep 3
+
   if [ -e source/x265cli.h ]
   then
+    echo "Build x265"
     cd build/linux
-    CXXFLAGS="-I$PWD./../../source/common $CXXFLAGS" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/$PREFIX ../../source
+    if [ "$ARCH" = "x86" ]
+    then
+      LDFLAGS="-ldl" CXXFLAGS="-I$PWD./../../source/common $CXXFLAGS" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/$PREFIX ../../source
+    else
+      CXXFLAGS="-I$PWD./../../source/common $CXXFLAGS" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/$PREFIX ../../source
     fi
+  fi
+
   if [ -e syslinux.spec ]
   then
 	LDFLAGS="" make
