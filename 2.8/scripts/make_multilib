@@ -58,7 +58,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev gst-plugins-base bzip2 libva-2 curl" 
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
@@ -132,6 +132,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     -D gles1=false \
     -D gles2=true \
     -D glvnd=true \
+    -D zstd=false \
     -D glx=dri \
     -D libunwind=false \
     -D llvm=true \
@@ -438,6 +439,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
         PYTHONPATH="" ninja || exit 1
 	;;
     mesa)
+	# sed -i "s@$HOME/$ARCH/lib/libzstd.so@$HOME/multilib/lib/libzstd.so@g" build.ninja
         PYTHONPATH="" ninja || exit 1
 	;;
     libglvnd)
@@ -528,7 +530,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     * )
   	echo "Run make install "
-  	make install || exit $?
+  	VERBOSE=1 make install || exit $?
         [ -e getfacl/getfacl.c ] && make install-lib install-dev
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	;;
