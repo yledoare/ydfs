@@ -142,7 +142,14 @@ echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
     -DDISTRIBUTOR='linuxconsole.org'"
 echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
 echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
-echo $ARCHIVE | grep gtksourceview &&  LC_CONFIGURE_OPTS="--disable-static \
+
+echo $ARCHIVE | grep qpdf && LC_CONFIGURE_OPTS="   --disable-static \
+    --enable-crypto-gnutls \
+    --disable-crypto-openssl \
+    --disable-implicit-crypto \
+    --enable-show-failed-test-output"
+
+echo $ARCHIVE | grep gtksourceview-3 &&  LC_CONFIGURE_OPTS="--disable-static \
       --enable-glade-catalog --enable-gtk-doc --disable-Werror --enable-introspection=yes"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--disable-amalgamation \

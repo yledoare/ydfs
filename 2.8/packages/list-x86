@@ -539,11 +539,11 @@ ftp://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz
 http://freefr.dl.sourceforge.net/project/net-snmp/net-snmp/5.7.3/net-snmp-5.7.3.tar.gz
 https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs921/ghostscript-9.21.tar.xz
 http://www.openprinting.org/download/ijs/download/ijs-0.35.tar.bz2 
-http://freefr.dl.sourceforge.net/project/qpdf/qpdf/5.1.1/qpdf-5.1.1.tar.gz 
+https://github.com/qpdf/qpdf/archive/release-qpdf-9.1.1.tar.gz
 https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs922/jbig2dec-0.14.tar.gz
 https://mupdf.com/downloads/archive/mupdf-1.16.1-source.tar.xz
 https://github.com/liblouis/liblouis/releases/download/v3.9.0/liblouis-3.9.0.tar.gz
-https://www.openprinting.org/download/cups-filters/cups-filters-1.20.4.tar.xz
+https://www.openprinting.org/download/cups-filters/cups-filters-1.28.5.tar.xz
 http://www.openprinting.org/download/foomatic/foomatic-db-engine-4.0.8.tar.gz
 http://www.openprinting.org/download/foomatic/foomatic-db-current.tar.gz
 http://www.openprinting.org/download/foomatic/foomatic-filters-4.0.12.tar.gz
@@ -878,6 +878,12 @@ https://luajit.org/download/LuaJIT-2.0.5.tar.gz
 #Guitarx
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-4.0.3.tar.bz2
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar.bz2
+#Gnome-boxes
+https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz
+https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.0.tar.xz
+https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz
+https://libvirt.org/sources/libvirt-6.5.0.tar.xz
+https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz
 #Begin-pantheon
 git://github.com/ricotz/plank.git#tag=0.11.89
 git://github.com/elementary/granite.git#tag=5.5.0

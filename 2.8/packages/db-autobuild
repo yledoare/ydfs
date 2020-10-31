@@ -120,7 +120,7 @@ else
     done
   fi
 
-  [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
+  # [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
   if [ -e source/zita-resampler ]
   then
     echo source/zita-resampler
@@ -342,7 +342,20 @@ else
 	exit 0
   fi
 
-  if [ -e nm-applet.desktop.in ]
+  if [ -e gtk-vnc-2.0.pc.in ]
+  then
+	mkdir build
+	cd build
+  	PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
+        sed -i "s@shared@shared -lX11@g" build.ninja
+     	PYTHONPATH="" ninja || exit 1
+     	PYTHONPATH="" ninja install || exit 1
+	cd ..
+	touch buildok-$ARCH
+	exit 0
+  fi
+
+  if [ -e nm-applet.desktop.in ] 
   then
 	mkdir build
 	cd build
