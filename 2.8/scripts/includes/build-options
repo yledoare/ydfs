@@ -389,9 +389,9 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	    --disable-gtk3 --disable-qt4 --disable-gtk  --disable-pygtk \
             --enable-core-docs   \
             --with-distro=none "
-	echo $ARCHIVE | grep poppler && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON "
-	echo $ARCHIVE | grep poppler && [ "$ARCH" == "x86" ] && LC_CONFIGURE_OPTS="-DENABLE_XPDF_HEADERS=ON -DICONV_LIBRARIES=/usr/lib/i386-linux-gnu/libc.so "
-	echo $ARCHIVE | grep glfw-3 && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
+	echo $ARCHIVE | grep poppler-2 && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON -DENABLE_UNSTABLE_API_ABI_HEADERS=ON"
+	echo $ARCHIVE | grep poppler-2 && [ "$ARCH" == "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DICONV_LIBRARIES=/usr/lib/i386-linux-gnu/libc.so "
+	echo $ARCHIVE | grep glfw && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON"
 	echo $ARCHIVE | grep gtk+-3 && LC_CONFIGURE_OPTS="--enable-wayland-backend --enable-x11-backend   "
 	echo $ARCHIVE | grep gtk+-3 && [ -e "$HOME/$ARCH/lib64/" ] && ls $HOME/$ARCH/lib64/ | while read file
 	do
@@ -747,6 +747,9 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep atk-2 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep gdk-pixbuf- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep at-spi2-atk && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+	        echo $ARCHIVE | grep libsoup-2 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+	        echo $ARCHIVE | grep fuse-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+	        echo $ARCHIVE | grep glfw && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="LC_CONFIGURE_OPTS --libdir=$DIBAB_PREFIX/$MODULE/lib -DMATH_LIBRARY=/usr/lib/i386-linux-gnu/libm.so"
 	        echo $ARCHIVE | grep libxkbcommon && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep gobject-introspection && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"
