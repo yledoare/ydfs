@@ -479,7 +479,7 @@ http://www.freedesktop.org/software/libqmi/libqmi-1.24.0.tar.xz
 https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.5.tar.bz2
-https://download.gnome.org/sources/NetworkManager/1.24/NetworkManager-1.24.2.tar.xz
+https://download.gnome.org/sources/NetworkManager/1.26/NetworkManager-1.26.4.tar.xz
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
