@@ -7,7 +7,11 @@
  
 ifconfig lo 127.0.0.1
 
-[ ! -e $HOME_DIBAB/$ARCH/etc/smb.conf ] && echo 'netbios name = LinuxConsole' > $HOME_DIBAB/$ARCH/etc/smb.conf
+if [ ! -e $HOME_DIBAB/$ARCH/etc/smb.conf ]
+then
+  echo 'netbios name = LinuxConsole' > $HOME_DIBAB/$ARCH/etc/smb.conf
+  echo 'client min protocol = NT1' >> $HOME_DIBAB/$ARCH/etc/smb.conf
+fi
 
 #Bug NetworkManager sometimes don't start dhcpd on eth0
 #if [ -e /usr/sbin/NetworkManager ]
