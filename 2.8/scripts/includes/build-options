@@ -22,8 +22,17 @@ echo $ARCHIVE | grep lmms && echo "LMMS "
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
 
-echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_INTROSPECTION=OFF \
-        -DCMAKE_SKIP_RPATH=ON "
+echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS=" -DCMAKE_BUILD_TYPE=Release  \
+      -DCMAKE_INSTALL_PREFIX=$PREFIX \
+      -DCMAKE_SKIP_RPATH=ON       \
+      -DPORT=GTK                  \
+      -DUSE_LIBHYPHEN=ON         \
+      -DENABLE_MINIBROWSER=ON     \
+      -DUSE_WOFF2=OFF             \
+      -DUSE_WPE_RENDERER=OFF      \
+      -DUSE_SYSTEMD=OFF           \
+      -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
+      -Wno-dev "
 [ "$ARCH" = "x86" ] && echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DCMAKE_CXX_LIBRARY_ARCHITECTURE=x86"
 
 echo $ARCHIVE | grep exiv2-0.26 &&  LC_CONFIGURE_OPTS=" -DEXIV2_ENABLE_VIDEO=ON \

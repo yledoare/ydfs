@@ -11,13 +11,7 @@ then
       ARCHOPTS=-flifetime-dse=1 linux_x86 || exit 1
     else
       echo "Building .."
-      # sed -e 's|\# USE_SYSTEM_LIB|USE_SYSTEM_LIB|g' -i makefile
-      # sed -e 's|USE_SYSTEM_LIB_ASIO|\# USE_SYSTEM_LIB_ASIO|g' -i makefile
-      # sed -e 's|USE_SYSTEM_LIB_LUA|\# USE_SYSTEM_LIB_LUA|g' -i makefile
-      echo "Copy $PWD/3rdparty/lua/src/*.h inside $PREFIX/include"
-      install -d $PREFIX/include
-      cp $PWD/3rdparty/lua/src/*.h  $PREFIX/include
-      CPPFLAGS="-I$PWD/src/lib/util -I$PWD/3rdparty/lua/src $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.1" VERBOSE=1 make \
+      CPPFLAGS="-I$PWD/src/lib/util -I$PREFIX/include $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.3" VERBOSE=1 make \
       NOWERROR=1 \
       OPTIMIZE=2 \
       TOOLS=1 \
