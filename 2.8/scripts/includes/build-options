@@ -26,7 +26,6 @@ echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS=" -DCMAKE_BUILD_TYPE=Rele
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_SKIP_RPATH=ON       \
       -DPORT=GTK                  \
-      -DLIB_INSTALL_DIR=$PREFIX/lib  \
       -DUSE_LIBHYPHEN=ON         \
       -DENABLE_MINIBROWSER=ON     \
       -DUSE_WOFF2=OFF             \

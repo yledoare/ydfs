@@ -1543,6 +1543,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	   echo "Fix webkitgtk" && sleep 5
 	   cp cmakeconfig.h $HOME/$ARCH/include
 	   # cp cmakeconfig.h ../Source/JavaScriptCore
+	   make
+	   make JavaScriptCore-4-gir
         fi
 
 	if [ -e ../include/mbedtls/ssl.h ]
