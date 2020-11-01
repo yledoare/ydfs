@@ -179,8 +179,10 @@ else
   fi    
   if [ -e lirc.pc.in ]
   then
-	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX
+	HAVE_UINPUT=1 PYTHON="" ./configure --prefix=$PREFIX 
   	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  	sed -i -e 's@/lib/systemd/system@$PREFIX/lib/systemd/system@g' Makefile
+  	sed -i -e 's@/lib/systemd/system@$PREFIX/lib/systemd/system@g' systemd/Makefile
 	make || exit $?
 	make install || exit $?
     	touch buildok-$ARCH

@@ -478,7 +478,7 @@ https://www.freedesktop.org/software/libmbim/libmbim-1.22.0.tar.xz
 http://www.freedesktop.org/software/libqmi/libqmi-1.24.0.tar.xz
 https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
-ftp://ftp.netfilter.org/pub/iptables/iptables-1.4.19.tar.bz2
+https://www.netfilter.org/projects/iptables/files/iptables-1.8.5.tar.bz2
 https://download.gnome.org/sources/NetworkManager/1.24/NetworkManager-1.24.2.tar.xz
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
@@ -558,7 +558,7 @@ https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
 pip::lxml
 https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.29.tar.gz
-http://prdownloads.sourceforge.net/lirc/lirc-0.9.4d.tar.bz2
+https://prdownloads.sourceforge.net/lirc/lirc-0.10.1.tar.bz2
 http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2
 http://freefr.dl.sourceforge.net/project/libcddb/libcddb/1.3.2/libcddb-1.3.2.tar.bz2 
 http://freefr.dl.sourceforge.net/project/mpg123/mpg123/1.18.0/mpg123-1.18.0.tar.bz2 

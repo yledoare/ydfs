@@ -9,6 +9,7 @@ echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv
 echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
 
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
+echo $ARCHIVE | grep iptables &&  LC_CONFIGURE_OPTS=" --disable-nftables "
 echo $ARCHIVE | grep guitarix &&  LC_CONFIGURE_OPTS=" --enable-nls \
                         --ladspa \
                         --new-ladspa \
