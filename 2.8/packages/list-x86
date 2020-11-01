@@ -33,7 +33,7 @@ ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
 https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
 https://downloads.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.15.tar.xz
 http://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz 
-https://www.sqlite.org/2019/sqlite-src-3270200.zip
+https://www.sqlite.org/2020/sqlite-src-3330000.zip
 https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.bz2
 https://downloads.sourceforge.net/pcre/pcre2-10.34.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/glib/2.64/glib-2.64.1.tar.xz
@@ -435,6 +435,7 @@ http://ftp.gnome.org/pub/gnome/sources/pangomm/2.36/pangomm-2.36.0.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/atkmm/2.22/atkmm-2.22.7.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/gtkmm/3.16/gtkmm-3.16.0.tar.xz
 #First build
+https://gitlab.freedesktop.org/gstreamer/orc/-/archive/0.4.32/orc-0.4.32.tar.bz2
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.99.3.tar.xz
 http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
 http://freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol-3.0.tar.xz
@@ -721,7 +722,7 @@ https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-1.1.0/gparted-1.1.0.tar.gz
-https://download.gnome.org/sources/vte/0.55/vte-0.55.92.tar.xz
+ftp://ftp.gnome.org/pub/gnome/sources/vte/0.62/vte-0.62.1.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-terminal-1.24.1.tar.xz
 https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d701d8e6bdf88
 https://pub.mate-desktop.org/releases/1.24/eom-1.24.1.tar.xz
@@ -884,6 +885,15 @@ https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.0.tar.xz
 https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz
 https://libvirt.org/sources/libvirt-6.5.0.tar.xz
 https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz
+asciidoc-9.0.3.tar.gz::https://github.com/asciidoc/asciidoc-py3/archive/9.0.3.tar.gz
+https://gitlab.gnome.org/GNOME/tracker/-/archive/3.0.1/tracker-3.0.1.tar.bz2
+https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.2/spice-protocol-v0.14.2.tar.gz
+https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2
+https://www.spice-space.org/download/gtk/spice-gtk-0.38.tar.xz
+https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2
+git://github.com/WebPlatformForEmbedded/libwpe#commit=6483872b0b11856a6e5f0ac9724661cdbaac9d6f
+git://github.com/Igalia/WPEBackend-fdo#commit=5523f39d46d398608544a501c39b6f1c3d41233f
+https://webkitgtk.org/releases/webkitgtk-2.30.2.tar.xz
 #Begin-pantheon
 git://github.com/ricotz/plank.git#tag=0.11.89
 git://github.com/elementary/granite.git#tag=5.5.0

@@ -131,6 +131,7 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
         -DCMAKE_BUILD_TYPE='None' \
         -Wno-dev "
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
+echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Dsystemd_user_services=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
 echo $ARCHIVE | grep libe-book &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep librsvg &&  LC_CONFIGURE_OPTS=" --disable-static --enable-vala \
@@ -142,6 +143,7 @@ echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
     -DDISTRIBUTOR='linuxconsole.org'"
 echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
 echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
+echo $ARCHIVE | grep vte-0.6 &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
 
 echo $ARCHIVE | grep qpdf && LC_CONFIGURE_OPTS="   --disable-static \
     --enable-crypto-gnutls \

@@ -352,10 +352,10 @@ ${LCMBUILD}papyrus-${ARCH}.squashfs : packages/list-papyrus
 	./scripts/make_packages papyrus
 	./scripts/make_module papyrus
    
-kvm: ${LCMBUILD}kvm-${ARCH}.squashfs
-${LCMBUILD}kvm-${ARCH}.squashfs : packages/list-kvm
-	./scripts/make_packages kvm
-	./scripts/make_module kvm
+vm: ${LCMBUILD}vm-${ARCH}.squashfs
+${LCMBUILD}vm-${ARCH}.squashfs : packages/list-vm
+	./scripts/make_packages vm
+	./scripts/make_module vm
    
 antivirus: ${LCMBUILD}antivirus-${ARCH}.squashfs
 ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
