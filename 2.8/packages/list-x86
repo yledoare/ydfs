@@ -254,7 +254,7 @@ https://dbus.freedesktop.org/releases/dbus/dbus-1.12.16.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.2.tar.xz
 https://github.com/libical/libical/archive/v2.0.0.tar.gz
 git://github.com/json-c/json-c#commit=985c46fec39d1d3043f98e8d8cdb9d040131b3bb
-https://www.kernel.org/pub/linux/bluetooth/bluez-5.52.tar.xz
+https://www.kernel.org/pub/linux/bluetooth/bluez-5.55.tar.xz
 http://xorg.freedesktop.org//releases/individual/lib/libxshmfence-1.1.tar.bz2
 http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2
 http://downloads.sourceforge.net/project/omxil/omxil/Bellagio%200.9.3/libomxil-bellagio-0.9.3.tar.gz
@@ -483,7 +483,7 @@ https://download.gnome.org/sources/NetworkManager/1.24/NetworkManager-1.24.2.tar
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
-https://github.com/blueman-project/blueman/releases/download/2.1.2/blueman-2.1.2.tar.xz
+https://github.com/blueman-project/blueman/releases/download/2.1.3/blueman-2.1.3.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 ftp://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
