@@ -237,6 +237,7 @@ fi
     then
 	git clone --recurse-submodules https://github.com/Unvanquished/daemonmap.git
     else
+	echo "Cloning $ARCHIVE"
         [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
     fi
     cd $SOURCE_DIR
@@ -250,6 +251,8 @@ fi
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
     LC_CONFIGURE_OPTS=""
   . $HOME_DIBAB/scripts/includes/build-options
+
+    [ -e ./data/gala.desktop ] && git cherry-pick -n 85d290c75eaa147b704ad34e6c67498071707ee8
     if [ "$DIBAB_VERBOSE_BUILD" = "YES" ] 
     then
      LC_CONFIGURE_OPTS=$LC_CONFIGURE_OPTS db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
