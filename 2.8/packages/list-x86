@@ -410,7 +410,7 @@ http://libmpeg2.sourceforge.net/files/libmpeg2-0.5.1.tar.gz
 http://download.videolan.org/pub/libdvbpsi/1.3.1/libdvbpsi-1.3.1.tar.bz2 
 http://download.videolan.org/videolan/libdvdread/6.0.0/libdvdread-6.0.0.tar.bz2
 http://download.videolan.org/videolan/libdvdnav/6.0.0/libdvdnav-6.0.0.tar.bz2
-http://live555.com/liveMedia/public/live.2020.10.16.tar.gz
+http://live555.com/liveMedia/public/live.2020.11.03.tar.gz
 http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.2.tar.xz 
 http://gstreamer.freedesktop.org/src/gst-python/gst-python-1.2.0.tar.gz 
 http://gstreamer.freedesktop.org//src/gst-libav/gst-libav-1.14.0.tar.xz 
@@ -478,7 +478,7 @@ https://www.freedesktop.org/software/libmbim/libmbim-1.22.0.tar.xz
 http://www.freedesktop.org/software/libqmi/libqmi-1.24.0.tar.xz
 https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
-https://www.netfilter.org/projects/iptables/files/iptables-1.8.5.tar.bz2
+https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
 https://download.gnome.org/sources/NetworkManager/1.26/NetworkManager-1.26.4.tar.xz
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
