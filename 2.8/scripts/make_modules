@@ -115,6 +115,7 @@ else
   done
 fi
 
+install -d $HOME/ydfs/modules/$ARCH/share/doc
 cp -a $HOME/$ARCH/share/doc/cups $HOME/ydfs/modules/$ARCH/share/doc
 
 #cd $HOME/ydfs/modules/$ARCH/share/doc

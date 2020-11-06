@@ -4,7 +4,7 @@ archlinux:xarchiver
 archlinux:openbox
 archlinux:muparser
 archlinux:lxqt-build-tools
-archlinux:lxsession
+#archlinux:lxsession
 archlinux:libqtxdg
 archlinux:liblxqt
 archlinux:lxqt-about

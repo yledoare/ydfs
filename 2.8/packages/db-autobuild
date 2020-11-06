@@ -142,6 +142,18 @@ else
      exit 0
    fi
 
+  if [ -e desktop-file-utils.doap ]
+  then
+	mkdir build
+	cd build
+	echo "desktop-file-utils"
+	PYTHONPATH="" meson --prefix=$PREFIX ../
+	PYTHONPATH="" ninja || exit $?
+	PYTHONPATH="" ninja install || exit $?
+	cd ..
+    	touch buildok-$ARCH
+	exit 0	
+  fi
   [ -e libuv.pc.in ] && rm ./autogen.sh
 
   [ -e "json-c.pc.in" ] && echo " json-c.pc.in" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
