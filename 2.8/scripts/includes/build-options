@@ -103,11 +103,10 @@ echo $ARCHIVE | grep evolution-data-server &&  LC_CONFIGURE_OPTS="-DENABLE_INTRO
 echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
     # --without-npm \
-echo $ARCHIVE | grep node-v8 &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
+echo $ARCHIVE | grep nodejs/node &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
     --shared-nghttp2 \
     --shared-openssl \
-    --shared-zlib \
-    --shared-cares "
+    --shared-zlib"
 echo $ARCHIVE | grep autoconf-2.13 &&  LC_CONFIGURE_OPTS="--program-suffix=-2.13"
 echo $ARCHIVE | grep ruby &&  LC_CONFIGURE_OPTS="--enable-shared \
     --disable-rpath \
@@ -742,7 +741,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	if [ "$ARCH" = "arm" ] 
 	then
 		echo $ARCHIVE | grep Mesa && LC_CONFIGURE_OPTS="--disable-opengl" 
-		echo $ARCHIVE | grep xorg-server && LC_CONFIGURE_OPTS="--disable-glx --disable-dri --disable-dri2 --disable-dri3 " 
 		echo $ARCHIVE | grep udev && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-introspection --disable-extras"
 		echo $ARCHIVE | grep SDL_ttf && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"
 		echo $ARCHIVE | grep SDL-1 && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS  --disable-pulseaudio --disable-video-directfb --disable-esd --disable-video-x11 --without-x"

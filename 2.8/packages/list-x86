@@ -1,4 +1,4 @@
-https://github.com/nghttp2/nghttp2/releases/download/v1.34.0/nghttp2-1.34.0.tar.xz
+https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
 re2-20200401.tar.gz::https://github.com/google/re2/archive/2020-04-01.tar.gz
@@ -141,7 +141,7 @@ pip::pygments
 http://people.freedesktop.org/~hughsient/releases/libgusb-0.3.5.tar.xz
 http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
 https://github.com/scop/bash-completion/releases/download/2.4/bash-completion-2.4.tar.xz
-https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.24/src/nspr-4.24.tar.gz
+https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.29/src/nspr-4.29.tar.gz
 http://ftpmirror.gnu.org/autoconf/autoconf-2.13.tar.gz
 http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2
 https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz
@@ -421,7 +421,7 @@ https://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.2
 http://ftp.gnome.org/pub/gnome/sources/gnome-menus/3.35/gnome-menus-3.35.3.tar.xz
 https://ftp.gnome.org/pub/gnome/sources/glib-networking/2.64/glib-networking-2.64.1.tar.xz
 https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz
-https://github.com/google/brotli/archive/v1.0.7.tar.gz
+https://github.com/google/brotli/archive/v1.0.9.tar.gz
 https://ftp.gnome.org/pub/GNOME/sources/libsoup/2.68/libsoup-2.68.4.tar.xz
 http://anduin.linuxfromscratch.org/BLFS/iso-codes/iso-codes-4.4.tar.xz
 http://downloads.sourceforge.net/glew/glew-2.1.0.tgz
@@ -736,7 +736,7 @@ http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utilit
 pip::incremental
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
-https://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz
+https://c-ares.haxx.se/download/c-ares-1.16.1.tar.gz
 http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
 pip::PyQt5
@@ -781,7 +781,7 @@ http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
 http://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.5/lp_solve_5.5.2.5_source.tar.gz
 https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
-https://github.com/google/googletest/archive/release-1.8.1.tar.gz
+https://github.com/google/googletest/archive/release-1.10.0.tar.gz
 http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
 https://movit.sesse.net/movit-1.6.2.tar.gz
 http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.113.0.tar.xz
@@ -792,7 +792,6 @@ https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz
 fluidsynth-2.1.3.tar.gz::https://github.com/fluidsynth/fluidsynth/archive/v2.1.3.tar.gz
 #http://freefr.dl.sourceforge.net/project/fluidsynth/fluidsynth-1.1.6/fluidsynth-1.1.6.tar.gz
 https://github.com/mltframework/mlt/archive/v6.20.0.tar.gz
-https://github.com/google/brotli/archive/v1.0.6.tar.gz
 git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
 https://download.kde.org/stable/frameworks/5.68/attica-5.68.0.tar.xz 
 https://download.kde.org/stable/frameworks/5.68/kdbusaddons-5.68.0.tar.xz 

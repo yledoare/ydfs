@@ -211,8 +211,8 @@ hackerOS: packages/list-hackerOS
 
 
 # modules: firefox games music office video multimedia fps network emulators graphics
-all-modules: firefox games music office video multimedia fps network emulators graphics falkon
-modules: chromium lxqt
+all-modules: firefox games music office video multimedia fps network emulators graphics lxqt
+modules: chromium
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
@@ -273,11 +273,6 @@ fps: ${LCMBUILD}/fps-${ARCH}.squashfs
 ${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
 	./scripts/make_packages fps
 	./scripts/make_module fps
-
-falkon: ${LCMBUILD}/falkon-${ARCH}.squashfs
-${LCMBUILD}/falkon-${ARCH}.squashfs : packages/list-falkon
-	./scripts/make_packages falkon
-	./scripts/make_module falkon
 
 chromium2: 
 	./scripts/make_packages chromium
