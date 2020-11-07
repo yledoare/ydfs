@@ -1684,6 +1684,20 @@ Cflags: -I${includedir}' > glm.pc
 	cd nss 
 #  ./build.sh -v --opt --system-sqlite --system-nspr --disable-tests || exit 11
 
+  libdir=$PREFIX/lib
+  nsprver="$(pkg-config --modversion nspr)"
+  pkgver="$(pwd|cut -d'/' -f6|cut -d'-' -f2)"
+
+  sed pkg/pkg-config/nss.pc.in \
+    -e "s,%libdir%,$libdir,g" \
+    -e "s,%prefix%,$PREFIX,g" \
+    -e "s,%exec_prefix%,$PREFIX/bin,g" \
+    -e "s,%includedir%,$PREFIX/include/nss,g" \
+    -e "s,%NSPR_VERSION%,$nsprver,g" \
+    -e "s,%NSS_VERSION%,$pkgver,g" |
+    install -Dm644 /dev/stdin "$libdir/pkgconfig/nss.pc"
+
+  # cat $libdir/pkgconfig/nss.pc
   make -j1 BUILD_OPT=1                  \
   NSPR_INCLUDE_DIR=/$HOME_DIBAB/$ARCH/include/nspr  \
   SQLITE_LIB_DIR=/$HOME_DIBAB/$ARCH/lib  \
