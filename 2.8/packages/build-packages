@@ -233,6 +233,7 @@ fi
   then
     cd $HOME/ydfs/src
     # echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
+    echo $ARCHIVE | grep 'SKIP' && ARCHIVE=$(echo $ARCHIVE | cut -d' ' -f1)
     SOURCE_DIR=`basename $ARCHIVE |cut -d'#' -f1 | cut -d'.' -f1`
     #[ "$SOURCE_DIR" = "core" ] && SOURCE_DIR=libreoffice
     [ -e $SOURCE_DIR/buildok-$ARCH ] && echo -n " $SOURCE_DIR/buildok-$ARCH " && continue
