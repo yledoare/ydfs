@@ -1977,8 +1977,8 @@ ln -sf $PREFIX/bin/2H4U .
 	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
+	cd ..
     	touch buildok-$ARCH
-    	exit 0
 	exit 0	
   fi
 
@@ -2405,7 +2405,7 @@ Cflags: -I${includedir}' > lua.pc
 	sed -e "/^all:/s/ test//" Makefile.orig > Makefile
     fi
 
-  [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/*.h $HOME/$ARCH/include/cares  && sleep 3
+  [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   /home/linuxconsole2020/x86_64/include/ares*
   
   echo -n " Look for make ($PWD) ..  "
