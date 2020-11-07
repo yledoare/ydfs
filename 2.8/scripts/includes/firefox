@@ -28,7 +28,7 @@ prepare() {
 ac_add_options --enable-application=browser
 mk_add_options MOZ_OBJDIR=${PWD@Q}/obj
 
-ac_add_options --prefix=/usr
+ac_add_options --prefix=$PREFIX
 ac_add_options --enable-release
 ac_add_options --enable-hardening
 ac_add_options --enable-optimize
@@ -198,6 +198,7 @@ mkdir build
 cd build
 prepare
 ../configure
+make
 exit 1
 #PYTHONPATH="" PYTHON="" LDFLAGS="$LDFLAGS -Wl,--no-keep-memory -Wl,--no-keep-memory -Wl,--no-keep-files-mapped -Wl,--no-map-whole-files -Wl,--no-mmap-output-file" CFLAGS="$CFLAGS -I$HOME/$ARCH/include/nss/" CXXFLAGS="$CXXFLAGS -I$HOME/$ARCH/include/nss/"  CC=clang CXX=clang++ AR=llvm-ar-10 NM=llvm-nm-10 RANLIB=llvm-ranlib-10 MOZBUILD_STATE_PATH=${PWD}/mozbuild build || exit 1
 PATH=$PATH:$HOME_DIBAB/scripts build || exit 1
