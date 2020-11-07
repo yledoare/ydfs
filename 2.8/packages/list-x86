@@ -1,4 +1,3 @@
-#Begin
 https://github.com/nghttp2/nghttp2/releases/download/v1.34.0/nghttp2-1.34.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
@@ -760,7 +759,7 @@ https://downloads.sourceforge.net/libwpg/libwpg-0.3.2.tar.xz
 http://downloads.sourceforge.net/project/libwps/libwps/libwps-0.4.10/libwps-0.4.10.tar.xz
 https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.3.14.tar.xz
 https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.2.tar.bz2
-https://github.com/g-truc/glm/releases/download/0.9.9.2/glm-0.9.9.2.zip
+https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
 https://gitlab.com/mdds/mdds/-/archive/1.7.0/mdds-1.7.0.tar.bz2
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.9.tar.xz
 https://dev-www.libreoffice.org/src/libabw/libabw-0.1.3.tar.xz

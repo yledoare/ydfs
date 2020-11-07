@@ -105,6 +105,7 @@ echo "$FILE" |grep x11-xserver-utils && DIR2=x11-xserver-utils && FORCED=1
 echo "$FILE" |grep firefox-74.0.1 && DIR2=firefox-74.0.1 && FORCED=1
 echo "$FILE" |grep firefox-75.0 && DIR2=firefox-75.0 && FORCED=1
 echo "$FILE" |grep x11-xkb-utils && DIR2=x11-xkb-utils && FORCED=1
+echo "$FILE" |grep glm-0.9 && DIR2=glm && FORCED=1
 echo "$FILE" |grep 4.0.2 && DIR2=dolphin-4.0.2 && FORCED=1
 echo "$FILE" |grep libatomic_ops-7_4 && DIR2=libatomic_ops-libatomic_ops-7_4_4 && FORCED=1
 echo "$FILE" |grep xbmc-13.1 && DIR2=xbmc-13.1-Gotham && FORCED=1
