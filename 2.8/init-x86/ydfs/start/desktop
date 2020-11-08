@@ -29,6 +29,13 @@ function start_mate
    	ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
 }
 
+function start_pantheon
+{
+ 	wingpanel &
+ 	plank &
+   	exec gala
+}
+
 function start_lxqt
 {
  	pcmanfm --desktop &
@@ -51,12 +58,18 @@ else
    then
      start_mate
    else
-     ls /ydfs/modules/*/share/xsessions | grep -v openbox | grep -v mate | while read session
+     echo > $HOME/.sessions
+     ls /ydfs/modules/*/share/xsessions | grep -v openbox | grep -v mate |grep desktop | while read session
      do
-	echo -n "False $session" > $HOME/.sessions
+	[ "$session" = "" ] && continue
+	session=$(echo $session | cut -d'.' -f1)
+	echo "Add $session"
+	echo -n "FALSE $session " >> $HOME/.sessions
      done
+     echo "Asking .."
      ans=$(zenity  --height 40 --list --hide-header  --text "Choose session" --radiolist  --column "Choice" --column "Lang" TRUE mate `cat $HOME/.sessions`)
-     start_$session || xterm
+     echo "Running start_$ans" 
+     start_$ans || xterm
    fi
  fi
 fi

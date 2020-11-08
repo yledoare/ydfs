@@ -902,6 +902,7 @@ https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86
 https://gitlab.gnome.org/GNOME/yelp-xsl/-/archive/3.36.0/yelp-xsl-3.36.0.tar.bz2 #SKIP-x86#
 https://gitlab.gnome.org/GNOME/yelp-tools/-/archive/3.32.2/yelp-tools-3.32.2.tar.gz #SKIP-x86#
 https://gitlab.gnome.org/GNOME/orca/-/archive/ORCA_3_36_3/orca-ORCA_3_36_3.tar.gz #SKIP-x86#
+wingpanel-2.3.2.tar.gz::https://github.com/elementary/wingpanel/archive/2.3.2.tar.gz #SKIP-x86#
 #End-pantheon
 # deps for mixx
 qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v0.11.1.tar.gz

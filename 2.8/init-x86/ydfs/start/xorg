@@ -71,7 +71,7 @@ marco &
 . /ydfs/detect/lang
 . /ydfs/detect/kbd
 . /ydfs/start/child-limits &
-. bash /ydfs/start/desktop
+bash /ydfs/start/desktop
 " > /etc/X11/Xsession
 fi
 
