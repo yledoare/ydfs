@@ -1,3 +1,5 @@
+https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86#
+FAIL
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
@@ -901,8 +903,6 @@ https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86
 https://gitlab.gnome.org/GNOME/yelp-xsl/-/archive/3.36.0/yelp-xsl-3.36.0.tar.bz2 #SKIP-x86#
 https://gitlab.gnome.org/GNOME/yelp-tools/-/archive/3.32.2/yelp-tools-3.32.2.tar.gz #SKIP-x86#
 https://gitlab.gnome.org/GNOME/orca/-/archive/ORCA_3_36_3/orca-ORCA_3_36_3.tar.gz #SKIP-x86#
-git://github.com/elementary/session-settings.git #SKIP-x86#
-git://github.com/elementary/cerbere.git#commit=dd63f099e325d8fd8cd5c3a8bb9aeb09de6f59bb #SKIP-x86#
 #End-pantheon
 # deps for mixx
 qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v0.11.1.tar.gz

@@ -110,16 +110,6 @@ else
     exit 1
   fi
 
-  if [ -e session/pantheon.session.in ]
-  then
-    cp $HOME/ydfs/packages-$ARCH/onboard-*/etc/xdg/autostart/onboard-autostart.desktop $PREFIX/etc/xdg/autostart/
-    # session-settings/
-    for FILE in org.gnome.SettingsDaemon.A11ySettings.desktop org.gnome.SettingsDaemon.Color.desktop org.gnome.SettingsDaemon.Datetime.desktop org.gnome.SettingsDaemon.Housekeeping.desktop org.gnome.SettingsDaemon.Keyboard.desktop org.gnome.SettingsDaemon.MediaKeys.desktop org.gnome.SettingsDaemon.Power.desktop org.gnome.SettingsDaemon.PrintNotifications.desktop org.gnome.SettingsDaemon.Rfkill.desktop org.gnome.SettingsDaemon.Sharing.desktop org.gnome.SettingsDaemon.Smartcard.desktop org.gnome.SettingsDaemon.Sound.desktop org.gnome.SettingsDaemon.Wacom.desktop org.gnome.SettingsDaemon.XSettings.desktop org.gnome.SettingsDaemon.Clipboard.desktop org.gnome.SettingsDaemon.Mouse.desktop pantheon-gnome-keyring-pkcs11.desktop pantheon-gnome-keyring-secrets.desktop pantheon-gnome-keyring-ssh.desktop pantheon-onboard-autostart.desktop pantheon-orca-autostart.desktop
-    do
-      [ ! -e $PREFIX/etc/xdg/autostart/$FILE ] && cp $HOME/$ARCH/etc/xdg/autostart/$FILE $PREFIX/etc/xdg/autostart/$FILE
-    done
-  fi
-
   # [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
   if [ -e source/zita-resampler ]
   then
@@ -500,7 +490,18 @@ grep share/Surge src/common/SurgeStorage.cpp
   	DESTDIR="${pkgdir}" meson install -C build || exit 1
   fi
 
-  pwd | grep session-settings && install -d build && cd build && PYTHONPATH="" meson --prefix=$PREFIX  --sysconfdir=$PREFIX/etc .. && PYTHONPATH="" ninja
+  if [ -e xsessions/pantheon.desktop ]
+  then
+    echo "Inside session-settings"
+	cp -fR $HOME/ydfs/packages-$ARCH/onboard-1.4.1/etc/* $HOME/$ARCH/etc/
+    mkdir build 
+      cd build 
+      PYTHONPATH="" meson --prefix=$PREFIX  --sysconfdir=$HOME/$ARCH/etc .. 
+      PYTHONPATH="" meson install || exit 1
+    cd ..
+    touch buildok-$ARCH
+    exit 0
+  fi
 
   if [ -e man/elogind.xml ]
   then
@@ -1842,19 +1843,30 @@ ac_cv_file__dev_ptc=no' >  config.site
        touch buildok-$ARCH
        exit 0
     fi 
-  if [ -e cython.py ]
+
+   if [ -e cython.py ]
+   then
+        python setup.py build || exit $?
+        python setup.py install --root="$pkgdir" --skip-build || exit $?
+   fi 
+   
+  if [ -e virt-manager.spec ]
   then
-	python setup.py build || exit $?
-	python setup.py install --root="$pkgdir" --skip-build || exit $?
+	set -e
+	echo virt-manager.spec
+	python3 setup.py configure --default-hvs qemu,lxc --prefix $PREFIX || exit $?
+	python3 setup.py build || exit $?
+	python3 setup.py --no-update-icon-cache --no-compile-schemas install --root /
+  	python3 -m compileall "$pkgdir"/share/virt-manager
+  	python3 -O -m compileall "$pkgdir"/share/virt-manager
         touch buildok-$ARCH
 	exit 0
   fi
+
     if [ -e setup.py ] 
     then
-	# pwd | grep beautifulsoup4 && export PREFIX=$HOME/$ARCH && echo "Prefix : $PREFIX"
       echo "Run $PYTHON setup.py"  && sleep 1
-       $PYTHON setup.py build || exit $?
-	pwd | grep beautifulsoup4 && python2 setup.py install --root="/home/linuxconsole2018/ydfs/packages-x86_64/beautifulsoup4-4.6.0" --optimize=1 --skip-build
+      $PYTHON setup.py build || exit $?
     fi
 
     [ -e programs/zstdcli.c  ] && sed -i "s@/usr/local@$PREFIX@g" */Makefile
@@ -2226,6 +2238,7 @@ echo "At BUILDPERL"
             install -vDm 644 "gtk2_${pkgname}/resources/Ardour-icon_${size}px.png" \
             "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}6.png" || exit 1
           done
+          touch buildok-$ARCH
        exit 0
      fi
      touch buildok-$ARCH
@@ -2420,7 +2433,6 @@ Cflags: -I${includedir}' > lua.pc
     fi
 
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
-  /home/linuxconsole2020/x86_64/include/ares*
   
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 

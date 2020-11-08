@@ -20,6 +20,21 @@ sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gpa
 install -d $HOME/.local/share/applications
 update-desktop-database
 
+function start_mate
+{
+	/ydfs/start/plogoff  &
+	/usr/libexec/bluetooth/obexd &
+	caja --force-desktop -n &
+	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
+   	ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
+}
+
+function start_lxqt
+{
+ 	pcmanfm --desktop &
+ 	dbus-launch lxsession
+}
+
 if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
 then
  xbmc || xterm
@@ -31,16 +46,17 @@ else
  then
    $HOME/ydfs/mysession
  else
-   if [ -e /usr/bin/mate-session ]
+   count_session=$(ls /ydfs/modules/*/share/xsessions |grep -v openbox|wc|cut -d' ' -f7)
+   if [ $count_session = 1 ]
    then
-	/ydfs/start/plogoff  &
-	/usr/libexec/bluetooth/obexd &
-	caja --force-desktop -n &
-	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
-   	ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
+     start_mate
    else
- 	pcmanfm --desktop &
- 	dbus-launch lxsession
+     ls /ydfs/modules/*/share/xsessions | grep -v openbox | grep -v mate | while read session
+     do
+	echo -n "False $session" > $HOME/.sessions
+     done
+     ans=$(zenity  --height 40 --list --hide-header  --text "Choose session" --radiolist  --column "Choice" --column "Lang" TRUE mate `cat $HOME/.sessions`)
+     start_$session || xterm
    fi
  fi
 fi

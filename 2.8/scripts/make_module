@@ -6,9 +6,9 @@ find $HOME/$1 |while read file
 do
   [ "$DISTRONAME" = "hackerOS" ] && break
   echo $file|grep '\.' >/dev/null && continue
-  test -d $file && continue
-  echo " $file ?"
-  file $file |grep 'not stripped' >/dev/null || continue
+  test -d "$file" && continue
+  echo " "$file" ?"
+  file "$file" |grep 'not stripped' >/dev/null || continue
   echo "Yes ! "
   strip $file
 done

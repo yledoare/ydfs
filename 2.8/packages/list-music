@@ -5,8 +5,8 @@ git://github.com/falkTX/Carla.git#tag=v2.1.1
 https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
 lvtk-1.2.0.tar.gz::https://github.com/lvtk/lvtk/archive/1.2.0.tar.gz
 ams-lv2-1.2.2.tar.gz::https://github.com/blablack/ams-lv2/archive/v1.2.2.tar.gz
-git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5
-git://github.com/ardour/ardour.git#tag=6.2
+git://github.com/ardour/ardour.git#tag=6.3
 http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
-git://github.com/hydrogen-music/hydrogen.git#commit=538eaeb9f4e9be2febf02e36a08e3e9fca2ae317
 https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms_1.2.2.tar.xz
+https://github.com/hydrogen-music/hydrogen/releases/download/1.0.1/hydrogen-1.0.1.tar.gz
+#git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5

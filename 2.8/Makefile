@@ -212,7 +212,7 @@ hackerOS: packages/list-hackerOS
 
 # modules: firefox games music office video multimedia fps network emulators graphics
 all-modules: firefox games music office video multimedia fps network emulators graphics lxqt
-modules: chromium
+modules: chromium music vm
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
@@ -237,6 +237,7 @@ ${LCMBUILD}/video-${ARCH}.squashfs : packages/list-video
 music: ${LCMBUILD}/music-${ARCH}.squashfs
 ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/make_packages music
+	./scripts/strip_module music
 	./scripts/make_module music
 
 devtools: ${LCMBUILD}/devtools-${ARCH}.squashfs
@@ -352,10 +353,17 @@ ${LCMBUILD}vm-${ARCH}.squashfs : packages/list-vm
 	./scripts/make_packages vm
 	./scripts/make_module vm
    
+pantheon: ${LCMBUILD}pantheon-${ARCH}.squashfs
+${LCMBUILD}pantheon-${ARCH}.squashfs : packages/list-pantheon
+	./scripts/make_packages pantheon
+	./scripts/make_module pantheon
+
 antivirus: ${LCMBUILD}antivirus-${ARCH}.squashfs
 ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
 	./scripts/make_packages antivirus
 	./scripts/make_module antivirus
+
+
 
 archive:
 	cd ..
