@@ -96,6 +96,7 @@ echo $ARCHIVE | grep mlt-6 &&  LC_CONFIGURE_OPTS="--avformat-swscale \
         --enable-gpl3 \
         --enable-opencv"
 echo $ARCHIVE | grep libfreehand &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep tracker-miner &&  LC_CONFIGURE_OPTS="-Dminer_rss=false -Dsystemd_user_services=false"
 echo $ARCHIVE | grep libpagemaker &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep libixion &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep telepathy-glib &&  LC_CONFIGURE_OPTS=" --enable-vala-bindings "

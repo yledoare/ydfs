@@ -1726,6 +1726,7 @@ Cflags: -I${includedir}' > glm.pc
   fi
 
   [ -e src/tracker/tracker-main.c ] && sed -i "s@/etc/asciidoc@$HOME/$ARCH/etc/asciidoc@" docs/manpages/meson.build
+  [ -e src/tracker/tracker-miner-manager.c ] && sed -i "s@/etc/asciidoc@$HOME/$ARCH/etc/asciidoc@" docs/manpages/meson.build
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
   [ -e gdb/charset.h ] && [ -e $HOME/$ARCH/include/charset.h ] && install -d $HOME/$ARCH/include/smb && mv $HOME/$ARCH/include/charset.h  $HOME/$ARCH/include/smb
