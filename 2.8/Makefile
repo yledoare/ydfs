@@ -104,8 +104,12 @@ endif
 INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
-all: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs initramfs2 linux core firmware drivers $(DISTRONAME) modules iso sleep
-
+all:
+	@echo "Usage : "
+	@echo "make iso "
+	@echo "make test "
+	@echo "make modules "
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
 	echo "Sleeping 60 minutes .. "
 	sleep 6000
@@ -142,7 +146,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: ${ISOPATH}
+iso: isodep ${ISOPATH}
 metalink:
 	./scripts/iso_to_metalink
 

@@ -65,7 +65,7 @@ KERNEL=$KERNEL3
   fi 
 # [ "$CUSTOMINIT" = "OK" ] && INITRD="custom"-"$INITRD"
   install -d $INITRAMFS/lib/modules/$KERNEL/
-  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
+#  cp $KERNEL_MODULES_PATH/lib/modules/$KERNEL/modules.dep $INITRAMFS/lib/modules/$KERNEL/
   DEPS=""
   du -sh $INITRAMFS
   date "+%Y-%m-%d-%H-%M" > $INITRAMFS/initramfs-build-date
