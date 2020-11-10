@@ -409,7 +409,7 @@ http://libmpeg2.sourceforge.net/files/libmpeg2-0.5.1.tar.gz
 http://download.videolan.org/pub/libdvbpsi/1.3.1/libdvbpsi-1.3.1.tar.bz2 
 http://download.videolan.org/videolan/libdvdread/6.0.0/libdvdread-6.0.0.tar.bz2
 http://download.videolan.org/videolan/libdvdnav/6.0.0/libdvdnav-6.0.0.tar.bz2
-http://live555.com/liveMedia/public/live.2020.11.03.tar.gz
+http://live555.com/liveMedia/public/live.2020.11.05.tar.gz
 http://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.2.tar.xz 
 http://gstreamer.freedesktop.org/src/gst-python/gst-python-1.2.0.tar.gz 
 http://gstreamer.freedesktop.org//src/gst-libav/gst-libav-1.14.0.tar.xz 
@@ -562,6 +562,7 @@ http://downloads.sourceforge.net/sourceforge/faac/faad2-2.7.tar.bz2
 http://freefr.dl.sourceforge.net/project/libcddb/libcddb/1.3.2/libcddb-1.3.2.tar.bz2 
 http://freefr.dl.sourceforge.net/project/mpg123/mpg123/1.18.0/mpg123-1.18.0.tar.bz2 
 https://fossies.org/linux/www/neon-0.30.2.tar.gz
+https://luajit.org/download/LuaJIT-2.0.5.tar.gz
 #GEGL-0.4-for-Gimp 
 https://download.gimp.org/pub/gegl/0.4/gegl-0.4.26.tar.xz
 https://github.com/jemalloc/jemalloc/releases/download/5.1.0/jemalloc-5.1.0.tar.bz2
@@ -850,6 +851,7 @@ https://github.com/mono/libgdiplus/archive/5.6.1/libgdiplus-5.6.1.tar.gz
 https://downloads.sourceforge.net/sourceforge/tuxpaint/tuxpaint-0.9.23.tar.gz
 http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.tar.gz
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
+freerdp-2.2.0.tar.gz::https://github.com/freerdp/freerdp/archive/2.2.0.tar.gz
 #Pantheon
 https://github.com/elogind/elogind/archive/v243.7.tar.gz
 git://git.launchpad.net/bamf
@@ -864,16 +866,11 @@ https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.135.tar.gz
 https://github.com/PipeWire/pipewire/archive/0.3.2.tar.gz
 https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.bz2
 http://www.sysprof.com/sysprof-1.2.0.tar.gz
-#https://gitlab.gnome.org/GNOME/sysprof/-/archive/sysprof-3.36.0/sysprof-sysprof-3.36.0.tar.bz2
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
 https://gitlab.gnome.org/GNOME/mutter/-/archive/3.36.1/mutter-3.36.1.tar.bz2
-freerdp-2.1.1.tar.gz::https://github.com/freerdp/freerdp/archive/2.1.1.tar.gz
-#https://github.com/opencv/opencv/archive/3.4.3.tar.gz
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
-#Minetest
-https://luajit.org/download/LuaJIT-2.0.5.tar.gz
 #Guitarx
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-4.0.3.tar.bz2
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar.bz2
@@ -893,16 +890,14 @@ https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar
 git://github.com/WebPlatformForEmbedded/libwpe#commit=6483872b0b11856a6e5f0ac9724661cdbaac9d6f #SKIP-x86#
 git://github.com/Igalia/WPEBackend-fdo#commit=5523f39d46d398608544a501c39b6f1c3d41233f #SKIP-x86#
 https://webkitgtk.org/releases/webkitgtk-2.30.2.tar.xz #SKIP-x86#
-#Begin-pantheon
-git://github.com/ricotz/plank.git#tag=0.11.89 #SKIP-x86#
-git://github.com/elementary/granite.git#tag=5.5.0 #SKIP-x86#
-https://github.com/elementary/gala/archive/3.3.2.tar.gz #SKIP-x86#
-https://gitlab.gnome.org/GNOME/gnome-keyring/-/archive/3.36.0/gnome-keyring-3.36.0.tar.gz #SKIP-x86#
+#End-Gnome-boxes
 https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86#
+#Begin-pantheon
+git://github.com/elementary/granite.git#tag=5.5.0 #SKIP-x86#
+https://gitlab.gnome.org/GNOME/gnome-keyring/-/archive/3.36.0/gnome-keyring-3.36.0.tar.gz #SKIP-x86#
 https://gitlab.gnome.org/GNOME/yelp-xsl/-/archive/3.36.0/yelp-xsl-3.36.0.tar.bz2 #SKIP-x86#
 https://gitlab.gnome.org/GNOME/yelp-tools/-/archive/3.32.2/yelp-tools-3.32.2.tar.gz #SKIP-x86#
 https://gitlab.gnome.org/GNOME/orca/-/archive/ORCA_3_36_3/orca-ORCA_3_36_3.tar.gz #SKIP-x86#
-wingpanel-2.3.2.tar.gz::https://github.com/elementary/wingpanel/archive/2.3.2.tar.gz #SKIP-x86#
 #End-pantheon
 # deps for mixx
 qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v0.11.1.tar.gz
