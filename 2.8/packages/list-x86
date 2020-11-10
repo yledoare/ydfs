@@ -71,7 +71,7 @@ http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
 http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
 http://files.itstool.org/itstool/itstool-2.0.6.tar.bz2
 https://hewlettpackard.github.io/wireless-tools/wireless_tools.30.pre9.tar.gz
-https://dbus.freedesktop.org/releases/dbus/dbus-1.12.10.tar.gz
+https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
 #PNG12
 https://sourceforge.net/projects/libpng/files/libpng-1.2.59.tar.xz
 http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.6.37.tar.xz
@@ -423,7 +423,7 @@ https://ftp.gnome.org/pub/gnome/sources/glib-networking/2.64/glib-networking-2.6
 https://github.com/rockdaboot/libpsl/releases/download/libpsl-0.21.0/libpsl-0.21.0.tar.gz
 https://github.com/google/brotli/archive/v1.0.9.tar.gz
 https://ftp.gnome.org/pub/GNOME/sources/libsoup/2.68/libsoup-2.68.4.tar.xz
-http://anduin.linuxfromscratch.org/BLFS/iso-codes/iso-codes-4.4.tar.xz
+https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-4.5.0/iso-codes-iso-codes-4.5.0.tar.bz2
 http://downloads.sourceforge.net/glew/glew-2.1.0.tgz
 http://xorg.freedesktop.org/archive/individual/app/xdriinfo-1.0.4.tar.gz
 http://freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.26.tar.xz
@@ -531,7 +531,6 @@ http://freefr.dl.sourceforge.net/project/tinyxml/tinyxml/2.6.2/tinyxml_2_6_2.tar
 http://xorg.freedesktop.org/archive/individual/app/xlsfonts-1.0.4.tar.gz
 https://github.com/glfw/glfw/archive/3.3.2.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/GConf/3.2/GConf-3.2.6.tar.xz
-http://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.22.tar.xz
 pip::pycurl
 http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-7.2e.tar.gz
 https://launchpad.net/libgc/main/7.4.0/+download/gc-7.4.0.tar.gz
