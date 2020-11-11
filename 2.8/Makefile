@@ -147,8 +147,8 @@ ${GCCPATH}:
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
 iso: isodep ${ISOPATH} modules
-	@echo "Sleeping 60 minutes .. "
-	sleep 6000
+	make modules || sleep 6000
+#	@echo "Sleeping 60 minutes .. "
 metalink:
 	./scripts/iso_to_metalink
 
