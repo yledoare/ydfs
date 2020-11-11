@@ -109,7 +109,7 @@ all:
 	@echo "make iso "
 	@echo "make test "
 	@echo "make modules "
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
 sleep:
 	echo "Sleeping 60 minutes .. "
 	sleep 6000

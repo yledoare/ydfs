@@ -2201,7 +2201,10 @@ echo "At BUILDPERL"
      ./b2 install && touch buildok-$ARCH
      fi
   fi
-  if [ -e waf ]
+
+  [ -e doc/aubio.txt ] && touch buildok-$ARCH && exit 0
+
+  if [ -e waf ] 
   then
 	[ -e ydfs.env ] && mv ydfs.env ydfs.env.bak 
 	env > ydfs.env
