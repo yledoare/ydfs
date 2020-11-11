@@ -111,7 +111,7 @@ all:
 	@echo "make modules "
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
 sleep:
-	echo "Sleeping 60 minutes .. "
+	@echo "Sleeping 60 minutes .. "
 	sleep 6000
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
@@ -127,7 +127,7 @@ ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config:
 	./scripts/make_linux
 
 ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/make_linux # ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/.config config/kernel-${ARCH}/config
-	echo "build " ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}
+	@echo "build " ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}
 	./scripts/make_linux
 
 linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
@@ -140,13 +140,15 @@ initramfs2:
 	CUSTOMINIT=OK ./scripts/make_initramfs
 
 crosstool-ng-x86_64:
-	echo Bug with recursion
+	@echo Bug with recursion
 	echo run ./scripts/make_crosstool-ng-x86_64
 	#./scripts/make_crosstool-ng-x86_64
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
 iso: isodep ${ISOPATH}
+	@echo "Sleeping 60 minutes .. "
+	sleep 6000
 metalink:
 	./scripts/iso_to_metalink
 
