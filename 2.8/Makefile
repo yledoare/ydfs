@@ -109,6 +109,7 @@ all:
 	@echo "make iso "
 	@echo "make test "
 	@echo "make modules "
+	tail -f /dev/null
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
 sleep:
 	@echo "Sleeping 60 minutes .. "
@@ -146,9 +147,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep ${ISOPATH} modules
-	make modules || sleep 6000
-#	@echo "Sleeping 60 minutes .. "
+iso: isodep ${ISOPATH}
 metalink:
 	./scripts/iso_to_metalink
 
