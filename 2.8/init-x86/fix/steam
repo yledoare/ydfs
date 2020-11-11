@@ -5,7 +5,8 @@ cd .fonts
 cd ..
 install -d Steam
 cd Steam
-[ ! -e steam_1.0.0.66.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.66.tar.gz
+# [ ! -e steam_1.0.0.66.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.66.tar.gz
+[ ! -e steam_1.0.0.66.tar.gz ] && wget http://jukebox.linuxconsole.org/steam/steam_1.0.0.66.tar.gz
 [ ! -e steam-launcher ] && tar xzvf steam_1.0.0.66.tar.gz
 cd steam-launcher 
 sed -i "s@id -u@echo@g" ./bin_steam.sh
