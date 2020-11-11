@@ -146,7 +146,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep ${ISOPATH}
+iso: isodep ${ISOPATH} modules
 	@echo "Sleeping 60 minutes .. "
 	sleep 6000
 metalink:
