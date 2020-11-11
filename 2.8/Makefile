@@ -113,7 +113,7 @@ all:
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
 sleep:
 	@echo "Sleeping 60 minutes .. "
-	sleep 6000
+	sleep 60000
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain

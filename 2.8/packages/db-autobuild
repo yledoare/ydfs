@@ -1310,7 +1310,7 @@ EOF
 	cd $HOME/ydfs/src/$MYDIR
       fi
       [ ! -e $HOME/fpc-3.0.4/bin/fpc ] && echo "Please install $HOME/fpc-3.0.4/bin/fpc !" && exit 67
-      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$HOME/$ARCH/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-3.0.4/bin/fpc"
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$PREFIX/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-3.0.4/bin/fpc"
       install -d $PREFIX/share/applications/
       install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
@@ -1660,10 +1660,15 @@ Cflags: -I${includedir}' > glm.pc
      unset CPPFLAGS && unset CFLAGS && unset LDFLAGS
      ./configure --prefix=$PREFIX \
 	--with-platform="efi" \
-		--target="x86_64" 
-	make && make install
+		--target="x86_64" || exit 1
+	make && make install || exit 1
+	make clean
 	# https://www.mail-archive.com/grub-devel@gnu.org/msg29840.html
 	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
+     ./configure --prefix=$PREFIX \
+	--with-platform="pc" \
+		--target="i386" || exit 1
+	make && make install || exit 1
         touch buildok-$ARCH
 	exit 0
   fi
@@ -2202,7 +2207,20 @@ echo "At BUILDPERL"
      fi
   fi
 
-  [ -e doc/aubio.txt ] && touch buildok-$ARCH && exit 0
+  if [ -e doc/aubio.txt ]
+  then
+	set -e
+	./waf configure --prefix=$PREFIX \
+                --alltests \
+                --enable-fftw3 \
+                --libdir=$PREFIX/lib
+  	./waf build
+  	$PYTHON setup.py build
+	PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
+                          --root="${pkgdir}"
+        touch buildok-$ARCH
+        exit 0
+  fi
 
   if [ -e waf ] 
   then
