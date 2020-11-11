@@ -21,6 +21,11 @@ then
 which gpartedbin || opkg-cl install gparted
 zenity --info --text="Please create a partition named $DISTRONAME \n\nClose this, gparted will start" &>/dev/null
 
+if [ -e /sys/firmware/efi ]
+then
+  zenity --info --text="EFI Detected \n \n Please first create a FAT32 BOOT partition, and copy EFI, isolinux, boot \n Also remove the liveusb option from /boot/grub/grub.cfg" &>/dev/null
+fi
+
 echo "Please wait ..."
 # To disable remounting while running gparted
 echo > /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
@@ -58,7 +63,7 @@ then
   sed -i "s@ ro @$BOOTOPTION ro quiet loglevel=0 @" /media/$DISTRONAME/grub/grub.cfg
   touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
 else
-  zenity --info --text="Please create a boot partition, and install EFI" &>/dev/null
+  touch /media/$DISTRONAME/syslinux.cfg # used for mount partition as DISTRONAME disk
 fi
 
 echo "Copying module ..."
