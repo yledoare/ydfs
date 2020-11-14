@@ -2161,10 +2161,7 @@ echo "At BUILDPERL"
 	  echo "Mixx build"
 	  # ls  $HOME_DIBAB/mixxx/controllers && sleep 4
 	  # cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
-
-	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off machine=x86 force32=1" && sed -i "s@-m32@-m32 -msse3@g" build/mixxx.py
-  	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
-	  scons $SCONS_OPT build=release qt5=1 qtdir=$HOME/$ARCH/ build=release \
+	  MIXOPT="build=release qt5=1 qtdir=$HOME/$ARCH/ build=release \
         faad=1 \
         ffmpeg=1 \
         modplug=1 \
@@ -2174,11 +2171,18 @@ echo "At BUILDPERL"
         qtkeychain=1 \
         test=0 \
         target=linux \
-        virtualize=0 \
-        wv=1 qtkeychain=1 $MIXOPT || exit $?
-	  scons $SCONS_OPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
-	  scons $SCONS_OPT prefix=$PREFIX install  || exit $?
+        virtualize=0"
+	  [ "$ARCH" = "x86" ] && MIXOPT="$MIXOPT optimize=off machine=x86 force32=1" && sed -i "s@-m32@-m32 -msse3@g" build/mixxx.py
+  	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
+	  echo "Mixxx : Scons building with $MIXOPT"
+	  scons $SCONS_OPT $MIXOPT || exit $?
+	  echo "Mixxx : Scons install package"
+	  scons $SCONS_OPT $MIXOPT install_root=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX prefix=$PREFIX install  || exit $?
+	  echo "Mixxx : Scons install files"
+	  scons $SCONS_OPT $MIXOPT prefix=$PREFIX install  || exit $?
   	  [ -e $HOME/$ARCH/include/util-smb ] && mv $HOME/$ARCH/include/util-smb $HOME/$ARCH/include/util
+          touch buildok-$ARCH
+          exit 0
 	else
           if [ -e site_scons ]
             then . $(dirname $0)/../scripts/includes/scons
