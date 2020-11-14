@@ -2162,7 +2162,7 @@ echo "At BUILDPERL"
 	  # ls  $HOME_DIBAB/mixxx/controllers && sleep 4
 	  # cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
 
-	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off"
+	  [ "$ARCH" = "x86" ] && MIXOPT="optimize=off machine=x86 force32=1" && sed -i "s@-m32@-m32 -msse3@g" build/mixxx.py
   	  [ -e $HOME/$ARCH/include/util ] && mv $HOME/$ARCH/include/util $HOME/$ARCH/include/util-smb
 	  scons $SCONS_OPT build=release qt5=1 qtdir=$HOME/$ARCH/ build=release \
         faad=1 \
@@ -2221,6 +2221,7 @@ echo "At BUILDPERL"
   	$PYTHON setup.py build
 	PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
                           --root="${pkgdir}"
+	./waf install
         touch buildok-$ARCH
         exit 0
   fi
@@ -2598,7 +2599,13 @@ Cflags: -I${includedir}' > lua.pc
 	mkdir build
 	cd build
 	echo "Running meson with $LC_CONFIGURE_OPTS"
-  	meson ../ --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 1
+        if [ -e ../DISTRHO.kdev4 ] && [ "$ARCH" = "x86" ]
+        then
+		echo "Enable msse3 flag for DISTRHO" && sleep 2
+ 		CFLAGS="-msse3 $CFLAGS" CPPFLAGS="-msse3 $CPPFLAGS" CXXFLAGS="-msse3 $CXXFLAGS" meson ../ --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 1
+	else
+  		meson ../ --prefix=$PREFIX $LC_CONFIGURE_OPTS || exit 1
+        fi
   	# PYTHONPATH="" meson ../ --prefix=$PREFIX || exit 1
      	ninja || exit 1
      	# PYTHONPATH="" ninja || exit 1
