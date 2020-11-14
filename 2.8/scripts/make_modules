@@ -169,7 +169,6 @@ export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
 install -d $LCMBUILD
 # rm $LCMBUILD/devtools-$ARCH.squashfs
-MKSQUASHFS="$HOME/ydfs/modules/$ARCH/bin/mksquashfs "
 MKSQUASHFS="$HOME/$ARCH/bin/mksquashfs "
 [ "$ARCH" = "arm" ] && MKSQUASHFS=mksquashfs
 rm $LCMBUILD/$ARCH.squashfs

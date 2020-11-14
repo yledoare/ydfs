@@ -216,13 +216,23 @@ hackerOS: packages/list-hackerOS
 
 
 # modules: firefox games music office video multimedia fps network emulators graphics
-all-modules: firefox games music office video multimedia fps network emulators graphics lxqt
+all-modules: firefox games music office video multimedia fps network emulators graphics xfce
 modules: chromium music vm games office network graphics network multimedia video 
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
 	./scripts/make_packages lxqt
 	./scripts/make_module lxqt
+
+lxde: ${LCMBUILD}/lxde-${ARCH}.squashfs
+${LCMBUILD}/lxde-${ARCH}.squashfs : packages/list-lxde
+	./scripts/make_packages lxde
+	./scripts/make_module lxde
+
+xfce: ${LCMBUILD}/xfce-${ARCH}.squashfs
+${LCMBUILD}/xfce-${ARCH}.squashfs : packages/list-xfce
+	./scripts/make_packages xfce
+	./scripts/make_module xfce
 
 virtualbox: ${LCMBUILD}/virtualbox-${ARCH}.squashfs
 ${LCMBUILD}/virtualbox-${ARCH}.squashfs : packages/list-virtualbox
@@ -310,6 +320,8 @@ ${LCMBUILD}linuxconsole-${ARCH}.squashfs : packages/list-linuxconsole
 	./scripts/make_packages linuxconsole
 	./scripts/make_module linuxconsole
    
+fast: 
+	./scripts/make_fast
 multilib: 
 	./scripts/make_multilib
 dist: 

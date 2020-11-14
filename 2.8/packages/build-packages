@@ -437,5 +437,3 @@ do
 done
 [ ! -e $HOME/$MODULE/buildok ] && touch $HOME/$MODULE/buildok # usefull to know which file can be wrotten into $HOME/$MODULE/ after last package build
 echo "Build packages OK"
-
-#/home/yann/x86/bin/mksquashfs /home/ydfs-32/games/ /home/ydfs-32/ydfs/build/modules/games-x86.squashfs
