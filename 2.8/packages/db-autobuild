@@ -257,6 +257,7 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
   [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
+  [ -e $HOME/$ARCH/include/tinyxml-disabled.h ] && mv  $HOME/$ARCH/include/tinyxml-disabled.h $HOME/$ARCH/include/tinyxml.h 
   [ -e $HOME/$ARCH/include/zita-resampler-disabled ] && mv $HOME/$ARCH/include/zita-resampler-disabled $HOME/$ARCH/include/zita-resampler
   [ -e $HOME/$ARCH/include/fluidsynth-disabled ] && mv $HOME/$ARCH/include/fluidsynth-disabled $HOME/$ARCH/include/fluidsynth
   [ -e $HOME/$ARCH/include/fluidsynth-disabled.h ] && mv $HOME/$ARCH/include/fluidsynth-disabled.h $HOME/$ARCH/include/fluidsynth.h
@@ -683,6 +684,8 @@ fi
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
   # [ -e audacity.dox ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e asciidoc.py ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e mypaint-brushes-1.0.pc ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e mypaint-brushes-1.0.pc ] && echo "Disable Sconstruct " && rm SConstruct
   [ -e dotconf.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e luit.c ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
   [ -e libgtop-2.0.pc.in ] && sed -e 's/0.19.4/0.20/g' -i configure.ac 
@@ -1664,11 +1667,11 @@ Cflags: -I${includedir}' > glm.pc
 	make && make install || exit 1
 	make clean
 	# https://www.mail-archive.com/grub-devel@gnu.org/msg29840.html
-	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
      ./configure --prefix=$PREFIX \
 	--with-platform="pc" \
 		--target="i386" || exit 1
 	make && make install || exit 1
+	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
         touch buildok-$ARCH
 	exit 0
   fi

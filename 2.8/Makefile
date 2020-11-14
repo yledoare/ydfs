@@ -217,7 +217,7 @@ hackerOS: packages/list-hackerOS
 
 # modules: firefox games music office video multimedia fps network emulators graphics
 all-modules: firefox games music office video multimedia fps network emulators graphics lxqt
-modules: chromium music vm
+modules: chromium music vm games office network graphics network multimedia video 
 
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
