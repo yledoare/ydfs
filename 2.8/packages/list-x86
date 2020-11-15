@@ -362,6 +362,7 @@ http://freefr.dl.sourceforge.net/project/libraw1394/libraw1394/libraw1394-2.0.5.
 http://freefr.dl.sourceforge.net/project/libavc1394/libavc1394/libavc1394-0.5.4.tar.gz 
 https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz
 https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz
+http://download.gnome.org/sources/dconf/0.24/dconf-0.24.0.tar.xz
 cldr-emoji-annotation-37.0.13.0.0.2.tar.gz::https://github.com/fujiwarat/cldr-emoji-annotation/archive/37.0_13.0_0_2.tar.gz
 https://github.com/ibus/ibus/releases/download/1.5.23/ibus-1.5.23.tar.gz
 #SDL2 needed for ffplay
@@ -676,7 +677,6 @@ http://downloads.sourceforge.net/gtkspell/gtkspell3-3.0.9.tar.xz
 #Mate desktop
 https://download.gnome.org/sources/libwnck/3.20/libwnck-3.20.1.tar.xz 
 https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
-http://download.gnome.org/sources/dconf/0.24/dconf-0.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-polkit-1.24.0.tar.xz
 https://pub.mate-desktop.org/releases/1.24/mate-desktop-1.24.1.tar.xz
 https://pub.mate-desktop.org/releases/1.24/caja-1.24.0.tar.xz
