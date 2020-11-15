@@ -219,10 +219,21 @@ hackerOS: packages/list-hackerOS
 all-modules: firefox games music office video multimedia fps network emulators graphics xfce
 modules: chromium music vm games office network graphics network multimedia video 
 
+kde: ${LCMBUILD}/kde-${ARCH}.squashfs
+${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
+	./scripts/make_packages kde
+	./scripts/make_module kde
+
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
 	./scripts/make_packages lxqt
 	./scripts/make_module lxqt
+
+gnome-flashback: ${LCMBUILD}/gnome-flashback-${ARCH}.squashfs
+${LCMBUILD}/gnome-flashback-${ARCH}.squashfs : packages/list-gnome-flashback
+	./scripts/make_packages gnome-flashback
+	./scripts/make_module gnome-flashback
+
 
 lxde: ${LCMBUILD}/lxde-${ARCH}.squashfs
 ${LCMBUILD}/lxde-${ARCH}.squashfs : packages/list-lxde

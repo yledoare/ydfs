@@ -1,3 +1,8 @@
+http://ftp.gnome.org/pub/GNOME/sources/gnome-flashback/3.34/gnome-flashback-3.34.0.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/gnome-panel/3.34/gnome-panel-3.34.0.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/gnome-applets/3.34/gnome-applets-3.34.0.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/metacity/3.34/metacity-3.34.0.tar.xz
+END
 https://www.kernel.org/pub/software/scm/git/git-2.29.1.tar.xz
 https://ftp.gnu.org/gnu/gdb/gdb-10.1.tar.xz
 https://github.com/vim/vim/archive/v8.2.1704/vim-8.2.1704.tar.gz

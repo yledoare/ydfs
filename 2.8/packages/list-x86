@@ -1,4 +1,3 @@
-FAIL
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
@@ -294,6 +293,8 @@ http://ftp.gnome.org/pub/gnome/sources/pango/1.44/pango-1.44.7.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.40/gdk-pixbuf-2.40.0.tar.xz
 https://xkbcommon.org/download/libxkbcommon-0.9.1.tar.xz
+libsass-3.6.4.tar.gz::https://github.com/sass/libsass/archive/3.6.4.tar.gz
+sassc-3.6.1.tar.gz::https://github.com/sass/sassc/archive/3.6.1.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.23.tar.xz
 http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
 http://www.freedesktop.org/software/libevdev/libevdev-1.4.2.tar.xz
@@ -361,6 +362,8 @@ http://freefr.dl.sourceforge.net/project/libraw1394/libraw1394/libraw1394-2.0.5.
 http://freefr.dl.sourceforge.net/project/libavc1394/libavc1394/libavc1394-0.5.4.tar.gz 
 https://github.com/webmproject/libvpx/archive/v1.8.0.tar.gz
 https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz
+cldr-emoji-annotation-37.0.13.0.0.2.tar.gz::https://github.com/fujiwarat/cldr-emoji-annotation/archive/37.0_13.0_0_2.tar.gz
+https://github.com/ibus/ibus/releases/download/1.5.23/ibus-1.5.23.tar.gz
 #SDL2 needed for ffplay
 https://www.libsdl.org/release/SDL2-2.0.7.tar.gz
 https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz
@@ -483,7 +486,7 @@ https://download.gnome.org/sources/NetworkManager/1.26/NetworkManager-1.26.4.tar
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
-https://github.com/blueman-project/blueman/releases/download/2.1.3/blueman-2.1.3.tar.xz
+https://github.com/blueman-project/blueman/releases/download/2.1.4/blueman-2.1.4.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 https://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
@@ -831,7 +834,6 @@ https://download.kde.org/stable/frameworks/5.68/kwayland-5.68.0.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/libkscreen-5.18.4.1.tar.xz
 download.kde.org/stable/frameworks/5.68/knotifyconfig-5.68.0.tar.xz
 #https://ftp.postgresql.org/pub/source/v12.2/postgresql-12.2.tar.bz2
-https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
 https://download.gnome.org/sources/gnome-mime-data/2.18/gnome-mime-data-2.18.0.tar.bz2
 https://download.gnome.org/sources/gnome-vfs/2.24/gnome-vfs-2.24.4.tar.bz2
 https://gitlab.gnome.org/GNOME/orbit2/-/archive/144be2e9860286c83f009e7689250e0af977cc5e/orbit2-144be2e9860286c83f009e7689250e0af977cc5e.tar.bz2
@@ -861,6 +863,7 @@ https://gitlab.gnome.org/GNOME/geocode-glib/-/archive/3.26.2/geocode-glib-3.26.2
 https://gitlab.gnome.org/GNOME/libgweather/-/archive/3.36.0/libgweather-3.36.0.tar.bz2
 https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=GNOME_SETTINGS_DAEMON_3_32_1
 https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.4.tar.xz
+https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/archive/GNOMEBT_V_3_34_3/gnome-bluetooth-GNOMEBT_V_3_34_3.tar.bz2
 vulkan-headers-1.2.137.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.2.137.tar.gz
 https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.135.tar.gz
 https://github.com/PipeWire/pipewire/archive/0.3.2.tar.gz

@@ -38,7 +38,7 @@ CMAKE_PREFIX_PATH=$HOME/$ARCH
 # initialisation de variables
 MODULEPATH=""
 export ACLOCAL="aclocal"
-export KF5="$HOME/linuxconsole"
+export KF5="$HOME/kde"
 export CMAKE_PREFIX_PATH=$KF5:$CMAKE_PREFIX_PATH
 
 # $1 a été mis dans $MODULE ci-dessus. Si list-$MODULE n'existe pas on sort : OK
