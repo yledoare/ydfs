@@ -744,7 +744,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	#echo $ARCHIVE | grep gst-plugins-base && LC_CONFIGURE_OPTS="--disable-examples"
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
 	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
-        echo $ARCHIVE | grep gimp && LC_CONFIGURE_OPTS=" --disable-python"
+        echo $ARCHIVE | grep download.gimp.org/pub/gimp && LC_CONFIGURE_OPTS=" --disable-python"
         echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
 	# echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
