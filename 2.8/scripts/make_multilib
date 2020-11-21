@@ -263,8 +263,8 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     pulseaudio )
 	if [ ! -e libtool-2.4.6 ]
 	then
-	  wget ftp://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.xz
-	  tar xJvf libtool-2.4.6.tar.xz
+	  wget ftp://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.gz
+	  tar xvf libtool-2.4.6.tar.gz
 	  cd libtool-2.4.6
 		./configure  --prefix=$HOME/multilib || exit $?
 		make || exit $?
@@ -394,6 +394,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     glib-2)
 	patch -p1 < $HOME_DIBAB/packages/patches/lib32-glib2.diff
+	patch -p1 < $HOME_DIBAB/packages/patches/glib2-multilib.diff
 	export CC="gcc -m32 -mstackrealign"
   	export CXX="g++ -m32 -mstackrealign"
 	sleep 5
