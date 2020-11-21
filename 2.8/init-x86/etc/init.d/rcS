@@ -32,6 +32,7 @@ echo -n "Detect media"
 echo -n "Mount ydfs modules"
 . /ydfs/detect/modules
 
+. /ydfs/enable/virtualbox &
 # echo -n " 4" > /dev/tty1
 [ -e /ydfs/boot/options/debug04  ] && sh
 

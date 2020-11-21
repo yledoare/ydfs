@@ -39,7 +39,7 @@ MY_DIR="${TARGET%/[!/]*}"
 #     done
 # )
 
-INSTALL_DIR="${HOME_DIBAB}/linuxconsole/lib/virtualbox"
+INSTALL_DIR="${HOME_DIBAB}/virtualbox/lib/virtualbox"
 echo $INSTALL_DIR
 # Note: This script must not fail if the module was not successfully installed
 #       because the user might not want to run a VM but only change VM params!

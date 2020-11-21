@@ -1,4 +1,6 @@
 echo -n "Detecting optional modules "
+DBDATADIR=/tmp
+[ -e /overlay ] && DBDATADIR=/overlay
 ls /media/ydfs/modules/| while read module
 do
   [ "$module" == "x86_64.squashfs" ] && continue
@@ -11,8 +13,11 @@ if [ ! -e /ydfs/modules/$MODULE ]
 then
  echo -n "$MODULE "
  install -d /ydfs/modules/$MODULE
- ln -s /ydfs/modules/$MODULE $HOME_DIBAB
+ install -d $HOME_DIBAB/$MODULE
+ install -d $DBDATADIR/work-$MODULE
+ install -d $DBDATADIR/updir-$MODULE
  mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
+ mount -t overlay overlay -oindex=off,lowerdir=/ydfs/modules/$MODULE,upperdir=$DBDATADIR/updir-$MODULE,workdir=$DBDATADIR/work-$MODULE $HOME_DIBAB/$MODULE # || ash
  for subdir in bin lib share/applications share/pixmaps 
  do
    [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue

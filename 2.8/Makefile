@@ -105,6 +105,10 @@ INITRAMFS=$(shell echo $(KERNEL3) | tr -d '.')
 ISOPATH=$(shell echo $(ISOTMP)/$(DISTRONAME).$(LCBUILD)-$(ARCH)$(MEDIA).iso)
 export ISOPATH
 all:
+  ifeq ($(NOBUILD),OK)
+	@echo "NOBUILD ! "
+	tail -f /dev/null
+  endif
 	@echo "Usage : "
 	@echo "make iso "
 	@echo "make test "
