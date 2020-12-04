@@ -1,6 +1,5 @@
 if [ -e  $HOME_DIBAB/virtualbox/lib/modules/vboxdrv.ko ]
 then
-
 echo "Enable virtualbox"
 echo 'KERNEL=="vboxdrv", NAME="vboxdrv", OWNER="root", GROUP="vboxusers", MODE="0660"
 KERNEL=="vboxdrvu", NAME="vboxdrvu", OWNER="root", GROUP="vboxusers", MODE="0666"
@@ -16,17 +15,15 @@ insmod $HOME_DIBAB/virtualbox/lib/modules/vboxnetadp.ko
 insmod $HOME_DIBAB/virtualbox/lib/modules/vboxnetflt.ko
 mkdir /dev/vboxusb
 
-# [ ! -e /opt ] && mkdir /opt
 ls $HOME_DIBAB/virtualbox/lib/virtualbox/*.so | while read lib
 do
   ln -sf $lib /lib
-  # echo $lib
 done
 
-chmod 4755 $HOME_DIBAB/virtualbox/lib/virtualbox/{VBox{Headless,Net{AdpCtl,DHCP,NAT},SDL,VolInfo},VirtualBoxVM}
-chmod -s $HOME_DIBAB/virtualbox/lib/virtualbox/VirtualBoxVM
-#ln -s $HOME_DIBAB/virtualbox/lib/virtualbox /usr/lib
-#ln -s $HOME_DIBAB/virtualbox/share/virtualbox /usr/share
-# cp -fR $HOME_DIBAB/virtualbox/lib/virtualbox /opt/VirtualBox
+for BIN in VBoxHeadless VBoxNetAdpCtl VBoxNetDHCP VBoxNetNAT VBoxSDL VirtualBoxVM
+do
+  chmod 4755 $HOME_DIBAB/virtualbox/lib/virtualbox/$BIN
+done
 
+chmod -s $HOME_DIBAB/virtualbox/lib/virtualbox/VirtualBoxVM
 fi

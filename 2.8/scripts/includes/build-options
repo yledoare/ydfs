@@ -363,7 +363,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-ui \
     --enable-python-library --disable-python2 --disable-gtk2 \
     --with-python=python3 --with-emoji-annotation-dir=$HOME/$ARCH/share/unicode/cldr/common/annotations --with-ucd-dir=$HOME/$ARCH/share/unicode"
-	echo $ARCHIVE | grep gdb && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls"
+	echo $ARCHIVE | grep gdb- && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls --with-python=$HOME/$ARCH/bin/python3"
 	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
@@ -466,7 +466,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --with-libvorbis \
     --with-lv2 \
     --with-portaudio \
-    --with-portmidi "
+    --with-portmidi --disable-dynamic-loading"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
