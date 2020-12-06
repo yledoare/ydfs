@@ -1,4 +1,8 @@
+https://ftp.gnu.org/gnu/gdb/gdb-10.1.tar.xz
+https://github.com/audacity/audacity/archive/Audacity-2.4.1.tar.gz
+ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar.bz2
 https://github.com/containers/bubblewrap/releases/download/v0.4.1/bubblewrap-0.4.1.tar.xz
+https://github.com/ostreedev/ostree/releases/download/v2020.8/libostree-2020.8.tar.xz
 https://github.com/flatpak/flatpak/releases/download/1.8.3/flatpak-1.8.3.tar.xz
 #http://ftp.gnome.org/pub/GNOME/sources/gnome-flashback/3.34/gnome-flashback-3.34.0.tar.xz
 #http://ftp.gnome.org/pub/GNOME/sources/gnome-panel/3.34/gnome-panel-3.34.0.tar.xz
@@ -7,5 +11,6 @@ https://github.com/flatpak/flatpak/releases/download/1.8.3/flatpak-1.8.3.tar.xz
 https://www.kernel.org/pub/software/scm/git/git-2.29.1.tar.xz
 https://ftp.gnu.org/gnu/gdb/gdb-10.1.tar.xz
 https://github.com/vim/vim/archive/v8.2.1704/vim-8.2.1704.tar.gz
-https://github.com/audacity/audacity/archive/Audacity-2.4.2.tar.gz
+#https://github.com/audacity/audacity/archive/Audacity-2.4.2.tar.gz
+https://github.com/audacity/audacity/archive/Audacity-2.4.1.tar.gz
 ftp://ftp.freedesktop.org/pub/mesa/demos/8.3.0/mesa-demos-8.3.0.tar.bz2

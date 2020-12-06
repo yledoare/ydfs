@@ -29,6 +29,13 @@ https://download.kde.org/stable/plasma/5.18.4/libksysguard-5.18.4.tar.xz
 https://download.kde.org/stable/frameworks/5.68/kfilemetadata-5.68.0.tar.xz
 https://download.kde.org/stable/frameworks/5.68/baloo-5.68.0.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/ksysguard-5.18.4.tar.xz
+https://download.kde.org/stable/frameworks/5.68/syntax-highlighting-5.68.0.tar.xz
+https://download.kde.org/stable/frameworks/5.68/ktexteditor-5.68.0.tar.xz
+https://download.kde.org/stable/frameworks/5.68/kwindowsystem-5.68.0.tar.xz
+https://download.kde.org/stable/plasma/5.18.4/kscreen-5.18.4.tar.xz
+https://download.kde.org/stable/plasma/5.18.4/kscreenlocker-5.18.4.tar.xz
+https://download.kde.org/stable/plasma/5.18.4/kwin-5.18.4.tar.xz
+https://download.kde.org/stable/frameworks/5.68/kholidays-5.68.0.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/plasma-workspace-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kde-cli-tools-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kde-gtk-config-5.18.4.tar.xz
@@ -37,13 +44,10 @@ https://download.kde.org/stable/plasma/5.18.4/kgamma5-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/khotkeys-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kinfocenter-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kmenuedit-5.18.4.tar.xz
-https://download.kde.org/stable/plasma/5.18.4/kscreen-5.18.4.tar.xz
-https://download.kde.org/stable/plasma/5.18.4/kscreenlocker-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/ksshaskpass-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kwallet-pam-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kwayland-integration-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kwayland-server-5.18.4.tar.xz
-https://download.kde.org/stable/plasma/5.18.4/kwin-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/kwrited-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/libkscreen-5.18.4.tar.xz
 https://download.kde.org/stable/plasma/5.18.4/libksysguard-5.18.4.tar.xz

@@ -262,3 +262,6 @@ guitarix;guitarix
 libpng;libpng
 vim;vim
 audacity-audacity;audacity-audacity
+bubblewrap;bubblewrap
+libostree;libostree
+flatpak;flatpak

@@ -1441,6 +1441,7 @@ EOF
     pwd | grep ardour && mv $HOME/$ARCH/include/zita-resampler  $HOME/$ARCH/include/zita-resampler-disabled 
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth  $HOME/$ARCH/include/fluidsynth-disabled
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth.h  $HOME/$ARCH/include/fluidsynth-disabled.h
+    pwd | grep kwin- && mv $HOME/$ARCH/include/udev.h  $HOME/$ARCH/include/udev-disabled.h
 
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
     [ -e deps/npm/lib/doctor/get-latest-nodejs-version.js ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled

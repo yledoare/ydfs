@@ -41,14 +41,14 @@
 	done
 	cd ../../../../../../
 	cd out/linux.amd64/release/bin/src
-	if [ ! -e vboxpci/vboxpci.ko ]
+	if [ ! -e vboxdrv/vboxdrv.ko ]
 	then
 	echo "Building drivers .. " && sleep 1
-	for DRIVER in vboxdrv vboxnetadp  vboxnetflt  vboxpci
+	for DRIVER in vboxdrv vboxnetadp  vboxnetflt
 	do
-	  cd $DRIVER	
+	  pwd
+	  cd $DRIVER || exit 1
 	  echo "Building $DRIVER  .. " && sleep 1
-	  # make KERN_DIR="$HOME/ydfs/src/linux-$KERNEL3/" || exit $?
 	  make KERN_VER=$KERNEL3 KERN_DIR="$HOME/ydfs/build/linux-x86_64-$KERNEL3/" || exit $?
 	  cd ..
 	done
