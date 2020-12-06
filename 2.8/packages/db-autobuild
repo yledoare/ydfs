@@ -1938,6 +1938,22 @@ ac_cv_file__dev_ptc=no' >  config.site
 	exit 0
   fi
 
+  if [ -e doc/aubio.txt ]
+  then
+	set -e
+	./waf configure --prefix=$PREFIX \
+                --alltests \
+                --enable-fftw3 \
+                --libdir=$PREFIX/lib
+  	python=$PYTHON ./waf build
+  	$PYTHON setup.py build
+	PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
+                          --root="${pkgdir}"
+	./waf install
+        touch buildok-$ARCH
+        exit 0
+  fi
+
     if [ -e setup.py ] 
     then
       echo "Run $PYTHON setup.py"  && sleep 1
@@ -2278,22 +2294,6 @@ echo "At BUILDPERL"
      ./b2 
      ./b2 install && touch buildok-$ARCH
      fi
-  fi
-
-  if [ -e doc/aubio.txt ]
-  then
-	set -e
-	./waf configure --prefix=$PREFIX \
-                --alltests \
-                --enable-fftw3 \
-                --libdir=$PREFIX/lib
-  	./waf build
-  	$PYTHON setup.py build
-	PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
-                          --root="${pkgdir}"
-	./waf install
-        touch buildok-$ARCH
-        exit 0
   fi
 
   if [ -e waf ] 
