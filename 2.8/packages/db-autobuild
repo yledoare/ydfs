@@ -749,6 +749,8 @@ fi
   [ -e contrib/libsass.spec ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e sassc_version.h.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e asciidoc.py ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e mypaint-brushes-2.0.pc ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  [ -e mypaint-brushes-2.0.pc ] && echo "Disable Sconstruct " && rm SConstruct
   [ -e mypaint-brushes-1.0.pc ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e mypaint-brushes-1.0.pc ] && echo "Disable Sconstruct " && rm SConstruct
   [ -e dotconf.pc.in ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && sed -e 's/-Werror//' -i configure.ac && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif 
@@ -1370,7 +1372,8 @@ EOF
 	[ "$ARCH" = "x86" ] && FILE=fpc-3.0.4.i386
         TAR=$FILE-linux.tar
 	# [ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
-	[ ! -e "$TAR" ] && wget https://freefr.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	# [ ! -e "$TAR" ] && wget https://freefr.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	[ ! -e "$TAR" ] && wget https://deac-fra.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
 	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux

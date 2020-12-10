@@ -182,7 +182,6 @@ fi
 	     install -D -m644 torcs.desktop "$PREFIX"/share/applications/torcs.desktop 
 		 make DESTDIR="$pkgdir" datainstall
 		 make datainstall
-bash
 	fi 
 
     if [ -e game/egoboo-2.x ]
