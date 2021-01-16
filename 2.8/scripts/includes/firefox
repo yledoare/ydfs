@@ -1,4 +1,4 @@
-export NODEJS=/home/linuxconsole2020/linuxconsole/bin/node
+export NODEJS=$HOME/linuxconsole/bin/node
 
 pkgname=firefox
 pkgver=82.0.2

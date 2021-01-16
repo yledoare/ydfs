@@ -26,8 +26,8 @@ ENV LANG fr_FR.utf8
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN useradd linuxconsole2020 --create-home
-COPY ./build-lc2020 /home/linuxconsole2020/build-lc2020
+RUN useradd linuxconsole2021 --create-home
+COPY ./build-lc2021 /home/linuxconsole2021/build-lc2021
 
 RUN apt-get update && apt-get install -y  apt-utils
 RUN apt-get update && apt-get install -y  llvm llvm-dev
@@ -42,5 +42,5 @@ RUN apt-get install cbindgen
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
 
-USER linuxconsole2020
-CMD /home/linuxconsole2020/build-lc2020
+USER linuxconsole2021
+CMD /home/linuxconsole2021/build-lc2021

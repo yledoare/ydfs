@@ -11,18 +11,18 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
 * docker logs --tail=10 -f ydfs
 * docker logs -f ydfs 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
-* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2020/iso  yledoare/ydfs32
+* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
 * docker logs --tail=10 -f ydfs32
 
 ## Verbose Build, without sharing output ISO on host :
 
-* docker run --name linuxconsole2020 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs28
+* docker run --name linuxconsole2021 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs28
 
 # Manual build
 
