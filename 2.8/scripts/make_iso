@@ -404,7 +404,21 @@ install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
 # genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
-xorriso -as mkisofs -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -isohybrid-mbr isolinux/isohdpfx.bin -isohybrid-gpt-basdat -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
+xorriso -as mkisofs \
+    -iso-level 3 \
+    -full-iso9660-filenames \
+    -volid "$ISONAME" \
+    -isohybrid-mbr isolinux/isohdpfx.bin \
+    -eltorito-boot \
+        isolinux/isolinux.bin \
+        -no-emul-boot \
+        -boot-load-size 4 \
+        -boot-info-table \
+        --eltorito-catalog isolinux/isolinux.cat \
+    -eltorito-alt-boot \
+        -e /EFI/boot/efiboot.img \
+    -e boot/grub/efi.img -no-emul-boot -isohybrid-gpt-basdat \
+  -o /$ISODIR/$OUT /$ISOTMP/iso/
 # -eltorito-alt-boot \
 # -e isolinux/efi.img \
 #  -no-emul-boot \
