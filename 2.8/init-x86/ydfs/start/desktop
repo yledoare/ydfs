@@ -15,6 +15,7 @@ echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /sh
 # Fix wine startup
 # [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
 # sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
+sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/engrampa.desktop
 sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gparted.desktop
 
 install -d $HOME/.local/share/applications

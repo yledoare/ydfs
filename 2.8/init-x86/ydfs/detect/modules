@@ -135,6 +135,8 @@ install -d /var/run # Xorg optimus
 install -d /var/tmp # amdgpu OpenGL
 chmod 777 /var/tmp # amdgpu OpenGL
 mkdir $HOME/multilib
+# Fix wine for LinuxConsole 2021
+ln -s $HOME/multilib /
 ln -s $HOME/$ARCH/lib32 $HOME/multilib
 ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
 ln -s $HOME/$ARCH/etc $HOME/multilib

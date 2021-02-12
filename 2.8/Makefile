@@ -151,7 +151,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep ${ISOPATH} sleep
+iso: isodep wineprogs ${ISOPATH} sleep
 metalink:
 	./scripts/iso_to_metalink
 
