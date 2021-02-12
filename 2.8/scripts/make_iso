@@ -405,6 +405,7 @@ ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/
 # genisoimage -V "$ISONAME" -f -r -J -b "isolinux/isolinux.bin" -c "isolinux/boot.cat" -no-emul-boot -iso-level 4 -boot-load-size 4 -boot-info-table -graft-points -o /$ISODIR/$OUT /$ISOTMP/iso/
 xorriso -as mkisofs \
+    -f \
     -iso-level 3 \
     -full-iso9660-filenames \
     -volid "$ISONAME" \
