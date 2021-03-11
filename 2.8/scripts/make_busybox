@@ -11,7 +11,7 @@ BUSYBOX=$1
 install -d  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX
 if [ $ARCH = "x86" ] || [ $ARCH = "x86_64" ]
 then
-[ ! -e  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
+[ ! -e  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-x86/config-$BUSYBOX  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
 else
 [ ! -e  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config ] && cp $HOME_DIBAB/config/busybox-arm/config  $HOME/ydfs/build/busybox-$ARCH-$BUSYBOX/.config
 fi

@@ -743,7 +743,7 @@ https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.16.1.tar.gz
 http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
-pip::PyQt5
+pip::PyQt5==5.15.2
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
 pip::python-dotenv
 #https://snowballstem.org/dist/libstemmer_c.tgz
