@@ -611,9 +611,7 @@ https://ftp.gnome.org/pub/GNOME/sources/liboobs/3.0/liboobs-3.0.0.tar.bz2
 # For PlayOnLinux
 https://github.com/dosfstools/dosfstools/releases/download/v3.0.28/dosfstools-3.0.28.tar.xz
 https://github.com/HOST-Oman/libraqm/releases/download/v0.7.0/raqm-0.7.0.tar.gz
-#https://imagemagick.org/download/ImageMagick-7.0.10-6.tar.xz
-#it changes always ..
-archlinux:imagemagick
+https://download.imagemagick.org/ImageMagick/download/releases/ImageMagick-7.0.11-3.tar.xz
 http://downloads.sourceforge.net/sourceforge/netcat/netcat-0.7.1.tar.bz2
 http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src_all.tar.bz2
 http://linuxtv.org/downloads/v4l-utils/v4l-utils-1.16.3.tar.bz2
