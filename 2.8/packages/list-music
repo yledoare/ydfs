@@ -1,3 +1,4 @@
+cadence-0.9.1.tar.gz::https://github.com/falkTX/cadence/archive/v0.9.1.tar.gz
 git://github.com/mtytel/helm.git#tag=v0.9.0
 git://github.com/surge-synthesizer/surge.git#tag=release_1.7.1
 git://github.com/DISTRHO/DISTRHO-Ports.git

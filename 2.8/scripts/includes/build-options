@@ -358,6 +358,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep blueman && LC_CONFIGURE_OPTS=" --with-systemdsystemunitdir=$HOME/$ARCH/lib/systemd/system --with-systemduserunitdir=$HOME/$ARCH/lib/systemd/user"
 	echo $ARCHIVE | grep plasma-framework && LC_CONFIGURE_OPTS=" -DBUILD_TESTING=OFF -DBUILD_QCH=ON "
 	echo $ARCHIVE | grep github.com/ibus && [ ! -e UCD.zip ] && wget https://www.unicode.org/Public/zipped/13.0.0/UCD.zip && unzip -l UCD.zip && unzip -d $HOME/$ARCH/share/unicode/ UCD.zip 
+	echo $ARCHIVE | grep github.com/ibus && [ ! -e UCD.zip ] && echo "UCD.zip not found !" && exit 1
 	echo $ARCHIVE | grep github.com/ibus && LC_CONFIGURE_OPTS="   --enable-dconf \
     --disable-memconf \
     --enable-ui \
