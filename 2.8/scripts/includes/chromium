@@ -3,7 +3,7 @@
 if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
   echo "Chromium"
-  VERSION="87.0.4280.88"
+  VERSION="90.0.4430.72"
   if [ "$ARCH" = "x86" ] 
   then
      echo "Get from Slackware .. sorry !"
