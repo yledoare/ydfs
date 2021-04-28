@@ -905,6 +905,7 @@ qtkeychain-0.11.1.tar.gz::https://github.com/frankosterfeld/qtkeychain/archive/v
 http://www.wavpack.com/wavpack-5.3.0.tar.bz2
 # deps for lxqt and lxde
 http://openbox.org/dist/openbox/openbox-3.6.1.tar.gz
+https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz
 #Warning, unset LDFLAGS for building grub
