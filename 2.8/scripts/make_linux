@@ -1,6 +1,14 @@
 #!/bin/sh
 . ./config.ini
 
+
+if [ "$BUILDYDFS" = "fast" ]
+then
+	cd $HOME
+	tar xvf $HOME/iso/linux-$ARCH*.tar.gz || exit 1
+	# exit 0
+fi
+
 install -d /$HOME/ydfs/src/
 install -d /$HOME/ydfs/tarballs/
 install -d /$HOME/ydfs/build/

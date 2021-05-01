@@ -1,3 +1,10 @@
-install -d $HOME/ydfs/tarballs
-cd packages
-bash build-packages $1 || exit $?
+if [ "$BUILDYDFS" = "fast" ]
+then
+  cd $HOME
+  [ ! -e $ARCH ] && tar xzvf $HOME/iso/$ARCH.tar.gz
+  touch $HOME/$ARCH/buildenv
+else
+  install -d $HOME/ydfs/tarballs
+  cd packages
+  bash build-packages $1 || exit $?
+fi

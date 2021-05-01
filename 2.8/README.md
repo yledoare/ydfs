@@ -20,6 +20,10 @@
 * docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
 * docker logs --tail=10 -f ydfs32
 
+## Fast 32 bits ISO
+
+* docker run --name ydfs32-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
+
 ## Write ISO to USB key
 
 * dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
