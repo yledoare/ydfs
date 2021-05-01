@@ -351,6 +351,7 @@ cp /$ISOTMP/iso/isolinux/$KERNEL36 /$ISOTMP/iso/isolinux/kernel
 if [ "$ARCH" = "x86_64" ]
 then 
   cp -fR boot-efi/* /$ISOTMP/iso/ || exit $?
+  EFIBOOT=" -e /EFI/boot/efiboot.img -e boot/grub/efi.img "
 fi
 
 CONSOLE="loglevel=0"
@@ -417,8 +418,7 @@ xorriso -as mkisofs \
         -boot-info-table \
         --eltorito-catalog isolinux/isolinux.cat \
     -eltorito-alt-boot \
-        -e /EFI/boot/efiboot.img \
-    -e boot/grub/efi.img -no-emul-boot -isohybrid-gpt-basdat \
+	$EFIBOOT -no-emul-boot -isohybrid-gpt-basdat \
   -o /$ISODIR/$OUT /$ISOTMP/iso/
 # -eltorito-alt-boot \
 # -e isolinux/efi.img \
