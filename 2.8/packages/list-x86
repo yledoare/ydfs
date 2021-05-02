@@ -742,7 +742,11 @@ https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
 https://c-ares.haxx.se/download/c-ares-1.16.1.tar.gz
 http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
-pip::PyQt5==5.15.2
+pip::PyQt5-sip
+pip::pyqt-builder
+# Disabled, dbus.mainloop.pyqt5 is missing
+# pip::PyQt5==5.15.2
+https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-5.15.2.tar.gz
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
 pip::python-dotenv
 #https://snowballstem.org/dist/libstemmer_c.tgz

@@ -925,36 +925,14 @@ fi
   if [ -e qpy/QtCore/qpycore_pyqtpyobject.cpp ]
   then
 	echo "Build pyqt with $PREFIX/bin/python3"
-	echo "step 1"
-	cd ../sip-4* || exit 1
-        mkdir build-qt5py3
-	cd build-qt5py3
-	  $PREFIX/bin/python3 ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" --sip-module PyQt5.sip --no-tools || exit $?
-	  make || exit $?
-	  make install || exit $?
-        cd ..
-	mkdir buildpy3
-        cd buildpy3
-	echo "step 2"
-	  $PREFIX/bin/python3 ../configure.py CFLAGS="$CFLAGS" LFLAGS="$LDFLAGS" || exit $?
-	echo "step 3"
-	  make || exit $?
-	echo "step 4"
-	  make install -C sipgen
-	  make install -C siplib
-  	  install -Dm644 sipconfig.py $PREFIX/lib/python3.8/site-packages/sipconfig.py
-	cd ..
-  	  install -Dm644 sipdistutils.py $PREFIX/lib/python3.8/site-packages/sipdistutils.py
-	echo "step 5" && sleep 2
-        cd ../PyQt5* || exit 1
-	PYTHONPATH=$PREFIX/lib/python3.8 $PREFIX/bin/python3 configure.py  --confirm-license --no-sip-files --qsci-api  -q $HOME/$ARCH/bin/qmake
+#	pip3 install PyQt5-sip
+# 	pip3 install pyqt-builder 
+  	sip-build     --confirm-license     --no-make --verbose 
+	cd build
+	make || exit $?
 	make install || exit $?
-	make -C pyrcc install || exit $?
-	make -C pylupdate install || exit $?
-  	install -Dm644 PyQt5.api $PREFIX/share/qt/qsci/api/python/PyQt5.api  || exit $?
-  	install -d $PREFIX/share/sip/PyQt5 || exit $?
-  	cp -a sip/* $PREFIX/share/sip/PyQt5 || exit $?
-	
+python3 -c 'from dbus.mainloop.pyqt5 import DBusQtMainLoop; print("DBus import ok")' || exit 1
+	cd ..
     touch buildok-$ARCH
     exit 0
   fi
