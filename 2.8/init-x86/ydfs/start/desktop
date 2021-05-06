@@ -27,7 +27,7 @@ function start_mate
 	/usr/libexec/bluetooth/obexd &
 	caja --force-desktop -n &
 	gsettings set org.mate.background picture-filename '/etc/ydfs.png'
-   	ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
+   	NO_AT_BRIDGE=1 ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
 }
 
 function start_pantheon
