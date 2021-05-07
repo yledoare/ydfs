@@ -5,14 +5,13 @@ cd .fonts
 cd ..
 install -d Steam
 cd Steam
-# [ ! -e steam_1.0.0.66.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.66.tar.gz
-[ ! -e steam_1.0.0.66.tar.gz ] && wget http://jukebox.linuxconsole.org/steam/steam_1.0.0.66.tar.gz
-[ ! -e steam-launcher ] && tar xzvf steam_1.0.0.66.tar.gz
+[ ! -e steam_1.0.0.70.tar.gz ] && wget https://repo.steampowered.com/steam/pool/steam/s/steam/steam_1.0.0.70.tar.gz
+[ ! -e steam-launcher ] && tar xzvf steam_1.0.0.70.tar.gz
 cd steam-launcher 
 sed -i "s@id -u@echo@g" ./bin_steam.sh
 [ ! -e  $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu ] && ./bin_steam.sh
-cp $HOME/x86_64/lib32-root/libgcc_s.so.1 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
-cp $HOME/x86_64/lib32-root/libstdc++.so.6 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
+# cp $HOME/x86_64/lib32-root/libgcc_s.so.1 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
+# cp $HOME/x86_64/lib32-root/libstdc++.so.6 $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/i386-linux-gnu
 [ ! -e $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu.valve ] && mv $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/ $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu.valve
 [ ! -e $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu.valve ] && mv $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu/ $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/usr/lib/x86_64-linux-gnu.valve
 install -d $HOME/.local/share/Steam/ubuntu12_32/steam-runtime/lib/x86_64-linux-gnu/ 
