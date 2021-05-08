@@ -3,6 +3,7 @@
 if [ "$ARCH" = "x86" ] && [ ! -e /$HOME/ydfs/build/lfs-bootscripts ]
 then
   [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs http://www.linuxfromscratch.org/lfs/downloads/6.8/lfs-bootscripts-20100627.tar.bz2
+  [ ! -e /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2 ] && wget --directory-prefix=/$HOME/ydfs/tarballs https://ftp.osuosl.org/pub/lfs/lfs-packages/6.8/lfs-bootscripts-20100627.tar.bz2
   [ ! -e /$HOME/ydfs/src/lfs-bootscripts-20100627  ] && tar xjvf /$HOME/ydfs/tarballs/lfs-bootscripts-20100627.tar.bz2  --directory=/$HOME/ydfs/src/
   DESTDIR=/$HOME/ydfs/build/lfs-bootscripts make -C /$HOME/ydfs/src/lfs-bootscripts-20100627
   [ ! -e /$HOME/ydfs/build/lfs-bootscripts ] && exit 2
