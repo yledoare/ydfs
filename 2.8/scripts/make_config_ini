@@ -9,7 +9,7 @@ LCBUILD=`date +"%Y-%m-%d"`
 #MEDIA=DVD
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
 LCMBUILD=${HOME}/ydfs/build/modules/
-
+SEND_OPKG=NO
 ISOTMP=${HOME}/iso
 # MODULES="${ARCH}"
 MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} games-${ARCH} music-${ARCH} office-${ARCH} video-${ARCH} multimedia-${ARCH} fps-${ARCH} network-${ARCH} emulators-${ARCH} graphics-${ARCH}"

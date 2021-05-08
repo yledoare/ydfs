@@ -2,7 +2,8 @@ cd $HOME/ydfs/opkg
 $HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
 [ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
 HOME_DIST=`basename $HOME_DIBAB`
-if [ -e $HOME/ydfs/opkg ]
+echo "SEND_OPKG : $SEND_OPKG"
+if [ -e $HOME/ydfs/opkg ] && [ "$SEND_OPKG" = "OK" ]
 then
 	# find $HOME/ydfs/opkg/ -type f -size -500k | while read file
 	find $HOME/ydfs/opkg/ -type f | while read file

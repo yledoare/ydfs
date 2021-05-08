@@ -19,6 +19,7 @@ export DISTRONAME
 export TOOLCHAIN
 export HOME_DIBAB
 export DIBAB_VERBOSE_BUILD
+export SEND_OPKG
 export MKSQUASHFS_OPT
 export MENUCONFIG
 export BUILD_TOOLCHAIN
@@ -113,11 +114,12 @@ all:
 	@echo "make iso "
 	@echo "make test "
 	@echo "make modules "
+	@echo "make opkg "
 	tail -f /dev/null
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
 sleep:
 	@echo "Sleeping 60 minutes .. "
-	sleep 60000
+	sleep 3600
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
@@ -151,7 +153,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep wineprogs ${ISOPATH} sleep
+iso: isodep wineprogs ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
