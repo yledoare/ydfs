@@ -22,6 +22,7 @@ else
 export MODULE=$ARCH
 fi
 
+[ "$MODULE" = "kde" ] && [ "$ARCH" = "x86" ] && cp $HOME/x86/include/harfbuzz/* $HOME/x86/include 
 [ "$MODULE" = "kde" ] && [ "$ARCH" = "x86" ] && [ -e $HOME/x86/lib/x86_64-linux-gnu/libKF5Screen.so.7 ] && [ ! -e $HOME/x86/lib/libKF5Screen.so.7 ] && echo "Link $HOME/x86/lib/libKF5Screen.so.7" && sleep 10 && ln -s $HOME/x86/lib/x86_64-linux-gnu/libKF5Screen.so.7 $HOME/x86/lib/libKF5Screen.so.7 
 [ "$MODULE" = "virtualbox" ] && [ "$ARCH" = "x86" ] && echo "$MODULE disabled for $ARCH" && exit 0
 # 2 commandes pour Freetype
