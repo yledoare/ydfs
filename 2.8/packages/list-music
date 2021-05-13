@@ -14,3 +14,7 @@ http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
 https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms_1.2.2.tar.xz
 https://github.com/hydrogen-music/hydrogen/releases/download/1.0.1/hydrogen-1.0.1.tar.gz
 #git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5
+jack_capture-0.9.73.tar.gz::https://github.com/kmatheussen/jack_capture/archive/0.9.73.tar.gz
+a2jmidid-9.tar.gz::https://github.com/linuxaudio/a2jmidid/archive/9.tar.gz
+#https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-alsa-pcmi-0.3.2.tar.bz2
+#https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-ajbridge-0.8.4.tar.bz2
