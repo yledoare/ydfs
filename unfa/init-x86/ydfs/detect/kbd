@@ -1,0 +1,63 @@
+if [ -e $HOME/.config/ydfs/kbd ] 
+then
+. $HOME/.config/ydfs/kbd 
+setxkbmap $kbd 
+echo '
+# from /ydfs/detect/kbd 1
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "'$kbd'"
+# 	Option "XkbVariant" "latin9" 
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf
+else
+MAP=us
+echo "$LC_ALL" | grep "es_ES" && MAP=es
+echo "$LC_ALL" | grep "fr_FR" && MAP=fr
+echo "$LC_ALL" | grep "fr_CA" && MAP=ca
+echo "$LC_ALL" | grep "br_FR" && MAP=fr
+echo "$LC_ALL" | grep "de_DE" && MAP=de
+echo "$LC_ALL" | grep "pt_PT" && MAP=pt
+
+[ "$kbd" = "azerty" ] && MAP=fr
+[ "$kbd" = "qwerty" ] && MAP=us
+
+if [ "$MAP" = "ca" ]
+then
+  setxkbmap $MAP -variant fr
+echo '
+# from /ydfs/detect/kbd 2
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "'$MAP'"
+ 	Option "XkbVariant" "fr" 
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf
+else
+  setxkbmap $MAP
+echo '
+# from /ydfs/detect/kbd 3
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "'$MAP'"
+# 	Option "XkbVariant" "latin9"
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf
+fi
+[ "$KBDMAP" != "" ] && setxkbmap $KBDMAP && echo '
+# from /ydfs/detect/kbd 4
+Section "InputClass"
+	Identifier "Keyboard Layout"
+ 	MatchIsKeyboard "yes"
+ 	MatchDevicePath "/dev/input/event*"
+ 	Option "XkbLayout" "'$KBDMAP'"
+# 	Option "XkbVariant" "latin9"
+EndSection
+' > /etc/X11/xorg.conf.d/kb.conf
+fi

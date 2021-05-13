@@ -1,0 +1,6 @@
+cd /tmp
+DEB="steam-debian_1.0.0.44-3_all.deb"
+[ ! -e $DEB ] && wget https://raw.github.com/GhostSquad57/Steam-Installer-for-Wheezy/master/$DEB
+install -d steam
+dpkg -x $DEB steam
+sed -i "s@id -u@echo@g" steam/usr/bin/steam

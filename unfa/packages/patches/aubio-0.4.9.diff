@@ -1,0 +1,13 @@
+diff --git a/wscript b/wscript
+index 0fef048..8fb319c 100644
+--- a/wscript
++++ b/wscript
+@@ -516,7 +516,7 @@ def build(bld):
+     # documentation
+     txt2man(bld)
+     doxygen(bld)
+-    sphinx(bld)
++    # sphinx(bld)
+ 
+     from waflib.Tools import waf_unit_test
+     bld.add_post_fun(waf_unit_test.summary)

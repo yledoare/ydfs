@@ -1,0 +1,159 @@
+
+if [ ! -e /usr/share/xml/docbook/xml-dtd-4.5 ] 
+then
+  install -d /usr/share/xml/docbook/xml-dtd-4.5 
+  cd /usr/share/xml/docbook/xml-dtd-4.5  
+  wget ftp://mirror.ovh.net/gentoo-distfiles/distfiles/docbook-xml-4.5.zip
+  unzip docbook-xml-4.5.zip
+fi
+
+for ARCHIVE in \
+http://ftp.de.debian.org/debian/pool/main/s/sgml-base/sgml-base_1.26_all.deb \
+http://ftp.de.debian.org/debian/pool/main/s/sgml-data/sgml-data_2.0.4_all.deb \
+http://ftp.de.debian.org/debian/pool/main/d/docbook-xml/docbook-xml_4.5-6_all.deb \
+http://ftp.de.debian.org/debian/pool/main/d/docbook-xsl/docbook-xsl_1.73.2.dfsg.1-5_all.deb \
+http://ftp.de.debian.org/debian/pool/main/d/docbook/docbook_4.5-4_all.deb
+do
+  cd /usr/src
+  mkdir /usr/src/docbook
+  cd /usr/src/docbook
+  [ ! -e `basename $ARCHIVE` ] && wget $ARCHIVE
+  [ ! -e `basename $ARCHIVE` ] && exit 1
+  alien -t `basename $ARCHIVE` || exit 2
+done
+for FILE in `ls /usr/src/docbook/*.tgz`
+do
+  cd /
+  tar xzvf $FILE
+done
+
+if [ ! -e /etc/xml/docbook ]; then
+    xmlcatalog --noout --create /etc/xml/docbook
+fi &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//DTD DocBook XML V4.5//EN" \
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//DTD DocBook XML CALS Table Model V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/calstblx.dtd" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//DTD XML Exchange Table Model 19990315//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/soextblx.dtd" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ELEMENTS DocBook XML Information Pool V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/dbpoolx.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ELEMENTS DocBook XML Document Hierarchy V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/dbhierx.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ELEMENTS DocBook XML HTML Tables V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/htmltblx.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ENTITIES DocBook XML Notations V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/dbnotnx.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ENTITIES DocBook XML Character Entities V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/dbcentx.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "public" \
+    "-//OASIS//ENTITIES DocBook XML Additional General Entities V4.5//EN" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5/dbgenent.mod" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "rewriteSystem" \
+    "http://www.oasis-open.org/docbook/xml/4.5" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5" \
+    /etc/xml/docbook &&
+xmlcatalog --noout --add "rewriteURI" \
+    "http://www.oasis-open.org/docbook/xml/4.5" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5" \
+    /etc/xml/docbook
+
+
+if [ ! -e /etc/xml/catalog ]; then
+    xmlcatalog --noout --create /etc/xml/catalog
+fi &&
+xmlcatalog --noout --add "delegatePublic" \
+    "-//OASIS//ENTITIES DocBook XML" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog &&
+xmlcatalog --noout --add "delegatePublic" \
+    "-//OASIS//DTD DocBook XML" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog &&
+xmlcatalog --noout --add "delegateSystem" \
+    "http://www.oasis-open.org/docbook/" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog &&
+xmlcatalog --noout --add "delegateURI" \
+    "http://www.oasis-open.org/docbook/" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog
+
+
+for DTDVERSION in 4.1.2 4.2 4.3 4.4
+do
+  xmlcatalog --noout --add "public" \
+    "-//OASIS//DTD DocBook XML V$DTDVERSION//EN" \
+    "http://www.oasis-open.org/docbook/xml/$DTDVERSION/docbookx.dtd" \
+    /etc/xml/docbook
+  xmlcatalog --noout --add "rewriteSystem" \
+    "http://www.oasis-open.org/docbook/xml/$DTDVERSION" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5" \
+    /etc/xml/docbook
+  xmlcatalog --noout --add "rewriteURI" \
+    "http://www.oasis-open.org/docbook/xml/$DTDVERSION" \
+    "file:///usr/share/xml/docbook/xml-dtd-4.5" \
+    /etc/xml/docbook
+  xmlcatalog --noout --add "delegateSystem" \
+    "http://www.oasis-open.org/docbook/xml/$DTDVERSION/" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog
+  xmlcatalog --noout --add "delegateURI" \
+    "http://www.oasis-open.org/docbook/xml/$DTDVERSION/" \
+    "file:///etc/xml/docbook" \
+    /etc/xml/catalog
+done
+
+xmlcatalog --noout --add "rewriteSystem" \
+           "http://docbook.sourceforge.net/release/xsl/1.75.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.75.2" \
+    /etc/xml/catalog &&
+
+xmlcatalog --noout --add "rewriteURI" \
+           "http://docbook.sourceforge.net/release/xsl/1.75.2" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.75.2" \
+    /etc/xml/catalog &&
+
+xmlcatalog --noout --add "rewriteSystem" \
+           "http://docbook.sourceforge.net/release/xsl/current" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.75.2" \
+    /etc/xml/catalog &&
+
+xmlcatalog --noout --add "rewriteURI" \
+           "http://docbook.sourceforge.net/release/xsl/current" \
+           "/usr/share/xml/docbook/xsl-stylesheets-1.75.2" \
+    /etc/xml/catalog
+
+cd /tmp
+wget http://downloads.sourceforge.net/docbook/docbook-xsl-1.75.2.tar.bz2
+mkdir build
+cd build
+tar -xf ../docbook-xsl-1.75.2.tar.bz2 --strip-components=1
+install -v -m755 -d /usr/share/xml/docbook/xsl-stylesheets-1.75.2 &&
+cp -v -R VERSION common eclipse extensions fo highlighting html  \
+         htmlhelp images javahelp lib manpages params profiling  \
+         roundtrip slides template tools website xhtml xhtml-1_1 \
+    /usr/share/xml/docbook/xsl-stylesheets-1.75.2 &&
+
+install -v -m644 -D README \
+                    /usr/share/doc/docbook-xsl-1.75.2/README.XSL &&
+install -v -m755    RELEASE-NOTES* NEWS* \
+                    /usr/share/doc/docbook-xsl-1.75.2
+

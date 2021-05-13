@@ -1,0 +1,25 @@
+diff --git a/configure b/configure
+index 2207b0f..61f6d81 100755
+--- a/configure
++++ b/configure
+@@ -3705,13 +3705,13 @@ LIBS="$save_LIBS"
+ 
+ # Checks for programs/directories which are used by Foomtic
+ 
+-SPOOLSEARCHPATH=/var/spool:/usr/spool/:/usr/local/spool:/usr/local/var/spool:/var/local/spool:/var/local
+-LOGSEARCHPATH=/var/log:/usr/log:/usr/local/log:/usr/local/var/log:/var/local/log:/var/local
+-SYSCONFSEARCHPATH=/etc:/usr/etc:/usr/local/etc:/var/etc
+-SBINSEARCHPATH=/usr/sbin:/sbin:/usr/local/sbin:/etc/sbin
+-BINSEARCHPATH=/usr/bin:/bin:/usr/local/bin
+-DATASEARCHPATH=/usr/share:/usr/local/share:$libdir:/usr/local/lib:/opt
+-LIBSEARCHPATH=$libdir:/lib:/usr/local/lib:/usr/local/libexec:/opt
++SPOOLSEARCHPATH=/var/spool:/usr/spool/:/usr/local/spool:/usr/local/var/spool:/var/local/spool:/var/local:${HOME}/${ARCH}/var/spool
++LOGSEARCHPATH=/var/log:/usr/log:/usr/local/log:/usr/local/var/log:/var/local/log:/var/local:/
++SYSCONFSEARCHPATH=/etc:/usr/etc:/usr/local/etc:/var/etc:${HOME}/${ARCH}/etc
++SBINSEARCHPATH=/usr/sbin:/sbin:/usr/local/sbin:/etc/sbin:${HOME}/${ARCH}/sbin
++BINSEARCHPATH=/usr/bin:/bin:/usr/local/bin:${HOME}/${ARCH}/bin
++DATASEARCHPATH=/usr/share:/usr/local/share:$libdir:/usr/local/lib:/opt:${HOME}/${ARCH}/share:${HOME}/${ARCH}/lib
++LIBSEARCHPATH=$libdir:/lib:/usr/local/lib:/usr/local/libexec:/opt:${HOME}/${ARCH}/lib
+ PTALPIPESSEARCHPATH=/var/run:/var:/var/ptal:/usr/var/run:/usr/var:/usr/var/ptal:/usr/local/var/run:/usr/local/var:/usr/local/var/ptal:/dev:/dev/ptal
+ MTINKPIPESSEARCHPATH=/var:/var/run:/usr/var/:/usr/var/run:/usr/local/var:/usr/local/var/run:/dev
+ 

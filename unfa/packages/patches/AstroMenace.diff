@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 31bf1e4..70c1fe9 100755
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -249,6 +249,6 @@ IF(FONTCONFIG_LIBRARY AND FONTCONFIG_INCLUDE_DIR_fontconfig)
+ ENDIF(FONTCONFIG_LIBRARY AND FONTCONFIG_INCLUDE_DIR_fontconfig)
+ 
+ # we need speed optimization flag Os, this could add up to 40% FPS in game
+-ADD_DEFINITIONS("-Os")
++ADD_DEFINITIONS("-Os -I$ENV{HOME}/$ENV{ARCH}/include/freetype2")
+ ADD_EXECUTABLE(AstroMenace ${astromenace_SRCS})
+ TARGET_LINK_LIBRARIES(AstroMenace ${ALL_LIBRARIES})

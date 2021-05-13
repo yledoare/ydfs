@@ -1,0 +1,28 @@
+URL=http://freefr.dl.sourceforge.net/project/springrts/springrts/spring-98.0/spring_98.0_minimal-portable-linux32-static.7z
+[ "$ARCH" != "x86" ] && URL=http://freefr.dl.sourceforge.net/project/springrts/springrts/spring-98.0/spring_98.0_minimal-portable-linux64-static.7z
+
+which 7z
+if [ $? != 0 ]
+then
+	zenity --error --text="Please install p7zip !"
+fi
+
+ARCHIVE=$(basename $URL)
+if [ ! -e $HOME/spring/spring ]
+then
+  DEST=$HOME /ydfs/start/download  $URL
+  cd $HOME
+  mkdir spring
+  cd spring
+  7z x ../$ARCHIVE
+  if [ $? != 0 ]
+  then
+	rm ../$ARCHIVE
+	zenity --error --text="Error while 7z x $ARCHIVE  !"
+	exit 0
+  fi
+  rm $ARCHIVE
+fi
+
+cd $HOME/spring
+./spring

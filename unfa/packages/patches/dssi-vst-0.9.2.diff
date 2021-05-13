@@ -1,0 +1,44 @@
+diff --git a/Makefile b/Makefile
+index b1d55ce..2450017 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,16 +1,16 @@
+ 
+-DSSIDIR		= /usr/local/lib/dssi
+-LADSPADIR	= /usr/local/lib/ladspa
+-BINDIR		= /usr/local/bin
++PREFIX		= $(HOME)/$(ARCH)
++
++DSSIDIR		= $(DESTDIR)/$(PREFIX)/lib/dssi
++LADSPADIR	= $(DESTDIR)/$(PREFIX)/lib/ladspa
++BINDIR		= $(DESTDIR)/$(PREFIX)/bin
+ 
+ # To compile with the VeSTige compatibility header:
+-CXXFLAGS	= -Ivestige -Wall -fPIC
++CXXFLAGS	= -Ivestige -Wall -fPIC $(CFLAGS)
+ 
+ # To compile with the official VST SDK v2.4r2:
+ #CXXFLAGS	= -I./vstsdk2.4/pluginterfaces/vst2.x -Wall -fPIC
+ 
+-LDFLAGS		= 
+-
+ TARGETS		= dssi-vst-server.exe.so \
+ 		  dssi-vst-scanner.exe.so \
+ 		  dssi-vst.so \
+@@ -38,12 +38,15 @@ OBJECTS_W32	= remotepluginclient.w32.o \
+ all:		$(TARGETS)
+ 
+ install:	all
++		mkdir -p $(DSSIDIR)
+ 		mkdir -p $(DSSIDIR)/dssi-vst
+ 		mkdir -p $(LADSPADIR)
+ 		mkdir -p $(BINDIR)
+ 		install dssi-vst.so $(DSSIDIR)
+ 		install dssi-vst.so $(LADSPADIR)
+-		install dssi-vst-server.exe.so dssi-vst-server dssi-vst-scanner.exe.so dssi-vst-scanner dssi-vst_gui $(DSSIDIR)/dssi-vst
++		install dssi-vst-server.exe.so dssi-vst-scanner.exe.so dssi-vst_gui $(DSSIDIR)/dssi-vst
++		install dssi-vst-server.exe $(DSSIDIR)/dssi-vst/dssi-vst-server
++		install dssi-vst-scanner.exe $(DSSIDIR)/dssi-vst/dssi-vst-scanner
+ 		install vsthost $(BINDIR)
+ 
+ clean:

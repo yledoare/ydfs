@@ -1,0 +1,33 @@
+diff --git a/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp b/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp
+index be3e834..d30ffcc 100644
+--- a/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp
++++ b/src/gallium/auxiliary/gallivm/lp_bld_debug.cpp
+@@ -276,9 +276,6 @@ disassemble(const void* func, llvm::raw_ostream & Out)
+ #if defined(PIPE_ARCH_X86)
+    options.StackAlignmentOverride = 4;
+ #endif
+-#if defined(DEBUG) || defined(PROFILE)
+-   options.NoFramePointerElim = true;
+-#endif
+    OwningPtr<TargetMachine> TM(T->createTargetMachine(Triple, sys::getHostCPUName(), "", options));
+ 
+    /*
+diff --git a/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp b/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp
+index 5e8a634..a02a9f3 100644
+--- a/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp
++++ b/src/gallium/auxiliary/gallivm/lp_bld_misc.cpp
+@@ -433,14 +433,6 @@ lp_build_create_jit_compiler_for_module(LLVMExecutionEngineRef *OutJIT,
+    options.JITEmitDebugInfo = true;
+ #endif
+ 
+-   /* XXX: Workaround http://llvm.org/PR21435 */
+-#if defined(DEBUG) || defined(PROFILE) || \
+-    (HAVE_LLVM >= 0x0303 && (defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)))
+-#if HAVE_LLVM < 0x0304
+-   options.NoFramePointerElimNonLeaf = true;
+-#endif
+-   options.NoFramePointerElim = true;
+-#endif
+ 
+    builder.setEngineKind(EngineKind::JIT)
+           .setErrorStr(&Error)

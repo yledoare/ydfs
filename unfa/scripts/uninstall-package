@@ -1,0 +1,31 @@
+#!/bin/sh
+if [ "$1"  = "" ]
+then
+  echo $0 needs directory as argument
+  exit 1
+fi
+. ./config.ini
+cd $HOME/ydfs/packages-$ARCH/$1 || exit $?
+find | while read file 
+do
+  echo $file
+  [ -f "/"$file ] && echo "Remove /$file" && rm "/"$file
+  [ -h "/"$file ] && echo "Remove /$file" && rm "/"$file
+done
+
+cd home/*
+find | while read file 
+do
+  [ -f "$HOME/ydfs/modules/$file" ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
+  [ -h "$HOME/ydfs/modules/$file" ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
+done
+
+if [ -e $HOME/ydfs/build-$ARCH/$1 ]
+then
+rm -fR $HOME/ydfs/build-$ARCH/$1
+else
+echo "Clear src"
+rm -fR $HOME/ydfs/src/$1
+fi 
+
+rm -fR $HOME/ydfs/packages-$ARCH/$1

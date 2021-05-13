@@ -1,0 +1,16 @@
+#!/bin/bash
+install -d $HOME/archpkg
+cd $HOME/archpkg
+URL=https://projects.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages
+URL2=https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages
+PKG=$1
+[ -e $PKG ] && rm $PKG
+wget -q "$URL""/""$1" -O $HOME/archpkg/$PKG || wget -q "$URL2""/""$1" -O $HOME/archpkg/$PKG || exit 1
+
+source $HOME/archpkg/$PKG
+
+for i in ${!source[*]}
+do 
+ echo ${source[i]}
+ break
+done

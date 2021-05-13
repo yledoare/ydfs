@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Xterm
+GenericName=Xterm
+Exec=xterm
+Terminal=false
+Icon=xterm
+Type=Application
+Categories=System

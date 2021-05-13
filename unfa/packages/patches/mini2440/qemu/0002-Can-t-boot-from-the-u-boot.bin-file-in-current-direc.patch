@@ -1,0 +1,27 @@
+From ebc6eb945bb506740dcb72b7eef3efcd319d4c2a Mon Sep 17 00:00:00 2001
+From: Yargil <yargil@free.fr>
+Date: Wed, 14 Sep 2011 18:47:07 +0200
+Subject: [PATCH 2/5] Can't boot from the u-boot.bin file in current directory
+
+The mini2440 boot always on the mini2440/u-boot.bin file.
+The problem is just that image_size is an uint32_t.
+---
+ hw/mini2440.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/hw/mini2440.c b/hw/mini2440.c
+index 5decf4b..6a88815 100644
+--- a/hw/mini2440.c
++++ b/hw/mini2440.c
+@@ -256,7 +256,7 @@ static int mini2440_load_from_nand(NANDFlashState *nand,
+ static void mini2440_reset(void *opaque)
+ {
+     struct mini2440_board_s *s = (struct mini2440_board_s *) opaque;
+-    uint32_t image_size;
++    int32_t image_size;
+ 
+ 	/*
+ 	 * Normally we would load 4 KB of nand to SRAM and jump there, but
+-- 
+1.7.2.5
+

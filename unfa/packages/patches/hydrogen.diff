@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b18508a8..9ebb4990 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -156,7 +156,7 @@ SET(H2_USR_PATH ".hydrogen")
+ 
+ #Changing this to user writable location will allow successful, non-root, deployment (e.g: make install).
+ IF(NOT MINGW AND NOT APPLE)
+-    SET(H2_UNIX_ICON_PATH "/usr/share/pixmaps" CACHE STRING "Freedesktop default icon path.")
++    SET(H2_UNIX_ICON_PATH "${CMAKE_INSTALL_PREFIX}/share/pixmaps" CACHE STRING "Freedesktop default icon path.")
+ ENDIF()
+ 
+ SET(MAX_INSTRUMENTS 1000 CACHE STRING "Maximum number of instruments")

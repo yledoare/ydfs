@@ -1,0 +1,19 @@
+https://download.kde.org/stable/applications/18.12.3/src/kmag-18.12.3.tar.xz
+git://github.com/williamh/dotconf.git
+https://github.com/espeak-ng/pcaudiolib/archive/1.1/pcaudiolib-1.1.tar.gz
+https://github.com/espeak-ng/espeak-ng/archive/1.49.2.tar.gz
+# FIXME
+# http://www.cstr.ed.ac.uk/downloads/festival/2.4/festival-2.4-release.tar.gz
+https://www.freebsoft.org/pub/projects/speechd/speech-dispatcher-0.8.8.tar.gz
+http://mielke.cc/brltty/archive/brltty-5.6.tar.xz
+https://telepathy.freedesktop.org/releases/telepathy-glib/telepathy-glib-0.24.1.tar.gz
+https://download.gnome.org/sources/cogl/1.22/cogl-1.22.2.tar.xz
+https://download.gnome.org/sources/clutter/1.26/clutter-1.26.2.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/clutter-gtk/1.8/clutter-gtk-1.8.4.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.30/at-spi2-core-2.30.0.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/atk/2.30/atk-2.30.0.tar.xz
+http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.30/at-spi2-atk-2.30.0.tar.xz
+https://github.com/pygobject/pycairo/releases/download/v1.18.0/pycairo-1.18.0.tar.gz
+http://ftp.gnome.org/pub/gnome/sources/pygobject/3.30/pygobject-3.30.4.tar.xz
+https://gitlab.gnome.org/GNOME/orca.git#commit=8c4bad7ccdbb8a3f4f918a99380f2b5a4a2f4d0d
+https://pub.mate-desktop.org/releases/1.20/atril-1.20.2.tar.xz

@@ -1,0 +1,13 @@
+diff --git a/configure b/configure
+index 453c422..4ec9368 100755
+--- a/configure
++++ b/configure
+@@ -3881,7 +3881,7 @@ if test x$enable_shared = xyes; then
+ 	    GLDSONAME="libfltk_gl.so.$FL_DSO_VERSION"
+ 	    IMGDSONAME="libfltk_images.so.$FL_DSO_VERSION"
+ 	    CAIRODSONAME="libfltk_cairo.so.$FL_DSO_VERSION"
+-	    DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared -fPIC $DEBUGFLAG -o"
++	    DSOCOMMAND="\$(CXX) \$(DSOFLAGS) -Wl,-soname,\$@ \$(LDLIBS) -shared \$(LDFLAGS) -fPIC $DEBUGFLAG -o"
+ 
+ 	    # See if the compiler supports -fvisibility...
+ 

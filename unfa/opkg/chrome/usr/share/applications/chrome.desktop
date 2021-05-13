@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=google-chrome
+GenericName=Package manager
+Exec=google-chrome %U
+Terminal=false
+Icon=google-chrome
+Type=Application
+Categories=Network

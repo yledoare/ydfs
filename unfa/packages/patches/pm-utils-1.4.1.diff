@@ -1,0 +1,71 @@
+diff --git a/pm/pm-functions.in b/pm/pm-functions.in
+index c82be30..b9fe420 100644
+--- a/pm/pm-functions.in
++++ b/pm/pm-functions.in
+@@ -271,7 +271,7 @@ init_logfile()
+ 		return 1
+ 	fi
+ 	export LOGGING=true
+-	exec > "$1" 2>&1
++	exec >> "$1" 2>&1
+ }
+ 
+ check_suspend() { [ -n "$SUSPEND_MODULE" ]; }
+diff --git a/pm/power.d/intel-audio-powersave b/pm/power.d/intel-audio-powersave
+index 36675a8..da63e40 100644
+--- a/pm/power.d/intel-audio-powersave
++++ b/pm/power.d/intel-audio-powersave
+@@ -20,9 +20,9 @@ EOF
+ 
+ audio_powersave() {
+     [ "$INTEL_AUDIO_POWERSAVE" = "true" ] || exit $NA
+-    for dev in /sys/module/snd_*/parameters/power_save; do
++    for dev in /sys/module/snd_*; do
+ 	[ -w "$dev/parameters/power_save" ] || continue
+-	printf "Setting power savings for $s to %d..." "$dev##*/" "$1"
++	printf "Setting power savings for %s to %d..." "${dev##*/}" "$1"
+ 	echo $1 > "$dev/parameters/power_save" && echo Done. || echo Failed.
+     done
+ }
+diff --git a/pm/power.d/sata_alpm b/pm/power.d/sata_alpm
+index 5ede307..4f1642c 100644
+--- a/pm/power.d/sata_alpm
++++ b/pm/power.d/sata_alpm
+@@ -2,7 +2,7 @@
+ 
+ . "${PM_FUNCTIONS}"
+ 
+-SATA_ALPM_ENABLE=${SATA_ALPM_ENABLE:-true}
++SATA_ALPM_ENABLE=${SATA_ALPM_ENABLE:-false}
+ 
+ help() {
+ cat <<EOF
+@@ -16,7 +16,7 @@ exchange for moderate power savings if you are not using the drive.
+ 
+ This hook has 1 parameter:
+ SATA_ALPM_ENABLE = whether to use SATA ALPM on battery.
+-Defaults to "true".
++Defaults to "false".
+ 
+ EOF
+ }
+diff --git a/pm/sleep.d/49bluetooth b/pm/sleep.d/49bluetooth
+index d46ba49..0dc1909 100755
+--- a/pm/sleep.d/49bluetooth
++++ b/pm/sleep.d/49bluetooth
+@@ -12,6 +12,15 @@ suspend_bluetooth()
+ 	if grep -q enabled /proc/acpi/ibm/bluetooth; then
+ 		savestate ibm_bluetooth enable
+ 		echo disable > /proc/acpi/ibm/bluetooth
++
++		# wait for up to 2 seconds for the module to actually get
++		# unused
++		TIMEOUT=20
++		while [ $TIMEOUT -ge 0 ]; do
++		    [ `cat /sys/module/btusb/refcnt` = 0 ] && break
++		    TIMEOUT=$((TIMEOUT-1))
++		    sleep 0.1
++		done
+ 	else
+ 		savestate ibm_bluetooth disable
+ 	fi

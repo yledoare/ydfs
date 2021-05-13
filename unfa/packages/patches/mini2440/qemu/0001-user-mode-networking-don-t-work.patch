@@ -1,0 +1,48 @@
+From f3265ebb3c21cf81756fa4cf362c22179a78ace5 Mon Sep 17 00:00:00 2001
+From: Yargil <yargil@free.fr>
+Date: Sat, 3 Sep 2011 17:19:27 +0200
+Subject: [PATCH 1/5] user mode networking don't work
+
+Set the correct register values on reseti (from datasheet).
+The test in dm9000_get_rx_fifo_fill_state is wrong.
+---
+ hw/dm9000.c |   11 ++++++-----
+ 1 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/hw/dm9000.c b/hw/dm9000.c
+index c284241..edc3a24 100644
+--- a/hw/dm9000.c
++++ b/hw/dm9000.c
+@@ -331,15 +331,16 @@ static void dm9000_soft_reset(dm9000_state *s)
+ {
+     DM9000_DBF("DM9000: Soft Reset\n");
+     s->dm9k_txpl = 0;
+-    s->dm9k_mwr = s->dm9k_trpa = DM9K_TX_FIFO_START;
+-    s->dm9k_mrr = s->dm9k_rwpa = DM9K_RX_FIFO_START;
++    s->dm9k_mrr = s->dm9k_mwr = 0;
++    s->dm9k_trpa = 0;
++    s->dm9k_rwpa = DM9K_RX_FIFO_START;
+     s->dm9k_imr = 0;
+     s->dm9k_isr = 0; /* 16 bit mode, no interrupts asserted */
+     s->dm9k_tcr = 0;
+     s->dm9k_rcr = 0;
+     s->dm9k_rsr = 0;
+-    s->fcr = 0;
+-    s->fctr = (3 << 4) | (8 << 0);	// flow control high/low marks
++    s->fcr = 0x38;
++    s->fctr = (3 << 4) | (7 << 0);	// flow control high/low marks
+     s->fc_high_mark = 3 * 1024;
+     s->fc_low_mark = 8 * 1024;
+ 
+@@ -374,7 +375,7 @@ static void dm9000_hard_reset(dm9000_state *s)
+ static uint16_t dm9000_get_rx_fifo_fill_state(dm9000_state *s)
+ {
+ 	uint16_t res;
+-	if (s->dm9k_mrr > s->dm9k_rwpa)
++	if (s->dm9k_mrr >= s->dm9k_rwpa)
+ 		res = (DM9K_FIFO_SIZE-s->dm9k_rwpa) + (s->dm9k_mrr-DM9K_RX_FIFO_START);
+ 	else
+ 		res = s->dm9k_rwpa - s->dm9k_mrr;
+-- 
+1.7.2.5
+

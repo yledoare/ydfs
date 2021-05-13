@@ -1,0 +1,39 @@
+  install -dm755 "${pkgdir}"/etc/bluetooth
+  install -Dm644 src/main.conf "${pkgdir}"/etc/bluetooth/main.conf || exit 1
+
+  # fix module loading errors
+  install -dm755 "${pkgdir}"/lib/modprobe.d
+  install -Dm644 "${srcdir}"/bluetooth.modprobe "${pkgdir}"/lib/modprobe.d/bluetooth-usb.conf
+  # load module at system start required by some functions
+  # https://bugzilla.kernel.org/show_bug.cgi?id=196621
+  install -dm755 "$pkgdir"/lib/modules-load.d
+  echo "crypto_user" > "$pkgdir"/lib/modules-load.d/bluez.conf
+  
+  # FIX YDFS - 2019 
+  make obexd/src/obex.service || exit 1
+  cp obexd/src/obex.service "${pkgdir}"/share/dbus-1/services/dbus-org.bluez.obex.service || exit 1
+
+  make \
+       install-binPROGRAMS \
+       install-dist_zshcompletionDATA \
+       install-man1 || exit 1
+
+  # add missing tools FS#41132, FS#41687, FS#42716
+  for files in `find tools/ -type f -perm -755`; do
+    filename=$(basename $files)
+    install -Dm755 tools/$filename "${pkgdir}"/bin/$filename
+  done
+  
+  make  \
+       install-pkgincludeHEADERS \
+       install-libLTLIBRARIES \
+       install-pkgconfigDATA || exit 1
+
+  make install-cupsPROGRAMS || exit 1
+
+  make  \
+       install-udevPROGRAMS \
+       install-rulesDATA
+  
+  make  \
+       install-pluginLTLIBRARIES

@@ -1,0 +1,13 @@
+diff --git a/libopkg/opkg_archive.c b/libopkg/opkg_archive.c
+index ee328cd..8ce37e1 100644
+--- a/libopkg/opkg_archive.c
++++ b/libopkg/opkg_archive.c
+@@ -742,7 +742,7 @@ int gz_write_archive(const char *filename, const char *gz_filename)
+ 
+     a = archive_write_new();
+     archive_write_add_filter_gzip(a);
+-    archive_write_set_format_raw(a);
++    //archive_write_set_format_raw(a);
+     archive_write_open_filename(a, gz_filename);
+ 
+     struct archive *disk = archive_read_disk_new();

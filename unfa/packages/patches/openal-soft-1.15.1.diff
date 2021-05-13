@@ -1,0 +1,48 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5389f11..dfea267 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -34,7 +34,7 @@ OPTION(REQUIRE_NEON "Require ARM Neon CPU extensions" OFF)
+ 
+ 
+ OPTION(ALSA    "Check for ALSA backend"                ON)
+-OPTION(OSS     "Check for OSS backend"                 ON)
++OPTION(OSS     "Check for OSS backend"                 OFF)
+ OPTION(SOLARIS "Check for Solaris backend"             ON)
+ OPTION(SNDIO   "Check for SndIO backend"               ON)
+ OPTION(MMDEVAPI "Check for MMDevApi"                   ON)
+@@ -820,34 +820,3 @@ IF(UTILS)
+     MESSAGE(STATUS "Building utility programs")
+     MESSAGE(STATUS "")
+ ENDIF()
+-
+-IF(EXAMPLES)
+-    IF(FFMPEG_FOUND)
+-        ADD_EXECUTABLE(alstream examples/common/alhelpers.c
+-                                examples/common/alffmpeg.c
+-                                examples/alstream.c)
+-        TARGET_LINK_LIBRARIES(alstream ${FFMPEG_LIBRARIES} ${LIBNAME})
+-        SET_TARGET_PROPERTIES(alstream PROPERTIES COMPILE_FLAGS "${FFMPEG_CFLAGS}")
+-
+-        ADD_EXECUTABLE(alreverb examples/common/alhelpers.c
+-                                examples/common/alffmpeg.c
+-                                examples/alreverb.c)
+-        TARGET_LINK_LIBRARIES(alreverb ${FFMPEG_LIBRARIES} ${LIBNAME})
+-        SET_TARGET_PROPERTIES(alreverb PROPERTIES COMPILE_FLAGS "${FFMPEG_CFLAGS}")
+-
+-        ADD_EXECUTABLE(allatency examples/common/alhelpers.c
+-                                 examples/common/alffmpeg.c
+-                                 examples/allatency.c)
+-        TARGET_LINK_LIBRARIES(allatency ${FFMPEG_LIBRARIES} ${LIBNAME})
+-        SET_TARGET_PROPERTIES(allatency PROPERTIES COMPILE_FLAGS "${FFMPEG_CFLAGS}")
+-
+-        INSTALL(TARGETS alstream alreverb allatency
+-                RUNTIME DESTINATION bin
+-                LIBRARY DESTINATION "lib${LIB_SUFFIX}"
+-                ARCHIVE DESTINATION "lib${LIB_SUFFIX}"
+-        )
+-
+-        MESSAGE(STATUS "Building ffmpeg example programs")
+-        MESSAGE(STATUS "")
+-    ENDIF()
+-ENDIF()

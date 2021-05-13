@@ -1,0 +1,26 @@
+diff --git a/scripts/xdg-email b/scripts/xdg-email
+index 83090ab..182260a 100755
+--- a/scripts/xdg-email
++++ b/scripts/xdg-email
+@@ -699,7 +699,7 @@ fi
+ if [ x"$BROWSER" = x"" ]; then
+     BROWSER=links2:links:lynx:w3m
+     if [ -n "$DISPLAY" ]; then
+-        BROWSER=firefox:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
++        BROWSER=midori:firefox:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
+     fi
+ fi
+ 
+diff --git a/scripts/xdg-open b/scripts/xdg-open
+index b8db0aa..cce5ac7 100755
+--- a/scripts/xdg-open
++++ b/scripts/xdg-open
+@@ -526,7 +526,7 @@ fi
+ if [ x"$BROWSER" = x"" ]; then
+     BROWSER=links2:links:lynx:w3m
+     if [ -n "$DISPLAY" ]; then
+-        BROWSER=firefox:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
++        BROWSER=midori:firefox:mozilla:epiphany:konqueror:chromium-browser:google-chrome:$BROWSER
+     fi
+ fi
+ 

@@ -1,0 +1,14 @@
+if [ -e src/gmic.cpp ]
+then
+  cd zart 
+	qmake -o Makefile zart.pro || exit $?
+  cd ..
+  cd src
+	sed -i "s@/usr/X11R6@$HOME/$ARCH@g" Makefile
+	sed -i "s@/usr/include/opencv@$HOME/opkg/include/opencv@g" Makefile
+  cd ..
+
+  make -C src all || exit $?
+  make -C zart all || exit $?
+exit 10
+fi

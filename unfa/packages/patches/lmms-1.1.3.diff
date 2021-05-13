@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 63af96c..948862d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -344,7 +344,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX AND ((CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.8
+ ENDIF()
+ 
+ SET(CMAKE_C_FLAGS "-O2 -g ${WERROR_FLAGS} ${CMAKE_C_FLAGS}")
+-SET(CMAKE_CXX_FLAGS "-O2 -g -fno-exceptions ${WERROR_FLAGS} ${CMAKE_CXX_FLAGS}")
++SET(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -O2 -g -fno-exceptions ${WERROR_FLAGS} ${CMAKE_CXX_FLAGS}")
+ set(CMAKE_C_FLAGS_DEBUG "-DLMMS_DEBUG")
+ 
+ 
+diff --git a/plugins/vst_base/CMakeLists.txt b/plugins/vst_base/CMakeLists.txt
+index 373604c..4c9b8f2 100644
+--- a/plugins/vst_base/CMakeLists.txt
++++ b/plugins/vst_base/CMakeLists.txt
+@@ -35,7 +35,7 @@ ENDIF(LMMS_HOST_X86_64)
+ ADD_CUSTOM_COMMAND(
+ 		SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/RemoteVstPlugin.cpp"
+ 		COMMAND ${WINE_CXX}
+-		ARGS "-I\"${CMAKE_BINARY_DIR}\"" "-I\"${CMAKE_SOURCE_DIR}/include\"" "-I\"${CMAKE_INSTALL_PREFIX}/include/wine/windows\"" "-I\"${CMAKE_INSTALL_PREFIX}/include\"" -I/usr/include/wine/windows "\"${CMAKE_CURRENT_SOURCE_DIR}/RemoteVstPlugin.cpp\"" -ansi -mwindows -lpthread ${EXTRA_FLAGS} -o RemoteVstPlugin
++		ARGS "-I\"${CMAKE_BINARY_DIR}\"" "-I\"${CMAKE_SOURCE_DIR}/include\"" "-I\"${CMAKE_INSTALL_PREFIX}/include/wine/windows\"" "-I\"${CMAKE_INSTALL_PREFIX}/include\"" -I${HOME}/${ARCH}/include -I/usr/include/wine/windows "\"${CMAKE_CURRENT_SOURCE_DIR}/RemoteVstPlugin.cpp\"" -ansi -mwindows -lpthread ${EXTRA_FLAGS} -o RemoteVstPlugin
+ 		COMMAND find -name RemoteVstPlugin.exe -exec mv "'{}'" RemoteVstPlugin "';'"
+ 		TARGET vstbase
+ 		OUTPUTS RemoteVstPlugin

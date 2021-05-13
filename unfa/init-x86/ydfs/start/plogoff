@@ -1,0 +1,54 @@
+#!/bin/bash
+
+[ "$USER" == "root" ] && exit 0
+[ ! -e ${HOME}/.config/plogoff ] && exit 0
+
+DATADIR=$HOME/.local/data/plogoff/
+DATESTAMP=$(date +%d%m%Y)
+
+install -d $HOME/.local/data/plogoff
+
+
+ls $HOME/.local/data/plogoff|while read file
+do
+  echo $file | grep $DATESTAMP || rm $DATADIR/$file
+done
+
+env > $HOME/.local/data/plogoff/debug.txt
+
+[ ! -e $DATADIR/$DATESTAMP ] && echo 1 > $DATADIR/$DATESTAMP
+
+MAX=$(cat ${HOME}/.config/plogoff)
+
+MAXMIN=$(($MAX * 60))
+
+echo "Max : $MAXMIN" >> $HOME/.local/data/plogoff/debug.txt
+
+while [ 1 ]
+do
+	COUNT=$(cat $DATADIR/$DATESTAMP)
+	echo "Count : $COUNT" >> $HOME/.local/data/plogoff/debug.txt
+	MINUTES=$(($MAXMIN - $COUNT))
+	[ $MINUTES -lt 2 ] && break
+	echo $MINUTES >> $HOME/.local/data/plogoff/debug.txt
+	if [ "$MINUTES" -lt 5 ]
+        then
+          if [ "$LANG" = "fr_FR.UTF8" ]
+	  then
+ 	    zenity --info --text="Déconnexion dans $MINUTES minutes .." &
+	  else
+ 	    zenity --info --text="logoff in $MINUTES minutes .." &
+	  fi
+        fi
+	sleep 60
+	# If we have no more session
+	ps xuw >> $HOME/.local/data/plogoff/ps.txt
+	ps xuw|egrep [X]session || exit 0
+	echo $(($COUNT + 1)) > $DATADIR/$DATESTAMP
+done
+
+zenity --info --text="Logoff" &
+sleep 60
+
+killall x-session-manager
+killall mate-session

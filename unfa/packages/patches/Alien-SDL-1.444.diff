@@ -1,0 +1,13 @@
+diff --git a/Build.PL b/Build.PL
+index c79ff2f..679844d 100644
+--- a/Build.PL
++++ b/Build.PL
+@@ -224,7 +224,7 @@ else {
+ # or prompt user for build option
+   else {
+     $prompt_string .= "\nWhat way do you wanna go?";
+-    $ans = $build->prompt( $prompt_string, $recommended_candidate );
++    $ans = 1;
+   }
+ 
+   if($ans > 0 && $ans < scalar(@candidates)) {

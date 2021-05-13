@@ -1,0 +1,13 @@
+cat packages/list-x86 | while read archive
+do
+  echo $archive >> /tmp/list-archive
+  echo $archive | grep "$1" && echo $archive > /tmp/list-archive
+done 
+
+cat /tmp/list-archive | while read file
+do
+  echo $file |grep '#' && continue
+  FILE=`basename $file | sed s/.tar.bz2// | sed s/.tar.xz// | sed s/.tar.gz// | sed s/.tar.bz2//` 
+  echo $FILE
+  bash scripts/uninstall-package $FILE ||exit 1
+done

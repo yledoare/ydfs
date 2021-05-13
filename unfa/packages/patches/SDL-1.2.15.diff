@@ -1,0 +1,243 @@
+diff --git a/src/joystick/linux/SDL_sysjoystick.c b/src/joystick/linux/SDL_sysjoystick.c
+index ee43974..2b76313 100644
+--- a/src/joystick/linux/SDL_sysjoystick.c
++++ b/src/joystick/linux/SDL_sysjoystick.c
+@@ -1106,6 +1106,9 @@ static __inline__ void EV_HandleEvents(SDL_Joystick *joystick)
+ 				}
+ 				break;
+ 			    case EV_ABS:
++				if (code > ABS_MISC) {
++					break;
++				}
+ 				switch (code) {
+ 				    case ABS_HAT0X:
+ 				    case ABS_HAT0Y:
+diff --git a/src/video/SDL_gamma.c b/src/video/SDL_gamma.c
+index 4fd0370..464ab88 100644
+--- a/src/video/SDL_gamma.c
++++ b/src/video/SDL_gamma.c
+@@ -92,22 +92,11 @@ static void CalculateGammaFromRamp(float *gamma, Uint16 *ramp)
+ 
+ int SDL_SetGamma(float red, float green, float blue)
+ {
+-	int succeeded;
++	int succeeded = -1;
+ 	SDL_VideoDevice *video = current_video;
+ 	SDL_VideoDevice *this  = current_video;	
+ 
+-	succeeded = -1;
+-	/* Prefer using SetGammaRamp(), as it's more flexible */
+-	{
+-		Uint16 ramp[3][256];
+-
+-		CalculateGammaRamp(red, ramp[0]);
+-		CalculateGammaRamp(green, ramp[1]);
+-		CalculateGammaRamp(blue, ramp[2]);
+-		succeeded = SDL_SetGammaRamp(ramp[0], ramp[1], ramp[2]);
+-	}
+-	if ( (succeeded < 0) && video->SetGamma ) {
+-		SDL_ClearError();
++	if ( video->SetGamma ) {
+ 		succeeded = video->SetGamma(this, red, green, blue);
+ 	}
+ 	return succeeded;
+diff --git a/src/video/SDL_yuv_sw.c b/src/video/SDL_yuv_sw.c
+index c555ce0..86f436b 100644
+--- a/src/video/SDL_yuv_sw.c
++++ b/src/video/SDL_yuv_sw.c
+@@ -89,6 +89,8 @@
+ #include "SDL_yuvfuncs.h"
+ #include "SDL_yuv_sw_c.h"
+ 
++#undef __OPTIMIZE__
++
+ /* The functions used to manipulate software video overlays */
+ static struct private_yuvhwfuncs sw_yuvfuncs = {
+ 	SDL_LockYUV_SW,
+diff --git a/src/video/x11/SDL_x11events.c b/src/video/x11/SDL_x11events.c
+index 559a001..cfdbb15 100644
+--- a/src/video/x11/SDL_x11events.c
++++ b/src/video/x11/SDL_x11events.c
+@@ -57,12 +57,6 @@ static SDLKey ODD_keymap[256];
+ static SDLKey MISC_keymap[256];
+ SDLKey X11_TranslateKeycode(Display *display, KeyCode kc);
+ 
+-/*
+- Pending resize target for ConfigureNotify (so outdated events don't
+- cause inappropriate resize events)
+-*/
+-int X11_PendingConfigureNotifyWidth = -1;
+-int X11_PendingConfigureNotifyHeight = -1;
+ 
+ #ifdef X_HAVE_UTF8_STRING
+ Uint32 Utf8ToUcs4(const Uint8 *utf8)
+@@ -395,6 +389,8 @@ static int X11_DispatchEvent(_THIS)
+ {
+ 	int posted;
+ 	XEvent xevent;
++	int orig_event_type;
++	KeyCode orig_keycode;
+ 
+ 	SDL_memset(&xevent, '\0', sizeof (XEvent));  /* valgrind fix. --ryan. */
+ 	XNextEvent(SDL_Display, &xevent);
+@@ -410,9 +406,29 @@ static int X11_DispatchEvent(_THIS)
+ #ifdef X_HAVE_UTF8_STRING
+ 	/* If we are translating with IM, we need to pass all events
+ 	   to XFilterEvent, and discard those filtered events immediately.  */
++	orig_event_type = xevent.type;
++	if (orig_event_type == KeyPress || orig_event_type == KeyRelease) {
++	     orig_keycode = xevent.xkey.keycode;
++	} else {
++	     orig_keycode = 0;
++	}
+ 	if ( SDL_TranslateUNICODE
+ 	     && SDL_IM != NULL
+ 	     && XFilterEvent(&xevent, None) ) {
++	        if (orig_keycode) {
++	            SDL_keysym keysym;
++	            static XComposeStatus state;
++	            char keybuf[32];
++
++	            keysym.scancode = xevent.xkey.keycode;
++	            keysym.sym = X11_TranslateKeycode(SDL_Display, xevent.xkey.keycode);
++	            keysym.mod = KMOD_NONE;
++	            keysym.unicode = 0;
++	            if (orig_event_type == KeyPress && XLookupString(&xevent.xkey, keybuf, sizeof(keybuf), NULL, &state))
++	                keysym.unicode = (Uint8)keybuf[0];
++
++	            SDL_PrivateKeyboard(orig_event_type == KeyPress ? SDL_PRESSED : SDL_RELEASED, &keysym);
++	        }
+ 		return 0;
+ 	}
+ #endif
+@@ -429,12 +445,15 @@ printf("Mode: NotifyGrab\n");
+ if ( xevent.xcrossing.mode == NotifyUngrab )
+ printf("Mode: NotifyUngrab\n");
+ #endif
+-		if ( this->input_grab == SDL_GRAB_OFF ) {
+-			posted = SDL_PrivateAppActive(1, SDL_APPMOUSEFOCUS);
++		if ( (xevent.xcrossing.mode != NotifyGrab) &&
++		     (xevent.xcrossing.mode != NotifyUngrab) ) {
++			if ( this->input_grab == SDL_GRAB_OFF ) {
++				posted = SDL_PrivateAppActive(1, SDL_APPMOUSEFOCUS);
++			}
++			posted = SDL_PrivateMouseMotion(0, 0,
++					xevent.xcrossing.x,
++					xevent.xcrossing.y);
+ 		}
+-		posted = SDL_PrivateMouseMotion(0, 0,
+-				xevent.xcrossing.x,
+-				xevent.xcrossing.y);
+ 	    }
+ 	    break;
+ 
+@@ -825,16 +844,6 @@ printf("MapNotify!\n");
+ #ifdef DEBUG_XEVENTS
+ printf("ConfigureNotify! (resize: %dx%d)\n", xevent.xconfigure.width, xevent.xconfigure.height);
+ #endif
+-		if ((X11_PendingConfigureNotifyWidth != -1) &&
+-		    (X11_PendingConfigureNotifyHeight != -1)) {
+-		    if ((xevent.xconfigure.width != X11_PendingConfigureNotifyWidth) &&
+-			(xevent.xconfigure.height != X11_PendingConfigureNotifyHeight)) {
+-			    /* Event is from before the resize, so ignore. */
+-			    break;
+-		    }
+-		    X11_PendingConfigureNotifyWidth = -1;
+-		    X11_PendingConfigureNotifyHeight = -1;
+-		}
+ 		if ( SDL_VideoSurface ) {
+ 		    if ((xevent.xconfigure.width != SDL_VideoSurface->w) ||
+ 		        (xevent.xconfigure.height != SDL_VideoSurface->h)) {
+@@ -1246,8 +1255,11 @@ static void get_modifier_masks(Display *display)
+  * sequences (dead accents, compose key sequences) will not work since the
+  * state has been irrevocably lost.
+  */
++extern DECLSPEC Uint16 SDLCALL X11_KeyToUnicode(SDLKey, SDLMod);
++
+ Uint16 X11_KeyToUnicode(SDLKey keysym, SDLMod modifiers)
+ {
++	static int warning = 0;
+ 	struct SDL_VideoDevice *this = current_video;
+ 	char keybuf[32];
+ 	int i;
+@@ -1255,6 +1267,12 @@ Uint16 X11_KeyToUnicode(SDLKey keysym, SDLMod modifiers)
+ 	XKeyEvent xkey;
+ 	Uint16 unicode;
+ 
++	if ( warning ) {
++		warning = 0;
++		fprintf(stderr, "WARNING: Application is using X11_KeyToUnicode().\n");
++		fprintf(stderr, "This is not an official SDL function, please report this as a bug.\n");
++	}
++
+ 	if ( !this || !SDL_Display ) {
+ 		return 0;
+ 	}
+diff --git a/src/video/x11/SDL_x11events_c.h b/src/video/x11/SDL_x11events_c.h
+index fe26d9c..1177137 100644
+--- a/src/video/x11/SDL_x11events_c.h
++++ b/src/video/x11/SDL_x11events_c.h
+@@ -27,8 +27,3 @@
+ extern void X11_InitOSKeymap(_THIS);
+ extern void X11_PumpEvents(_THIS);
+ extern void X11_SetKeyboardState(Display *display, const char *key_vec);
+-
+-/* Variables to be exported */
+-extern int X11_PendingConfigureNotifyWidth;
+-extern int X11_PendingConfigureNotifyHeight;
+-
+diff --git a/src/video/x11/SDL_x11sym.h b/src/video/x11/SDL_x11sym.h
+index 4875b98..cc58bd4 100644
+--- a/src/video/x11/SDL_x11sym.h
++++ b/src/video/x11/SDL_x11sym.h
+@@ -165,7 +165,7 @@ SDL_X11_SYM(Bool,XShmQueryExtension,(Display* a),(a),return)
+  */
+ #ifdef LONG64
+ SDL_X11_MODULE(IO_32BIT)
+-SDL_X11_SYM(int,_XData32,(Display *dpy,register long *data,unsigned len),(dpy,data,len),return)
++SDL_X11_SYM(int,_XData32,(Display *dpy,register _Xconst long *data,unsigned len),(dpy,data,len),return)
+ SDL_X11_SYM(void,_XRead32,(Display *dpy,register long *data,long len),(dpy,data,len),)
+ #endif
+ 
+diff --git a/src/video/x11/SDL_x11video.c b/src/video/x11/SDL_x11video.c
+index f7d8073..670a2d8 100644
+--- a/src/video/x11/SDL_x11video.c
++++ b/src/video/x11/SDL_x11video.c
+@@ -1088,7 +1088,7 @@ static int X11_CreateWindow(_THIS, SDL_Surface *screen,
+ 		}
+ 	}
+ 
+-#if 0 /* This is an experiment - are the graphics faster now? - nope. */
++#if 1 /* This is an experiment - are the graphics faster now? - nope. */
+ 	if ( SDL_getenv("SDL_VIDEO_X11_BACKINGSTORE") )
+ #endif
+ 	/* Cache the window in the server, when possible */
+@@ -1177,8 +1177,6 @@ SDL_Surface *X11_SetVideoMode(_THIS, SDL_Surface *current,
+ 			current = NULL;
+ 			goto done;
+ 		}
+-		X11_PendingConfigureNotifyWidth = width;
+-		X11_PendingConfigureNotifyHeight = height;
+ 	} else {
+ 		if (X11_CreateWindow(this,current,width,height,bpp,flags) < 0) {
+ 			current = NULL;
+diff --git a/src/video/x11/SDL_x11wm.c b/src/video/x11/SDL_x11wm.c
+index 14c816b..fe0f6a5 100644
+--- a/src/video/x11/SDL_x11wm.c
++++ b/src/video/x11/SDL_x11wm.c
+@@ -352,13 +352,14 @@ SDL_GrabMode X11_GrabInputNoLock(_THIS, SDL_GrabMode mode)
+ 			result = XGrabPointer(SDL_Display, SDL_Window, True, 0,
+ 						GrabModeAsync, GrabModeAsync,
+ 						SDL_Window, None, CurrentTime);
+-			if ( result == GrabSuccess ) {
++			if ( result == GrabSuccess || result == GrabNotViewable ) {
+ 				break;
+ 			}
+ 			SDL_Delay(100);
+ 		}
+ 		if ( result != GrabSuccess ) {
+ 			/* Uh, oh, what do we do here? */ ;
++			return(SDL_GRAB_OFF);
+ 		}
+ 		/* Now grab the keyboard */
+ 		XGrabKeyboard(SDL_Display, WMwindow, True,

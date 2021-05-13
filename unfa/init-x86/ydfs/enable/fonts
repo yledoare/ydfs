@@ -1,0 +1,12 @@
+if [ ! -e /usr/var/cache/fontconfig/ ]
+then
+  mkdir /usr/var/cache/fontconfig/
+  echo -n " .. cache .. "
+  if [ "$ARCH" = x86 ]
+  then
+    cp /fontconfig-32/* /usr/var/cache/fontconfig/
+  else
+    cp /fontconfig-64/* /usr/var/cache/fontconfig/
+  fi
+fi
+fc-cache

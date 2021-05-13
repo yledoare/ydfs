@@ -1,0 +1,97 @@
+diff --git a/configure b/configure
+index 4654f95..8b93772 100755
+--- a/configure
++++ b/configure
+@@ -4018,7 +4018,7 @@ if test "x$ac_cv_lib_crypt_crypt" = xyes; then :
+ #define HAVE_LIBCRYPT 1
+ _ACEOF
+ 
+-  LIBS="-lcrypt $LIBS"
++  LIBS="-lcrypt -lpam -L${HOME}/${ARCH}/lib $LIBS"
+ 
+ fi
+ 
+diff --git a/data/Makefile.am b/data/Makefile.am
+index ad64b11..ff337ef 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -9,7 +9,7 @@ lxdm_DATA = \
+ 	config.ui \
+ 	$(NULL)
+ 
+-lxdm_confdir = /etc/lxdm
++lxdm_confdir = ${HOME}/${ARCH}/etc/lxdm
+ lxdm_conf_DATA = \
+ 	PostLogin \
+ 	PostLogout \
+diff --git a/data/Makefile.in b/data/Makefile.in
+index a8cf619..f330623 100644
+--- a/data/Makefile.in
++++ b/data/Makefile.in
+@@ -286,7 +286,7 @@ lxdm_DATA = \
+ 	config.ui \
+ 	$(NULL)
+ 
+-lxdm_confdir = /etc/lxdm
++lxdm_confdir = ${HOME}/${ARCH}/etc/lxdm
+ lxdm_conf_DATA = \
+ 	PostLogin \
+ 	PostLogout \
+@@ -630,14 +630,14 @@ uninstall-am: uninstall-lxdmDATA uninstall-lxdm_confDATA \
+ 
+ 
+ install-data-hook:
+-	chmod +x $(DESTDIR)/etc/lxdm/Xsession \
+-		$(DESTDIR)/etc/lxdm/PostLogin \
+-		$(DESTDIR)/etc/lxdm/PostLogout \
+-		$(DESTDIR)/etc/lxdm/PreLogin \
+-		$(DESTDIR)/etc/lxdm/PreReboot \
+-		$(DESTDIR)/etc/lxdm/PreShutdown \
+-		$(DESTDIR)/etc/lxdm/LoginReady
+-	chmod 640 $(DESTDIR)/etc/lxdm/lxdm.conf
++	chmod +x $(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/Xsession \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PostLogin \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PostLogout \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreLogin \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreReboot \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/PreShutdown \
++		$(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/LoginReady
++	chmod 640 $(DESTDIR)/${HOME}/${ARCH}/etc/lxdm/lxdm.conf
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+diff --git a/data/lxdm.conf.in b/data/lxdm.conf.in
+index d93f280..0533d75 100644
+--- a/data/lxdm.conf.in
++++ b/data/lxdm.conf.in
+@@ -27,7 +27,7 @@ greeter=@FULL_LIBEXECDIR@/lxdm-greeter-gtk
+ # uncomment this if you really want xserver listen to tcp
+ # tcp_listen=1
+ # uncoment this if you want reset the xserver after logou
+-# reset=1
++reset=1
+ 
+ [display]
+ ## gtk theme used by greeter
+@@ -43,7 +43,7 @@ bottom_pane=1
+ lang=1
+ 
+ ## if show keyboard layout select control
+-keyboard=0
++keyboard=1
+ 
+ ## the theme of greeter
+ theme=Industrial
+diff --git a/pam/Makefile.in b/pam/Makefile.in
+index a9228f7..bfac80b 100644
+--- a/pam/Makefile.in
++++ b/pam/Makefile.in
+@@ -270,7 +270,7 @@ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ NULL = 
+-lxdm_pamdir = /etc/pam.d
++lxdm_pamdir = ${HOME}/${ARCH}/etc/pam.d
+ lxdm_pam_DATA = \
+ 	lxdm \
+ 	$(NULL)

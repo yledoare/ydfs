@@ -1,0 +1,11 @@
+SKIP=""
+echo busybox  killall5 $SKIP > /tmp/killall5
+ls /proc |while read line
+ do
+  [ "$line" = "self" ] && continue
+  [ "$line" = "thread-self" ] && continue
+  [ -e /proc/$line/cmdline ] && grep ntfs-3 /proc/$line/cmdline >/dev/null && SKIP="$SKIP -o $line"
+  echo busybox  killall5 $SKIP > /tmp/killall5
+done
+cat /tmp/killall5
+busybox sh /tmp/killall5

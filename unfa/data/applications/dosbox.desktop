@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Dosbox
+GenericName=Emulator with builtin DOS for running DOS Games
+Exec=dosbox
+Terminal=false
+Icon=dosbox
+Type=Application
+Categories=Emulator

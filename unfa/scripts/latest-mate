@@ -1,0 +1,4 @@
+grep mate-desktop packages/list-x86 |cut -d'/' -f6 |cut -d'.' -f1|sed "s/-1//" | while read name
+do 
+  bash scripts/echo-archpkg $name
+done

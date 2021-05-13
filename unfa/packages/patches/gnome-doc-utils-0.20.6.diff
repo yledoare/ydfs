@@ -1,0 +1,12 @@
+diff -ur gnome-doc-utils-0.20.6/doc/Makefile.in gnome-doc-utils-0.20.6.patch/doc/Makefile.in
+--- gnome-doc-utils-0.20.6/doc/Makefile.in	2011-04-25 02:19:36.000000000 +0200
++++ gnome-doc-utils-0.20.6.patch/doc/Makefile.in	2013-03-16 10:06:04.000000000 +0100
+@@ -223,7 +223,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = gnome-doc-make xslt
++SUBDIRS = 
+ all: all-recursive
+ 
+ .SUFFIXES:

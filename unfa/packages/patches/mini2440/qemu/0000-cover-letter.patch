@@ -1,0 +1,27 @@
+From 116354f56f114af341e0bebc9908771d3f24fd21 Mon Sep 17 00:00:00 2001
+From: Yargil <yargil@free.fr>
+Date: Mon, 26 Sep 2011 17:23:42 +0200
+Subject: [PATCH 0/5] [QEMU minin2440] Bug fixes
+
+Hello,
+
+Please find patches for the mini2440 fork of Qemu.
+
+Regards,
+
+Yargil (5):
+  user mode networking don't work
+  Can't boot from the u-boot.bin file in current directory
+  Add support of boot on NOR flash.
+  Rewrite the framebuffer update display function.
+  Add rotation of the screen with portrait option.
+
+ hw/dm9000.c           |   11 +++---
+ hw/mini2440.c         |   67 ++++++++++++++++++++++++++++++++----
+ hw/s3c24xx_lcd.c      |   90 ++++++++++++++++++++-----------------------------
+ hw/s3c24xx_template.h |   22 +++++++-----
+ 4 files changed, 115 insertions(+), 75 deletions(-)
+
+-- 
+1.7.2.5
+

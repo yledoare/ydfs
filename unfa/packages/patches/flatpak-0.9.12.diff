@@ -1,0 +1,12 @@
+diff --git a/Makefile.in b/Makefile.in
+index 3c107af..472d1af 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -5106,7 +5106,6 @@ tests/test-basic.sh: tests/package_version.txt
+ # NOTE: bwrap is install-bwrapPROGS which is run from install-data, not install-exec, this data-hook is used
+ install-data-hook:
+ 	$(MAKE) $(AM_MAKEFLAGS) install-test-data-hook
+-@PRIV_MODE_SETUID_TRUE@@WITH_SYSTEM_BWRAP_FALSE@	$(SUDO_BIN) chown root $(DESTDIR)$(libexecdir)/flatpak-bwrap
+ @PRIV_MODE_SETUID_TRUE@@WITH_SYSTEM_BWRAP_FALSE@	$(SUDO_BIN) chmod u+s $(DESTDIR)$(libexecdir)/flatpak-bwrap
+ 
+ flatpak.sh: profile/flatpak.sh.in

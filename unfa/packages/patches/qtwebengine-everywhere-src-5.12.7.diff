@@ -1,0 +1,22 @@
+diff --git a/src/3rdparty/chromium/build/config/compiler/BUILD.gn b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+index d223a4f..d9bd9fd 100644
+--- a/src/3rdparty/chromium/build/config/compiler/BUILD.gn
++++ b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+@@ -2098,17 +2098,6 @@ config("default_optimization") {
+ }
+ 
+ _clang_sample_profile = ""
+-if (is_clang && current_toolchain == default_toolchain) {
+-  if (clang_sample_profile_path != "") {
+-    _clang_sample_profile = clang_sample_profile_path
+-  } else if (clang_use_default_sample_profile) {
+-    assert(build_with_chromium,
+-           "Our default profiles currently only apply to Chromium")
+-    assert(is_android || is_desktop_linux,
+-           "The current platform has no default profile")
+-    _clang_sample_profile = "//chrome/android/profiles/afdo.prof"
+-  }
+-}
+ 
+ # Clang offers a way to assert that AFDO profiles are accurate, which causes it
+ # to optimize functions not represented in a profile more aggressively for size.

@@ -1,0 +1,36 @@
+diff --git a/src/dialogs/preferences.cpp b/src/dialogs/preferences.cpp
+index bcc670b..058e6df 100644
+--- a/src/dialogs/preferences.cpp
++++ b/src/dialogs/preferences.cpp
+@@ -33,6 +33,7 @@
+ #include <QFileDialog>
+ #include <QDesktopServices>
+ #include <QTextStream>
++#include <QAction>
+ 
+ #if defined(_MSC_VER) && defined(_DEBUG)
+ #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+diff --git a/src/dialogs/savedialog.cpp b/src/dialogs/savedialog.cpp
+index 95b7f88..27df8de 100644
+--- a/src/dialogs/savedialog.cpp
++++ b/src/dialogs/savedialog.cpp
+@@ -24,6 +24,7 @@
+ 
+ #include <QLineEdit>
+ #include <QCompleter>
++#include <QButtonGroup>
+ 
+ #if defined(_MSC_VER) && defined(_DEBUG)
+ #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+diff --git a/src/gui/gamewindow.cpp b/src/gui/gamewindow.cpp
+index 354eff2..95bec27 100644
+--- a/src/gui/gamewindow.cpp
++++ b/src/gui/gamewindow.cpp
+@@ -9,6 +9,7 @@
+ #include "settings.h"
+ 
+ #include <QToolButton>
++#include <QAction>
+ 
+ #if defined(_MSC_VER) && defined(_DEBUG)
+ #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )

@@ -1,0 +1,26 @@
+diff --git a/src/parsers/plan2/holidayscannerplan.cpp b/src/parsers/plan2/holidayscannerplan.cpp
+index 31b6a49..d343003 100644
+--- a/src/parsers/plan2/holidayscannerplan.cpp
++++ b/src/parsers/plan2/holidayscannerplan.cpp
+@@ -387,7 +387,7 @@ typedef unsigned char YY_CHAR;
+ 
+ #define yytext_ptr yytext
+ 
+-#include <FlexLexer.h>
++#include <../plan2/FlexLexer.h>
+ 
+ /* %if-c-only Standard (non-C++) definition */
+ /* %endif */
+diff --git a/src/parsers/plan2/holidayscannerplan_p.h b/src/parsers/plan2/holidayscannerplan_p.h
+index 47e77c3..2345f45 100644
+--- a/src/parsers/plan2/holidayscannerplan_p.h
++++ b/src/parsers/plan2/holidayscannerplan_p.h
+@@ -24,7 +24,7 @@
+ 
+ #ifndef __FLEX_LEXER_H
+ #define yyFlexLexer HolidayScannerFlexLexer
+-#include "FlexLexer.h"
++#include "../plan2/FlexLexer.h"
+ #undef yyFlexLexer
+ #endif
+ 
