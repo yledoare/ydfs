@@ -2,8 +2,13 @@ install -d ~/src
 cd ~/src
 [ ! -e ydfs ] && git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs 
-cd 2.8 
 git pull
+if [ -n "$DISTRO" ] && [ -e "$DISTRO" ] 
+then
+  cd $DISTRO
+else
+  cd 2.8 
+fi
 # make || make || make || make || make || tail -f /dev/null
 make iso || tail -f /dev/null
 make opkg || tail -f /dev/null
