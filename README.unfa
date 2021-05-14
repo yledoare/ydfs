@@ -1,0 +1,11 @@
+# About Ydfs
+
+(Your Distro From Scratch) is a tool to build your own linux distribution 
+
+## Automatic Unfa 64 bits ISO Build
+
+* mkdir iso
+* chmod 777 iso
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISTRONAME=unfa yledoare/ydfs28 
+* docker logs --tail=10 -f ydfs
+* ls iso

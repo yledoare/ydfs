@@ -3,9 +3,9 @@ cd ~/src
 [ ! -e ydfs ] && git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 cd ydfs 
 git pull
-if [ -n "$DISTRO" ] && [ -e "$DISTRO" ] 
+if [ -n "$DISTRONAME" ] && [ -e "$DISTRONAME" ] 
 then
-  cd $DISTRO
+  cd $DISTRONAME
 else
   cd 2.8 
 fi

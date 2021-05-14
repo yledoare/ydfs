@@ -11,27 +11,39 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs 
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso yledoare/ydfs28 
 * docker logs --tail=10 -f ydfs
+* docker logs -f ydfs 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
-* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2019/iso  yledoare/ydfs32
+* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
 * docker logs --tail=10 -f ydfs32
+
+## Fast 32 bits ISO
+
+* docker run --name ydfs32-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
+
+## Write ISO to USB key
+
+* dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
+
+## Build and test
+
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
 
 ## Verbose Build, without sharing output ISO on host :
 
-* docker run --name linuxconsole2019 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs
+* docker run --name linuxconsole2021 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs28
 
 # Manual build
 
-
-* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null
+* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null 
 * docker exec -ti ydfs bash
 * cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
-* cd 2.7
+* cd 2.8
 * make 
 
 # Troubleshooting :

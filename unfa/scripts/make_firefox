@@ -1,3 +1,0 @@
-rm ${HOME}/ydfs/opkg/firefox*
-cd opkg/firefox
-$HOME_DIBAB/scripts/make_opkg
