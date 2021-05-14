@@ -11,7 +11,7 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso yledoare/ydfs28 
 * docker logs --tail=10 -f ydfs
 * docker logs -f ydfs 2>&1 |grep build
 
@@ -27,6 +27,10 @@
 ## Write ISO to USB key
 
 * dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
+
+## Build and test
+
+* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
 
 ## Verbose Build, without sharing output ISO on host :
 

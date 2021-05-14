@@ -328,6 +328,12 @@ clean-linuxconsole:
 	# rm ${HOME}/ydfs/build/modules/linuxconsole-${ARCH}.squashfs
 	rm -fR ${HOME}/linuxconsole/
 	FORCEBUILD=OK make linuxconsole
+
+unfa: ${LCMBUILD}unfa-${ARCH}.squashfs
+${LCMBUILD}unfa-${ARCH}.squashfs : packages/list-unfa
+	./scripts/make_packages unfa
+	./scripts/make_module unfa
+   
 linuxconsole: ${LCMBUILD}linuxconsole-${ARCH}.squashfs
 ${LCMBUILD}linuxconsole-${ARCH}.squashfs : packages/list-linuxconsole
 	./scripts/make_packages linuxconsole

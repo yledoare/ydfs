@@ -3,28 +3,30 @@
 # commande echo pour créer le fichier
 echo '
 KERNEL_PREFIX=k
-DISTRONAME=linuxconsole
 CROSSTOOL=1.15.3
 LCBUILD=`date +"%Y-%m-%d"`
-#MEDIA=DVD
 #MKSQUASHFS_OPT=" -noInodeCompression -noDataCompression  -noFragmentCompression"
 LCMBUILD=${HOME}/ydfs/build/modules/
 SEND_OPKG=NO
 ISOTMP=${HOME}/iso
 # MODULES="${ARCH}"
 MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} games-${ARCH} music-${ARCH} office-${ARCH} video-${ARCH} multimedia-${ARCH} fps-${ARCH} network-${ARCH} emulators-${ARCH} graphics-${ARCH}"
-MODULES="${ARCH} linuxconsole-${ARCH} drivers-${ARCH} firmware-${ARCH} chromium-${ARCH}"
 
 HOME_DIBAB=${PWD}
 
 # enable this to configure toolchain, busybox and kernel
 # MENUCONFIG=YES
 ' > config.ini
+
+[ "$DISTRONAME" = "" ] && DISTRONAME=linuxconsole
+echo "DISTRONAME=$DISTRONAME" >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} chromium-${ARCH}"' >> config.ini
+
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then
-echo 'DIBAB_VERBOSE_BUILD=YES' >> config.ini
+  echo 'DIBAB_VERBOSE_BUILD=YES' >> config.ini
 else
-echo '#DIBAB_VERBOSE_BUILD=YES' >> config.ini
+  echo '#DIBAB_VERBOSE_BUILD=YES' >> config.ini
 fi
 
 # récupération de l'architecture par défaut(type de processeur)
@@ -90,3 +92,4 @@ BOOT=NAND
       fi
     fi
 fi
+[ "$YDFS_CUSTOM_KERNEL" = "" ] || echo "KERNEL3=$YDFS_CUSTOM_KERNEL" >> config.ini
