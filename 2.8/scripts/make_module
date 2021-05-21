@@ -13,6 +13,7 @@ do
   strip $file
 done
 
+[ -e $HOME_DIBAB/logos/$1.png ] && echo get $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
 [ -e $HOME_DIBAB/logos/$1.png ] && cp $HOME_DIBAB/logos/$1.png $HOME/$1/logo.png
 rm $LCMBUILD/$1-$ARCH.squashfs
 if [ "$ARCH" = "x86_64" ]

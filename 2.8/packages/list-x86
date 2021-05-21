@@ -484,6 +484,7 @@ https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
 http://libndp.org//files/libndp-1.6.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
 https://download.gnome.org/sources/NetworkManager/1.26/NetworkManager-1.26.4.tar.xz
+https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.30/libnma-1.8.30.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
@@ -493,6 +494,10 @@ https://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manag
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
 https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2
 https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
+https://download.strongswan.org/strongswan-5.9.1.tar.bz2
+https://download.strongswan.org/NetworkManager/NetworkManager-strongswan-1.5.2.tar.bz2
+xl2tpd-1.3.16.tar.gz::https://github.com/xelerance/xl2tpd/archive/v1.3.16.tar.gz
+networkmanager-l2tp-1.8.6.tar.gz::https://github.com/nm-l2tp/NetworkManager-l2tp/archive/1.8.6.tar.gz
 https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
@@ -786,7 +791,7 @@ http://ccrma.stanford.edu/software/stk/release/stk-4.6.0.tar.gz
 http://downloads.sourceforge.net/clucene/clucene-core-2.3.3.4.tar.gz
 http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
-http://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.5/lp_solve_5.5.2.5_source.tar.gz
+https://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.11/lp_solve_5.5.2.11_source.tar.gz
 https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
 https://github.com/google/googletest/archive/release-1.10.0.tar.gz
 http://bitbucket.org/eigen/eigen/get/3.3.5.tar.bz2
