@@ -220,7 +220,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-modules: virtualbox music vm games office network graphics network multimedia video kde lxqt lxde xfce emulators
+modules: virtualbox music vm games office network graphics network multimedia video kde lxqt lxde xfce emulators fps
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
