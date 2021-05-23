@@ -2542,13 +2542,16 @@ Cflags: -I${includedir}' > lua.pc
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
-      echo "Run make -j 8 "
+      MAKEOPT=" -j 8"
+      pwd | grep qlite-src && MAKEOPT=""
+      pwd | grep pth-2 && MAKEOPT=""
+      echo "Run make $MAKEOPT "
       [ -e RPM/net-tools.spec ] && echo "Config for net-tools" && yes "" | make config
       # . $(dirname $0)/../scripts/includes/mame
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
-      make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n -j 8
+      make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n $MAKEOPT || make
       if [ $? != 0 ]
       then
 	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
