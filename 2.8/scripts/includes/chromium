@@ -2,31 +2,6 @@
 
 if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
-  echo "Chromium"
-  VERSION="90.0.4430.72"
-  if [ "$ARCH" = "x86" ] 
-  then
-     echo "Get from Slackware .. sorry !"
-     [ ! -e chromium-$VERSION-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-$VERSION-i586-1alien.txz
-     [ ! -e usr ] && tar xJvf chromium-$VERSION-i586-1alien.txz
-  else
-     [ ! -e chromium-$VERSION-x86_64-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg64/14.2/chromium-$VERSION-x86_64-1alien.txz
-     [ ! -e usr ] && tar xJvf chromium-$VERSION-x86_64-1alien.txz
-  fi
-
-  [ ! -e usr ] && exit 1
-  install -d $PREFIX
-  cp -fR usr/share/* $PREFIX/share
-  mv usr/lib64 $PREFIX/lib
-  mv usr/lib $PREFIX/
-  mkdir $PREFIX/bin
-  ln -s $PREFIX/lib/chromium/chromium $PREFIX/bin
-  sed -i \
-    -e "s@/usr/bin/chromium@chromium@g" \
-    "$PREFIX/share/applications/chromium.desktop"
-
-  touch buildok-$ARCH
-  exit 0 
 
 #  else
 
@@ -51,19 +26,19 @@ gn_system_libraries=(
 		snappy
 	)
 
-build/linux/unbundle/replace_gn_files.py --system-libraries "${gn_system_libraries[@]}" || exit 1
+# build/linux/unbundle/replace_gn_files.py --system-libraries "${gn_system_libraries[@]}" || exit 1
 
 sed -i '/fPIC/a  ldflags += [ "-L'$HOME"/"$ARCH'/lib" ]' build/config/compiler/BUILD.gn
 
 install -d third_party/llvm-build
-ln -s /usr third_party/llvm-build/Release+Asserts
+# ln -s /usr third_party/llvm-build/Release+Asserts
+
+ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
 
 # echo ninja -C out/Release chrome 
 #  bash
-  python build/linux/unbundle/replace_gn_files.py     \
-    --system-libraries flac libjpeg libxml libevent \
-                       libwebp libxslt opus    || exit 1
-  python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
+#  python build/linux/unbundle/replace_gn_files.py --system-libraries flac libjpeg libxml libevent libwebp libxslt opus    || exit 1
+#  python third_party/libaddressinput/chromium/tools/update-strings.py || exit 1
 
   _flags=(
 'custom_toolchain="//build/toolchain/linux/unbundle:default"'
@@ -100,6 +75,7 @@ ln -s /usr third_party/llvm-build/Release+Asserts
     CPPFLAGS+=' -DNO_UNWIND_TABLES'
 
 	mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
+	echo "Bootstrap.py" 
 	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
 	out/Release/gn gen out/Release --args="${_flags[*]}" || exit 1
 	ninja -C out/Release chrome chrome_sandbox chromedriver || exit 100

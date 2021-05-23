@@ -51,7 +51,7 @@ https://github.com/seccomp/libseccomp/releases/download/v2.3.2/libseccomp-2.3.2.
 https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
 https://libzip.org/download/libzip-1.7.3.tar.xz
 https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
-http://github.com/unicode-org/icu/releases/download/release-66-1/icu4c-66_1-src.tgz
+https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz
 https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tar.xz
 https://github.com/mesonbuild/meson/releases/download/0.54.2/meson-0.54.2.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.66/gobject-introspection-1.66.1.tar.xz 
@@ -917,6 +917,7 @@ http://openbox.org/dist/openbox/openbox-3.6.1.tar.gz
 https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
 jack_capture-0.9.73.tar.gz::https://github.com/kmatheussen/jack_capture/archive/0.9.73.tar.gz
 a2jmidid-9.tar.gz::https://github.com/linuxaudio/a2jmidid/archive/9.tar.gz
+https://github.com/nodejs/node/archive/v16.2.0/nodejs-16.2.0.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-13.0.tar.xz
 #Warning, unset LDFLAGS for building grub

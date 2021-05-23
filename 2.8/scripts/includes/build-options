@@ -106,7 +106,7 @@ echo $ARCHIVE | grep evolution-data-server &&  LC_CONFIGURE_OPTS="-DENABLE_INTRO
 echo $ARCHIVE | grep liborcus &&  LC_CONFIGURE_OPTS="--disable-python"
 echo $ARCHIVE | grep libcmis &&  LC_CONFIGURE_OPTS="--without-man --disable-werror"
     # --without-npm \
-echo $ARCHIVE | grep nodejs/node &&  LC_CONFIGURE_OPTS="   --with-intl=system-icu \
+echo $ARCHIVE | grep nodejs/node &&  LC_CONFIGURE_OPTS=" --with-intl=system-icu \
     --shared-nghttp2 \
     --shared-openssl \
     --shared-zlib"
