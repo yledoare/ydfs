@@ -74,7 +74,7 @@ ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
     CXXFLAGS+=' -fno-unwind-tables -fno-asynchronous-unwind-tables'
     CPPFLAGS+=' -DNO_UNWIND_TABLES'
 
-	mkdir -p third_party/node/linux/node-linux-x64/bin && ln -s $HOME/linuxconsole/bin/node third_party/node/linux/node-linux-x64/bin/
+	mkdir -p third_party/node/linux/node-linux-x64/bin && ln -sf $HOME/$ARCH/bin/node third_party/node/linux/node-linux-x64/bin/
 	echo "Bootstrap.py" 
 	python tools/gn/bootstrap/bootstrap.py --gn-gen-args "${_flags[*]}" || exit 1
 	out/Release/gn gen out/Release --args="${_flags[*]}" || exit 1

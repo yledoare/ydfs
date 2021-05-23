@@ -2548,7 +2548,7 @@ Cflags: -I${includedir}' > lua.pc
       OLDARCH=$ARCH # Fix vlc bug
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
-      make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n -j 8
+      make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n -j 8 || make
       if [ $? != 0 ]
       then
 	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
