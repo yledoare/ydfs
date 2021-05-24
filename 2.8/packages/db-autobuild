@@ -263,6 +263,7 @@ else
   [ -e src/tuxpaint.desktop ] && sed -i "s@kbuildsycoca4@echo kbuildsycoca4@" Makefile
   # Build with meson
   # [ -e openh264.pc.in ] && sed -i "s@/usr/local@$PREFIX@" Makefile
+  pwd | grep libxml2-2.9.10  && sed -i 's/ TRUE/ true/' encoding.c 
   [ -e openh264.pc.in ] && echo "openh264.pc.in exists" && sleep 3 && rm Makefile
   [ -e openh264.pc.in ] && sed -i "s@subdir ('test')@@"  meson.build
   [ -e src/cadence.py ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -2538,7 +2539,6 @@ Cflags: -I${includedir}' > lua.pc
 
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
-  
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
