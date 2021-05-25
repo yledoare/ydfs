@@ -720,6 +720,7 @@ hunspell-1.7.0.tar.gz::https://github.com/hunspell/hunspell/archive/v1.7.0.tar.g
 https://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz
 http://sourceforge.net/projects/libwpd/files/librevenge/librevenge-0.0.4/librevenge-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libcdr/libcdr-0.1.7.tar.xz
+https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.3.tar.bz2
 https://sourceforge.net/projects/libebook/files//libe-book-0.1.3/libe-book-0.1.3.tar.xz
 https://downloads.sourceforge.net/lxde/lxdm-0.5.3.tar.xz
 https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
@@ -770,7 +771,6 @@ https://downloads.sourceforge.net/sourceforge/libwpd/libwpd-0.10.2.tar.xz
 https://downloads.sourceforge.net/libwpg/libwpg-0.3.2.tar.xz
 http://downloads.sourceforge.net/project/libwps/libwps/libwps-0.4.10/libwps-0.4.10.tar.xz
 https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.3.14.tar.xz
-https://bitbucket.org/tagoh/liblangtag/downloads/liblangtag-0.6.2.tar.bz2
 https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
 https://gitlab.com/mdds/mdds/-/archive/1.7.0/mdds-1.7.0.tar.bz2
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.9.tar.xz
