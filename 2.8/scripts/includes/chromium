@@ -9,6 +9,7 @@ then
   then
 # BoringSSL
 #[ -e $HOME/$ARCH/include/openssl ] && mv $HOME/$ARCH/include/openssl $HOME/$ARCH/include/openssl-disabled
+[ -e $HOME/$ARCH/lib/python3.8/site-packages/pygments ] && mv $HOME/$ARCH/lib/python3.8/site-packages/pygments $HOME/$ARCH/lib/python3.8/site-packages/pygments-disabled
 
 # cp -fR $HOME/ydfs/src/protobuf-*/* third_party/protobuf/
 
