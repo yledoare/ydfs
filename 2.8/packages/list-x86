@@ -745,7 +745,7 @@ http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utilit
 pip::incremental
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.68/ki18n-5.68.0.tar.xz
-https://c-ares.haxx.se/download/c-ares-1.16.1.tar.gz
+https://github.com/c-ares/c-ares/releases/download/cares-1_17_1/c-ares-1.17.1.tar.gz
 http://pub.mate-desktop.org/releases/1.24/mozo-1.24.0.tar.xz
 pip::dbus-python
 pip::PyQt5-sip
