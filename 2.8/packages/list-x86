@@ -188,7 +188,8 @@ ftp://ftp.freedesktop.org/pub/individual/lib/libXtst-1.2.2.tar.gz
 https://www.argyllcms.com/Argyll_V2.1.2_src.zip
 https://download.gnome.org/sources/libgudev/232/libgudev-232.tar.xz
 https://gitlab.com/sane-project/backends/uploads/e9e9ac4bb4b1761a69fdd643769a2b6d/sane-backends-1.0.24.tar.gz
-pip::sphinx
+pip::sphinx==3.5.4 #SKIP-x86_64#
+pip::sphinx #SKIP-x86#
 pip::recommonmark
 pip::sphinx_rtd_theme
 git://github.com/hughsie/colord#commit=1ce26daa5bc786869dac6ba309b698480ef31bac
