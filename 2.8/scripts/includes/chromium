@@ -59,6 +59,7 @@ ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
 'enable_widevine=true'
 'use_vaapi=true'
 'enable_nacl=false'
+'google_api_key="AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM"'
 )
 
   export CC=clang
@@ -111,13 +112,19 @@ ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
 
   cp \
     out/Release/{chrome_{100,200}_percent,resources}.pak \
-    out/Release/{*.bin,chromedriver} \
+    out/Release/{*.bin,chromedriver,*.so} \
     "$PREFIX/lib/chromium/"
   install -Dm644 -t "$PREFIX/lib/chromium/locales" out/Release/locales/*.pak
+  install -Dm755 -t "$PREFIX/lib/chromium/swiftshader" out/Release/swiftshader/*.so
 
   if [[ -z ${_system_libs[icu]+set} ]]; then
     cp out/Release/icudtl.dat "$PREFIX/lib/chromium/"
   fi
+
+#  ldd /home/linuxconsole2021/chromium/lib/chromium/chromium |grep not |cut -d' ' -f1|while read file
+#do
+#   cp /home/linuxconsole2021/ydfs/src/chromium-91.0.4472.77/out/Release/$file $PREFIX/lib/chromium/
+#done
 
   for size in 22 24 48 64 128 256; do
     install -Dm644 "chrome/app/theme/chromium/product_logo_$size.png" \
