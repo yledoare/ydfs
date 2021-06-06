@@ -13,6 +13,9 @@ then
 
 # cp -fR $HOME/ydfs/src/protobuf-*/* third_party/protobuf/
 cp -fR $HOME/ydfs/src/ffmpeg-4*/* third_party/ffmpeg/
+cp -fR $HOME/ydfs/src/fontconfig-*/* third_party/fontconfig/src/ || exit 1
+
+sleep 2
 
 gn_system_libraries=(
 		ffmpeg
