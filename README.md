@@ -11,14 +11,18 @@
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso yledoare/ydfs28 
-* docker logs --tail=10 -f ydfs
-* docker logs -f ydfs 2>&1 |grep build
+* docker run --name ydfs64 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso yledoare/ydfs28 
+* docker logs --tail=10 -f ydfs64
+* docker logs -f ydfs64 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
 * docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
 * docker logs --tail=10 -f ydfs32
+
+## Fast 64 bits ISO
+
+* docker run --name ydfs64-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs28
 
 ## Fast 32 bits ISO
 
@@ -30,7 +34,9 @@
 
 ## Build and test
 
-* docker run --name ydfs -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
+* xhost +
+* docker run --name ydfs-test -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
+* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.8 ; make live-test'
 
 ## Verbose Build, without sharing output ISO on host :
 
@@ -51,7 +57,6 @@
 Error when build QT ?
 Add "--security-opt seccomp:unconfined" option on Debian Strech
 https://stackoverflow.com/questions/52705124/why-qdirexists-do-not-work-in-docker-container
-
 
 # Features 
 
