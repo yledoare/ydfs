@@ -6,7 +6,7 @@ if [ "$BUILDYDFS" = "fast" ]
 then
 	cd $HOME
 	tar xvf $HOME/iso/kernel-modules-$ARCH.tar.gz || exit 1
-	tar xvf $HOME/iso/kernel.tar.gz || exit 1
+	tar xvf $HOME/iso/kernel-$ARCH.tar.gz || exit 1
 	# exit 0
 fi
 
