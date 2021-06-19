@@ -1,0 +1,4 @@
+cd $HOME
+[ ! -e $HOME/iso/$ARCH.tar.gz ] && tar czvf $HOME/iso/$ARCH.tar.gz $ARCH
+[ ! -e $HOME/iso/kernel-modules-$ARCH.tar.gz ] && tar czvf $HOME/iso/kernel-modules-$ARCH.tar.gz ydfs/kernel-$ARCH 
+[ ! -e $HOME/iso/kernel.tar.gz ] && tar czvf $HOME/iso/kernel.tar.gz ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage

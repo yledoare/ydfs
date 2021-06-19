@@ -174,6 +174,8 @@ wineprogs:
 	./scripts/get_wine_progs
 test:
 	./scripts/make_test
+fast_files:
+	./scripts/make_fast_files
 test2:
 	./scripts/make_test curses
 cleanmultilib:
