@@ -1,4 +1,4 @@
-if [ "$BUILDYDFS" = "fast" ]
+if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH3" ]
 then
   cd $HOME
   [ ! -e $ARCH ] && tar xzvf $HOME/iso/$ARCH.tar.gz
