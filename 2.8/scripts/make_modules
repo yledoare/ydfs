@@ -143,5 +143,10 @@ install -d $LCMBUILD
 MKSQUASHFS="$HOME/$ARCH/bin/mksquashfs "
 [ "$ARCH" = "arm" ] && MKSQUASHFS=mksquashfs
 rm $LCMBUILD/$ARCH.squashfs
-# Add -processors 1 -mem 1G to avoid crashes in x86" 
-$MKSQUASHFS $HOME/ydfs/modules/$ARCH $LCMBUILD/$ARCH.squashfs -processors 1 -mem 1G -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE
+if [ "$ARCH" = "x86_64" ]
+then
+	$MKSQUASHFS $HOME/ydfs/modules/$ARCH $LCMBUILD/$ARCH.squashfs -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE
+else
+	# Add -processors 1 -mem 1G to avoid crashes in x86" 
+	$MKSQUASHFS $HOME/ydfs/modules/$ARCH $LCMBUILD/$ARCH.squashfs -processors 1 -mem 1G -all-root $MKSQUASHFS_OPT $MKSQUASHFS_EXCLUDE
+fi
