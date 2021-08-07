@@ -49,6 +49,79 @@ diff -Naur intltool-0.51.0.orig/intltool-update.in intltool-0.51.0/intltool-upda
      }
  
      # \s makes this not work, why?
+diff -upr intltool-0.51.0-orig/intltool-update.in intltool-0.51.0/intltool-update.in
+--- intltool-0.51.0-orig/intltool-update.in	2016-07-29 14:08:06.276987000 +0200
++++ intltool-0.51.0/intltool-update.in	2016-07-29 14:11:09.562126918 +0200
+@@ -620,6 +620,14 @@ sub FindLeftoutFiles
+ 
+     my @result;
+ 
++    # If the builddir is a subdir of srcdir, the list of files found will be prefixed with
++    # an additional prefix (e.g. "_build/sub" for automake 1.15 make distcheck). Try to
++    # handle that, by removing those matches as well.
++    my $absbuilddir = Cwd::abs_path("..\/");
++    my $abssrcdir = Cwd::abs_path("$SRCDIR/..");
++    # Check if builddir is a subdir of srcdir
++    my ($abspath,$relpath) = split /\s*$abssrcdir\/\s*/, $absbuilddir, 2;
++
+     foreach (@buf_allfiles_sorted)
+     {
+         my $dummy = $_;
+@@ -628,7 +636,10 @@ sub FindLeftoutFiles
+         $srcdir =~ s#^../##;
+         $dummy =~ s#^$srcdir/../##;
+         $dummy =~ s#^$srcdir/##;
+-        $dummy =~ s#_build/##;
++        if ($relpath)
++        {
++            $dummy =~ s#^$relpath/##;
++        }
+ 	if (!exists($in2{$dummy}))
+ 	{
+ 	    push @result, $dummy
+From: Bernhard M. Wiedemann <bmwiedemann+intltool@suse.de>
+
+avoid a race where some processes try to use a partial cache file
+that is still being written to.
+Note that we release the lock before load_cache,
+because if we got the lock, the cache is already completely written
+and it is OK to have multiple parallel readers
+
+Index: intltool-0.51.0/intltool-merge.in
+===================================================================
+--- intltool-0.51.0.orig/intltool-merge.in
++++ intltool-0.51.0/intltool-merge.in
+@@ -43,6 +43,7 @@ use Getopt::Long;
+ use Text::Wrap;
+ use File::Basename;
+ use Encode;
++use Fcntl qw(:flock);
+ 
+ my $must_end_tag      = -1;
+ my $last_depth        = -1;
+@@ -392,11 +393,14 @@ sub load_cache
+ 
+ sub get_cached_translation_database
+ {
++    open(my $lockfh, ">", "$cache_file.lock") or die $!;
++    flock($lockfh, LOCK_EX) or die "Could not lock '$cache_file.lock' - $!";
+     my $cache_file_age = -M $cache_file;
+     if (defined $cache_file_age) 
+     {
+         if ($cache_file_age <= &get_newest_po_age) 
+         {
++            close($lockfh);
+             &load_cache;
+             return;
+         }
+@@ -404,6 +408,7 @@ sub get_cached_translation_database
+     }
+ 
+     &create_cache;
++    close($lockfh);
+ }
+ 
+ sub add_translation
 From d328542bea50b9445c63cdf2454052392282a1ce Mon Sep 17 00:00:00 2001
 From: Colin Walters <walters@verbum.org>
 Date: Thu, 8 Oct 2015 16:25:47 -0400
@@ -87,33 +160,3 @@ index 1afa2a4..d1eba8f 100644
 -- 
 1.8.3.1
 
-diff -upr intltool-0.51.0-orig/intltool-update.in intltool-0.51.0/intltool-update.in
---- intltool-0.51.0-orig/intltool-update.in	2016-07-29 14:08:06.276987000 +0200
-+++ intltool-0.51.0/intltool-update.in	2016-07-29 14:11:09.562126918 +0200
-@@ -620,6 +620,14 @@ sub FindLeftoutFiles
- 
-     my @result;
- 
-+    # If the builddir is a subdir of srcdir, the list of files found will be prefixed with
-+    # an additional prefix (e.g. "_build/sub" for automake 1.15 make distcheck). Try to
-+    # handle that, by removing those matches as well.
-+    my $absbuilddir = Cwd::abs_path("..\/");
-+    my $abssrcdir = Cwd::abs_path("$SRCDIR/..");
-+    # Check if builddir is a subdir of srcdir
-+    my ($abspath,$relpath) = split /\s*$abssrcdir\/\s*/, $absbuilddir, 2;
-+
-     foreach (@buf_allfiles_sorted)
-     {
-         my $dummy = $_;
-@@ -628,7 +636,10 @@ sub FindLeftoutFiles
-         $srcdir =~ s#^../##;
-         $dummy =~ s#^$srcdir/../##;
-         $dummy =~ s#^$srcdir/##;
--        $dummy =~ s#_build/##;
-+        if ($relpath)
-+        {
-+            $dummy =~ s#^$relpath/##;
-+        }
- 	if (!exists($in2{$dummy}))
- 	{
- 	    push @result, $dummy
