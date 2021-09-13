@@ -3,7 +3,26 @@
 if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
 
-#  else
+  if [ "$ARCH" = "x86" ] 
+  then
+     echo "Get from Slackware .. sorry !"
+     [ ! -e chromium-78.0.3904.108-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-78.0.3904.108-i586-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-i586-1alien.txz
+
+  install -d $PREFIX
+  cp -fR usr/share/* $PREFIX/share
+  mv usr/lib64 $PREFIX/lib
+  mv usr/lib $PREFIX/
+  mkdir $PREFIX/bin
+  ln -s $PREFIX/lib/chromium/chromium $PREFIX/bin
+  sed -i \
+    -e "s@/usr/bin/chromium@chromium@g" \
+    "$PREFIX/share/applications/chromium.desktop"
+
+  touch buildok-$ARCH
+  exit 0 
+  fi
+
 
   if [ ! -e out/Release/chrome ]
   then

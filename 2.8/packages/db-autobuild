@@ -2252,7 +2252,7 @@ echo "At BUILDPERL"
         then
 	  echo "Mixx build"
 	  # ls  $HOME_DIBAB/mixxx/controllers && sleep 4
-	  # cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
+	  cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
 	  MIXOPT="build=release qt5=1 qtdir=$HOME/$ARCH/ build=release \
         faad=1 \
         ffmpeg=1 \

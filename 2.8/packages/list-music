@@ -1,5 +1,4 @@
-#https://github.com/mixxxdj/mixxx/archive/release-2.2.4.tar.gz
-git@github.com:yledoare/mixxx.git
+https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.0.tar.gz #SKIP-x86#
 git://github.com/DISTRHO/DISTRHO-Ports.git#tag=2021-01-15
 git://github.com/x42/avldrums.lv2.git#tag=v0.4.2
 https://gitlab.com/iurie/geonkick/-/archive/v2.8.0/geonkick-v2.8.0.tar.gz
