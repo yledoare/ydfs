@@ -1808,6 +1808,7 @@ Cflags: -I${includedir}' > glm.pc
   [ -e ./browser/app/profile/firefox.js ] && . $(dirname $0)/../scripts/includes/firefox
 
   [ -e gdb/charset.h ] && [ -e $HOME/$ARCH/include/charset.h ] && install -d $HOME/$ARCH/include/smb && mv $HOME/$ARCH/include/charset.h  $HOME/$ARCH/include/smb
+  [ -e bzflag.spec ] && [ -e $HOME/$ARCH/include/cares ] && echo "Enable deps/cares for Bzflag" && mv $HOME/$ARCH/include/cares/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/cares && sleep 3
   # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
   # [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
