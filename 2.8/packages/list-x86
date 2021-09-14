@@ -892,8 +892,8 @@ https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/libvirt-6.5.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz #SKIP-x86#
 asciidoc-9.0.3.tar.gz::https://github.com/asciidoc/asciidoc-py3/archive/9.0.3.tar.gz #SKIP-x86#
-https://gitlab.gnome.org/GNOME/tracker/-/archive/3.0.1/tracker-3.0.1.tar.bz2 #SKIP-x86#
-https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.0.1/tracker-miners-3.0.1.tar.bz2 #SKIP-x86#
+https://gitlab.gnome.org/GNOME/tracker/-/archive/3.0.4/tracker-3.0.4.tar.bz2 #SKIP-x86#
+https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.0.5/tracker-miners-3.0.5.tar.bz2 #SKIP-x86#
 https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.2/spice-protocol-v0.14.2.tar.gz #SKIP-x86#
 https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2 #SKIP-x86#
 https://www.spice-space.org/download/gtk/spice-gtk-0.38.tar.xz #SKIP-x86#
