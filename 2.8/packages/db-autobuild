@@ -2253,10 +2253,11 @@ echo "At BUILDPERL"
         then
 	  echo "Mixx build"
 	  # ls  $HOME_DIBAB/mixxx/controllers && sleep 4
-	  mv lib/googletest/googlemock/include/gmock lib/googletest/googlemock/include/gmock.disabled
+	  # mv lib/googletest/googlemock/include/gmock lib/googletest/googlemock/include/gmock.disabled
 	  cp $HOME_DIBAB/mixxx/controllers/* res/controllers/ || exit 1
 	MIXOPT="build=release qt5=1 qtdir=$HOME/$ARCH/ build=release \
         faad=1 \
+        BENCHMARK_ENABLE_GTEST_TESTS=0 \
         ffmpeg=1 \
         modplug=1 \
         perftools=0 \

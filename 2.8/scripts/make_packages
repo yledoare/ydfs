@@ -1,4 +1,4 @@
-if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH3" ]
+if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH" ]
 then
   echo "Building fast $1"
   cd $HOME
