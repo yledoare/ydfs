@@ -51,7 +51,10 @@ echo $ARCHIVE | grep wavpack &&  LC_CONFIGURE_OPTS="--disable-asm"
 echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
     --disable-java-binding "
-
+echo $ARCHIVE | grep mixxx && LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$PREFIX \
+        -DCMAKE_BUILD_TYPE='Release' \
+        -Wno-dev \
+        -S . "
 echo $ARCHIVE | grep a52dec &&  LC_CONFIGURE_OPTS="--enable-shared"
 echo $ARCHIVE | grep gtk-vnc &&  LC_CONFIGURE_OPTS="--with-gtk=3.0 \
             --enable-vala \
