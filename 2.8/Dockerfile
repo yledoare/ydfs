@@ -42,6 +42,6 @@ RUN apt-get install cbindgen
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
 
-RUN apt-get install rsync
+RUN apt-get install -y rsync
 USER linuxconsole2021
 CMD /home/linuxconsole2021/build-lc2021
