@@ -277,7 +277,9 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
+  [ -e $HOME/$ARCH/include/ode-disabled ] && mv $HOME/$ARCH/include/ode-disabled $HOME/$ARCH/include/ode
   [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
+  [ -e $HOME/$ARCH/include/disabled-lua ] && mv $HOME/$ARCH/include/disabled-lua/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/disabled-lua
   [ -e $HOME/$ARCH/include/tinyxml-disabled.h ] && mv  $HOME/$ARCH/include/tinyxml-disabled.h $HOME/$ARCH/include/tinyxml.h 
   [ -e $HOME/$ARCH/include/zita-resampler-disabled ] && mv $HOME/$ARCH/include/zita-resampler-disabled $HOME/$ARCH/include/zita-resampler
   [ -e $HOME/$ARCH/include/fluidsynth-disabled ] && mv $HOME/$ARCH/include/fluidsynth-disabled $HOME/$ARCH/include/fluidsynth
@@ -1447,6 +1449,8 @@ EOF
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth  $HOME/$ARCH/include/fluidsynth-disabled
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth.h  $HOME/$ARCH/include/fluidsynth-disabled.h
     pwd | grep kwin- && mv $HOME/$ARCH/include/udev.h  $HOME/$ARCH/include/udev-disabled.h
+    pwd | grep xmoto && mkdir $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lua*  $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lauxlib.h $HOME/$ARCH/include/disabled-lua
+    pwd | grep xmoto && mv $HOME/$ARCH/include/ode  $HOME/$ARCH/include/ode-disabled 
 
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
     [ -e deps/npm/lib/doctor/get-latest-nodejs-version.js ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled

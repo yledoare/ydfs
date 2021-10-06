@@ -735,6 +735,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
      --enable-libwebpdecoder \
      --disable-static"
 	# echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--disable-sdltest --with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua" && CPPFLAGS+=' -fpermissive -D_GLIBCXX_USE_CXX11_ABI=0'
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="-DPREFER_SYSTEM_Lua=OFF -DLUA_INCLUDE_DIR=/home/linuxconsole2021/ydfs/src/xmoto-0.6.1/vendor/lua/lua"
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
