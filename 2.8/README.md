@@ -14,27 +14,27 @@ sudo docker build -f Dockerfile32 -t ydfs32 .
 
 (from docker, Linux terminal or Windows powershell)
 
-* mkdir iso
-* chmod 777 iso
+* mkdir $HOME/iso
+* chmod 777 $HOME/iso
 
 ## Automatic 64 bits ISO Build
 
-* docker run --name ydfs64 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso ydfs64 
+* docker run --name ydfs64 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2021/iso ydfs64 
 * docker logs --tail=10 -f ydfs64
 * docker logs -f ydfs64 2>&1 |grep build
 
 ## Automatic 32 bits ISO Build
 
-* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  ydfs32
+* docker run --name ydfs32 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2021/iso  ydfs32
 * docker logs --tail=10 -f ydfs32
 
 ## Fast 64 bits ISO
 
-* docker run --name ydfs64-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  ydfs64
+* docker run --name ydfs64-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2021/iso  ydfs64
 
 ## Fast 32 bits ISO
 
-* docker run --name ydfs32-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  ydfs32
+* docker run --name ydfs32-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2021/iso  ydfs32
 
 ## Write ISO to USB key
 
@@ -43,7 +43,7 @@ sudo docker build -f Dockerfile32 -t ydfs32 .
 ## Build and test
 
 * xhost +
-* docker run --name ydfs-test -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64 
+* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64 
 * docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.8 ; make live-test'
 
 ## Verbose Build, without sharing output ISO on host :
