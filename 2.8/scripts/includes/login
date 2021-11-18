@@ -5,8 +5,7 @@
 	srcdir="."
 	for file in pam-login pam-common pam-su
 	do
-	  https://github.com/shadow-maint/shadow/releases/download/4.7/shadow-4.7.tar.xz
-	  [ ! -e $file ] && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/util-linux --output-document=$file
+	  [ ! -e $file ] && wget --no-check-certificate https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/util-linux/trunk/$file --output-document=$file
 	  [ ! -e $file ] && exit 1
 	done
 	 # install PAM files for login-utils
@@ -25,7 +24,8 @@ sleep 4
 	srcdir="."
 	for file in    chgpasswd chpasswd defaults.pam login.defs newusers passwd shadow.{timer,service} useradd.defaults 
 	do
-	[ ! -e $file ] && wget --no-check-certificate  https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/shadow --output-document=$file
+	[ ! -e $file ] && wget --no-check-certificate https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/shadow/trunk/$file  --output-document=$file
+	[ ! -e $file ] && exit 1
 	# echo $file
 	done
 

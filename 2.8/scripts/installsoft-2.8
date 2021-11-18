@@ -34,7 +34,7 @@ LANG=en-US
 
 cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
 
-wget https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/thunderbird -O PKGBUILD
+wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/thunderbird/trunk/PKGBUILD
 FIREFOX=$(grep pkgver= PKGBUILD  | cut -d'=' -f2)
 rm PKGBUILD 
 
@@ -74,8 +74,7 @@ LANG=en-US
 [ "$lang" = "portuguese" ] && LANG=pt-PT
 
 cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
-
-wget https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/firefox -O PKGBUILD
+wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/firefox/trunk/PKGBUILD
 FIREFOX=$(grep pkgver= PKGBUILD  | cut -d'=' -f2)
 rm PKGBUILD 
 
@@ -121,10 +120,16 @@ fi
 
 if [ "$SOFT" == "steam" ]
 then
-  cd $HOME
+  if [ ! -e $HOME/.local/bin/steam ]
+  then
+  cd $HOME/.local/bin
   rm steam
   wget https://bitbucket.org/yourdistrofromscratch/ydfs/raw/master/2.8/init-x86/fix/steam
+  chmod +x steam
   bash steam
+  else
+    $HOME/.local/bin/steam "$@"
+  fi
 fi
 
 if [ "$SOFT" == "flash-plugin" ]

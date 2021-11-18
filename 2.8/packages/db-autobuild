@@ -499,9 +499,6 @@ grep share/Surge src/common/SurgeStorage.cpp
       make VERBOSE=1 -C build || exit 1
       #make surge-headless -C build VERBOSE=1 || exit 1
       #make Surge.vst3 -C build VERBOSE=1 || exit 1
-      #wget https://git.archlinux.org/svntogit/community.git/plain/trunk/surge-lv2.make?h=packages/surge -O surge-lv2.make
-      #wget https://git.archlinux.org/svntogit/community.git/plain/trunk/surge-vst3.make?h=packages/surge -O surge-vst3.make
-      #wget https://git.archlinux.org/svntogit/community.git/plain/trunk/Makefile?h=packages/surge -O Makefile
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/lib/lv2
       install -d $PREFIX/share/Surge
@@ -657,9 +654,7 @@ grep share/Surge src/common/SurgeStorage.cpp
 
   if [ -e lpsolve55 ]
   then
-	wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/cflags.patch?h=packages/lpsolve -O patch
-	patch -Np1 -i  patch
-	wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lpsolve-5.5.2.0.defines.patch?h=packages/lpsolve -O patch
+	wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/lpsolve/trunk/flags.patch -O patch
 	patch -Np1 -i  patch
 	  cd lpsolve55
   	sh -x ccc || exit 1
@@ -2481,7 +2476,6 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
       make INSTALL_TOP=$PREFIX install || exit $?
       pkgver=5.4.1
 	_majorver=${pkgver%.*}
-      # wget https://git.archlinux.org/svntogit/packages.git/plain/trunk/lua.pc?h=packages/lua -O lua.pc
 echo 'V=%VER%
 R=%REL%
 
@@ -2739,7 +2733,7 @@ Cflags: -I${includedir}' > lua.pc
 	echo "Post Build Lightdm" && sleep 10
 	for file in Xsession lightdm.service lightdm.tmpfiles lightdm.pam lightdm-autologin.pam lightdm.rules lightdm-default-config.patch
 	do
-	  [ ! -e $file ] && wget https://projects.archlinux.org/svntogit/community.git/plain/trunk/$file?h=packages/lightdm --output-document=$file
+	  [ ! -e $file ] && wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/lightdm/trunk/$file --output-document=$file
 	done
 	 install -m 755 Xsession "${pkgdir}"/etc/lightdm/Xsession
 

@@ -3,7 +3,8 @@
 	echo "Build PAM"
 	for file in system-auth system-local-login system-login system-remote-login system-services other
 	do
-	  [ ! -e $pkgdir/etc/pam.d/$file ] && install -d $pkgdir/etc/pam.d && wget --no-check-certificate https://projects.archlinux.org/svntogit/packages.git/plain/trunk/$file?h=packages/pambase --output-document=$pkgdir/etc/pam.d/$file
+	  [ ! -e $pkgdir/etc/pam.d/$file ] && install -d $pkgdir/etc/pam.d && wget --no-check-certificate https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/pambase/trunk/$file --output-document=$pkgdir/etc/pam.d/$file
+	  [ ! -e $pkgdir/etc/pam.d/$file ] && exit 1
 	done
 
        ./configure --prefix=$PREFIX --libdir=$PREFIX/lib --sbindir=$PREFIX/bin --disable-db || exit 1

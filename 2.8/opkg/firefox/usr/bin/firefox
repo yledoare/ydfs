@@ -14,7 +14,7 @@ LANG=en-US
 
 cat /proc/cmdline | grep layoutcode=fr >/dev/null && LANG=fr
 
-wget https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/firefox -O PKGBUILD
+wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/firefox/trunk/PKGBUILD
 FIREFOX=$(grep pkgver= PKGBUILD  | cut -d'=' -f2)
 rm PKGBUILD 
 
