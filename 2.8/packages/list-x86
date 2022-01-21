@@ -36,7 +36,7 @@ https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz
 https://www.sqlite.org/2020/sqlite-src-3330000.zip
 https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.bz2
 https://downloads.sourceforge.net/pcre/pcre2-10.34.tar.bz2
-http://ftp.gnome.org/pub/gnome/sources/glib/2.64/glib-2.64.1.tar.xz
+https://download-fallback.gnome.org/sources/glib/2.68/glib-2.68.4.tar.xz
 https://download.savannah.gnu.org/releases/libunwind/libunwind-1.3.1.tar.gz
 https://github.com/libfuse/libfuse/releases/download/fuse-2.9.7/fuse-2.9.7.tar.gz
 ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz

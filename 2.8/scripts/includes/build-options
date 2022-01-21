@@ -208,6 +208,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     -D glx=dri \
     -D libunwind=true \
     -D lmsensors=true \
+    -D gallium-opencl=icd \
     -D osmesa=gallium \
     -D shared-glapi=true" 
 	echo $ARCHIVE | grep mesaold- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
