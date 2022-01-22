@@ -252,6 +252,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
+http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.2.tar.xz
 libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz
 git://github.com/json-c/json-c#commit=985c46fec39d1d3043f98e8d8cdb9d040131b3bb
@@ -283,8 +284,14 @@ https://downloads.sourceforge.net/sourceforge/mad/libmad-0.15.1b.tar.gz
 git://github.com/NVIDIA/libglvnd.git#commit=1c32de07074fee8edcb274899948b6551081ed54 #SKIP-x86#
 https://github.com/lm-sensors/lm-sensors/archive/V3-6-0.tar.gz
 glslang-8.13.3743.tar.gz::https://github.com/KhronosGroup/glslang/archive/8.13.3743.tar.gz
+Vulkan-Headers-1.2.202.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.2.202.tar.gz #SKIP-x86#
+vulkan-icd-loader-1.2.203.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.201.tar.gz #SKIP-x86#
+git://github.com/KhronosGroup/SPIRV-Headers.git#commit=e71feddb3f17c5586ff7f4cfb5ed1258b800574b #SKIP-x86#
+git://github.com/KhronosGroup/SPIRV-Tools.git#tag=v2021.3 #SKIP-x86#
+https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v12.0.0/spirv-llvm-translator-12.0.0.tar.gz #SKIP-x86#
+https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/libclc-13.0.0.src.tar.xz #SKIP-x86#
+https://mesa.freedesktop.org/archive/mesa-21.3.4.tar.xz #SKIP-x86#
 https://mesa.freedesktop.org/archive/mesa-18.3.4.tar.xz #SKIP-x86_64#
-https://mesa.freedesktop.org/archive/mesa-20.1.1.tar.xz #SKIP-x86#
 https://github.com/anholt/libepoxy/releases/download/1.5.4/libepoxy-1.5.4.tar.xz
 https://xorg.freedesktop.org//releases/individual/lib/libdmx-1.1.4.tar.bz2
 https://www.cairographics.org/releases/cairo-1.16.0.tar.xz
@@ -292,7 +299,6 @@ https://github.com/silnrsi/graphite/releases/download/1.3.13/graphite2-1.3.13.tg
 https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.6.4.tar.xz
 https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/pango/1.44/pango-1.44.7.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.40/gdk-pixbuf-2.40.0.tar.xz
 https://xkbcommon.org/download/libxkbcommon-0.9.1.tar.xz
 libsass-3.6.4.tar.gz::https://github.com/sass/libsass/archive/3.6.4.tar.gz
@@ -872,8 +878,6 @@ https://gitlab.gnome.org/GNOME/libgweather/-/archive/3.36.0/libgweather-3.36.0.t
 https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=GNOME_SETTINGS_DAEMON_3_32_1
 https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.4.tar.xz
 https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/archive/GNOMEBT_V_3_34_3/gnome-bluetooth-GNOMEBT_V_3_34_3.tar.bz2
-vulkan-headers-1.2.137.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/archive/v1.2.137.tar.gz
-https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.135.tar.gz
 https://github.com/PipeWire/pipewire/archive/0.3.2.tar.gz
 https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.bz2
 http://www.sysprof.com/sysprof-1.2.0.tar.gz
