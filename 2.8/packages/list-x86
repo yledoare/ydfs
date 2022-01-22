@@ -253,7 +253,8 @@ http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/at-spi2-atk/2.34/at-spi2-atk-2.34.2.tar.xz
+https://download-fallback.gnome.org/sources/at-spi2-core/2.38/at-spi2-core-2.38.0.tar.xz
+https://download-fallback.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
 libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz
 git://github.com/json-c/json-c#commit=985c46fec39d1d3043f98e8d8cdb9d040131b3bb
 https://www.kernel.org/pub/linux/bluetooth/bluez-5.55.tar.xz
