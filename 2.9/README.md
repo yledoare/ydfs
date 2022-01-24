@@ -42,7 +42,7 @@ docker build -f Dockerfile32 -t ydfs32 .
 
 * xhost +
 * docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64 
-* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.8 ; make live-test'
+* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.9 ; make live-test'
 
 ## Verbose Build, without sharing output ISO on host :
 
@@ -55,7 +55,7 @@ docker build -f Dockerfile32 -t ydfs32 .
 * cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
-* cd 2.8
+* cd 2.9
 * make 
 
 # Troubleshooting :
