@@ -20,7 +20,8 @@ HOME_DIBAB=${PWD}
 
 [ "$DISTRONAME" = "" ] && DISTRONAME=linuxconsole
 echo "DISTRONAME=$DISTRONAME" >> config.ini
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} chromium-${ARCH}"' >> config.ini
+# echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} chromium-${ARCH}"' >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH} "' >> config.ini
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then
