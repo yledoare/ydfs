@@ -2,6 +2,7 @@ if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH" ]
 then
   echo "Building fast $1"
   cd $HOME
+  [ ! -e $HOME/iso/$ARCH.tar.gz ] && wget -O $HOME/iso/$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/$ARCH.tar.gz
   [ ! -e $ARCH ] && tar xzvf $HOME/iso/$ARCH.tar.gz
   touch $HOME/$ARCH/buildenv
 else
