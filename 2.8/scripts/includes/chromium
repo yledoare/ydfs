@@ -143,9 +143,9 @@ ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
     cp out/Release/icudtl.dat "$PREFIX/lib/chromium/"
   fi
 
-#  ldd /home/linuxconsole2021/chromium/lib/chromium/chromium |grep not |cut -d' ' -f1|while read file
+#  ldd /home/linuxconsole2022/chromium/lib/chromium/chromium |grep not |cut -d' ' -f1|while read file
 #do
-#   cp /home/linuxconsole2021/ydfs/src/chromium-91.0.4472.77/out/Release/$file $PREFIX/lib/chromium/
+#   cp /home/linuxconsole2022/ydfs/src/chromium-91.0.4472.77/out/Release/$file $PREFIX/lib/chromium/
 #done
 
   for size in 22 24 48 64 128 256; do
