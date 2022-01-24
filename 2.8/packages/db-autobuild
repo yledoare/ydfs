@@ -2586,7 +2586,6 @@ Cflags: -I${includedir}' > lua.pc
 	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
 	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
 
-      [ -e tools/llvm-spirv ] && cd tools/llvm-spirv && make llvm-spirv && install -d $PREFIX/bin && cp llvm-spirv $PREFIX/bin
 
       if [ -e chntpw ]
       then
@@ -2677,7 +2676,6 @@ Cflags: -I${includedir}' > lua.pc
 	echo "Running meson.build"
 	mkdir build
 	cd build
-        [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --libdir=lib"
 	echo "Running meson with $LC_CONFIGURE_OPTS"
         if [ -e ../DISTRHO.kdev4 ] && [ "$ARCH" = "x86" ]
         then

@@ -1,0 +1,4 @@
+echo "Striping $HOME/$1"
+find $HOME/$1/lib -type f \( ! -iname "*.h" ! -iname "*.hpp"  ! -iname "*.ttl" \) |while read file; do strip "$file"; done
+strip $HOME/$1/bin/*
+echo done

@@ -400,7 +400,7 @@ CPUARCH="amd64"
 [ "$ARCH" = "x86" ] && CPUARCH="i386"
 
 install -d .disk
-echo "LinuxConsole \"LinuxConsole\" - Release $CPUARCH (2022)" > .disk/info
+echo "LinuxConsole \"LinuxConsole\" - Release $CPUARCH (2021)" > .disk/info
 install -d `dirname $ISONAME`
 ISODIR=/$ISOTMP
 [ -e /media/sf_virtualbox/ ] && ISODIR=/media/sf_virtualbox/

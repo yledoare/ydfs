@@ -1,0 +1,10 @@
+#git://github.com/xenia-project/xenia.git
+#for bsnes
+https://www.lua.org/ftp/lua-5.3.6.tar.gz
+https://github.com/mamedev/mame/archive/mame0225.tar.gz #SKIP-x86#
+https://download.gnome.org/sources/gtksourceview/2.10/gtksourceview-2.10.5.tar.bz2
+https://github.com/bsnes-emu/bsnes/archive/v115.tar.gz
+https://downloads.sourceforge.net/desmume/desmume-0.9.11.tar.gz
+http://downloads.sourceforge.net/dosbox/dosbox-0.74-2.tar.gz
+mgba-0.8.3.tar.gz::https://github.com/mgba-emu/mgba/archive/0.8.3.tar.gz
+#https://github.com/frealgagu/PCSX-Reloaded/archive/1.9.95.tar.gz

@@ -2,7 +2,7 @@ ROOTFS=`mount |grep ext4|cut -d' ' -f1|head -1`
 
 e2label $ROOTFS linuxconsole || exit 1
 
-ISO=linuxconsole.2022-x86_64.iso
+ISO=linuxconsole.2021-x86_64.iso
 [ ! -e "$ISO" ] && wget http://jukebox.linuxconsole.org/official/$ISO
 [ ! -e "$ISO" ] && echo "You need $ISO" && exit 1
 

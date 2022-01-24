@@ -183,37 +183,64 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
                              -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
                              -DSQLITE_MAX_EXPR_DEPTH=10000"
  
-	echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
-    -D b_lto=true \
+	echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc -D b_lto=true \
     -D b_ndebug=true \
-    -D platforms=x11,wayland \
+    -D platforms=x11,wayland,drm,surfaceless \
     -D dri-drivers=i915,i965,r100,r200,nouveau \
-    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink,d3d12 \
-    -D vulkan-drivers=amd,intel,swrast \
-    -D vulkan-layers=device-select,intel-nullhw,overlay \
+    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,swr,iris \
+    -D vulkan-drivers=amd,intel \
+    -D vulkan-overlay-layer=true \
+    -D vulkan-device-select-layer=true \
     -D swr-arches=avx,avx2 \
-    -D dri3=enabled \
-    -D egl=enabled \
+    -D dri3=true \
+    -D egl=true \
     -D gallium-extra-hud=true \
     -D gallium-nine=true \
     -D gallium-omx=bellagio \
-    -D gallium-opencl=icd \
-    -D gallium-va=enabled \
-    -D gallium-vdpau=enabled \
-    -D gallium-xa=enabled \
-    -D gallium-xvmc=disabled \
-    -D gbm=enabled \
-    -D gles1=disabled \
-    -D gles2=enabled \
+    -D gallium-va=true \
+    -D gallium-vdpau=true \
+    -D gallium-xa=true \
+    -D gallium-xvmc=false \
+    -D gbm=true \
+    -D gles1=false \
+    -D gles2=true \
     -D glvnd=true \
     -D glx=dri \
-    -D libunwind=enabled \
-    -D llvm=enabled \
-    -D lmsensors=enabled \
-    -D osmesa=true \
-    -D shared-glapi=enabled \
-    -D microsoft-clc=disabled \
-    " && ln -s /usr/bin/llvm-config-11 $HOME/$ARCH/bin/llvm-config
+    -D libunwind=true \
+    -D lmsensors=true \
+    -D osmesa=gallium \
+    -D shared-glapi=true" 
+	echo $ARCHIVE | grep mesaold- && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
+    --with-gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast \
+    --with-dri-drivers=i915,i965,r200,nouveau \
+    --with-vulkan-drivers=intel,radeon \
+    --with-egl-platforms=x11,wayland,drm,surfaceless \
+    --enable-llvm-shared-libs \
+    --enable-egl \
+    --enable-gbm \
+    --enable-shared-glapi \
+    --enable-glx \
+    --enable-glx-tls \
+    --enable-dri \
+    --enable-osmesa \
+    --enable-gles1 \
+    --enable-gles2 \
+    --enable-texture-float \
+    --enable-xa \
+    --enable-vdpau \
+    --enable-nine \
+    --enable-opencl --enable-opencl-icd " && cp /usr/share/pkgconfig/libclc.pc $HOME/$ARCH/lib/pkgconfig/
+	echo $ARCHIVE | grep ftgl && LC_CONFIGURE_OPTS=" -with-pic --disable-static "
+	echo $ARCHIVE | grep audit && LC_CONFIGURE_OPTS="--without-python3 --disable-zos-remote "
+	echo $ARCHIVE | grep kmod && LC_CONFIGURE_OPTS="--sysconfdir=/etc --disable-tools"
+	echo $ARCHIVE | grep libcap-ng && LC_CONFIGURE_OPTS=" --enable-static=no --with-python=no "
+	echo $ARCHIVE | grep dbus-1.10 && LC_CONFIGURE_OPTS=" --disable-static --disable-systemd --without-systemdsystemunitdir "
+	echo $ARCHIVE | grep sane-backend && LC_CONFIGURE_OPTS="--enable-avahi \
+    --enable-pthread \
+    --disable-rpath \
+    --enable-libusb_1_0 \
+    --disable-locking
+ --disable-latex "
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
@@ -708,7 +735,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
      --enable-libwebpdecoder \
      --disable-static"
 	# echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--disable-sdltest --with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua" && CPPFLAGS+=' -fpermissive -D_GLIBCXX_USE_CXX11_ABI=0'
-	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="-DPREFER_SYSTEM_Lua=OFF -DLUA_INCLUDE_DIR=/home/linuxconsole2022/ydfs/src/xmoto-0.6.1/vendor/lua/lua"
+	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="-DPREFER_SYSTEM_Lua=OFF -DLUA_INCLUDE_DIR=/home/linuxconsole2021/ydfs/src/xmoto-0.6.1/vendor/lua/lua"
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
@@ -718,7 +745,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	#echo $ARCHIVE | grep cairo-1.10 && LC_CONFIGURE_OPTS="--enable-tee=yes "
 	echo $ARCHIVE | grep Linux-PAM && LC_CONFIGURE_OPTS="--enable-db=no"
 	# echo $ARCHIVE | grep ncurses && export PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig" && LC_CONFIGURE_OPTS="--with-shared --enable-pc-files --without-debug  --enable-pc-files --enable-widec" # && export BUILD_TWICE=yes
-  	# echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
+  	echo $ARCHIVE | grep libdrm && LC_CONFIGURE_OPTS="--enable-intel=yes "
   	echo $ARCHIVE | grep xf86-video-intel && LC_CONFIGURE_OPTS="--disable-dri3 "
   	# echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
   	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower --without-systemd "
@@ -728,20 +755,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	echo $ARCHIVE | grep bluedevil && LC_CONFIGURE_OPTS="-DUDEV_RULES_INSTALL_DIR=$PREFIX/lib/udev/rules.d "
         echo $ARCHIVE | grep download.gimp.org/pub/gimp && LC_CONFIGURE_OPTS=" --disable-python"
         echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
-        echo $ARCHIVE | grep SPIRV-Tools && LC_CONFIGURE_OPTS="DCMAKE_BUILD_TYPE=Release \
-      -DSPIRV_WERROR=Off \
-      -DBUILD_SHARED_LIBS=ON \
-      -DSPIRV_TOOLS_BUILD_STATIC=OFF \
-      -DSPIRV-Headers_SOURCE_DIR="${PWD}"/../SPIRV-Headers
-"
-        echo $ARCHIVE | grep SPIRV-LLVM-Translator && LC_CONFIGURE_OPTS="-DBUILD_SHARED_LIBS=ON \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-        -DCMAKE_SKIP_RPATH=ON \
-        -DLLVM_INCLUDE_TESTS=ON \
-        -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/home/linuxconsole2022/x86_64/include/spirv/ \
-        -Wno-dev "
-	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-11"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
 	# echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
 	if [ "$ARCH" = "arm" ] 
@@ -783,7 +796,6 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep libxkbcommon && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep gobject-introspection && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep vlc- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-qt"
-	        echo $ARCHIVE | grep graphviz && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libtheora && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep xvidcore && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep libdv-1 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
