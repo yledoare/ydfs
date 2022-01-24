@@ -3,8 +3,8 @@
 
 if [ "$BUILDYDFS" = "fast" ]
 then
-  	[ ! -e $HOME/iso/kernel-modules-$ARCH.tar.gz ] && wget -O $HOME/iso/kernel-modules-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-modules-$ARCH.tar.gz
-  	[ ! -e $HOME/iso/kernel-$ARCH.tar.gz ] && wget -O $HOME/iso/kernel-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-$ARCH.tar.gz
+  	[ ! -e $HOME/iso/kernel-modules-$ARCH.tar.gz ] && wget -q -O $HOME/iso/kernel-modules-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-modules-$ARCH.tar.gz
+  	[ ! -e $HOME/iso/kernel-$ARCH.tar.gz ] && wget -q -O $HOME/iso/kernel-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-$ARCH.tar.gz
 	cd $HOME
 	[ ! -e ydfs/kernel-$ARCH/modules/$KERNEL3/ ] && tar xvf $HOME/iso/kernel-modules-$ARCH.tar.gz
 	[ ! -e ydfs/kernel-$ARCH/modules/$KERNEL3/ ] && exit 1
