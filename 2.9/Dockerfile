@@ -42,6 +42,9 @@ RUN apt-get install cbindgen
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
 
+#libclc
+RUN apt-get install clang-11
+
 RUN apt-get install -y rsync
 USER linuxconsole2022
 CMD /home/linuxconsole2022/build-lc2022
