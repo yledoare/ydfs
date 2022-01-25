@@ -43,7 +43,7 @@ RUN apt-get install cbindgen
 RUN apt-get install lib32z1
 
 #libclc
-RUN apt-get install clang-11
+RUN apt-get install -y clang-11
 
 RUN apt-get install -y rsync
 USER linuxconsole2022
