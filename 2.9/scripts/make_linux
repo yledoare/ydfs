@@ -3,6 +3,7 @@
 
 if [ "$BUILDYDFS" = "fast" ]
 then
+	BUILD_DIR=$HOME/ydfs/build/linux-$ARCH-"$KERNEL3"
   	[ ! -e $HOME/iso/kernel-modules-$ARCH.tar.gz ] && wget -q -O $HOME/iso/kernel-modules-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-modules-$ARCH.tar.gz
   	[ ! -e $HOME/iso/kernel-$ARCH.tar.gz ] && wget -q -O $HOME/iso/kernel-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/kernel-$ARCH.tar.gz
 	cd $HOME
@@ -10,6 +11,7 @@ then
 	[ ! -e ydfs/kernel-$ARCH/modules/$KERNEL3/ ] && exit 1
 	echo xvf $HOME/iso/kernel-$ARCH.tar.gz || exit 1
 	tar xvf $HOME/iso/kernel-$ARCH.tar.gz || exit 1
+	cp $HOME_DIBAB/config/kernel-$ARCH/config $BUILD_DIR/.config || exit 1
 	touch ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage
 	ls -l ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage
 	exit 0
