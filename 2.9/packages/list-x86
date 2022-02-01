@@ -252,7 +252,7 @@ http://xorg.freedesktop.org/releases/individual/font/font-screen-cyrillic-1.0.4.
 http://xorg.freedesktop.org/releases/individual/font/font-winitzki-cyrillic-1.0.3.tar.bz2
 #dbus-second-build-with-x11-deps
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz
-http://ftp.acc.umu.se/pub/gnome/sources/atk/2.34/atk-2.34.1.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/atk/2.36/atk-2.36.0.tar.xz
 https://download-fallback.gnome.org/sources/at-spi2-core/2.38/at-spi2-core-2.38.0.tar.xz
 https://download-fallback.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz
 libical-3.0.10.tar.gz::https://github.com/libical/libical/archive/v3.0.10.tar.gz
@@ -318,7 +318,8 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.10.5.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.gz 
 https://xorg.freedesktop.org//releases/individual/driver/xf86-video-ati-18.1.0.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-openchrome-0.6.0.tar.gz
-https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
+#failed to build
+#https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.3.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-keyboard-1.9.0.tar.bz2 
 https://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.29.0.tar.bz2
