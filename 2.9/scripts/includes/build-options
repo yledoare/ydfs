@@ -570,6 +570,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
               --enable-notify \
               --enable-libplacebo  --enable-vlc " && export LUA_LIBS="$(pkg-config --libs lua)"
 	echo $ARCHIVE | grep cmake && LC_CONFIGURE_OPTS="--system-curl"
+	 echo $ARCHIVE | grep libplacebo && LC_CONFIGURE_OPTS="-Dvulkan-registry=$HOME/$ARCH/share/vulkan/registry/vk.xml"
 	echo $ARCHIVE | grep extra-cmake-modules &&  LC_CONFIGURE_OPTS="-DBUILD_HTML_DOCS=OFF -DBUILD_MAN_DOCS=OFF \
     -DBUILD_QTHELP_DOCS=OFF \
     -DBUILD_TESTING=OFF"

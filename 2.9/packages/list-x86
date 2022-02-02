@@ -631,7 +631,7 @@ http://netcologne.dl.sourceforge.net/project/p7zip/p7zip/9.38.1/p7zip_9.38.1_src
 http://linuxtv.org/downloads/v4l-utils/v4l-utils-1.16.3.tar.bz2
 #Music
 libwebsockets-4.0.13.tar.gz::https://github.com/warmcat/libwebsockets/archive/v4.0.13.tar.gz
-https://github.com/haasn/libplacebo/archive/v0.5.0.tar.gz
+https://github.com/haasn/libplacebo/archive/refs/tags/v4.192.0.tar.gz
 https://github.com/videolabs/libmicrodns/archive/0.1.2/libmicrodns-0.1.2.tar.gz
 https://downloads.sourceforge.net/sourceforge/pupnp/libupnp-1.6.25.tar.bz2
 http://downloads.sourceforge.net/project/goom/goom2k4/0/goom-2k4-0-src.tar.gz
