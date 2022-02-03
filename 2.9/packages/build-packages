@@ -36,6 +36,7 @@ unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD
 [ "$1" = "uclib" ] && export CC=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc
 # initialisation du chemin pour le compilateur C x86
 [ "$ARCH" = "x86" ] && [ "$CC" = "" ] && export CC=`which gcc`
+[ "$ARCH" = "x86" ] && export GIT_SSL_NO_VERIFY=1
 
 CMAKE_PREFIX_PATH=$HOME/$ARCH
 # initialisation de variables
@@ -224,6 +225,7 @@ fi
   fi
   if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/geoclue'`" ] \
+	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/gstreamer'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/vala.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/orca.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libpeas.git'`" ] \

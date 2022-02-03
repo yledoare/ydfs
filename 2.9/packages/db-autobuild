@@ -278,6 +278,7 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
   [ -e $HOME/$ARCH/include/ode-disabled ] && mv $HOME/$ARCH/include/ode-disabled $HOME/$ARCH/include/ode
+  [ -e $HOME/$ARCH/include/GLES3-disabled ] && mv $HOME/$ARCH/include/GLES3-disabled $HOME/$ARCH/include/GLES3
   [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
   [ -e $HOME/$ARCH/include/disabled-lua ] && mv $HOME/$ARCH/include/disabled-lua/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/disabled-lua
   [ -e $HOME/$ARCH/include/tinyxml-disabled.h ] && mv  $HOME/$ARCH/include/tinyxml-disabled.h $HOME/$ARCH/include/tinyxml.h 
@@ -1440,6 +1441,8 @@ EOF
 
     fi
 
+    pwd | grep gst-plugins-base && [ -e $HOME/$ARCH/include/GLES3 ] && mv $HOME/$ARCH/include/GLES3 $HOME/$ARCH/include/GLES3-disabled 
+    pwd | grep gst-plugins-base && [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled 
     pwd | grep ardour && mv $HOME/$ARCH/include/zita-resampler  $HOME/$ARCH/include/zita-resampler-disabled 
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth  $HOME/$ARCH/include/fluidsynth-disabled
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth.h  $HOME/$ARCH/include/fluidsynth-disabled.h
