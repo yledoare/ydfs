@@ -411,17 +411,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32    -D headers=false \
     -D gles1=false || exit 1
 	;;
-    pango-1)
-	mkdir build-32
-	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
-	;;
-    atk-2)
-	mkdir build-32
-	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
-	;;
-    gdk-pixbuf)
+    pango-1 | atk-2 | gdk-pixbuf | libdrm)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -444,24 +434,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    glib-2)
-	echo "Build glib-2"
-        PYTHONPATH="" ninja || exit 1
-	;;
-    mesa)
-	# sed -i "s@$HOME/$ARCH/lib/libzstd.so@$HOME/multilib/lib/libzstd.so@g" build.ninja
-        PYTHONPATH="" ninja || exit 1
-	;;
-    libglvnd)
-        PYTHONPATH="" ninja || exit 1
-	;;
-    pango-1)
-        PYTHONPATH="" ninja || exit 1
-	;;
-    atk-2)
-        PYTHONPATH="" ninja || exit 1
-	;;
-    gdk-pixbuf)
+    glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -482,17 +455,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   case $PKG in
     	llvm )
 	;;
-    	glib-2)
-	;;
-    	mesa)
-	;;
-    	libglvnd)
-	;;
-    	pango-1)
-	;;
-    	atk-2)
-	;;
-    	gdk-pixbuf)
+    	glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
 	;;
     * )
   	make || exit $?
@@ -510,10 +473,6 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   	make install || exit $?
 	cd ..
 	;;
-    glib-2)
-        PYTHONPATH="" ninja install || exit 1
-	cd ..
-	;;
     mesa)
         PYTHONPATH="" ninja install || exit 1
     cp $HOME/x86_64/include/GL/gl* $HOME/multilib/include/GL/
@@ -522,19 +481,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 
 	cd ..
 	;;
-    libglvnd)
-        PYTHONPATH="" ninja install || exit 1
-	cd ..
-	;;
-    pango-1)
-        PYTHONPATH="" ninja install || exit 1
-	cd ..
-	;;
-    atk-2)
-        PYTHONPATH="" ninja install || exit 1
-	cd ..
-	;;
-    gdk-pixbuf)
+    glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
