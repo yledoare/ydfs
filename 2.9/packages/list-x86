@@ -12,7 +12,7 @@ http://www.oberhumer.com/opensource/lzo/download/lzo-2.09.tar.gz
 http://www.lzop.org/download/lzop-1.04.tar.gz 
 https://tukaani.org/xz/xz-5.2.5.tar.gz 
 git://github.com/lz4/lz4.git#tag=v1.9.2
-https://github.com/facebook/zstd/releases/download/v1.4.5/zstd-1.4.5.tar.gz
+https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz
 http://people.redhat.com/sgrubb/libcap-ng/libcap-ng-0.7.8.tar.gz
 https://github.com/linux-pam/linux-pam/releases/download/v1.4.0/Linux-PAM-1.4.0.tar.xz
 libxcrypt-4.4.17.tar.gz::https://github.com/besser82/libxcrypt//archive/v4.4.17.tar.gz

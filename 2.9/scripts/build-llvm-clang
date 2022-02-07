@@ -1,11 +1,11 @@
-	RELEASE=9.0.1
+	RELEASE=11.0.1
 	cd $HOME/ydfs/tarballs
 	[ ! -e ../src/llvm-$RELEASE.src ] && [ ! -e llvm-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$RELEASE/llvm-$RELEASE.src.tar.xz
 	[ ! -e ../src/llvm-$RELEASE.src ] && cd ../src/ && tar -xJf ../tarballs/llvm-$RELEASE.src.tar.xz
 	cd $HOME/ydfs/src/llvm-$RELEASE.src/tools || exit 1
 
 	# [ ! -e cfe-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-$RELEASE/cfe-$RELEASE.src.tar.xz 
-	[ ! -e clang-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/clang-9.0.1.src.tar.xz 
+	[ ! -e clang-$RELEASE.src.tar.xz ] && wget https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/clang-11.0.1.src.tar.xz 
 	# [ ! -e cfe-$RELEASE.src ] && tar -xJf cfe-$RELEASE.src.tar.xz
 	[ ! -e clang-$RELEASE.src ] && tar -xJf clang-$RELEASE.src.tar.xz
 	# [ ! -e clang ] && mv cfe-$RELEASE.src clang 

@@ -1,5 +1,4 @@
 # rm /home/linuxconsole25/ydfs/src/icu/source/ydfs-multilib-buildt
-# apt-get install gcc-multilib libc6-i386 lib32stdc++-4.9-dev
 
 export PYTHON=/usr/bin/python
 export PYTHON2=/usr/bin/python
@@ -58,7 +57,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev bzip2 libva-2 curl gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 # attr acl kmod eudev"
@@ -112,41 +111,47 @@ do
 	echo "[binaries]
 llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
-    -D b_lto=false \
+    -D b_lto=true \
     -D b_ndebug=true \
-    -D platforms=x11,wayland,drm,surfaceless \
+    -D platforms=x11,wayland \
     -D dri-drivers=i915,i965,r100,r200,nouveau \
-    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris \
+    -D gallium-drivers=r300,r600,radeonsi,nouveau,virgl,svga,swrast,iris,crocus,zink \
     -D vulkan-drivers=amd,intel \
+    -D vulkan-layers=device-select,intel-nullhw,overlay \
     -D swr-arches=avx,avx2 \
-    -D dri3=true \
-    -D egl=true \
+    -D dri3=enabled \
+    -D egl=enabled \
     -D gallium-extra-hud=true \
     -D gallium-nine=true \
     -D gallium-omx=disabled \
     -D gallium-opencl=icd \
-    -D gallium-va=true \
-    -D gallium-vdpau=true \
-    -D gallium-xa=true \
-    -D gallium-xvmc=false \
-    -D gbm=true \
-    -D gles1=false \
-    -D gles2=true \
+    -D gallium-va=enabled \
+    -D gallium-vdpau=enabled \
+    -D gallium-xa=enabled \
+    -D gallium-xvmc=disabled \
+    -D gbm=enabled \
+    -D gles1=disabled \
+    -D gles2=enabled \
     -D glvnd=true \
-    -D zstd=false \
     -D glx=dri \
-    -D libunwind=false \
-    -D llvm=true \
-    -D osmesa=gallium \
-    -D shared-glapi=true \
-    -D valgrind=false
+    -D libunwind=enabled \
+    -D llvm=enabled \
+    -D osmesa=true \
+    -D shared-glapi=enabled \
+    -D microsoft-clc=disabled \
+    -D lmsensors=enabled \
+    -D valgrind=disabled
 	;;
 
+    lm-sensors )
+	sed -i "s@$HOME/$ARCH@$HOME/multilib@g" Makefile
+	sed -i 's/CC := gcc/CC := gcc -m32/' Makefile
+        ;;
     zstd )
 	sed -i "s@$HOME/$ARCH@$HOME/multilib@g" */Makefile
         ;;
-    bzip2 )
-	echo "No config for Bzip2"
+    bzip2 | zstd )
+	echo "No config for $PKG"
         ;;
     elfutils )
 	./configure --prefix=$HOME/multilib --disable-debuginfod
@@ -343,8 +348,8 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     llvm )
 	[ -e $HOME/llvm-multilib ] && continue
 	cd $HOME
-	[ ! -e llvm9-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm9-multilib.tar.gz
-	tar xzvhf llvm9-multilib.tar.gz
+	[ ! -e llvm11-multilib.tar.gz ] && wget http://jukebox.linuxconsole.org/toolchains/llvm11-multilib.tar.gz
+	tar xzvhf llvm11-multilib.tar.gz
 	#	$HOME_DIBAB/scripts/build-llvm-clang
     ;;
     cairo-1* )
@@ -453,7 +458,10 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   esac
 	
   case $PKG in
-    	llvm )
+   zstd )
+	CC="gcc -m32" CXX="g++ -m32" make
+	;;
+   llvm )
 	;;
     	glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
 	;;
@@ -463,6 +471,9 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   esac
 
   case $PKG in
+    zstd )
+  	make install || exit $?
+	;;
     llvm-build* )
   	make install || exit $?
 	cd ..
@@ -498,7 +509,7 @@ done
 
 cp -a /usr/lib32/* $HOME/$ARCH/lib32
 cp -a /usr/lib32 $HOME/$ARCH/lib32-root
-cp $HOME/llvm-multilib/lib32/libLLVM-9.so $HOME/$ARCH/lib32 || exit 1
+cp $HOME/llvm-multilib/lib32/libLLVM-11.so $HOME/$ARCH/lib32 || exit 1
 
 ls $HOME/$ARCH/lib32/*.a |while read file
 do
