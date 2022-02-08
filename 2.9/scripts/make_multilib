@@ -57,7 +57,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora gstreamer-1 libgudev bzip2 libva-2 curl gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 # attr acl kmod eudev"
@@ -106,12 +106,14 @@ do
   esac
   case $PKG in
     mesa )
+	# export CC="gcc -m32"
+  	# export CXX="g++ -m32"
 	mkdir build-32
 	cd build-32
 	echo "[binaries]
 llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
-    -D b_lto=true \
+    -D b_lto=false \
     -D b_ndebug=true \
     -D platforms=x11,wayland \
     -D dri-drivers=i915,i965,r100,r200,nouveau \
@@ -421,6 +423,31 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
 	;;
+
+	Vulkan-Loader)
+  export ASFLAGS=--32
+  export CFLAGS=-m32
+  export CXXFLAGS=-m32                                                                                                                                                                                                            
+  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" 
+
+  mkdir build-32
+  cd build-32
+  cmake -DCMAKE_INSTALL_PREFIX=$HOME/multilib \
+    -DVULKAN_HEADERS_INSTALL_DIR=$HOME/$ARCH/include \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DVulkanHeaders_INCLUDE_DIR=$HOME/$ARCH/include \
+    -DVulkanRegistry_DIR=$HOME/$ARCH/share/vulkan/registry \
+    -DCMAKE_INSTALL_LIBDIR=lib32 \
+    -DCMAKE_INSTALL_DATADIR=/share \
+    -DCMAKE_SKIP_RPATH=True \
+    -DBUILD_TESTS=Off \
+    -DBUILD_WSI_XCB_SUPPORT=On \
+    -DBUILD_WSI_XLIB_SUPPORT=On \
+    -DBUILD_WSI_WAYLAND_SUPPORT=On \
+    -DCMAKE_BUILD_TYPE=Release \
+    ..
+	;;
+
     * )
 	pwd
   	./configure --prefix=$HOME/multilib || exit $?
@@ -456,7 +483,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   	make || exit $?
 	;;
   esac
-	
+
   case $PKG in
    zstd )
 	CC="gcc -m32" CXX="g++ -m32" make
@@ -473,8 +500,9 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   case $PKG in
     zstd )
   	make install || exit $?
+	[ ! -e $HOME/multilib/lib/pkgconfig/libzstd.pc ] && cp lib/libzstd.pc $HOME/multilib/lib/pkgconfig/libzstd.pc 
 	;;
-    llvm-build* )
+    llvm-build* | Vulkan-Loader )
   	make install || exit $?
 	cd ..
 	;;
