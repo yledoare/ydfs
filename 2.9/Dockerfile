@@ -27,7 +27,8 @@ ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN useradd linuxconsole2022 --create-home
-COPY ./build-lc2022 /home/linuxconsole2022/build-lc2022
+# COPY ./build-lc2022 /home/linuxconsole2022/build-lc2022
+COPY ./build-lc2022 /build-lc2022
 
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get update && apt-get install -y llvm-11 
@@ -47,4 +48,5 @@ RUN apt-get install -y clang-11
 
 RUN apt-get install -y rsync
 USER linuxconsole2022
-CMD /home/linuxconsole2022/build-lc2022
+#CMD /home/linuxconsole2022/build-lc2022
+CMD /build-lc2022
