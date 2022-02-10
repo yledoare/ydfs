@@ -225,7 +225,6 @@ fi
   fi
   if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/geoclue'`" ] \
-	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/gstreamer'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/vala.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/orca.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libpeas.git'`" ] \
