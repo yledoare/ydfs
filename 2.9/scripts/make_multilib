@@ -163,6 +163,10 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	echo "No config for $PKG"
         ;;
     polkit-0 )
+	wget https://gitlab.freedesktop.org/polkit/polkit/-/archive/0.120/polkit-0.120.tar.bz2
+	tar xJvf polkit-0.120.tar.bz2
+	cd polkit-0.120
+	sed 's:mozjs_dep = dependency('mozjs-78')::' -i meson.build
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 -D os_type=redhat \

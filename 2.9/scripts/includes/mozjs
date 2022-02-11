@@ -1,0 +1,77 @@
+set -e
+
+  cat >../mozconfig <<END
+ac_add_options --enable-application=js
+mk_add_options MOZ_OBJDIR=${PWD@Q}/obj
+
+ac_add_options --prefix=/usr
+ac_add_options --enable-release
+ac_add_options --enable-hardening
+ac_add_options --enable-optimize
+ac_add_options --enable-rust-simd
+ac_add_options --enable-linker=lld
+ac_add_options --disable-debug
+ac_add_options --disable-debug-symbols
+ac_add_options --disable-jemalloc
+ac_add_options --disable-strip
+
+# System libraries
+ac_add_options --with-system-zlib
+ac_add_options --without-system-icu
+
+# Features
+ac_add_options --enable-readline
+ac_add_options --enable-shared-js
+ac_add_options --enable-tests
+ac_add_options --with-intl-api
+END
+
+  export MOZ_NOSPAM=1
+  export MOZBUILD_STATE_PATH="$srcdir/mozbuild"
+
+  # Do 3-tier PGO
+  echo "Building instrumented JS..."
+  cat >.mozconfig ../mozconfig - <<END
+ac_add_options --enable-profile-generate=cross
+END
+  ./mach build
+
+  echo "Profiling instrumented JS..."
+  (
+    local js="$PWD/obj/dist/bin/js"
+    export LLVM_PROFILE_FILE="$PWD/js-%p-%m.profraw"
+
+    cd js/src/octane
+    "$js" run.js
+
+    cd ../../../third_party/webkit/PerformanceTests/ARES-6
+    "$js" cli.js
+
+    cd ../SunSpider/sunspider-0.9.1
+    "$js" sunspider-standalone-driver.js
+  )
+
+  llvm-profdata merge -o merged.profdata *.profraw
+
+  stat -c "Profile data found (%s bytes)" merged.profdata
+  test -s merged.profdata
+
+  echo "Removing instrumented JS..."
+  ./mach clobber
+
+  echo "Building optimized JS..."
+  cat >.mozconfig ../mozconfig - <<END
+ac_add_options --enable-lto=cross
+ac_add_options --enable-profile-use=cross
+ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
+END
+   echo "Run mach" ..
+  ./mach build --verbose
+  
+
+package() {
+  cd firefox-$pkgver/obj
+  make DESTDIR="$pkgdir" install
+  rm "$pkgdir"/usr/lib/*.ajs
+  find "$pkgdir"/usr/{lib/pkgconfig,include} -type f -exec chmod -c a-x {} +
+}

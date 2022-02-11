@@ -1,3 +1,5 @@
+git://github.com/eqrion/cbindgen#commit=41506d5aeb2be8d200f52d08afb0c243414eb00d
+https://archive.mozilla.org/pub/firefox/releases/78.15.0esr/source/firefox-78.15.0esr.source.tar.xz
 ftp://ftp.ncftp.com/ncftp/ncftp-3.2.6-src.tar.xz
 https://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.xz #SKIP-x86#
 https://www.kernel.org/pub/software/scm/git/git-2.31.1.tar.xz
