@@ -2,6 +2,7 @@ if [ "$BUILDYDFS" = "fast" ] && [ "$1" = "$ARCH" ]
 then
   echo "Building fast $1"
   [ ! -e $HOME/iso/$ARCH.tar.gz ] && wget -q -O $HOME/iso/$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/$ARCH.tar.gz
+  [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/multilib.tar.gz ] && wget -q -O $HOME/iso/multilib.tar.gz http://jukebox.linuxconsole.org/fast/`basename $PWD`/multilib.tar.gz
   cd $HOME
   [ ! -e $ARCH ] && tar xzvf $HOME/iso/$ARCH.tar.gz
   touch $HOME/$ARCH/buildenv

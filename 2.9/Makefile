@@ -341,8 +341,6 @@ ${LCMBUILD}linuxconsole-${ARCH}.squashfs : packages/list-linuxconsole
 	./scripts/make_packages linuxconsole
 	./scripts/make_module linuxconsole
    
-fast: 
-	./scripts/make_fast
 multilib: 
 	./scripts/make_multilib
 dist: 
