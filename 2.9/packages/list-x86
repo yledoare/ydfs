@@ -273,7 +273,9 @@ http://wayland.freedesktop.org/releases/wayland-protocols-1.19.tar.xz
 pip::six
 pip::appdirs
 pip::packaging
-pip::pyparsing
+#pip::pyparsing 
+#Pyparsing 2 needed
+https://github.com/pyparsing/pyparsing/archive/pyparsing_2.4.7.tar.gz
 pip::setuptools
 pip::Mako
 pip::scons
@@ -898,15 +900,15 @@ https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar
 https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz #SKIP-x86#
 https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.0.tar.xz #SKIP-x86#
 https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz #SKIP-x86#
-https://libvirt.org/sources/libvirt-6.5.0.tar.xz #SKIP-x86#
+https://libvirt.org/sources/libvirt-8.0.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz #SKIP-x86#
 asciidoc-9.0.3.tar.gz::https://github.com/asciidoc/asciidoc-py3/archive/9.0.3.tar.gz #SKIP-x86#
 https://gitlab.gnome.org/GNOME/tracker/-/archive/3.0.4/tracker-3.0.4.tar.bz2 #SKIP-x86#
 https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.0.5/tracker-miners-3.0.5.tar.bz2 #SKIP-x86#
-https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.2/spice-protocol-v0.14.2.tar.gz #SKIP-x86#
+https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.3/spice-protocol-v0.14.3.tar.gz #SKIP-x86#
 https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2 #SKIP-x86#
-https://www.spice-space.org/download/gtk/spice-gtk-0.38.tar.xz #SKIP-x86#
-https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2 #SKIP-x86#
+https://www.spice-space.org/download/gtk/spice-gtk-0.39.tar.xz #SKIP-x86#
+#https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2 #SKIP-x86#
 git://github.com/WebPlatformForEmbedded/libwpe#commit=6483872b0b11856a6e5f0ac9724661cdbaac9d6f #SKIP-x86#
 git://github.com/Igalia/WPEBackend-fdo#commit=5523f39d46d398608544a501c39b6f1c3d41233f #SKIP-x86#
 https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
