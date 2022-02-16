@@ -390,11 +390,11 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep rosegarden && LC_CONFIGURE_OPTS="--with-qtdir=$HOME/$ARCH"
 	echo $ARCHIVE | grep mono-4 && LC_CONFIGURE_OPTS=" --with-mcs-docs=no "
 	echo $ARCHIVE | grep dhcpcd && LC_CONFIGURE_OPTS="--dbdir=$DIBAB_PREFIX/$MODULE/var/run"
-	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-qt3 --disable-static     \
+	echo $ARCHIVE | grep avahi && LC_CONFIGURE_OPTS="--disable-manpages --disable-static     \
             --disable-mono   --disable-libdaemon  \
             --disable-monodoc    \
             --disable-python     \
-	    --disable-gtk3 --disable-qt4 --disable-gtk  --disable-pygtk \
+	    --disable-gtk3 --disable-qt5 --disable-gtk  --disable-pygtk \
             --enable-core-docs   \
             --with-distro=none "
 	echo $ARCHIVE | grep poppler-2 && LC_CONFIGURE_OPTS=" -DENABLE_XPDF_HEADERS=ON -DENABLE_UNSTABLE_API_ABI_HEADERS=ON"

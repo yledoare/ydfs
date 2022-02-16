@@ -1012,13 +1012,20 @@ pwd && sleep 5
      sed -i 's/(defined\((@TEMPLATE_FILE)\))/\1/' config/milestone.pl
   fi
 
-  if [ -e js/src/configure ] # && [ ! -e mozilla-config.h.in ]
+  if [ -e js/src/configure ] && [ ! -e mozilla-config.h.in ]
   then
     echo "Build mozjs"
-    CXX="clang++ $CPPFLAGS -L$HOME/$ARCH/lib" CC="clang $CFLAGS -L$HOME/$ARCH/lib" . $(dirname $0)/../scripts/includes/mozjs
-exit 1
+    cd js/src
+    mkdir obj
+    cd obj
+    PYTHON=/usr/bin/python2 ../configure $LC_CONFIGURE_OPTS
+    make || exit $?
+    make install || exit $?
+    cd ../../..
     touch buildok-$ARCH
     exit 0
+    # CXX="clang++ $CPPFLAGS -L$HOME/$ARCH/lib" CC="clang $CFLAGS -L$HOME/$ARCH/lib" . $(dirname $0)/../scripts/includes/mozjs
+    # exit 1
   fi
 
   if [ -e nspr ]
