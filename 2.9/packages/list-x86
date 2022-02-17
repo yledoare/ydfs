@@ -19,6 +19,7 @@ https://github.com/besser82/libxcrypt//releases/download/v4.4.28/libxcrypt-4.4.2
 https://www.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz
 https://dlcdn.apache.org/apr/apr-1.7.0.tar.bz2
 https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.4/e2fsprogs-1.45.4.tar.xz
+https://frippery.org/uml/zerofree-1.1.1.tgz
 https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.xz
 http://zlib.net/current/zlib-1.2.11.tar.gz 
 https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
@@ -333,7 +334,7 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-keyboard-1.9.0.tar.bz
 https://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.29.0.tar.bz2
 https://xorg.freedesktop.org//releases/individual/driver/xf86-input-mouse-1.9.3.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-dummy-0.3.7.tar.gz 
-git://anongit.freedesktop.org/git/xorg/driver/xf86-video-intel#commit=7181c5a41c3f00eaf996caa156523c708a18081e
+git://anongit.freedesktop.org/git/xorg/driver/xf86-video-intel#commit=31486f40f8e8f8923ca0799aea84b58799754564
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
 https://xorg.freedesktop.org//releases/individual/driver/xf86-video-nouveau-1.0.17.tar.gz
 https://xorg.freedesktop.org//releases/individual/driver/xf86-video-amdgpu-21.0.0.tar.bz2
