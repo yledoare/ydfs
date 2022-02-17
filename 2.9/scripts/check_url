@@ -7,7 +7,8 @@ do
   echo $URL | grep "archlinux:" >/dev/null && continue
   echo $URL | grep "archlinuxpatched:" >/dev/null && continue
   echo $URL | grep "CPAN:/" >/dev/null && continue
-  echo $URL | grep "pip::/" >/dev/null && continue
+  echo $URL | grep "pip::" >/dev/null && continue
+  echo $URL | grep "::" >/dev/null && URL=`echo $URL |cut -d ':' -f3,4,5`
   wget -q $URL || ERROR="$URL not found !"
   test -n "$ERROR" && echo && echo $ERROR  && ERROR=""
 done 

@@ -149,7 +149,7 @@ http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60
 #https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz  #SKIP-x86_64#
 https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz  
 ftp://ftp.freedesktop.org/pub/individual/lib/xtrans-1.3.5.tar.bz2 
-https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2018.4.tar.bz2
+https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2021.5.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/lib/libXau-1.0.8.tar.gz 
 http://xcb.freedesktop.org/dist/libpthread-stubs-0.3.tar.gz
 https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.14.1.tar.xz
@@ -314,6 +314,7 @@ http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
 https://freedesktop.org/software/libevdev/libevdev-1.11.0.tar.xz
 https://sourceforge.net/projects/linuxwacom/files/libwacom/libwacom-0.24.tar.bz2
 https://freedesktop.org/software/libinput/libinput-1.15.4.tar.xz
+https://xorg.freedesktop.org/releases/individual/lib/libxcvt-0.1.1.tar.xz
 https://xorg.freedesktop.org/releases/individual/xserver/xorg-server-21.1.3.tar.xz
 https://mesa.freedesktop.org/archive/glu/glu-9.0.1.tar.xz
 http://downloads.sourceforge.net/freeglut/freeglut-2.8.1.tar.gz
@@ -321,7 +322,9 @@ http://downloads.sourceforge.net/ftgl/ftgl-2.1.3-rc5.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-vesa-2.3.3.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-evdev-2.10.5.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.gz 
-https://xorg.freedesktop.org//releases/individual/driver/xf86-video-ati-18.1.0.tar.bz2
+https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati#commit=5eba006e4129e8015b822f9e1d2f1e613e252cda
+git://anongit.freedesktop.org/git/xorg/driver/xf86-video-r128
+git://anongit.freedesktop.org/git/xorg/driver/xf86-video-mach64
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-openchrome-0.6.0.tar.gz
 #failed to build
 #https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
@@ -332,8 +335,8 @@ https://xorg.freedesktop.org//releases/individual/driver/xf86-input-mouse-1.9.3.
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-dummy-0.3.7.tar.gz 
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-intel#commit=7181c5a41c3f00eaf996caa156523c708a18081e
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-fbdev-0.4.4.tar.gz
-https://xorg.freedesktop.org/archive/individual/driver/xf86-video-nouveau-1.0.16.tar.bz2
-https://xorg.freedesktop.org//releases/individual/driver/xf86-video-amdgpu-19.0.1.tar.bz2
+https://xorg.freedesktop.org//releases/individual/driver/xf86-video-nouveau-1.0.17.tar.gz
+https://xorg.freedesktop.org//releases/individual/driver/xf86-video-amdgpu-21.0.0.tar.bz2
 ftp://ftp.invisible-island.net/xterm/xterm-351.tgz
 http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.110.tar.gz
 https://ftp.gnome.org/pub/gnome/sources/zenity/3.14/zenity-3.14.0.tar.xz
