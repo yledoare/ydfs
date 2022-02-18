@@ -28,8 +28,7 @@ https://github.com/maxmind/geoip-api-c/archive/v1.6.12.tar.gz
 http://downloads.sourceforge.net/sourceforge/tcl/tcl8.6.6-src.tar.gz
 https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 https://download.savannah.gnu.org/releases/lzip/lzip-1.20.tar.gz
-git://github.com/plougher/squashfs-tools#tag=4.4
-http://freefr.dl.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz 
+git://github.com/plougher/squashfs-tools#tag=4.5
 http://downloads.sourceforge.net/sourceforge/lcms/lcms2-2.8.tar.gz
 ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz 
 https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
