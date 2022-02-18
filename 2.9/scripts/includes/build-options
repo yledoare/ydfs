@@ -85,7 +85,7 @@ echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS=" --disable-static \
     --enable-threading"
-echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS="--disable-debuginfod"
+echo $ARCHIVE | grep elfutils &&  LC_CONFIGURE_OPTS="--disable-libdebuginfod --enable-libdebuginfod=dummy --disable-debuginfod"
 echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
     --enable-lib-only"
