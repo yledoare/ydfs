@@ -47,6 +47,7 @@ echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE
 echo $ARCHIVE | grep caja-extensions &&  LC_CONFIGURE_OPTS="--disable-gksu"
 echo $ARCHIVE | grep pipewire &&  LC_CONFIGURE_OPTS="-Dvulkan=false -Dpipewire-pulseaudio=false -Dpipewire-jack=false"
 echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep libtirpc &&  LC_CONFIGURE_OPTS="--disable-gssapi"
 echo $ARCHIVE | grep wavpack &&  LC_CONFIGURE_OPTS="--disable-asm"
 echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
