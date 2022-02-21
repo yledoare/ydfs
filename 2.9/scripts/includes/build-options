@@ -214,7 +214,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     -D osmesa=true \
     -D shared-glapi=enabled \
     -D microsoft-clc=disabled \
-    " && ln -s /usr/bin/llvm-config-11 $HOME/$ARCH/bin/llvm-config
+    " && ln -sf /usr/bin/llvm-config-13 $HOME/$ARCH/bin/llvm-config
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
         echo $ARCHIVE | grep polkit && LC_CONFIGURE_OPTS="--with-duktape --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind "
