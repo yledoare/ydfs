@@ -283,8 +283,8 @@ https://github.com/pyparsing/pyparsing/archive/pyparsing_2.4.7.tar.gz
 pip::setuptools
 pip::Mako
 pip::scons
-https://github.com/intel/libva/releases/download/2.11.0/libva-2.11.0.tar.bz2
-https://github.com/intel/intel-vaapi-driver/releases/download/2.4.0/intel-vaapi-driver-2.4.0.tar.bz2
+https://github.com/intel/libva/archive/refs/tags/2.14.0.tar.gz
+https://github.com/intel/intel-vaapi-driver/archive/refs/tags/2.4.1.tar.gz
 https://freedesktop.org/software/vaapi/releases/libva-vdpau-driver/libva-vdpau-driver-0.7.4.tar.bz2
 http://prdownloads.sourceforge.net/log4c/log4c-1.2.4.tar.gz
 https://github.com/libcheck/check/archive/0.13.0.tar.gz
