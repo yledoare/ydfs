@@ -55,7 +55,7 @@ https://libzip.org/download/libzip-1.7.3.tar.xz
 https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
 https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz
 https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
-#https://github.com/mesonbuild/meson/releases/download/0.54.2/meson-0.54.2.tar.gz
+https://github.com/mesonbuild/meson/releases/download/0.61.2/meson-0.61.2.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.71/gobject-introspection-1.71.0.tar.xz
 https://download.gimp.org/pub/babl/0.1/babl-0.1.82.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.4/json-glib-1.4.4.tar.xz
@@ -69,7 +69,7 @@ https://github.com/libexpat/libexpat/releases/download/R_2_4_4/expat-2.4.4.tar.b
 https://www.cpan.org/src/5.0/perl-5.34.0.tar.xz
 https://www.openssl.org/source/openssl-1.1.1m.tar.gz
 https://ftp.gnome.org/pub/gnome/sources/libIDL/0.8/libIDL-0.8.14.tar.bz2  
-http://xmlsoft.org/sources/libxml2-2.9.10.tar.gz
+http://xmlsoft.org/sources/libxml2-2.9.12.tar.gz
 http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
 http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
 http://files.itstool.org/itstool/itstool-2.0.6.tar.bz2

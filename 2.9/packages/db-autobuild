@@ -1541,6 +1541,7 @@ fi
  # && [ ! -e audacity.dox ] \
     if [ -e CMakeLists.txt ] \
  && [ ! -e doc/nghttp2_version.rst ] \
+ && [ ! -e libxml-2.0.pc.in ] \
  && [ ! -e libvncserver.pc.in ] \
  && [ ! -e enet.dsp ] \
  && [ ! -e mlt++.pc.in ] \
