@@ -80,11 +80,13 @@ export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/AL"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/irrlicht"
 export CXXFLAGS="$CXXFLAGS -I""$HOME/$ARCH/include/freetype2"
-export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-11/include"
+[ -e /usr/lib/llvm-13/include ] && export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-13/include"
+[ ! -e /usr/lib/llvm-13/include ] && export CXXFLAGS="$CXXFLAGS -I""/usr/lib/llvm-11/include"
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib "
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib64 "
 export LDFLAGS="$LDFLAGS -L""$HOME/$MODULE/lib/x86_64-linux-gnu "
-export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-11/lib/ "
+[ -e /usr/lib/llvm-13/lib/ ] && export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-13/lib/ "
+[ ! -e /usr/lib/llvm-13/lib/ ] && export LDFLAGS="$LDFLAGS -L""/usr/lib/llvm-11/lib/ "
 export GTKMM_BASEPATH=$HOME/$ARCH
 # autres initialisations selon les architectures(processeurs)
 [ "$ARCH" = "arm" ] && export LDFLAGS="$LDFLAGS -Wl,-rpath-link,$HOME/$ARCH/lib -Wl,-rpath-link,/home/raspi/ydfs/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/lib" # FIXME

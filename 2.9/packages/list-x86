@@ -1,4 +1,5 @@
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
+https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/libclc-13.0.0.src.tar.xz #SKIP-x86#
 https://bitbucket.org/multicoreware/x265_git/downloads/x265_3.3.tar.gz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
@@ -146,11 +147,11 @@ http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
 https://github.com/scop/bash-completion/releases/download/2.4/bash-completion-2.4.tar.xz
 https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.29/src/nspr-4.29.tar.gz
 http://ftpmirror.gnu.org/autoconf/autoconf-2.13.tar.gz
-http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2 #SKIP-x86_64#
+#http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2 #SKIP-x86_64#
 #https://archive.mozilla.org/pub/firefox/releases/78.15.0esr/source/firefox-78.15.0esr.source.tar.xz
 https://duktape.org/duktape-2.7.0.tar.xz 
-https://gitlab.freedesktop.org/polkit/polkit/-/archive/0.120/polkit-0.120.tar.bz2  #SKIP-x86_64#
-https://gitlab.freedesktop.org/yetist/polkit/-/archive/dev-duktape/polkit-dev-duktape.tar.gz #SKIP-x86#
+#https://gitlab.freedesktop.org/polkit/polkit/-/archive/0.120/polkit-0.120.tar.bz2  #SKIP-x86_64#
+https://gitlab.freedesktop.org/yetist/polkit/-/archive/dev-duktape/polkit-dev-duktape.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/lib/xtrans-1.3.5.tar.bz2 
 https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2021.5.tar.bz2
 ftp://ftp.freedesktop.org/pub/individual/lib/libXau-1.0.8.tar.gz 
@@ -297,7 +298,7 @@ Vulkan-Headers-1.2.202.tar.gz::https://github.com/KhronosGroup/Vulkan-Headers/ar
 vulkan-icd-loader-1.2.203.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/v1.2.201.tar.gz #SKIP-x86#
 git://github.com/KhronosGroup/SPIRV-Headers.git#commit=e71feddb3f17c5586ff7f4cfb5ed1258b800574b #SKIP-x86#
 git://github.com/KhronosGroup/SPIRV-Tools.git#tag=v2021.3 #SKIP-x86#
-https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v12.0.0/spirv-llvm-translator-12.0.0.tar.gz #SKIP-x86#
+https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v13.0.0/spirv-llvm-translator-13.0.0.tar.gz #SKIP-x86#
 https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/libclc-13.0.0.src.tar.xz #SKIP-x86#
 https://mesa.freedesktop.org/archive/mesa-21.3.4.tar.xz #SKIP-x86#
 https://mesa.freedesktop.org/archive/mesa-18.3.4.tar.xz #SKIP-x86_64#

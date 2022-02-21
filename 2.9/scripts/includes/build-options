@@ -743,7 +743,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
         -DLLVM_INCLUDE_TESTS=ON \
         -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/home/linuxconsole2022/x86_64/include/spirv/ \
         -Wno-dev "
-	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-11"
+	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-13"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
 	# echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
 	if [ "$ARCH" = "arm" ] 
