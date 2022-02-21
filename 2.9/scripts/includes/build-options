@@ -217,6 +217,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     " && ln -s /usr/bin/llvm-config-11 $HOME/$ARCH/bin/llvm-config
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
+        echo $ARCHIVE | grep polkit && LC_CONFIGURE_OPTS="--with-duktape --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind "
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
     --enable-jit \
