@@ -328,7 +328,7 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.g
 https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati#commit=5eba006e4129e8015b822f9e1d2f1e613e252cda
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-r128
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-mach64
-ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-openchrome-0.6.0.tar.gz
+ftp://ftp.freedesktop.org/pub/individual/driver/xf86-video-openchrome-0.6.0.tar.gz #SKIP-x86_64#
 #failed to build
 #https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.3.tar.bz2 
