@@ -184,7 +184,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
                              -DSQLITE_MAX_VARIABLE_NUMBER=250000 \
                              -DSQLITE_MAX_EXPR_DEPTH=10000"
  
-	echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
+	[ "$ARCH" == "x86_64" ] && echo $ARCHIVE | grep mesa-2 && LC_CONFIGURE_OPTS=" --sysconfdir=$HOME/$ARCH/etc \
     -D b_lto=true \
     -D b_ndebug=true \
     -D platforms=x11,wayland \
