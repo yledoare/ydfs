@@ -1,4 +1,4 @@
-#JUMP
+##JUMP
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 https://bitbucket.org/multicoreware/x265_git/downloads/x265_3.3.tar.gz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
@@ -314,7 +314,6 @@ libsass-3.6.4.tar.gz::https://github.com/sass/libsass/archive/3.6.4.tar.gz
 sassc-3.6.1.tar.gz::https://github.com/sass/sassc/archive/3.6.1.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gtk+/3.24/gtk+-3.24.23.tar.xz
 http://bitmath.org/code/mtdev/mtdev-1.1.3.tar.gz
-#STOP
 https://freedesktop.org/software/libevdev/libevdev-1.12.0.tar.xz
 pip::libevdev
 pip::pyudev
@@ -407,27 +406,31 @@ http://sg.danny.cz/sg/p/sg3_utils-1.44.tar.xz
 https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz
 https://github.com/ConsoleKit2/ConsoleKit2/releases/download/1.2.1/ConsoleKit2-1.2.1.tar.bz2
 https://upower.freedesktop.org/releases/upower-0.99.11.tar.xz
-http://samba.org/ftp/talloc/talloc-2.1.10.tar.gz
+https://www.samba.org/ftp/talloc/talloc-2.3.3.tar.gz
 https://github.com/cracklib/cracklib/releases/download/v2.9.7/cracklib-2.9.7.tar.gz
 https://github.com/libpwquality/libpwquality/releases/download/libpwquality-1.4.0/libpwquality-1.4.0.tar.bz2
-https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
+##STOP
+https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2021.8.22.tgz
 https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.2.02.177.tgz
 https://ftp.gnu.org/gnu/parted/parted-3.2.tar.xz
 #For udisk
-https://github.com/pmem/ndctl/archive/v61.1.tar.gz
-popt-1.16.tar.gz::https://deb.debian.org/debian/pool/main/p/popt/popt_1.16.orig.tar.gz
-https://www.kernel.org/pub/linux/utils/cryptsetup/v2.0/cryptsetup-2.0.3.tar.xz
-https://github.com/thom311/libnl/releases/download/libnl3_2_28/libnl-3.2.28.tar.gz
+iniparser-4.1.tar.gz::https://github.com/ndevilla/iniparser/archive/v4.1.tar.gz
+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/keyutils-1.6.3.tar.gz
+https://github.com/pmem/ndctl/archive/v72.1/ndctl-72.1.tar.gz
+https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-1.18.tar.gz
+https://www.libssh.org/files/0.9/libssh-0.9.6.tar.xz
+https://www.kernel.org/pub/linux/utils/cryptsetup/v2.4/cryptsetup-2.4.3.tar.xz
+https://github.com/thom311/libnl/releases/download/libnl3_5_0/libnl-3.5.0.tar.gz
 https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_58_RTM/src/nss-3.58.tar.gz
 https://releases.pagure.org/volume_key/volume_key-0.3.12.tar.xz
 git://github.com/Distrotech/dmraid.git
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
 https://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz
-https://github.com/storaged-project/libblockdev/releases/download/2.21-1/libblockdev-2.21.tar.gz
+libblockdev-2.26.tar.gz::https://github.com/rhinstaller/libblockdev/archive/2.26-1.tar.gz
 http://0pointer.de/public/libatasmart-0.19.tar.xz
-https://github.com/storaged-project/udisks/releases/download/udisks-2.7.6/udisks-2.7.6.tar.bz2
-https://github.com/acoustid/chromaprint/releases/download/v1.4.3/chromaprint-1.4.3.tar.gz
+https://github.com/storaged-project/udisks/archive/udisks-2.9.4.tar.gz
+https://github.com/acoustid/chromaprint/archive/v1.5.1/chromaprint-1.5.1.tar.gz
 https://github.com/ebassi/graphene/releases/download/1.10.0/graphene-1.10.0.tar.xz
 https://gstreamer.freedesktop.org//src/gstreamer/gstreamer-1.18.5.tar.xz
 http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.18.5.tar.xz 
@@ -819,7 +822,6 @@ https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
 https://github.com/google/googletest/archive/release-1.10.0.tar.gz
 https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
 https://movit.sesse.net/movit-1.6.2.tar.gz
-http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.113.0.tar.xz
 https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
 #Gtkmm For Ardour
 https://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.24/gtkmm-2.24.5.tar.xz

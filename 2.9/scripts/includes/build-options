@@ -10,6 +10,7 @@ echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
 
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
 echo $ARCHIVE | grep iptables &&  LC_CONFIGURE_OPTS=" --disable-nftables "
+echo $ARCHIVE | grep volume_key && export CFLAGS+=" $(python3-config --includes)"
 echo $ARCHIVE | grep bbonobo &&  LC_CONFIGURE_OPTS=" --disable-static "
 echo $ARCHIVE | grep guitarix &&  LC_CONFIGURE_OPTS=" --enable-nls \
                         --ladspa \
@@ -120,10 +121,10 @@ echo $ARCHIVE | grep ruby &&  LC_CONFIGURE_OPTS="--enable-shared \
     --disable-rpath \
     --with-dbm-type=gdbm_compat"
 echo $ARCHIVE | grep libpwquality &&  LC_CONFIGURE_OPTS="--disable-python-bindings"
-echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs"
+echo $ARCHIVE | grep ndctl &&  LC_CONFIGURE_OPTS="--disable-docs --without-systemd"
 echo $ARCHIVE | grep libmtp &&  LC_CONFIGURE_OPTS="--with-udev=$HOME/$ARCH/lib/udev"
 echo $ARCHIVE | grep graphviz &&  LC_CONFIGURE_OPTS="--enable-perl=no --disable-perl"
-echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS=" --without-gtk-doc --without-nvdimm --without-dm --without-dmraid --disable-introspection"
+echo $ARCHIVE | grep libblockdev &&  LC_CONFIGURE_OPTS="--without-lvm_dbus --without-dmraid -without-gtk-doc  --disable-introspection"
 echo $ARCHIVE | grep librevenge &&  LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86" ] && export ABI=32 && LC_CONFIGURE_OPTS="--disable-werror"
 echo $ARCHIVE | grep gmp-6 && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-fat"
@@ -217,7 +218,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     " && ln -sf /usr/bin/llvm-config-13 $HOME/$ARCH/bin/llvm-config
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
-        echo $ARCHIVE | grep polkit && LC_CONFIGURE_OPTS="--with-duktape --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind "
+        echo $ARCHIVE | grep polkit-dev-duktape && LC_CONFIGURE_OPTS="--with-duktape --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind "
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
     --enable-jit \

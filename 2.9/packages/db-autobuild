@@ -143,6 +143,9 @@ else
      exit 0
   fi
 
+  [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
+  # grep GETTEXT_MACRO_VERSION po/Makefile.in
+
   if [ -e gdm.doap ]
   then
 	set -e
@@ -681,6 +684,7 @@ grep share/Surge src/common/SurgeStorage.cpp
   fi
 
   [ -e json-glib.doap ] && [ -e configure ] && rm configure 
+  [ -e docs/libblockdev-sections.txt ] && sed -e 's/AX_CHECK_ENABLE_DEBUG(no, DEBUG, NDEBUG)//g' -i configure 
   [ -e libnma-docs.xml ] && sed -e 's/0.18/0.20/g' -i configure.ac 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
@@ -763,8 +767,17 @@ fi
 
   if [ -e fuse.pc.in ] 
   then
-     sh makeconf.sh
-     export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
+     echo "Build Fuse" && sleep 3
+     UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin ./configure --prefix=$PREFIX --sbindir=$PREFIX/sbin --libdir=$PREFIX/lib --enable-lib --enable-util --disable-example
+     make || exit 1
+     sed -i "s@/sbin@$PREFIX/sbin@" util/Makefile
+     sed -i "s@/etc/init.d@$PREFIX/etc/init.d@" util/Makefile
+     sed -i "s@/etc/udev@$PREFIX/etc/udev@" util/Makefile
+     make install || exit 1
+  touch buildok-$ARCH
+  exit 0
+     # sh makeconf.sh
+     # export INIT_D_PATH=$HOME/$ARCH/etc/init.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d
   fi
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
@@ -1830,6 +1843,8 @@ asciidoc.py \
 libbonobo-zip.in \
 src/node.cc \
 data/blueman-adapters.desktop.in \
+src/udisksata.c \
+fuse.pc.in \
 libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c librsvg.pc.in backend/saned.conf.in NetworkManager-openvpn.doap src/backend/utils/misc/postgresql.conf.sample docs/libbytesize-sections.txt lib/bluez.pc.in src/include/festival.h openh264.pc.in fstrcmp contrib/ssh-copy-id deps/npm/lib/doctor/get-latest-nodejs-version.js libnumbertext.pc.in proc/procps.h mono-uninstalled.pc.in php7.spec.in mlt++.pc.in movit.pc.in libomxil-bellagio.pc.in gnome-vfs-2.0.pc.in dmraid.spec src/sndfile.c doc/jemalloc.html liboauth.lsm.in src/notify/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop.in src/bbrun.c gtksourceview-3.0.pc.in obexd/client/bluetooth.h celestia.cfg pitivi.xml audacity.dox rdesktop.c src/FTGL/ftgl.h libspectre.pc.in mkisofs/mkisofs.c cdparanoia.spec base/gsht.c jsanalyze.cpp dao/dao.h xwax.c libapr.dsp src/SFML/Main/SFMLActivity.cpp sipconfig.py qpy/QtCore/qpycore_pyqtpyobject.cpp libisoburn/libisoburn.h unique.pc.in hplip.conf.in mxml-entity.c rubberband.pc.in src/vamp-sdk/FFT.cpp src/r128.h php.ini-dist librtmidi.pc.in gtk-sharp.snk db/source/PPD wx-config.in wxPython.spec grub-core/unidata.c xonotic.exe src/libvlc.c SDL_Pango.pc.in src/tonegen/tonegen.c Source/Swig/swig.h ltris.desktop.in wesnoth.kdevelop libpam/pam_auth.c va/va.c src/libqmi-glib src/libmbim-glib src/yajl.c src/gltron.c foobillardplus.desktop fltk-config.in genMakefiles libisofs-1.pc.in other/icons/teeworlds_gcc.rc src/vlc-plugin.pc.in dossizola/images talloc.pc.in src/benchmark-tls.c Scribus.pro pycairo-uninstalled.pc.in pycairo.pc.in libfaad po/audacious-plugins.pot audacious.pc.in src/c501checkers.1 source/icudefs.mk.in Source/WebKit2 midori/midori-app.c libmad.list.in libqpdf.pc.in db/oldprinterids libcupsfilters.pc.in linc2/src/linc.c glib-gettextize.in librelogo xbmc-xrandr.c README.cifs-utils YAJLDoc.cmake src/warmux.rc portaudio-2.0.pc xsane.AUTHOR ossp-alsap.c torcs.desktop ip/iproute.c bzflag.spec src/lua.c bam.lua src/openttd.cpp slang.lis smpeg.spec.in include/enet/enet.h echoaudio dhcpcd-hooks libnl-1.pc.in wpa_supplicant/Makefile src/xmoto_icone.ico vpxdec.c scripts/xdg-open pppd/pppd.h src/doxygen.pro mtdev.pc.in src/kbd_mode.c  src/dvdstyler.cpp libwxsvg.pc.in transcode.spec.in gconf-2.0.pc.in src/xvid.c kino.spec libdv.spec.in mplayer.c README.gpm2 src/vim_icon.xbm ext/ffmpeg/gstffmpeg.c debian/x11-apps.install src/polkit/polkitdetails.c src/sginfo.c debian/patches/01_dont_scale_22x22_apps_icons_for_hicolor.patch -e include/Stk.h fluidsynth.pc.in qjackctl.pro libacl/acl_init.c attr/attr.c libfm.pc.in avidemux nuoveXT2 data/lxrandr.desktop.in lxinput.desktop.in libxslt.spec fbpanel.ebuild cups-config.in foomatic-ppdfile.1.in include/gettext_curses.h talloc.mk pthread-stubs.pc.in zlib.pc.in
     do
       [ -e "$SKIP_DIR" ] && echo "$SKIP_DIR exists" && sleep 3 && SKIP_DIR="" && break
@@ -2572,6 +2587,17 @@ Cflags: -I${includedir}' > lua.pc
       then
         . $(dirname $0)/../scripts/includes/bluez
         echo lib/bluez.pc.in
+      fi
+
+      if [ -e src/iniparser.h ]
+      then
+ 	install -Dm0644 src/iniparser.h "${pkgdir}"/include/iniparser.h
+  	install -Dm0644 src/dictionary.h "${pkgdir}"/include/dictionary.h
+  	install -Dm0644 libiniparser.so.1 "$pkgdir"//lib/libiniparser.so.1
+  	install -Dm0644 LICENSE "${pkgdir}"/share/licenses/iniparser/LICENSE
+  	ln -sf libiniparser.so.1 "${pkgdir}"/lib/libiniparser.so
+        touch buildok-$ARCH
+        exit 0
       fi
 
       if [ -e librhash ]
