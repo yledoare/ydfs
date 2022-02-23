@@ -1,0 +1,393 @@
+From 0d70a21c6f98575984c28f4e98a1fbf929195456 Mon Sep 17 00:00:00 2001
+From: Jiri Kucera <jkucera@redhat.com>
+Date: Thu, 25 Jan 2018 21:53:30 +0100
+Subject: [PATCH] make: add $(DESTDIR) in installcheck target [bug #302]
+
+This ensures the proper sox binary is invoked during tests.
+---
+ src/Makefile.am | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 7cceaafd..caf98645 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -194,6 +194,6 @@ loc:
+ # would run the test suite, but an uninstalled libltdl build cannot
+ # currently load its formats and effects, so the checks would fail.
+ installcheck:
+-	$(srcdir)/tests.sh --bindir=${bindir} --builddir=${builddir} --srcdir=${srcdir}
+-	$(srcdir)/testall.sh --bindir=${bindir} --srcdir=${srcdir}
++	$(srcdir)/tests.sh --bindir=$(DESTDIR)${bindir} --builddir=${builddir} --srcdir=${srcdir}
++	$(srcdir)/testall.sh --bindir=$(DESTDIR)${bindir} --srcdir=${srcdir}
+ 
+-- 
+2.22.0
+
+From ccedd08802f62ed896f69d778e6a106d00f9ab58 Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Tue, 8 Dec 2015 22:52:41 +0000
+Subject: [PATCH] Clean up lsx_malloc() and friends
+
+---
+ src/Makefile.am |  2 +-
+ src/xmalloc.c   | 30 +++++++++++++++++++++++++-----
+ src/xmalloc.h   |  7 ++++---
+ 3 files changed, 30 insertions(+), 9 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index cd44ae4d..42573ec5 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -95,7 +95,7 @@ libsox_la_LIBADD += @GOMP_LIBS@
+ 
+ libsox_la_CFLAGS = @WARN_CFLAGS@
+ libsox_la_LDFLAGS = @APP_LDFLAGS@ -version-info @SHLIB_VERSION@ \
+-  -export-symbols-regex '^(sox_.*|lsx_(check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|error|fail_errno|filelength|find_(enum_(text|value)|file_extension)|flush|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|realloc|rewind|seeki|sigfigs3p?|strcasecmp|tell|unreadb|write(b|_b_buf|buf|s)))$$'
++  -export-symbols-regex '^(sox_.*|lsx_(([cm]|re)alloc|check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|error|fail_errno|filelength|find_(enum_(text|value)|file_extension)|flush|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|rewind|seeki|sigfigs3p?|strcasecmp|strdup|tell|unreadb|write(b|_b_buf|buf|s)))$$'
+ 
+ if HAVE_WIN32_LTDL
+   libsox_la_SOURCES += win32-ltdl.c win32-ltdl.h
+diff --git a/src/xmalloc.c b/src/xmalloc.c
+index 9bf15969..56fe6944 100644
+--- a/src/xmalloc.c
++++ b/src/xmalloc.c
+@@ -20,6 +20,16 @@
+ #include "sox_i.h"
+ #include <stdlib.h>
+ 
++static void *lsx_checkptr(void *ptr)
++{
++  if (!ptr) {
++    lsx_fail("out of memory");
++    exit(2);
++  }
++
++  return ptr;
++}
++
+ /* Resize an allocated memory area; abort if not possible.
+  *
+  * For malloc, `If the size of the space requested is zero, the behavior is
+@@ -34,10 +44,20 @@ void *lsx_realloc(void *ptr, size_t newsize)
+     return NULL;
+   }
+ 
+-  if ((ptr = realloc(ptr, newsize)) == NULL) {
+-    lsx_fail("out of memory");
+-    exit(2);
+-  }
++  return lsx_checkptr(realloc(ptr, newsize));
++}
++
++void *lsx_malloc(size_t size)
++{
++  return lsx_checkptr(malloc(size + !size));
++}
++
++void *lsx_calloc(size_t n, size_t size)
++{
++  return lsx_checkptr(calloc(n + !n, size + !size));
++}
+ 
+-  return ptr;
++char *lsx_strdup(const char *s)
++{
++  return lsx_checkptr(strdup(s));
+ }
+diff --git a/src/xmalloc.h b/src/xmalloc.h
+index 9ee77f63..92ac64d9 100644
+--- a/src/xmalloc.h
++++ b/src/xmalloc.h
+@@ -23,10 +23,11 @@
+ #include <stddef.h>
+ #include <string.h>
+ 
+-#define lsx_malloc(size) lsx_realloc(NULL, (size))
+-#define lsx_calloc(n,s) (((n)*(s))? memset(lsx_malloc((n)*(s)),0,(n)*(s)) : NULL)
++LSX_RETURN_VALID void *lsx_malloc(size_t size);
++LSX_RETURN_VALID void *lsx_calloc(size_t n, size_t size);
++LSX_RETURN_VALID char *lsx_strdup(const char *s);
++
+ #define lsx_Calloc(v,n)  v = lsx_calloc(n,sizeof(*(v)))
+-#define lsx_strdup(p) ((p)? strcpy((char *)lsx_malloc(strlen(p) + 1), p) : NULL)
+ #define lsx_memdup(p,s) ((p)? memcpy(lsx_malloc(s), p, s) : NULL)
+ #define lsx_valloc(v,n)  v = lsx_malloc((n)*sizeof(*(v)))
+ #define lsx_revalloc(v,n)  v = lsx_realloc(v, (n)*sizeof(*(v)))
+-- 
+2.22.0
+
+From 09d7388c8ad5701ed9c59d1d600ff6154b066397 Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Thu, 9 Nov 2017 11:45:10 +0000
+Subject: [PATCH] xa: validate channel count (CVE-2017-18189)
+
+A corrupt header specifying zero channels would send read_channels()
+into an infinite loop.  Prevent this by sanity checking the channel
+count in open_read().  Also add an upper bound to prevent overflow
+in multiplication.
+---
+ src/xa.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/xa.c b/src/xa.c
+index 81a76772..9fc086ec 100644
+--- a/src/xa.c
++++ b/src/xa.c
+@@ -143,6 +143,12 @@ static int startread(sox_format_t * ft)
+         lsx_report("User options overriding rate read in .xa header");
+     }
+ 
++    if (ft->signal.channels == 0 || ft->signal.channels > UINT16_MAX) {
++        lsx_fail_errno(ft, SOX_EFMT, "invalid channel count %d",
++                       ft->signal.channels);
++        return SOX_EOF;
++    }
++
+     /* Check for supported formats */
+     if (ft->encoding.bits_per_sample != 16) {
+         lsx_fail_errno(ft, SOX_EFMT, "%d-bit sample resolution not supported.",
+-- 
+2.22.0
+
+From f70911261a84333b077c29908e1242f69d7439eb Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Wed, 24 Apr 2019 14:57:34 +0100
+Subject: [PATCH] fix possible buffer size overflow in lsx_make_lpf()
+ (CVE-2019-8354)
+
+The multiplication in the size argument malloc() might overflow,
+resulting in a small buffer being allocated.  Use calloc() instead.
+---
+ src/effects_i_dsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/effects_i_dsp.c b/src/effects_i_dsp.c
+index a979b501..e32dfa05 100644
+--- a/src/effects_i_dsp.c
++++ b/src/effects_i_dsp.c
+@@ -357,7 +357,7 @@ double * lsx_make_lpf(int num_taps, double Fc, double beta, double rho,
+     double scale, sox_bool dc_norm)
+ {
+   int i, m = num_taps - 1;
+-  double * h = malloc(num_taps * sizeof(*h)), sum = 0;
++  double * h = calloc(num_taps, sizeof(*h)), sum = 0;
+   double mult = scale / lsx_bessel_I_0(beta), mult1 = 1 / (.5 * m + rho);
+   assert(Fc >= 0 && Fc <= 1);
+   lsx_debug("make_lpf(n=%i Fc=%.7g β=%g ρ=%g dc-norm=%i scale=%g)", num_taps, Fc, beta, rho, dc_norm, scale);
+-- 
+2.22.0
+
+From f8587e2d50dad72d40453ac1191c539ee9e50381 Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Wed, 24 Apr 2019 17:39:45 +0100
+Subject: [PATCH] fix possible overflow in lsx_(re)valloc() size calculation
+ (CVE-2019-8355)
+
+---
+ src/Makefile.am |  2 +-
+ src/xmalloc.c   | 10 ++++++++++
+ src/xmalloc.h   |  5 +++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 42573ec5..d5f6d125 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -95,7 +95,7 @@ libsox_la_LIBADD += @GOMP_LIBS@
+ 
+ libsox_la_CFLAGS = @WARN_CFLAGS@
+ libsox_la_LDFLAGS = @APP_LDFLAGS@ -version-info @SHLIB_VERSION@ \
+-  -export-symbols-regex '^(sox_.*|lsx_(([cm]|re)alloc|check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|error|fail_errno|filelength|find_(enum_(text|value)|file_extension)|flush|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|rewind|seeki|sigfigs3p?|strcasecmp|strdup|tell|unreadb|write(b|_b_buf|buf|s)))$$'
++  -export-symbols-regex '^(sox_.*|lsx_(([cm]|re)alloc.*|check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|error|fail_errno|filelength|find_(enum_(text|value)|file_extension)|flush|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|rewind|seeki|sigfigs3p?|strcasecmp|strdup|tell|unreadb|write(b|_b_buf|buf|s)))$$'
+ 
+ if HAVE_WIN32_LTDL
+   libsox_la_SOURCES += win32-ltdl.c win32-ltdl.h
+diff --git a/src/xmalloc.c b/src/xmalloc.c
+index 56fe6944..72c9ea4d 100644
+--- a/src/xmalloc.c
++++ b/src/xmalloc.c
+@@ -57,6 +57,16 @@ void *lsx_calloc(size_t n, size_t size)
+   return lsx_checkptr(calloc(n + !n, size + !size));
+ }
+ 
++void *lsx_realloc_array(void *p, size_t n, size_t size)
++{
++  if (n > (size_t)-1 / size) {
++    lsx_fail("malloc size overflow");
++    exit(2);
++  }
++
++  return lsx_realloc(p, n * size);
++}
++
+ char *lsx_strdup(const char *s)
+ {
+   return lsx_checkptr(strdup(s));
+diff --git a/src/xmalloc.h b/src/xmalloc.h
+index 92ac64d9..21ff6630 100644
+--- a/src/xmalloc.h
++++ b/src/xmalloc.h
+@@ -25,11 +25,12 @@
+ 
+ LSX_RETURN_VALID void *lsx_malloc(size_t size);
+ LSX_RETURN_VALID void *lsx_calloc(size_t n, size_t size);
++LSX_RETURN_VALID void *lsx_realloc_array(void *p, size_t n, size_t size);
+ LSX_RETURN_VALID char *lsx_strdup(const char *s);
+ 
+ #define lsx_Calloc(v,n)  v = lsx_calloc(n,sizeof(*(v)))
+ #define lsx_memdup(p,s) ((p)? memcpy(lsx_malloc(s), p, s) : NULL)
+-#define lsx_valloc(v,n)  v = lsx_malloc((n)*sizeof(*(v)))
+-#define lsx_revalloc(v,n)  v = lsx_realloc(v, (n)*sizeof(*(v)))
++#define lsx_valloc(v,n)  v = lsx_realloc_array(NULL, n, sizeof(*(v)))
++#define lsx_revalloc(v,n)  v = lsx_realloc_array(v, n, sizeof(*(v)))
+ 
+ #endif
+-- 
+2.22.0
+
+From b7883ae1398499daaa926ae6621f088f0f531ed8 Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Wed, 24 Apr 2019 16:56:42 +0100
+Subject: [PATCH] fft4g: bail if size too large (CVE-2019-8356)
+
+Prevent overflowing of fixed-size buffers in bitrv2() and bitrv2conj()
+if the transform size is too large.
+---
+ src/fft4g.c | 18 ++++++++++++++++++
+ src/fft4g.h |  2 ++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/src/fft4g.c b/src/fft4g.c
+index 38a8bcc0..88a2a7ec 100644
+--- a/src/fft4g.c
++++ b/src/fft4g.c
+@@ -322,6 +322,9 @@ static void rftfsub(int n, double *a, int nc, double const *c);
+ 
+ void cdft(int n, int isgn, double *a, int *ip, double *w)
+ {
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     if (n > (ip[0] << 2)) {
+         makewt(n >> 2, ip, w);
+     }
+@@ -344,6 +347,9 @@ void rdft(int n, int isgn, double *a, int *ip, double *w)
+     int nw, nc;
+     double xi;
+     
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     nw = ip[0];
+     if (n > (nw << 2)) {
+         nw = n >> 2;
+@@ -384,6 +390,9 @@ void ddct(int n, int isgn, double *a, int *ip, double *w)
+     int j, nw, nc;
+     double xr;
+     
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     nw = ip[0];
+     if (n > (nw << 2)) {
+         nw = n >> 2;
+@@ -435,6 +444,9 @@ void ddst(int n, int isgn, double *a, int *ip, double *w)
+     int j, nw, nc;
+     double xr;
+     
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     nw = ip[0];
+     if (n > (nw << 2)) {
+         nw = n >> 2;
+@@ -486,6 +498,9 @@ void dfct(int n, double *a, double *t, int *ip, double *w)
+     int j, k, l, m, mh, nw, nc;
+     double xr, xi, yr, yi;
+     
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     nw = ip[0];
+     if (n > (nw << 3)) {
+         nw = n >> 3;
+@@ -576,6 +591,9 @@ void dfst(int n, double *a, double *t, int *ip, double *w)
+     int j, k, l, m, mh, nw, nc;
+     double xr, xi, yr, yi;
+     
++    if (n > FFT4G_MAX_SIZE)
++        return;
++
+     nw = ip[0];
+     if (n > (nw << 3)) {
+         nw = n >> 3;
+diff --git a/src/fft4g.h b/src/fft4g.h
+index 2b8051ca..95ee3413 100644
+--- a/src/fft4g.h
++++ b/src/fft4g.h
+@@ -13,6 +13,8 @@
+  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  */
+ 
++#define FFT4G_MAX_SIZE 262144
++
+ void lsx_cdft(int, int, double *, int *, double *);
+ void lsx_rdft(int, int, double *, int *, double *);
+ void lsx_ddct(int, int, double *, int *, double *);
+-- 
+2.22.0
+
+From 2ce02fea7b350de9ddfbcf542ba4dd59a8ab255b Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Wed, 24 Apr 2019 15:08:51 +0100
+Subject: [PATCH] fix possible null pointer deref in lsx_make_lpf()
+ (CVE-2019-8357)
+
+If the buffer allocation fails, return NULL.
+---
+ src/effects_i_dsp.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/effects_i_dsp.c b/src/effects_i_dsp.c
+index e32dfa05..88b1b390 100644
+--- a/src/effects_i_dsp.c
++++ b/src/effects_i_dsp.c
+@@ -362,6 +362,9 @@ double * lsx_make_lpf(int num_taps, double Fc, double beta, double rho,
+   assert(Fc >= 0 && Fc <= 1);
+   lsx_debug("make_lpf(n=%i Fc=%.7g β=%g ρ=%g dc-norm=%i scale=%g)", num_taps, Fc, beta, rho, dc_norm, scale);
+ 
++  if (!h)
++    return NULL;
++
+   for (i = 0; i <= m / 2; ++i) {
+     double z = i - .5 * m, x = z * M_PI, y = z * mult1;
+     h[i] = x? sin(Fc * x) / x : Fc;
+-- 
+2.22.0
+
+From ec073861aa9c0f779a3741c456e4f97d59366ffb Mon Sep 17 00:00:00 2001
+From: Mans Rullgard <mans@mansr.com>
+Date: Sun, 5 Nov 2017 15:40:16 +0000
+Subject: [PATCH] make: update exported symbol list [bug #266]
+
+---
+ src/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index caf98645..cd44ae4d 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -95,7 +95,7 @@ libsox_la_LIBADD += @GOMP_LIBS@
+ 
+ libsox_la_CFLAGS = @WARN_CFLAGS@
+ libsox_la_LDFLAGS = @APP_LDFLAGS@ -version-info @SHLIB_VERSION@ \
+-  -export-symbols-regex '^(sox_.*|lsx_(check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|fail_errno|filelength|find_(enum_(text|value)|file_extension)|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|realloc|rewind|seeki|sigfigs3p?|strcasecmp|tell|unreadb|write(b|_b_buf|buf|s)))$$'
++  -export-symbols-regex '^(sox_.*|lsx_(check_read_params|(close|open)_dllibrary|(debug(_more|_most)?|fail|report|warn)_impl|eof|error|fail_errno|filelength|find_(enum_(text|value)|file_extension)|flush|getopt(_init)?|lpc10_(create_(de|en)coder_state|(de|en)code)|raw(read|write)|read(_b_buf|buf|chars)|realloc|rewind|seeki|sigfigs3p?|strcasecmp|tell|unreadb|write(b|_b_buf|buf|s)))$$'
+ 
+ if HAVE_WIN32_LTDL
+   libsox_la_SOURCES += win32-ltdl.c win32-ltdl.h
+-- 
+2.22.0
+

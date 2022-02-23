@@ -20,8 +20,9 @@ do
  then
 #	echo ${source[i]}
 	PATCHURL=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$PKG/trunk/${source[i]}
+	PATCHURL2=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$PKG/trunk/${source[i]}
 	install -d /tmp/patches
-	wget $PATCHURL -O /tmp/patches/${source[i]} 
+	wget $PATCHURL -O /tmp/patches/${source[i]} || wget $PATCHURL2 -O /tmp/patches/${source[i]} 
  fi
  #break
 done
