@@ -165,12 +165,17 @@ else
     	touch buildok-$ARCH
 	exit 0	
   fi
-  if [ -e desktop-file-utils.doap ]
+
+  if [ -e desktop-file-utils.doap ] \
+	|| [ -e gtkmm.doap ] \
+	|| [ -e atkmm.doap ] \
+	|| [ -e pangomm.doap ] \
+	|| [ -e glibmm.doap ] \
+	|| [ -e mm-common.doap ]
   then
 	mkdir build
 	cd build
-	echo "desktop-file-utils"
-	PYTHONPATH="" meson --prefix=$PREFIX ../
+	PYTHONPATH="" meson $LC_CONFIGURE_OPTS --prefix=$PREFIX ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..
@@ -782,6 +787,7 @@ fi
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
   # [ -e audacity.dox ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
+  # [ -e libgphoto2.pc.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e contrib/libsass.spec ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e sassc_version.h.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e asciidoc.py ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
@@ -852,6 +858,7 @@ fi
   fi
 
   [ -e libraries/liblmdb ] && pwd | grep lmdb-LMDB && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
+  [ -e libraries/liblmdb ] && pwd | grep openldap-LMDB && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
 
   if [ -e pppyrcc/pyrcc.pro ]
   then
@@ -2135,7 +2142,7 @@ ln -sf $PREFIX/bin/2H4U .
 	exit 0	
   fi
 
-  if [ -e gnome-disk-utility.doap ]
+  if [ -e gnome-disk-utility.doap ] 
   then
 	mkdir build
 	cd build
