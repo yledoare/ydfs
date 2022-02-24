@@ -143,9 +143,6 @@ else
      exit 0
   fi
 
-  [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
-  # grep GETTEXT_MACRO_VERSION po/Makefile.in
-
   if [ -e gdm.doap ]
   then
 	set -e
@@ -689,7 +686,6 @@ grep share/Surge src/common/SurgeStorage.cpp
   fi
 
   [ -e json-glib.doap ] && [ -e configure ] && rm configure 
-  [ -e docs/libblockdev-sections.txt ] && sed -e 's/AX_CHECK_ENABLE_DEBUG(no, DEBUG, NDEBUG)//g' -i configure 
   [ -e libnma-docs.xml ] && sed -e 's/0.18/0.20/g' -i configure.ac 
   [ -e lmms.rc.in ] && [ -e configure ] && rm configure && echo " build lmms with cmake " &&  sed -i 's|lib64|lib|g' cmake/modules/DetectMachine.cmake
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
@@ -2562,6 +2558,8 @@ Cflags: -I${includedir}' > lua.pc
 	cp Makefile{,.orig}
 	sed -e "/^all:/s/ test//" Makefile.orig > Makefile
     fi
+
+  [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
 
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
