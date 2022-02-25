@@ -164,6 +164,7 @@ else
   fi
 
   if [ -e desktop-file-utils.doap ] \
+	|| [ -e gnome-online-accounts.doap ] \
 	|| [ -e gtkmm.doap ] \
 	|| [ -e atkmm.doap ] \
 	|| [ -e pangomm.doap ] \
@@ -1126,6 +1127,7 @@ pwd && sleep 5
 
   # [ -e util/grub-setup.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   [ -e src/libplist.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
+  [ -e src/libplist-2.0.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   if [ -e autogen.sh ] && [ -e gtksourceview-3.0.pc.in ]
   then
     ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh || exit 1
@@ -1141,7 +1143,8 @@ pwd && sleep 5
     make distclean && sleep 5
   fi
 
-  [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Fix configure" && sleep 2  && sed -i "s@config --ldflags@config --ldflags --embed@" configure
+  [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Run cherry-pick" && sleep 3 && git cherry-pick -n eea4f1be91
+  # [ -e "./src/libimobiledevice-1.0.pc.in" ] && echo "Fix configure" && sleep 2  && sed -i "s@config --ldflags@config --ldflags --embed@" configure
   
   if [ -e zip30.ann ]
   then
@@ -1664,7 +1667,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	fi	
 	cmake $CMAKEOPTIONS .. || exit 12
 
-        if [ -e ../Source/WebKit/gtk/ ]
+        if [ -e ../SSSource/WebKit/gtk/ ]
         then
 	   echo "Fix webkitgtk" && sleep 5
 	   cp cmakeconfig.h $HOME/$ARCH/include

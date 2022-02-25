@@ -28,11 +28,10 @@ echo $ARCHIVE | grep lmms && echo "LMMS "
 echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS=" -DCMAKE_BUILD_TYPE=Release  \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_SKIP_RPATH=ON       \
+      -DUSE_SOUP2=ON                  \
       -DPORT=GTK                  \
       -DUSE_LIBHYPHEN=ON         \
       -DENABLE_MINIBROWSER=ON     \
-      -DUSE_WOFF2=OFF             \
-      -DUSE_WPE_RENDERER=OFF      \
       -DUSE_SYSTEMD=OFF           \
       -DENABLE_BUBBLEWRAP_SANDBOX=OFF \
       -Wno-dev "
