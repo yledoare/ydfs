@@ -173,7 +173,7 @@ else
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson $LC_CONFIGURE_OPTS --prefix=$PREFIX ../
+	PYTHONPATH="" meson $LC_CONFIGURE_OPTS -Dlibdir=$PREFIX/lib --prefix=$PREFIX ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..

@@ -1,4 +1,4 @@
-##JUMP
+#JUMP
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 https://bitbucket.org/multicoreware/x265_git/downloads/x265_3.3.tar.gz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
@@ -468,6 +468,7 @@ https://download.gnome.org/sources/gtkmm/3.24/gtkmm-3.24.5.tar.xz
 https://gitlab.freedesktop.org/gstreamer/orc/-/archive/0.4.32/orc-0.4.32.tar.bz2
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-12.99.3.tar.xz
 http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
+#STOP
 http://freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol-5.0.tar.xz
 http://ftp.gnome.org/pub/GNOME/sources/glade/3.20/glade-3.20.2.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gtksourceview/3.22/gtksourceview-3.22.0.tar.xz
@@ -497,7 +498,6 @@ pip::Cython
 git://github.com/libimobiledevice/libplist#commit=c5a30e9267068436a75b5d00fcbf95cb9c1f4dcd
 git://github.com/libimobiledevice/libusbmuxd.git#commit=ce98c346b7c1dc2a21faea4fd3f32c88e27ca2af
 git://github.com/libimobiledevice/libimobiledevice#commit=15f8652126664e3a4b980e5d1c039b9053ce8566
-##STOP
 #webktigtk deps
 https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
