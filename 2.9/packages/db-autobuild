@@ -1667,7 +1667,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	fi	
 	cmake $CMAKEOPTIONS .. || exit 12
 
-        if [ -e ../SSSource/WebKit/gtk/ ]
+        if [ -e ../Source/WebKit/gtk/ ]
         then
 	   echo "Fix webkitgtk" && sleep 5
 	   cp cmakeconfig.h $HOME/$ARCH/include
