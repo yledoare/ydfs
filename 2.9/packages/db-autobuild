@@ -163,8 +163,8 @@ else
 	exit 0	
   fi
 
+	# || [ -e gnome-online-accounts.doap ] \
   if [ -e desktop-file-utils.doap ] \
-	|| [ -e gnome-online-accounts.doap ] \
 	|| [ -e gtkmm.doap ] \
 	|| [ -e atkmm.doap ] \
 	|| [ -e pangomm.doap ] \
@@ -770,7 +770,6 @@ fi
   if [ -e fuse.pc.in ] 
   then
      echo "Build Fuse" && sleep 3
-     UDEV_RULES_PATH=$HOME/$ARCH/etc/udev/rules.d MOUNT_FUSE_PATH=$HOME/$ARCH/sbin ./configure --prefix=$PREFIX --sbindir=$PREFIX/sbin --libdir=$PREFIX/lib --enable-lib --enable-util --disable-example
      make || exit 1
      sed -i "s@/sbin@$PREFIX/sbin@" util/Makefile
      sed -i "s@/etc/init.d@$PREFIX/etc/init.d@" util/Makefile
