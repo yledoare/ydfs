@@ -489,7 +489,7 @@ https://git.openldap.org/openldap/openldap/-/archive/LMDB_0.9.29/openldap-LMDB_0
 https://www.cpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-1.21.tar.gz
 https://github.com/akheron/jansson/releases/download/v2.14/jansson-2.14.tar.gz
 https://us1.samba.org/samba/ftp/stable/samba-4.15.5.tar.gz
-http://ftp.gnome.org/pub/gnome/sources/gcr/3.36/gcr-3.36.0.tar.xz
+https://download.gnome.org/sources/gcr/3.38/gcr-3.38.1.tar.xz
 https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.4.tar.xz
 https://github.com/sahlberg/libnfs/archive/libnfs-2.0.0.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/gsettings-desktop-schemas/3.36/gsettings-desktop-schemas-3.36.0.tar.xz
@@ -499,6 +499,9 @@ git://github.com/libimobiledevice/libplist#commit=c5a30e9267068436a75b5d00fcbf95
 git://github.com/libimobiledevice/libusbmuxd.git#commit=ce98c346b7c1dc2a21faea4fd3f32c88e27ca2af
 git://github.com/libimobiledevice/libimobiledevice#commit=15f8652126664e3a4b980e5d1c039b9053ce8566
 #webktigtk deps
+git://github.com/WebPlatformForEmbedded/libwpe#commit=c785ad5fad51c20bd47f648a05279ec34b08848d
+git://github.com/Igalia/WPEBackend-fdo#commit=1b35ae0d8f32e32431da494d3389c5b1a8812cab
+git://github.com/google/woff2#commit=1bccf208bca986e53a647dfe4811322adb06ecf8
 https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
 https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
@@ -928,9 +931,6 @@ https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.3/spice-prot
 https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2 #SKIP-x86#
 https://www.spice-space.org/download/gtk/spice-gtk-0.39.tar.xz #SKIP-x86#
 #https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2 #SKIP-x86#
-git://github.com/WebPlatformForEmbedded/libwpe#commit=6483872b0b11856a6e5f0ac9724661cdbaac9d6f #SKIP-x86#
-git://github.com/Igalia/WPEBackend-fdo#commit=5523f39d46d398608544a501c39b6f1c3d41233f #SKIP-x86#
-https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 #End-Gnome-boxes
 https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86#
 #Begin-pantheon
