@@ -165,6 +165,7 @@ else
 
 	# || [ -e gnome-online-accounts.doap ] \
   if [ -e desktop-file-utils.doap ] \
+	|| [ -e gnome-online-accounts.doap ] \
 	|| [ -e gtkmm.doap ] \
 	|| [ -e atkmm.doap ] \
 	|| [ -e pangomm.doap ] \
@@ -173,7 +174,7 @@ else
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson $LC_CONFIGURE_OPTS -Dlibdir=$PREFIX/lib --prefix=$PREFIX ../
+	PYTHONPATH="" meson $LC_CONFIGURE_OPTS -Dlibdir=$PREFIX/lib --prefix=$PREFIX ../ || exit 1
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..
@@ -2725,7 +2726,8 @@ Cflags: -I${includedir}' > lua.pc
 	echo "Running meson.build"
 	mkdir build
 	cd build
-        [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --libdir=lib"
+        # [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --libdir=lib"
+        LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -Dlibdir=$PREFIX/lib "
 	echo "Running meson with $LC_CONFIGURE_OPTS"
         if [ -e ../DISTRHO.kdev4 ] && [ "$ARCH" = "x86" ]
         then
