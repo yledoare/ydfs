@@ -350,7 +350,26 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
-	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS="--with-libnm-glib --enable-more-warnings --with-udev-dir=$DIBAB_PREFIX/$MODULE/lib/udev --without-dhcpcanon --with-dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
+	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/share/dbus-1/system.d \
+    -D systemdsystemunitdir=no \
+    -D nmtui=false \
+    -D libaudit=no \
+    -D session_tracking_consolekit=false \
+    -D modify_system=true \
+    -D selinux=false \
+    -D iwd=true \
+    -D bluez5_dun=true \
+    -D ebpf=true \
+    -D config_plugins_default=keyfile \
+    -D netconfig=no \
+    -D config_dns_rc_manager_default=symlink \
+    -D vapi=true \
+    -D docs=true \
+    -D more_asserts=no \
+    -D more_logging=false \
+    -D qt=false \
+    -D session_tracking=no \
+    -D systemd_journal=false -D udev_dir=$DIBAB_PREFIX/$MODULE/lib/udev -D dhcpcd=$DIBAB_PREFIX/$MODULE/sbin/dhcpcd"
 	echo $ARCHIVE | grep NetworkManager-openvpn &&  LC_CONFIGURE_OPTS="--disable-static"
 	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
 	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"

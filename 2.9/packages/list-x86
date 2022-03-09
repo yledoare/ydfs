@@ -354,7 +354,7 @@ http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.2.tar.bz2
 http://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.0.tar.gz 
 https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.11.tar.gz
 pip::PyOgg
-http://ftp.gnome.org/pub/gnome/sources/pygobject/3.36/pygobject-3.36.1.tar.xz
+https://download.gnome.org/sources/pygobject/3.42/pygobject-3.42.0.tar.xz
 http://people.freedesktop.org/~takluyver/pyxdg-0.25.tar.gz
 https://ftp.gnome.org/pub/GNOME/sources/rarian/0.8/rarian-0.8.1.tar.bz2 
 http://tango.freedesktop.org/releases/icon-naming-utils-0.8.90.tar.bz2
@@ -506,7 +506,6 @@ http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
 https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
 https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
 https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz #SKIP_x86#
-##STOP
 pip::toml
 pip::typogrify
 #https://gitlab.gnome.org/GNOME/librest/-/archive/0.9.0/librest-0.9.0.tar.bz2
@@ -521,19 +520,21 @@ https://bitbucket.org/odedevs/ode/downloads/ode-0.15.2.tar.gz
 https://github.com/devnev/libxdg-basedir/archive/libxdg-basedir-1.2.0.tar.gz
 http://roy.marples.name/downloads/dhcpcd/dhcpcd-6.11.5.tar.xz
 https://w1.fi/releases/wpa_supplicant-2.6.tar.gz
-https://www.freedesktop.org/software/libmbim/libmbim-1.22.0.tar.xz
-http://www.freedesktop.org/software/libqmi/libqmi-1.24.0.tar.xz
-https://www.freedesktop.org/software/ModemManager/ModemManager-1.12.8.tar.xz
-http://libndp.org//files/libndp-1.6.tar.gz
+https://www.freedesktop.org/software/libmbim/libmbim-1.26.2.tar.xz
+http://www.freedesktop.org/software/libqmi/libqmi-1.30.4.tar.xz
+https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.6.tar.xz
+http://libndp.org/files/libndp-1.8.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
-https://download.gnome.org/sources/NetworkManager/1.26/NetworkManager-1.26.4.tar.xz
+https://github.com/elogind/elogind/archive/v246.10/elogind-246.10.tar.gz
+##STOP
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
-https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.30/libnma-1.8.30.tar.bz2
+https://download.gnome.org/sources/NetworkManager/1.36/NetworkManager-1.36.2.tar.xz
+https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.34/libnma-1.8.34.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
 https://github.com/blueman-project/blueman/releases/download/2.1.4/blueman-2.1.4.tar.xz
-https://ftp.gnome.org/pub/gnome/sources/network-manager-applet/1.8/network-manager-applet-1.8.24.tar.xz
+https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
 https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2
 https://gitlab.gnome.org/GNOME/NetworkManager-openvpn.git#commit=606257bb8ac1f8207ceed93d99e3af651d8d4cc3
@@ -902,7 +903,6 @@ http://www.zavedil.com/wp-content/uploads/2016/01/mate-applet-streamer-0.3.10.ta
 http://www.frozen-bubble.org/data/frozen-bubble-2.2.1-beta1.tar.bz2
 freerdp-2.2.0.tar.gz::https://github.com/freerdp/freerdp/archive/2.2.0.tar.gz
 #Pantheon
-https://github.com/elogind/elogind/archive/v243.7.tar.gz
 git://git.launchpad.net/bamf
 https://github.com/ubuntu-mate/mate-dock-applet/archive/20.04.0.tar.gz
 https://gitlab.gnome.org/GNOME/gnome-desktop/-/archive/3.35.2/gnome-desktop-3.35.2.tar.bz2

@@ -166,6 +166,7 @@ else
 	# || [ -e gnome-online-accounts.doap ] \
   if [ -e desktop-file-utils.doap ] \
 	|| [ -e gnome-online-accounts.doap ] \
+	|| [ -e introspection/org.freedesktop.NetworkManager.xml ] \
 	|| [ -e gtkmm.doap ] \
 	|| [ -e atkmm.doap ] \
 	|| [ -e pangomm.doap ] \
@@ -174,6 +175,7 @@ else
   then
 	mkdir build
 	cd build
+	echo $LC_CONFIGURE_OPTS
 	PYTHONPATH="" meson $LC_CONFIGURE_OPTS -Dlibdir=$PREFIX/lib --prefix=$PREFIX ../ || exit 1
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
@@ -601,16 +603,18 @@ grep share/Surge src/common/SurgeStorage.cpp
   if [ -e man/elogind.xml ]
   then
 	echo "Elogind" && sleep 3
+	sed -i '/Disable polkit/,+8 d' meson.build 
 	mkdir build
 	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX  -Dpolkit=false -Drootlibdir=$PREFIX/lib -Dudevrulesdir=$PREFIX/lib/udev/rules.d --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
-	# meson configure   -Drootlibdir=/usr/lib   -Ddocdir=/usr/share/doc/elogind   -Dudevrulesdir=/lib/udev/rules.d .. || exit 1
+	PYTHONPATH="" meson --prefix=$PREFIX  --buildtype=release                  \
+      -Dman=auto  -Dpolkit=false -Drootlibdir=$PREFIX/lib -Dudevrulesdir=$PREFIX/lib/udev/rules.d --sysconfdir=$PREFIX/etc ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install # || exit $?
 	cp ./src/libelogind/libelogind.pc $PREFIX/lib/pkgconfig || exit $?
 	install -d $PREFIX/include/systemd 
 	cp ../src/systemd/*.h $PREFIX/include/systemd || exit $?
 	cd ..
+	ln -sfv libelogind.pc $PREFIX/lib/pkgconfig/libsystemd.pc && ln -sfvn elogind $PREFIX/include/systemd
 	touch buildok-$ARCH
 	exit 0
   fi
