@@ -484,6 +484,11 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     -Dintrospection=false \
     -Dvapi=false || exit 1
 	;;
+     p11-kit )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	;;
      gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | pango-1 | atk-2 | gdk-pixbuf | libdrm)
 	mkdir build-32
 	cd build-32
@@ -538,7 +543,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -563,7 +568,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
    llvm )
 	;;
-   gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
@@ -595,7 +600,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 
 	cd ..
 	;;
-    gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
