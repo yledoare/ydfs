@@ -505,7 +505,7 @@ https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
 https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
 https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
-https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz #SKIP_x86#
+https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz #SKIP-x86#
 pip::toml
 pip::typogrify
 #https://gitlab.gnome.org/GNOME/librest/-/archive/0.9.0/librest-0.9.0.tar.bz2
@@ -526,14 +526,14 @@ https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.6.tar.xz
 http://libndp.org/files/libndp-1.8.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
 https://github.com/elogind/elogind/archive/v246.10/elogind-246.10.tar.gz
-##STOP
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
 https://download.gnome.org/sources/NetworkManager/1.36/NetworkManager-1.36.2.tar.xz
 https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.34/libnma-1.8.34.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
+##STOP
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
-https://github.com/blueman-project/blueman/releases/download/2.1.4/blueman-2.1.4.tar.xz
+https://github.com/blueman-project/blueman/releases/download/2.2.4/blueman-2.2.4.tar.xz
 https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
 https://downloads.sourceforge.net/sourceforge/pptpclient/pptp-1.10.0.tar.gz
 https://gitlab.gnome.org/GNOME/NetworkManager-pptp/-/archive/1.2.8/NetworkManager-pptp-1.2.8.tar.bz2
@@ -542,7 +542,7 @@ https://download.strongswan.org/strongswan-5.9.1.tar.bz2
 https://download.strongswan.org/NetworkManager/NetworkManager-strongswan-1.5.2.tar.bz2
 xl2tpd-1.3.16.tar.gz::https://github.com/xelerance/xl2tpd/archive/v1.3.16.tar.gz
 networkmanager-l2tp-1.8.6.tar.gz::https://github.com/nm-l2tp/NetworkManager-l2tp/archive/1.8.6.tar.gz
-https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.20.0/dpkg-1.20.0.tar.bz2
+https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.21.1/dpkg-1.21.1.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz

@@ -373,6 +373,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep NetworkManager-openvpn &&  LC_CONFIGURE_OPTS="--disable-static"
 	echo $ARCHIVE | grep network-manager-applet-0.9 && LC_CONFIGURE_OPTS="--enable-more-warnings --with-gtkver=2 --disable-migration"
 	echo $ARCHIVE | grep network-manager-applet-1.8 && LC_CONFIGURE_OPTS="--without-selinux"
+	echo $ARCHIVE | grep network-manager-applet-1.24 && LC_CONFIGURE_OPTS="-Dappindicator=no -Dselinux=false"
 	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep alsa-plugins && LC_CONFIGURE_OPTS="--with-alsalconfdir=$HOME/$ARCH/etc/alsa/conf.d"
@@ -765,6 +766,10 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
         -Wno-dev "
 	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-13"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
+	echo $ARCHIVE | grep libappindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3"
+	echo $ARCHIVE | grep libindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3 \
+      --disable-static \
+      --disable-tests"
 	# echo $ARCHIVE | grep gegl && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-docs"
 	if [ "$ARCH" = "arm" ] 
 	then
@@ -792,7 +797,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep json-glib && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep libinput && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep pango- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
-	        echo $ARCHIVE | grep pygobject && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+#	        echo $ARCHIVE | grep pygobject && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep graphene && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep openh264 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep glib-networking && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
