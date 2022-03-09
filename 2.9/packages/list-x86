@@ -531,7 +531,6 @@ https://download.gnome.org/sources/NetworkManager/1.36/NetworkManager-1.36.2.tar
 https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.34/libnma-1.8.34.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
-##STOP
 git://github.com/OpenVPN/openvpn.git#tag=v2.4.8
 https://github.com/blueman-project/blueman/releases/download/2.2.4/blueman-2.2.4.tar.xz
 https://download.gnome.org/sources/network-manager-applet/1.24/network-manager-applet-1.24.0.tar.xz
@@ -551,15 +550,15 @@ http://downloads.sourceforge.net/irrlicht/irrlicht-1.8.5.zip
 https://github.com/kcat/openal-soft/archive/openal-soft-1.20.1.tar.gz
 https://ftp.gnu.org/pub/gnu/findutils/findutils-4.6.0.tar.gz
 https://ftp.gnu.org/gnu/diffutils/diffutils-3.8.tar.xz
+##STOP
 http://ftp.gnu.org/gnu/sed/sed-4.2.2.tar.gz
 http://www.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
 http://jukebox.linuxconsole.org/sources/liberation-fonts-ttf-1.07.3.tar.gz
 ftp://space.mit.edu/pub/davis/slang/v2.2/slang-2.2.4.tar.bz2
 https://ezix.org/software/files/lshw-B.02.18.tar.gz
-https://pypi.io/packages/source/p/pygame/pygame-1.9.4.tar.gz
+pip::pygame
 pip::Cython
-pip::numpy #SKIP-x86#
-https://github.com/numpy/numpy/releases/download/v1.16.5/numpy-1.16.5.tar.gz #SKIP-x86_64#
+pip::numpy 
 http://netcologne.dl.sourceforge.net/project/pmw/Pmw/Pmw.1.3.3/Pmw_1_3_3b.tar.gz 
 pip::pillow
 pip::duo
