@@ -81,6 +81,7 @@ export SDLDIR=$HOME/$ARCH
 [ -e $DIBAB_PREFIX/$ARCH/bin/pkg-config ] && [ "$ARCH" != "arm" ] && export PKG_CONFIG=$DIBAB_PREFIX/$ARCH/bin/pkg-config
 [ "$ARCH" = "arm" ] && export  XGETTEXT=/usr/bin/xgettext
 [ -e $DIBAB_PREFIX/$ARCH/bin/python ] && [ "$ARCH" != "arm" ] && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python
+[ -e $DIBAB_PREFIX/$ARCH/bin/python3 ] && [ ! -e $DIBAB_PREFIX/$ARCH/bin/python ] && ln -sf  $DIBAB_PREFIX/$ARCH/bin/python3 $DIBAB_PREFIX/$ARCH/bin/python
 export SFML_CFLAGS="-I$DIBAB_PREFIX/$ARCH/include"
 [ -e $PREFIX/bin/groff ] && export GROFF=$PREFIX/bin/groff
 [ -e /usr/bin/automake-1.16 ] && [ ! -e $HOME/$ARCH/bin/automake-1.15 ] && ln -s /usr/bin/automake-1.16 $HOME/$ARCH/bin/automake-1.15
@@ -697,12 +698,6 @@ grep share/Surge src/common/SurgeStorage.cpp
   [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="/usr/bin/clang++ $CPPFLAGS" && export CC="/usr/bin/clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   . $(dirname $0)/../scripts/includes/mame
-  [ -e sssrc/mame/mame.cpp ] && echo "src/mame/mame.cpp"  && cp makefile Makefile && CPPFLAGS="-I$PWD/src/lib/util $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" make USE_QTDEBUG=1 NOWERROR=1 \
-    OPTIMIZE=2 \
-    PYTHON_EXECUTABLE=/usr/bin/python2 \
-    TOOLS=1 \
-    ARCHOPTS=-flifetime-dse=1 \
-    -j1 
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
   then
@@ -846,34 +841,6 @@ fi
   [ -e libraries/liblmdb ] && pwd | grep lmdb-LMDB && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e libraries/liblmdb ] && pwd | grep openldap-LMDB && echo "libraries/liblmdb" && cd libraries/liblmdb && sed -i "s@/usr/local@$PREFIX@" Makefile
 
-  if [ -e pppyrcc/pyrcc.pro ]
-  then
-    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python2 configure.py \
-    --confirm-license \
-    --no-sip-files \
-    --qsci-api
-    sed -e "s|/usr/share/qt5/qsci/api|$PREFIX/share/qt5/qsci/api|g" -i Makefile
-  fi
-
-  if [ -e ppppyrcc/rcc.cpp ]
-  then
-    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python2 configure.py \
-    --confirm-license \
-    --no-sip-files \
-    --qsci-api
-  fi
-
-  if [ -e ppppyrcc/pyrcc_main.py ]
-  then
-    sed -e 's|from PyQt5 import sip|pass|g' -i configure.py
-    python2 configure.py \
-    --confirm-license \
-    --no-sip-files \
-    --qsci-api
-  fi
-
   if [ -e ncurses/base/nc_panel.c ]
   then
      mkdir buildw
@@ -983,8 +950,6 @@ python3 -c 'from dbus.mainloop.pyqt5 import DBusQtMainLoop; print("DBus import o
     exit 0
   fi
 
-  [ -e scripts/onto2cpp.py ] &&  sed -i 's|/usr/bin/env python|/usr/bin/env python2|'  scripts/onto2cpp.py && echo "scripts/onto2cpp.py patched" && sleep 3
-
   if [ -e source/x265cli.h ]
   then
     echo "Build x265"
@@ -1025,23 +990,6 @@ pwd && sleep 5
      echo "Build Ducktape"
      mv Makefile.sharedlibrary Makefile
      sed -i "s@/usr/local@$PREFIX@" Makefile
-  fi
-
-  if [ -e js/src/configure ] && [ ! -e mozilla-config.h.in ]
-  then
-    echo "Build mozjs"
-    # CXX="clang++ $CPPFLAGS -L$HOME/$ARCH/lib" CC="clang $CFLAGS -L$HOME/$ARCH/lib" . $(dirname $0)/../scripts/includes/mozjs
-    # exit 1
-    cd js/src
-    mkdir obj
-    cd obj
-    # [ ! -e $HOME/$ARCH/bin/python ] && ln -s $HOME/$ARCH/bin/python3 $HOME/$ARCH/bin/python
-    PYTHON=/usr/bin/python2 ../configure $LC_CONFIGURE_OPTS
-    make || exit $?
-    make install || exit $?
-    cd ../../..
-    touch buildok-$ARCH
-    exit 0
   fi
 
   if [ -e nspr ]
@@ -1735,15 +1683,6 @@ Cflags: -I${includedir}' > glm.pc
 		ln -s $file host-$ARCH-unknown-linux-gnu/zlib
 	done
   fi
-      #if [ -e data/apps.lutris.gschema.xml ]
-      if [ -e share/lutris/ui ]
-      then
-	echo "Lutris"
-	python2 setup.py install --optimize='1'
-        touch buildok-$ARCH
-	exit 0
-	# cp -fR data $PREFIX
-      fi
 
   if [ -e grub-core ] && [ "$ARCH" == "x86_64" ]
   then
@@ -1760,17 +1699,6 @@ Cflags: -I${includedir}' > glm.pc
 	make && make install || exit 1
 	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
         touch buildok-$ARCH
-	exit 0
-  fi
-  if [ -e jack.pc.in ]
-  then
-	python2 waf configure --prefix=$PREFIX \
-                        --freebob=no \
-                        --alsa --dbus || exit 1
-	python2 waf build || exit 1
-	python2 waf install  || exit 1
-	python2 waf install --destdir="$HOME/ydfs/packages-$ARCH/$MYDIR "
-        touch $SRCDIR/buildok-$ARCH
 	exit 0
   fi
   if [ -e nss/build.sh ]
@@ -1942,14 +1870,6 @@ ac_cv_file__dev_ptc=no' >  config.site
     then
       sed -i "s@/usr@$PREFIX@" setup.cfg
     fi
-    if [ -e src/pyoggpage.c ]
-    then
-       sed -i "s@/usr/local@$PREFIX@" ./config_unix.py
-       python2 ./config_unix.py || exit $?
-       python2 setup.py install --prefix=$PREFIX || exit $?
-       touch buildok-$ARCH
-       exit 0
-    fi 
 
    if [ -e cython.py ]
    then
@@ -2395,17 +2315,6 @@ echo "At BUILDPERL"
      sed -i "s@PREFIX=$PREFIX@PREFIX=$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX@g" Makefile
      make install || exit 19
      cp libbz2.so.1.0 $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib/ || exit 20
-  fi
-
-  if [ -e wxPython ]
-  then
-    cd wxPython
-    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 build || exit $?
-    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$PREFIX" || exit $?
-    CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 install || exit $?
-    #CFLAGS="-I../contrib/include  $CFLAGS" python2 setup.py WXPORT=gtk2 UNICODE=1 WX_CONFIG=$HOME/$ARCH/bin/wx-config-2.8 install --root="$HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX" || exit $?
-    touch ../buildok-$ARCH
-    exit 0
   fi
 
   if [ -e genMakefiles ] # live555

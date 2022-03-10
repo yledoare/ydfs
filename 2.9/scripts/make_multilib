@@ -53,7 +53,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM polkit-dev colord gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 # attr acl kmod eudev"
@@ -177,27 +177,6 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	# mv /home/linuxconsole2022/x86_64/lib/pkgconfig/mozjs-60.pc /home/linuxconsole2022/x86_64/lib/pkgconfig/mozjs-60.pc.disable
 	# ./configure --prefix=$HOME/multilib --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind || exit 1
         ;;
-    mozjs-60 )
-       cd js/src
-       mkdir obj
-       cd obj
-    PYTHON=/usr/bin/python2 ../configure --prefix=$HOME/multilib --disable-debug \
-    --disable-debug-symbols \
-    --disable-jemalloc \
-    --disable-strip \
-    --enable-hardening \
-    --enable-linker=gold \
-    --enable-optimize \
-    --enable-posix-nspr-emulation \
-    --disable-readline \
-    --enable-release \
-    --enable-shared-js \
-    --enable-tests \
-    --with-intl-api \
-    --with-system-zlib \
-    --without-system-icu || exit 1
-	SHELL=/bin/bash make || exit 1
-	;;
     curl )
 	./configure --prefix=$HOME/multilib --with-ssl --without-gnutls
 	;;
@@ -206,9 +185,6 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     elfutils )
 	./configure --prefix=$HOME/multilib --disable-debuginfod
-	;;
-    wayland-1 )
-	./configure --prefix=$HOME/multilib --disable-documentation
 	;;
     libxslt )
 	./configure --prefix=$HOME/multilib --without-python
@@ -476,7 +452,12 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
      pulseaudio-14 )
 	mkdir build-32
 	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dudevrulesdir=$HOME/$ARCH/lib/udev/rules.d -Dfftw=disabled -Dbluez5=false -Dlirc=disabled -Delogind=disabled -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+     wayland-1 )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ -Dbuildtype=release -Ddocumentation=false --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
 	;;
      gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | pango-1 | atk-2 | libdrm)
 	mkdir build-32
@@ -532,7 +513,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -557,7 +538,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
    llvm )
 	;;
-   pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
@@ -589,7 +570,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 
 	cd ..
 	;;
-    p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;
