@@ -53,7 +53,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM polkit-dev colord gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 # attr acl kmod eudev"
@@ -62,11 +62,7 @@ unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgu
 
 for PKG in $PKGMULTILIB
 do
-
-#[ "$PKG" = "sox-" ] && continue
-#[ "$PKG" = "openal-soft" ] && continue
-#[ "$PKG" = "unixODBC" ] && continue
-#[ "$PKG" = "soxr" ] && continue
+# [ "$PKG" = "soxr" ] && continue
 
   [ "$PKG" = "llvm" ] && install -d $HOME/ydfs/src/$PKG && continue
   echo -n "Test $PKG dir " # && sleep 1
@@ -75,10 +71,8 @@ done
 
 for PKG in $PKGMULTILIB
 do
-#[ "$PKG" = "sox-" ] && continue
-#[ "$PKG" = "openal-soft" ] && continue
-#[ "$PKG" = "unixODBC" ] && continue
-#[ "$PKG" = "soxr" ] && continue
+# [ "$PKG" = "soxr" ] && continue
+
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
 
@@ -292,24 +286,6 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     -no-openvg || exit $?
 
     ;;
-    pulseaudio )
-	if [ ! -e libtool-2.4.6 ]
-	then
-	  wget ftp://ftp.gnu.org/pub/gnu/libtool/libtool-2.4.6.tar.gz
-	  tar xvf libtool-2.4.6.tar.gz
-	  cd libtool-2.4.6
-		./configure  --prefix=$HOME/multilib || exit $?
-		make || exit $?
-		make install || exit $?
-	  cd ..	
-	fi
-  	# NOCONFIGURE=1 ./bootstrap.sh
-	./configure  --prefix=$HOME/multilib     --disable-tcpwrap \
-    --disable-udev --disable-gconf --disable-avahi --disable-jack --disable-bluez4 \
-    --disable-samplerate \
-    --without-fftw --disable-rpath \
-    --disable-default-build-tests --without-caps ||exit 1
-    ;;
     ncurses )
 
 	 mkdir ncursesw-build
@@ -396,7 +372,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     gtk+-3 )
   	./configure --prefix=$HOME/multilib --disable-cups || exit $?
     ;;
-    libjpeg-turbo )
+    check | libjpeg-turbo )
   	# ./configure --prefix=$HOME/multilib --without-simd || exit $?
 	mkdir build32
 	 cd build32
@@ -492,7 +468,17 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
 	;;
-     gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | pango-1 | atk-2 | gdk-pixbuf | libdrm)
+     gdk-pixbuf)
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dgir=false --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+     pulseaudio-14 )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+     gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | pango-1 | atk-2 | libdrm)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -546,7 +532,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -571,7 +557,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
    llvm )
 	;;
-   p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
