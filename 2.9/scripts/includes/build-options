@@ -377,6 +377,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep alsa-utils && LC_CONFIGURE_OPTS="--with-curses=ncursesw --with-udev-rules-dir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d --with-alsa-prefix=$DIBAB_PREFIX/$MODULE/lib --with-alsa-inc-prefix=$DIBAB_PREFIX/$MODULE/include --with-asound-state-dir=$HOME/$ARCH/lib/alsa/var"
 	echo $ARCHIVE | grep foomatic-db-current && LC_CONFIGURE_OPTS="--disable-gzip-ppds"
 	echo $ARCHIVE | grep alsa-plugins && LC_CONFIGURE_OPTS="--with-alsalconfdir=$HOME/$ARCH/etc/alsa/conf.d"
+	echo $ARCHIVE | grep foomatic-filters && export LDFLAGS="$LDFLAGS -Wl,--allow-multiple-definition"
 	echo $ARCHIVE | grep foomatic-filters && LC_CONFIGURE_OPTS=" --enable-avahi \
     --with-browseremoteprotocols=DNSSD,CUPS \
     --enable-auto-setup-driverless"  && export PPR=$DIBAB_PREFIX/$MODULE/lib/ppr && export PPR_INTERFACES=$DIBAB_PREFIX/$MODULE/lib/ppr/interfaces && export PPR_LIB=$DIBAB_PREFIX/$MODULE/lib/ppr/lib

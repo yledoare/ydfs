@@ -23,7 +23,7 @@ install -d $HOME/multilib/include
   
 # libFS-1 libdmx- \
 
-PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit gnutls elfutils expat dbus-1.12.20 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 gmp xz-5 libunwind libunistring libtasn1 libidn nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 util-linux tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit gnutls openssl-1 curl elfutils expat dbus-1.12.20 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
 xtrans libXau libpthread-stubs xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -53,8 +53,8 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 openssl-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
-unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM polkit-dev colord gtk+-3 gstreamer-1 libgudev bzip2 libva-2 curl gst-plugins-base" 
+libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr pulseaudio libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu fftw-3.3 libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM polkit-dev colord gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 # attr acl kmod eudev"
  # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
@@ -203,6 +203,9 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     --with-system-zlib \
     --without-system-icu || exit 1
 	SHELL=/bin/bash make || exit 1
+	;;
+    curl )
+	./configure --prefix=$HOME/multilib --with-ssl --without-gnutls
 	;;
     libtirpc )
 	./configure --prefix=$HOME/multilib --disable-gssapi
