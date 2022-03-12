@@ -753,6 +753,7 @@ fi
   if [ -e fuse.pc.in ] 
   then
      echo "Build Fuse" && sleep 3
+     ./configure --prefix=$PREFIX || exit 1
      make || exit 1
      sed -i "s@/sbin@$PREFIX/sbin@" util/Makefile
      sed -i "s@/etc/init.d@$PREFIX/etc/init.d@" util/Makefile
