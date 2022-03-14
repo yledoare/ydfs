@@ -1872,6 +1872,17 @@ ac_cv_file__dev_ptc=no' >  config.site
       sed -i "s@/usr@$PREFIX@" setup.cfg
     fi
 
+   if [ -e numpy/version.py ]
+   then
+	echo "Building numpy for x86"
+	export CC="gcc -m32" 
+	export CXX="g++ -m32"
+	# python setup.py build --cpu-dispatch="max -avx512f -avx512cd -avx512_knl -avx512_knm -avx512_skx -avx512_clx -avx512_cnl -avx512_icl" bdist
+        # python setup.py build --cpu-baseline=native --cpu-dispatch=none bdist  || exit $?
+        python setup.py build || exit $?
+        python setup.py install --root="$pkgdir" --skip-build || exit $?
+   fi
+ 
    if [ -e cython.py ]
    then
         python setup.py build || exit $?
