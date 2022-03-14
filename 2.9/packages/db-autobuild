@@ -339,12 +339,13 @@ else
 
   if [ -e src/jdk.net ]
   then
+   echo "Build JDK"
    [ -e env.debug ] && env > env.debug2
    [ ! -e env.debug ] && env > env.debug
    echo "DEBUG, PATH = $PATH"
-   $HOME/$ARCH/bin/wget https://pcsclite.apdu.fr/files/pcsc-lite-1.6.1.tar.bz2
-   tar xjvf pcsc-lite-1.6.1.tar.bz2
-   cp pcsc-lite-1.6.1/src/PCSC/*  src/java.smartcardio/share/native/libj2pcsc
+   # $HOME/$ARCH/bin/wget https://pcsclite.apdu.fr/files/pcsc-lite-1.6.1.tar.bz2
+   # tar xjvf pcsc-lite-1.6.1.tar.bz2
+   # cp pcsc-lite-1.6.1/src/PCSC/*  src/java.smartcardio/share/native/libj2pcsc
   _CFLAGS=$CFLAGS
   _CXXFLAGS=$CXXFLAGS
   _LDFLAGS=$LDFLAGS
@@ -374,9 +375,9 @@ else
     --enable-unlimited-crypto --disable-warnings-as-errors || exit 1
 	make images || exit 1
 	echo "Install JdK" 
-	cp -fR build/linux-*-normal-server-release/jdk/ $HOME/$ARCH/lib || exit 1
-	strip build/linux-*-normal-server-release/support/modules_libs/java.base/server/libjvm.debuginfo
-	cp -fR build/linux-*-normal-server-release/support/ $HOME/$ARCH/lib || exit 1
+	cp -fR build/linux-*-server-release/jdk/ $HOME/$ARCH/lib || exit 1
+	strip build/linux-*-server-release/support/modules_libs/java.base/server/libjvm.debuginfo
+	cp -fR build/linux-*-server-release/support/ $HOME/$ARCH/lib || exit 1
 	rm -fR $HOME/$ARCH/lib/support/src
 	rm -fR $HOME/$ARCH/lib/support/src.zip
 	ln -s $HOME/$ARCH/lib/jdk/bin/java $HOME/$ARCH/bin/java
@@ -989,7 +990,7 @@ pwd && sleep 5
   if [ -e duktape.pc.in ]
   then
      echo "Build Ducktape"
-     mv Makefile.sharedlibrary Makefile
+     cp Makefile.sharedlibrary Makefile
      sed -i "s@/usr/local@$PREFIX@" Makefile
   fi
 
