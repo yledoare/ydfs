@@ -158,6 +158,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	sed -i 's@$(HOME)/$(ARCH)@$(HOME)/multilib@g' Make.Rules
 	sed -i 's@LIBDIR=$(lib_prefix)/$(lib)@LIBDIR=$(lib_prefix)/lib32@g' Make.Rules
 	sed -i 's@$(HOME)/$(ARCH)@$(HOME)/multilib@g' libcap/Makefile
+	sed -i 's/CC := $(CROSS_COMPILE)gcc/CC := gcc -m32/' Make.Rules
 	# sed -i "s@$HOME/$ARCH@$HOME/multilib@g" libcap/*.pc
         ;;
     duktape )
@@ -404,8 +405,6 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     -D tremor=disabled \
     -D examples=disabled \
     -D gl-graphene=disabled \
-    -D qt5=disabled \
-    -D qt=disabled \
     -D gobject-cast-checks=disabled \
     -D introspection=disabled  || exit 1
 #ninja reconfigure
