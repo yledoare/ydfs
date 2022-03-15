@@ -65,7 +65,8 @@ do
   echo -n "Test $PKG dir " # && sleep 1
   ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG 
   ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG |wc
-  ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG |wc | grep 0 || exit $?
+COUNT=`ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG |wc|tr -s ' '|cut -d' ' -f2`
+  [ "$COUNT" = "0" ] || exit $?
 done
 
 for PKG in $PKGMULTILIB
