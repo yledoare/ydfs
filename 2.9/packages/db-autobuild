@@ -1764,6 +1764,7 @@ Cflags: -I${includedir}' > glm.pc
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
     for SKIP_DIR in \
 nm-l2tp-service.name.in \
+neon.pc.in \
 asciidoc.py \
 libbonobo-zip.in \
 src/node.cc \
