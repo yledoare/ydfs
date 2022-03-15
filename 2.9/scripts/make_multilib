@@ -56,9 +56,6 @@ libxkbfile-1 \
 libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-dev colord gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
-# attr acl kmod eudev"
- # qt-everywhere-opensource-src-4  # pixman lcms2 poppler cairo-1 
-
 
 for PKG in $PKGMULTILIB
 do
@@ -66,7 +63,9 @@ do
 
   [ "$PKG" = "llvm" ] && install -d $HOME/ydfs/src/$PKG && continue
   echo -n "Test $PKG dir " # && sleep 1
-  cd $HOME/ydfs/src/$PKG* || exit $?
+  ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG 
+  ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG |wc
+  ls $HOME/ydfs/src/$PKG* |grep $HOME/ydfs/src/$PKG |wc | grep 0 || exit $?
 done
 
 for PKG in $PKGMULTILIB
@@ -181,6 +180,9 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     curl )
 	./configure --prefix=$HOME/multilib --with-ssl --without-gnutls
 	;;
+    pixman )
+	./configure --prefix=$HOME/multilib --disable-gtk
+	;;
     libtirpc )
 	./configure --prefix=$HOME/multilib --disable-gssapi
 	;;
@@ -192,7 +194,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
     libgcrypt )
 	 sed 's:path="amd64":path="i586 i386":' -i mpi/config.links
-  	./configure --prefix=$HOME/multilib --disable-static --disable-padlock-support --enable-shared
+  	./configure --prefix=$HOME/multilib --disable-O-flag-munging --disable-asm --disable-static --disable-padlock-support --enable-shared
 	;;
 
     gnutls )
