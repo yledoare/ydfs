@@ -2069,7 +2069,7 @@ ln -sf $PREFIX/bin/2H4U .
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../
+	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../ || exit 1
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	exit 0	

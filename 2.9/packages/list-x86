@@ -691,7 +691,6 @@ http://download.librdf.org/source/raptor2-2.0.15.tar.gz
 https://github.com/swh/LRDF/archive/0.5.0.tar.gz
 #tools
 #https://github.com/QupZilla/qupzilla/releases/download/v2.0.1/QupZilla-2.0.1.tar.xz
-##STOP
 http://download.kde.org/stable/frameworks/5.92/extra-cmake-modules-5.92.0.tar.xz
 http://download.kde.org/stable/frameworks/5.92/oxygen-icons5-5.92.0.tar.xz
 pip::PyOpenGL
@@ -727,7 +726,6 @@ https://download.gnome.org/sources/libunique/3.0/libunique-3.0.2.tar.xz
 https://pub.mate-desktop.org/releases/1.26/mate-polkit-1.26.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/mate-desktop-1.26.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/caja-1.26.0.tar.xz
-##STOP
 https://pub.mate-desktop.org/releases/1.26/mate-icon-theme-1.26.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/libmatekbd-1.26.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/mate-menus-1.26.0.tar.xz
@@ -777,6 +775,7 @@ https://ftp.gnome.org/pub/gnome/sources/vte/0.62/vte-0.62.1.tar.xz
 https://pub.mate-desktop.org/releases/1.26/mate-terminal-1.26.0.tar.xz
 https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d701d8e6bdf88
 https://pub.mate-desktop.org/releases/1.26/eom-1.26.0.tar.xz
+https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/pluma-1.26.0.tar.xz
 https://pub.mate-desktop.org/releases/1.26/engrampa-1.26.0.tar.xz
 https://gitlab.gnome.org/GNOME/libgtop/-/archive/2.40.0/libgtop-2.40.0.tar.gz
@@ -784,7 +783,7 @@ https://pub.mate-desktop.org/releases/1.26/mate-utils-1.26.0.tar.xz
 https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.8p10.tar.gz
 http://downloads.sourceforge.net/qjackctl/qjackctl-0.4.4.tar.gz
 https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
-http://ftp.gnome.org/pub/gnome/sources/gnome-disk-utility/3.26/gnome-disk-utility-3.26.2.tar.xz
+https://download.gnome.org/sources/gnome-disk-utility/3.38/gnome-disk-utility-3.38.2.tar.xz
 pip::incremental
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.92/ki18n-5.92.0.tar.xz
@@ -805,6 +804,7 @@ https://github.com/twisted/twisted/archive/twisted-18.7.0.tar.gz
 https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-0.1.7/libodfgen-0.1.7.tar.xz
 https://download.linuxsampler.org/packages/libgig-4.2.0.tar.bz2
 https://dev-www.libreoffice.org/src/libfreehand/libfreehand-0.1.2.tar.xz
+##STOP
 https://dev-www.libreoffice.org/src/libmspub/libmspub-0.1.4.tar.xz
 https://dev-www.libreoffice.org/src/libpagemaker/libpagemaker-0.0.4.tar.xz
 https://dev-www.libreoffice.org/src/libvisio/libvisio-0.1.6.tar.xz
@@ -925,7 +925,6 @@ https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-convolver-4.0.3.tar
 https://kokkinizita.linuxaudio.org/linuxaudio/downloads/zita-resampler-1.6.2.tar.bz2
 #Gnome-boxes
 https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz #SKIP-x86#
-https://download.gnome.org/sources/gtksourceview/4.8/gtksourceview-4.8.0.tar.xz #SKIP-x86#
 https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/libvirt-8.0.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz #SKIP-x86#
