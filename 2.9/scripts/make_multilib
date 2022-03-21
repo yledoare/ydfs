@@ -162,10 +162,11 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	# sed -i "s@$HOME/$ARCH@$HOME/multilib@g" libcap/*.pc
         ;;
     duktape )
+	rm libduktape*
+	rm duktape.pc
 	cp Makefile.sharedlibrary Makefile
 	sed -i "s@/usr/local@$HOME/multilib@" Makefile
 	sed -i 's/CC := gcc/CC := gcc -m32/' Makefile
-	# bash
         ;;
     bzip2 | zstd )
 	echo "No config for $PKG"
@@ -296,12 +297,12 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cd source
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
-    #util-linux* )
-  #	./configure CC="${CC:-cc} -m32" --libdir=/usr/lib32 || exit $?
+    util-linux* )
+  	./configure --without-systemd --prefix=$HOME/multilib || exit $?
 	# cp $HOME/x86_64/share/aclocal/pkg.m4 m4/
 	# autoreconf
   	#./configure --prefix=$HOME/multilib --without-udev --disable-pylibmount --without-ncurses --disable-chfn-chsh --disable-sulogin --disable-runuser --disable-su --disable-login --disable-makeinstall-chown || exit $?
-  #  ;;
+    ;;
     dbus-1.12.20 )
   	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
     ;;
@@ -454,12 +455,19 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
      pulseaudio-14 )
 	mkdir build-32
 	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dudevrulesdir=$HOME/$ARCH/lib/udev/rules.d -Dfftw=disabled -Dbluez5=false -Dlirc=disabled -Delogind=disabled -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	echo "Pulse audio needs libtool32"
+	# wget https://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz && tar xzvf libtool-2.4.6.tar.gz && cd libtool-2.4.6 && ./configure --prefix=$HOME/multilib && make && make install && cd ..
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dudevrulesdir=$HOME/$ARCH/lib/udev/rules.d -Dgtk=disabled -Djack=disabled -Dorc=disabled -Dfftw=disabled -Dbluez5=false -Dlirc=disabled -Delogind=disabled -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
 	;;
      wayland-1 )
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ -Dbuildtype=release -Ddocumentation=false --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+     at-spi2-core )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dintrospection=no --libdir=$HOME/multilib/lib32 || exit 1
 	;;
      pango-1 )
 	mkdir build-32
