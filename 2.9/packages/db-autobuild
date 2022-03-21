@@ -1911,10 +1911,13 @@ ac_cv_file__dev_ptc=no' >  config.site
                 --alltests \
                 --enable-fftw3 \
                 --libdir=$PREFIX/lib
-  	python=$PYTHON ./waf build
-  	$PYTHON setup.py build
-	PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
+	if [ $ARCH == "x86-64" ]
+	then
+  	  python=$PYTHON ./waf build
+  	  $PYTHON setup.py build
+	  PYTHONHASHSEED=0 $PYTHON setup.py install --skip-build \
                           --root="${pkgdir}"
+	fi
 	./waf install
         touch buildok-$ARCH
         exit 0
