@@ -324,7 +324,7 @@ else
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dman=false -Dsystemd=false -D libcolordcompat=true \
+	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dlibdir=$PREFIX/lib -Dman=false -Dsystemd=false -D libcolordcompat=true \
     -D sane=true \
     -D vapi=true \
     -D print_profiles=true \
@@ -2606,6 +2606,7 @@ Cflags: -I${includedir}' > lua.pc
 	  make install || DESTDIR=$PREFIX make install
 	  # echo "DESTDIR=$PREFIX make install"
 	return=$?
+        echo "end make install inside $PWD"
 	[ -e "libxvidcore.def" ] && return=0
 	[ -e "x265_config.h" ] && return=0
 	[ -e "pm_common" ] && return=0

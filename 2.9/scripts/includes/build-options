@@ -164,6 +164,7 @@ echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
 echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
 echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
 echo $ARCHIVE | grep vte-0.6 &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
+echo $ARCHIVE | grep gnome-settings-daemon &&  LC_CONFIGURE_OPTS=" -Dsystemd=false"
 
 echo $ARCHIVE | grep qpdf && LC_CONFIGURE_OPTS="   --disable-static \
     --enable-crypto-gnutls \
@@ -352,6 +353,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep gdb- && LC_CONFIGURE_OPTS="--with-system-readline --disable-nls --with-python=$HOME/$ARCH/bin/python3"
 	echo $ARCHIVE | grep xkeyboard-config && LC_CONFIGURE_OPTS="--with-xkb-rules-symlink=xorg"
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
+	echo $ARCHIVE | grep upower && LC_CONFIGURE_OPTS="-Dsystemdsystemunitdir=no"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
 	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/share/dbus-1/system.d \
     -D systemdsystemunitdir=no \
@@ -751,7 +753,8 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
   	# echo $ARCHIVE | grep mate-desktop && LC_CONFIGURE_OPTS="-with-gtk=3.0 "
   	echo $ARCHIVE | grep mate-session-manager && LC_CONFIGURE_OPTS="--disable-docbook-docs --disable-upower --without-systemd "
 	echo $ARCHIVE | grep udev && export prefix=$DIBAB_PREFIX && LC_CONFIGURE_OPTS="--disable-introspection"
-	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
+#	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" --disable-umockdev "
+	echo $ARCHIVE | grep libgudev && LC_CONFIGURE_OPTS=" "
 	echo $ARCHIVE | grep bluedevil && LC_CONFIGURE_OPTS="-DUDEV_RULES_INSTALL_DIR=$PREFIX/lib/udev/rules.d "
         echo $ARCHIVE | grep download.gimp.org/pub/gimp && LC_CONFIGURE_OPTS=" --disable-python"
         echo $ARCHIVE | grep GEGL && LC_CONFIGURE_OPTS="--disable-docs"
