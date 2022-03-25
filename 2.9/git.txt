@@ -1,0 +1,1 @@
+git remote set-url origin git@bitbucket.org:yourdistrofromscratch/ydfs.git
