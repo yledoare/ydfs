@@ -390,15 +390,14 @@ else
 
   if [ -e pipewire-alsa ]
   then
-	patch -p1 < $HOME_DIBAB/packages/patches/pipewire.diff || exit $?
-	mkdir build
-	cd build
-  	PYTHONPATH="" meson ../ --prefix=$PREFIX -Dpipewire-pulseaudio=false || exit 1
-     	PYTHONPATH="" ninja || exit 1
-     	PYTHONPATH="" ninja install || exit 1
-	cd ..
-	touch buildok-$ARCH
-	exit 0
+       mkdir build
+       cd build
+       PYTHONPATH="" meson ../ --prefix=$PREFIX -Dudevrulesdir=$HOME/$ARCH/lib/udev/rules.d || exit 1
+       PYTHONPATH="" ninja || exit 1
+       PYTHONPATH="" ninja install || exit 1
+       cd ..
+       touch buildok-$ARCH
+       exit 0
   fi
 
   if [ -e gtk-vnc-2.0.pc.in ]
@@ -528,7 +527,7 @@ grep share/Surge src/common/SurgeStorage.cpp
     exit 0
   fi
 
-  if [ -e mutter.doap ]
+  if [ -e mmutter.doap ]
   then
 	mkdir build
 	cd build
