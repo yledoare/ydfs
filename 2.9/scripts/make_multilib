@@ -10,7 +10,7 @@ export CC="gcc -m32"
 export CXX="g++ -m32"
 export CPPFLAGS="-I$HOME/multilib/include"
 export CFLAGS="-I$HOME/multilib/include"
-export LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib -Wl,-rpath,$HOME/ydfs/src/qt-everywhere-opensource-src-4.8.7/lib"
+export LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib "
 
 install -d $HOME/multilib
 install -d $HOME/$ARCH/lib32 || exit 1
@@ -54,7 +54,7 @@ libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
-unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-dev colord glib-networking libpsl brotli krb5 libsoup rest gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
+unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-dev colord glib-networking libpsl brotli e2fsprogs krb5 libsoup rest gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 
 for PKG in $PKGMULTILIB
@@ -245,38 +245,13 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     alsa-lib )
   	./configure --disable-python --prefix=$HOME/multilib || exit $?
 	;;
-    qt-everywhere-opensource-src-4 )
-	patch -p1 < $HOME_DIBAB/packages/patches/qt-everywhere-opensource-src-build32.diff 
-	# make
-	# From https://projects.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/lib32-qt4
-  sed -i "/^QMAKE_LINK\s/s|g++|g++ -m32|g" mkspecs/common/g++-base.conf
-  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/g++-base.conf
-  sed -i "s|-O2|${CXXFLAGS} -m32|" mkspecs/common/gcc-base.conf
-  sed -i "/^QMAKE_LFLAGS_RPATH/s| -Wl,-rpath,||g" mkspecs/common/gcc-base-unix.conf
-  sed -i "/^QMAKE_LFLAGS\s/s|+=|+= ${LDFLAGS} -m32|g" mkspecs/common/gcc-base.conf
-  sed -i "s|-Wl,-O1|-m32 -Wl,-O1|" mkspecs/common/g++-unix.conf
-  sed -e "s|-O2|$CXXFLAGS -m32|" \
-      -e "/^QMAKE_RPATH/s| -Wl,-rpath,||g" \
-      -e "/^QMAKE_LINK\s/s|g++|g++ -m32|g" \
-      -e "/^QMAKE_LFLAGS\s/s|+=|+= $LDFLAGS|g" \
-      -i mkspecs/common/g++.conf
-	ARCH=multilib ./configure -confirm-license -opensource -v -platform linux-g++-32 \
-    -prefix $HOME/multilib -system-sqlite \
-    -no-phonon \
-    -no-phonon-backend \
-    -no-gtkstyle -webkit \
-    -graphicssystem raster \
-    -openssl-linked \
-    -nomake demos \
-    -nomake examples \
-    -nomake docs \
-    -optimized-qmake \
-    -no-rpath \
-    -dbus-linked \
-    -reduce-relocations \
-    -no-openvg || exit $?
-
-    ;;
+    e2fsprogs )
+	./configure --prefix=$HOME/multilib/  --enable-elf-shlibs \
+    	--with-crond-dir=$HOME/multilib/etc/cron.d  --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck --with-systemd-unit-dir=$HOME/$ARCH/lib/systemd/system
+	sleep 3
+	echo "E2FS"
+  	# sed -i "s|CROND_DIR = /etc/cron.d|CROND_DIR = $HOME/multilib/etc/cron.d|" Makefile
+	;;
     ncurses )
 
 	 mkdir ncursesw-build
@@ -520,10 +495,21 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
 
     krb5 )
+	wget https://web.mit.edu/kerberos/dist/krb5/1.18/krb5-1.18.5.tar.gz
+	tar xzvf krb5-1.18.5.tar.gz
+	cd krb5-1.18.5
+	wget https://raw.githubusercontent.com/archlinux/svntogit-community/packages/lib32-krb5/trunk/krb5-config_LDFLAGS.patch
+	patch -p1 < krb5-config_LDFLAGS.patch
+	sed -i "/KRB5ROOT=/s/\/local//" src/util/ac_check_krb5.m4
 	cd src
-	mkdir build-32
-	cd  build-32
-  	../configure --prefix=$HOME/multilib || exit $?
+	LDFLAGS="-L$HOME/multilib/lib -L$HOME/multilib/lib32 " CFLAGS="$CFLAGS -fPIC -fno-strict-aliasing -fstack-protector-all" ./configure --prefix=$HOME/multilib  --enable-shared \
+               --with-system-et \
+               --with-system-ss \
+               --disable-rpath \
+               --without-tcl \
+               --enable-dns-for-realm \
+               --without-ldap \
+               --without-system-verto  --with-crypto-impl=openssl || exit $?
     ;;
     * )
 	pwd
