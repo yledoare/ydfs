@@ -332,7 +332,9 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.g
 https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati#commit=5eba006e4129e8015b822f9e1d2f1e613e252cda
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-r128
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-mach64
-git://anongit.freedesktop.org/openchrome/xf86-video-openchrome#commit=15c868a #SKIP-x86_64#
+##STOP
+git://github.com/freedesktop/openchrome-xf86-video-openchrome.git #SKIP-x86_64#
+#git://anongit.freedesktop.org/openchrome/xf86-video-openchrome#commit=15c868a #SKIP-x86_64#
 #failed to build
 #https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.3.tar.bz2 
@@ -917,7 +919,6 @@ https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.b
 http://www.sysprof.com/sysprof-1.2.0.tar.gz
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
-##STOP
 https://xorg.freedesktop.org/archive/individual/xserver/xwayland-22.1.0.tar.xz
 git://gitlab.gnome.org/GNOME/mutter.git#commit=17926e941d67867911c462737f4d013adb55e4d6
 # Carla depths
