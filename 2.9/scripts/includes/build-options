@@ -805,7 +805,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 #	        echo $ARCHIVE | grep pango- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep pygobject && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep graphene && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
-	        echo $ARCHIVE | grep openh264 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+#	        echo $ARCHIVE | grep openh264 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep glib-networking && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep atk-2 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep gdk-pixbuf- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"

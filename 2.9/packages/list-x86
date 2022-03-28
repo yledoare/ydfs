@@ -332,7 +332,6 @@ ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-synaptics-1.8.2.tar.g
 https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati#commit=5eba006e4129e8015b822f9e1d2f1e613e252cda
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-r128
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-mach64
-##STOP
 git://github.com/freedesktop/openchrome-xf86-video-openchrome.git #SKIP-x86_64#
 #git://anongit.freedesktop.org/openchrome/xf86-video-openchrome#commit=15c868a #SKIP-x86_64#
 #failed to build
@@ -378,6 +377,7 @@ https://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.bz2
 http://downloads.sourceforge.net/mikmod/libmikmod-3.3.8.tar.gz
 http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz 
 http://downloads.xvid.org/downloads/xvidcore-1.3.3.tar.bz2 
+##STOP
 git://github.com/cisco/openh264.git#tag=v1.8.0
 https://code.videolan.org/videolan/x264/-/archive/stable/x264-stable.tar.bz2
 http://downloads.sourceforge.net/libdc1394/libdc1394-2/2.2.3/libdc1394-2.2.3.tar.gz
