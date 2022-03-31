@@ -811,7 +811,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 #	        echo $ARCHIVE | grep gdk-pixbuf- && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep at-spi2-atk && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep libsoup-2 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
-	        echo $ARCHIVE | grep fuse-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
+#	        echo $ARCHIVE | grep fuse-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 	        echo $ARCHIVE | grep glfw && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="LC_CONFIGURE_OPTS --libdir=$DIBAB_PREFIX/$MODULE/lib -DMATH_LIBRARY=/usr/lib/i386-linux-gnu/libm.so"
 #	        echo $ARCHIVE | grep libxkbcommon && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
 #	        echo $ARCHIVE | grep gobject-introspection && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
