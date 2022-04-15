@@ -695,7 +695,7 @@ grep share/Surge src/common/SurgeStorage.cpp
   [ -e apt-pkg ] && [ -e configure ] && rm configure && echo " delete configure "
   [ -e gnome-vfs-2.0.pc.in ] && [ -e configure ] && rm configure && echo " delete configure "
   [ -e gnome-vfs-2.0.pc.in ] && sed -i -s 's|$(srcdir)/auto-test|auto-test|' test/Makefile.am
-  [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="/usr/bin/clang++ $CPPFLAGS" && export CC="/usr/bin/clang $CFLAGS"
+  [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="clang++ $CPPFLAGS" && export CC="clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   . $(dirname $0)/../scripts/includes/mame
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
