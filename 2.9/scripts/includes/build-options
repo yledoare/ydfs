@@ -299,6 +299,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     -DENABLE_LEVELDB=0 \
     -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-5.3.0/src -I$HOME/ydfs/src/minetest-5.3.0/lib/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-5.3.0/src -I$HOME/ydfs/src/minetest-5.3.0/lib/lua/src $CFLAGS"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
+	echo $ARCHIVE | grep ntp-4 && export LC_CONFIGURE_OPTS="-enable-linuxcaps --enable-ntp-signd"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
 	echo $ARCHIVE | grep xbmc && export LC_CONFIGURE_OPTS="--disable-debug"
 	echo $ARCHIVE | grep celestia && export LC_CONFIGURE_OPTS="-without-lua --with-gtk --disable-rpath "
