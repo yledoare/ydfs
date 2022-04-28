@@ -773,7 +773,6 @@ https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-1.1.0/gparted-1.1.0.tar.gz
-##STOP
 https://gitlab.gnome.org/GNOME/vte/-/archive/0.66.2/vte-0.66.2.tar.bz2
 https://pub.mate-desktop.org/releases/1.26/mate-terminal-1.26.0.tar.xz
 https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d701d8e6bdf88
@@ -818,15 +817,15 @@ https://downloads.sourceforge.net/libwpg/libwpg-0.3.2.tar.xz
 http://downloads.sourceforge.net/project/libwps/libwps/libwps-0.4.10/libwps-0.4.10.tar.xz
 https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.3.14.tar.xz
 https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
-https://gitlab.com/mdds/mdds/-/archive/1.7.0/mdds-1.7.0.tar.bz2
+https://kohei.us/files/mdds/src/mdds-2.0.2.tar.xz
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.10.tar.xz
 https://dev-www.libreoffice.org/src/libabw/libabw-0.1.3.tar.xz
 https://dev-www.libreoffice.org/src/libzmf/libzmf-0.0.2.tar.xz
 https://github.com/fosnola/libstaroffice/releases/download/0.0.7/libstaroffice-0.0.7.tar.xz
 https://github.com/tdf/libcmis/releases/download/v0.5.2/libcmis-0.5.2.tar.gz
 spdlog-1.8.1.tar.gz::https://github.com/gabime/spdlog/archive/v1.8.1.tar.gz
-https://kohei.us/files/ixion/src/libixion-0.15.0.tar.xz
-https://kohei.us/files/orcus/src/liborcus-0.15.4.tar.xz
+https://kohei.us/files/ixion/src/libixion-0.17.0.tar.xz
+https://kohei.us/files/orcus/src/liborcus-0.17.2.tar.xz
 https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 https://github.com/Numbertext/libnumbertext/archive/1.0.5.tar.gz
 https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
@@ -839,7 +838,7 @@ http://downloads.sourceforge.net/hunspell/mythes-1.2.4.tar.gz
 https://github.com/libtom/libtommath/releases/download/v1.0.1/ltm-1.0.1.tar.xz
 https://downloads.sourceforge.net/project/lpsolve/lpsolve/5.5.2.11/lp_solve_5.5.2.11_source.tar.gz
 https://files.dyne.org/frei0r/frei0r-plugins-1.7.0.tar.gz
-https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+https://github.com/google/googletest/archive/release-1.11.0.tar.gz
 https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
 https://movit.sesse.net/movit-1.6.2.tar.gz
 https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.21.tar.xz
@@ -887,12 +886,12 @@ https://download.kde.org/stable/frameworks/5.92/kwayland-5.92.0.tar.xz
 https://download.kde.org/stable/plasma/5.24.3/libkscreen-5.24.3.tar.xz
 download.kde.org/stable/frameworks/5.92/knotifyconfig-5.92.0.tar.xz
 https://download.gnome.org/sources/gnome-mime-data/2.18/gnome-mime-data-2.18.0.tar.bz2
-https://download.gnome.org/sources/gnome-vfs/2.24/gnome-vfs-2.24.4.tar.bz2
-https://gitlab.gnome.org/GNOME/orbit2/-/archive/144be2e9860286c83f009e7689250e0af977cc5e/orbit2-144be2e9860286c83f009e7689250e0af977cc5e.tar.bz2
-https://download.gnome.org/sources/libbonobo/2.32/libbonobo-2.32.1.tar.bz2
-https://download.gnome.org/sources/libgnome/2.32/libgnome-2.32.1.tar.bz2
-https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-2.3.21.tar.bz2
-https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar.bz2
+https://download.gnome.org/sources/gnome-vfs/2.24/gnome-vfs-2.24.4.tar.bz2 #SKIP-x86_64#
+https://gitlab.gnome.org/GNOME/orbit2/-/archive/144be2e9860286c83f009e7689250e0af977cc5e/orbit2-144be2e9860286c83f009e7689250e0af977cc5e.tar.bz2 #SKIP-x86_64#
+https://download.gnome.org/sources/libbonobo/2.32/libbonobo-2.32.1.tar.bz2 #SKIP-x86_64#
+https://download.gnome.org/sources/libgnome/2.32/libgnome-2.32.1.tar.bz2 #SKIP-x86_64#
+https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-2.3.21.tar.bz2 #SKIP-x86_64#
+https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar.bz2 #SKIP-x86_64#
 https://aubio.org/pub/aubio-0.4.9.tar.bz2
 https://pm-utils.freedesktop.org/releases/pm-utils-1.4.1.tar.gz
 https://downloads.sourceforge.net/liboauth/liboauth-1.0.3.tar.gz
@@ -921,7 +920,8 @@ http://www.sysprof.com/sysprof-1.2.0.tar.gz
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
 https://xorg.freedesktop.org/archive/individual/xserver/xwayland-22.1.0.tar.xz
-git://gitlab.gnome.org/GNOME/mutter.git#commit=17926e941d67867911c462737f4d013adb55e4d6
+https://gitlab.gnome.org/GNOME/mutter/-/archive/42.0/mutter-42.0.tar.bz2
+#git://gitlab.gnome.org/GNOME/mutter.git#commit=17926e941d67867911c462737f4d013adb55e4d6
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
 #Guitarx
@@ -932,12 +932,14 @@ https://download.gnome.org/sources/gtk-vnc/1.0/gtk-vnc-1.0.0.tar.xz #SKIP-x86#
 https://releases.pagure.org/libosinfo/libosinfo-1.8.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/libvirt-8.0.0.tar.xz #SKIP-x86#
 https://libvirt.org/sources/glib/libvirt-glib-3.0.0.tar.gz #SKIP-x86#
-asciidoc-9.0.3.tar.gz::https://github.com/asciidoc/asciidoc-py3/archive/9.0.3.tar.gz #SKIP-x86#
-https://gitlab.gnome.org/GNOME/tracker/-/archive/3.0.4/tracker-3.0.4.tar.bz2 #SKIP-x86#
-https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.0.5/tracker-miners-3.0.5.tar.bz2 #SKIP-x86#
+https://github.com/asciidoc-py/asciidoc-py/releases/download/10.1.4/asciidoc-10.1.4.tar.gz #SKIP-x86#
+https://files.pythonhosted.org/packages/source/h/hotdoc/hotdoc-0.13.7.tar.gz #SKIP-x86#
+https://gitlab.gnome.org/GNOME/tracker/-/archive/3.2.1/tracker-3.2.1.tar.bz2 #SKIP-x86#
+https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.2.2/tracker-miners-3.2.2.tar.bz2 #SKIP-x86#
 https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.3/spice-protocol-v0.14.3.tar.gz #SKIP-x86#
 https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2 #SKIP-x86#
-https://www.spice-space.org/download/gtk/spice-gtk-0.39.tar.xz #SKIP-x86#
+##STOP
+https://www.spice-space.org/download/gtk/spice-gtk-0.40.tar.xz #SKIP-x86#
 #https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2 #SKIP-x86#
 #End-Gnome-boxes
 https://launchpad.net/onboard/1.4/1.4.1/+download/onboard-1.4.1.tar.gz #SKIP-x86#
