@@ -12,7 +12,8 @@ DOC_FILES=" share/doc "
 LOCALE_FILES="share/locale"
 DEV_FILES=" "
 
-SKIP_FILES=" bin/mount bin/umount bin/df bin/ls lib/libjs_static.ajs share/icons/oxygen/base/256x256 share/icons/oxygen/base/128x128 var/cache/fontconfig share/help share/gir-1.0 "
+#SKIP_FILES=" bin/mount bin/umount bin/df bin/ls lib/libjs_static.ajs share/icons/oxygen/base/256x256 share/icons/oxygen/base/128x128 var/cache/fontconfig share/help share/gir-1.0 "
+SKIP_FILES=" bin/mount bin/umount bin/df bin/ls share/icons/oxygen/base/256x256 share/icons/oxygen/base/128x128 var/cache/fontconfig share/help share/gir-1.0 "
 [ "$DISTRONAME" = "hackerOS" ] && SKIP_FILES=""
 
 link_module()
@@ -53,20 +54,18 @@ echo "Make module .. log in  $HOME/ydfs/modules/$ARCH.log"
 LIST=$HOME/ydfs/modules/gui-skip-all MOD=$ARCH FIND_FILES="/" link_module # > $HOME/ydfs/modules/$ARCH.log 2> $HOME/ydfs/modules/$ARCH.log.err
 LDLINUX="ld-linux.so.2 libunwind-x86.so.8"
 [ "$ARCH" = "x86_64" ] && LDLINUX="ld-linux-x86-64.so.2 libunwind-x86_64.so.8"
-LIBLLVM=10
-[ "$ARCH" = "x86" ] && LIBLLVM=7
-LIBBOOST=71
-[ "$ARCH" = "x86" ] && LIBBOOST=67
+LIBLLVM=13
+[ "$ARCH" = "x86" ] && LIBLLVM=11
+LIBBOOST=74
+#[ "$ARCH" = "x86" ] && LIBBOOST=67
 
 
 [ -e /usr/lib/libboost_filesystem.so.1.49.0 ] && LIBBOOST=49
-LIBFFI=libffi.so.7
-[ "$ARCH" = "x86" ] && LIBFFI=libffi.so.6
 
-GLIBC_LIBS="$LDLINUX libatomic.so.1 libnuma.so.1 libwrap.so.0 libunwind-ptrace.so.0 libunwind.so.8 libbabeltrace.so.1 libbabeltrace-ctf.so.1 libmvec.so.1 libltdl.so.7 libedit.so.2 libbsd.so.0 libquadmath.so.0 libelf.so.1 libtinfo.so.6 $LIBFFI libLLVM-$LIBLLVM.so.1 libpcre.so.3 libboost_locale.so.1.$LIBBOOST.0 libboost_chrono.so.1.$LIBBOOST.0 libboost_thread.so.1.$LIBBOOST.0 libboost_iostreams.so.1.$LIBBOOST.0 libboost_regex.so.1.$LIBBOOST.0  libboost_system.so.1.$LIBBOOST.0 \
+GLIBC_LIBS="$LDLINUX libatomic.so.1 libnuma.so.1 libwrap.so.0 libunwind-ptrace.so.0 libunwind.so.8 libbabeltrace.so.1 libbabeltrace-ctf.so.1 libmvec.so.1 libltdl.so.7 libedit.so.2 libbsd.so.0 libquadmath.so.0 libelf.so.1 libtinfo.so.6 libLLVM-$LIBLLVM.so.1 libpcre.so.3 libboost_locale.so.1.$LIBBOOST.0 libboost_chrono.so.1.$LIBBOOST.0 libboost_thread.so.1.$LIBBOOST.0 libboost_iostreams.so.1.$LIBBOOST.0 libboost_regex.so.1.$LIBBOOST.0  libboost_system.so.1.$LIBBOOST.0 \
 libboost_filesystem.so.1.$LIBBOOST.0 \
 libboost_atomic.so.1.$LIBBOOST.0 \
- libboost_program_options.so.1.$LIBBOOST.0 libgomp.so.1 libmpfr.so.6 libtinfo.so.5 libanl.so.1 libBrokenLocale.so.1 libcrypt.so.1 libc.so.6 libdl.so.2 libstdc++.so.6 libgcc_s.so libgcc_s.so.1 libm.so.6 libnsl.so.1 libnss_compat.so.2 libnss_dns.so.2 libnss_files.so.2 libnss_hesiod.so.2 libnss_nisplus.so.2 libnss_nis.so.2 libpthread.so.0 libresolv.so.2 librt.so.1 libstdc++.so libstdc++.so.6 libthread_db.so.1 libutil.so.1"
+ libboost_program_options.so.1.$LIBBOOST.0 libgomp.so.1 libmpfr.so.6 libtinfo.so.5 libanl.so.1 libBrokenLocale.so.1 libcrypt.so.1 libc.so.6 libdl.so.2 libstdc++.so.6 libgcc_s.so.1 libm.so.6 libnsl.so.1 libnss_compat.so.2 libnss_dns.so.2 libnss_files.so.2 libnss_hesiod.so.2 libpthread.so.0 libresolv.so.2 librt.so.1 libstdc++.so.6 libthread_db.so.1 libutil.so.1"
 GLIBC_BIN="ldd"
 
 if [ "$TOOLCHAIN" = "crosstool-ng" ]
@@ -85,9 +84,11 @@ else
     do
 	[ -e $directory/$file ] && cp $directory/$file $HOME/ydfs/modules/$ARCH/lib
     done
-    [ ! -e $HOME/ydfs/modules/$ARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && exit 45
+    [ ! -e $HOME/ydfs/modules/$ARCH/lib/$file ] && [ "$file" != "libtinfo.so.5" ] && [ "$file" != "libgmp.so.10" ] && [ "$file" != "libgmp.so.3" ] && echo "where is $file ?" && touch /tmp/ko 
   done
 fi
+
+[ -e /tmp/ko ] && rm /tmp/ko && exit 45
 
 install -d $HOME/ydfs/modules/$ARCH/share/doc
 cp -a $HOME/$ARCH/share/doc/cups $HOME/ydfs/modules/$ARCH/share/doc
