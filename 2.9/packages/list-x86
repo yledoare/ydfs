@@ -827,7 +827,9 @@ spdlog-1.8.1.tar.gz::https://github.com/gabime/spdlog/archive/v1.8.1.tar.gz
 https://kohei.us/files/ixion/src/libixion-0.17.0.tar.xz
 https://kohei.us/files/orcus/src/liborcus-0.17.2.tar.xz
 https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
-https://github.com/Numbertext/libnumbertext/archive/1.0.5.tar.gz
+https://github.com/Numbertext/libnumbertext/archive/1.0.6.tar.gz
+https://github.com/nu-book/zxing-cpp/archive/v1.2.0/zxing-cpp-1.2.0.tar.gz
+box2d-2.4.1.tar.gz::https://github.com/erincatto/box2d/archive/v2.4.1.tar.gz
 https://github.com/jiixyj/libebur128/archive/v1.2.4.tar.gz
 http://download.librdf.org/source/rasqal-0.9.33.tar.gz
 http://download.librdf.org/source/redland-1.0.17.tar.gz
