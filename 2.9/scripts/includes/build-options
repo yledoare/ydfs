@@ -691,7 +691,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
       --with-pcre=$HOME/$ARCH"
 	echo $ARCHIVE | grep wxGTK && LC_CONFIGURE_OPTS="--enable-xrc --enable-graphics_ctx --enable-mediactrl --enable-unicode --disable-optimize --disable-precomp-headers --with-regex=builtin --with-gtk=2 --with-opengl --with-sdl"
 	echo $ARCHIVE | grep neon-0 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --with-ssl=openssl"
-	echo $ARCHIVE | grep libetonyek && LC_CONFIGURE_OPTS="--with-mdds=1.5"
+	echo $ARCHIVE | grep libetonyek && LC_CONFIGURE_OPTS="--with-mdds=2.0"
 	echo $ARCHIVE | grep lzo-2 && LC_CONFIGURE_OPTS="--enable-shared=yes --enable-static=no --disable-static"
 	echo $ARCHIVE | grep harfbuzz && LC_CONFIGURE_OPTS="   --with-cairo \
     --with-freetype \
