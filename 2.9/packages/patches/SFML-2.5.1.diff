@@ -28,3 +28,18 @@ index 750af9e..4164ca9 100644
  #endif
  
  
+diff --git a/src/SFML/Audio/ALCheck.hpp b/src/SFML/Audio/ALCheck.hpp
+index c67d117..9f30ce7 100644
+--- a/src/SFML/Audio/ALCheck.hpp
++++ b/src/SFML/Audio/ALCheck.hpp
+@@ -30,8 +30,8 @@
+ ////////////////////////////////////////////////////////////
+ #include <SFML/Config.hpp>
+ 
+-#include <al.h>
+-#include <alc.h>
++#include <AL/al.h>
++#include <AL/alc.h>
+ 
+ namespace sf
+ {
