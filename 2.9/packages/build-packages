@@ -119,6 +119,10 @@ fi
 PATH=$HOME/ydfs/llvm-clang/bin/:$PATH
 test -n "$1" && MODULE="$1"
 # build tar
+	
+[ -e /usr/bin/clang++-13 ] && [ ! -e $HOME/$ARCH/bin/clang++ ] && ln -s /usr/bin/clang++-13 $HOME/$ARCH/bin/clang++
+[ -e /usr/bin/clang-13 ] && [ ! -e $HOME/$ARCH/bin/clang ] && ln -s /usr/bin/clang-13 $HOME/$ARCH/bin/clang
+
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
 # initialisation de différents variables pour la compilation
