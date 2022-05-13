@@ -40,8 +40,8 @@
 	fi
 
 	install -d $PREFIX/lib/java
-	# [ ! -e $PREFIX/lib/java/bsh.jar ] && wget https://github.com/beanshell/beanshell/releases/download/2.0b6/bsh-2.0b6.jar -O $PREFIX/lib/java/bsh.jar
-	# export BSH_JAR=$PREFIX/lib/java/bsh.jar
+	[ ! -e $PREFIX/lib/java/bsh.jar ] && wget https://github.com/beanshell/beanshell/releases/download/2.0b6/bsh-2.0b6.jar -O $PREFIX/lib/java/bsh.jar
+	export BSH_JAR=$PREFIX/lib/java/bsh.jar
 	CPPFLAGS+=' -DU_USING_ICU_NAMESPACE=1'
 	export PYTHON=$HOME/$ARCH/bin/python3
 	export PYTHONPATH=""
@@ -74,8 +74,6 @@ done
 		--enable-dbus \
 		--enable-evolution2\
 		--enable-gio\
-		--enable-gtk3-kde5 \
-		--enable-kf5 \
 		--enable-qt5 \
 		--enable-gtk3 \
 		--enable-introspection \
