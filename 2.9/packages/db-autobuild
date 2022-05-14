@@ -1787,6 +1787,7 @@ libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c
     else
 	echo "Skip $BUILD_DIR : $SKIP_DIR"
     fi
+    [ -e policy/org.mate.power.policy.in2 ] && echo "Fix Mate power brightness" && sed -i "s@no@yes@g" policy/org.mate.power.policy.in2
     [ -e "db/source/PPD" ] && sed -i "s@=/usr/share:@=$HOME/$ARCH/share:@" configure
     [ -e sdl2.pc.in ] && CFLAGS="-I$PWD/include $CFLAGS"
     [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CFLAGS"
