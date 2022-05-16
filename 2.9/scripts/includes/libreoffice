@@ -135,10 +135,10 @@ done
 
 	echo "Run : make build / make build-nocheck / make distro-pack-install "
 	# bash
-	for STEP in 1 2 3 # 4 5 6 7 8 9 
+	for STEP in 1 2 3  4 5 6 7 8 9 
 	do
 		echo "Make $STEP"
-		make build-nocheck || ranlib workdir/LinkTarget/StaticLibrary/libdtoa.a 
+		make build-nocheck || ranlib workdir/LinkTarget/StaticLibrary/*.a 
 	done
 	make build-nocheck || make GMAKE_OPTIONS='VERBOSE=1' 
 	echo "Make build-nocheck"
