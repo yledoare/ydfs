@@ -3,11 +3,11 @@
 if [ -e LICENSE.chromium_os ] && [ ! -e qtwebengine.pro ]
 then
 
-  if [ "$ARCH" = "x86" ] 
-  then
+  # if [ "$ARCH" = "x86" ] 
+  #then
      echo "Get from Slackware .. sorry !"
-     [ ! -e chromium-78.0.3904.108-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-78.0.3904.108-i586-1alien.txz
-     [ ! -e usr ] && tar xJvf chromium-78.0.3904.108-i586-1alien.txz
+     [ ! -e chromium-101.0.4951.64-i586-1alien.txz ] && wget http://www.slackware.com/~alien/slackbuilds/chromium/pkg/14.2/chromium-101.0.4951.64-i586-1alien.txz
+     [ ! -e usr ] && tar xJvf chromium-101.0.4951.64-i586-1alien.txz
 
   install -d $PREFIX
   cp -fR usr/share/* $PREFIX/share
@@ -21,7 +21,7 @@ then
 
   touch buildok-$ARCH
   exit 0 
-  fi
+  # fi
 
 
   if [ ! -e out/Release/chrome ]
@@ -108,7 +108,7 @@ ln -s $HOME/$ARCH/bin/java third_party/jdk/current/bin/java
 
   fi
 
-  _launcher_ver=6
+  _launcher_ver=8
   wget https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz || exit 1
   tar xzvf  v$_launcher_ver.tar.gz
   cd chromium-launcher-$_launcher_ver
