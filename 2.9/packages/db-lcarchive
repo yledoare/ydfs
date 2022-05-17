@@ -102,6 +102,7 @@ echo "$FILE" |grep libclc && DIR2=libclc-0~git20140101 && FORCED=1
 echo "$FILE" |grep xvidcore && DIR2=xvidcore && FORCED=1
 #echo "$FILE" |grep x264 && DIR2=x264-snapshot-20141218-2245 && FORCED=1
 echo "$FILE" |grep x11-xserver-utils && DIR2=x11-xserver-utils && FORCED=1
+echo "$FILE" |grep firefox-100.0.1 && DIR2=firefox-100.0.1 && FORCED=1
 echo "$FILE" |grep firefox-82.0.2 && DIR2=firefox-82.0.2 && FORCED=1
 echo "$FILE" |grep firefox-78.15.0esr.source && DIR2=firefox-78.15.0 && FORCED=1
 echo "$FILE" |grep x11-xkb-utils && DIR2=x11-xkb-utils && FORCED=1
