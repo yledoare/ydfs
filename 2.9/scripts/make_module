@@ -1,4 +1,5 @@
 . ./config.ini
+[ "$1" = "virtualbox" ] && [ "$ARCH" = "x86" ] && echo "$MODULE disabled for $ARCH" && exit 0
 [ ! -e $HOME/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/$ARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 echo "Strip "
