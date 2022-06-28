@@ -545,7 +545,7 @@ https://download.strongswan.org/strongswan-5.9.1.tar.bz2
 https://download.strongswan.org/NetworkManager/NetworkManager-strongswan-1.5.2.tar.bz2
 xl2tpd-1.3.16.tar.gz::https://github.com/xelerance/xl2tpd/archive/v1.3.16.tar.gz
 networkmanager-l2tp-1.8.6.tar.gz::https://github.com/nm-l2tp/NetworkManager-l2tp/archive/1.8.6.tar.gz
-https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.21.1/dpkg-1.21.1.tar.bz2
+https://salsa.debian.org/dpkg-team/dpkg/-/archive/1.21.8/dpkg-1.21.8.tar.bz2
 https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.xz
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2
 http://ftp.gnu.org/gnu/gawk/gawk-4.1.0.tar.xz
@@ -564,7 +564,7 @@ pip::Cython
 pip::numpy #SKIP-x86#
 http://netcologne.dl.sourceforge.net/project/pmw/Pmw/Pmw.1.3.3/Pmw_1_3_3b.tar.gz 
 pip::pillow
-pip::duo
+#pip::duo
 http://downloads.sourceforge.net/project/sdlpango/SDL_Pango/0.1.2/SDL_Pango-0.1.2.tar.gz 
 http://search.cpan.org/CPAN/authors/id/P/PH/PHRED/Archive-Zip-1.59.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PJ/PJF/IPC-System-Simple-1.25.tar.gz
@@ -756,7 +756,6 @@ https://tls.mbed.org/download/mbedtls-2.16.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git
 http://downloads.sourceforge.net/strace/strace-4.20.tar.xz
 pip::sip
-##STOP
 https://github.com/SFML/SFML/archive/2.5.1.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
 https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
@@ -942,7 +941,6 @@ https://gitlab.gnome.org/GNOME/tracker/-/archive/3.2.1/tracker-3.2.1.tar.bz2 #SK
 #https://gitlab.gnome.org/GNOME/tracker-miners/-/archive/3.2.2/tracker-miners-3.2.2.tar.bz2 #SKIP-x86#
 https://gitlab.freedesktop.org/spice/spice-protocol/-/archive/v0.14.3/spice-protocol-v0.14.3.tar.gz #SKIP-x86#
 https://www.spice-space.org/download/releases/spice-server/spice-0.14.3.tar.bz2 #SKIP-x86#
-##STOP
 https://www.spice-space.org/download/gtk/spice-gtk-0.40.tar.xz #SKIP-x86#
 #https://xorg.freedesktop.org/releases/individual/driver/xf86-video-qxl-0.1.5.tar.bz2 #SKIP-x86#
 #End-Gnome-boxes
