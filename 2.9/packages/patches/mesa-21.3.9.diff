@@ -1,0 +1,28 @@
+diff --git a/src/gallium/drivers/d3d12/d3d12_compiler.cpp b/src/gallium/drivers/d3d12/d3d12_compiler.cpp
+index b2d4d9a..1a34287 100644
+--- a/src/gallium/drivers/d3d12/d3d12_compiler.cpp
++++ b/src/gallium/drivers/d3d12/d3d12_compiler.cpp
+@@ -1181,6 +1181,7 @@ void d3d12_validation_tools::load_dxil_dll()
+ d3d12_validation_tools::d3d12_validation_tools()
+ {
+    load_dxil_dll();
++/*
+    DxcCreateInstanceProc dxil_create_func = (DxcCreateInstanceProc)util_dl_get_proc_address(dxil_module, "DxcCreateInstance");
+ 
+    if (dxil_create_func) {
+@@ -1194,7 +1195,6 @@ d3d12_validation_tools::d3d12_validation_tools()
+       debug_printf("D3D12: Unable to load DXIL.dll\n");
+    }
+ #endif
+-
+    DxcCreateInstanceProc compiler_create_func  = nullptr;
+    if(dxc_compiler_module.load("dxcompiler.dll"))
+       compiler_create_func = (DxcCreateInstanceProc)util_dl_get_proc_address(dxc_compiler_module, "DxcCreateInstance");
+@@ -1214,6 +1214,7 @@ d3d12_validation_tools::d3d12_validation_tools()
+    } else if (d3d12_debug & D3D12_DEBUG_DISASS) {
+       debug_printf("D3D12: Disassembly requested but compiler couldn't be loaded\n");
+    }
++   */
+ }
+ 
+ d3d12_validation_tools::HModule::HModule():
