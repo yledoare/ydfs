@@ -532,7 +532,7 @@ http://libndp.org/files/libndp-1.8.tar.gz
 https://www.netfilter.org/projects/iptables/files/iptables-1.8.6.tar.bz2
 https://github.com/elogind/elogind/archive/v246.10/elogind-246.10.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/mobile-broadband-provider-info/20190618/mobile-broadband-provider-info-20190618.tar.xz
-https://download.gnome.org/sources/NetworkManager/1.36/NetworkManager-1.36.2.tar.xz
+https://download.gnome.org/sources/NetworkManager/1.38/NetworkManager-1.38.2.tar.xz
 https://gitlab.gnome.org/GNOME/libnma/-/archive/1.8.34/libnma-1.8.34.tar.bz2
 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.6.0.tar.xz
 git://git.code.sf.net/p/net-tools/code#commit=0eebece8c9
