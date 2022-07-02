@@ -240,28 +240,18 @@ lgogdownloader;lgogdownloader
 dvb-apps;dvb-apps
 primus;Faster OpenGL offloading for Bumblebee
 sddm;Login manager
-gnome-keyring;gnome-keyring
-mate-session;mate-session
 php;php
-webkitgtk;webkitgtk
 elogind;elogind
-node;node
-yarn;yarn
+node;Node JS
 cli;cli
 shotwell;shotwell
-ruby;ruby
 freerdp-2.0.0;freerdp-2.0.0
 testdisk;testdisk
 ft2;ft2
 wavbreaker;wavbreaker
-meson;meson
 aj-snapshot;aj-snapshot
 dpf-plugins;dpf-plugins
 drumkv1;drumkv1
 guitarix;guitarix
-libpng;libpng
-vim;vim
-audacity-audacity;audacity-audacity
-bubblewrap;bubblewrap
-libostree;libostree
-flatpak;flatpak
+vim;Vim
+python;Python 2
