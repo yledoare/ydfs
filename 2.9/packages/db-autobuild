@@ -1794,8 +1794,8 @@ libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c
     [ -e SDL2_ttf.pc.in ] && CPPFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CPPFLAGS" && CFLAGS="-I$HOME/ydfs/src/SDL2-2.0.3/include $CFLAGS"
 [ -e "torcs.desktop" ] && unset MODULE
     [ -e src/libvlc.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
-    # [ -e src/libvlc.c ] && grep Qunused-arguments $HOME/$ARCH/lib/pkgconfig/protobuf.pc && echo "Fix protobuf.pc" && sed -i "s@-Qunused-arguments@@" $HOME/$ARCH/lib/pkgconfig/protobuf.pc
-    # [ -e src/libvlc.c ] && grep Qunused-arguments $HOME/$ARCH/lib/pkgconfig/protobuf-lite.pc && echo "Fix protobuf-lite.pc" && sed -i "s@-Qunused-arguments@@" $HOME/$ARCH/lib/pkgconfig/protobuf-lite.pc
+    [ -e src/libvlc.c ] && grep Qunused-arguments $HOME/$ARCH/lib/pkgconfig/protobuf.pc && echo "Fix protobuf.pc" && sed -i "s@-Qunused-arguments@@" $HOME/$ARCH/lib/pkgconfig/protobuf.pc
+    [ -e src/libvlc.c ] && grep Qunused-arguments $HOME/$ARCH/lib/pkgconfig/protobuf-lite.pc && echo "Fix protobuf-lite.pc" && sed -i "s@-Qunused-arguments@@" $HOME/$ARCH/lib/pkgconfig/protobuf-lite.pc
 
 	if [ -e src/bbrun.c ]
 	then
