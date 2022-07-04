@@ -53,7 +53,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors zstd Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-dev colord glib-networking libpsl brotli e2fsprogs krb5 libsoup rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 # gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 
@@ -107,7 +107,7 @@ do
 	;;
   esac
   case $PKG in
-    mesa )
+    mesa-2 )
 	# export CC="gcc -m32"
   	# export CXX="g++ -m32"
 	mkdir build-32
@@ -534,7 +534,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -559,7 +559,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	;;
    llvm )
 	;;
-   json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
@@ -583,7 +583,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
   	make install || exit $?
 	cd ..
 	;;
-    mesa)
+    mesa-2)
         PYTHONPATH="" ninja install || exit 1
     cp $HOME/x86_64/include/GL/gl* $HOME/multilib/include/GL/
     cp -a $HOME/x86_64/include/KHR/ $HOME/multilib/include/

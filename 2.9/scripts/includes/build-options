@@ -356,7 +356,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep keybinder && LC_CONFIGURE_OPTS="--disable-python --disable-lua"
 	echo $ARCHIVE | grep upower && LC_CONFIGURE_OPTS="-Dsystemdsystemunitdir=no"
 	echo $ARCHIVE | grep ModemManager && LC_CONFIGURE_OPTS="--with-udev-base-dir=$DIBAB_PREFIX/$MODULE/lib/udev"
-	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/share/dbus-1/system.d \
+	echo $ARCHIVE | grep NetworkManager-1 && LC_CONFIGURE_OPTS=" -D dbus_conf_dir=$DIBAB_PREFIX/$MODULE/share/dbus-1/system.d \
     -D systemdsystemunitdir=no \
     -D nmtui=false \
     -D libaudit=no \

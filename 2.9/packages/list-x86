@@ -748,6 +748,7 @@ ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 https://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-3.0.7.tar.gz
 #Wine
+##STOP
 https://dl.winehq.org/wine/source/7.x/wine-7.6.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.tar.xz
@@ -798,7 +799,6 @@ pip::pyqt-builder
 # Disabled, dbus.mainloop.pyqt5 is missing
 # pip::PyQt5==5.15.2
 #https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-5.15.2.tar.gz
-##STOP
 pip::PyQt5 #SKIP-x86#
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
 pip::python-dotenv
