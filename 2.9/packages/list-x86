@@ -149,10 +149,7 @@ http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz
 https://github.com/scop/bash-completion/releases/download/2.4/bash-completion-2.4.tar.xz
 https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.29/src/nspr-4.29.tar.gz
 http://ftpmirror.gnu.org/autoconf/autoconf-2.13.tar.gz
-#http://ftp.gnome.org/pub/gnome/teams/releng/tarballs-needing-help/mozjs/mozjs-60.8.0.tar.bz2 #SKIP-x86_64#
-#https://archive.mozilla.org/pub/firefox/releases/78.15.0esr/source/firefox-78.15.0esr.source.tar.xz
 https://duktape.org/duktape-2.7.0.tar.xz 
-#https://gitlab.freedesktop.org/polkit/polkit/-/archive/0.120/polkit-0.120.tar.bz2  #SKIP-x86_64#
 https://gitlab.freedesktop.org/yetist/polkit/-/archive/dev-duktape/polkit-dev-duktape.tar.gz
 ftp://ftp.freedesktop.org/pub/individual/lib/xtrans-1.3.5.tar.bz2 
 https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2021.5.tar.bz2
@@ -335,9 +332,6 @@ https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati#commit=5eba006e4129e80
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-r128
 git://anongit.freedesktop.org/git/xorg/driver/xf86-video-mach64
 git://github.com/freedesktop/openchrome-xf86-video-openchrome.git #SKIP-x86_64#
-#git://anongit.freedesktop.org/openchrome/xf86-video-openchrome#commit=15c868a #SKIP-x86_64#
-#failed to build
-#https://xorg.freedesktop.org//releases/individual/driver/xf86-video-vmware-13.3.0.tar.bz2 #SKIP-x86#
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-joystick-1.6.3.tar.bz2 
 ftp://ftp.freedesktop.org/pub/individual/driver/xf86-input-keyboard-1.9.0.tar.bz2 
 https://xorg.freedesktop.org/releases/individual/driver/xf86-input-libinput-0.29.0.tar.bz2
@@ -509,7 +503,7 @@ https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
 https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
 https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
-https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz #SKIP-x86#
+https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz 
 pip::toml
 pip::typogrify
 #https://gitlab.gnome.org/GNOME/librest/-/archive/0.9.0/librest-0.9.0.tar.bz2
