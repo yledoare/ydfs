@@ -1,6 +1,6 @@
 cd $HOME/ydfs/opkg
 # Need python 2
-PATH=$PATH:$HOME/opkg/bin $HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/$HOME/opkg/lib PATH=$PATH:$HOME/opkg/bin $HOME_DIBAB/tools/opkg-utils/opkg-make-index -v . > Packages
 [ -e /var/www/opkg/ ] && cp -fR $HOME/ydfs/opkg/* /var/www/opkg/$DISTRONAME
 HOME_DIST=`basename $HOME_DIBAB`
 echo "SEND_OPKG : $SEND_OPKG"

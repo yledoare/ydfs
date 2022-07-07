@@ -48,6 +48,7 @@ echo $ARCHIVE | grep libopenshot &&  LC_CONFIGURE_OPTS="-DLIBOPENSHOT_AUDIO_BASE
 #echo $ARCHIVE | grep libpeas &&  LC_CONFIGURE_OPTS="--disable-python3"
 echo $ARCHIVE | grep caja-extensions &&  LC_CONFIGURE_OPTS="--disable-gksu"
 echo $ARCHIVE | grep SDL_sound-1 &&  LC_CONFIGURE_OPTS="--disable-physfs"
+echo $ARCHIVE | grep mate-terminal &&  LC_CONFIGURE_OPTS="--enable-debug"
 echo $ARCHIVE | grep libtirpc &&  LC_CONFIGURE_OPTS="--disable-gssapi"
 echo $ARCHIVE | grep wavpack &&  LC_CONFIGURE_OPTS="--disable-asm"
 echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
@@ -826,7 +827,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep mpg123 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 #	        echo $ARCHIVE | grep gimp && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 #	        echo $ARCHIVE | grep babl && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="--libdir=$DIBAB_PREFIX/$MODULE/lib"
-	        echo $ARCHIVE | grep gdb && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
+	        echo $ARCHIVE | grep gdb && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu" && ln -s /usr/bin/i586-linux-gnu-gcc-ar $HOME/$ARCH/bin/i586-linux-gnu-ar
 	        echo $ARCHIVE | grep mozjs-60 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep libglvnd && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i586-linux-gnu"
 	        echo $ARCHIVE | grep libodfgen && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
