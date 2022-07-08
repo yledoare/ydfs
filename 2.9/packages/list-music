@@ -3,7 +3,7 @@ git://github.com/DISTRHO/DISTRHO-Ports.git#tag=2021-01-15
 git://github.com/x42/avldrums.lv2.git#tag=v0.4.2
 https://gitlab.com/iurie/geonkick/-/archive/v2.8.0/geonkick-v2.8.0.tar.gz
 git://github.com/zamaudio/zam-plugins.git#tag=3.14
-cadence-0.9.1.tar.gz::https://github.com/falkTX/cadence/archive/v0.9.1.tar.gz
+cadence-0.9.2.tar.gz::https://github.com/falkTX/cadence/archive/v0.9.2.tar.gz
 git://github.com/mtytel/helm.git#tag=v0.9.0
 git://github.com/surge-synthesizer/surge.git#tag=release_1.7.1
 git://github.com/falkTX/Carla.git#tag=v2.1.1

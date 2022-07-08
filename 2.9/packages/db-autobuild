@@ -2494,6 +2494,8 @@ Cflags: -I${includedir}' > lua.pc
       [ -e RPM/net-tools.spec ] && echo "Config for net-tools" && yes "" | make config
       # . $(dirname $0)/../scripts/includes/mame
       OLDARCH=$ARCH # Fix vlc bug
+      [ -e src/cadence.py ] && make
+      [ -e src/cadence.py ] && LD_LIBRARY_PATH="" make
       [ -e share/vlc.desktop.in ] && OLDARCH=$ARCH && unset ARCH
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
       make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n $MAKEOPT || make
