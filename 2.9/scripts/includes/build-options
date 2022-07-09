@@ -254,6 +254,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --with-system-zlib \
     --without-system-icu"
             
+	echo $ARCHIVE | grep lvtk &&  export CXXFLAGS=" -std=c++11 -ffat-lto-objects"
 	echo $ARCHIVE | grep ode-0.15 &&  export CXXFLAGS='-fPIC -w -Ofast -fpermissive' && LC_CONFIGURE_OPTS=" --enable-shared \
     --enable-double-precision \
     --enable-libccd \
