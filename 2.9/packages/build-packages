@@ -5,6 +5,7 @@ export SRC_PATH=$PWD
 install -d $HOME/tmp
 export TMPDIR=$HOME/tmp
 
+[ -e /tmp/break ] && rm /tmp/break
 # tail -f /dev/null
 
 install -d $HOME/opkg/share/aclocal

@@ -519,6 +519,8 @@ grep share/Surge src/common/SurgeStorage.cpp
     exit 0
   fi
 
+  [ -e lvtk-plugin.pc.in ] && sed -e '/print/d' -i wscript 
+  [ -e lvtk-plugin.pc.in ] && wget --no-check-certificate https://waf.io/waf-2.0.24 && mv waf-2.0.24 waf && chmod +x waf
   if [ -e eglexternalplatform.pc ] 
   then
     sed -i "s@/usr/include/EGL@$PREFIX/include/EGL@" eglexternalplatform.pc
