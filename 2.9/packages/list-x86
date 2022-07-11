@@ -1,4 +1,4 @@
-##JUMP
+#JUMP
 https://github.com/nghttp2/nghttp2/releases/download/v1.41.0/nghttp2-1.41.0.tar.xz
 https://bitbucket.org/multicoreware/x265_git/downloads/x265_3.3.tar.gz
 http://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
@@ -793,7 +793,9 @@ pip::pyqt-builder
 # Disabled, dbus.mainloop.pyqt5 is missing
 # pip::PyQt5==5.15.2
 #https://files.pythonhosted.org/packages/28/6c/640e3f5c734c296a7193079a86842a789edb7988dca39eab44579088a1d1/PyQt5-5.15.2.tar.gz
-pip::PyQt5 #SKIP-x86#
+#pip::PyQt5 #SKIP-x86#
+#STOP
+https://pypi.python.org/packages/source/P/PyQt5/PyQt5-5.15.7.tar.gz
 http://cpan.metacpan.org/authors/id/E/ET/ETHER/URI-1.74.tar.gz
 pip::python-dotenv
 #https://snowballstem.org/dist/libstemmer_c.tgz

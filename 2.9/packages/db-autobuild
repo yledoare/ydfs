@@ -1355,22 +1355,25 @@ EOF
      sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
      sed -i '/#include <QSizePolicy>/a #include <QPainterPath>' QTfrontend/ui/page/pagegamestats.cpp
      sed -i 's/procedure ShiftWorld(Dir: LongInt); inline;/procedure ShiftWorld(Dir: LongInt);/' hedgewars/uWorld.pas
-      export PATH=$HOME/fpc-3.0.4/bin:$PATH
-      if [ ! -e $HOME/fpc-3.0.4/bin/fpc ]
+      FREEPASCAL=3.2.2
+      [ "$ARCH" = "x86" ] && FREEPASCAL=3.0.4
+      export PATH=$HOME/fpc-$FREEPASCAL/bin:$PATH
+      if [ ! -e $HOME/fpc-$FREEPASCAL/bin/fpc ]
       then
 	cd $HOME
-	FILE=fpc-3.0.4.x86_64
-	[ "$ARCH" = "x86" ] && FILE=fpc-3.0.4.i386
+	FILE=fpc-$FREEPASCAL.x86_64
+	[ "$ARCH" = "x86" ] && FILE=fpc-$FREEPASCAL.i386
         TAR=$FILE-linux.tar
-	[ ! -e "$TAR" ] && wget  --no-check-certificate https://deac-fra.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	[ ! -e "$TAR" ] && wget  --no-check-certificate https://deac-fra.dl.sourceforge.net/project/freepascal/Linux/$FREEPASCAL/"$TAR"
 	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
-	sh install.sh
+	FREEPASCAL=$FREEPASCAL bash $HOME_DIBAB/scripts/install-freepascal.sh
+	# sh install.sh
 	cd $HOME/ydfs/src/$MYDIR
       fi
-      [ ! -e $HOME/fpc-3.0.4/bin/fpc ] && echo "Please install $HOME/fpc-3.0.4/bin/fpc !" && exit 67
-      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$PREFIX/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-3.0.4/bin/fpc"
+      [ ! -e $HOME/fpc-$FREEPASCAL/bin/fpc ] && echo "Please install $HOME/fpc-$FREEPASCAL/bin/fpc !" && exit 67
+      LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DSDL2_MIXER_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_TTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_IMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_NET_INCLUDE_DIR=$HOME/$ARCH/include -DSDL2_LIBRARY=$HOME/$ARCH/lib/libSDL2.so -DSDL2_INCLUDE_DIR=$HOME/$ARCH/include/SDL2 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include LUA_INCLUDE_DIR=$HOME/$ARCH/include -DLUA_LIBRARY=$PREFIX/lib/liblua5.1.so -DPHYSFS_SYSTEM=on -DNOSERVER=0 -DCMAKE_BUILD_TYPE='Release' -DCMAKE_Pascal_COMPILER=$HOME/fpc-$FREEPASCAL/bin/fpc"
       install -d $PREFIX/share/applications/
       install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
