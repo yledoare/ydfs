@@ -508,7 +508,10 @@ grep share/Surge src/common/SurgeStorage.cpp
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 2
-      cp -fR build/surge_xt_products/Surge.vst3 $PREFIX/lib/vst3 || exit 1
+	echo "Install VST3"
+      cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 1
+	echo "Install Standalone"
+      cp build/surge_xt_products/* $PREFIX/bin 
     touch buildok-$ARCH
     exit 0
   fi
