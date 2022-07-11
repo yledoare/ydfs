@@ -273,7 +273,7 @@ else
   export SHELL=/bin/bash
   [ -e $HOME/$ARCH/bin/python3 ] && export PYTHON=$HOME/$ARCH/bin/python3 && export PYTHONPATH=$DIBAB_PREFIX/$ARCH/lib/python3.8/site-packages
   [ -e movit.pc.in ] && export GTEST_DIR=$HOME/ydfs/src/`ls $HOME/ydfs/src/|grep googletest-release`/googletest
-  [ -e gameServer/CMakeLists.txt ] && sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
+  
   [ -e activation-server/Makefile.in ] && sed -i "s#-DG_DISABLE_DEPRECATED##" activation-server/Makefile.in
   [ -e re2/testing/tester.cc ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e lib/sensors.conf.5 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
@@ -1352,6 +1352,9 @@ EOF
 
   if [ -e hedgewars ]
   then
+     sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
+     sed -i '/#include <QSizePolicy>/a #include <QPainterPath>' QTfrontend/ui/page/pagegamestats.cpp
+     sed -i 's/procedure ShiftWorld(Dir: LongInt); inline;/procedure ShiftWorld(Dir: LongInt);/' hedgewars/uWorld.pas
       export PATH=$HOME/fpc-3.0.4/bin:$PATH
       if [ ! -e $HOME/fpc-3.0.4/bin/fpc ]
       then
@@ -1359,9 +1362,7 @@ EOF
 	FILE=fpc-3.0.4.x86_64
 	[ "$ARCH" = "x86" ] && FILE=fpc-3.0.4.i386
         TAR=$FILE-linux.tar
-	# [ ! -e "$TAR" ] && wget https://netcologne.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
-	# [ ! -e "$TAR" ] && wget https://freefr.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
-	[ ! -e "$TAR" ] && wget https://deac-fra.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
+	[ ! -e "$TAR" ] && wget  --no-check-certificate https://deac-fra.dl.sourceforge.net/project/freepascal/Linux/3.0.4/"$TAR"
 	[ ! -e "$TAR" ] && exit 1
 	[ ! -e $FILE-linux ] && tar xvf $TAR
 	cd $FILE-linux
