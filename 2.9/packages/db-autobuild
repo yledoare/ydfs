@@ -1501,12 +1501,8 @@ EOF
 
 if [ -e data/supertuxkart.desktop ]
 then
-	echo "Disable irrlicht includes"
-	mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
-	LD_LIBRARY_PATH="" svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets 
-        mv stk-assets .. || exit 1
-	LD_LIBRARY_PATH="" svn checkout https://svn.code.sf.net/p/supertuxkart/code/media/trunk stk-media-repo 
-        mv stk-media-repo .. || exit 1
+	echo "Disable enet for SuperTuxKart"
+	mv $HOME/$ARCH/include/enet $HOME/$ARCH/include/enet-disabled 
 fi
  
 if [ -e source/glest_game ]
