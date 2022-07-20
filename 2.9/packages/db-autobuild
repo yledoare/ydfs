@@ -1568,6 +1568,7 @@ fi
  && [ ! -e curl-config.in ] \
  && [ ! -e jansson.pc.in ] \
  && [ ! -e libgig.spec.in ] \
+ && [ ! -e debian/graphviz.menu ] \
  && [ ! -e libapr.dsp ] \
  && [ ! -e libaprutil.dsp ] \
  && [ ! -e src/harfbuzz.pc.in ] \
