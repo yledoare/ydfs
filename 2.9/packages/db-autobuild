@@ -1128,6 +1128,7 @@ pwd && sleep 5
         touch buildok-$ARCH
   fi
 
+  [ -e pinball-config.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vfi
   [ -e php7.spec.in ] &&  autoconf -f
 
   if [ -e libmad.list.in ]

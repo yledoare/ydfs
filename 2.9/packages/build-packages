@@ -123,6 +123,7 @@ test -n "$1" && MODULE="$1"
 	
 [ -e /usr/bin/clang++-13 ] && [ ! -e $HOME/$ARCH/bin/clang++ ] && ln -s /usr/bin/clang++-13 $HOME/$ARCH/bin/clang++
 [ -e /usr/bin/clang-13 ] && [ ! -e $HOME/$ARCH/bin/clang ] && ln -s /usr/bin/clang-13 $HOME/$ARCH/bin/clang
+[ -e /usr/bin/llvm-nm-13 ] && [ ! -e $HOME/$ARCH/bin/llvm-nm ] && ln -s /usr/bin/llvm-nm-13 $HOME/$ARCH/bin/llvm-nm
 
 whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 
