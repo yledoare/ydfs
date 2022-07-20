@@ -16,8 +16,8 @@
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
 	#export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/gpgme++/ "
 	#export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/nss/ "
-	#export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ NM=llvm-nm
-	export CXXFLAGS=$CFLAGS CC=gcc CXX=g++ 
+	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ NM=llvm-nm
+	#export CXXFLAGS=$CFLAGS CC=gcc CXX=g++ 
 	CONFIGURE_OPTS=""
 	env > env.log
         [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --with-boost-libdir=/usr/lib/x86_64-linux-gnu/ "
@@ -68,7 +68,7 @@
 		--enable-qt5 \
 		--enable-gtk3 \
 		--enable-introspection \
-		--enable-lto \
+		--disable-lto \
 		--enable-openssl \
 		--enable-odk\
 		--enable-python=system \
