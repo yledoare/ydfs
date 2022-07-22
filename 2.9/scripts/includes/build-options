@@ -37,6 +37,7 @@ echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS=" -DCMAKE_BUILD_TYPE=Rele
       -Wno-dev "
 [ "$ARCH" = "x86" ] && echo $ARCHIVE | grep webkitgtk-2 &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DCMAKE_CXX_LIBRARY_ARCHITECTURE=x86"
 
+echo $ARCHIVE | grep graphviz && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --enable-lua=no --disable-lua"
 echo $ARCHIVE | grep exiv2-0.26 &&  LC_CONFIGURE_OPTS=" -DEXIV2_ENABLE_VIDEO=ON \
     -DEXIV2_ENABLE_BUILD_PO=ON \
     -DEXIV2_ENABLE_BUILD_SAMPLES=OFF "

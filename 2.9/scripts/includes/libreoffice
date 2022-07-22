@@ -14,7 +14,7 @@
 	export ACLOCAL="aclocal" 
 	export ACLOCAL_FLAGS="-I/$PREFIX/share/aclocal -I$HOME/$ARCH/share/aclocal" 
 	install -d $HOME/ydfs/src/libreoffice-$LIBREOFFICE/libreoffice-translations-$LIBREOFFICE
-	#export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/gpgme++/ "
+	export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/gpgme++/ "
 	#export CFLAGS=" $CFLAGS -I$HOME/$ARCH/include/nss/ "
 	export CXXFLAGS=$CFLAGS CC=clang CXX=clang++ NM=llvm-nm
 	#export CXXFLAGS=$CFLAGS CC=gcc CXX=g++ 
