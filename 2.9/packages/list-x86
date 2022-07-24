@@ -5,7 +5,7 @@ http://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
 https://github.com/open-source-parsers/jsoncpp/archive/1.8.4.tar.gz
 re2-20220201.tar.gz::https://github.com/google/re2/archive/2022-02-01.tar.gz
 https://github.com/google/snappy/archive/1.1.7.tar.gz
-https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
+https://gmplib.org/download/gmp/gmp-6.2.1.tar.xz
 http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz  
 ftp://ftp.gnu.org/gnu/gzip/gzip-1.10.tar.xz 
 http://downloads.sourceforge.net/infozip/unzip60.tar.gz 
@@ -106,8 +106,8 @@ https://download.samba.org/pub/ppp/ppp-2.4.9.tar.gz
 https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
 https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
 http://ftp.gnu.org/gnu/libidn/libidn-1.33.tar.gz
-https://ftp.gnu.org/gnu/nettle/nettle-3.5.1.tar.gz
-https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.11.1.tar.xz
+https://ftp.gnu.org/gnu/nettle/nettle-3.8.tar.gz
+https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-3.7.6.tar.xz
 https://ftp.gnu.org/gnu/wget/wget-1.21.2.tar.gz
 https://curl.haxx.se/download/curl-7.81.0.tar.gz
 http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4224.tar.gz
