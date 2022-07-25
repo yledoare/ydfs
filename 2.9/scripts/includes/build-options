@@ -70,7 +70,7 @@ echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
 echo $ARCHIVE | grep FileZilla_Client &&  LC_CONFIGURE_OPTS=" --disable-manualupdatecheck --disable-autoupdatecheck --with-pugixml=builtin --with-wx-config=/$HOME/$ARCH/bin/wx-config-gtk3"
 
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
-echo $ARCHIVE | grep krita && export PYTHON=$DIBAB_PREFIX/$ARCH/bin/python3 
+echo $ARCHIVE | grep krita &&  LC_CONFIGURE_OPTS="  -DBUILD_TESTING=OFF -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON"
 echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
     --disable-modern-top \
     --disable-kill"
@@ -151,6 +151,7 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
         -DCHANNEL_URBDRC_CLIENT=ON \
         -DCMAKE_BUILD_TYPE='None' \
         -Wno-dev "
+echo $ARCHIVE | grep gegl-0 &&  LC_CONFIGURE_OPTS="-Ddocs=false "
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Dsystemd_user_services=false -Ddocs=false -Dman=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
