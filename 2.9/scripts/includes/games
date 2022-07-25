@@ -399,13 +399,3 @@ Categories=Game;" > $pkgname.desktop
   exit 0
 fi
 
-  if [ -e lutris.desktop.in ]
-  then
-    # sed -i 's|^#!.*python$|#!/$HOME/$ARCH/bin/python2|' $(grep -rl '^#!.*python')
-    python setup.py install --prefix=$PREFIX || exit $?
-    install -d $PREFIX/data/
-    cp -fR data/* $PREFIX/data/
-    ydfs-install-package 
-    touch buildok-$ARCH
-    exit 0
-  fi

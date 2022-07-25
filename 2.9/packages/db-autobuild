@@ -1954,6 +1954,16 @@ ac_cv_file__dev_ptc=no' >  config.site
         exit 0
   fi
 
+  if [ -e lutris.spec ]
+  then
+    # sed -i 's|^#!.*python$|#!/$HOME/$ARCH/bin/python2|' $(grep -rl '^#!.*python')
+    python setup.py install --prefix=$PREFIX || exit $?
+    install -d $PREFIX/data/
+    ydfs-install-package 
+    touch buildok-$ARCH
+    exit 0
+  fi
+
     if [ -e setup.py ] 
     then
       echo "Run $PYTHON setup.py"  && sleep 1
@@ -2235,6 +2245,7 @@ echo "At BUILDPERL"
 	  install -d $PREFIX
 	  cp -fR * $PREFIX
   fi
+  [ -e SConstruct ] && [ -e brushes/label-brush-mypaint.sh ] && echo "Delete Sconstruct for mypaint-brushes" && rm SConstruct && sleep 5
   [ -e SConstruct ] && [ -e src/mesa ] && echo "Delete Sconstruct for mesa" && rm SConstruct && sleep 5
   if [ -e SConstruct ] || [ -e Sconstruct ] # && [ "$ARCH" != "arm" ]
   then
@@ -2508,6 +2519,7 @@ Cflags: -I${includedir}' > lua.pc
 	cp Makefile{,.orig}
 	sed -e "/^all:/s/ test//" Makefile.orig > Makefile
     fi
+
 
   [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
 
