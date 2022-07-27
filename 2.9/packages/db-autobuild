@@ -104,7 +104,7 @@ else
   fi
 
   echo "Look for $SRC_PATH/patches/$MYDIR.diff"
-  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] # && [ ! -e ydfs-patched ]
+  if [ "$NOPATCH" = "" ] && [ -e $SRC_PATH/patches/"$MYDIR".diff ] && [ ! -e ydfs-patched ]
   then
     patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
     [ ! -e ydfs-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
