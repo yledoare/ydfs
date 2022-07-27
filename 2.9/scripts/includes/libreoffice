@@ -23,6 +23,8 @@
         [ "$ARCH" = "x86_64" ] && CONFIGURE_OPTS=" --with-boost-libdir=/usr/lib/x86_64-linux-gnu/ "
         if [ "$ARCH" = "x86" ] 
 	then
+		# https://www.spinics.net/lists/libreoffice/msg07263.html
+		export CXX="clang++ -DCMAKE_CXX_FLAGS=-latomic"
 		CONFIGURE_OPTS="--with-boost-libdir=/usr/lib/i386-linux-gnu/ --host=i686-linux-gnu --build=i686-linux-gnu"
 		for dir in sbasic  scalc  schart  sdatabase  sdraw  shared  simpress  smath  swriter
 		do 
@@ -42,13 +44,15 @@
 	_additional_source_url="https://dev-www.libreoffice.org/src"
 	_additional_source_url2="https://dev-www.libreoffice.org/extern"
 	install -d tar
-	for TAR in ${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip ${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip ${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip ${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz ${_additional_source_url}/language-subtag-registry-2021-03-05.tar.bz2 ${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip ${_additional_source_url}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip ${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip ${_additional_source_url}/pdfium-4500.tar.bz2 ${_additional_source_url}/dtoa-20180411.tgz ${_additional_source_url}/lxml-4.1.1.tgz ${_additional_source_url}/Firebird-3.0.7.33374-0.tar.bz2 ${_additional_source_url}/zxing-cpp-1.1.1.tar.gz ${_additional_source_url}/skia-m90-45c57e116ee0ce214bdf78405a4762722e4507d9.tar.xz ${_additional_source_url}/libcmis-0.5.2.tar.xz ${_additional_source_url2}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar ${_additional_source_url2}/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf ${_additional_source_url2}/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+	for TAR in https://github.com/nu-book/zxing-cpp/archive/v1.2.0/zxing-cpp-1.2.0.tar.gz ${_additional_source_url}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip ${_additional_source_url}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip ${_additional_source_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip ${_additional_source_url}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz ${_additional_source_url}/language-subtag-registry-2021-03-05.tar.bz2 ${_additional_source_url}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip ${_additional_source_url}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip ${_additional_source_url}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip ${_additional_source_url}/pdfium-4699.tar.bz2 ${_additional_source_url}/dtoa-20180411.tgz ${_additional_source_url}/lxml-4.1.1.tgz ${_additional_source_url}/Firebird-3.0.7.33374-0.tar.bz2 ${_additional_source_url}/skia-m97-a7230803d64ae9d44f4e1282444801119a3ae967.tar.xz ${_additional_source_url}/libcmis-0.5.2.tar.xz ${_additional_source_url2}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar  ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar ${_additional_source_url2}/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf ${_additional_source_url2}/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 		do
 		  NAME=`basename $TAR`
 		  echo -n $NAME 
 		  [ ! -e tar/$NAME ] && wget  --no-check-certificate $TAR -O tar/$NAME
 		  [ ! -e tar/$NAME ] && echo "$NAME is missing" && exit 1
 		done
+		if [ ! -e Makefile ]
+		then
 	./autogen.sh --with-vendor="YourDistroFromScratch"  \
 		--with-external-tar=$PWD/tar \
 		--prefix=$PREFIX --exec-prefix=$PREFIX --sysconfdir=$HOME/$ARCH/etc \
@@ -94,7 +98,6 @@
 		--with-system-libetonyek \
 		--with-system-libfreehand \
 		--without-system-firebird \
-		--without-system-zxing \
 		--with-system-libtommath \
 		--with-system-libatomic-ops \
 		--with-system-libebook \
@@ -102,6 +105,7 @@
 		--with-system-coinmp \
 		--with-system-dicts \
 		--with-system-beanshell \
+		--without-system-zxing \
 		--with-system-cppunit\
 		--with-system-graphite\
 		--with-system-glm \
@@ -123,14 +127,14 @@
 		--with-system-clucene \
 		--disable-dependency-tracking \
 		$CONFIGURE_OPTS  || exit $?
-
+		fi
 	echo "Run : make build / make build-nocheck / make distro-pack-install "
 	# bash
 	for STEP in 1 # 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 	do
 		echo "Make $STEP"
 		date
-		make build-nocheck || exit 1 # || ranlib workdir/LinkTarget/StaticLibrary/*.a 
+		make build-nocheck || exit 1 
 	done
 		date
 	make build-nocheck || make GMAKE_OPTIONS='VERBOSE=1' 
