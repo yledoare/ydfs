@@ -1,4 +1,6 @@
 #!/bin/bash
+PKG=$1
+SHORT=${PKG:0:2}
 install -d $HOME/archpkg
 cd $HOME/archpkg
 URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
@@ -6,8 +8,7 @@ URL1=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/
 URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=
 URL6=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
 URL7=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
-PKG=$1
-SHORT=${PKG:0:2}
+URL8=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
 
 OPTION=" --no-check-certificate" 
 OPTION=" -q --no-check-certificate" 

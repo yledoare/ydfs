@@ -359,7 +359,6 @@ fi
   echo $ARCHIVE | grep kino && export CFLAGS=" -I/$HOME/ydfs/src/kino-1.3.4/ffmpeg " && echo "CFLAGS is $CFLAGS" 
   echo $ARCHIVE | grep udev-164 && export CFLAGS="$CFLAGS -Wl,-rpath-link,$HOME/ydfs/build-x86/udev-164/libudev/.libs/"
   echo $ARCHIVE | grep gst-plugins-bad && ln -s $HOME/$ARCH/include/openjpeg-2.2 $HOME/$ARCH/include/openjpeg-2.1
-  echo $ARCHIVE | grep minetest && export LDFLAGS="$LDFLAGS -lIrrlicht" 
   echo $ARCHIVE | grep dolphin && export CXXFLAGS="$CXXFLAGS "$( pkg-config --cflags gtk+-2.0)
   echo $ARCHIVE | grep ffmpeg-3 && export LDFLAGS="$LDFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export CPPFLAGS="$CPPFLAGS -fPIC" && CXXFLAGS="$CXXFLAGS -fPIC"
   echo $ARCHIVE | grep sqlite && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \

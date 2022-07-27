@@ -49,7 +49,7 @@ fi
 if [ "$SOFT" == "0ad" ]
 then
   opkg-cl update
-  xterm -e opkg-cl install 0ad-0.0.18
+  xterm -e opkg-cl install 0ad-0.0.25
   0ad
   exit 0
 fi

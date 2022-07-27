@@ -113,17 +113,6 @@ fi
 	cp ${_pkgname}-data-${pkgver}/vegastrike.xpm $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/share/pixmaps
     fi
 
-    if [ -e ../bin/minetestold ]
-    then
-      echo "Install libjsoncpp.so"
-      install -d $PREFIX/lib
-      install -d $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib
-      cp ./src/json/libjsoncpp.so $PREFIX/lib
-      cp ./src/json/libjsoncpp.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
-      cp ./src/cguittfont/libcguittfont.so $PREFIX/lib
-      cp ./src/cguittfont/libcguittfont.so $HOME/ydfs/packages-$ARCH/$MYDIR/$PREFIX/lib # || exit $?
-    fi
- 
     if [ -e src/komat/Berusky3d_castice.h ]
     then
 	install_desktop_dirs
@@ -292,7 +281,7 @@ fi
     cd egoboo
   fi
 
-  if [ -e src/openttd.cpp ]
+  if [ -e src/oooopenttd.cpp ]
   then
     pkgname=openttd
     echo "install $PREFIX/share/openttd/data"

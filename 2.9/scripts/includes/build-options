@@ -295,13 +295,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep fluidsynth && export LC_CONFIGURE_OPTS="-Denable-ladspa=ON"
 	echo $ARCHIVE | grep zynaddsubfx && export LC_CONFIGURE_OPTS=" -DGuiModule=fltk -DDefaultOutput=jack -DDefaultInput=jack "
 	echo $ARCHIVE | grep lxappearance && export LC_CONFIGURE_OPTS="--enable-man"
-	echo $ARCHIVE | grep minetest && export LC_CONFIGURE_OPTS="-DBUILD_SERVER=0 -DIRRLICHT_INCLUDE_DIR=$HOME/$ARCH/include/irrlicht -DIRRLICHT_LIBRARY=$HOME/$ARCH/lib -DCMAKE_INSTALL_PREFIX=$DIBAB_PREFIX/$MODULE \
-    -DENABLE_LUAJIT=0 \
-    -DBUILD_CLIENT=1 \
-    -DENABLE_GETTEXT=1 \
-    -DENABLE_FREETYPE=1 \
-    -DENABLE_LEVELDB=0 \
-    -DENABLE_REDIS=0" && export CXX="g++ -I$HOME/ydfs/src/minetest-5.3.0/src -I$HOME/ydfs/src/minetest-5.3.0/lib/lua/src $CXXFLAGS" && export CFLAGS=" -I$HOME/ydfs/src/minetest-5.3.0/src -I$HOME/ydfs/src/minetest-5.3.0/lib/lua/src $CFLAGS"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
 	echo $ARCHIVE | grep ntp-4 && export LC_CONFIGURE_OPTS="-enable-linuxcaps --enable-ntp-signd"
 	echo $ARCHIVE | grep vegastrike && export LC_CONFIGURE_OPTS="--enable-permissive --disable-ffmpeg --with-openal-libs=$HOME/$ARCH"
@@ -485,7 +478,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
 	echo $ARCHIVE | grep ntfs-3g && LC_CONFIGURE_OPTS="--with-fuse=external --enable-really-static --sbindir=$DIBAB_PREFIX/$MODULE/sbin --exec-prefix=$DIBAB_PREFIX/$MODULE"
-	echo $ARCHIVE | grep bluez && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
+	echo $ARCHIVE | grep bluez-5 && LC_CONFIGURE_OPTS="--enable-library --disable-systemd --with-dbusconfdir=$DIBAB_PREFIX/$ARCH/share \
           --enable-btpclient \
           --enable-midi \
           --enable-sixaxis \
@@ -609,7 +602,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
     -DBUILD_QTHELP_DOCS=OFF \
     -DBUILD_TESTING=OFF"
 	echo $ARCHIVE | grep rdesktop && LC_CONFIGURE_OPTS="--disable-smartcard --disable-credssp --with-openssl=$HOME/$ARCH"
-	echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
+	# echo $ARCHIVE | grep openttd && LC_CONFIGURE_OPTS="--without-liblzo2"
 	echo $ARCHIVE | grep curl-7 && LC_CONFIGURE_OPTS="--with-ssl --without-gnutls"
 	echo $ARCHIVE | grep util-linux && LC_CONFIGURE_OPTS="--disable-makeinstall-chown --disable-bash-completion"
 	#echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"

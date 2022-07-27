@@ -2,13 +2,13 @@
   then
 	echo "Building 0ad"
 	pkgname=0ad
-  pkgver=0.0.23-alpha
+  pkgver=0.0.25-alpha
   install -d "${pkgdir}"/{bin,data,lib,share/"${pkgname}"/}
  
   if [ ! -e ${pkgdir}/data/mods/mod/mod.zip ]
   then 
   DATA=0ad-$pkgver-unix-data.tar.xz
-  [ ! -e $HOME/ydfs/tarballs/$DATA ] && wget http://releases.wildfiregames.com/$DATA --directory-prefix=$HOME/ydfs/tarballs 
+  [ ! -e $HOME/ydfs/tarballs/$DATA ] && wget https://releases.wildfiregames.com/$DATA --directory-prefix=$HOME/ydfs/tarballs 
   install -d $HOME/ydfs/data
   tar xJvf $HOME/ydfs/tarballs/$DATA --directory=$HOME/ydfs/data || exit 1
   cp -fR $HOME/ydfs/data/0ad-$pkgver/binaries/data ${pkgdir}/ || exit 12

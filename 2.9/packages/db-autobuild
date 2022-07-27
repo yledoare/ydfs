@@ -150,6 +150,45 @@ else
      exit 0
    fi
 
+  if [ -e minetest.conf.example ]
+  then
+
+  mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled
+  install -d build-{client,server}
+
+  git clone https://github.com/minetest/irrlicht.git lib/irrlichtmt
+  cd lib/irrlichtmt
+  git checkout tags/1.9.0mt4
+  cd  ../..
+
+  [ ! -e LuaJIT-2.1.0-beta3 ] && wget https://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz && tar xzvf LuaJIT-2.1.0-beta3.tar.gz
+
+  cd build-client
+  CXX="g++  -I$PWD/../lib/lua/src -I$PWD/../LuaJIT-2.1.0-beta3/src $CXXFLAGS" cmake -G Ninja ../ \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DBUILD_CLIENT=1 \
+    -DENABLE_GETTEXT=1 \
+    -DENABLE_LEVELDB=0 \
+    -DENABLE_POSTGRESQL=1 \
+    -DENABLE_SPATIAL=1 \
+    -DENABLE_REDIS=0
+  ninja || exit 1
+  DESTDIR="${pkgdir}" ninja install || exit 1
+  ninja install || exit 1
+  exit 0
+
+  cd ../build-server
+  CXX="g++  -I$PWD/../lib/lua/src -I$PWD/../LuaJIT-2.1.0-beta3/src $CXXFLAGS" cmake -G Ninja ../ \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DBUILD_CLIENT=0 \
+    -DBUILD_SERVER=1 \
+    -DENABLE_LEVELDB=1 \
+    -DENABLE_POSTGRESQL=1 \
+    -DENABLE_SPATIAL=1 \
+    -DENABLE_REDIS=1
+  ninja || exit 1
+  fi
+
   if [ -e src/bindgen/cargo ]
   then
 	echo src/bindgen/cargo
