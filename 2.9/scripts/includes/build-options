@@ -293,6 +293,9 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep calf && export LC_CONFIGURE_OPTS="--enable-experimental --enable-sse"
 	echo $ARCHIVE | grep mbedtls && export LC_CONFIGURE_OPTS="-DUSE_SHARED_MBEDTLS_LIBRARY=On -DCMAKE_C_FLAGS='-fPIC'"
 	echo $ARCHIVE | grep fluidsynth && export LC_CONFIGURE_OPTS="-Denable-ladspa=ON -DLIB_INSTALL_DIR=lib"
+	echo $ARCHIVE | grep kio-5 && export LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_QCH=ON"
 	echo $ARCHIVE | grep zynaddsubfx && export LC_CONFIGURE_OPTS=" -DGuiModule=fltk -DDefaultOutput=jack -DDefaultInput=jack "
 	echo $ARCHIVE | grep lxappearance && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep xwax && export LC_CONFIGURE_OPTS="--enable-alsa"
