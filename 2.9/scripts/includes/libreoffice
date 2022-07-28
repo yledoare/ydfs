@@ -134,10 +134,10 @@
 	do
 		echo "Make $STEP"
 		date
-		make build-nocheck || exit 1 
+		make GMAKE_OPTIONS='VERBOSE=1' || exit 1 
+		make build-nocheck || make GMAKE_OPTIONS='VERBOSE=1' || exit 1 
 	done
-		date
-	make build-nocheck || make GMAKE_OPTIONS='VERBOSE=1' 
+	date
 	echo "Make build-nocheck"
 		date
 	make build-nocheck || exit 1

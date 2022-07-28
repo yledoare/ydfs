@@ -1132,6 +1132,7 @@ pwd && sleep 5
 
   # [ -e util/grub-setup.c ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   [ -e src/libplist.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
+  [ -e src/libplist.pc.in ] patch -p1 < $HOME_DIBAB/packages/patches/plist.diff
   [ -e src/libplist-2.0.pc.in ] && git cherry-pick -n 42bb64ba96 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " NOCONFIGURE=1 ./autogen.sh
   if [ -e autogen.sh ] && [ -e gtksourceview-3.0.pc.in ]
   then
@@ -1601,6 +1602,7 @@ fi
  && [ ! -e src/sndfile.c ] \
  && [ ! -e fltk-config.in ] \
  && [ ! -e doc/pcre.3 ] \
+ && [ ! -e SDL2_ttf.pc.in ] \
  && [ ! -e portaudio-2.0.pc.in ] \
  && [ ! -e libpng.3 ] \
  && [ ! -e poppler-glib.pc.in ] \
