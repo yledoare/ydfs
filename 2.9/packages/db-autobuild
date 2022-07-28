@@ -1644,9 +1644,8 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
 	[ -e ryzom ]  && CMAKEOPTIONS="$CMAKEOPTIONS -DCPPTEST_INCLUDE_DIR=$HOME/$ARCH/include -DLUABIND_INCLUDE_DIR=$HOME/$ARCH/include" 
 	
-
-	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS, CXXFLAGS=$CXXFLAGS" && sleep 2
-
+	pwd | grep kio-5 && export CXX=g++
+	echo "Run Cmake into $PWD : opt = $CMAKEOPTIONS, CXXFLAGS=$CXXFLAGS, CXX=$CXX" && sleep 2
 	if [ -e ../debian/unvanquished.png ]
 	then
 		echo "debian/unvanquished.png" && sleep 2
