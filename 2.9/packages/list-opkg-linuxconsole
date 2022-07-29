@@ -1,9 +1,7 @@
-https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz
-warzone2100-4.2.7_src.tar.xz::https://github.com/Warzone2100/warzone2100/releases/download/4.2.7/warzone2100_src.tar.xz
-FAIL
-https://releases.wildfiregames.com/0ad-0.0.25b-alpha-unix-build.tar.xz
 https://github.com/wesnoth/wesnoth/archive/refs/tags/1.16.5.tar.gz
 https://cdn.openttd.org/openttd-releases/12.2/openttd-12.2-source.tar.xz
+#https://releases.wildfiregames.com/0ad-0.0.25b-alpha-unix-build.tar.xz
+warzone2100-4.2.7_src.tar.xz::https://github.com/Warzone2100/warzone2100/releases/download/4.2.7/warzone2100_src.tar.xz
 #mindustry-136.1.tar.gz::https://github.com/Anuken/Mindustry/archive/v136.1.tar.gz
 #stone-soup-0.28.0.tar.xz::https://github.com/crawl/crawl/releases/download/0.28.0/stone_soup-0.28.0-nodeps.tar.xz
 #http://downloads.sourceforge.net/project/flightgear/release-2020.3/flightgear-2020.3.12.tar.bz2  
@@ -19,3 +17,5 @@ https://archive.mesa3d.org/demos/8.5.0/mesa-demos-8.5.0.tar.bz2
 freerdp-2.7.0.tar.gz::https://github.com/freerdp/freerdp/archive/2.7.0.tar.gz
 https://github.com/nodejs/node/archive/v18.6.0/nodejs-18.6.0.tar.gz
 #https://github.com/fusioninventory/fusioninventory-agent/releases/download/2.6/FusionInventory-Agent-2.6.tar.gz
+#For Opkg
+https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tar.xz
