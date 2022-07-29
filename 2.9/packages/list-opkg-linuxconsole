@@ -1,7 +1,7 @@
-https://github.com/wesnoth/wesnoth/archive/refs/tags/1.16.5.tar.gz
-https://cdn.openttd.org/openttd-releases/12.2/openttd-12.2-source.tar.xz
+https://github.com/wesnoth/wesnoth/archive/refs/tags/1.16.5.tar.gz #SKIP-x86#
+https://cdn.openttd.org/openttd-releases/12.2/openttd-12.2-source.tar.xz  #SKIP-x86#
 #https://releases.wildfiregames.com/0ad-0.0.25b-alpha-unix-build.tar.xz
-warzone2100-4.2.7_src.tar.xz::https://github.com/Warzone2100/warzone2100/releases/download/4.2.7/warzone2100_src.tar.xz
+warzone2100-4.2.7_src.tar.xz::https://github.com/Warzone2100/warzone2100/releases/download/4.2.7/warzone2100_src.tar.xz  #SKIP-x86#
 #mindustry-136.1.tar.gz::https://github.com/Anuken/Mindustry/archive/v136.1.tar.gz
 #stone-soup-0.28.0.tar.xz::https://github.com/crawl/crawl/releases/download/0.28.0/stone_soup-0.28.0-nodeps.tar.xz
 #http://downloads.sourceforge.net/project/flightgear/release-2020.3/flightgear-2020.3.12.tar.bz2  
