@@ -1,4 +1,4 @@
-https://github.com/lutris/lutris/archive/refs/tags/v0.5.10.1.tar.gz
+https://github.com/lutris/lutris/archive/refs/tags/v0.5.10.1.tar.gz #SKIP-x86#
 http://downloads.sourceforge.net/pinball/pinball-0.3.20201218.tar.gz #SKIP-x86#
 https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-src.tar.gz
 https://www.lua.org/ftp/lua-5.1.5.tar.gz
