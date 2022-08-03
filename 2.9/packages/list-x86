@@ -650,6 +650,7 @@ fluidsynth-2.2.8.tar.gz::https://github.com/fluidsynth/fluidsynth/archive/v2.2.8
 https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.0/SDL2_ttf-2.20.0.tar.gz
 https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.0/SDL2_image-2.6.0.tar.gz
 https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.1.tar.gz
+http://downloads.sourceforge.net/modplug-xmms/libmodplug-0.8.9.0.tar.gz
 https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.1/SDL2_mixer-2.6.1.tar.gz
 http://www.cabextract.org.uk/cabextract-1.6.tar.gz
 http://savannah.nongnu.org/download/icoutils/icoutils-0.31.0.tar.bz2 # playonlinux
@@ -677,7 +678,6 @@ http://downloads.sourceforge.net/project/goom/goom2k4/0/goom-2k4-0-src.tar.gz
 http://libcaca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz
 https://download.videolan.org/pub/videolan/libdca/0.0.6/libdca-0.0.6.tar.bz2
 https://github.com/njh/twolame/releases/download/0.4.0/twolame-0.4.0.tar.gz
-http://downloads.sourceforge.net/modplug-xmms/libmodplug-0.8.9.0.tar.gz
 https://bitbucket.org/mpyne/game-music-emu/downloads/game-music-emu-0.6.3.tar.xz
 https://www.libssh2.org/download/libssh2-1.8.0.tar.gz
 https://github.com/Matroska-Org/libebml/archive/release-1.4.2.tar.gz
