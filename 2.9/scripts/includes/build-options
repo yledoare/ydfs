@@ -152,6 +152,7 @@ echo $ARCHIVE | grep FreeRDP &&  LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$DIBA
         -DCMAKE_BUILD_TYPE='None' \
         -Wno-dev "
 echo $ARCHIVE | grep gegl-0 &&  LC_CONFIGURE_OPTS="-Ddocs=false "
+echo $ARCHIVE | grep gegl-0 && [ -e $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir ] && [ ! -e $HOME/$ARCH/share/gir-1.0/babl-0.1.gir ] && cp $HOME/$ARCH/share/gir-1.0/Babl-0.1.gir $HOME/$ARCH/share/gir-1.0/babl-0.1.gir
 echo $ARCHIVE | grep ostree &&  LC_CONFIGURE_OPTS="--with-openssl --disable-otmpfile"
 echo $ARCHIVE | grep tracker-3 &&  LC_CONFIGURE_OPTS="-Dsystemd_user_services=false -Ddocs=false -Dman=false"
 echo $ARCHIVE | grep caca &&  LC_CONFIGURE_OPTS="--disable-java --disable-doc"
