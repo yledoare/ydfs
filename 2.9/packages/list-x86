@@ -771,7 +771,8 @@ https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
 http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-1.1.0/gparted-1.1.0.tar.gz
-https://gitlab.gnome.org/GNOME/vte/-/archive/0.66.2/vte-0.66.2.tar.bz2
+#https://download.gnome.org/sources/vte/0.28/vte-0.28.2.tar.xz
+git://gitlab.gnome.org/GNOME/vte.git#commit=0f438924f9f8a858b1b82434c876e31c2de180d4
 https://pub.mate-desktop.org/releases/1.26/mate-terminal-1.26.0.tar.xz
 https://gitlab.gnome.org/GNOME/libpeas.git#commit=6b4217e0a5ec451cdbe9380df26d701d8e6bdf88
 https://pub.mate-desktop.org/releases/1.26/eom-1.26.0.tar.xz
