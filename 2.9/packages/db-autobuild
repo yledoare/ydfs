@@ -673,14 +673,11 @@ grep share/Surge src/common/SurgeStorage.cpp
 	mkdir build
 	cd build
 	PYTHONPATH="" meson --prefix=$PREFIX  --buildtype=release                  \
-      -Dman=auto  -Dpolkit=false -Drootlibdir=$PREFIX/lib -Dudevrulesdir=$PREFIX/lib/udev/rules.d --sysconfdir=$PREFIX/etc ../
+      -Dman=auto  -Dpolkit=false -Drootlibdir=$PREFIX/lib -Drootlibexecdir=$PREFIX/lib -Dudevrulesdir=$PREFIX/lib/udev/rules.d --sysconfdir=$PREFIX/etc ../
 	PYTHONPATH="" ninja || exit $?
-	PYTHONPATH="" ninja install # || exit $?
-	cp ./src/libelogind/libelogind.pc $PREFIX/lib/pkgconfig || exit $?
-	install -d $PREFIX/include/systemd 
-	cp ../src/systemd/*.h $PREFIX/include/systemd || exit $?
+	DESTDIR=/tmp/elogin PYTHONPATH="" ninja install || exit $?
+	cp -a /tmp/elogin/$HOME/* $HOME/ || exit $?
 	cd ..
-	ln -sfv libelogind.pc $PREFIX/lib/pkgconfig/libsystemd.pc && ln -sfvn elogind $PREFIX/include/systemd
 	touch buildok-$ARCH
 	exit 0
   fi
