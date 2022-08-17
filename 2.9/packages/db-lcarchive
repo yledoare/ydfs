@@ -18,6 +18,7 @@ build_the_archive()
   echo -n "Start at"     
   echo -n -e " \e[91m$TIME\e[0m " 
   START=`date '+%s'`
+  [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
   EXITCODE=$?
   [ "$EXITCODE" != "0" ] && LOGERROR=`tail ydfs-error | grep error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-error \n\n" 

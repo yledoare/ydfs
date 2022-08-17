@@ -604,7 +604,7 @@ pip::pycups
 https://github.com/OpenPrinting/system-config-printer/releases/download/v1.5.13/system-config-printer-1.5.13.tar.xz
 git://github.com/lloyd/yajl.git
 http://downloads.sourceforge.net/swig/swig-3.0.12.tar.gz
-http://taglib.github.io/releases/taglib-1.11.1.tar.gz
+http://taglib.github.io/releases/taglib-1.12.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
 pip::lxml
