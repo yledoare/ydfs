@@ -666,6 +666,8 @@ grep share/Surge src/common/SurgeStorage.cpp
     exit 0
   fi
 
+  [ -e gtk-vnc.spec ] && [ -e GNUmakefile ] && echo "Disable GNUmakefile" &&  rm  GNUmakefile
+
   if [ -e man/elogind.xml ]
   then
 	echo "Elogind" && sleep 3

@@ -60,10 +60,6 @@ echo $ARCHIVE | grep mixxx && LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$PREFIX 
         -Wno-dev \
         -S . "
 echo $ARCHIVE | grep a52dec &&  LC_CONFIGURE_OPTS="--enable-shared"
-echo $ARCHIVE | grep gtk-vnc &&  LC_CONFIGURE_OPTS="--with-gtk=3.0 \
-            --enable-vala \
-            --without-sasl"
-
 echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
               --enable-shared \
               --with-pic " 
