@@ -2571,7 +2571,7 @@ Cflags: -I${includedir}' > lua.pc
   echo -n " Look for make ($PWD) ..  "
   if [ -e Makefile ] || [ -e GNUmakefile ] 
   then
-      MAKEOPT=" -j 8"
+      MAKEOPT=" -j 2"
       pwd | grep qlite-src && MAKEOPT=""
       pwd | grep pth-2 && MAKEOPT=""
       echo "Run make $MAKEOPT "
