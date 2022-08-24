@@ -764,6 +764,8 @@ grep share/Surge src/common/SurgeStorage.cpp
   [ -e gnome-vfs-2.0.pc.in ] && sed -i -s 's|$(srcdir)/auto-test|auto-test|' test/Makefile.am
   [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="clang++ $CPPFLAGS" && export CC="clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
+  #Avoid Couldn?t recognize the image file format for file
+  [ -e libgimp ] && unset XDG_DATA_DIRS
   . $(dirname $0)/../scripts/includes/mame
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]
@@ -1485,7 +1487,7 @@ EOF
     pwd | grep xmoto && mv $HOME/$ARCH/include/ode  $HOME/$ARCH/include/ode-disabled 
 
     pwd |grep kino-1.3 && mv $HOME/$ARCH/include/libavcodec $HOME/$ARCH/include/libavcodec-disabled && mv $HOME/$ARCH/include/libavutil $HOME/$ARCH/include/libavutil-disabled && mv $HOME/$ARCH/include/libavformat $HOME/$ARCH/include/libavformat-disabled && mv $HOME/$ARCH/include/libswscale $HOME/$ARCH/include/libswscale-disabled
-    [ -e deps/npm/lib/doctor/get-latest-nodejs-version.js ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
+    [ -e deps/npm/node_modules/node-gyp/gyp/.github/workflows/nodejs-windows.yml ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
     [ -e src/mixxx.cpp ] &&  mv $HOME/$ARCH/include/gtest $HOME/$ARCH/include/gtest-disabled
     [ -e src/mixxx.cpp ] &&  mv $HOME/$ARCH/include/util/time.h $HOME/$ARCH/include/util/time.h-disabled
     [ -e src/mixxx.cpp ] &&  mv $HOME/$ARCH/include/gmock $HOME/$ARCH/include/gmock-disabled

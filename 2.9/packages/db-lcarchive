@@ -6,7 +6,7 @@ build_the_archive()
 {  
   echo $PWD/ydfs-error > $HOME/ydfs/.last-error
   echo $PWD/ydfs-log > $HOME/ydfs/.last-log
-  if [ "$MODULE" = "opkg" ] || [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
+  if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
   db-autobuild $MYPREFIX || exit $?
   else
@@ -15,8 +15,9 @@ build_the_archive()
   echo "LOG: $PWD/ydfs-log ... "
 #  echo "Err : $PWD/ydfs-error "
   TIME=`date "+%H:%M"`
+  TIME2=`date "+%d/%m/%Y" `
   echo -n "Start at"     
-  echo -n -e " \e[91m$TIME\e[0m " 
+  echo -n -e " \e[91m$TIME\e[0m  - $TIME2" 
   START=`date '+%s'`
   [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
