@@ -24,7 +24,8 @@
         if [ "$ARCH" = "x86" ] 
 	then
 		# https://www.spinics.net/lists/libreoffice/msg07263.html
-		export CXX="clang++ -DCMAKE_CXX_FLAGS=-latomic"
+		# export CXX="clang++ -DCMAKE_CXX_FLAGS=-latomic"
+		export LDFLAGS="$LDFLAGS -latomic"
 		CONFIGURE_OPTS="--with-boost-libdir=/usr/lib/i386-linux-gnu/ --host=i686-linux-gnu --build=i686-linux-gnu"
 		for dir in sbasic  scalc  schart  sdatabase  sdraw  shared  simpress  smath  swriter
 		do 
