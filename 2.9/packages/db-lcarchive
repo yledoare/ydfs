@@ -17,7 +17,7 @@ build_the_archive()
   TIME=`date "+%H:%M"`
   TIME2=`date "+%d/%m/%Y" `
   echo -n "Start at"     
-  echo -n -e " \e[91m$TIME\e[0m  - $TIME2" 
+  echo -n -e " \e[91m$TIME\e[0m - $TIME2 " 
   START=`date '+%s'`
   [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log

@@ -962,6 +962,8 @@ https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.tar.gz
 https://github.com/zeromq/libzmq/releases/download/v4.3.4/zeromq-4.3.4.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-15.0.tar.xz
+git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
+git://github.com/falkTX/Carla.git#tag=v2.5.0 #SKIP-x86#
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
 #END-linuxconsole
