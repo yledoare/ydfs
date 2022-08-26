@@ -20,7 +20,6 @@ echo $ARCHIVE | grep guitarix &&  LC_CONFIGURE_OPTS=" --enable-nls \
                         --lib-dev --install-roboto-font
                         --ldflags=-L$HOME/$ARCH/lib"
 
-echo $ARCHIVE | grep lmms && echo "LMMS "
 	echo $ARCHIVE | grep firefox-38 && LC_CONFIGURE_OPTS="	--with-system-nspr --enable-system-ffi \
     --with-system-zlib --with-system-icu --with-intl-api --enable-ctypes \
     --enable-threadsafe --enable-system-ffi --enable-shared-js --enable-gcgenerational --disable-optimize --enable-pie" && unset CXXFLAGS && unset CFLAGS && unset CPPFLAGS && unset CXX 
@@ -275,7 +274,6 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
-	# echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS="-USE=vst"
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS=" -DWANT_QT5=ON -DWANT_SOUNDIO=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo "
 	echo $ARCHIVE | grep lmms && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DWINE_INCLUDE_DIR=$HOME/$ARCH/include/wine/windows -DWINE_LIBRARY=/$HOME/$ARCH/lib32/wine" 
 
