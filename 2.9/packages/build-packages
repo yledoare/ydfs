@@ -34,6 +34,8 @@ fi
 # destruction des variables d'environnement citées
 unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD_LIBRARY_PATH PYTHONPATH PERL PYTHON
 
+export XDG_DATA_DIRS="/usr/share"
+
 # $1 est supposée être une ISO particulière demandée passée en paramètre, lanpower, par exemple: pourquoi est-ce "uclib" ici ? 
 # Sinon, La ligne 14 "echo $SRC_PATH/list-$1" donne n'importe quoi
 [ "$1" = "uclib" ] && export CC=$HOME/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc

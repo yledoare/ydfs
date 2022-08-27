@@ -509,7 +509,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-vdpau \
     --enable-version3 "
 echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
-#	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="--with-x11"
+	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="-Dman=false"
 #WRITE HERE NEW RULES
 	echo $ARCHIVE | grep clamav && LC_CONFIGURE_OPTS="--with-user=root --with-group=root "
 	echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--enable-run-as-root               --disable-rpath \

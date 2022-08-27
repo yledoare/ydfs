@@ -766,7 +766,7 @@ grep share/Surge src/common/SurgeStorage.cpp
   [ -e src/google/protobuf/util/internal/protostream_objectsource_test.cc ] && export CXX="clang++ $CPPFLAGS" && export CC="clang $CFLAGS"
   [ -e libgimp ] && export CXX="clang++ $CPPFLAGS -fPIC" && export CFLAGS="$CFLAGS -fPIC" && export LDLAGS="$LDLAGS -fPIC" && export CXXFLAGS="$CXXFLAGS -fPIC"
   #Avoid Couldn?t recognize the image file format for file
-  [ -e libgimp ] && unset XDG_DATA_DIRS
+  #[ -e libgimp ] && unset XDG_DATA_DIRS
   . $(dirname $0)/../scripts/includes/mame
   [ -e $SRC_PATH/makefile/$MYDIR ] && cp $SRC_PATH/makefile/$MYDIR Makefile
   if [ -e $HOME/.archpatches ]

@@ -1,20 +1,3 @@
-diff --git a/plugins/carlabase/carla.h b/plugins/carlabase/carla.h
-index fb54e2271..beb6d935f 100644
---- a/plugins/carlabase/carla.h
-+++ b/plugins/carlabase/carla.h
-@@ -34,10 +34,10 @@
-     #include "CarlaBackend.h"
-     #include "CarlaNative.h"
-     #include "CarlaUtils.h"
--    CARLA_EXPORT
-+    CARLA_API_EXPORT
-     const NativePluginDescriptor* carla_get_native_patchbay_plugin();
- 
--    CARLA_EXPORT
-+    CARLA_API_EXPORT
-     const NativePluginDescriptor* carla_get_native_rack_plugin();
- #endif
- 
 diff -ruN a/cmake/modules/FindWine.cmake b/cmake/modules/FindWine.cmake
 --- a/cmake/modules/FindWine.cmake	2018-11-03 02:43:42.000000000 +0100
 +++ b/cmake/modules/FindWine.cmake	2021-06-03 22:37:41.258182544 +0200
