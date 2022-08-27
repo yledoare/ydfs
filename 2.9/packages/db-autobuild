@@ -1401,7 +1401,6 @@ EOF
      sed -i '/#include <QSizePolicy>/a #include <QPainterPath>' QTfrontend/ui/page/pagegamestats.cpp
      sed -i 's/procedure ShiftWorld(Dir: LongInt); inline;/procedure ShiftWorld(Dir: LongInt);/' hedgewars/uWorld.pas
       FREEPASCAL=3.2.2
-      [ "$ARCH" = "x86" ] && FREEPASCAL=3.0.4
       export PATH=$HOME/fpc-$FREEPASCAL/bin:$PATH
       if [ ! -e $HOME/fpc-$FREEPASCAL/bin/fpc ]
       then
@@ -1423,6 +1422,8 @@ EOF
       install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop $PREFIX/share/applications/hedgewars.desktop || exit 1
       install -d $PREFIX/share/pixmaps/
       cp misc/hedgewars.png  $PREFIX/share/pixmaps/hedgewars.png || exit 1
+      [ "$ARCH" = "x86" ] && export CXXFLAGS+=' -fcommon' 
+      [ "$ARCH" = "x86" ] && export CFLAGS+=' -fcommon' 
   fi
   if [ -e src/a52dec.c ]
   then
