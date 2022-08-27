@@ -65,7 +65,8 @@ echo $ARCHIVE | grep pth-2.0.7 &&  LC_CONFIGURE_OPTS=" --disable-static \
 echo $ARCHIVE | grep FileZilla_Client &&  LC_CONFIGURE_OPTS=" --disable-manualupdatecheck --disable-autoupdatecheck --with-pugixml=builtin --with-wx-config=/$HOME/$ARCH/bin/wx-config-gtk3"
 
 echo $ARCHIVE | grep libbluray &&  LC_CONFIGURE_OPTS="--disable-bdjava-jar"
-echo $ARCHIVE | grep krita &&  LC_CONFIGURE_OPTS="  -DBUILD_TESTING=OFF -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON"
+echo $ARCHIVE | grep krita &&  LC_CONFIGURE_OPTS="-DBUILD_TESTING=OFF -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON"
+[ "$ARCH" = "x86" ] && echo $ARCHIVE | grep krita &&  LC_CONFIGURE_OPTS="-DBoost_DIR=/usr/lib/i386-linux-gnu/cmake/Boost-1.74 -DBUILD_TESTING=OFF -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON"
 echo $ARCHIVE | grep procps-ng &&  LC_CONFIGURE_OPTS="--disable-static   --enable-watch8bit \
     --disable-modern-top \
     --disable-kill"
