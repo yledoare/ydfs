@@ -84,7 +84,7 @@ BOOT=NAND
               echo "KERNEL3=5.4.202" >> config.ini
 	      echo "BUSYBOX=1.24.2" >> config.ini
 	    else
-              echo "KERNEL3=5.15.60" >> config.ini
+              echo "KERNEL3=5.15.63" >> config.ini
 	      echo "BUSYBOX=1.31.1" >> config.ini
 	    fi
         # autres cas non prévus
