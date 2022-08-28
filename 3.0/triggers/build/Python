@@ -1,4 +1,0 @@
-make || exit 1
-make install || exit 1
-
-chmod -v 755 $PREFIX/lib/libpython3.8.so && chmod -v 755 $PREFIX/lib/libpython3.so

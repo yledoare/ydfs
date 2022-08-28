@@ -1,4 +1,6 @@
 #!/bin/bash
+donotbuild=('gtk-update-icon-cache' 'gcc-libs' 'sh' 'libsysprof-capture' 'util-linux-libs' 'systemd-libs' 'glibc')
+
 export DIBAB_PREFIX=$HOME
 export SRC_PATH=$PWD
 
@@ -19,6 +21,69 @@ install -d $HOME/ydfs/CPPFLAGS
 MODULE=$1
 echo $SRC_PATH/list-$MODULE
 
+loop=0
+
+function get_child_pkg
+{
+  depends=$@
+  echo "DEPS $depends"
+  	   [ ${#depends[@]} = 0 ] && echo "no deps 3" !
+  	   for pkg in ${depends[@]}
+	   do
+	     get_alias $pkg
+	     d=$pkg
+  	     [ -e $HOME/archpkg/$d ] && continue
+	     get_special_pkg $d && continue 
+	     echo "Depends3: $d"; 
+	     if [ ! -e $HOME/archpkg/$d ]
+	     then
+  	      $HOME_DIBAB/scripts/echo-archpkg $d
+	     fi
+  	     source $HOME/archpkg/$d
+  	     get_child_pkg "${depends[@]}"
+     	   done
+  	new=`expr 1 + $loop`
+  	loop=$new
+	echo "LOOP : $loop"
+}
+
+function get_alias
+{
+	[ "$1" = "libkeyutils.so" ] && pkg="keyutils"
+	[ "$1" = "libcom_err.so" ] && pkg="e2fsprogs"
+	[ "$1" = "libss.so" ] && pkg="e2fsprogs"
+	[ "$1" = "libverto-module-base" ] && pkg="libverto"
+	[ "$1" = "libverto.so" ] && pkg="libverto"
+	[ "$1" = "libjpeg" ] && pkg="libjpeg-turbo"
+	[ "$1" = "libjpeg.so" ] && pkg="libjpeg-turbo"
+	[ "$1" = "libattr.so" ] && pkg="attr"
+	[ "$1" = "libsysprof-capture" ] && pkg="sysprof"
+	[ "$1" = "libidn2.so" ] && pkg="libidn2"
+	[ "$1" = "gobject-introspection-runtime" ] && pkg="gobject-introspection"
+	[ "$1" = "libreadline.so" ] && pkg="readline"
+	[ "$1" = "libcups" ] && pkg="cups"
+	[ "$1" = "libcolord" ] && pkg="colord"
+	[ "$1" = "libncursesw.so" ] && pkg="ncurses"
+	[ "$1" = "libexpat" ] && pkg="expat"
+	[ "$1" = "libexpat.so" ] && pkg="expat"
+	[ "$1" = "libldap" ] && pkg="openldap"
+	[ "$1" = "libfreetype.so" ] && pkg="freetype2"
+	[ "$1" = "util-linux-libs" ] && pkg="util-linux"
+}
+
+function get_special_pkg
+{
+for i in "${donotbuild[@]}"
+do
+    #	echo "$i / $1 ?"
+    if [ "$i" = "$1" ] ; then
+	    echo "Skip $1"
+        return 0
+    fi
+done
+ # echo "Pkg : $1"
+ return 1
+}
 
 # destruction des variables d'environnement citées
 unset CLEARENV XDG_DATA_DIRS PKG_CONFIG_PATH CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LD_LIBRARY_PATH PYTHONPATH PERL PYTHON
@@ -70,7 +135,7 @@ whoami | grep root && export FORCE_UNSAFE_CONFIGURE=1
 # initialisation de différents variables pour la compilation
 if [ -e "$HOME/$CARCH/bin/python3" ]
 then
-  export PYTHONPATH=$DIBAB_PREFIX/$CARCH/lib/python3.8/site-packages:$DIBAB_PREFIX/$MODULE/lib/python3.8/site-packages
+  export PYTHONPATH=$DIBAB_PREFIX/$CARCH/lib/python3.10/site-packages:$DIBAB_PREFIX/$MODULE/lib/python3.10/site-packages
   export PYTHON=$HOME/$CARCH/bin/python3
 fi
 export MAKE=`which make` MSGFMT=`which msgfmt` MSGMERGE=`which msgmerge` XGETTEXT=`which xgettext`
@@ -136,6 +201,17 @@ then
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
+fi
+
+if [  -n "`echo $PKGURL | grep 'archlastbuild:'`" ] 
+then
+  PKG=`echo $PKGURL | cut -d':' -f2`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
+  PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+  echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
+  source $HOME/archpkg/$PKG
+  get_child_pkg "${depends[@]}"
+  exit 3 
 fi
   PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKGNAME ] && echo "$HOME/ydfs/packages/$PKGNAME exists" && continue

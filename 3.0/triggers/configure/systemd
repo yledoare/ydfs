@@ -1,4 +1,4 @@
   mkdir build-meson
   cd build-meson
-  meson --prefix=$PREFIX -Drootlibdir="$PREFIX"/lib -Dsysconfdir=$PREFIX/etc -Ddbuspolicydir=$PREFIX/share/dbus-1/system.d -Dudevrulesdir=$PREFIX/lib/udev/rules.d/
+  meson -Drootlibdir="$PREFIX"/lib -Dsysconfdir=$PREFIX/etc -Ddbuspolicydir=$PREFIX/share/dbus-1/system.d 
   cd ..
