@@ -125,6 +125,8 @@ PATH=$HOME/ydfs/llvm-clang/bin/:$PATH
 test -n "$1" && MODULE="$1"
 # build tar
 	
+install -d $HOME/$ARCH/bin/
+
 [ -e /usr/bin/clang++-13 ] && [ ! -e $HOME/$ARCH/bin/clang++ ] && ln -s /usr/bin/clang++-13 $HOME/$ARCH/bin/clang++
 [ -e /usr/bin/clang-13 ] && [ ! -e $HOME/$ARCH/bin/clang ] && ln -s /usr/bin/clang-13 $HOME/$ARCH/bin/clang
 [ -e /usr/bin/llvm-nm-13 ] && [ ! -e $HOME/$ARCH/bin/llvm-nm ] && ln -s /usr/bin/llvm-nm-13 $HOME/$ARCH/bin/llvm-nm
