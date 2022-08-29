@@ -2,6 +2,8 @@
 export DIBAB_PREFIX=$HOME
 export SRC_PATH=$PWD
 
+. ../scripts/includes/build
+
 install -d $HOME/tmp
 export TMPDIR=$HOME/tmp
 
@@ -70,7 +72,7 @@ for MODULE in $MODULE_LIST
 do
 # echo "PATH is $PATH"
 export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$ARCH/share/aclocal/ -I $HOME/opkg/share/aclocal/"
-echo "ACLOCAL_FLAGS is $ACLOCAL_FLAGS"
+#echo "ACLOCAL_FLAGS is $ACLOCAL_FLAGS"
 # création d'un répertoire
 [ ! -e $HOME/$MODULE/share/aclocal ] && install -d $HOME/$MODULE/share/aclocal
 # initialisations des variables utilisées 
@@ -204,10 +206,12 @@ then
   echo "Arch linux source for $PKG : $ARCHIVE_URL"
 fi
   DIRNAME=`basename $ARCHIVE_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+  echo "$ARCHIVE" | grep '::' >/dev/null && DIRNAME=`echo $ARCHIVE | cut -d':' -f1 |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+# echo "ARCHIVE_URL : $ARCHIVE_URL $DIRNAME"
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/build-$ARCH/$DIRNAME/"buildok-"$ARCH ] && echo -n "build-$ARCH/$DIRNAME/"buildok-"$ARCH exists" && continue
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages-$ARCH/$DIRNAME ] && echo -n "packages-$ARCH/$DIRNAME exists" && continue
   FIRST=`echo $ARCHIVE | head -c1`
-  [ "$FIRST" = '#' ] && continue
+  [ "$FIRST" = '#' ] && echo $ARCHIVE && continue
   echo "$ARCHIVE" | grep '#tag' >/dev/null || echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/_i386.deb/_amd64.deb/"`
   [ "$ARCH" = "x86_64" ] && ARCHIVE=`echo $ARCHIVE | sed "s/i586.deb/amd64.deb/"`
@@ -236,6 +240,7 @@ fi
     cd $SOURCE_DIR
     db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
   if [  -n "`echo $ARCHIVE | grep 'git://'`" ] || [  -n "`echo $ARCHIVE | grep 'opkg-gtk2.git'`" ] \
@@ -268,15 +273,15 @@ fi
     then
 	git clone --recurse-submodules https://github.com/Unvanquished/daemonmap.git
     else
-	echo "Cloning $ARCHIVE"
-        [ ! -e $SOURCE_DIR ] && git clone `echo $ARCHIVE |cut -d'#' -f1`
+	    echo "Cloning $ARCHIVE (quiet)"
+        [ ! -e $SOURCE_DIR ] && git clone -q `echo $ARCHIVE |cut -d'#' -f1`
     fi
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
     COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
     if [ "$TAG" != "" ]
     then
-	git checkout tags/$TAG || exit 1
+	git checkout -q tags/$TAG || exit 1
     fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
@@ -284,14 +289,7 @@ fi
   . $HOME_DIBAB/scripts/includes/build-options
 
     [ -e ./data/gala.desktop ] && git cherry-pick -n 85d290c75eaa147b704ad34e6c67498071707ee8
-    if [ "$DIBAB_VERBOSE_BUILD" = "YES" ] 
-    then
-     LC_CONFIGURE_OPTS=$LC_CONFIGURE_OPTS db-autobuild $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
-    else
-      echo "run db-autobuild $DIBAB_PREFIX/$MODULE 2>$PWD/ydfs-error 1>$PWD/ydfs-log" 
-     LC_CONFIGURE_OPTS=$LC_CONFIGURE_OPTS db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
-    fi
-
+    build_ydfs_package
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
@@ -302,7 +300,7 @@ fi
     # pip3 install --upgrade pip
     echo "Run  pip3 install $modpython" 
 	  pip3 install $modpython || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
 
@@ -311,11 +309,11 @@ fi
     modperl=`echo $ARCHIVE | cut -d '/' -f2` 
     echo "Run  db-build-modperl $modperl" 
 	  SDL_INC=$HOME/$ARCH/include SDL_LIB=$HOME/$ARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
+    [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
 
-  [ -e $HOME/ydfs-error ] && echo "Exit $0 " && break
+  [ -e $HOME/ydfs-error ] && echo "Final exit $0 " && break
 
   if [ -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ]
   then
@@ -381,8 +379,7 @@ fi
   . $HOME_DIBAB/scripts/includes/build-options
 
 
-	echo $ARCHIVE | grep zlib && unset LC_CONFIGURE_OPTS && LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` && continue
-
+	# echo $ARCHIVE | grep zlib && unset LC_CONFIGURE_OPTS && LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` && continue
 	# Build now
 
 	# echo -n  " (db-lcarchive) "
@@ -391,9 +388,8 @@ fi
        
 	if [ -e $HOME/ydfs-error ]
         then
-	   echo "Exit db-lcarchive $ARCHIVE " 
-		# [ -e $HOME/ydfs/.last-error ] && tail -200 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error && break
-		exit 1	
+	   echo "Exit db-lcarchive $ARCHIVE, because $HOME/ydfs-error exists " 
+   	   exit 1	
 	fi
 	# Build twice
 
@@ -427,32 +423,6 @@ then
   tar xjvf $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2
   mv dejavu-fonts-ttf-2.29 $HOME/$ARCH/share/fonts
 fi
-
-#if [ ! -e $HOME/$ARCH/share/fonts/truetype/ukai ]
-#then
-#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs  http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
-#  mkdir ukai
-#  cd ukai
-#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-ukai_0.2.20080216.1.orig.tar.gz
-#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/ukai
-#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/ukai
-#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
-#  cd $HOME/$ARCH/etc/fonts/conf.d
-#  cp ../conf.avail/*-ttf-arphic-ukai-*.conf . 
-#fi
-
-#if [ ! -e $HOME/$ARCH/share/fonts/truetype/uming ]
-#then
-#  [ ! -e $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz ] && wget --directory-prefix=$HOME/ydfs/tarballs http://us.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
-#  mkdir uming
-#  cd uming
-#  tar xzvf $HOME/ydfs/tarballs/ttf-arphic-uming_0.2.20080216.1.orig.tar.gz
-#  install -v -d -m755 $HOME/$ARCH/share/fonts/truetype/uming
-#  cp *.ttc fonts.* $HOME/$ARCH/share/fonts/truetype/uming
-#  cp *.conf $HOME/$ARCH/etc/fonts/conf.avail/
-#  cd $HOME/$ARCH/etc/fonts/conf.d
-#  cp ../conf.avail/*-ttf-arphic-uming-*.conf . 
-#fi
 
 echo > $HOME/$ARCH/buildenv
 for ENV in LD_LIBRARY_PATH LIB_CUPS PATH CUPS_ETC XDG_DATA_DIRS PYTHONPATH

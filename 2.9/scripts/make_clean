@@ -1,4 +1,4 @@
-	chmod -R 777 ${HOME}/${ARCH}/share/doc/p7zip
+	[ -e ${HOME}/${ARCH}/share/doc/p7zip ] && chmod -R 777 ${HOME}/${ARCH}/share/doc/p7zip
 	rm -fR ${HOME}/${ARCH}
 	rm -fR ${HOME}/ydfs/build-${ARCH}/*
 	rm -fR ${HOME}/ydfs/src/*

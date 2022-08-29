@@ -2628,8 +2628,6 @@ Cflags: -I${includedir}' > lua.pc
       fi
 
       	[ -e "Source/Swig/swig.h" ] && make && make install
-	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
-	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
 
       if [ -e tools/llvm-spirv ]
       then
@@ -2669,7 +2667,7 @@ Cflags: -I${includedir}' > lua.pc
 	cd contrib/minizip
 	cp Makefile Makefile.orig
 	cp ../README.contrib readme.txt
-	autoreconf --install
+	autoreconf --install || exit 1
 	./configure --prefix=$PREFIX --enable-static=no
 	make || exit 1
 	make install || exit 1
@@ -2677,6 +2675,7 @@ Cflags: -I${includedir}' > lua.pc
 	rm $PREFIX/include/minizip/crypt.h
 	cd ../../
       fi
+
     if [ -e libstemmer.so.0.0.0 ]
     then
 	install -t "$PREFIX/bin" snowball stemwords
@@ -2687,6 +2686,9 @@ Cflags: -I${includedir}' > lua.pc
         touch buildok-$ARCH
 	exit 0
     fi
+
+	echo "DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install" 
+	DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
       if [ "$MAKE_INSTALL" != "OFF" ] && [ ! -e src/winetricks ]
       then
         echo "Run make install inside $PWD"

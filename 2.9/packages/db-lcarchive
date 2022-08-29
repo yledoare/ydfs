@@ -2,39 +2,8 @@
 #ce script détermine l'action à faire selon le type de fichier ou d'archive
 #il n'y a pas ici le cas du git://
 
-build_the_archive()
-{  
-  echo $PWD/ydfs-error > $HOME/ydfs/.last-error
-  echo $PWD/ydfs-log > $HOME/ydfs/.last-log
-  if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
-  then
-  db-autobuild $MYPREFIX || exit $?
-  else
-  PKGNAME=`basename $PWD`
-  echo -n "Building $PKGNAME in progress, "     
-  echo "LOG: $PWD/ydfs-log ... "
-#  echo "Err : $PWD/ydfs-error "
-  TIME=`date "+%H:%M"`
-  TIME2=`date "+%d/%m/%Y" `
-  echo -n "Start at"     
-  echo -n -e " \e[91m$TIME\e[0m - $TIME2 " 
-  START=`date '+%s'`
-  [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
-  db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
-  EXITCODE=$?
-  [ "$EXITCODE" != "0" ] && LOGERROR=`tail ydfs-error | grep error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-error \n\n" 
-  [ "$EXITCODE" != "0" ] && exit 1
-  END=`date '+%s'`
-  DURATION=$((($END - $START)/60))
-  SDURATION=$((($END - $START)%60))
-  if [ "$DURATION" != "0" ]
-    then
-  	echo -e "$PKGNAME build in \e[94m$DURATION:$SDURATION\e[0m " 
-    else
-  	echo -e "$PKGNAME build in \e[92m$DURATION:$SDURATION\e[0m " 
-    fi
-  fi
-}
+. $HOME_DIBAB/scripts/includes/build
+
 if [ "$1" = "--help" ] || [ "$1" = "" ]
 then
   echo "USAGE : db-lcarchive (choice=view,decompress,installfromsrc,install) ARCHIVE"
@@ -173,7 +142,7 @@ case "$ARCHIVE" in
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   ZIP)
@@ -197,7 +166,7 @@ case "$ARCHIVE" in
       export DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   RPM)
@@ -232,7 +201,7 @@ case "$ARCHIVE" in
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   TARLZ)
@@ -246,7 +215,7 @@ case "$ARCHIVE" in
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   TARXZ)
@@ -260,7 +229,7 @@ case "$ARCHIVE" in
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   TARBZ)
@@ -275,7 +244,7 @@ case "$ARCHIVE" in
       export DIR2=$DIR2
       export MYPREFIX=$MYPREFIX
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
-      build_the_archive
+      build_ydfs_package
     fi
     ;;
   DSC)
