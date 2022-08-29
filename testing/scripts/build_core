@@ -23,28 +23,126 @@ echo $SRC_PATH/list-$MODULE
 
 loop=0
 
+function build_from_url
+{
+  PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKGNAME ] && echo "$HOME/ydfs/packages/$PKGNAME exists" && continue
+  DIRNAME=`basename $PKGURL_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
+  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
+  FIRST=`echo $PKGURL | head -c1`
+  [ "$FIRST" = '#' ] && continue
+  echo "$ARCHIVE" | grep '#tag' >/dev/null || echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
+  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/_i386.deb/_amd64.deb/"`
+  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/i586.deb/amd64.deb/"`
+  export PKGSRC=$PKGURL
+  echo " $PKGURL "
+  export PREFIX=$DIBAB_PREFIX/$MODULE/
+  if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
+  then
+    cd $HOME/ydfs/src
+    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
+    [ ! -e $SOURCE_DIR ] && svn co $PKGURL
+    cd $SOURCE_DIR
+    [ -e libc ] && cd libc # eglibc
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || exit $?
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'lp:'`" ] 
+  then
+    cd $HOME/ydfs/src
+    SOURCE_DIR=`echo $PKGURL | cut -d':' -f2`
+    [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $PKGURL
+    cd $SOURCE_DIR
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] || [  -n "`echo $PKGURL | grep 'git+https://'`" ]  
+  then
+    cd $HOME/ydfs/src
+    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1 | cut -d'#' -f1`
+    [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/" | cut -d'#' -f1` 
+    cd $SOURCE_DIR
+    echo "DEBUG ARCHIVE = $ARCHIVE"
+    TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
+    COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
+    if [ "$TAG" != "" ]
+    then
+	git checkout tags/$TAG || exit 1
+    fi
+    [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
+    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'pip::'`" ] 
+  then
+    modpython=`echo $PKGURL | cut -d ':' -f3` 
+    echo "Run  pip install $modpython" 
+#    python3.8 -m pip install --upgrade pip setuptools wheel
+	  pip3 install $modpython || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
+  then
+    modperl=`echo $PKGURL | cut -d '/' -f2` 
+    echo "Run  db-build-modperl $modperl" 
+	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
+    continue
+  fi
+  if [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ]
+  then
+    test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
+  fi
+  echo "$PKGURL" | grep '::' >/dev/null && PKGURL=`echo $PKGURL | cut -d':' -f3,4`
+  [ -e $HOME/ydfs/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && rm $HOME/ydfs/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
+  test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
+  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/ydfs-error
+  [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && exit 24
+  $HOME_DIBAB/scripts/build_archive $HOME/ydfs/tarballs/`basename $PKGURL` || touch $HOME/ydfs-error
+  [ -e $HOME/ydfs-error ] && tail -100 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error
+  [ -e $HOME/ydfs-error ] && echo "Exit $0 $PKGURL " && exit 23
+
+[ -e $HOME/ydfs-error ] && exit 1
+}
+
 function get_child_pkg
 {
   depends=$@
-  echo "DEPS $depends"
-  	   [ ${#depends[@]} = 0 ] && echo "no deps 3" !
+	# echo "LEVEL : $LEVEL"
+  	#echo "DEPS $depends"
+  	   # [ ${#depends[@]} = 0 ] && echo "no deps 3" !
+  	   ready_to_build $depends
+	   if [ $? = 0 ]
+	   then
+  		PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $d`
+		echo
+		echo "Ready to build $d $PKGURL !"
+		build_from_url 
+	   fi
+
   	   for pkg in ${depends[@]}
 	   do
+		   export LEVEL=$loop
 	     get_alias $pkg
 	     d=$pkg
   	     [ -e $HOME/archpkg/$d ] && continue
 	     get_special_pkg $d && continue 
-	     echo "Depends3: $d"; 
+	     # echo "Depends3: $d"; 
+	     echo -n " $d"
 	     if [ ! -e $HOME/archpkg/$d ]
 	     then
-  	      $HOME_DIBAB/scripts/echo-archpkg $d
+  	      $HOME_DIBAB/scripts/echo-archpkg $d >/dev/null
 	     fi
   	     source $HOME/archpkg/$d
   	     get_child_pkg "${depends[@]}"
      	   done
   	new=`expr 1 + $loop`
   	loop=$new
-	echo "LOOP : $loop"
+	# echo "LOOP : $loop"
 }
 
 function get_alias
@@ -71,11 +169,30 @@ function get_alias
 	[ "$1" = "util-linux-libs" ] && pkg="util-linux"
 }
 
+function ready_to_build
+{
+ depends=$@
+#echo "DEPENDS : / $depends /"
+for i in $depends
+do
+    for j in "${donotbuild[@]}"
+    do
+      notfound=1
+      # echo " j -> $j / i-> $i ??"
+      [ "$j" = "$i" ] && notfound=0 && break
+    done
+    [ "$notfound" = "1" ] && return 1
+done
+
+ [ "$notfound" = "1" ] && return 1
+ return 0
+}
+
 function get_special_pkg
 {
 for i in "${donotbuild[@]}"
 do
-    #	echo "$i / $1 ?"
+#    echo "$i / $1 ?"
     if [ "$i" = "$1" ] ; then
 	    echo "Skip $1"
         return 0
@@ -201,6 +318,7 @@ then
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
+		build_from_url 
 fi
 
 if [  -n "`echo $PKGURL | grep 'archlastbuild:'`" ] 
@@ -211,92 +329,10 @@ then
   echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
   source $HOME/archpkg/$PKG
   get_child_pkg "${depends[@]}"
-  exit 3 
 fi
-  PKGNAME=$(basename $PKGURL_URL | cut -d'-' -f1)
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKGNAME ] && echo "$HOME/ydfs/packages/$PKGNAME exists" && continue
-  DIRNAME=`basename $PKGURL_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`
-  [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/src/$DIRNAME/distinstall.done ] && echo "distinstall.done" && continue
-  FIRST=`echo $PKGURL | head -c1`
-  [ "$FIRST" = '#' ] && continue
-  echo "$ARCHIVE" | grep '#tag' >/dev/null || echo "$ARCHIVE" | grep '#commit' >/dev/null || ARCHIVE=`echo $ARCHIVE|cut -d'#' -f1`
-  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/_i386.deb/_amd64.deb/"`
-  [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/i586.deb/amd64.deb/"`
-  export PKGSRC=$PKGURL
-  echo " $PKGURL "
-  export PREFIX=$DIBAB_PREFIX/$MODULE/
-  if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
-  then
-    cd $HOME/ydfs/src
-    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
-    [ ! -e $SOURCE_DIR ] && svn co $PKGURL
-    cd $SOURCE_DIR
-    [ -e libc ] && cd libc # eglibc
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || exit $?
-    continue
-  fi
-  if [  -n "`echo $PKGURL | grep 'lp:'`" ] 
-  then
-    cd $HOME/ydfs/src
-    SOURCE_DIR=`echo $PKGURL | cut -d':' -f2`
-    [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $PKGURL
-    cd $SOURCE_DIR
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
-  fi
-  if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] || [  -n "`echo $PKGURL | grep 'git+https://'`" ]  
-  then
-    cd $HOME/ydfs/src
-    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1 | cut -d'#' -f1`
-    [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/" | cut -d'#' -f1` 
-    cd $SOURCE_DIR
-    echo "DEBUG ARCHIVE = $ARCHIVE"
-    TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
-    COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
-    if [ "$TAG" != "" ]
-    then
-	git checkout tags/$TAG || exit 1
-    fi
-    [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
-  fi
-  if [  -n "`echo $PKGURL | grep 'pip::'`" ] 
-  then
-    modpython=`echo $PKGURL | cut -d ':' -f3` 
-    echo "Run  pip install $modpython" 
-#    python3.8 -m pip install --upgrade pip setuptools wheel
-	  pip3 install $modpython || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
-  fi
-  if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
-  then
-    modperl=`echo $PKGURL | cut -d '/' -f2` 
-    echo "Run  db-build-modperl $modperl" 
-	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
-  fi
-  if [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ]
-  then
-    test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
-  fi
-  echo "$PKGURL" | grep '::' >/dev/null && PKGURL=`echo $PKGURL | cut -d':' -f3,4`
-  [ -e $HOME/ydfs/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && rm $HOME/ydfs/tarballs/`basename $PKGURL`
-  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
-  test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
-  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/ydfs-error
-  [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-  # ? DBKVER=$KERNEL3 
-  $HOME_DIBAB/scripts/build_archive $HOME/ydfs/tarballs/`basename $PKGURL` || touch $HOME/ydfs-error
-  [ -e $HOME/ydfs-error ] && tail -100 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error
-  [ -e $HOME/ydfs-error ] && echo "Exit $0 $PKGURL " && break
+
 done
 
-[ -e $HOME/ydfs-error ] && exit 1
 
 if [ ! -e /$HOME/$CARCH/include/ladspa.h ] && [ "$CARCH" != "arm" ]
 then

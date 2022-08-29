@@ -1,6 +1,3 @@
 cd ncursesw-build
 make
 cd ..
-cd ncurses-build
-make
-cd ..

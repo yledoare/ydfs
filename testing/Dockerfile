@@ -28,6 +28,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get install -y make g++ gcc
 RUN apt-get install -y git
+RUN apt-get install -y wget
 
 #RUN apk add --no-cache make g++ gcc 
 

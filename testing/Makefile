@@ -141,6 +141,7 @@ test2:
 distclean:
 	./scripts/make_distclean
 clean:
+	rm -fR ${HOME}/archpkg/*
 	rm -fR ${HOME}/${CARCH}
 	rm -fR ${HOME}/ydfs/build_${CARCH}/*
 	rm -fR ${HOME}/ydfs/src/*
