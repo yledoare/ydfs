@@ -1,4 +1,4 @@
-OPT="--enable-widec     --enable-pc-files --with-cxx-binding     --with-cxx-shared     --with-manpage-format=normal  --with-pkg-config-libdir=$PREFIX/lib/pkgconfig     --with-shared     --with-versioned-syms     --with-xterm-kbs=del     --without-ada
+OPT="--enable-widec     --enable-pc-files --with-cxx-binding     --with-cxx-shared     --with-manpage-format=normal  --with-pkg-config-libdir=$PREFIX/lib/pkgconfig     --with-shared     --with-versioned-syms     --with-xterm-kbs=del     --without-ada"
 
 cd ncursesw-build
 ../configure --prefix=$PREFIX $OPT || exit 5 

@@ -35,7 +35,7 @@ function build_from_url
   [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/_i386.deb/_amd64.deb/"`
   [ "$CARCH" = "x86_64" ] && PKGURL=`echo $PKGURL | sed "s/i586.deb/amd64.deb/"`
   export PKGSRC=$PKGURL
-  echo " $PKGURL "
+  # echo " $PKGURL "
   export PREFIX=$DIBAB_PREFIX/$MODULE/
   if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
   then
@@ -88,7 +88,7 @@ function build_from_url
   then
     modperl=`echo $PKGURL | cut -d '/' -f2` 
     echo "Run  db-build-modperl $modperl" 
-	  SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
+    SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
     continue
   fi
@@ -98,15 +98,16 @@ function build_from_url
   fi
   echo "$PKGURL" | grep '::' >/dev/null && PKGURL=`echo $PKGURL | cut -d':' -f3,4`
   [ -e $HOME/ydfs/tarballs/`basename $PKGURL`.start ] && [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && rm $HOME/ydfs/tarballs/`basename $PKGURL`
-  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
+  [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && touch $HOME/ydfs/tarballs/`basename $PKGURL`.start && echo "Get $PKGURL" && wget --trust-server-name -q --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $PKGURL` $PKGURL && rm $HOME/ydfs/tarballs/`basename $PKGURL`.start
   test -s $HOME/ydfs/tarballs/`basename $PKGURL` || rm $HOME/ydfs/tarballs/`basename $PKGURL`
   [ ! -e $HOME/ydfs/tarballs/`basename $PKGURL` ] && echo "`basename $PKGURL` not found " && touch $HOME/ydfs-error
   [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && exit 24
+  echo -n  "BUILDING $PACKAGE_NAME .. "
   $HOME_DIBAB/scripts/build_archive $HOME/ydfs/tarballs/`basename $PKGURL` || touch $HOME/ydfs-error
-  [ -e $HOME/ydfs-error ] && tail -100 $(cat $HOME/ydfs/.last-error) && echo -n "full log is " && cat $HOME/ydfs/.last-error
-  [ -e $HOME/ydfs-error ] && echo "Exit $0 $PKGURL " && exit 23
-
-[ -e $HOME/ydfs-error ] && exit 1
+  [ -e $HOME/ydfs-error ] && echo -e "\n\n Log : \n " && tail -10 $(cat $HOME/ydfs/.last-log) # && echo -n "full log is " && cat $HOME/ydfs/.last-error
+  [ -e $HOME/ydfs-error ] && echo -e "\n Error : \n " && tail -10 $(cat $HOME/ydfs/.last-error) # && echo -n "full log is " && cat $HOME/ydfs/.last-error
+  [ -e $HOME/ydfs-error ] && echo " Failed !" && echo "Exit $0 $PKGURL " && exit 23
+  [ -e $HOME/ydfs-error ] && exit 1
 }
 
 function get_child_pkg
@@ -118,9 +119,11 @@ function get_child_pkg
   	   ready_to_build $depends
 	   if [ $? = 0 ]
 	   then
+  		echo "DEBUG $HOME_DIBAB/scripts/echo-archpkg $d"
   		PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $d`
 		echo
-		echo "Ready to build $d $PKGURL !"
+		export PACK=$d
+		echo "Ready to build $PKGURL !"
 		build_from_url 
 	   fi
 
@@ -294,9 +297,10 @@ do
   echo "$ARCHIVE" | grep '#commit' >/dev/null && ARCHIVE_URL=`echo $ARCHIVE`
   PKGURL_URL=`echo $PKGURL | cut -d'#' -f1`
   [ "$PKGURL_URL" = "" ] && continue
+  PKG=`echo $PKGURL | cut -d':' -f2`
+  export PACKAGE_NAME=$PKG
   if [  -n "`echo $PKGURL | grep 'archsource:'`" ] 
 then
-  PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   $HOME_DIBAB/scripts/get-archpkg $PKG
   $HOME_DIBAB/scripts/build-archpkg || exit $?
@@ -305,7 +309,6 @@ fi
 [ -e $HOME/.archpatches ] && rm $HOME/.archpatches
   if [  -n "`echo $PKGURL | grep 'archlinuxpatched:'`" ] 
 then
-  PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   $HOME_DIBAB/scripts/get-archpkg $PKG
   # $HOME_DIBAB/scripts/scripts/get-all-archpkg-patches $PKG
@@ -314,7 +317,6 @@ then
 fi
   if [  -n "`echo $PKGURL | grep 'archlinux:'`" ] 
 then
-  PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"
@@ -323,7 +325,6 @@ fi
 
 if [  -n "`echo $PKGURL | grep 'archlastbuild:'`" ] 
 then
-  PKG=`echo $PKGURL | cut -d':' -f2`
   [ "$FORCEBUILD" != "OK" ] && [ -e $HOME/ydfs/packages/$PKG ] && echo "$HOME/ydfs/packages/$PKG exists" && continue
   PKGURL=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
   echo "Arch linux source for $PKG : $PKGURL_URL ($PKGURL)"

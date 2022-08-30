@@ -1,3 +1,4 @@
+
 export DBPACKAGE=$(basename $PWD | cut -d'-' -f1)
 echo $PWD | grep gnu-efi && export DBPACKAGE=gnu-efi
 echo $PWD | grep Linux-PAM && export DBPACKAGE=Linux-PAM

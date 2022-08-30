@@ -3,10 +3,12 @@
 
 build_the_archive()
 {  
+  [ -e distinstall.done ] && echo "Buildt" && exit 0
   echo $PWD/ydfs-error > $HOME/ydfs/.last-error
   echo $PWD/ydfs-log > $HOME/ydfs/.last-log
   if [ "$MODULE" = "opkg" ] || [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
+[ "$BUILDME" = "OK" ] && bash
   $HOME_DIBAB/scripts/build_from_source $PREFIX || exit $?
   else
   echo -n "Log in $PWD/ydfs-log , Error in $PWD/ydfs-error , Building in progress.... "     
