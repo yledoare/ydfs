@@ -58,6 +58,13 @@ docker build -f Dockerfile32 -t ydfs32-2.9 .
 * cd 2.9
 * make 
 
+# Build from WSL2 (Ubunut bullseye / 64 bits)
+
+grep RUN Dockerfile | sed s'/RUN//' > install.sh
+bash install.sh
+useradd -m linuxconsole2022
+su - linuxconsole2022 $PWD/build-lc2022
+
 # Troubleshooting :
 
 Error when build QT ?
