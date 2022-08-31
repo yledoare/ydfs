@@ -274,6 +274,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep supertuxkart && [ "$ARCH" = "x86" ] && export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DLIBRESOLV_LIBRARY=/lib/i386-linux-gnu/libresolv.so.2 -DPTHREAD_LIBRARY=/lib/i386-linux-gnu/libpthread.so.0 " 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
+	echo $ARCHIVE | grep gcr-3 && export LC_CONFIGURE_OPTS="-Dgtk_doc=false"
 	echo $ARCHIVE | grep appstream-glib && export LC_CONFIGURE_OPTS="-Drpm=false"
 	echo $ARCHIVE | grep megaglest && export LC_CONFIGURE_OPTS="-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-lX11" -DWANT_GIT_STAMP=0" # && echo $LC_CONFIGURE_OPTS && sleep 10
 	echo $ARCHIVE | grep lmms && export LC_CONFIGURE_OPTS=" -DWANT_QT5=ON -DWANT_SOUNDIO=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo "

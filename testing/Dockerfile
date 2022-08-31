@@ -1,9 +1,7 @@
 FROM debian:bullseye
-#FROM alpine:3.14
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
-#RUN apk add --no-cache --update musl musl-utils musl-locales tzdata
 RUN apt-get update && apt-get install -y locales 
 RUN echo "fr_FR.UTF-8 UTF-8"> /etc/locale.gen
 RUN echo "br_FR.UTF-8 UTF-8">> /etc/locale.gen
@@ -28,9 +26,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get install -y make g++ gcc
 RUN apt-get install -y git
-RUN apt-get install -y wget
-
-#RUN apk add --no-cache make g++ gcc 
+RUN apt-get install -y wget procps
+RUN apt-get install -y xz-utils bzip2
+RUN apt-get install -y meson
 
 RUN useradd ydfs3 --create-home
 COPY ./build /home/ydfs3/build
