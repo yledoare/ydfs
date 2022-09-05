@@ -2,6 +2,12 @@
 
 (Your Distro From Scratch) is a tool to build your own linux distribution 
 
+# Gest last stable
+
+git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+cd ydfs
+git checkout v2.9.0
+
 # Build docker images
 
 ## 64 bits

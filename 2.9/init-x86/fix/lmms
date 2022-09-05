@@ -1,6 +1,6 @@
 if [ "$USER" = "root" ]
 then
-  $HOME_DIBAB/music/bin/lmms --allowroot "$@"
+  $HOME_DIBAB/linuxconsole/bin/lmms --allowroot "$@"
 else
-  $HOME_DIBAB/music/bin/lmms "$@"
+  $HOME_DIBAB/linuxconsole/bin/lmms "$@"
 fi
