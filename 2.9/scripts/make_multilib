@@ -112,6 +112,8 @@ do
   	# export CXX="g++ -m32"
 	mkdir build-32
 	cd build-32
+	[ ! -e env.1 ] && env > env.1
+	env > env.2
 	echo "[binaries]
 llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
@@ -434,7 +436,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
      gdk-pixbuf)
 	mkdir build-32
 	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dgir=false --libdir=$HOME/multilib/lib32 || exit 1
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dman=false -Dintrospection=disabled --libdir=$HOME/multilib/lib32 || exit 1
 	;;
      pulseaudio-14 )
 	mkdir build-32
@@ -536,6 +538,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
     json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+  echo "Run Ninja" 
         PYTHONPATH="" ninja || exit 1
 	;;
     readline )
@@ -593,6 +596,7 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
 	cd ..
 	;;
     json-glib | libgudev | glib-networking | libsoup | polkit-dev | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+  	echo "Run ninja install "
         PYTHONPATH="" ninja install || exit 1
 	cd ..
 	;;

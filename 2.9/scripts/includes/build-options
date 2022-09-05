@@ -89,7 +89,7 @@ echo $ARCHIVE | grep nghttp2  &&  LC_CONFIGURE_OPTS="--disable-examples \
     --disable-python-bindings \
     --enable-lib-only"
 echo $ARCHIVE | grep libzmf &&  LC_CONFIGURE_OPTS="--disable-werror"
-echo $ARCHIVE | grep mutter &&  LC_CONFIGURE_OPTS=" -Dcore_tests=false -Dprofiler=false" && wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/xorg-server/trunk/xvfb-run && mv xvfb-run $HOME/$ARCH/bin && chmod +x $HOME/$ARCH/bin/xvfb-run
+echo $ARCHIVE | grep mutter &&  LC_CONFIGURE_OPTS="-Dsystemd=false -Dcore_tests=false -Dprofiler=false" && wget https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/xorg-server/trunk/xvfb-run && mv xvfb-run $HOME/$ARCH/bin && chmod +x $HOME/$ARCH/bin/xvfb-run
 # echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="-Ddocs=false"
 # echo $ARCHIVE | grep libgusb &&  LC_CONFIGURE_OPTS="--disable-gtk-doc"
 echo $ARCHIVE | grep libxml2-2 &&  LC_CONFIGURE_OPTS="--with-threads --with-history --with-icu --with-python=$HOME/$ARCH/bin/python3"

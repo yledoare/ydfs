@@ -921,7 +921,7 @@ http://www.sysprof.com/sysprof-1.2.0.tar.gz
 git://github.com/NVIDIA/eglexternalplatform.git
 https://github.com/NVIDIA/egl-wayland/archive/1.1.5.tar.gz
 https://xorg.freedesktop.org/archive/individual/xserver/xwayland-22.1.0.tar.xz
-https://gitlab.gnome.org/GNOME/mutter/-/archive/42.0/mutter-42.0.tar.bz2
+https://gitlab.gnome.org/GNOME/mutter/-/archive/42.4/mutter-42.4.tar.bz2
 #git://gitlab.gnome.org/GNOME/mutter.git#commit=17926e941d67867911c462737f4d013adb55e4d6
 # Carla depths
 http://das.nasophon.de/download/pyliblo-0.10.0.tar.gz
