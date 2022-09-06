@@ -4,9 +4,13 @@
 	pkgname=0ad
   pkgver=0.0.25-alpha
   install -d "${pkgdir}"/{bin,data,lib,share/"${pkgname}"/}
- 
+
+mv $HOME/$ARCH/include/mbedtls $HOME/$ARCH/include/mbedtls-disabled
+install -d $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lua*  $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lauxlib.h $HOME/$ARCH/include/disabled-lua
+
+export CXX=clang++ 
 	cd build/workspaces
-	./update-workspaces.sh  --without-pch   || exit $?
+	./update-workspaces.sh  --without-pch --enable-atlas || exit $?
 	cd gcc
 	CPPFLAGS="-I$HOME/$ARCH/include/X11 -I$HOME/$ARCH/include" make || exit $?
   cd "../../.."

@@ -339,6 +339,7 @@ else
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
   [ -e $HOME/$ARCH/include/ode-disabled ] && mv $HOME/$ARCH/include/ode-disabled $HOME/$ARCH/include/ode
+  [ -e $HOME/$ARCH/include/mbedtls-disabled ] && mv $HOME/$ARCH/include/mbedtls-disabled $HOME/$ARCH/include/mbedtls
   [ -e $HOME/$ARCH/include/GLES3-disabled ] && mv $HOME/$ARCH/include/GLES3-disabled $HOME/$ARCH/include/GLES3
   [ -e $HOME/$ARCH/include/irrlicht-disabled ] && mv $HOME/$ARCH/include/irrlicht-disabled $HOME/$ARCH/include/irrlicht
   [ -e $HOME/$ARCH/include/disabled-lua ] && mv $HOME/$ARCH/include/disabled-lua/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/disabled-lua
