@@ -1647,7 +1647,7 @@ Cflags: -I${includedir}' > $PREFIX/lib/pkgconfig/snappy.pc
       install -d build
       cd build
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
-CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DARCH=$ARCH -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
+CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
 	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
 	[ -e ryzom ]  && CMAKEOPTIONS="$CMAKEOPTIONS -DCPPTEST_INCLUDE_DIR=$HOME/$ARCH/include -DLUABIND_INCLUDE_DIR=$HOME/$ARCH/include" 
 	
@@ -1679,7 +1679,9 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
          	touch buildok-$ARCH
 	 	exit 0
 	fi	
+        [ -e ../src/wesnoth.cpp ] && echo "Unsetting $ARCH" && sleep 5 && OLDARCH=$ARCH && unset ARCH
 	cmake $CMAKEOPTIONS .. || exit 12
+        [ -e ../src/wesnoth.cpp ] && export ARCH=$OLDARCH
 
         if [ -e ../Source/WebKit/gtk/ ]
         then
@@ -1739,7 +1741,7 @@ Cflags: -I${includedir}' > glm.pc
       then
 	cd ..
         install -Dm755 build/astromenace $pkgdir/bin/astromenace || exit 1
-        install -Dm644 build/gamedata.vfs $pkgdir/share/astromenace/gamedata.vfs || exit 1
+        install -Dm644 build/gamedata.vfs $pkgdir/bin/gamedata.vfs || exit 1
         install -Dm644 share/astromenace_128.png $pkgdir/share/pixmaps/astromenace.png || exit 1
         install -Dm644 share/astromenace.desktop $pkgdir/share/applications/astromenace.desktop || exit 1
         install -Dm644 share/astromenace.appdata.xml $pkgdir/share/appdata/astromenace.appdata.xml || exit 1

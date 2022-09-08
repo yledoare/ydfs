@@ -272,6 +272,16 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep SuperTux && export LC_CONFIGURE_OPTS="-DPHYSFS_INCLUDE_DIR=$HOME/$ARCH/include -DCMAKE_BUILD_TYPE=Release" && export LDFLAGS="$LDFLAGS -lphysfs"
 	echo $ARCHIVE | grep supertuxkart && export LC_CONFIGURE_OPTS="-DBUILD_RECORDER=0 -DBUILD_SHARED_LIBS=OFF -DUSE_WIIUSE=0 -DCMAKE_BUILD_TYPE=Release" 
 	echo $ARCHIVE | grep supertuxkart && [ "$ARCH" = "x86" ] && export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DLIBRESOLV_LIBRARY=/lib/i386-linux-gnu/libresolv.so.2 -DPTHREAD_LIBRARY=/lib/i386-linux-gnu/libpthread.so.0 " 
+	echo $ARCHIVE | grep wesnoth && [ "$ARCH" = "x86" ] && export LC_CONFIGURE_OPTS="-DBoost_ATOMIC_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_atomic.so \
+	-DBoost_CHRONO_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_chrono.so \	
+	-DBoost_COREROUTINE_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_coreroutine.so \	
+	-DBoost_CONTEXT_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_context.so \	
+	-DBoost_IOSTREAMS_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_iostream.so \	
+	-DBoost_REGEX_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_regex.so \	
+	-DBoost_SYSTEM_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_system.so \	
+	-DBoost_RANDOM_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_random.so \	
+	-DBoost_THREAD_LIBRARY_RELEASE=/usr/lib/i386-linux-gnu/libboost_thread.so \	
+	" 
 	echo $ARCHIVE | grep lxsession && export LC_CONFIGURE_OPTS="--enable-man"
 	echo $ARCHIVE | grep libgcrypt && export LC_CONFIGURE_OPTS="--disable-asm"
 	echo $ARCHIVE | grep gcr-3 && export LC_CONFIGURE_OPTS="-Dgtk_doc=false"
