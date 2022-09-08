@@ -548,14 +548,16 @@ grep share/Surge src/common/SurgeStorage.cpp
         -S .  || exit 1
       #FIXME
       mv $HOME/$ARCH/include/tinyxml.h $HOME/$ARCH/include/tinyxml-disabled.h
+      cd build
       make || exit 1
+      cd ..
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 2
       echo "Install VST3"
       cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 1
       echo "Install Standalone"
-      cp build/surge_xt_products/* $PREFIX/bin || exit 3
+      cp build/surge_xt_products/* $PREFIX/bin
     touch buildok-$ARCH
     exit 0
   fi
