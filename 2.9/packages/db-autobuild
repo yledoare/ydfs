@@ -1681,7 +1681,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
          	touch buildok-$ARCH
 	 	exit 0
 	fi	
-        [ -e ../src/wesnoth.cpp ] && echo "Unsetting $ARCH" && sleep 5 && OLDARCH=$ARCH && unset ARCH
+        [ -e ../src/wesnoth.cpp ] && echo "Unsetting $ARCH" && sleep 5 && OLDARCH=$ARCH && unset ARCH && export CXX=clang++
 	cmake $CMAKEOPTIONS .. || exit 12
         [ -e ../src/wesnoth.cpp ] && export ARCH=$OLDARCH
 
