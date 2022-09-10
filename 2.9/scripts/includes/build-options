@@ -470,22 +470,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--disable-compile-inits"
 	echo $ARCHIVE | grep nspr && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $ARCHIVE | grep wine && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
-	# echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="--with-libsamplerate"
-	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="   --with-libsndfile="system" \
-    --with-ffmpeg="system" \
-    --with-expat="system" \
-    --with-lame="system" \
-    --with-libsoxr="system" \
-    --with-libflac \
-    --with-libid3tag \
-    --with-libsamplerate \
-    --with-sbsms \
-    --with-soundtouch \
-    --with-libtwolame \
-    --with-libvorbis \
-    --with-lv2 \
-    --with-portaudio \
-    --with-portmidi --disable-dynamic-loading"
+	echo $ARCHIVE | grep audacity && LC_CONFIGURE_OPTS="  -D CMAKE_BUILD_TYPE=None -D audacity_conan_enabled=OFF -D audacity_has_networking=OFF -D audacity_has_crashreports=OFF -D audacity_has_updates_check=OFF -D audacity_has_sentry_reporting=OFF -D audacity_lib_preference=system -D audacity_obey_system_dependencies=ON -D libmp3lame_INCLUDE_DIR=$HOME/$ARCH/include -D libmp3lame_LIBRARIES=$HOME/$ARCH/lib/libmp3lame.so -D JPEG_INCLUDE_DIR=$HOME/$ARCH/include -D JPEG_LIBRARIES=$HOME/$ARCH/lib/libjpeg.so -D PNG_LIBRARIES=$HOME/$ARCH/lib/libpng.so -D PNG_INCLUDE_DIR=$HOME/$ARCH/include -D audacity_use_portsmf=off -D audacity_use_sbsms=off -D audacity_use_soundtouch=off -D audacity_use_id3tag=local"
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
@@ -802,7 +787,7 @@ echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-chec
 	        echo $ARCHIVE | grep gnutls-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep krb5-1 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	        echo $ARCHIVE | grep calligra && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DICONV_LIBRARIES=/usr/lib/i386-linux-gnu/libc.so -DBOOST_LIBRARYDIR=/usr/lib/i386-linux-gnu/"
-	        echo $ARCHIVE | grep mltframework && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu --disable-sse2 --target-arch=i686"
+	        echo $ARCHIVE | grep mltframework && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DARCH_X86"
 	        echo $ARCHIVE | grep kde | grep frameworks && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="-DKDE_INSTALL_LIBDIR=$DIBAB_PREFIX/$MODULE/lib"
 		echo $ARCHIVE | grep bluez-qt && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS -DUDEV_RULES_INSTALL_DIR=$DIBAB_PREFIX/lib/udev/rules.d "
 	        echo $ARCHIVE | grep glm && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_LIBDIR=$DIBAB_PREFIX/$MODULE/lib"

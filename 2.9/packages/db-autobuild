@@ -94,6 +94,7 @@ else
   if [ -n "$1" ] 
   then
     PREFIX=$1
+    [ "$1" = "$HOME/updates/" ] && FORCE_PREFIX=$HOME/$ARCH
     [ -n "$FORCE_PREFIX" ] && PREFIX=$FORCE_PREFIX
     pkgdir=$PREFIX
     echo "CC : $CC, PREFIX : $PREFIX"
@@ -126,6 +127,23 @@ else
     cd src/unetbootin/
     bash build-nostatic
     exit 1
+  fi
+
+  if [ -e libid3tag.list.in ]
+  then
+	echo "libid3tag.list.in" && sleep 5
+     echo '
+prefix=/usr
+exec_prefix=/usr/bin
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: ID3TAG
+Description: libid3tag - ID3 tag manipulation library
+Version: 0.15.1b
+Libs: -L${libdir} -lid3tag -lz
+Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
+     sed -i "s@/usr@$HOME/$ARCH@g" $PREFIX/lib/pkgconfig/id3tag.pc
   fi
 
   # [ -e gtk-vnc-1.0.pc.in ] && sed -e 's/pod2man/echo pod2man/' -i tools/Makefile.in && sleep 3 && touch tools/gvnccapture.1
@@ -843,8 +861,6 @@ fi
   [ -e libindicator ] && sed -i 's/-Werror//' {libindicator,tools}/Makefile.am
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
-  # [ -e audacity.dox ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
-  # [ -e libgphoto2.pc.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e contrib/libsass.spec ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e sassc_version.h.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e asciidoc.py ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
@@ -1584,7 +1600,6 @@ fi
 
     [ -e RapidJSONConfig.cmake.in ] && find -name CMakeLists.txt | xargs sed -e 's|-Werror||' -i # Don't use -Werror 
     # Do not build with cmake
- # && [ ! -e audacity.dox ] \
     if [ -e CMakeLists.txt ] \
  && [ ! -e doc/nghttp2_version.rst ] \
  && [ ! -e libxml-2.0.pc.in ] \
@@ -1649,8 +1664,9 @@ Cflags: -I${includedir}' > $PREFIX/lib/pkgconfig/snappy.pc
       install -d build
       cd build
 	echo "LC_CONFIGURE_OPTS = $LC_CONFIGURE_OPTS"
-CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
+CMAKEOPTIONS="-DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_INCLUDE_DIR=$HOME/$ARCH/include -DPHONON_LIBRARY=$HOME/$ARCH/lib/libphonon.so.4 -DSDLMIXER_INCLUDE_DIR=$HOME/$ARCH/include -DALUT_INCLUDE_DIR=$HOME/$ARCH/include -DOPENAL_INCLUDE_DIR=$HOME/$ARCH/include -DHOME=$HOME -DCMAKE_INCLUDE_PATH=$HOME/$ARCH/include -DCMAKE_LIBRARY_PATH=$HOME/$ARCH/lib -DSDLNET_INCLUDE_DIR=$HOME/$ARCH/include -DSDLIMAGE_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_IMAGE_INCLUDE_DIRS=$HOME/$ARCH/include -DSDLTTF_INCLUDE_DIR=$HOME/$ARCH/include -DSDL_INCLUDE_DIR=$HOME/$ARCH/include/SDL -DBUILD_SHARED_LIBS=TRUE -DSFML_INSTALL_PKGCONFIG_FILES=TRUE $LC_CONFIGURE_OPTS -DLIB_INSTALL_DIR=$HOME/$ARCH/lib" 
 	CMAKEOPTIONS="$CMAKEOPTIONS -DCMAKE_INSTALL_PREFIX=$PREFIX"
+	# CMAKEOPTIONS="$CMAKEOPTIONS --debug-output "
 	[ -e ryzom ]  && CMAKEOPTIONS="$CMAKEOPTIONS -DCPPTEST_INCLUDE_DIR=$HOME/$ARCH/include -DLUABIND_INCLUDE_DIR=$HOME/$ARCH/include" 
 	
 	pwd | grep kio-5 && export CXX=g++
@@ -1836,8 +1852,6 @@ Cflags: -I${includedir}' > glm.pc
 
   [ -e gdb/charset.h ] && [ -e $HOME/$ARCH/include/charset.h ] && install -d $HOME/$ARCH/include/smb && mv $HOME/$ARCH/include/charset.h  $HOME/$ARCH/include/smb
   [ -e bzflag.spec ] && [ -e $HOME/$ARCH/include/cares ] && echo "Enable deps/cares for Bzflag" && mv $HOME/$ARCH/include/cares/* $HOME/$ARCH/include && rmdir $HOME/$ARCH/include/cares && sleep 3
-  # [ -e audacity.dox ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf -vi
-  # [ -e audacity.dox ] && rm $HOME/$ARCH/lib/libvamp-hostsdk.la 
   if [ -e configure ] && [ ! -e waf ] && [ ! -e Scribus.pro ]
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
@@ -2463,6 +2477,7 @@ Libs: -L${PREFIX}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnv
   fi
   [ "$CLEARENV" = "OK" ] && $HOME_DIBAB/scripts/clear-env && . /tmp/env
   [ "$FIRSTENV" = "OK" ] && [ -e /tmp/firstenv ] && . /tmp/firstenv
+
 
   if [ -e git.c ]
   then
