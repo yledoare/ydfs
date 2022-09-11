@@ -1,3 +1,4 @@
+pip::conan
 https://github.com/fmtlib/fmt/releases/download/9.0.0/fmt-9.0.0.zip
 #https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.tar.bz2
 https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1.tar.bz2
