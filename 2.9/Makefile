@@ -117,7 +117,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers updates $(DISTRONAME) chromium
 sleep:
 	@echo "Sleeping 60 minutes .. "
 	sleep 3600
@@ -223,7 +223,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-modules: updates fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde xfce emulators fps 
+modules: fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde xfce emulators fps 
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
