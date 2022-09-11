@@ -1,2 +1,4 @@
+https://github.com/fmtlib/fmt/releases/download/9.0.0/fmt-9.0.0.zip
+https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1.tar.bz2
 ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
-https://github.com/mltframework/mlt/releases/download/v7.8.0/mlt-7.8.0.tar.gz
+https://github.com/mltframework/mlt/releases/download/v7.8.0/mlt-7.8.0.tar.gz #SKIP-x86#
