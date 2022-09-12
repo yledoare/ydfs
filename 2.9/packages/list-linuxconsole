@@ -1,6 +1,6 @@
-https://github.com/audacity/audacity/releases/download/Audacity-3.1.2/audacity-3.1.2-source.tar.gz
-#https://github.com/audacity/audacity/archive/refs/tags/Audacity-2.4.2.tar.gz
-Audacity-3.1.3-Source.tar.gz::https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-3.1.3-source.tar.gz
+#https://github.com/audacity/audacity/releases/download/Audacity-3.1.2/audacity-3.1.2-source.tar.gz
+#Audacity-3.1.3-Source.tar.gz::https://github.com/audacity/audacity/releases/download/Audacity-3.1.3/audacity-3.1.3-source.tar.gz
+https://github.com/audacity/audacity/archive/refs/tags/Audacity-2.4.2.tar.gz
 wesnoth-1.16.6.tar.gz::https://github.com/wesnoth/wesnoth/archive/refs/tags/1.16.6.tar.gz
 xmoto-0.6.1.tar.gz::https://github.com/xmoto/xmoto/archive/0.6.1.tar.gz
 https://gcompris.net/download/qt/src/gcompris-qt-2.4.tar.xz
@@ -11,7 +11,7 @@ https://github.com/mypaint/mypaint-brushes/archive/v1.3.1/mypaint-brushes-1.3.1.
 https://download.gimp.org/pub/gimp/v2.10/gimp-2.10.32.tar.bz2
 https://github.com/LMMS/lmms/releases/download/v1.2.2/lmms_1.2.2.tar.xz
 https://www.lua.org/ftp/lua-5.1.5.tar.gz
-https://www.hedgewars.org/download/releases/hedgewars-src-1.0.0.tar.bz2 
+https://www.hedgewars.org/download/releases/hedgewars-src-1.0.1.tar.bz2 
 https://github.com/viewizard/astromenace/archive/v1.4.1.tar.gz
 https://github.com/supertuxkart/stk-code/releases/download/1.3/SuperTuxKart-1.3-src.tar.xz
 minetest-5.5.1.tar.gz::https://github.com/minetest/minetest/archive/5.5.1.tar.gz
