@@ -471,7 +471,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	echo $ARCHIVE | grep nspr && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-64bit"
 	echo $ARCHIVE | grep wine && [ "$ARCH" == "x86_64" ] && LC_CONFIGURE_OPTS="--enable-win64 -with-x --with-gstreamer"
 	echo $ARCHIVE | grep audacity-3 && LC_CONFIGURE_OPTS=" -Daudacity_lib_preference=system         -Daudacity_obey_system_dependencies=On -Daudacity_use_portsmf=local -Daudacity_use_sbsms=local -Daudacity_use_soundtouch=local "
-	echo $ARCHIVE | grep audacity-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="-DLIB_m=/usr/lib/i386-linux-gnu/libm.so $LC_CONFIGURE_OPTS "
+	echo $ARCHIVE | grep audacity-3 && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="-DLIB_m=/usr/lib/i386-linux-gnu/libm.so -DLIB_dl=/usr/lib/i386-linux-gnu/libdl.so $LC_CONFIGURE_OPTS "
 	echo $ARCHIVE | grep gst-ffmpeg && LC_CONFIGURE_OPTS="--with-system-ffmpeg"
 	echo $ARCHIVE | grep tcl8 && LC_CONFIGURE_OPTS="--enable-shared --enable-threads --enable-dll-unloading --disable-rpath"
 	echo $ARCHIVE | grep tuxracer && LC_CONFIGURE_OPTS="--with-tcl=$DIBAB_PREFIX/$ARCH/lib"
