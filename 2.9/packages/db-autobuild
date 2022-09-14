@@ -356,6 +356,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/Makefile.am
   [ -e src/lib/blockdev.c.in ] && sed -i "s/-Werror//" src/plugins/fs/Makefile.am
   pwd | grep xorg-server && mv $HOME/$ARCH/include/gc.h $HOME/$ARCH/include/gc.h-disabled
+  [ -e $HOME/$ARCH/include/fmt-disabled ] && mv $HOME/$ARCH/include/fmt-disabled $HOME/$ARCH/include/fmt
   [ -e $HOME/$ARCH/include/ode-disabled ] && mv $HOME/$ARCH/include/ode-disabled $HOME/$ARCH/include/ode
   [ -e $HOME/$ARCH/include/enet-disabled ] && mv $HOME/$ARCH/include/enet-disabled $HOME/$ARCH/include/enet
   [ -e $HOME/$ARCH/include/mbedtls-disabled ] && mv $HOME/$ARCH/include/mbedtls-disabled $HOME/$ARCH/include/mbedtls
@@ -1505,6 +1506,7 @@ EOF
     pwd | grep gst-plugins-base && [ -e $HOME/$ARCH/include/GLES3 ] && mv $HOME/$ARCH/include/GLES3 $HOME/$ARCH/include/GLES3-disabled 
     pwd | grep gst-plugins-base && [ -e $HOME/$ARCH/include/GLES2 ] && mv $HOME/$ARCH/include/GLES2 $HOME/$ARCH/include/GLES2-disabled 
     pwd | grep ardour && mv $HOME/$ARCH/include/zita-resampler  $HOME/$ARCH/include/zita-resampler-disabled 
+    pwd | grep warzone && mv $HOME/$ARCH/include/fmt  $HOME/$ARCH/include/fmt-disabled 
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth  $HOME/$ARCH/include/fluidsynth-disabled
     pwd | grep ardour && mv $HOME/$ARCH/include/fluidsynth.h  $HOME/$ARCH/include/fluidsynth-disabled.h
     pwd | grep kwin- && mv $HOME/$ARCH/include/udev.h  $HOME/$ARCH/include/udev-disabled.h
