@@ -4,9 +4,10 @@
 
 # Gest last stable
 
-git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
-cd ydfs
-git checkout v2.9.0
+* git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+* cd ydfs
+* git checkout v2.9.1
+* cd 2.9
 
 # Build docker images
 
