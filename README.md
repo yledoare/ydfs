@@ -2,33 +2,43 @@
 
 (Your Distro From Scratch) is a tool to build your own linux distribution 
 
+# Gest last stable
+
+git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+cd ydfs
+git checkout v2.9.0
+
+# Build docker images
+
+## 64 bits
+docker build -f Dockerfile -t ydfs64-2.9 .
+
+## 32 bits
+docker build -f Dockerfile32 -t ydfs32-2.9 .
+
 # Build ydfs ISO
 
-cd 2.8
+* mkdir $HOME/iso
+* chmod 777 $HOME/iso
 
-(from docker, Linux terminal or Windows powershell)
+## Automatic full 64 bits ISO Build
 
-* mkdir iso
-* chmod 777 iso
+* docker run --name ydfs64-2.9 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9 
+* docker logs --tail=10 -f ydfs64-2.9
+* docker logs -f ydfs64-2.9 2>&1 |grep build
 
-## Automatic 64 bits ISO Build
+## Automatic full 32 bits ISO Build
 
-* docker run --name ydfs64 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso yledoare/ydfs28 
-* docker logs --tail=10 -f ydfs64
-* docker logs -f ydfs64 2>&1 |grep build
-
-## Automatic 32 bits ISO Build
-
-* docker run --name ydfs32 -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
-* docker logs --tail=10 -f ydfs32
+* docker run --name ydfs32-2.9 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs32-2.9
+* docker logs --tail=10 -f ydfs32-2.9
 
 ## Fast 64 bits ISO
 
-* docker run --name ydfs64-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs28
+* docker run --name ydfs64-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs64-2.9
 
 ## Fast 32 bits ISO
 
-* docker run --name ydfs32-fast -e BUILDYDFS=fast -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso  yledoare/ydfs32
+* docker run --name ydfs32-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs32-2.9
 
 ## Write ISO to USB key
 
@@ -37,22 +47,29 @@ cd 2.8
 ## Build and test
 
 * xhost +
-* docker run --name ydfs-test -d --mount type=bind,source="$(pwd)"/iso,target=/home/linuxconsole2021/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  yledoare/ydfs28 
-* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.8 ; make live-test'
+* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-2.9 
+* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.9 ; make live-test'
 
 ## Verbose Build, without sharing output ISO on host :
 
-* docker run --name linuxconsole2021 -e DIBAB_VERBOSE_BUILD=YES yledoare/ydfs28
+* docker run --name linuxconsole2022 -e DIBAB_VERBOSE_BUILD=YES ydfs64-2.9
 
-# Manual build
+# Manual build (64 bits)
 
-* docker run -d --name ydfs yledoare/ydfs tail -f /dev/null 
+* docker run -d --name ydfs ydfs64-2.9 tail -f /dev/null 
 * docker exec -ti ydfs bash
 * cd $HOME
 * git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
 * cd ydfs
-* cd 2.8
+* cd 2.9
 * make 
+
+# Build from WSL2 (Ubunut bullseye / 64 bits)
+
+grep RUN Dockerfile | sed s'/RUN//' > install.sh
+bash install.sh
+useradd -m linuxconsole2022
+su - linuxconsole2022 $PWD/build-lc2022
 
 # Troubleshooting :
 
