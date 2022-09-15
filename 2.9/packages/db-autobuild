@@ -864,6 +864,7 @@ fi
   [ -e libindicator ] && sed -i 's/-Werror//' {libindicator,tools}/Makefile.am
 
   [ -e re2/testing/tester.cc ] && rm CMakeLists.txt
+  [ -e docs/filezilla.man ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e contrib/libsass.spec ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e sassc_version.h.in ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
   [ -e asciidoc.py ] &&  ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf -vif
