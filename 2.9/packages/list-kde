@@ -29,10 +29,11 @@ https://download.kde.org/stable/frameworks/5.96/portingAids/kdelibs4support-5.96
 https://download.kde.org/stable/plasma/5.25.3/libksysguard-5.25.3.tar.xz
 https://download.kde.org/stable/frameworks/5.96/kfilemetadata-5.96.0.tar.xz
 https://download.kde.org/stable/frameworks/5.96/baloo-5.96.0.tar.xz
-https://download.kde.org/stable/plasma/5.25.3/ksysguard-5.25.3.tar.xz
 https://download.kde.org/stable/frameworks/5.96/ktexteditor-5.96.0.tar.xz
 https://download.kde.org/stable/frameworks/5.96/kwindowsystem-5.96.0.tar.xz
+https://download.kde.org/stable/plasma/5.25.3/libkscreen-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kscreen-5.25.3.tar.xz
+https://download.kde.org/stable/plasma/5.25.3/layer-shell-qt-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kscreenlocker-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kwin-5.25.3.tar.xz
 https://download.kde.org/stable/frameworks/5.96/kholidays-5.96.0.tar.xz
@@ -50,7 +51,6 @@ https://download.kde.org/stable/plasma/5.25.3/ksshaskpass-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kwallet-pam-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kwayland-integration-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/kwrited-5.25.3.tar.xz
-https://download.kde.org/stable/plasma/5.25.3/libkscreen-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/libksysguard-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/milou-5.25.3.tar.xz
 https://download.kde.org/stable/frameworks/5.96/frameworkintegration-5.96.0.tar.xz
