@@ -54,6 +54,7 @@ echo $ARCHIVE | grep wavpack &&  LC_CONFIGURE_OPTS="--disable-asm"
 echo $ARCHIVE | grep brltty &&  LC_CONFIGURE_OPTS="    --with-screen-driver=lx \
     --enable-gpm \
     --disable-java-binding "
+#-DCMAKE_BUILD_TYPE=Debug -DDEBUG_ASSERTIONS_FATAL=ON
 echo $ARCHIVE | grep mixxx && LC_CONFIGURE_OPTS="-DCMAKE_INSTALL_PREFIX=$PREFIX \
         -DCMAKE_BUILD_TYPE='Release' \
         -Wno-dev \
@@ -82,6 +83,7 @@ echo $ARCHIVE | grep NetworkManager-strongswan &&  LC_CONFIGURE_OPTS="--disable-
     --without-libnm-glib "
 echo $ARCHIVE | grep pcsc-lite &&  LC_CONFIGURE_OPTS="--disable-libsystemd"
 echo $ARCHIVE | grep libodfgen &&  LC_CONFIGURE_OPTS="--disable-werror"
+echo $ARCHIVE | grep assimp/assimp &&  LC_CONFIGURE_OPTS="-DASSIMP_WARNINGS_AS_ERRORS=OFF"
 echo $ARCHIVE | grep warzone2100 &&  LC_CONFIGURE_OPTS="-DWARNINGS_AS_ERRORS=OFF -DWZ_ENABLE_WARNINGS_AS_ERRORS=OFF"
 echo $ARCHIVE | grep json-c &&  LC_CONFIGURE_OPTS=" --disable-static \
     --enable-threading"

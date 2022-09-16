@@ -1,1 +1,4 @@
 https://github.com/xiph/vorbis/releases/download/v1.3.7/libvorbis-1.3.7.tar.xz
+assimp-5.2.5.tar.gz::https://github.com/assimp/assimp/archive/v5.2.5.tar.gz
+git://github.com/vkmark/vkmark.git#commit=cf45f2f
+https://github.com/mypaint/libmypaint/archive/v1.6.1/libmypaint-1.6.1.tar.gz
