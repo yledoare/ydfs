@@ -8,6 +8,16 @@ echo $ARCHIVE | grep lmms && . $HOME/ydfs/firstenv
 #PREFIX=$DIBAB_PREFIX/$MODULE
 echo $ARCHIVE | grep fstrcmp && install -d $PREFIX/share/doc/fstrcmp
 
+echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=True \
+    -DBUILD_WSI_XCB_SUPPORT=On \
+    -DBUILD_WSI_XLIB_SUPPORT=On \
+    -DBUILD_WSI_WAYLAND_SUPPORT=On \
+    -DBUILD_CUBE=ON \
+    -DBUILD_VULKANINFO=ON \
+    -DBUILD_ICD=OFF \
+    -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
+    -DCMAKE_BUILD_TYPE=Release "
+
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
 echo $ARCHIVE | grep iptables &&  LC_CONFIGURE_OPTS=" --disable-nftables "
 echo $ARCHIVE | grep volume_key && export CFLAGS+=" $(python3-config --includes)"

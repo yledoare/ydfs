@@ -5,35 +5,74 @@ then
 
     mkdir kodi-build
     cd kodi-build
-_codename=Leia
-_libdvdcss_version="1.4.2-$_codename-Beta-5"
-_libdvdnav_version="6.0.0-$_codename-Alpha-3"
-_libdvdread_version="6.0.0-$_codename-Alpha-3"
-_ffmpeg_version="4.0.3-$_codename-RC5"
-_fmt_version="5.1.0"
-_fstrcmp_version="0.7.D001"
+_libdvdcss_version="1.4.2-Leia-Beta-5"
+_libdvdnav_version="6.0.0-Leia-Alpha-3"
+_libdvdread_version="6.0.0-Leia-Alpha-3"
+_ffmpeg_version="4.3-kodi-dav1d-1.0"
+_fmt_version="6.1.2"
+_spdlog_version="1.5.0"
 _crossguid_version="8f399e8bd4"
+_fstrcmp_version="0.7.D001"
+_flatbuffers_version="1.12.0"
+_libudfread_version="1.1.0"
+_codename=Leia
 
-for LIST in "http://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "https://github.com/xbmc/FFmpeg/archive/$_ffmpeg_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" 
+for LIST in "libdvdcss-$_libdvdcss_version.tar.gz::https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "libdvdnav-$_libdvdnav_version.tar.gz::https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "libdvdread-$_libdvdread_version.tar.gz::https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "ffmpeg-$_ffmpeg_version.tar.gz::https://github.com/BlackIkeEagle/kodi-FFmpeg/archive/refs/heads/fix/4.3-kodi-dav1d-1.0.tar.gz" "fmt-$_fmt_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "spdlog-$_spdlog_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/spdlog-$_spdlog_version.tar.gz" "crossguid-$_crossguid_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" "fstrcmp-$_fstrcmp_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz" "flatbuffers-$_flatbuffers_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/flatbuffers-$_flatbuffers_version.tar.gz" "libudfread-$_libudfread_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
 do
-	FILE=`basename $LIST`
-	[ ! -e "$FILE" ] && wget $LIST
-	[ ! -e "$FILE" ] && sleep 20 && exit 1
+	URL=`echo $LIST | cut -d':' -f3,4,5`
+	ARCHIVE=`echo $LIST | cut -d':' -f1`
+	#echo $NAME $LIST && exit 1
+	#FILE=`basename $NAME`
+	echo $LIST $PWD/$ARCHIVE 
+	[ ! -e "$ARCHIVE" ] && wget -O $ARCHIVE $URL
+	[ ! -e "$ARCHIVE" ] && sleep 20 && exit 1
 done
 	
     # -Dlibdvdread_URL=$PWD/$_libdvdread_version.tar.gz \
     # -Dlibdvdnav_URL=$PWD/$_libdvdnav_version.tar.gz \
     OPTS=" -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -Dlibdvdcss_URL=$PWD/$_libdvdcss_version.tar.gz \
-    -DFMT_URL=$PWD/fmt-$_fmt_version.tar.gz \
-    -DCROSSGUID_URL=$PWD/crossguid-$_crossguid_version.tar.gz \
-    -DFSTRCMP_URL=$PWD/fstrcmp-$_fstrcmp_version.tar.gz \
-    -DFFMPEG_URL=$PWD/3.1.11-Krypton-17.5.tar.gz \
+    -DUSE_LTO=ON
+    -DENABLE_LDGOLD=OFF
+    -DENABLE_AIRTUNES=ON
+    -DENABLE_ALSA=ON
+    -DENABLE_AVAHI=ON
+    -DENABLE_BLURAY=ON
+    -DENABLE_CEC=ON
+    -DENABLE_DBUS=ON
+    -DENABLE_DVDCSS=ON
+    -DENABLE_EGL=ON
+    -DENABLE_EVENTCLIENTS=ON
+    -DENABLE_MICROHTTPD=ON
+    -DENABLE_MYSQLCLIENT=ON
+    -DENABLE_NFS=ON
+    -DENABLE_OPTICAL=ON
+    -DENABLE_PULSEAUDIO=ON
+    -DENABLE_SMBCLIENT=ON
+    -DENABLE_UDEV=ON
+    -DENABLE_UPNP=ON
+    -DENABLE_VAAPI=ON
+    -DENABLE_VDPAU=ON
+    -DENABLE_XSLT=ON
+    -DENABLE_LIRCCLIENT=ON
+    -DENABLE_INTERNAL_FFMPEG=ON
+    -DENABLE_INTERNAL_FMT=ON
+    -DENABLE_INTERNAL_SPDLOG=ON
+    -DENABLE_INTERNAL_CROSSGUID=ON
+    -DENABLE_INTERNAL_FSTRCMP=ON
+    -DENABLE_INTERNAL_FLATBUFFERS=ON
+    -DENABLE_INTERNAL_UDFREAD=ON
+    -Dlibdvdcss_URL="$PWD/libdvdcss-$_libdvdcss_version.tar.gz"
+    -Dlibdvdnav_URL="$PWD/libdvdnav-$_libdvdnav_version.tar.gz"
+    -Dlibdvdread_URL="$PWD/libdvdread-$_libdvdread_version.tar.gz"
+    -DFFMPEG_URL="$PWD/ffmpeg-$_ffmpeg_version.tar.gz"
+    -DFMT_URL="$PWD/fmt-$_fmt_version.tar.gz"
+    -DSPDLOG_URL="$PWD/spdlog-$_spdlog_version.tar.gz"
+    -DCROSSGUID_URL="$PWD/crossguid-$_crossguid_version.tar.gz"
+    -DFSTRCMP_URL="$PWD/fstrcmp-$_fstrcmp_version.tar.gz"
+    -DFLATBUFFERS_URL="$PWD/flatbuffers-$_flatbuffers_version.tar.gz"
+    -DUDFREAD_URL="$PWD/libudfread-$_libudfread_version.tar.gz"
     -DCMAKE_INSTALL_LIBDIR=$PREFIX/lib \
-    -DENABLE_EVENTCLIENTS=ON \
-    -DENABLE_INTERNAL_FFMPEG=OFF \
-    -DENABLE_INTERNAL_FSTRCMP=ON \
-    -DENABLE_OPTICAL=OFF \
+    -DAPP_RENDER_SYSTEM=gl
     -DLIRC_DEVICE=/run/lirc/lircd"
     echo " OPTS : $OPTS"
 
