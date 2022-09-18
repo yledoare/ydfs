@@ -28,8 +28,6 @@ do
 	[ ! -e "$ARCHIVE" ] && sleep 20 && exit 1
 done
 	
-    # -Dlibdvdread_URL=$PWD/$_libdvdread_version.tar.gz \
-    # -Dlibdvdnav_URL=$PWD/$_libdvdnav_version.tar.gz \
     OPTS=" -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DUSE_LTO=ON
     -DENABLE_LDGOLD=OFF
@@ -62,41 +60,23 @@ done
     -DENABLE_INTERNAL_FLATBUFFERS=ON
     -DENABLE_INTERNAL_UDFREAD=ON
     -Dlibdvdcss_URL="$PWD/libdvdcss-$_libdvdcss_version.tar.gz"
-    -Dlibdvdnav_URL="$PWD/libdvdnav-$_libdvdnav_version.tar.gz"
-    -Dlibdvdread_URL="$PWD/libdvdread-$_libdvdread_version.tar.gz"
     -DFFMPEG_URL="$PWD/ffmpeg-$_ffmpeg_version.tar.gz"
-    -DFMT_URL="$PWD/fmt-$_fmt_version.tar.gz"
     -DSPDLOG_URL="$PWD/spdlog-$_spdlog_version.tar.gz"
     -DCROSSGUID_URL="$PWD/crossguid-$_crossguid_version.tar.gz"
     -DFSTRCMP_URL="$PWD/fstrcmp-$_fstrcmp_version.tar.gz"
     -DFLATBUFFERS_URL="$PWD/flatbuffers-$_flatbuffers_version.tar.gz"
     -DUDFREAD_URL="$PWD/libudfread-$_libudfread_version.tar.gz"
+    -DFMT_URL="$PWD/fmt-$_fmt_version.tar.gz"
     -DCMAKE_INSTALL_LIBDIR=$PREFIX/lib \
     -DAPP_RENDER_SYSTEM=gl
     -DLIRC_DEVICE=/run/lirc/lircd"
     echo " OPTS : $OPTS"
 
-    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ 
-
-    echo "BUILD 1 .. "
-    VERBOSE=1 make 
-    OLDPWD=$PWD
-    cd build/libdvd/src/dvdread/
-	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
-    cd $OLDPWD
-
-    echo "BUILD 2 .. "
-    VERBOSE=1 make 
-    OLDPWD=$PWD
-    cd build/libdvd/src/dvdnav/
-	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
-    cd $OLDPWD
-
     VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
 
     VERBOSE=1 make || exit $?
-     make install || exit $?
-     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+    make install || exit $?
+    DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
   if [ "$MODULE" = "opkg" ]
   then
     cd $HOME/ydfs/packages-$ARCH/$MYDIR

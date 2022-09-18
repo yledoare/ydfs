@@ -890,6 +890,8 @@ fi
   [ -e cdparanoia.1 ] && echo "AUTORECONF" && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS " autoreconf --force --install
   [ -e lrdf.pc.in ] && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
   [ -e SDL_Pango.pc.in ] && [ -e configure ] && rm configure && echo " Forced remake configure " && sleep 5 && ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal $ACLOCAL_FLAGS "  && autoreconf --force --install
+    
+  pwd | grep xbmc && mv $HOME/$ARCH/include/fmt  $HOME/$ARCH/include/fmt-disabled 
 
 . $(dirname $0)/../scripts/includes/login
 
