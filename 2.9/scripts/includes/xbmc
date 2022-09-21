@@ -54,14 +54,14 @@ done
     -DENABLE_LIRCCLIENT=ON
     -DENABLE_INTERNAL_FFMPEG=ON
     -DENABLE_INTERNAL_FMT=ON
-    -DENABLE_INTERNAL_SPDLOG=ON
+    -DENABLE_INTERNAL_SPDLOG=OFF
     -DENABLE_INTERNAL_CROSSGUID=ON
     -DENABLE_INTERNAL_FSTRCMP=ON
     -DENABLE_INTERNAL_FLATBUFFERS=ON
     -DENABLE_INTERNAL_UDFREAD=ON
-    -Dlibdvdcss_URL="$PWD/libdvdcss-$_libdvdcss_version.tar.gz"
+    -Dlibdvdcss_URL="$HOME/ydfs/tarballs/libdvdcss-1.4.3.tar.bz2"
+    -Dlibdvread_URL="$HOME/ydfs/tarballs/libdvdread-6.1.3.tar.bz2"
     -DFFMPEG_URL="$PWD/ffmpeg-$_ffmpeg_version.tar.gz"
-    -DSPDLOG_URL="$PWD/spdlog-$_spdlog_version.tar.gz"
     -DCROSSGUID_URL="$PWD/crossguid-$_crossguid_version.tar.gz"
     -DFSTRCMP_URL="$PWD/fstrcmp-$_fstrcmp_version.tar.gz"
     -DFLATBUFFERS_URL="$PWD/flatbuffers-$_flatbuffers_version.tar.gz"
@@ -73,6 +73,21 @@ done
     echo " OPTS : $OPTS"
 
     VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
+
+    echo "BUILD 1 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdread/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
+    echo "BUILD 2 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdnav/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
 
     VERBOSE=1 make || exit $?
     make install || exit $?

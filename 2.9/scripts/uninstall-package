@@ -20,12 +20,12 @@ do
   [ -h "$HOME/ydfs/modules/$file" ] && echo "Remove $HOME/ydfs/modules/"$file && rm "$HOME/ydfs/modules/"$file
 done
 
-if [ -e $HOME/ydfs/build-$ARCH/$1 ]
+if [ -e "$HOME/ydfs/build-$ARCH/$1" ]
 then
-rm -fR $HOME/ydfs/build-$ARCH/$1
+rm -fR "$HOME/ydfs/build-$ARCH/$1"
 else
 echo "Clear src"
-rm -fR $HOME/ydfs/src/$1
+rm -fR "$HOME/ydfs/src/$1"
 fi 
 
-rm -fR $HOME/ydfs/packages-$ARCH/$1
+rm -fR "$HOME/ydfs/packages-$ARCH/$1"
