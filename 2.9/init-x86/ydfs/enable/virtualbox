@@ -27,3 +27,5 @@ done
 
 chmod -s $HOME_DIBAB/virtualbox/lib/virtualbox/VirtualBoxVM
 fi
+
+modprobe vboxsf && mkdir /media/virtualbox/ && mount Virtualbox -t vboxsf /media/virtualbox/

@@ -35,7 +35,8 @@ echo -n "Mount ydfs modules"
 # echo -n " 4" > /dev/tty1
 [ -e /ydfs/boot/options/debug04  ] && sh
 
-[ ! -e /ydfs/boot/options/nofcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
+# [ ! -e /ydfs/boot/options/nofcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
+[ -e /ydfs/boot/options/fcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
 
 # echo -n " 3" > /dev/tty1
 
