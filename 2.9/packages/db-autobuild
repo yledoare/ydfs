@@ -706,6 +706,7 @@ grep share/Surge src/common/SurgeStorage.cpp
 	PYTHONPATH="" ninja || exit $?
 	DESTDIR=/tmp/elogin PYTHONPATH="" ninja install || exit $?
 	cp -a /tmp/elogin/$HOME/* $HOME/ || exit $?
+	[ $ARCH = "x86" ] && cp $HOME/x86/lib64/pkgconfig/libelogind.pc  $HOME/x86/lib/pkgconfig/libelogind.pc
 	cd ..
 	touch buildok-$ARCH
 	exit 0
@@ -2185,7 +2186,7 @@ ln -sf $PREFIX/bin/2H4U .
   then
 	mkdir build
 	cd build
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc ../ || exit 1
+	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dlogind=libelogind ../ || exit 1
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	exit 0	
