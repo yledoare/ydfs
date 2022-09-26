@@ -26,7 +26,7 @@ function start_mate
 	/ydfs/start/plogoff  &
 	/usr/libexec/bluetooth/obexd &
 	caja --force-desktop -n &
-	gsettings get org.mate.background picture-filename |grep / || gsettings set org.mate.background picture-filename '/etc/ydfs.png'
+	gsettings get org.mate.background picture-filename |grep "''" || gsettings set org.mate.background picture-filename '/etc/ydfs.png'
    	NO_AT_BRIDGE=1 ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
 }
 
