@@ -76,5 +76,7 @@ https://download.kde.org/stable/plasma/5.25.3/systemsettings-5.25.3.tar.xz
 https://download.kde.org/stable/plasma/5.25.3/xdg-desktop-portal-kde-5.25.3.tar.xz
 https://download.kde.org/stable/frameworks/5.96/portingAids/kjs-5.96.0.tar.xz
 https://download.kde.org/stable/frameworks/5.96/portingAids/khtml-5.96.0.tar.xz
-https://invent.kde.org/office/calligra/-/archive/v3.2.1/calligra-v3.2.1.tar.bz2
+#https://invent.kde.org/office/calligra/-/archive/v3.2.1/calligra-v3.2.1.tar.bz2
+https://download.kde.org/stable/frameworks/5.96/kdnssd-5.96.0.tar.xz
+https://download.kde.org/stable/release-service/22.08.1/src/libkdegames-22.08.1.tar.xz
 https://download.kde.org/stable/release-service/22.04.3/src/bomber-22.04.3.tar.xz
