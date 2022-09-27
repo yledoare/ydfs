@@ -223,7 +223,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-modules: fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde xfce emulators fps 
+modules: fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps 
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
@@ -244,6 +244,11 @@ lxde: ${LCMBUILD}/lxde-${ARCH}.squashfs
 ${LCMBUILD}/lxde-${ARCH}.squashfs : packages/list-lxde
 	./scripts/make_packages lxde
 	./scripts/make_module lxde
+
+kdegames: ${LCMBUILD}/kdegames-${ARCH}.squashfs
+${LCMBUILD}/kdegames-${ARCH}.squashfs : packages/list-kdegames
+	./scripts/make_packages kdegames
+	./scripts/make_module kdegames
 
 libreoffice: ${LCMBUILD}/libreoffice-${ARCH}.squashfs
 ${LCMBUILD}/libreoffice-${ARCH}.squashfs : packages/list-libreoffice
