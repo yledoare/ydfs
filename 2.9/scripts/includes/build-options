@@ -350,13 +350,10 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 #	echo $ARCHIVE | grep gobject-introspection && LC_CONFIGURE_OPTS="--disable-tests" && [ "$ARCH" == "arm" ] && export PATH=$HOME/$ARCH/bin/:$PATH
 	echo $ARCHIVE | grep lightdm && LC_CONFIGURE_OPTS="--with-greeter-user=lightdm --with-greeter-session=lightdm-gtk-greeter --disable-static --disable-tests"
 	echo $ARCHIVE | grep dossizola && LC_CONFIGURE_OPTS="--datadir=$DIBAB_PREFIX/$MODULE"
-	echo $ARCHIVE | grep pcmanfm && LC_CONFIGURE_OPTS="--enable-debug"
 	echo $ARCHIVE | grep mate-power-manager && LC_CONFIGURE_OPTS="--enable-applets \
         	--disable-strict \
         	--without-keyring"
 	echo $ARCHIVE | grep openldap && LC_CONFIGURE_OPTS="--with-tls=no  --disable-static  --enable-dynamic  --disable-debug "
-	#echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-udisks --enable-debug"
-	echo $ARCHIVE | grep libfm && LC_CONFIGURE_OPTS="--enable-debug"
 	echo $ARCHIVE | grep wayland-1 && LC_CONFIGURE_OPTS="--buildtype=release -Ddocumentation=false"
 	echo $ARCHIVE | grep pulseaudio-1 && LC_CONFIGURE_OPTS="-Dsystemd=disabled -Dudevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d" 
 	echo $ARCHIVE | grep colord && LC_CONFIGURE_OPTS="--disable-systemd-login --with-udevrulesdir=$DIBAB_PREFIX/$MODULE/lib/udev/rules.d"
@@ -519,7 +516,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-shared \
     --enable-vdpau \
     --enable-version3 "
-echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
+echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
 	echo $ARCHIVE | grep gdk-pixbuf && LC_CONFIGURE_OPTS="-Dman=false"
 #WRITE HERE NEW RULES
 	echo $ARCHIVE | grep clamav && LC_CONFIGURE_OPTS="--with-user=root --with-group=root "
