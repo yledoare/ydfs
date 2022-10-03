@@ -6,6 +6,8 @@
 #https://github.com/OoliteProject/oolite/releases/download/1.90/oolite-source-1.90.tar.bz2
 #https://github.com/yairm210/Unciv/archive/4.1.21-patch2.zip
 vulkan-tools-1.2.203.tar.gz::https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.203.tar.gz
+https://downloads.sourceforge.net/project/enlightenment/imlib2-src/1.9.1/imlib2-1.9.1.tar.xz
+git://github.com/brndnmtthws/conky.git#tag=v1.13.1
 https://github.com/teeworlds/teeworlds/releases/download/0.7.5/teeworlds-0.7.5-src.tar.gz
 ftp://ftp.ncftp.com/ncftp/ncftp-3.2.6-src.tar.xz
 https://ftp.gnu.org/gnu/gdb/gdb-12.1.tar.xz
