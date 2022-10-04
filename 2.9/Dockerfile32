@@ -3,7 +3,7 @@ MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
 RUN apt-get update
-RUN apt-get upgrade
+RUN apt-get upgrade -y
 RUN apt-get install -y locales 
 RUN echo "fr_FR.UTF-8 UTF-8"> /etc/locale.gen
 RUN echo "br_FR.UTF-8 UTF-8">> /etc/locale.gen
@@ -36,6 +36,8 @@ RUN apt-get update && apt-get install -y vim ack wget openjdk-17-jdk-headless li
 
 RUN apt-get install -y cpio kmod xorriso
 RUN apt-get install -y rsync
+RUN apt-get update
+RUN apt-get upgrade -y
 
 USER linuxconsole2022
 CMD /build-lc2022

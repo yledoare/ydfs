@@ -1,7 +1,7 @@
 if [ -e programs/winecfg ] && [ "$ARCH" == "x86_64" ]
 then
 #	$HOME_DIBAB/scripts/make_multilib
-#	$HOME_DIBAB/scripts/make_multilib
+	# bash $HOME_DIBAB/scripts/make_multilib # We must exit before building mesa
 	bash $HOME_DIBAB/scripts/make_multilib || exit 1
 	WINEBUILD=$PWD
 

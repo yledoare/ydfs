@@ -112,11 +112,13 @@ do
   	# export CXX="g++ -m32"
 	mkdir build-32
 	cd build-32
-	[ ! -e env.1 ] && env > env.1
-	env > env.2
+	# [ ! -e env.1 ] && env > env.1 && echo "Quit building .. " && exit 23 # We need to clear ENV VAR
+	echo "Start config mesa .. "
+	# env > env.2
 	echo "[binaries]
 llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
+        # PYTHONPATH="" 
+	echo "meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --native-file crossfile.ini \
     -D b_lto=false \
     -D b_ndebug=true \
     -D platforms=x11,wayland \
@@ -146,7 +148,18 @@ llvm-config = '$HOME/llvm-multilib/bin/llvm-config' "> crossfile.ini
     -D shared-glapi=enabled \
     -D microsoft-clc=disabled \
     -D lmsensors=enabled \
-    -D valgrind=disabled
+    -D valgrind=disabled" > build-mesa32
+    #bash
+    # $HOME_DIBAB/scripts/clear-env && . $HOME/env
+unset ACLOCAL
+unset ACLOCAL_FLAGS
+unset CMAKE_INCLUDE_PATH
+unset CMAKE_LIBRARY_PATH
+unset CMAKE_PREFIX_PATH
+unset CXXFLAGS
+unset MAKE
+     #	env | sort > /tmp/$$.env
+    bash build-mesa32 > ydfs-conf || exit 1
 	;;
 
     lm-sensors )
