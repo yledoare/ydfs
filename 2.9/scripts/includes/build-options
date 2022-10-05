@@ -18,6 +18,8 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
     -DCMAKE_BUILD_TYPE=Release "
 
+echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
+
 echo $ARCHIVE | grep conky &&  LC_CONFIGURE_OPTS="  -D CMAKE_CXX_FLAGS=\"$CXXFLAGS -ffat-lto-objects\" \
     -D MAINTAINER_MODE=ON \
     -D BUILD_DOCS=ON \

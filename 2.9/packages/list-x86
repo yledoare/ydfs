@@ -508,6 +508,9 @@ https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1
 https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz 
 pip::toml
 pip::typogrify
+pip::cffi
+pip::pysol_cards
+pip::conan
 #https://gitlab.gnome.org/GNOME/librest/-/archive/0.9.0/librest-0.9.0.tar.bz2
 ftp://ftp.acc.umu.se/pub/gnome/sources/rest/0.8/rest-0.8.1.tar.xz
 https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/archive/3.40.1/gnome-online-accounts-3.40.1.tar.bz2 #SKIP-x86#
@@ -578,6 +581,10 @@ http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/Alien-SDL-1.444.tar.gz
 http://search.cpan.org/CPAN/authors/id/F/FR/FROGGS/SDL-2.546.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/ack-2.24.tar.gz
 http://search.cpan.org/CPAN/authors/id/P/PE/PETDANCE/File-Next-1.16.tar.gz
+https://cpan.metacpan.org/authors/id/H/HA/HAARG/Moo-2.005004.tar.gz
+https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Path-Tiny-0.124.tar.gz
+https://search.cpan.org/CPAN/authors/id/H/HA/HAARG/Sub-Quote-2.006_007.tar.gz
+https://search.cpan.org/CPAN/authors/id/A/AB/ABW/Template-Toolkit-3.101.tar.gz
 http://icculus.org/physfs/downloads/physfs-3.0.1.tar.bz2
 http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.1.tar.gz
 https://downloads.sourceforge.net/infozip/zip30.tar.gz
