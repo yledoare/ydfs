@@ -1076,6 +1076,8 @@ python3 -c 'from dbus.mainloop.pyqt5 import DBusQtMainLoop; print("DBus import o
     autoreconf --install
   fi
 
+  [ "$ARCH = x86" ] && [ -e src/conky.cc ] && sed -e 's:-llua -lm:-llua -lm -ldl:' -i $HOME/x86/lib/pkgconfig/lua.pc
+
   if [ -e js/src/jsanalyze.cpp ]
   then
      cd js/src
