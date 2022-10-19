@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Install on disk
+Name[fr]=Installer sur le disque dur
+Comment=
+Exec=xterm -e /fix/install-ydfs-ondisk
+Icon=hd
+Type=Application
+Categories=System

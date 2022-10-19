@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Add new software
+Name[fr]=Ajouter des logiciels
+GenericName=Package manager
+Exec=ydfs-gui
+Terminal=false
+Icon=opkg
+Type=Application
+Categories=Network

@@ -1,0 +1,21 @@
+    CFLAGS+=" -fPIC -fno-strict-aliasing -fstack-protector-all"
+   # CPPFLAGS+=" -I/usr/include/et"
+   cd src
+   LC_CONFIGURE_OPTS=""
+   [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
+   ./configure --prefix=$PREFIX \
+               --sbindir=/$PREFIX/bin \
+               --sysconfdir=$PREFIX/etc \
+               --localstatedir=$PREFIX/var/lib \
+               --enable-shared \
+               --with-system-et \
+               --with-system-ss \
+               --disable-rpath \
+               --without-tcl \
+               --enable-dns-for-realm \
+               --with-ldap \
+               --without-system-verto $LC_CONFIGURE_OPTS || exit 1
+
+make || exit 1
+make install || exit 1
+    cd ..

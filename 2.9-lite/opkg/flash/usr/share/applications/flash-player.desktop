@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Install Adobe Flash Player
+Comment=Adobe Flash Player
+Exec=install-flash-plugin
+Icon=flash-player-properties
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Network;WebBrowser;

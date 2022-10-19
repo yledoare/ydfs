@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Setup Parental LogOff
+Name[fr]=Configurer le temps de connexion des enfants
+Exec=/ydfs/config/plogoff
+Terminal=false
+Icon=plogoff
+Type=Application
+Categories=Settings

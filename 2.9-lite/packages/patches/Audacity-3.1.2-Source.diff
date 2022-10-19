@@ -1,0 +1,34 @@
+diff --git a/src/AudacityApp.cpp b/src/AudacityApp.cpp
+index 78bd1df..84cd1d0 100644
+--- a/src/AudacityApp.cpp
++++ b/src/AudacityApp.cpp
+@@ -989,7 +989,7 @@ wxLanguageInfo userLangs[] =
+    // Bosnian is defined in wxWidgets already
+ //   { wxLANGUAGE_USER_DEFINED, wxT("bs"), WL(0, SUBLANG_DEFAULT) wxT("Bosnian"), wxLayout_LeftToRight },
+ 
+-   { wxLANGUAGE_USER_DEFINED, wxT("eu"), WL(0, SUBLANG_DEFAULT) wxT("Basque"), wxLayout_LeftToRight },
++//   { wxLANGUAGE_USER_DEFINED, wxT("eu"), WL(0, SUBLANG_DEFAULT) wxT("Basque"), wxLayout_LeftToRight },
+ };
+ #endif
+ 
+diff --git a/src/MixerBoard.cpp b/src/MixerBoard.cpp
+index 0f3c67b..fdb9e0f 100644
+--- a/src/MixerBoard.cpp
++++ b/src/MixerBoard.cpp
+@@ -1312,7 +1312,7 @@ void MixerBoard::LoadMusicalInstruments()
+ 
+    wxRect bev(1, 1, MUSICAL_INSTRUMENT_HEIGHT_AND_WIDTH - 2, MUSICAL_INSTRUMENT_HEIGHT_AND_WIDTH - 2);
+    wxMemoryDC dc;
+-
++   /*
+    for (const auto &data : table) {
+       auto bmp = std::make_unique<wxBitmap>(data.bitmap,24);
+       dc.SelectObject(*bmp);
+@@ -1321,6 +1321,7 @@ void MixerBoard::LoadMusicalInstruments()
+          std::move(bmp), data.name
+       ));
+    };
++   */
+ }
+ 
+ // event handlers

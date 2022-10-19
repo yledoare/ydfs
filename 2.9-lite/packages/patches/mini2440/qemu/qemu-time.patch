@@ -1,0 +1,65 @@
+diff --git a/configure b/configure
+index 8fdbc1c..e785173 100755
+--- a/configure
++++ b/configure
+@@ -547,7 +547,7 @@ case "$cpu" in
+            ARCH_CFLAGS="-march=z900"
+            ;;
+     i386)
+-           ARCH_CFLAGS="-m32"
++           ARCH_CFLAGS="-m32 $CFLAGS $LDFLAGS"
+            ARCH_LDFLAGS="-m32"
+            ;;
+     x86_64)
+diff --git a/target-arm/helper.c b/target-arm/helper.c
+index a063655..9b49655 100644
+--- a/target-arm/helper.c
++++ b/target-arm/helper.c
+@@ -812,6 +812,11 @@ void do_interrupt(CPUARMState *env)
+                 return;
+             }
+         }
++	{
++       extern void show__time(void);
++       mask = ldl_code(env->regs[15] - 4) & 0xffffff;
++       if (mask == 1) { show__time(); return; }
++	} 
+         new_mode = ARM_CPU_MODE_SVC;
+         addr = 0x08;
+         mask = CPSR_I;
+diff --git a/vl.c b/vl.c
+index 40b1d8b..37379db 100644
+--- a/vl.c
++++ b/vl.c
+@@ -370,6 +370,23 @@ static void default_ioport_writel(void *opaque, uint32_t address, uint32_t data)
+ #endif
+ }
+ 
++static struct timespec tp_start;
++void show__time(void)
++{
++       struct timespec tp_end, temp;
++
++       clock_gettime(CLOCK_MONOTONIC, &tp_end);
++
++       if ((tp_end.tv_nsec-tp_start.tv_nsec)<0) {
++               temp.tv_sec = tp_end.tv_sec-tp_start.tv_sec-1;
++               temp.tv_nsec = 1000000000+tp_end.tv_nsec- tp_start.tv_nsec;
++       } else {
++               temp.tv_sec = tp_end.tv_sec-tp_start.tv_sec;
++               temp.tv_nsec = tp_end.tv_nsec-tp_start.tv_nsec;
++       }
++       printf("Duration: %d.%03d\n", temp.tv_sec, temp.tv_nsec/ 1000000);
++}
++ 
+ /* size is the word size in byte */
+ int register_ioport_read(int start, int length, int size,
+                          IOPortReadFunc *func, void *opaque)
+@@ -6095,6 +6112,7 @@ int main(int argc, char **argv, char **envp)
+     }
+ #endif
+ 
++    clock_gettime(CLOCK_MONOTONIC, &tp_start); 
+     main_loop();
+     quit_timers();
+     net_cleanup();

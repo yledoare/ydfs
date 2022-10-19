@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Looking into $HOME/$ARCH"
+find $HOME/ydfs/build-$ARCH -name config.log | while read file 
+do
+  DIRNAME=`dirname $file`
+  name=`basename $DIRNAME`
+  install -d /tmp/logs
+  cp $file /tmp/logs/$name.log
+  echo "put $name"
+  curl -F "uploadedfile=@/tmp/logs/$name.log" http://jukebox.linuxconsole.org/uploader.php
+done

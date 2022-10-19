@@ -1,0 +1,6 @@
+echo "Try install data"
+[ -e et-data.sh ] && rm et-data.sh
+wget http://jukebox.linuxconsole.org/testing/et-data.sh
+sh et-data.sh
+rm et-data.sh 
+# http://trackbase.eu/files//et/full/et260b.x86_full.zip

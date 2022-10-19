@@ -1,0 +1,5 @@
+tty1::once:/etc/init.d/tty1
+tty2::once:/etc/init.d/rcS
+tty3::askfirst:-/busybox/bin/ash
+tty4::askfirst:-/busybox/bin/ash
+::ctrlaltdel:/busybox/bin/umount -a -r

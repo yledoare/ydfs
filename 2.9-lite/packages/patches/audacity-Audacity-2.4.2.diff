@@ -1,0 +1,41 @@
+diff --git a/src/AColor.h b/src/AColor.h
+index 8e4ae37..a64e489 100644
+--- a/src/AColor.h
++++ b/src/AColor.h
+@@ -14,7 +14,7 @@
+ #ifndef __AUDACITY_COLOR__
+ #define __AUDACITY_COLOR__
+ 
+-#include <memory>
++//#include <memory>
+ #include <wx/brush.h> // member variable
+ #include <wx/pen.h> // member variable
+ 
+diff --git a/src/AudacityApp.cpp b/src/AudacityApp.cpp
+index 661ab7e..c608c09 100644
+--- a/src/AudacityApp.cpp
++++ b/src/AudacityApp.cpp
+@@ -970,7 +970,7 @@ wxLanguageInfo userLangs[] =
+    // Bosnian is defined in wxWidgets already
+ //   { wxLANGUAGE_USER_DEFINED, wxT("bs"), WL(0, SUBLANG_DEFAULT) wxT("Bosnian"), wxLayout_LeftToRight },
+ 
+-   { wxLANGUAGE_USER_DEFINED, wxT("eu"), WL(0, SUBLANG_DEFAULT) wxT("Basque"), wxLayout_LeftToRight },
++   //{ wxLANGUAGE_USER_DEFINED, wxT("eu"), WL(0, SUBLANG_DEFAULT) wxT("Basque"), wxLayout_LeftToRight },
+ };
+ #endif
+ 
+diff --git a/src/MixerBoard.cpp b/src/MixerBoard.cpp
+index be46e63..2461119 100644
+--- a/src/MixerBoard.cpp
++++ b/src/MixerBoard.cpp
+@@ -1302,9 +1302,8 @@ void MixerBoard::LoadMusicalInstruments()
+ 
+    wxRect bev(1, 1, MUSICAL_INSTRUMENT_HEIGHT_AND_WIDTH - 2, MUSICAL_INSTRUMENT_HEIGHT_AND_WIDTH - 2);
+    wxMemoryDC dc;
+-
+    for (const auto &data : table) {
+-      auto bmp = std::make_unique<wxBitmap>(data.bitmap,24);
++      auto bmp = std::make_unique<wxBitmap>(data.bitmap);
+       dc.SelectObject(*bmp);
+       AColor::Bevel(dc, false, bev);
+       mMusicalInstruments.push_back(std::make_unique<MusicalInstrument>(

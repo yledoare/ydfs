@@ -1,0 +1,2 @@
+#!/busybox/bin/ash
+echo "into /etc/init.d/rcS"

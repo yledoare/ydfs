@@ -1,0 +1,32 @@
+diff --git a/tools/TexturePacker/Makefile.in b/tools/TexturePacker/Makefile.in
+index 4f0b610..484a873 100644
+--- a/tools/TexturePacker/Makefile.in
++++ b/tools/TexturePacker/Makefile.in
+@@ -17,10 +17,10 @@ CXXFLAGS_FOR_BUILD += \
+   -I. \
+   -I@abs_top_srcdir@/lib \
+   -I@abs_top_srcdir@/xbmc \
+-  -I@abs_top_srcdir@/xbmc/linux
++  -I@abs_top_srcdir@/xbmc/linux $(CXXFLAGS)
+ 
+ LDFLAGS_FOR_BUILD += -lSDL_image -lSDL -llzo2
+-LDFLAGS_FOR_BUILD += -L@abs_top_srcdir@/lib/libsquish -lsquish-native
++LDFLAGS_FOR_BUILD += -L@abs_top_srcdir@/lib/libsquish -lsquish-native $(LDFLAGS)
+ 
+ ifeq ($(findstring Darwin,$(shell uname -s)),Darwin)
+ DEFINES += -DTARGET_DARWIN
+diff --git a/xbmc/cores/dvdplayer/DVDDemuxers/DVDDemuxFFmpeg.cpp b/xbmc/cores/dvdplayer/DVDDemuxers/DVDDemuxFFmpeg.cpp
+index 03cd1d7..f4a138a 100644
+--- a/xbmc/cores/dvdplayer/DVDDemuxers/DVDDemuxFFmpeg.cpp
++++ b/xbmc/cores/dvdplayer/DVDDemuxers/DVDDemuxFFmpeg.cpp
+@@ -490,8 +490,8 @@ void CDVDDemuxFFmpeg::Reset()
+ void CDVDDemuxFFmpeg::Flush()
+ {
+   // naughty usage of an internal ffmpeg function
+-  if (m_pFormatContext)
+-    av_read_frame_flush(m_pFormatContext);
++// BUG into Ydfs if (m_pFormatContext)
++//   av_read_frame_flush(m_pFormatContext);
+ 
+   m_iCurrentPts = DVD_NOPTS_VALUE;
+ 

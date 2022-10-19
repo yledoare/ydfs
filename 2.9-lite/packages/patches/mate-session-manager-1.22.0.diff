@@ -1,0 +1,46 @@
+--- mate-session-manager-1.22.0/mate-session/gsm-systemd.c.orig	2019-03-07 10:46:32.080054028 +0000
++++ mate-session-manager-1.22.0/mate-session/gsm-systemd.c	2019-03-07 10:52:46.392063262 +0000
+@@ -424,6 +424,7 @@ emit_stop_complete (GsmSystemd *manager,
+ gboolean
+ gsm_systemd_is_last_session_for_user (GsmSystemd *manager)
+ {
++#ifdef HAVE_SYSTEMD
+         char **sessions = NULL;
+         char *session = NULL;
+         gboolean is_last_session;
+@@ -431,14 +432,25 @@ gsm_systemd_is_last_session_for_user (Gs
+ 
+         ret = sd_pid_get_session (getpid (), &session);
+ 
++        if (session == NULL) {
++                return FALSE;
++        }
++
+         if (ret != 0) {
++                free (session);
+                 return FALSE;
+         }
+ 
+         ret = sd_uid_get_sessions (getuid (), FALSE, &sessions);
+ 
++        if (sessions == NULL) {
++                free (session);
++                return FALSE;
++        }
++
+         if (ret <= 0) {
+                 free (session);
++                free (sessions);
+                 return FALSE;
+         }
+ 
+@@ -484,6 +496,9 @@ gsm_systemd_is_last_session_for_user (Gs
+         free (session);
+ 
+         return is_last_session;
++#else
++	return FALSE;
++#endif
+ }
+ 
+ void

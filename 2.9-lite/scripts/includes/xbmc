@@ -1,0 +1,102 @@
+#!/bin/sh
+if [ -e xbmc-xrandr.c ]
+then
+	echo "Build Kodi" && sleep 5
+
+    mkdir kodi-build
+    cd kodi-build
+_libdvdcss_version="1.4.2-Leia-Beta-5"
+_libdvdnav_version="6.0.0-Leia-Alpha-3"
+_libdvdread_version="6.0.0-Leia-Alpha-3"
+_ffmpeg_version="4.3-kodi-dav1d-1.0"
+_fmt_version="6.1.2"
+_spdlog_version="1.5.0"
+_crossguid_version="8f399e8bd4"
+_fstrcmp_version="0.7.D001"
+_flatbuffers_version="1.12.0"
+_libudfread_version="1.1.0"
+_codename=Leia
+
+for LIST in "libdvdcss-$_libdvdcss_version.tar.gz::https://github.com/xbmc/libdvdcss/archive/$_libdvdcss_version.tar.gz" "libdvdnav-$_libdvdnav_version.tar.gz::https://github.com/xbmc/libdvdnav/archive/$_libdvdnav_version.tar.gz" "libdvdread-$_libdvdread_version.tar.gz::https://github.com/xbmc/libdvdread/archive/$_libdvdread_version.tar.gz" "ffmpeg-$_ffmpeg_version.tar.gz::https://github.com/BlackIkeEagle/kodi-FFmpeg/archive/refs/heads/fix/4.3-kodi-dav1d-1.0.tar.gz" "fmt-$_fmt_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/fmt-$_fmt_version.tar.gz" "spdlog-$_spdlog_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/spdlog-$_spdlog_version.tar.gz" "crossguid-$_crossguid_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/crossguid-$_crossguid_version.tar.gz" "fstrcmp-$_fstrcmp_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz" "flatbuffers-$_flatbuffers_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/flatbuffers-$_flatbuffers_version.tar.gz" "libudfread-$_libudfread_version.tar.gz::http://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
+do
+	URL=`echo $LIST | cut -d':' -f3,4,5`
+	ARCHIVE=`echo $LIST | cut -d':' -f1`
+	#echo $NAME $LIST && exit 1
+	#FILE=`basename $NAME`
+	echo $LIST $PWD/$ARCHIVE 
+	[ ! -e "$ARCHIVE" ] && wget -O $ARCHIVE $URL
+	[ ! -e "$ARCHIVE" ] && sleep 20 && exit 1
+done
+	
+    OPTS=" -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DUSE_LTO=ON
+    -DENABLE_LDGOLD=OFF
+    -DENABLE_AIRTUNES=ON
+    -DENABLE_ALSA=ON
+    -DENABLE_AVAHI=ON
+    -DENABLE_BLURAY=ON
+    -DENABLE_CEC=ON
+    -DENABLE_DBUS=ON
+    -DENABLE_DVDCSS=ON
+    -DENABLE_EGL=ON
+    -DENABLE_EVENTCLIENTS=ON
+    -DENABLE_MICROHTTPD=ON
+    -DENABLE_MYSQLCLIENT=ON
+    -DENABLE_NFS=ON
+    -DENABLE_OPTICAL=ON
+    -DENABLE_PULSEAUDIO=ON
+    -DENABLE_SMBCLIENT=ON
+    -DENABLE_UDEV=ON
+    -DENABLE_UPNP=ON
+    -DENABLE_VAAPI=ON
+    -DENABLE_VDPAU=ON
+    -DENABLE_XSLT=ON
+    -DENABLE_LIRCCLIENT=ON
+    -DENABLE_INTERNAL_FFMPEG=ON
+    -DENABLE_INTERNAL_FMT=ON
+    -DENABLE_INTERNAL_SPDLOG=OFF
+    -DENABLE_INTERNAL_CROSSGUID=ON
+    -DENABLE_INTERNAL_FSTRCMP=ON
+    -DENABLE_INTERNAL_FLATBUFFERS=ON
+    -DENABLE_INTERNAL_UDFREAD=ON
+    -Dlibdvdcss_URL="$HOME/ydfs/tarballs/libdvdcss-1.4.3.tar.bz2"
+    -Dlibdvread_URL="$HOME/ydfs/tarballs/libdvdread-6.1.3.tar.bz2"
+    -DFFMPEG_URL="$PWD/ffmpeg-$_ffmpeg_version.tar.gz"
+    -DCROSSGUID_URL="$PWD/crossguid-$_crossguid_version.tar.gz"
+    -DFSTRCMP_URL="$PWD/fstrcmp-$_fstrcmp_version.tar.gz"
+    -DFLATBUFFERS_URL="$PWD/flatbuffers-$_flatbuffers_version.tar.gz"
+    -DUDFREAD_URL="$PWD/libudfread-$_libudfread_version.tar.gz"
+    -DFMT_URL="$PWD/fmt-$_fmt_version.tar.gz"
+    -DCMAKE_INSTALL_LIBDIR=$PREFIX/lib \
+    -DAPP_RENDER_SYSTEM=gl
+    -DLIRC_DEVICE=/run/lirc/lircd"
+    echo " OPTS : $OPTS"
+
+    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
+
+    echo "BUILD 1 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdread/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
+    echo "BUILD 2 .. "
+    VERBOSE=1 make 
+    OLDPWD=$PWD
+    cd build/libdvd/src/dvdnav/
+	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+    cd $OLDPWD
+
+
+    VERBOSE=1 make || exit $?
+    make install || exit $?
+    DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
+  if [ "$MODULE" = "opkg" ]
+  then
+    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    $HOME_DIBAB/scripts/make_opkg || exit $?
+  fi
+     touch buildok-$ARCH
+     exit 0 
+fi 

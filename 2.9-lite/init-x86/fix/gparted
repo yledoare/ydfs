@@ -1,0 +1,8 @@
+# To disable remounting while running gparted
+mv /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules /root
+udevadm trigger --action=add
+
+$HOME_DIBAB/$ARCH/sbin/gpartedbin 
+
+mv /root/11-media-by-label-auto-mount.rules /usr/lib/udev/rules.d/11-media-by-label-auto-mount.rules
+udevadm trigger --action=add

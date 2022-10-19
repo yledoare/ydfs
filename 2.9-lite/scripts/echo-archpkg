@@ -1,0 +1,40 @@
+#!/bin/bash
+PKG=$1
+SHORT=${PKG:0:2}
+install -d $HOME/archpkg
+cd $HOME/archpkg
+URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
+URL1=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD
+URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=
+URL6=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
+URL7=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
+URL8=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
+
+OPTION=" --no-check-certificate" 
+OPTION=" -q --no-check-certificate" 
+if [ ! -e $HOME/archpkg/$PKG ]
+then
+wget $OPTION "$URL1" -O $HOME/archpkg/$PKG || \
+	wget $OPTION "$URL2" -O $HOME/archpkg/$PKG || \
+	wget $OPTION "$URL3" -O $HOME/archpkg/$PKG || \
+	wget $OPTION "$URL4" -O $HOME/archpkg/$PKG || \
+	wget $OPTION "$URL6" -O $HOME/archpkg/$PKG || \
+	wget $OPTION "$URL7" -O $HOME/archpkg/$PKG || \
+	ERROR=1
+fi
+
+test -s $HOME/archpkg/$PKG
+if [ $? = 1 ]
+then
+ echo "Error, delete $HOME/archpkg/$PKG which is empty"
+ rm $HOME/archpkg/$PKG
+ exit 1
+fi
+
+source $HOME/archpkg/$PKG
+
+for i in ${!source[*]}
+do 
+ echo ${source[i]}
+ break
+done

@@ -1,0 +1,48 @@
+diff --git a/src/Makefile b/src/Makefile
+index 37ad05b..ebeb858 100755
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -6,7 +6,7 @@
+ 
+ ifndef ($(PREFIX),"")
+ 	# define a value for prefix assuming that the program will be installed in the root directory
+-	PREFIX := /usr
++	PREFIX := $(MYPREFIX)
+ endif
+ 
+ 
+@@ -54,8 +54,8 @@ install: egoboo
+ 
+ #	copy the data to the games folder
+ 	mkdir -p ${PREFIX}/share/games/${PROJ_NAME}
+-	cp -rdf ./basicdat ${PREFIX}/share/games/${PROJ_NAME}
+-	cp -rdf ./modules ${PREFIX}/share/games/${PROJ_NAME}
++	cp -rdf ../basicdat ${PREFIX}/share/games/${PROJ_NAME}
++	cp -rdf ../modules ${PREFIX}/share/games/${PROJ_NAME}
+ 
+ #	copy the players to the user's data folder
+ 	mkdir -p ${HOME}/.${PROJ_NAME}
+@@ -63,8 +63,8 @@ install: egoboo
+ 
+ #	copy the basic configuration files to the config directory
+ 	mkdir -p ${PREFIX}/etc/${PROJ_NAME}
+-	cp -rdf setup.txt ${PREFIX}/etc/${PROJ_NAME}/setup.txt
+-	cp -rdf controls.txt ${PREFIX}/etc/${PROJ_NAME}/controls.txt
++	cp -rdf ../setup.txt ${PREFIX}/etc/${PROJ_NAME}/setup.txt
++	cp -rdf ../controls.txt ${PREFIX}/etc/${PROJ_NAME}/controls.txt
+ 
+ 	#####################################
+ 	# Egoboo installation is finished
+diff --git a/src/game/Makefile b/src/game/Makefile
+index f8ac07f..e7dd55f 100755
+--- a/src/game/Makefile
++++ b/src/game/Makefile
+@@ -34,7 +34,7 @@ SDLCONF_L := $(shell ${SDL_CONF} --libs)
+ 
+ CC      := gcc
+ INC     := -I. -I.. -I../enet/include ${SDLCONF_I} -I./extensions -I./file_formats -I./platform
+-LDFLAGS := ${SDLCONF_L} -L../enet/lib -lSDL_ttf -lSDL_mixer -lGL -lGLU -lSDL_image -lphysfs -lenet
++LDFLAGS := ${SDLCONF_L} -L../enet/lib -lSDL_ttf -lSDL_mixer -lGL -lm -lGLU -lSDL_image -lphysfs -lenet
+ 
+ # use different options if the environmental variable PREFIX is defined
+ ifdef ($(PREFIX),"")

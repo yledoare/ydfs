@@ -1,0 +1,20 @@
+diff --git a/configure b/configure
+index 62db8fc..23118a2 100755
+--- a/configure
++++ b/configure
+@@ -14156,12 +14156,12 @@ _ACEOF
+                 png_lib=`find_lib "libpng*.dll"`
+                 ;;
+             *)
+-                png_lib=`find_lib "libpng.so.[0-9]"`
++                png_lib=`find_lib "libpng16.so.[0-9]"`
+                 if test x$png_lib = x; then
+-                    png_lib=`find_lib "libpng.so.[0-9]*"`
++                    png_lib=`find_lib "libpng16.so.[0-9]*"`
+                 fi
+                 if test x$png_lib = x; then
+-                    png_lib=`find_lib "libpng*.so.[0-9]"`
++                    png_lib=`find_lib "libpng16*.so.[0-9]"`
+                 fi
+                 if test x$png_lib = x; then
+                     png_lib=`find_lib "libpng*.so.[0-9]*"`

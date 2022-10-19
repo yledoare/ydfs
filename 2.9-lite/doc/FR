@@ -1,0 +1,83 @@
+Documentation de LinuxConsole 2.4
+
+# Matériel requis
+
+Pour utiliser LinuxConsole, il vous faut un ordinateur de type PC
+
+# CPU 
+
+compatbile PAE 
+
+# RAM
+
+Ces valeurs sont données pour une utilisation en mode liveCD (sans swap), avec une installation sur le disque dur, et le swap activé, les performances seront meilleures
+
+* 128 Mo de RAM pour un usage minimal (gparted)
+* 512 Mo de RAM pour naviger sur internet
+* 1Go de RAM pour jouer à SupertuxKart 
+
+# 32 out 64 bits ?
+
+Il est recommandé d'utiliser les versions 32 bits, notament si on veut utiliser Skype ou Steam (LinuxConsole ne supportant pas le multilib)
+La version 64 bits est réservée à ceux qui cherchent de la performance avant tout
+
+# Installer LinuxConsole
+
+Il y a plusieurs façons d'installer LinuxConsole : Si vous êtes totalement novice sous LinuxConsole, nous vous conseillons l'installateur Windows, Si vous voulez tester LinuxConsole en démarrant d'une clé USB, vous pouvez utiliser unetbootin, et si vous êtes familier avec les distribtions Linux, nous vous conseillons de graver le CD ou le DVD
+
+* Installateur Windows
+
+  - Télécharger et lancer : http://jukebox.linuxconsole.org/linuxconsole/wubi/linuxconsole.exe
+
+* Unetbootin
+
+  - Télécharger unetbootin : http://unetbootin.sourceforge.net/
+  - Télécharger l'ISO 32 ou 64 bits de LinuxConsole
+  - Brancher la clé USB, lancer unetbootin et procéder à l'installation
+
+* Graver une ISO
+
+  - Télécharger l'ISO 32 ou 64 bits de LinuxConsole
+  - Graver cette ISO avec, par exemple http://sourceforge.net/projects/infrarecorder (pour Windows)
+
+# Démarage
+
+* Après avoir utilisé l'installateur Windows
+
+Au démarage de l'ordinateur, vous avez le choix entre Windows (par défaut) et LinuxConsole, sélectionnez LinuxConsole en appyant sur la flèche "bas" du clavier puis "Entrée"
+
+* LiveUSB
+
+pour démarrer en mode liveUSB, il faut en général presser la touche F12 au démarrage de l'ordinateur, puis faire le choix "Disque USB"
+
+* LiveCD
+
+pour démarrer en mode liveUSB, il faut en général presser la touche F12 au démarrage de l'ordinateur, puis faire le choix "Disque USB"
+
+# Configuration réseau
+
+* WIFI
+
+Pour configurer la clé wifi, cliquez simplement sur l'icone "wifi" en bas à droite du bureau
+
+# Ajouter un utilisateur
+
+Cliquer sur le menu "Préférences -> Ajouter un utilisateur"
+Il vous sera alors demandé le mot de passe "root" (administrateur), puis le nom et le mot de passe du compte créé
+
+# Installer des logiciels tiers
+
+Cliquer sur le menu "Lutris" présent sur le bureau, vous pourrez alors facilement ajouter un logiciel comme Firefox ou Skype
+
+# Installer des paquets opkg
+
+Pour installer un paquet opkg : cliquer sur le menu "Internet -> Ajouter des logiciels" puis sur l'icone orange (update).
+Choisissez dans l'arborescence le paquet désiré, puis cliquez sur l'icone vert (Apply) pour l'installer
+
+# Installer LinuxConsole sur un disque vierge 
+
+* Cliquer sur le menu "Installer sur le disque dur" qui se trouve sur le bureau
+* Créer une table de partition
+* Créer une partition de type ext4 nommé "linuxconsole", et éventuellement du swap
+
+Il est également possible d'utiliser cette méthode pour installer LinuxConsole sur une clé USB (dans ce cas, il y aura persistance de données), par contre, il ne faut pas qu'un disque dur soit branché (liveCD/DVD + clé USB seulement au moment de l'installation)

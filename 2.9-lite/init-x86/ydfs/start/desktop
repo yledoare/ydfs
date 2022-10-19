@@ -1,0 +1,76 @@
+install -d $HOME/Desktop
+[ -e $HOME/tmp ] && export TMPDIR=$HOME/tmp
+
+export PATH=$HOME/.local/bin:$PATH
+
+# for DBUS
+install -d $HOME_DIBAB/tmp
+chmod 777  $HOME_DIBAB/tmp
+
+# echo $HOME | grep root && cp /share/applications/opkg.desktop $HOME/Desktop
+# echo $HOME | grep root && cp /usr/share/applications/lutris.desktop $HOME/Desktop
+# echo $HOME | grep root && [ ! -e /root/.local/share/lutris/banners/ ] && cd / && tar xzvf /lutris-data.tar.gz && cd /root
+echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /share/applications/install-ydfs-ondisk.desktop $HOME/Desktop
+[ "$(id -u)" = "0" ] && export USER="root"
+# Fix wine startup
+# [ -e /ydfs/modules/module/share/applications/wine.desktop ] && cp /ydfs/modules/module/share/applications/wine.desktop /share/applications/
+# sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
+sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/engrampa.desktop
+sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gparted.desktop
+
+install -d $HOME/.local/share/applications
+update-desktop-database
+
+function start_mate
+{
+	/ydfs/start/plogoff  &
+	/usr/libexec/bluetooth/obexd &
+	caja --force-desktop -n &
+	gsettings get org.mate.background picture-filename |grep "''" || gsettings set org.mate.background picture-filename '/etc/ydfs.png'
+   	NO_AT_BRIDGE=1 ck-launch-session dbus-launch mate-session 1>$HOME/.mate-log 2>$HOME/.mate-err
+}
+
+function start_pantheon
+{
+ 	wingpanel &
+ 	plank &
+   	exec gala
+}
+
+function start_lxqt
+{
+ 	pcmanfm --desktop &
+ 	dbus-launch lxsession
+}
+
+if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
+then
+ xbmc || xterm
+else
+ /ydfs/config/lxde
+ /ydfs/config/gtk2
+. /ydfs/config/env
+ if [ -e $HOME/ydfs/mysession ] 
+ then
+   $HOME/ydfs/mysession
+ else
+   count_session=$(ls /ydfs/modules/*/share/xsessions |grep -v openbox|wc|cut -d' ' -f7)
+   if [ $count_session = 1 ]
+   then
+     start_mate
+   else
+     echo > $HOME/.sessions
+     ls /ydfs/modules/*/share/xsessions | grep -v openbox | grep -v mate |grep desktop | while read session
+     do
+	[ "$session" = "" ] && continue
+	session=$(echo $session | cut -d'.' -f1)
+	echo "Add $session"
+	echo -n "FALSE $session " >> $HOME/.sessions
+     done
+     echo "Asking .."
+     ans=$(zenity  --height 40 --list --hide-header  --text "Choose session" --radiolist  --column "Choice" --column "Lang" TRUE mate `cat $HOME/.sessions`)
+     echo "Running start_$ans" 
+     start_$ans || xterm
+   fi
+ fi
+fi

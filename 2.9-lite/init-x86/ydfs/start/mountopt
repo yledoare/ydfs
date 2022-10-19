@@ -1,0 +1,49 @@
+echo -n "Detecting optional modules "
+DBDATADIR=/tmp
+[ -e /overlay ] && DBDATADIR=/overlay
+ls /media/ydfs/modules/| while read module
+do
+  [ "$module" == "x86_64.squashfs" ] && continue
+  [ "$module" == "x86.squashfs" ] && continue
+  echo $module | grep drivers > /dev/null && continue
+  echo $module | grep firmware > /dev/null && continue
+  echo $module | grep linuxconsole > /dev/null && continue
+  MODULE=`echo $module | cut -d'-' -f1`
+if [ ! -e /ydfs/modules/$MODULE ]
+then
+ echo -n "$MODULE "
+ install -d /ydfs/modules/$MODULE
+ install -d $HOME_DIBAB/$MODULE
+ install -d $DBDATADIR/work-$MODULE
+ install -d $DBDATADIR/updir-$MODULE
+ mount /media/ydfs/modules/$MODULE-$ARCH.squashfs /ydfs/modules/$MODULE
+ mount -t overlay overlay -oindex=off,lowerdir=/ydfs/modules/$MODULE,upperdir=$DBDATADIR/updir-$MODULE,workdir=$DBDATADIR/work-$MODULE $HOME_DIBAB/$MODULE # || ash
+ for subdir in bin lib share/applications share/pixmaps 
+ do
+   [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
+   ls /ydfs/modules/$MODULE/$subdir | while read file
+   do
+     [ ! -e /$subdir/$file ] && ln -s  /ydfs/modules/$MODULE/$subdir/$file /$subdir/$file
+   done
+ done
+ for subdir in share/icons/hicolor/48x48/apps share/icons/hicolor/128x128/apps
+ do
+   [ ! -e /ydfs/modules/$MODULE/$subdir ] && continue
+   ls /ydfs/modules/$MODULE/$subdir | while read file
+   do
+     [ ! -e /share/pixmaps/$file ] && ln -s /ydfs/modules/$MODULE/$subdir/$file /share/pixmaps
+   done
+ done
+fi
+done
+
+[ -e /etc/env.dyn ] && rm /etc/env.dyn
+
+ls /ydfs/modules/ | while read MODULE
+do
+  [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'export VST_PATH=$VST_PATH:'$HOME_DIBAB/$MODULE/lib/vst >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/ladspa ] && echo 'export LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/$MODULE/lib/ladspa >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lv2 ] && echo 'export LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE/lib/lv2 >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/lxvst ] && echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE/lib/lxvst >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'export DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE/lib/dssi >> /etc/env.dyn
+done

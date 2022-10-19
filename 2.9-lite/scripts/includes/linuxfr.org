@@ -1,0 +1,101 @@
+#!/bin/bash
+#moleInvasion_game
+    if [ -e src/MoleInvasion.c ]
+      then
+      cd src/
+      make || exit $? 
+    fi
+#essais camion_frigo:on essaye de l'installer en même temps que Gargoyle,puisqu'il n'y a pas de compilation à faire
+#même chose pour la route des vins
+  #si on est en train de traiter Gargoyle alors:ça ne marche pas pour l'instant(déjà le répertoire n'est pas créé)
+  if [ -e gargoyle_build_cmd ]
+  then
+    #début install des histoires interactives=======================================================
+    #pour test
+    xterm
+    install -d $PREFIX/usr/games/camion_frigo
+    #on télécharge le camion frigo,si ce n'est pas déjà fait,on le décompresse dans la foulée, et le déplace immédiatement dans $PREFIX/usr/games/camion_frigo (mais ce répertoire est-il créé:il faudrait dézipper directement dans $PREFIX/usr/games, puisque le zip contient le sous-répertoire?
+    [ ! -e camion_frigo.zip ] && wget http://ifiction.free.fr/concours2011/camion_frigo/camion_frigo.zip && unzip camion_frigo.zip  && mv camion_frigo/* $PREFIX/usr/games/camion_frigo
+    pkgname=camion_frigo
+#    echo "install $PREFIX/share/openttd/data"
+#    sed -i "s@/mingw/include@$HOME/$ARCH/include@" config.lib
+#    sed -i "s@/mingw/lib@$HOME/$ARCH/lib@" config.lib
+#    --prefix=$PREFIX \
+#    --binary-dir=bin \
+#    --menu-name="OpenTTD" \
+#    --personal-dir=.${pkgname}||exit $?
+#    make || exit $?
+#    make install || exit $?
+        #rajout du raccourci(il va peut-être manquer un icône:par sûr de l'exécutable
+        echo "[Desktop Entry]
+Encoding=UTF-8
+Name=Le camion frigorifique
+Comment=Interractive novel
+Exec=gargoyle --dir=$PREFIX/usr/games/camion_frigo camion_frigo.j2
+Icon=
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;Game;Stories;" >> $pkgdir/share/applications/camion_frigo.desktop
+    touch  $PREFIX/usr/games/camion_frigo/*
+    install -d $PREFIX/usr/games/route_des_vins
+    #on télécharge le route_des_vins,pas besoin de le décompresser, et on le déplace immédiatement dans $PREFIX/usr/games/route_des_vins 
+    [ ! -e otto_routedesvins.z5 ] && wget http://ifiction.free.fr/speedif/otto_routedesvins/otto_routedesvins.z5  && mv otto_routedesvins.z5 $PREFIX/usr/games/route_des_vins
+    pkgname=route_des_vins
+#    echo "install $PREFIX/share/openttd/data"
+#    sed -i "s@/mingw/include@$HOME/$ARCH/include@" config.lib
+#    sed -i "s@/mingw/lib@$HOME/$ARCH/lib@" config.lib
+#    --prefix=$PREFIX \
+#    --binary-dir=bin \
+#    --menu-name="OpenTTD" \
+#    --personal-dir=.${pkgname}||exit $?
+#    make || exit $?
+#    make install || exit $?
+        #rajout du raccourci(il va peut-être manquer un icône:par sûr de l'exécutable
+        echo "[Desktop Entry]
+Encoding=UTF-8
+Name=La route des vins
+Comment=Interractive novel
+Exec=gargoyle --dir=$PREFIX/usr/games/route_des_vins otto_routedesvins.z5
+Icon=
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;Game;Stories;" >> $pkgdir/share/applications/la_routedesvins.desktop
+    touch  $PREFIX/usr/games/route_des_vins/*
+    #fin install des histoires interactives=======================================================
+    ydfs-install-package
+    touch buildok-$ARCH
+    exit 0 
+  fi
+#traitement de Box2D(Linuxfr.org)------------------------  
+  if [ -e Box2D ]
+  then
+    cd Box2D
+  fi
+#correction pour libes(linuxfr.org)nécessaire pour le jeu GeneticInvasion------------------------  
+  if [ -e src/libes0.pc.in  ]
+  then
+	cd src
+  fi
+#correction pour libtmx(linuxfr.org)nécessaire pour le jeu Akagoria------------------------  
+  if [ -e src/libtmx0.pc.in  ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/pkgconfig/tinyxml2.pc $HOME/$ARCH/lib/pkgconfig/
+	cd src
+  fi
+#correction pour le jeu Akagoria(linuxfr.org) ------------------------  
+  if [ -e src/games/akagoria.cc ]
+  then
+	cp $HOME/$ARCH/lib/i386-linux-gnu/* $HOME/$ARCH/lib
+	cd src
+  fi
+#correction pour lutris (linuxfr.org) ------------------------  
+  if [ -e lutris.desktop.in ]
+  then
+    python setup.py install --prefix=$PREFIX || exit $?
+    ydfs-install-package 
+    touch buildok-$ARCH
+    exit 0
+  fi
+#fin correction pour lutris (linuxfr.org) ------------------------  

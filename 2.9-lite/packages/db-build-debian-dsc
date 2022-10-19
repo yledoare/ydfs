@@ -1,0 +1,89 @@
+#!/bin/sh
+echo "into $0"
+[ "$1" = "" ] && [ ! -e debian/patches ] && echo "$0 needs arg" && exit 1
+if [ "$1" != "" ]
+then
+FILE=$1
+install -d $HOME/ydfs/src && cd $HOME/ydfs/src
+if [ -e "`basename $1`" ] 
+then
+  echo "$1 exists" # && exit 0
+fi
+echo $1 | grep http && FILE=$PWD/`basename $1` && [ ! -e `basename $1` ] && wget $1 && FILE=$PWD/`basename $1`
+DSC_NAME="`basename $FILE`"
+DSC_DIR="`dirname $FILE`"
+ORIG=`cat $DSC_DIR/$DSC_NAME | grep orig | cut -d' ' -f4 | head -1`
+[ "$ORIG" = "" ] && ORIG=`grep tar.gz $FILE  |cut -d ' ' -f4 |head -1`
+[ "$ORIG" = "" ] && echo "ORIG in $FILE ?" && exit 1
+DIF=`cat $DSC_DIR/$DSC_NAME | grep dif | cut -d' ' -f4 | head -1`
+[ ! -n "$DIF" ] && DIF=`cat $DSC_DIR/$DSC_NAME | grep debian.tar.gz  | cut -d' ' -f4 | head -1`
+[ ! -n "$DIF" ] && DIF=`cat $DSC_DIR/$DSC_NAME | grep debian.tar.bz2  | cut -d' ' -f4 | head -1`
+# echo "FILE:$FILE ORIG:$ORIG DIF:$DIF" && exit 4
+echo "ORIG : $ORIG, diff : $DIF"
+DEB_REPO=http://ftp.de.debian.org/debian/pool/main/
+if [ `echo $DSC_NAME | dd count=3 bs=1 2>/dev/null` = "lib" ]
+then
+  SNAME=`echo $DSC_NAME | dd count=4 bs=1 2>/dev/null`
+else
+  SNAME=`echo $DSC_NAME | dd count=1 bs=1 2>/dev/null`
+fi
+PACKAGE=`echo $DSC_NAME | cut -d'_' -f1`
+URL="$DEB_REPO/$SNAME/$PACKAGE/"
+install -d ~/ydfs/src
+cd ~/ydfs/src
+
+if [ ! -e $ORIG ] 
+then
+  wget $URL/$ORIG || echo "Error while getting $URL/$ORIG"
+fi
+if [ -n "$DIF" ] && [ ! -e $DIF ] 
+then
+  wget $URL/$DIF || echo "Error while getting $URL/$DIF"
+fi
+
+echo $ORIG | grep tar.gz && DIR=`tar tzvf $ORIG | cut -d':' -f3 | cut -d' ' -f2 | cut -d'/' -f1 | head -1`
+echo $ORIG | grep tar.gz && [ "$DIR" = "" ] && DIR=`tar tzvf $ORIG |tr -s ' ' |cut -d' ' -f6 |cut -d'/' -f1 |head -1`
+echo $ORIG | grep tar.bz2 && DIR=`tar tjvf $ORIG | cut -d':' -f3 | cut -d' ' -f2 | cut -d'/' -f1 | head -1`
+echo $ORIG | grep tar.bz2 && [ "$DIR" = "" ] && DIR=`tar tjvf $ORIG | cut -d':' -f2 | cut -d' ' -f2 | cut -d'/' -f1 | head -1`
+echo $ORIG | grep tar.xz && DIR=`tar tJvf $ORIG | cut -d':' -f3 | cut -d' ' -f2 | cut -d'/' -f1 | head -1`
+echo $ORIG | grep tar.xz && [ "$DIR" = "" ] && DIR=`tar tJvf $ORIG | cut -d':' -f2 | cut -d' ' -f2 | cut -d'/' -f1 | head -1`
+
+if [ "$DIR" = "" ]
+then
+  echo "Directory $DIR not found for $ORIG"
+  exit 1
+fi
+echo "Install from $DIR"
+
+if [ ! -e $DIR ]
+then 
+  tar xzf $ORIG || tar xjf $ORIG || tar xJf $ORIG || exit $?
+  cd $DIR
+echo "DIF is $DIF"
+  echo $DIF | grep diff && gunzip -c ../$DIF | patch -f -p1 
+  echo $DIF | grep debian.tar.gz && tar xzvf ../`basename $DIF`
+  echo $DIF | grep debian.tar.bz2 && tar xjvf ../`basename $DIF`
+  cd ..
+fi
+
+cd $DIR
+fi
+
+[ -e debian/patches/series ] && for PATCH in `cat debian/patches/series`
+do
+  echo $PATCH | grep '#' 1>/dev/null && continue
+  echo && echo $PATCH  && echo
+  patch -f -p1 < debian/patches/$PATCH
+done
+[ -e debian/patches/00list ] && [ ! -e debian/patches/series ] && for PATCH in `cat debian/patches/00list`
+do
+  echo $PATCH | grep '#' 1>/dev/null && continue
+  echo && echo $PATCH  && echo
+  patch -f -p1 < debian/patches/$PATCH.dpatch
+done
+
+grep Description: debian/control
+[ -e debian/control ] && export PKGDESC="`grep Description: debian/control`"
+# echo "Build for $MYPREFIX" && sleep 10
+echo "db-autobuild $MYPREFIX from $PWD"
+bash db-autobuild $MYPREFIX  2>ydfs-error 1>ydfs-log || exit $?

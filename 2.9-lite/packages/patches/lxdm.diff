@@ -1,0 +1,61 @@
+Only in lxdm/: aclocal.m4
+Only in lxdm/: autom4te.cache
+Only in lxdm/: buildok
+Only in lxdm/: compile
+Only in lxdm/: config.h.in
+Only in lxdm/: configure
+diff -ur lxdm.orig/data/Makefile.am lxdm/data/Makefile.am
+--- lxdm.orig/data/Makefile.am	2011-06-11 14:01:40.000000000 +0200
++++ lxdm/data/Makefile.am	2011-06-11 14:11:32.000000000 +0200
+@@ -14,7 +14,7 @@
+ 	config.ui \
+ 	$(NULL)
+ 
+-lxdm_confdir = /etc/lxdm
++lxdm_confdir = $(HOME)/gui/$(HOME)/gui/etc/lxdm
+ lxdm_conf_DATA = \
+ 	PostLogin \
+ 	PostLogout \
+@@ -27,14 +27,14 @@
+ 	$(NULL)
+ 
+ install-data-hook:
+-	chmod +x $(DESTDIR)/etc/lxdm/Xsession \
+-		$(DESTDIR)/etc/lxdm/PostLogin \
+-		$(DESTDIR)/etc/lxdm/PostLogout \
+-		$(DESTDIR)/etc/lxdm/PreLogin \
+-		$(DESTDIR)/etc/lxdm/PreReboot \
+-		$(DESTDIR)/etc/lxdm/PreShutdown \
+-		$(DESTDIR)/etc/lxdm/LoginReady
+-	chmod 640 $(DESTDIR)/etc/lxdm/lxdm.conf
++	chmod +x $(DESTDIR)/$(HOME)/gui/etc/lxdm/Xsession \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/PostLogin \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/PostLogout \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/PreLogin \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/PreReboot \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/PreShutdown \
++		$(DESTDIR)/$(HOME)/gui/etc/lxdm/LoginReady
++	chmod 640 $(DESTDIR)/$(HOME)/gui/etc/lxdm/lxdm.conf
+ 
+ themedir=$(datadir)/lxdm/themes/Industrial
+ theme_DATA= \
+Only in lxdm/data: Makefile.in
+Only in lxdm/: depcomp
+Only in lxdm/: install-sh
+Only in lxdm/: ltmain.sh
+diff -ur lxdm.orig/Makefile.am lxdm/Makefile.am
+--- lxdm.orig/Makefile.am	2011-06-11 14:01:40.000000000 +0200
++++ lxdm/Makefile.am	2011-06-11 14:11:38.000000000 +0200
+@@ -2,7 +2,6 @@
+ SUBDIRS= \
+ 	src \
+ 	po \
+-	pam \
+ 	data \
+ 	$(NULL)
+ 
+Only in lxdm/: Makefile.in
+Only in lxdm/: missing
+Only in lxdm/pam: Makefile.in
+Only in lxdm/po: Makefile.in.in
+Only in lxdm/src: Makefile.in

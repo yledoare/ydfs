@@ -1,0 +1,16 @@
+. $HOME/$ARCH/buildenv 
+
+ls $HOME | while read MODULE
+do
+  [ -e $HOME/$MODULE/lib/vst ] && echo 'export VST_PATH=$VST_PATH:'$HOME/$MODULE/lib/vst > /$HOME/env.dyn
+  [ -e $HOME/$MODULE/lib/ladspa ] && echo 'export LADSPA_PATH=$LADSPA_PATH:'$HOME/$MODULE/lib/ladspa >> /$HOME/env.dyn
+  [ -e $HOME/$MODULE/lib/lv2 ] && echo 'export LV2_PATH=$LV2_PATH:'$HOME/$MODULE/lib/lv2 >> /$HOME/env.dyn
+  [ -e $HOME/$MODULE/lib/lxvst ] && echo 'export LXVST_PATH=$LXVST_PATH:'$HOME/$MODULE/lib/lxvst >> /$HOME/env.dyn
+  [ -e $HOME/$MODULE/lib/dssi ] && echo 'export DSSI_PATH=$DSSI_PATH:'$HOME/$MODULE/lib/dssi >> /$HOME/env.dyn
+done
+
+. $HOME/env.dyn
+export PATH=$PATH:$HOME/music/bin
+
+GI_TYPELIB_PATH=$HOME/$ARCH/lib/girepository-1.0/ PYTHONPATH=$HOME/$ARCH/lib/python3.10/site-packages LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/$DISTRONAME/usr/lib:$HOME/$DISTRONAME/lib:$HOME/multilib/lib PATH=$PATH:$HOME/opkg/bin:$HOME/$DISTRONAME/bin:$HOME/$DISTRONAME/usr/bin:$HOME/$DISTRONAME/usr/games bash
+# PATH=$PATH:$HOME/opkg/bin vlc -vvv 'rtsp://mafreebox.freebox.fr/fbxtv_pub/stream?namespace=1&service=202&flavour=ld'

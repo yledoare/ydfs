@@ -1,0 +1,54 @@
+if [ -e zynaddsubfx-jack.desktop ]
+then
+  SRCDIR=$PWD
+  echo "Zyn fusion"
+  cd ..
+  git clone https://github.com/mruby-zest/mruby-zest-build.git 
+  cd $SRCDIR
+  git submodule update --init || exit 1
+  cd ../mruby-zest-build || exit 1
+  git submodule update --init || exit 1
+  make setup || exit 1
+
+  cd $SRCDIR
+  pwd
+  mkdir -p build-zynaddsubfx
+  cd build-zynaddsubfx
+  echo "Run Cmake" 
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DGuiModule=zest ../ || exit 1
+  make || exit 1
+  cd ../../mruby-zest-build || exit 1
+
+  sed -i "s| -lX11 -lGL -lpthread| -lX11 -lGL -lpthread -L$HOME/$ARCH/lib|g" Makefile
+  install -d deps/pugl
+  ls $HOME/$ARCH/include | while read DIR
+  do
+    echo "Link $DIR"
+    ln -s $HOME/$ARCH/include/$DIR deps/pugl
+  done
+
+  make builddep || exit 1
+  make || exit 1
+  make pack || exit 1
+
+  cd $SRCDIR
+  install -Dm644 zynaddsubfx/COPYING "$pkgdir"/share/licenses/zynaddsubfx/COPYING
+  cd build-zynaddsubfx 
+  make install || exit 1
+
+  cd ../../mruby-zest-build || exit 1
+  install -Dm644 LICENSE "$pkgdir"/share/licenses/"$pkgname"/LICENSE
+
+  pkgname=zyn-fusion 
+  install -d "$pkgdir"/opt/"$pkgname"
+  install -m755 package/zest "$pkgdir"/opt/"$pkgname"/zyn-fusion || exit 1
+  cp -a package/{libzest.so,font,schema} "$pkgdir"/opt/"$pkgname"/ || exit 1
+  install -d "$pkgdir"/opt/"$pkgname"/qml
+  touch "$pkgdir"/opt/"$pkgname"/qml/MainWindow.qml || exit 1
+
+  ln -sf "$pkgdir"/opt/"$pkgname"/zyn-fusion "$pkgdir"/bin/ || exit 1
+  ln -sf "$pkgdir"/opt/"$pkgname"/libzest.so "$pkgdir"/lib/ || exit 1
+  cd $SRCDIR
+  touch buildok-$ARCH
+  exit 0
+fi

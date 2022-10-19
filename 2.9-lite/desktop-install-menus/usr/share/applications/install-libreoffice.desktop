@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=LibreOffice
+Exec=/ydfs/add/software libreoffice
+Terminal=false
+Icon=libreoffice
+Type=Application
+Categories=Install

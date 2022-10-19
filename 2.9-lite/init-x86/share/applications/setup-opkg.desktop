@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Setup Package manager source
+Name[fr]=Configurer les sources de logiciels
+GenericName=Setup Package manager source
+Exec=/ydfs/config/opkg
+Terminal=false
+Icon=opkg
+Type=Application
+Categories=Settings

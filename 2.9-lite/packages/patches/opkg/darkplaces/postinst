@@ -1,0 +1,2 @@
+echo "Postinst"
+ln -s /home/*/opkg/bin/darkplaces /usr/games

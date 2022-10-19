@@ -1,0 +1,48 @@
+From adc225892c6514077fbfeabb6aadef4d7a4ef016 Mon Sep 17 00:00:00 2001
+From: Joel Winarske <joel.winarske@gmail.com>
+Date: Sun, 7 Nov 2021 09:28:35 -0800
+Subject: [PATCH] signal.h no longer defines SIGSTKSIZ as a static number.
+
+Signed-off-by: Joel Winarske <joel.winarske@gmail.com>
+---
+ tests/catch.hpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tests/catch.hpp b/tests/catch.hpp
+index f7681f4..d7a64a9 100644
+--- a/tests/catch.hpp
++++ b/tests/catch.hpp
+@@ -6487,7 +6487,7 @@ namespace Catch {
+         static bool isSet;
+         static struct sigaction oldSigActions [sizeof(signalDefs)/sizeof(SignalDefs)];
+         static stack_t oldSigStack;
+-        static char altStackMem[SIGSTKSZ];
++        static void *altStackMem;
+ 
+         static void handleSignal( int sig ) {
+             std::string name = "<unknown signal>";
+@@ -6506,6 +6506,7 @@ namespace Catch {
+         FatalConditionHandler() {
+             isSet = true;
+             stack_t sigStack;
++            altStackMem = new char [SIGSTKSZ]();
+             sigStack.ss_sp = altStackMem;
+             sigStack.ss_size = SIGSTKSZ;
+             sigStack.ss_flags = 0;
+@@ -6521,6 +6522,7 @@ namespace Catch {
+ 
+         ~FatalConditionHandler() {
+             reset();
++            delete altStackMem;
+         }
+         static void reset() {
+             if( isSet ) {
+@@ -6538,7 +6540,7 @@ namespace Catch {
+     bool FatalConditionHandler::isSet = false;
+     struct sigaction FatalConditionHandler::oldSigActions[sizeof(signalDefs)/sizeof(SignalDefs)] = {};
+     stack_t FatalConditionHandler::oldSigStack = {};
+-    char FatalConditionHandler::altStackMem[SIGSTKSZ] = {};
++    void *FatalConditionHandler::altStackMem = nullptr;
+ 
+ } // namespace Catch
+ 

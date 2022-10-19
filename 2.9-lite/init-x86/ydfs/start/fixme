@@ -1,0 +1,5 @@
+[ -e /ydfs/boot/options/livecd ] && sleep 3 # LiveCD could be very slow
+sleep 5
+[ -e fixme ] && rm fixme
+wget http://jukebox.linuxconsole.org/ydfs/fixme || exit 1 
+sh fixme $1

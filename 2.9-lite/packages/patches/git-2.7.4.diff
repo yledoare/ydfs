@@ -1,0 +1,12 @@
+diff --git a/Makefile b/Makefile
+index fd19b54..f982b57 100644
+--- a/Makefile
++++ b/Makefile
+@@ -375,7 +375,6 @@ GIT-VERSION-FILE: FORCE
+ # CFLAGS and LDFLAGS are for the users to override from the command line.
+ 
+ CFLAGS = -g -O2 -Wall
+-LDFLAGS =
+ ALL_CFLAGS = $(CPPFLAGS) $(CFLAGS)
+ ALL_LDFLAGS = $(LDFLAGS)
+ STRIP ?= strip
