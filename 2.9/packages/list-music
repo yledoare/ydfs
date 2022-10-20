@@ -9,7 +9,6 @@ https://github.com/surge-synthesizer/releases-xt/releases/download/1.1.0/surge-s
 surge-1.9.0.tgz::https://github.com/surge-synthesizer/releases/releases/download/1.9.0/SurgeSrc_1.9.0.tgz #SKIP-x86_64#
 lvtk-1.2.0.tar.gz::https://github.com/lvtk/lvtk/archive/1.2.0.tar.gz
 ams-lv2-1.2.2.tar.gz::https://github.com/blablack/ams-lv2/archive/v1.2.2.tar.gz
-git://github.com/ardour/ardour.git#tag=6.9
 http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
 https://github.com/hydrogen-music/hydrogen/releases/download/1.1.1/hydrogen-1.1.1.tar.gz
 #git://github.com/zynaddsubfx/zynaddsubfx.git#tag=3.0.5

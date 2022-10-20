@@ -1,6 +1,7 @@
 if [ -e src/mame/mame.cpp ]
 then
     echo "Build Mame"
+    mv $HOME/$ARCH/include/pugixml.hpp $HOME/$ARCH/include/pugixml.hpp-disabled
 	mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
     if [ "$ARCH" = "x86" ]
     then

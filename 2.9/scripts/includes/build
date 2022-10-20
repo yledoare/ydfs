@@ -5,6 +5,7 @@ build_ydfs_package()
   echo $PWD/ydfs-log > $HOME/ydfs/.last-log
   if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
+  export LC_CONFIGURE_OPTS
   db-autobuild $MYPREFIX || exit $?
   else
   PKGNAME=`basename $PWD`
