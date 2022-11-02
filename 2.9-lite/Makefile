@@ -117,7 +117,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping 60 minutes .. "
 	sleep 3600
@@ -154,7 +154,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep wineprogs ${ISOPATH} # sleep
+iso: isodep ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
@@ -342,15 +342,10 @@ clean-linuxconsole:
 	rm -fR ${HOME}/linuxconsole/
 	FORCEBUILD=OK make linuxconsole
 
-unfa: ${LCMBUILD}unfa-${ARCH}.squashfs
-${LCMBUILD}unfa-${ARCH}.squashfs : packages/list-unfa
-	./scripts/make_packages unfa
-	./scripts/make_module unfa
-   
-linuxconsole: ${LCMBUILD}linuxconsole-${ARCH}.squashfs
-${LCMBUILD}linuxconsole-${ARCH}.squashfs : packages/list-linuxconsole
-	./scripts/make_packages linuxconsole
-	./scripts/make_module linuxconsole
+${DISTRONAME}: ${LCMBUILD}gamejam-${ARCH}.squashfs
+${LCMBUILD}gamejam-${ARCH}.squashfs : packages/list-gamejam
+	./scripts/make_packages gamejam
+	./scripts/make_module gamejam
    
 multilib: 
 	./scripts/make_multilib

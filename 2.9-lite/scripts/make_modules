@@ -13,7 +13,7 @@ LOCALE_FILES="share/locale"
 DEV_FILES=" "
 
 #SKIP_FILES=" bin/mount bin/umount bin/df bin/ls lib/libjs_static.ajs share/icons/oxygen/base/256x256 share/icons/oxygen/base/128x128 var/cache/fontconfig share/help share/gir-1.0 "
-SKIP_FILES=" bin/mount bin/umount bin/df bin/ls share/icons/oxygen/base/256x256 share/icons/oxygen/base/128x128 var/cache/fontconfig share/help share/gir-1.0 "
+SKIP_FILES=" bin/mount bin/umount bin/df bin/ls var/cache/fontconfig share/help share/gir-1.0 "
 [ "$DISTRONAME" = "hackerOS" ] && SKIP_FILES=""
 
 link_module()
@@ -124,10 +124,9 @@ ln -sf $HOME/$ARCH/bin/gpgv $HOME/ydfs/modules/$ARCH/bin/gpgv
 install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 
-if [ -e $HOME/ydfs/modules/$ARCH/lib32 ]
-then
-strip $HOME/ydfs/modules/$ARCH/lib32/*
-fi
+echo "Striping  $HOME/ydfs/modules/$ARCH"
+find  $HOME/ydfs/modules/$ARCH -type f \( ! -iname "*.h" ! -iname "*.hpp"  ! -iname "*.ttl" \) |while read file; do strip "$file" 2>/tmp/strip.err; done
+echo done
 
 [ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
 chmod +s $HOME/ydfs/modules/$ARCH/bin/su
