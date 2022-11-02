@@ -447,7 +447,7 @@ http://gstreamer.freedesktop.org//src/gst-libav/gst-libav-1.14.0.tar.xz
 http://www.fftw.org/fftw-3.3.8.tar.gz 
 http://freefr.dl.sourceforge.net/project/libexif/libexif/0.6.20/libexif-0.6.20.tar.bz2
 http://portland.freedesktop.org/download/xdg-utils-1.1.0-rc1.tar.gz
-git://github.com/pciutils/pciutils.git#tag=v3.6.4
+https://mj.ucw.cz/download/linux/pci/pciutils-3.8.0.tar.gz
 https://ftp.gnome.org/pub/gnome/sources/gnome-doc-utils/0.20/gnome-doc-utils-0.20.6.tar.bz2
 http://ftp.gnome.org/pub/gnome/sources/gnome-menus/3.35/gnome-menus-3.35.3.tar.xz
 https://ftp.gnome.org/pub/gnome/sources/glib-networking/2.64/glib-networking-2.64.1.tar.xz
