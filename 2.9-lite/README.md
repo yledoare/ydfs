@@ -24,3 +24,7 @@ docker build -f Dockerfile32 -t ydfs32-2.9-lite .
 ## Automatic full 64 bits ISO Build
 
 * docker run --name ydfs64-2.9-lite -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9-lite
+
+## Force distro name
+
+* docker run --name ydfs64-2.9-lite -e DISTRONAME=gamejam -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9-lite
