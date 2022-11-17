@@ -397,7 +397,7 @@ https://www.libsdl.org/release/SDL2-2.0.20.tar.gz
 https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz
 http://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz #SKIP-gamejam
 http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.114.0.tar.xz #SKIP-gamejam
-http://archive.ubuntu.com/ubuntu/pool/main/libd/libdbusmenu-qt/libdbusmenu-qt_0.9.3+16.04.20160218.orig.tar.gz
+http://archive.ubuntu.com/ubuntu/pool/main/libd/libdbusmenu-qt/libdbusmenu-qt_0.9.3+16.04.20160218.orig.tar.gz  #SKIP-gamejam
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
 http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
 http://www.libsdl.org/projects/SDL_net/release/SDL_net-1.2.7.tar.gz 
