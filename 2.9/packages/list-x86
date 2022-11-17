@@ -395,8 +395,8 @@ https://github.com/ibus/ibus/releases/download/1.5.23/ibus-1.5.23.tar.gz
 #SDL2 needed for ffplay
 https://www.libsdl.org/release/SDL2-2.0.20.tar.gz
 https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.xz
-http://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz
-http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.114.0.tar.xz
+http://download.qt.io/official_releases/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz #SKIP-gamejam
+http://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.114.0.tar.xz #SKIP-gamejam
 http://archive.ubuntu.com/ubuntu/pool/main/libd/libdbusmenu-qt/libdbusmenu-qt_0.9.3+16.04.20160218.orig.tar.gz
 https://www.libsdl.org/release/SDL-1.2.15.tar.gz
 http://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-1.2.12.tar.gz 
@@ -508,7 +508,7 @@ https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.6.tar.xz
 http://downloads.sourceforge.net/hunspell/hyphen-2.8.8.tar.gz
 https://github.com/AbiWord/enchant/releases/download/v2.3.2/enchant-2.3.2.tar.gz
 https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz
-https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz 
+https://webkitgtk.org/releases/webkitgtk-2.34.6.tar.xz #SKIP-gamejam
 pip::toml
 pip::typogrify
 pip::cffi
