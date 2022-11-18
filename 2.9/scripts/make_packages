@@ -4,14 +4,14 @@ then
   if [ -e $HOME/iso/$ARCH.squashfs ]
   then
     echo "Use buildt squashfs"
-    ln -s $HOME/iso/$ARCH.squashfs $LCMBUILD
+    ln -sf $HOME/iso/$ARCH.squashfs $LCMBUILD
   else
     [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
     [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
     cd $HOME
     [ ! -e $ARCH ] && tar xzvf $HOME/iso/$YDFS-$ARCH.tar.gz
+    touch $HOME/$ARCH/buildenv
   fi
-  touch $HOME/$ARCH/buildenv
 else
   echo "Building packages $1"
   install -d $HOME/ydfs/tarballs
