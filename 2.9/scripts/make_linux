@@ -6,8 +6,7 @@ then
 	cd $HOME
 	if [ -e $HOME/iso/drivers-$ARCH.squashfs ]
 	then
-	  echo "Use buildt squashfs"
-	  ln -s $HOME/iso/drivers-$ARCH.squashfs $LCMBUILD
+	  echo "Use buildt squashfs for drivers"
 	else
   	  [ ! -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/kernel-modules-$YDFS-$ARCH.tar.gz
 	  [ ! -e ydfs/kernel-$ARCH/modules/$KERNEL3/ ] && tar xvf $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz

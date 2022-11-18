@@ -1,4 +1,10 @@
 . ./config.ini
+if [ "$BUILDYDFS" = "fast" ] && [ -e $HOME/iso/drivers-$ARCH.squashfs ]
+then
+  echo "Use buildt squashfs"
+  ln -s $HOME/iso/drivers-$ARCH.squashfs $LCMBUILD
+  exit 0
+fi
 [ ! -e $HOME/$ARCH/bin/mksquashfs ] && echo "cannot found $HOME/$ARCH/bin/mksquashfs" && exit 0
 export LD_LIBRARY_PATH=$HOME/x86/lib
 rm $LCMBUILD/drivers-$ARCH.squashfs

@@ -347,11 +347,6 @@ ${LCMBUILD}unfa-${ARCH}.squashfs : packages/list-unfa
 	./scripts/make_packages unfa
 	./scripts/make_module unfa
    
-linuxconsole: ${LCMBUILD}linuxconsole-${ARCH}.squashfs
-${LCMBUILD}linuxconsole-${ARCH}.squashfs : packages/list-linuxconsole
-	./scripts/make_packages linuxconsole
-	./scripts/make_module linuxconsole
-   
 multilib: 
 	./scripts/make_multilib
 dist: 
@@ -372,10 +367,10 @@ ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
    
-linuxfr.org: ${LCMBUILD}linuxfr.org-${ARCH}.squashfs
-${LCMBUILD}linuxfr.org-${ARCH}.squashfs : packages/list-linuxfr.org
-	./scripts/make_packages linuxfr.org
-	./scripts/make_module linuxfr.org
+${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
+${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs : packages/list-${DISTRONAME}
+	./scripts/make_packages ${DISTRONAME}
+	./scripts/make_module ${DISTRONAME}
    
 papyrus: ${LCMBUILD}papyrus-${ARCH}.squashfs
 

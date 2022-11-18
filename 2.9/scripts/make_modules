@@ -2,6 +2,17 @@
 
 . ./config.ini
 
+if [ "$BUILDYDFS" = "fast" ]
+then
+  echo "Building fast $1"
+  if [ -e $HOME/iso/$ARCH.squashfs ]
+  then
+    echo "Use buildt squashfs"
+    ln -s $HOME/iso/$ARCH.squashfs $LCMBUILD
+    exit 0
+  fi
+fi
+
 [ "$ARCH" = "arm" ] && exit 0
 GUI_PATH=$HOME/$ARCH
 
