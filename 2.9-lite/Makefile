@@ -342,10 +342,11 @@ clean-linuxconsole:
 	rm -fR ${HOME}/linuxconsole/
 	FORCEBUILD=OK make linuxconsole
 
-${DISTRONAME}: ${LCMBUILD}gamejam-${ARCH}.squashfs
-${LCMBUILD}gamejam-${ARCH}.squashfs : packages/list-gamejam
-	./scripts/make_packages gamejam
-	./scripts/make_module gamejam
+${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
+
+${LCMBUILD}/${DISTRONAME}-${ARCH}.squashfs : packages/list-${DISTRONAME}
+	./scripts/make_packages ${DISTRONAME}
+	./scripts/make_module ${DISTRONAME}
    
 multilib: 
 	./scripts/make_multilib
