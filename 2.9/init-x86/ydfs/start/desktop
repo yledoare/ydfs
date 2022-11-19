@@ -59,6 +59,10 @@ else
    then
      start_mate
    else
+     if [ $count_session = 0 ]
+     then
+	xterm
+     else
      echo > $HOME/.sessions
      ls /ydfs/modules/*/share/xsessions | grep -v openbox | grep -v mate |grep desktop | while read session
      do
@@ -71,6 +75,7 @@ else
      ans=$(zenity  --height 40 --list --hide-header  --text "Choose session" --radiolist  --column "Choice" --column "Lang" TRUE mate `cat $HOME/.sessions`)
      echo "Running start_$ans" 
      start_$ans || xterm
+     fi
    fi
  fi
 fi

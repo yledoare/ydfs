@@ -69,6 +69,11 @@ fi
   echo LABEL Text
   echo KERNEL $KERNEL36
   echo "APPEND $COMMON text $LIVE"
+  
+  echo LABEL Xterm
+  echo KERNEL $KERNEL36
+  echo "APPEND $COMMON xterm $LIVE"
+
 
   echo LABEL init2
   echo KERNEL $KERNEL36

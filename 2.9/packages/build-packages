@@ -421,9 +421,10 @@ done
 
 if [ ! -e $HOME/$ARCH/share/fonts/dejavu-fonts-ttf-2.29 ] && [ "$ARCH" != "arm" ]
 then
+  echo "Get dejavu-fonts-ttf-2.29"
   install -d $HOME/$ARCH/share
   [ ! -e $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2 ] && wget --directory-prefix=$HOME/ydfs/tarballs http://freefr.dl.sourceforge.net/sourceforge/dejavu/dejavu-fonts-ttf-2.29.tar.bz2
-  tar xjvf $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2
+  tar xjf $HOME/ydfs/tarballs/dejavu-fonts-ttf-2.29.tar.bz2
   mv dejavu-fonts-ttf-2.29 $HOME/$ARCH/share/fonts
 fi
 
