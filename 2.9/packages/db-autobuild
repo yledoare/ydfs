@@ -210,6 +210,22 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   exit 0
   fi
 
+  if [ -e project.godot ]
+  then
+    echo "Godot project"
+    if [ ! -e $PREFIX/bin/godot ]
+    then
+	install -d $PREFIX/bin
+	wget https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_x11.64.zip
+	unzip Godot_v3.5.1-stable_x11.64.zip
+	mv Godot_v3.5.1-stable_x11.64 $PREFIX/bin/godot
+    fi
+	install -d $PREFIX/share/applications
+        NAME="Godot" GENERICNAME="Godot" COMMENT="a free game framework" EXEC="$PREFIX/bin/godot" ICON=$pkgname.png CATEGORIES="Game;" \
+        $HOME_DIBAB/scripts/print_desktop > $PREFIX/share/applications/$BIN.desktop || exit 1
+	cp -fR $PWD $PREFIX
+  fi
+
   if [ -e src/bindgen/cargo ]
   then
 	echo src/bindgen/cargo

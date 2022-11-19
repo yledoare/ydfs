@@ -1,4 +1,5 @@
 install -d $HOME/ydfs/wineprogs
+[ ! -e $HOME/$ARCH/bin/wine ] && exit 0
 cat ./packages/list-linuxconsole-wineprogs | while read file
 do
   echo $file
