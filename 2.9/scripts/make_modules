@@ -8,6 +8,10 @@ then
   if [ -e $HOME/iso/$ARCH.squashfs ]
   then
     echo "Use buildt squashfs"
+    install -d $HOME/$ARCH/bin
+    wget http://ftp.us.debian.org/debian/pool/main/s/squashfs-tools/squashfs-tools_4.4-2+deb11u2_amd64.deb
+    dpkg -x squashfs-tools_4.4-2+deb11u2_amd64.deb /tmp
+    cp /tmp/usr/bin/mksquashfs $HOME/$ARCH/bin
     ln -s $HOME/iso/$ARCH.squashfs $LCMBUILD
     exit 0
   fi
