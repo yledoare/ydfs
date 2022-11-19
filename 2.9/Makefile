@@ -117,7 +117,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME) chromium
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping 60 minutes .. "
 	sleep 3600
@@ -316,10 +316,6 @@ ${LCMBUILD}/fps-${ARCH}.squashfs : packages/list-fps
 	./scripts/make_packages fps
 	./scripts/make_module fps
 
-chromium2: 
-	./scripts/make_packages chromium
-	./scripts/make_module chromium
-
 chromium: ${LCMBUILD}/chromium-${ARCH}.squashfs
 ${LCMBUILD}/chromium-${ARCH}.squashfs : packages/list-chromium
 	./scripts/make_packages chromium
@@ -359,7 +355,6 @@ fixopkg:
 	./scripts/make_custom_opkg flash
 #	./scripts/make_custom_opkg arabic
 #	./scripts/make_custom_opkg spring
-#	./scripts/make_chrome
 	./scripts/make_opkg_filelist opkg
 opkg: ${HOME}/ydfs/opkg/Packages
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
