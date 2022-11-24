@@ -109,14 +109,22 @@ else
   then
     patch  -l -f -p1 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
     [ ! -e ydfs-patched ] && patch -f -p0 < $SRC_PATH/patches/"$MYDIR".diff && touch ydfs-patched
-    [ ! -e ydfs-patched ] && echo "wrong patch ?" # && exit 2
+    [ ! -e ydfs-patched ] && echo "wrong patch ?"
   fi
-  if [ "$NOPATCH" = "" ] && [ -d $SRC_PATH/patches/"$MYDIR" ] # && [ ! -e ydfs-patched ]
+  if [ "$NOPATCH" = "" ] && [ -d $SRC_PATH/patches/"$MYDIR" ] 
   then
     echo "Patches from $SRC_PATH/patches/$MYDIR" && sleep 1
 	for PATCH in `ls $SRC_PATH/patches/$MYDIR`
 	do
     		patch -f -p0 < $SRC_PATH/patches/"$MYDIR"/$PATCH || patch -f -p1 < $SRC_PATH/patches/"$MYDIR"/$PATCH || sleep 3
+	done
+  fi
+  if [ "$NOPATCH" = "" ] && [ -d $SRC_PATH/patches/$ARCH/"$MYDIR" ]
+  then
+    echo "Patches from $SRC_PATH/patches/$ARCH/$MYDIR" && sleep 1
+	for PATCH in `ls $SRC_PATH/patches/$ARCH/$MYDIR/`
+	do
+    		patch -f -p0 < $SRC_PATH/patches/$ARCH/"$MYDIR"/$PATCH || patch -f -p1 < $SRC_PATH/patches/$ARCH/"$MYDIR"/$PATCH || sleep 3
 	done
   fi
 
