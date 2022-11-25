@@ -24,6 +24,13 @@ echo "DISTRONAME=$DISTRONAME" >> config.ini
 [ "$SLEEPTIME" = "" ] && SLEEPTIME=3600
 echo "SLEEPTIME=$SLEEPTIME" >> config.ini
 
+[ "$SKIPOPKG" = "" ] && SKIPOPKG=NO
+echo "SKIPOPKG=$SKIPOPKG" >> config.ini
+
+[ "$YDFS_MODULES" = "" ] && YDFS_MODULES="fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps"
+echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
+echo "YDFS_MODULES=$YDFS_MODULES" >> config.ini
+
 echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH}"' >> config.ini
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]

@@ -13,10 +13,12 @@ export DIBAB_ARCH=${ARCH}
 export ARCH
 export KERNEL3
 export MEDIA
+export YDFS_MODULES
 export SUBARCH
 export BUILD_DESKTOP
 export DISTRONAME
 export SLEEPTIME
+export SKIPOPKG
 export TOOLCHAIN
 export HOME_DIBAB
 export YDFS=$(shell basename ${HOME_DIBAB})
@@ -224,7 +226,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-modules: fast_files libreoffice virtualbox music vm games office network graphics network multimedia video kde lxqt lxde kdegames xfce emulators fps 
+modules: ${YDFS_MODULES} 
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
@@ -359,9 +361,13 @@ fixopkg:
 	./scripts/make_opkg_filelist opkg
 opkg: ${HOME}/ydfs/opkg/Packages
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
+ifeq ($(SKIPOPKG),OK)
+	echo "Skip opkg"
+else
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
+endif
    
 ${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
 ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs : packages/list-${DISTRONAME}
