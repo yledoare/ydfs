@@ -16,6 +16,7 @@ export MEDIA
 export SUBARCH
 export BUILD_DESKTOP
 export DISTRONAME
+export SLEEPTIME
 export TOOLCHAIN
 export HOME_DIBAB
 export YDFS=$(shell basename ${HOME_DIBAB})
@@ -119,8 +120,8 @@ all:
 	tail -f /dev/null
 isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
 sleep:
-	@echo "Sleeping 60 minutes .. "
-	sleep 3600
+	@echo "Sleeping $SLEEPTIME seconds .. "
+	sleep ${SLEEPTIME}
  
 ${HOME}/ydfs/x-tools/i386-unknown-linux-uclibc/bin/i386-unknown-linux-uclibc-gcc:
 	./scripts/make_busybox_toolchain
