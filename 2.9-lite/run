@@ -1,2 +1,0 @@
-
-docker run --name ydfs64-2.9 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9 

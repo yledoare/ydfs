@@ -1,6 +1,0 @@
-if [ "$USER" = "root" ]
-then
-  $HOME_DIBAB/linuxconsole/bin/lmms --allowroot "$@"
-else
-  $HOME_DIBAB/linuxconsole/bin/lmms "$@"
-fi

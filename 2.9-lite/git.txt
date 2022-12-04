@@ -1,3 +1,0 @@
-git remote set-url origin git@bitbucket.org:yourdistrofromscratch/ydfs.git
-git tag -a v2.9.2 -m "Version 2.9.2"
-git push origin v2.9.2

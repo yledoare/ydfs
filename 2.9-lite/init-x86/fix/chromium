@@ -1,6 +1,0 @@
-if [ "$USER" = "root" ]
-then
-  $HOME_DIBAB/chromium/bin/chromium --no-sandbox "$@"
-else
-  $HOME_DIBAB/chromium/bin/chromium "$@"
-fi

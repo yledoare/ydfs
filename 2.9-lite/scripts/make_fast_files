@@ -1,6 +1,0 @@
-cd $HOME
-[ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && tar czvf $HOME/iso/$YDFS-$ARCH.tar.gz $ARCH
-[ ! -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && tar czvf $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ydfs/kernel-$ARCH 
-[ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && tar czvf $HOME/iso/$YDFS-multilib.tar.gz multilib
-[ ! -e $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ] && tar czhvf $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ydfs/build/linux-$ARCH-$KERNEL3/arch/$ARCH/boot/bzImage
-echo OK
