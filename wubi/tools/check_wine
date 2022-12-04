@@ -3,7 +3,7 @@
 #Required programs
 python_url="http://www.python.org/ftp/python/2.3.5/Python-2.3.5.exe"
 python_md5="ba6f9eb9da40ad23bc631a1f31149a01"
-p7zip_url="http://heanet.dl.sourceforge.net/sourceforge/sevenzip/7z464.exe"
+p7zip_url="https://master.dl.sourceforge.net/project/sevenzip/7-Zip/4.64/7z464.exe"
 p7zip_md5="d2810e3dd4b60ab05fe7c29a50921efa"
 pywin_url="http://downloads.sourceforge.net/pywin32/pywin32-212.win32-py2.3.exe"
 pywin_md5="eceb1b2d9a0d854cb7c7dace13680fba"
