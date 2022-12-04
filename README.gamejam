@@ -9,6 +9,6 @@ docker rm ydfs-cdl22-2.9
 # ceci est un build complet, a faire chez vous si vous voulez voir comment ca se passe 
 # docker run --name ydfs-cdl22-2.9 -e DIBAB_VERBOSE_BUILD=YES -e DISTRONAME=gamejam ydfs64-2.9
 # Lancement d'un build rapide
-docker run -d --name ydfs-cdl22-2.9 -e BUILDYDFS=fast -e DISTRONAME=gamejam --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9
+docker run -d --name ydfs-cdl22-2.9 -e SLEEPTIME=1 -e YDFS_MODULES="" -e BUILDYDFS=fast -e DISTRONAME=gamejam --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso ydfs64-2.9
 # On regarde ce qui se passe ..
 docker logs --tail=20 -f ydfs-cdl22-2.9
