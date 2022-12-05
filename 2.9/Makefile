@@ -120,7 +120,7 @@ all:
 	@echo "make modules "
 	@echo "make opkg "
 	tail -f /dev/null
-isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core firmware drivers $(DISTRONAME)
+isodep: config.ini toolchain ${HOME}/${ARCH}/buildenv busybox initramfs linux core mate firmware drivers $(DISTRONAME)
 sleep:
 	@echo "Sleeping $SLEEPTIME seconds .. "
 	sleep ${SLEEPTIME}
@@ -283,6 +283,12 @@ ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/make_packages music
 	./scripts/strip_module music
 	./scripts/make_module music
+
+mate: ${LCMBUILD}/mate-${ARCH}.squashfs
+${LCMBUILD}/mate-${ARCH}.squashfs : packages/list-mate
+	./scripts/make_packages mate
+	./scripts/strip_module mate
+	./scripts/make_module mate
 
 devtools: ${LCMBUILD}/devtools-${ARCH}.squashfs
 ${LCMBUILD}/devtools-${ARCH}.squashfs : packages/list-devtools
