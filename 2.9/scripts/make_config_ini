@@ -92,10 +92,10 @@ BOOT=NAND
       else
         if [ "$arch" = "x86" ]
 	    then
-              echo "KERNEL3=5.4.224" >> config.ini
+              echo "KERNEL3=5.4.225" >> config.ini
 	      echo "BUSYBOX=1.24.2" >> config.ini
 	    else
-              echo "KERNEL3=6.0.9" >> config.ini
+              echo "KERNEL3=6.0.11" >> config.ini
 	      echo "BUSYBOX=1.31.1" >> config.ini
 	    fi
         # autres cas non prévus
