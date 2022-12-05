@@ -141,7 +141,7 @@ install -d $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 cp /etc/ssl/certs/* $HOME/ydfs/modules/$ARCH/etc/ssl/certs
 
 echo "Striping  $HOME/ydfs/modules/$ARCH"
-find  $HOME/ydfs/modules/$ARCH -type f \( ! -iname "*.h" ! -iname "*.hpp"  ! -iname "*.ttl" \) |while read file; do strip "$file" 2>/tmp/strip.err; done
+#find  $HOME/ydfs/modules/$ARCH -type f \( ! -iname "*.h" ! -iname "*.hpp"  ! -iname "*.ttl" \) |while read file; do strip "$file" 2>/tmp/strip.err; done
 echo done
 
 [ ! -e "$HOME/ydfs/modules/$ARCH/bin/su" ] && echo "$HOME/ydfs/modules/$ARCH/bin/su" is missing && exit 1
