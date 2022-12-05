@@ -18,9 +18,7 @@ fi
 install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 find -name '*.ko' -exec modinfo {} \; | awk '$1 == "firmware:" { print $2}' > list-firmwares
-bash
-exit 1
-GIT_SSL_NO_VERIFY=1 git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+GIT_SSL_NO_VERIFY=1 git clone --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
 cd linux-firmware
 make DESTDIR="$HOME/firmware" FIRMWAREDIR=/lib/firmware install
 # cp -fR linux-firmware lib/firmware || exit 3
