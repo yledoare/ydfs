@@ -49,8 +49,8 @@ then
   echo "Installing kernel and initramfs"
   mkdir /media/$DISTRONAME/rootfs
   KVER=`uname -r`
-  cp /media/ydfs/isolinux/k5* /boot/kernel-$KVER || cp /media/ydfs/isolinux/k4* /boot/kernel-$KVER
-  cp /media/ydfs/isolinux/5* /boot/initramfs-genkernel-$KVER || cp /media/ydfs/isolinux/4* /boot/initramfs-genkernel-$KVER
+  cp /media/ydfs/isolinux/k5* /boot/kernel-$KVER || cp /media/ydfs/isolinux/k6* /boot/kernel-$KVER
+  cp /media/ydfs/isolinux/5* /boot/initramfs-genkernel-$KVER || cp /media/ydfs/isolinux/6* /boot/initramfs-genkernel-$KVER
   cp /proc/config.gz /boot
   gunzip /boot/config.gz
   mv /boot/config /boot/config-$KVER
