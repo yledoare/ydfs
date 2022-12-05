@@ -21,7 +21,7 @@ export SLEEPTIME
 export SKIPOPKG
 export TOOLCHAIN
 export HOME_DIBAB
-export YDFS=$(shell basename ${HOME_DIBAB})
+export YDFS=$(shell basename ${PWD})
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
 export MKSQUASHFS_OPT
