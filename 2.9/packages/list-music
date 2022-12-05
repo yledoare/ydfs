@@ -1,3 +1,4 @@
+git://github.com/ardour/ardour.git#tag=7.0
 https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.3.tar.gz 
 git://github.com/DISTRHO/DISTRHO-Ports.git#tag=2021-01-15
 git://github.com/x42/avldrums.lv2.git#tag=v0.4.2
