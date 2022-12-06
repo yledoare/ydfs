@@ -1824,12 +1824,14 @@ Cflags: -I${includedir}' > glm.pc
 	--with-platform="efi" \
 		--target="x86_64" || exit 1
 	make && make install || exit 1
+	DESTDIR=/tmp/grub make install
 	make clean
 	# https://www.mail-archive.com/grub-devel@gnu.org/msg29840.html
      ./configure --prefix=$PREFIX \
 	--with-platform="pc" \
 		--target="i386" || exit 1
 	make && make install || exit 1
+	DESTDIR=/tmp/grub make install
 	ls -l $PREFIX/lib/grub/i386-pc/lzma_decompress.img |grep 134479600 && cp $HOME_DIBAB/fix/lzma_decompress.img $PREFIX/lib/grub/i386-pc/lzma_decompress.img
         touch buildok-$ARCH
 	exit 0

@@ -221,7 +221,7 @@ fi
   echo -n " $ARCHIVE "
   export MYPREFIX=$DIBAB_PREFIX/$MODULE/
   echo $ARCHIVE | grep grub-2 && unset CPPFLAGS && unset CFLAGS && unset LDFLAGS #export FIRSTENV="OK"
-  echo $ARCHIVE | grep mate-session && export MYPREFIX=$HOME/$ARCH
+#  echo $ARCHIVE | grep mate-session && export MYPREFIX=$HOME/$ARCH
   echo $ARCHIVE | grep warzone && export CLEARENV="OK"
   echo $ARCHIVE | grep lxpanel && install -d $HOME/ydfs/build-$ARCH/lxpanel/data/ui # FIXME
   if [  -n "`echo $ARCHIVE | grep 'svn://'`" ] 

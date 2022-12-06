@@ -71,10 +71,10 @@ https://github.com/libexpat/libexpat/releases/download/R_2_4_4/expat-2.4.4.tar.b
 https://www.cpan.org/src/5.0/perl-5.34.0.tar.xz
 https://www.openssl.org/source/openssl-1.1.1m.tar.gz
 https://ftp.gnome.org/pub/gnome/sources/libIDL/0.8/libIDL-0.8.14.tar.bz2  
-http://xmlsoft.org/sources/libxml2-2.9.12.tar.gz
+https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.10.3/libxml2-v2.10.3.tar.bz2
 http://search.cpan.org/CPAN/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
 http://freedesktop.org/~hadess/shared-mime-info-1.2.tar.xz
-http://files.itstool.org/itstool/itstool-2.0.6.tar.bz2
+http://files.itstool.org/itstool/itstool-2.0.7.tar.bz2
 https://hewlettpackard.github.io/wireless-tools/wireless_tools.30.pre9.tar.gz
 https://dbus.freedesktop.org/releases/dbus/dbus-1.12.18.tar.gz
 #PNG12
