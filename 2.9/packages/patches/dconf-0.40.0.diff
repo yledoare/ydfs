@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index 1de865c..86a8acc 100644
+--- a/meson.build
++++ b/meson.build
+@@ -97,7 +97,5 @@ subdir('gdbus')
+ subdir('gsettings')
+ subdir('client')
+ subdir('bin')
+-subdir('docs')
+-subdir('tests')
+ 
+ meson.add_install_script('meson_post_install.py', gio_module_dir)
