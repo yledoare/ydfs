@@ -199,6 +199,12 @@ echo $ARCHIVE | grep qpdf && LC_CONFIGURE_OPTS="   --disable-static \
     --disable-implicit-crypto \
     --enable-show-failed-test-output"
 
+echo $ARCHIVE | grep fwupd && LC_CONFIGURE_OPTS="  -D b_lto=false \
+        -D docs=enabled \
+        -D plugin_intel_spi=true \
+        -D supported_build=enabled \
+        -D efi_binary=false -D docs=disabled"
+
 echo $ARCHIVE | grep gtksourceview-3 &&  LC_CONFIGURE_OPTS="--disable-static \
       --enable-glade-catalog --enable-gtk-doc --disable-Werror --enable-introspection=yes"
 echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
