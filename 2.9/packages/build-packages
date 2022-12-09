@@ -339,6 +339,7 @@ fi
 
   echo $ARCHIVE | grep xslt && [ -e $DIBAB_PREFIX/$MODULE/include/libxml2/libxml ] && [ ! -e $DIBAB_PREFIX/$MODULE/include/libxml ] && ln -s $DIBAB_PREFIX/$MODULE/include/libxml2/libxml $DIBAB_PREFIX/$MODULE/include
 
+  [ -e $HOME/$ARCH/bin/xmlcatalog  ] && [ ! -e  $HOME/$ARCH/etc/xml/catlog ] && install -d $HOME/$ARCH/etc/xml && ln -s /etc/xml/catlog  $HOME/$ARCH/etc/xml
   # Environment variables
 
   export CXX="g++"
