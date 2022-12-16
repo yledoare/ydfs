@@ -1,0 +1,13 @@
+diff --git a/help/Makefile.in b/help/Makefile.in
+index 068a3ba..f98184b 100644
+--- a/help/Makefile.in
++++ b/help/Makefile.in
+@@ -343,7 +343,7 @@ HELP_MEDIA = \
+ 
+ 
+ # Add linguas to be ignored, e.g. IGNORE_HELP_LINGUAS = ca de es fr
+-@USE_NLS_TRUE@IGNORE_HELP_LINGUAS = 
++@USE_NLS_TRUE@IGNORE_HELP_LINGUAS = ja
+ @USE_NLS_FALSE@HELP_LINGUAS = 
+ @USE_NLS_TRUE@HELP_LINGUAS = $(if $(IGNORE_HELP_LINGUAS), \
+ @USE_NLS_TRUE@	$(filter-out $(IGNORE_HELP_LINGUAS),$(subst /,,$(dir $(wildcard */*.po)))), \
