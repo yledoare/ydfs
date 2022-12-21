@@ -22,9 +22,10 @@ sleep 4
   then
 	echo "Build Shadow"
 	srcdir="."
-	for file in    chgpasswd chpasswd defaults.pam login.defs newusers passwd shadow.{timer,service} useradd.defaults 
+	for file in    chgpasswd chpasswd login.defs newusers passwd shadow.{timer,service}
 	do
-	[ ! -e $file ] && wget --no-check-certificate https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/shadow/trunk/$file  --output-document=$file
+	# [ ! -e $file ] && wget --no-check-certificate https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/shadow/trunk/$file  --output-document=$file
+	[ ! -e $file ] cp $HOME_DIBAB/pam/$file $file
 	[ ! -e $file ] && exit 1
 	# echo $file
 	done
