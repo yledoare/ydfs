@@ -897,7 +897,6 @@ https://gitlab.gnome.org/GNOME/gnome-desktop/-/archive/3.37.2/gnome-desktop-3.37
 https://gitlab.gnome.org/GNOME/geocode-glib/-/archive/3.26.2/geocode-glib-3.26.2.tar.bz2
 https://gitlab.gnome.org/GNOME/libgweather.git#commit=80e5a652405a7c492b252c5196460caa0b05793d
 https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#commit=6466cae65b2bf962894b71e54a62355148709e4a
-#https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=GNOME_SETTINGS_DAEMON_3_32_1
 https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/archive/GNOMEBT_V_3_34_3/gnome-bluetooth-GNOMEBT_V_3_34_3.tar.bz2
 git://gitlab.freedesktop.org/pipewire/pipewire.git#commit=6c4d3a51583f823b789b0de2df1e36d6c2f8dff8
 https://gitlab.gnome.org/GNOME/libdazzle/-/archive/3.36.0/libdazzle-3.36.0.tar.bz2
