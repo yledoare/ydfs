@@ -219,9 +219,9 @@ ${HOME}/ydfs/archives/${ARCH}-${VENDOR}-linux-toolchain.tar.bz2:
 	./scripts/make_archives
 updates: packages/list-updates
 	./scripts/make_packages updates
-pantheon: packages/list-pantheon
-	./scripts/make_packages pantheon
-	./scripts/make_module pantheon
+xbmc: packages/list-xbmc
+	./scripts/make_packages xbmc
+	./scripts/make_module xbmc
 hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
@@ -402,11 +402,16 @@ vm: ${LCMBUILD}vm-${ARCH}.squashfs
 ${LCMBUILD}vm-${ARCH}.squashfs : packages/list-vm
 	./scripts/make_packages vm
 	./scripts/make_module vm
-   
+
 pantheon: ${LCMBUILD}pantheon-${ARCH}.squashfs
 ${LCMBUILD}pantheon-${ARCH}.squashfs : packages/list-pantheon
 	./scripts/make_packages pantheon
 	./scripts/make_module pantheon
+   
+xbmc: ${LCMBUILD}xbmc-${ARCH}.squashfs
+${LCMBUILD}xbmc-${ARCH}.squashfs : packages/list-xbmc
+	./scripts/make_packages xbmc
+	./scripts/make_module xbmc
 
 antivirus: ${LCMBUILD}antivirus-${ARCH}.squashfs
 ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus

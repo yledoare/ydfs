@@ -704,7 +704,7 @@ grep share/Surge src/common/SurgeStorage.cpp
   	DESTDIR="${pkgdir}" meson install -C build || exit 1
   fi
 
-  if [ -e xsessions/pantheon.desktop ]
+  if [ -e xxxsessions/pantheon.desktop ]
   then
     echo "Inside session-settings"
 	cp -fR $HOME/ydfs/packages-$ARCH/onboard-1.4.1/etc/* $HOME/$ARCH/etc/
