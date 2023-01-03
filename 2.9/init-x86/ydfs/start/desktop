@@ -29,8 +29,8 @@ update-mime-database /usr/share/mime
 function start_mate
 {
 	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2022/mate/share 
-	export XDG_CONFIG_DIRS=/home/linuxconsole2022/mate/etc
-	export XDG_MENU_PREFIX=/home/linuxconsole2022/mate/etc/xdg/menus
+	export XDG_CONFIG_DIRS=/home/linuxconsole2022/mate/etc/xdg
+	export XDG_MENU_PREFIX="mate-"
 	/ydfs/start/plogoff  &
 	/usr/libexec/bluetooth/obexd &
 	caja --force-desktop -n &
@@ -48,29 +48,31 @@ function start_pantheon
 function start_XFCE
 {
 	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2022/xfce/share
-	export XDG_CONFIG_DIRS=/home/linuxconsole2022/xfce/etc
- 	dbus-launch startxfce4
+	export XDG_CONFIG_DIRS=/home/linuxconsole2022/xfce/etc/xdg
+	export XDG_MENU_PREFIX="xfce-"
+ 	dbus-launch startxfce4  1>$HOME/.xfce-log 2>$HOME/.xfce-err
 }
 
 function start_LXDE
 {
  	pcmanfm --desktop &
- 	dbus-launch startlxde
+ 	dbus-launch startlxde  1>$HOME/.lxde-log 2>$HOME/.lxde-err
 }
 
 function start_lxqt
 {
  	pcmanfm --desktop &
- 	dbus-launch lxsession
+ 	dbus-launch lxsession 1>$HOME/.lxqt-log 2>$HOME/.lxqt-err 
 }
 
-if [ -e /ydfs/modules/module/bin/xbmc ] && [ ! -e /ydfs/boot/options/lxde ]
-then
- xbmc || xterm
-else
+function start_xbmc
+{
+ 	dbus-launch xbmc 1>$HOME/.xbmc-log 2>$HOME/.xbmc-err 
+}
+
  /ydfs/config/lxde
  /ydfs/config/gtk2
-. /ydfs/config/env
+ . /ydfs/config/env
  if [ -e $HOME/ydfs/mysession ] 
  then
    $HOME/ydfs/mysession
@@ -100,4 +102,3 @@ else
      fi
    fi
  fi
-fi
