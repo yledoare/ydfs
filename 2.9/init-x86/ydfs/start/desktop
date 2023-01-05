@@ -42,7 +42,7 @@ function start_pantheon
 {
  	wingpanel &
  	plank &
-   	exec gala
+   	exec gala --x11 --replace
 }
 
 function start_XFCE
@@ -56,16 +56,16 @@ function start_XFCE
 function start_LXDE
 {
  	pcmanfm --desktop &
- 	dbus-launch startlxde  1>$HOME/.lxde-log 2>$HOME/.lxde-err
+ 	ck-launch-session dbus-launch startlxde  1>$HOME/.lxde-log 2>$HOME/.lxde-err
 }
 
 function start_lxqt
 {
  	pcmanfm --desktop &
- 	dbus-launch lxsession 1>$HOME/.lxqt-log 2>$HOME/.lxqt-err 
+ 	dbus-launch startlxqt 1>$HOME/.lxqt-log 2>$HOME/.lxqt-err 
 }
 
-function start_xbmc
+function start_XBMC
 {
  	dbus-launch xbmc 1>$HOME/.xbmc-log 2>$HOME/.xbmc-err 
 }
@@ -96,6 +96,8 @@ function start_xbmc
      done
      echo "Asking .."
      [ -e /ydfs/modules/xfce/share ] && echo -n "FALSE XFCE " >> $HOME/.sessions
+     [ -e /ydfs/modules/pantheon/share ] && echo -n "FALSE pantheon " >> $HOME/.sessions
+     [ -e /ydfs/modules/xbmc/share ] && echo -n "FALSE XBMC " >> $HOME/.sessions
      ans=$(zenity  --height 40 --list --hide-header  --text "Choose session" --radiolist  --column "Choice" --column "Lang" TRUE mate `cat $HOME/.sessions`)
      echo "Running start_$ans" 
      start_$ans || xterm

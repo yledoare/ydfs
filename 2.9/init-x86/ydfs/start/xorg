@@ -58,16 +58,21 @@ fi
 [ ! -e $HOME/.etracer/options ] && install -d $HOME/.etracer/ && cp /ydfs/config/etracer/options $HOME/.etracer/options
 [ ! -e $HOME/.etr/options ] && install -d $HOME/.etr && cp /ydfs/config/etr/options $HOME/.etr/options
 
+ls $HOME_DIBAB | while read module
+do
+	[ $module = "x86" ] && continue
+	[ $module = "x86_64" ] && continue
+	[ ! -e $HOME_DIBAB/$module/share/glib-2.0/schemas/ ] && continue
+	cp $HOME_DIBAB/$module/share/glib-2.0/schemas/*  /usr/share/glib-2.0/schemas/ && touch /tmp/compile-schemas
+done
+
+[ -e /tmp/compile-schemas ] && glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 if [ ! -e /etc/X11/Xsession ]
 then
 install -d /etc/X11
 echo "
 export PATH=$PATH
-#FIXME
-cp $HOME_DIBAB/mate/share/glib-2.0/schemas/*  /usr/share/glib-2.0/schemas/
-glib-compile-schemas /usr/share/glib-2.0/schemas/
-
 cat /proc/cmdline | grep lxterminal && lxterminal &
 cat /proc/cmdline | grep xterm && xterm &
 #openbox &

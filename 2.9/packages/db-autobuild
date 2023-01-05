@@ -95,7 +95,7 @@ else
   then
     PREFIX=$1
     [ "$1" = "$HOME/updates/" ] && FORCE_PREFIX=$HOME/$ARCH
-    [ -n "$FORCE_PREFIX" ] && PREFIX=$FORCE_PREFIX
+    [ -n "$FORCE_PREFIX" ] && export PREFIX=$FORCE_PREFIX
     pkgdir=$PREFIX
     echo "CC : $CC, PREFIX : $PREFIX"
     [ -n "$FORCE_PREFIX" ] && sleep 10
@@ -373,7 +373,9 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e src/cadence.py ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/cadence.py ] && export MOC=moc UIC=uic RCC=rcc WINDRES=windres
-  
+# bash 
+  [ -e FreeImage.rc ] &&  make -f Makefile.gnu
+  [ -e FreeImage.rc ] &&  make -f Makefile.fip
   [ -e source/carla.kdev4 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e source/carla.kdev4 ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile

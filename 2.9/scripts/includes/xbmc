@@ -38,6 +38,7 @@ done
     -DFMT_URL="$PWD/fmt-$_fmt_version.tar.gz"
     -DFSTRCMP_URL="$PWD/fstrcmp-$_fstrcmp_version.tar.gz"
     -DENABLE_INTERNAL_FMT=ON
+    -DENABLE_DVDCSS=ON
     -DENABLE_INTERNAL_FSTRCMP=ON
     -DLIRC_DEVICE=/run/lirc/lircd"
 
@@ -83,24 +84,21 @@ done
     -DLIRC_DEVICE=/run/lirc/lircd"
     echo " OPTS : $OPTS"
 
-    VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
+    if [ ! -e Makefile ]
+    then
+      VERBOSE=1 CXX="g++ -I$PWD/build/include/" cmake $OPTS ../ || exit 1
+    fi
 
-    echo "BUILD 1 .. "
-    VERBOSE=1 make 
-    OLDPWD=$PWD
-    cd build/libdvd/src/dvdread/
-	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
-    cd $OLDPWD
+    echo "BUILD .. "
+    VERBOSE=1 make  || exit $?
 
-    echo "BUILD 2 .. "
-    VERBOSE=1 make 
-    OLDPWD=$PWD
-    cd build/libdvd/src/dvdnav/
-	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
-    cd $OLDPWD
+#    echo "BUILD 2 .. "
+#    cd build/fstrcmp/src/fstrcmp
+#	ACLOCAL_FLAGS="-I $HOME/$ARCH/share/aclocal " && ACLOCAL="aclocal -I $HOME/opkg/share/aclocal $ACLOCAL_FLAGS " autoreconf -vif || exit 1
+#    cd ../../../
 
-
-    VERBOSE=1 make || exit $?
+#    echo "BUILD 5 .. "
+#    VERBOSE=1 make || exit $?
     make install || exit $?
     DESTDIR=$HOME/ydfs/packages-$ARCH/$MYDIR make install
   if [ "$MODULE" = "opkg" ]
