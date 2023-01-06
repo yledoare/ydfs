@@ -218,6 +218,8 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   exit 0
   fi
 
+  [ -e cpp/jxrdecode.cpp ] && DIR_BUILD="." PREFIX=$PREFIX make libjxr.pc && cp libjxr.pc $PREFIX/share/pkgconfig && echo "cp libjxr.pc $PREFIX/share/pkgconfig"
+  [ -e cpp/jxrdecode.cpp ] && wget https://raw.githubusercontent.com/archlinux/svntogit-community/packages/jxrlib/trunk/CMakeLists.txt
   if [ -e project.godot ]
   then
     echo "Godot project"
@@ -323,6 +325,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e lirc.pc.in ] && rm configure
   pwd | grep mesa-demos && rm configure
 
+  pwd | grep jxrlib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   pwd | grep giflib &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   pwd | grep lua-5.4 &&  sed -i "s@/usr/local@$PREFIX@g" Makefile
   pwd | grep lua-5.4 &&  sed -i "s@/usr/local@$PREFIX@g" src/luaconf.h
@@ -373,7 +376,15 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e src/cadence.py ] && sed -i "s@/etc/X11/@$PREFIX/etc/X11/@" Makefile
   [ -e src/cadence.py ] && sed -i "s@/etc/xdg@$PREFIX/etc/xdg@" Makefile
   [ -e src/cadence.py ] && export MOC=moc UIC=uic RCC=rcc WINDRES=windres
+  [ -e FreeImage.rc ] &&  sed -i "s@ -o root -g root@@" Makefile.gnu
+  [ -e FreeImage.rc ] &&  sed -i "s@ -o root -g root@@" Makefile.fip
+  [ -e FreeImage.rc ] &&  sed -i "s@/usr@$PREFIX@" Makefile.gnu
+  [ -e FreeImage.rc ] &&  sed -i "s@/usr@$PREFIX@" Makefile.fip
 # bash 
+  [ -e FreeImage.rc ] &&  sed -i "s@ -o root -g root@@" Makefile.gnu
+  [ -e FreeImage.rc ] &&  sed -i "s@ -o root -g root@@" Makefile.fip
+  [ -e FreeImage.rc ] &&  sed -i "s@/usr@$PREFIX@" Makefile.gnu
+  [ -e FreeImage.rc ] &&  sed -i "s@/usr@$PREFIX@" Makefile.fip
   [ -e FreeImage.rc ] &&  make -f Makefile.gnu
   [ -e FreeImage.rc ] &&  make -f Makefile.fip
   [ -e source/carla.kdev4 ] && sed -i "s@/usr/local@$PREFIX@" Makefile
