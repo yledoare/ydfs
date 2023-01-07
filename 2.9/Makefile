@@ -226,7 +226,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-modules: ${YDFS_MODULES} 
+modules: $(shell echo ${YDFS_MODULES})
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
