@@ -161,6 +161,7 @@ ifeq ($(BUILDPKG),"")
 iso: isodep wineprogs ${ISOPATH} # sleep
 else
 iso:
+	./scripts/make_packages ${ARCH}
 endif
 metalink:
 	./scripts/iso_to_metalink
@@ -384,6 +385,8 @@ else
 	./scripts/make_opkg_filelist opkg
 endif
 else
+${HOME}/ydfs/opkg/Packages : packages/list-opkg
+packages/list-opkg :
 	bash scripts/echo-archpkg $(BUILDPKG)
 	bash scripts/echo-archpkg $(BUILDPKG) > packages/list-opkg
 	./scripts/make_packages opkg
