@@ -234,6 +234,7 @@ ifeq ($(BUILDPKG),"")
 modules: $(shell echo ${YDFS_MODULES})
 else
 modules:
+endif
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
