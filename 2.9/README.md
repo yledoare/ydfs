@@ -41,6 +41,10 @@ docker build -f Dockerfile32 -t ydfs32-2.9 .
 
 * docker run --name ydfs32-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs32-2.9
 
+## Build a specific pkg for 64 bits
+
+* docker run --name ydfs64-2.9-fast -e BUILDPKG=nano -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs64-2.9
+
 ## Write ISO to USB key
 
 * dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
