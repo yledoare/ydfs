@@ -1,0 +1,23 @@
+if [ ! -e $HOME/svntogit-community ] 
+then
+git clone --depth 1 https://github.com/archlinux/svntogit-community.git && mv svntogit-community $HOME
+rm packages/list-opkg-linuxconsole
+ls $HOME/svntogit-community/ |while read file
+do 
+	echo -n "$file .. "
+	echo $file |grep 0ad-data && echo "Skip $file" && continue
+	echo $file |grep lib32- && echo "Skip $file" && continue
+	echo $file |grep perl- && echo "Skip $file" && continue
+	echo $file |grep python- && echo "Skip $file" && continue
+	echo $file |grep golang-github && echo "Skip $file" && continue
+	echo $file |grep haskell- && echo "Skip $file" && continue
+	echo $file |grep ruby- && echo "Skip $file" && continue
+	echo $file |grep rust- && echo "Skip $file" && continue
+	echo $file |grep asciinema && echo "Skip $file" && continue
+	echo $file |grep linux-gnu && echo "Skip $file" && continue
+	grep "/$file-" packages/list* >/dev/null && echo "Skip" && continue
+	bash scripts/echo-archpkg $file | sed "s@git+https@git@" >> packages/list-opkg-linuxconsole
+done
+fi
+
+NOTEXIT=OK make opkg

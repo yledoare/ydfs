@@ -18,8 +18,8 @@ do
   mkdir /usr/src/docbook
   cd /usr/src/docbook
   [ ! -e `basename $ARCHIVE` ] && wget $ARCHIVE
-  [ ! -e `basename $ARCHIVE` ] && exit 1
-  alien -t `basename $ARCHIVE` || exit 2
+  [ ! -e `basename $ARCHIVE` ] && exit 112
+  alien -t `basename $ARCHIVE` || exit 223
 done
 for FILE in `ls /usr/src/docbook/*.tgz`
 do

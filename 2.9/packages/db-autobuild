@@ -411,6 +411,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   [ -e $HOME/$ARCH/include/gtest-disabled ] && mv $HOME/$ARCH/include/gtest-disabled $HOME/$ARCH/include/gtest
   [ -e $HOME/$ARCH/include/gmock-disabled ] && mv $HOME/$ARCH/include/gmock-disabled $HOME/$ARCH/include/gmock
   [ -e $HOME/$ARCH/include/libavutil-disabled ] && mv $HOME/$ARCH/include/libavutil-disabled $HOME/$ARCH/include/libavutil
+  [ -e $HOME/$ARCH/include/png-disabled.h ] && mv $HOME/$ARCH/include/png-disabled.h $HOME/$ARCH/include/png.h
   [ -e $HOME/$ARCH/include/libavformat-disabled ] && mv $HOME/$ARCH/include/libavformat-disabled $HOME/$ARCH/include/libavformat
   [ -e $HOME/$ARCH/include/libswscale-disabled ] && mv $HOME/$ARCH/include/libswscale-disabled $HOME/$ARCH/include/libswscale
   [ -e $HOME/$ARCH/include/unicode-disabled ] && mv $HOME/$ARCH/include/unicode-disabled $HOME/$ARCH/include/unicode
@@ -611,7 +612,7 @@ grep share/Surge src/common/SurgeStorage.cpp
       cd ..
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/share/Surge
-      cp -av resources/data/* $PREFIX/share/Surge || exit 2
+      cp -av resources/data/* $PREFIX/share/Surge || exit 222
       echo "Install VST3"
       cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 1
       echo "Install Standalone"
@@ -641,7 +642,7 @@ grep share/Surge src/common/SurgeStorage.cpp
       install -d $PREFIX/lib/vst3
       install -d $PREFIX/lib/lv2
       install -d $PREFIX/share/Surge
-      cp -av resources/data/* $PREFIX/share/Surge || exit 2
+      cp -av resources/data/* $PREFIX/share/Surge || exit 3
       cp -fR build/surge_products/Surge.lv2 $PREFIX/lib/lv2 || exit 1
       cp -fR build/surge_products/Surge.vst3 $PREFIX/lib/vst3 || exit 1
     touch buildok-$ARCH
@@ -1153,7 +1154,7 @@ pwd && sleep 5
   	cp $HOME/$ARCH/include/GL/wglext.h source/Irrlicht/wglext.h
 	cd source/Irrlicht
 	rm */*.o
-	CFLAGS="" CPPFLAGS="" CXXFLAGS="-I$HOME/$ARCH/include -std=gnu++11 -fPIC" make NDEBUG=1 sharedlib	 || exit 2
+	CFLAGS="" CPPFLAGS="" CXXFLAGS="-I$HOME/$ARCH/include -std=gnu++11 -fPIC" make NDEBUG=1 sharedlib	 || exit 4
 	make install || exit 3
   	cd ../../
 	touch buildok-$ARCH
@@ -1194,7 +1195,7 @@ pwd && sleep 5
   then
     mkdir build
     cd build
-    cmake ../ -GNinja -DCMAKE_INSTALL_PREFIX=$PREFIX || exit 2
+    cmake ../ -GNinja -DCMAKE_INSTALL_PREFIX=$PREFIX || exit 5
     ninja || exit 1
     ninja xmoto_pack
     ninja install
@@ -1747,7 +1748,12 @@ CMAKEOPTIONS="-DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DOPUS_INCLUDE_DIR
 	 	exit 0
 	fi	
         [ -e ../src/wesnoth.cpp ] && echo "Unsetting $ARCH" && sleep 5 && OLDARCH=$ARCH && unset ARCH && export CXX=clang++
-	cmake $CMAKEOPTIONS .. || exit 12
+        if  [ "$NOTEXIT" = "OK" ] 
+	then
+	      cmake $CMAKEOPTIONS .. || exit 0
+	else
+		cmake $CMAKEOPTIONS .. || exit 12
+	fi
         [ -e ../src/wesnoth.cpp ] && export ARCH=$OLDARCH
 
         if [ -e ../Source/WebKit/gtk/ ]
@@ -2656,7 +2662,8 @@ Cflags: -I${includedir}' > lua.pc
       #make DBM_INCLUDE=$HOME/$OLDARCH/include -n -k -j3 
       make DBM_INCLUDE=$HOME/$OLDARCH/include WARNINGS_AS_ERRORS=n $MAKEOPT || make
       if [ $? != 0 ]
-      then
+      then 
+	echo "Make failed .."
 	if [ -e  $SOURCEDIR/configure ] && [ ! -e $SOURCEDIR/configure.log ]
 	then
 	  exit 21
@@ -2775,6 +2782,7 @@ Cflags: -I${includedir}' > lua.pc
 	if [ $return != "0" ]
 	then
 	  echo "Return is $return"
+	  [ "$NOTEXIT" = "OK" ] && echo "Build faild, but we continue" && exit 0
 	  exit 23
 	fi
 	[ -e flatc  ] && install -d $PREFIX/bin/ && cp flatc $PREFIX/bin

@@ -1,8 +1,9 @@
 if [ -e src/mame/mame.cpp ]
 then
     echo "Build Mame"
-    mv $HOME/$ARCH/include/pugixml.hpp $HOME/$ARCH/include/pugixml.hpp-disabled
-	mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
+    # mv $HOME/$ARCH/include/pugixml.hpp $HOME/$ARCH/include/pugixml.hpp-disabled
+    # mv $HOME/$ARCH/include/irrlicht $HOME/$ARCH/include/irrlicht-disabled 
+    # mv $HOME/$ARCH/include/png.h $HOME/$ARCH/include/png-disabled.h
     if [ "$ARCH" = "x86" ]
     then
       ARCH="" make \
@@ -12,11 +13,21 @@ then
       ARCHOPTS=-flifetime-dse=1 linux_x86 || exit 1
     else
       echo "Building .."
-      CPPFLAGS="-I$PWD/src/lib/util -I$PREFIX/include $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.3" VERBOSE=1 make \
-      NOWERROR=1 \
-      OPTIMIZE=2 \
-      TOOLS=1 \
-      ARCHOPTS=-flifetime-dse=1 || exit 1
+  export CFLAGS+="-I$PWD/src/lib/util -I$PREFIX/include -I$PREFIX/include/"
+  export CXXFLAGS+="-I$PWD/src/lib/util -I$PREFIX/include -I$PREFIX/include/"
+  export CXXFLAGS+="  -Wp,-U_GLIBCXX_ASSERTIONS" # FS#73202
+# Hack to force linking to lua5.3
+  mkdir lib
+  ln -s $PREFIX/lib/liblua5.3.so lib/liblua.so
+  export LDFLAGS+=" -L${PWD}/lib"
+
+  ARCH="" make \
+    VERBOSE=1 \
+    NOWERROR=1 \
+    OPTIMIZE=2 \
+    TOOLS=1 \
+    ARCHOPTS=-flifetime-dse=1 || exit 1
+      # CPPFLAGS="-I$PWD/src/lib/util -I$PREFIX/include $CPPFLAGS" && CXX="g++ $CPPFLAGS" CXXFLAGS="-std=c++11 $CPPFLAGS" ARCH="" LDFLAGS="$LDFLAGS -llua5.3" VERBOSE=1 make \
       echo "OK"
     fi
   pkgname=mame

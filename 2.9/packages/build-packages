@@ -232,6 +232,7 @@ fi
     [ ! -e $SOURCE_DIR ] && svn co $ARCHIVE
     cd $SOURCE_DIR
     [ -e libc ] && cd libc # eglibc
+    echo "db-autobuild for svn"
     db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || exit $?
     continue
   fi
@@ -241,6 +242,7 @@ fi
     SOURCE_DIR=`echo $ARCHIVE | cut -d':' -f2`
     [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $ARCHIVE
     cd $SOURCE_DIR
+    echo "db-autobuild for lp"
     db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
@@ -280,12 +282,13 @@ fi
 	    echo "Cloning $ARCHIVE (quiet)"
         [ ! -e $SOURCE_DIR ] && git clone -q `echo $ARCHIVE |cut -d'#' -f1`
     fi
+    # [ ! -e $SOURCE_DIR ] &&  [ "$NOTEXIT" = "OK" ] && echo "Clone faild with $0, but we continue " && continue
     cd $SOURCE_DIR
     TAG=`echo $ARCHIVE | grep '#tag' | cut -d'=' -f2`
     COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
     if [ "$TAG" != "" ]
     then
-	git checkout -q tags/$TAG || exit 1
+	git checkout -q tags/$TAG ||  git checkout -q $TAG # || exit 1
     fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     # [ ! -n "$REVISION" ] && git reset --hard $REVISION 
@@ -294,6 +297,7 @@ fi
 
     [ -e ./data/gala.desktop ] && git cherry-pick -n 85d290c75eaa147b704ad34e6c67498071707ee8
     build_ydfs_package
+    [ -e $HOME/ydfs-error ] && [ "$NOTEXIT" = "OK" ] && echo "Build faild with $0, but we continue " && continue
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue
   fi
@@ -317,6 +321,7 @@ fi
     continue
   fi
 
+  [ -e $HOME/ydfs-error ] && [ "$NOTEXIT" = "OK" ] && echo "Build faild with $0, but we continue " && continue
   [ -e $HOME/ydfs-error ] && echo "Final exit $0 " && break
 
   if [ -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ]
@@ -333,7 +338,7 @@ fi
    file $HOME/ydfs/tarballs/`basename $ARCHIVE` | grep HTML && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found " 
 
-  # Second pass, go into LinuxConsole reposotory
+  # Second pass, go into LinuxConsole repository
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && touch $HOME/ydfs/tarballs/`basename $ARCHIVE`.start && echo && echo -n "Now trying http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) ..." && LD_LIBRARY_PATH="" wget -q --trust-server-name --tries=5 -w 6 --no-check-certificate --output-document=$HOME/ydfs/tarballs/`basename $ARCHIVE` http://jukebox.linuxconsole.org/sources/$(basename $ARCHIVE) && rm $HOME/ydfs/tarballs/`basename $ARCHIVE`.start
     test -s $HOME/ydfs/tarballs/`basename $ARCHIVE` || rm $HOME/ydfs/tarballs/`basename $ARCHIVE`
   [ ! -e $HOME/ydfs/tarballs/`basename $ARCHIVE` ] && echo " not found !!!" && echo && touch $HOME/ydfs-error && exit 1
@@ -391,7 +396,7 @@ fi
 	# echo -n  " .. Running db-lcarchive $HOME/ydfs/tarballs/$(basename $ARCHIVE)"
 	DBKVER=$KERNEL3 LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS" LCARCHIVE_CHOICE=installfromsrc db-lcarchive $HOME/ydfs/tarballs/`basename $ARCHIVE` || touch $HOME/ydfs-error
        
-	if [ -e $HOME/ydfs-error ]
+	if [ -e $HOME/ydfs-error ] &&  [ "$NOTEXIT" != "OK" ]
         then
 	   echo "Exit db-lcarchive $ARCHIVE, because $HOME/ydfs-error exists " 
    	   exit 1	

@@ -224,42 +224,17 @@ nvidia-340;Nvidia 340 serie Driver
 nvidia-384;Nvidia 384 serie drivers
 dosbox;Dos emulator
 gnome-common;gnome-common
-udisks-udisks;
 autoconf-archive;autoconf-archive
-cracklib;cracklib
 libpwquality;libpwquality
 qemu;Qemu emulator
 scummvm;ScummVM is a program which allows you to run certain classic graphical point-and-click adventure games
 xbmc-17.6;XBMC Media player
 beautifulsoup4;beautifulsoup4
-liboauth;liboauth
-jsoncpp;jsoncpp
-htmlcxx;htmlcxx
-rhash;rhash
 lgogdownloader;lgogdownloader
-dvb-apps;dvb-apps
 primus;Faster OpenGL offloading for Bumblebee
 sddm;Login manager
-php;php
-elogind;elogind
 node;Node JS
-cli;cli
-shotwell;shotwell
-freerdp-2.0.0;freerdp-2.0.0
-testdisk;testdisk
-ft2;ft2
-wavbreaker;wavbreaker
-aj-snapshot;aj-snapshot
-dpf-plugins;dpf-plugins
-drumkv1;drumkv1
-guitarix;guitarix
-vim;Vim
 python;Python 2
-graphviz;graphviz
-freerdp;freerdp
-teeworlds-0.7.5;teeworlds-0.7.5
-vulkan-tools;vulkan-tools
-imlib2;imlib2
-conky;conky
-mtpfs;mtpfs
-fwupd;fwupd
+airspyone;airspyone
+allegro;allegro
+blur;blur

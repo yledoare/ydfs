@@ -43,7 +43,7 @@ docker build -f Dockerfile32 -t ydfs32-2.9 .
 
 ## Build a specific pkg for 64 bits
 
-* docker run --name ydfs64-2.9-pkg -e DIBAB_VERBOSE_BUILD=YES -e BUILDPKG=nano -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs64-2.9
+* docker run --name ydfs64-2.9-pkg -e SLEEPTIME=1 -e DIBAB_VERBOSE_BUILD=YES -e BUILDPKG=nano -e BUILDYDFS=fast --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2022/iso  ydfs64-2.9
 
 ## Write ISO to USB key
 

@@ -6,7 +6,13 @@ build_ydfs_package()
   if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
   export LC_CONFIGURE_OPTS
-  db-autobuild $MYPREFIX || exit $?
+  echo "db-autobuild from build_ydfs_package - verbose"
+  db-autobuild $MYPREFIX 
+  EXITCODE=$?
+  if [ "$EXITCODE" != "0" ]
+  then
+     [ "$NOTEXIT" != "OK" ] && echo "Exit 1" && exit 1
+  fi 
   else
   PKGNAME=`basename $PWD`
   echo -n "Building $PKGNAME in progress, "     
@@ -19,11 +25,15 @@ build_ydfs_package()
   START=`date '+%s'`
   [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
 #echo "Run build_ydfs_package from scripts/includes/build"
+  echo "db-autobuild from build_ydfs_package - logfile"
   db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
   EXITCODE=$?
 #echo "Exit code is $EXITCODE"
-  [ "$EXITCODE" != "0" ] && LOGERROR=`tail ydfs-error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-error \n\n" 
-  [ "$EXITCODE" != "0" ] && exit 1
+  if [ "$EXITCODE" != "0" ]
+  then
+     LOGERROR=`tail ydfs-error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-error \n\n" 
+     [ "$NOTEXIT" != "OK" ] && echo "Exit 1" && exit 1
+  fi
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
   SDURATION=$((($END - $START)%60))

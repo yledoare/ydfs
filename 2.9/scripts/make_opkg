@@ -52,7 +52,7 @@ fi
 [ "$NAME" = "spring" ] && DBEXTRA=games && PKGVER="98.0" && PKGSRC="http://bugtracker.linuxconsole.org" && PKGDESC="RTS Game"
 
 
-#[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
+[ "$PKGDESC" = "" ] && [ -e $HOME/archpkg/$NAME ] && PKGDESC=$(grep pkgdes $HOME/archpkg/$NAME | cut -d'=' -f2)
 #[ "$PKGDESC" = "" ] && echo "What is DESC for $NAME ?" && read PKGDESC && echo "$NAME;$PKGDESC" >> $HOME_DIBAB/packages.desc
 [ "$PKGDESC" = "" ] && PKGDESC="$NAME" && echo "$NAME;$PKGDESC" >> $HOME_DIBAB/packages.desc
 
