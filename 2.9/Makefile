@@ -157,12 +157,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-ifeq ($(BUILDPKG),"")
 iso: isodep wineprogs ${ISOPATH} # sleep
-else
-iso:
-	./scripts/make_packages ${ARCH}
-endif
 metalink:
 	./scripts/iso_to_metalink
 
@@ -231,11 +226,7 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_packages hackerOS
 	./scripts/make_module hackerOS
 
-ifeq ($(BUILDPKG),"")
 modules: $(shell echo ${YDFS_MODULES})
-else
-modules:
-endif
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
@@ -375,7 +366,6 @@ fixopkg:
 #	./scripts/make_custom_opkg spring
 	./scripts/make_opkg_filelist opkg
 opkg: ${HOME}/ydfs/opkg/Packages
-ifeq ($(BUILDPKG),"")
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
 ifeq ($(SKIPOPKG),OK)
 	echo "Skip opkg"
@@ -383,13 +373,6 @@ else
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
-endif
-else
-${HOME}/ydfs/opkg/Packages : packages/list-opkg
-packages/list-opkg :
-	bash scripts/echo-archpkg $(BUILDPKG)
-	bash scripts/echo-archpkg $(BUILDPKG) > packages/list-opkg
-	./scripts/make_packages opkg
 endif
    
 ${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
