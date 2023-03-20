@@ -17,9 +17,8 @@ echo $HOME | grep root && [ -e /dev/sda ] && [ ! -e /media/ydfs/grub ] && cp /sh
 # sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/org.gnome.FileRoller.desktop
 # sed -i s@application/x-ms-dos-executable\;@@ /usr/share/applications/engrampa.desktop
 sed -i s@$HOME_DIBAB/$ARCH/bin/gparted@/fix/gparted@ /usr/share/applications/gparted.desktop
-# Fix 2022 RC 1
-[ ! -e $HOME/.fix-lc2022rc1 ] && bash /ydfs/fix/fix-lc2022rc1 && touch $HOME/.fix-lc2022rc1
 
+./ydfs/fix/fix-desktop
 
 install -d $HOME/.local/share/applications
 
@@ -28,8 +27,8 @@ update-mime-database /usr/share/mime
 
 function start_mate
 {
-	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2022/mate/share 
-	export XDG_CONFIG_DIRS=/home/linuxconsole2022/mate/etc/xdg
+	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2023/mate/share 
+	export XDG_CONFIG_DIRS=/home/linuxconsole2023/mate/etc/xdg
 	export XDG_MENU_PREFIX="mate-"
 	/ydfs/start/plogoff  &
 	/usr/libexec/bluetooth/obexd &
@@ -47,8 +46,8 @@ function start_pantheon
 
 function start_XFCE
 {
-	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2022/xfce/share
-	export XDG_CONFIG_DIRS=/home/linuxconsole2022/xfce/etc/xdg
+	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2023/xfce/share
+	export XDG_CONFIG_DIRS=/home/linuxconsole2023/xfce/etc/xdg
 	export XDG_MENU_PREFIX="xfce-"
  	dbus-launch startxfce4  1>$HOME/.xfce-log 2>$HOME/.xfce-err
 }

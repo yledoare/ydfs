@@ -768,7 +768,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
      --enable-libwebpdecoder \
      --disable-static"
 	# echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="--disable-sdltest --with-unoptimized=0" && LDFLAGS="$LDFLAGS -llua5.1 -llua" && CPPFLAGS+=' -fpermissive -D_GLIBCXX_USE_CXX11_ABI=0'
-	echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="-DPREFER_SYSTEM_Lua=OFF -DLUA_INCLUDE_DIR=/home/linuxconsole2022/ydfs/src/xmoto-0.6.1/vendor/lua/lua"
+	# echo $ARCHIVE | grep xmoto && LC_CONFIGURE_OPTS="-DPREFER_SYSTEM_Lua=OFF -DLUA_INCLUDE_DIR=/home/linuxconsole2022/ydfs/src/xmoto-0.6.1/vendor/lua/lua"
 
 	echo $ARCHIVE | grep netpbm && export PREFIX=$DIBAB_PREFIX/$MODULE
 	echo $ARCHIVE | grep lshw && export PREFIX=$DIBAB_PREFIX/$MODULE
@@ -799,7 +799,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
         -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
         -DCMAKE_SKIP_RPATH=ON \
         -DLLVM_INCLUDE_TESTS=ON \
-        -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=/home/linuxconsole2022/x86_64/include/spirv/ \
+        -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=$HOME/$ARCH/include/spirv/ \
         -Wno-dev "
 	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-13"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"

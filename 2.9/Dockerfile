@@ -25,9 +25,9 @@ ENV LANG fr_FR.utf8
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN useradd linuxconsole2022 --create-home
-# COPY ./build-lc2022 /home/linuxconsole2022/build-lc2022
-COPY ./build-lc2022 /build-lc2022
+RUN useradd linuxconsole2023 --create-home
+# COPY ./build-lc2023 /home/linuxconsole2023/build-lc2023
+COPY ./build-lc2023 /build-lc2023
 
 RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get update && apt-get install -y llvm-13 libclang-13-dev clang-13
@@ -46,6 +46,6 @@ RUN apt-get install lib32z1
 #RUN apt-get install -y clang-11
 
 RUN apt-get install -y rsync
-USER linuxconsole2022
-#CMD /home/linuxconsole2022/build-lc2022
-CMD /build-lc2022
+USER linuxconsole2023
+#CMD /home/linuxconsole2023/build-lc2023
+CMD /build-lc2023
