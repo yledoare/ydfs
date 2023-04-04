@@ -1,6 +1,6 @@
 install -d ~/src
 cd ~/src
-[ ! -e ydfs ] && git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+[ ! -e ydfs ] && git clone https://github.com/yledoare/ydfs.git
 cd ydfs 
 git pull
 if [ -n "$DISTRONAME" ] && [ -e "$DISTRONAME" ] 
