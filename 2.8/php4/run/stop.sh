@@ -1,2 +1,0 @@
-killall mysqld
-killall httpd

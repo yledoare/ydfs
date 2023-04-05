@@ -1,1 +1,0 @@
-[ -e /etc/env.dyn ] && source /etc/env.dyn

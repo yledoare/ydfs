@@ -1,5 +1,0 @@
-echo '
-#!/bin/sh
-killall Xorg' > /sbin/shutdown
-chmod +x /sbin/shutdown
-XBMC_HOME=/ydfs/modules/module/share/xbmc /ydfs/modules/module/bin/xbmc

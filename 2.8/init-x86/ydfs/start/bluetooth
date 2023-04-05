@@ -1,2 +1,0 @@
-bluetoothctl power on
-rfkill unblock all
