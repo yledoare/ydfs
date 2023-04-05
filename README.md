@@ -6,7 +6,7 @@
 
 * git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
-* git checkout v2.9.3
+* git checkout v2.9.4
 * cd 2.9
 
 # Build docker images
@@ -60,7 +60,7 @@ docker build -f Dockerfile32 -t ydfs32-2.9 .
 * docker run -d --name ydfs ydfs64-2.9 tail -f /dev/null 
 * docker exec -ti ydfs bash
 * cd $HOME
-* git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+* git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
 * cd 2.9
 * make 
