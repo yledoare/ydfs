@@ -55,11 +55,9 @@ libpciaccess-0 \
 libxkbfile-1 \
 libxshmfence-1 pixman cairo-1 libdrm xz-5 libxml libgpg-error libgcrypt libxslt llvm elfutils libogg libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libvorbis libsndfile speex opus-1 opusfile sox- soxr  sbc check fftw-3.3 pulseaudio-14 libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-dev colord glib-networking libpsl brotli e2fsprogs krb5 libsoup rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
-# gst-plugins-base " :  GLib requires working CLOCK_MONOTONIC bug sometimes !!
 
 for PKG in $PKGMULTILIB
 do
-# [ "$PKG" = "soxr" ] && continue
 
   [ "$PKG" = "llvm" ] && install -d $HOME/ydfs/src/$PKG && continue
   echo -n "Test $PKG dir " # && sleep 1
