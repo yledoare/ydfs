@@ -27,7 +27,7 @@ docker build -f Dockerfile -t ydfs3 .
 * docker run -d --name ydfs3 ydfs3 tail -f /dev/null 
 * docker exec -ti ydfs3 bash
 * cd $HOME
-* git clone https://bitbucket.org/yourdistrofromscratch/ydfs.git
+* git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
 * cd testing
 * make 
