@@ -133,7 +133,7 @@ http://www.cpan.org/authors/id/U/UR/URI/File-Slurp-9999.19.tar.gz
 ftp://ftp.gnu.org/gnu/groff/groff-1.22.3.tar.gz
 https://download.savannah.gnu.org/releases/attr/attr-2.5.1.tar.xz
 https://kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.63.tar.xz
-https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-29.tar.xz
+https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-30.tar.xz
 https://github.com/gentoo/eudev/archive/v3.2.9.tar.gz
 https://github.com/libusb/libusb/releases/download/v1.0.25/libusb-1.0.25.tar.bz2
 https://downloads.sourceforge.net/libmtp/libmtp-1.1.19.tar.gz
@@ -763,7 +763,10 @@ https://downloads.sourceforge.net/lxde/menu-cache-1.1.0.tar.xz
 https://github.com/LibVNC/libvncserver/archive/LibVNCServer-0.9.11.tar.gz
 https://github.com/Exiv2/exiv2/archive/v0.26.tar.gz
 https://download.gnome.org/sources/gexiv2/0.10/gexiv2-0.10.6.tar.xz
-http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.6/gthumb-3.6.0.tar.xz
+https://download.gnome.org/sources/cogl/1.22/cogl-1.22.2.tar.xz
+https://download.gnome.org/sources/clutter/1.26/clutter-1.26.2.tar.xz
+http://ftp.gnome.org/pub/GNOME/sources/clutter-gtk/1.8/clutter-gtk-1.8.4.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/gthumb/3.12/gthumb-3.12.2.tar.xz
 https://downloads.sourceforge.net/project/gparted/gparted/gparted-1.1.0/gparted-1.1.0.tar.gz
 #https://download.gnome.org/sources/vte/0.28/vte-0.28.2.tar.xz
 git://gitlab.gnome.org/GNOME/vte.git#commit=0f438924f9f8a858b1b82434c876e31c2de180d4
@@ -779,7 +782,8 @@ https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 https://download.kde.org/stable/frameworks/5.96/ki18n-5.96.0.tar.xz
 https://github.com/c-ares/c-ares/releases/download/cares-1_17_1/c-ares-1.17.1.tar.gz
 pip::dbus-python
-pip::PyQt5-sip
+#pip::PyQt5-sip
+pip::PyQt5==5.15.9
 pip::pyqt-builder
 # Disabled, dbus.mainloop.pyqt5 is missing
 # pip::PyQt5==5.15.2
