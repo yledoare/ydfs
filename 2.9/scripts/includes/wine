@@ -1,7 +1,9 @@
 if [ -e programs/winecfg ] && [ "$ARCH" == "x86_64" ]
 then
-#	$HOME_DIBAB/scripts/make_multilib
-	# bash $HOME_DIBAB/scripts/make_multilib # We must exit before building mesa
+	bash $HOME_DIBAB/scripts/make_multilib 
+	# FIXME !
+	# Why references to x86_86/lib instead of multilib/lib for libz.o ??
+	rm -fR  $HOME/ydfs/src/mesa-*/build-32/
 	bash $HOME_DIBAB/scripts/make_multilib || exit 1
 	WINEBUILD=$PWD
 
