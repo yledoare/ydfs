@@ -6,7 +6,7 @@
 
 * git clone https://github.com/yledoare/ydfs.git
 * cd ydfs
-* git checkout v2.9.2
+* git checkout v2.9.3
 * cd 2.9
 
 # Build docker images
