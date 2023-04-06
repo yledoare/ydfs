@@ -11,6 +11,12 @@ then
  	# ?? rm -fR $HOME/ydfs/src/glib-networking-2.*/build-32/
   	# ?? rm -fR $HOME/ydfs/src/glib-networking-2.*/ydfs-multilib-buildt
 	rm $HOME/ydfs/src/zstd-1.5.2/ydfs-multilib-buildt
+	
+	# FIXME again !
+
+	rm $HOME/ydfs/src/libcap-2.*/ydfs-multilib-buildt
+  	rm -fR $HOME/ydfs/src/gstreamer-1.*/build-32
+	bash $HOME_DIBAB/scripts/make_multilib 
 
 	bash $HOME_DIBAB/scripts/make_multilib || exit 1
 	WINEBUILD=$PWD
@@ -23,7 +29,6 @@ then
 	cd $HOME/ydfs/build-wine32
 
 	export PKG_CONFIG_PATH=$HOME/multilib/lib/pkgconfig/
-#	export CC="gcc -I $HOME/multilib/include -I $HOME/multilib/include/freetype2"
 	export LDFLAGS="-L $HOME/multilib/lib -L $HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib32 -Wl,-rpath,$HOME/multilib/lib"
 
         for INC in odbcinst.h sql.h sqltypes.h sqlucode.h sqlext.h
