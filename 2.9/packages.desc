@@ -238,3 +238,8 @@ python;Python 2
 airspyone;airspyone
 allegro;allegro
 blur;blur
+geany;geany
+nano;nano
+mtpfs;mtpfs
+vulkan-tools;vulkan-tools
+imlib2;imlib2

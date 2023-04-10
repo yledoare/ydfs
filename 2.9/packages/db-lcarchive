@@ -50,6 +50,7 @@ case "$FILE" in
    *rar)  ARCHIVE=RAR;;
  *.7z) ARCHIVE=SEVENZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
    *.xz) ARCHIVE=TARXZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
+   *.txz) ARCHIVE=TARXZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
  *.tbz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
    *.tar.bz2) ARCHIVE=TARBZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
  *.tar.gz) ARCHIVE=TARGZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
@@ -127,6 +128,16 @@ case "$ARCHIVE" in
   TAR)
     ;;
   TARGZ)
+    if [ "$CHOICE" = "decompress" ]
+    then
+      if [ -e $PREFIX/$DIR2 ] 
+      then
+        echo "$PREFIX/$DIR2 exists"
+      else
+        echo "tar xzvf $FILE --directory=$MYPREFIX" && tar xzvf "$FILE" --directory=$MYPREFIX 1> $HOME/ydfs/tmp/tar.$$.log
+        [ ! -e $MYPREFIX/$DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && echo "DIR2 was $DIR2"
+      fi
+    fi
     if [ "$CHOICE" = "installfromsrc" ]
     then
       install -d $HOME/ydfs/src/
@@ -219,6 +230,16 @@ case "$ARCHIVE" in
     fi
     ;;
   TARXZ)
+    if [ "$CHOICE" = "decompress" ]
+    then
+      if [ -e $PREFIX/$DIR2 ] 
+      then
+        echo "$PREFIX/$DIR2 exists"
+      else
+        echo "tar xJvf $FILE --directory=$MYPREFIX" && tar xJvf "$FILE" --directory=$MYPREFIX 1> $HOME/ydfs/tmp/tar.$$.log
+        [ ! -e $MYPREFIX/$DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && echo "DIR2 was $DIR2"
+      fi
+    fi
     if [ "$CHOICE" = "installfromsrc" ]
     then
       install -d $HOME/ydfs/src/
@@ -233,6 +254,16 @@ case "$ARCHIVE" in
     fi
     ;;
   TARBZ)
+    if [ "$CHOICE" = "decompress" ]
+    then
+      if [ -e $PREFIX/$DIR2 ] 
+      then
+        echo "$PREFIX/$DIR2 exists"
+      else
+        echo "tar xjvf $FILE --directory=$MYPREFIX" && tar xjvf "$FILE" --directory=$MYPREFIX 1> $HOME/ydfs/tmp/tar.$$.log
+        [ ! -e $MYPREFIX/$DIR2 ] && DIR2=`cat $HOME/ydfs/tmp/tar.$$.log | cut -d'/' -f1 | sort -u` && echo "DIR2 was $DIR2"
+      fi
+    fi
     if [ "$CHOICE" = "installfromsrc" ]
     then
       install -d $HOME/ydfs/src/

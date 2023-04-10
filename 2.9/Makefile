@@ -233,6 +233,11 @@ ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
 	./scripts/make_packages kde
 	./scripts/make_module kde
 
+browsers: ${LCMBUILD}/browsers-${ARCH}.squashfs
+${LCMBUILD}/browsers-${ARCH}.squashfs : packages/list-browsers
+	./scripts/make_packages browsers
+	./scripts/make_module browsers
+
 lxqt: ${LCMBUILD}/lxqt-${ARCH}.squashfs
 ${LCMBUILD}/lxqt-${ARCH}.squashfs : packages/list-lxqt
 	./scripts/make_packages lxqt
