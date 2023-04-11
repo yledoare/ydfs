@@ -20,7 +20,7 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
 
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
 
-echo $ARCHIVE | grep conky &&  LC_CONFIGURE_OPTS="  -D CMAKE_CXX_FLAGS=\"$CXXFLAGS -ffat-lto-objects\" \
+echo $ARCHIVE | grep conky && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="  -D CMAKE_CXX_FLAGS=\"$CXXFLAGS -ffat-lto-objects\" \
     -D MAINTAINER_MODE=ON \
     -D BUILD_DOCS=ON \
     -D BUILD_WLAN=ON \
