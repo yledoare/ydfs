@@ -19,19 +19,6 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DCMAKE_BUILD_TYPE=Release "
 
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
-
-echo $ARCHIVE | grep conky && [ "$ARCH" = "x86_64" ] && LC_CONFIGURE_OPTS="  -D CMAKE_CXX_FLAGS=\"$CXXFLAGS -ffat-lto-objects\" \
-    -D MAINTAINER_MODE=ON \
-    -D BUILD_DOCS=ON \
-    -D BUILD_WLAN=ON \
-    -D BUILD_XDBE=ON \
-    -D BUILD_XSHAPE=ON \
-    -D BUILD_CURL=ON \
-    -D BUILD_RSS=ON \
-    -D BUILD_NVIDIA=ON \
-    -D BUILD_WEATHER_METAR=ON \
-    -D BUILD_PULSEAUDIO=ON \
-    -D BUILD_JOURNAL=ON "
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
 echo $ARCHIVE | grep iptables &&  LC_CONFIGURE_OPTS=" --disable-nftables "
 echo $ARCHIVE | grep volume_key && export CFLAGS+=" $(python3-config --includes)"
