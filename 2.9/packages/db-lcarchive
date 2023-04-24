@@ -46,6 +46,7 @@ DIR2=`basename $FILE |  sed 's/\.[^\.]*$//'`
 #initialisation de la variable ARCHIVE selon le type de fichier
 case "$FILE" in
   *.dsc)  ARCHIVE=DSC;;
+  *.vbox-extpack)  ARCHIVE=vbox-extpack;;
 *tar)  ARCHIVE=TAR;;
    *rar)  ARCHIVE=RAR;;
  *.7z) ARCHIVE=SEVENZ; DIR=`echo $DIR | sed 's/\.[^\.]*$//'`; DIR2=`echo $DIR2 | sed 's/\.[^\.]*$//'`;;
@@ -228,6 +229,10 @@ case "$ARCHIVE" in
       export LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS"
       build_ydfs_package
     fi
+    ;;
+  vbox-extpack)
+	install -d $MYPREFIX/extpack
+	cp "$FILE" $MYPREFIX/extpack
     ;;
   TARXZ)
     if [ "$CHOICE" = "decompress" ]

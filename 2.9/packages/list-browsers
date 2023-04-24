@@ -1,3 +1,4 @@
+git://github.com/yledoare/browsers.git
 bin::http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/111.0.1/linux-x86_64/en-US/firefox-111.0.1.tar.bz2 #SKIP-x86#
 bin::http://ftp.mozilla.org/pub/mozilla.org/firefox/releases/111.0.1/linux-i686/en-US/firefox-111.0.1.tar.bz2 #SKIP-x86_64#
 bin::http://www.slackware.com/~alien/slackbuilds/chromium/pkg64/15.0/chromium-112.0.5615.49-x86_64-1alien.txz #SKIP-x86#
