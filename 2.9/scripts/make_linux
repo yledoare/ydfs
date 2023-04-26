@@ -4,6 +4,12 @@
 if [ "$BUILDYDFS" = "fast" ]
 then
 	cd $HOME
+        if [ ! -d $HOME/iso/ ]
+        then
+          echo "Create iso working directory"
+          mkdir $HOME/iso
+          chmod 777 $HOME/iso
+        fi
 	if [ -e $HOME/iso/drivers-$ARCH.squashfs ]
 	then
 	  echo "Use buildt squashfs for drivers"
