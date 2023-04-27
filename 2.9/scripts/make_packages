@@ -6,6 +6,14 @@ then
     echo "Use buildt squashfs"
     ln -sf $HOME/iso/$ARCH.squashfs $LCMBUILD
   else
+    if [ ! -d $HOME/iso/ ]
+    then
+      echo -n  "Path to create and store the base system already compiled and compressed (3 giga free space min.)  ? : $HOME/iso : "
+      echo "press enter to continue"
+      read key
+      mkdir $HOME/iso
+      chmod 777 $HOME/iso
+    fi
     [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
     [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
     cd $HOME

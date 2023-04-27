@@ -9,18 +9,21 @@
 * git checkout v2.9.6
 * cd 2.9
 
+# Build ydfs ISO from host
+If you want a fast build, export $BUILDYDFS before : ```export BUILDYDFS=fast```
+
+* mkdir $HOME/iso
+* chmod 777 $HOME/iso
+* git clone https://github.com/yledoare/ydfs.git
+* cd ydfs/2.9
+* make iso
+
+# Build ydfs ISO with Docker container
+
 # Build docker images
 
 ## 64 bits
 docker build -f Dockerfile -t ydfs64-2.9 .
-
-## 32 bits
-docker build -f Dockerfile32 -t ydfs32-2.9 .
-
-# Build ydfs ISO
-
-* mkdir $HOME/iso
-* chmod 777 $HOME/iso
 
 ## Automatic full 64 bits ISO Build
 
@@ -28,32 +31,21 @@ docker build -f Dockerfile32 -t ydfs32-2.9 .
 * docker logs --tail=10 -f ydfs64-2.9
 * docker logs -f ydfs64-2.9 2>&1 |grep build
 
+## Fast 64 bits ISO
+
+* docker run --name ydfs64-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso  ydfs64-2.9
+
+## 32 bits
+docker build -f Dockerfile32 -t ydfs32-2.9 .
+
 ## Automatic full 32 bits ISO Build
 
 * docker run --name ydfs32-2.9 -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso  ydfs32-2.9
 * docker logs --tail=10 -f ydfs32-2.9
 
-## Fast 64 bits ISO
-
-* docker run --name ydfs64-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso  ydfs64-2.9
-
 ## Fast 32 bits ISO
 
 * docker run --name ydfs32-2.9-fast -e BUILDYDFS=fast -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso  ydfs32-2.9
-
-## Write ISO to USB key
-
-* dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
-
-## Build and test
-
-* xhost +
-* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-2.9 
-* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.9 ; make live-test'
-
-## Verbose Build, without sharing output ISO on host :
-
-* docker run --name linuxconsole2023 -e DIBAB_VERBOSE_BUILD=YES ydfs64-2.9
 
 # Manual build (64 bits)
 
@@ -71,6 +63,20 @@ grep RUN Dockerfile | sed s'/RUN//' > install.sh
 bash install.sh
 useradd -m linuxconsole2023
 su - linuxconsole2023 $PWD/build-lc2023
+
+# Build and test
+
+* xhost +
+* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2023/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-2.9 
+* docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/2.9 ; make live-test'
+
+# Verbose Build, without sharing output ISO on host :
+
+* docker run --name linuxconsole2023 -e DIBAB_VERBOSE_BUILD=YES ydfs64-2.9
+
+# Write ISO to USB key
+
+* dd if=iso/linuxconsole.iso of=/dev/sdf bs=4M status=progress oflag=sync
 
 # Troubleshooting :
 
