@@ -615,7 +615,7 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
       install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 222
       echo "Install VST3"
-      cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 223
+      mv build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 223
       echo "Install Standalone"
       cp build/surge_xt_products/* $PREFIX/bin || exit 224
     touch buildok-$ARCH
