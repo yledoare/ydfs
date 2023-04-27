@@ -8,7 +8,6 @@ cadence-0.9.2.tar.gz::https://github.com/falkTX/cadence/archive/v0.9.2.tar.gz  #
 git://github.com/mtytel/helm.git#tag=v0.9.0
 surge-1.9.0.tgz::https://github.com/surge-synthesizer/releases/releases/download/1.9.0/SurgeSrc_1.9.0.tgz #SKIP-x86_64#
 git://github.com/surge-synthesizer/surge.git#tag=release_xt_1.2.0 #SKIP-x86#
-https://github.com/surge-synthesizer/surge/archive/refs/tags/release_xt_1.2.0.tar.gz
 lvtk-1.2.0.tar.gz::https://github.com/lvtk/lvtk/archive/1.2.0.tar.gz
 ams-lv2-1.2.2.tar.gz::https://github.com/blablack/ams-lv2/archive/v1.2.2.tar.gz
 http://www.xwax.co.uk/releases/xwax-1.7.tar.gz
