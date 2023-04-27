@@ -594,18 +594,19 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 
   if [ -e src/surge-xt/SurgeSynthEditor.cpp ]
   then
-    echo "Build Surge"
+    echo "Build Surge XT"
+    git submodule update --init --recursive
+    [ -e $HOME/$ARCH/include/fmt ] && mv $HOME/$ARCH/include/fmt $HOME/$ARCH/include/fmt-disabled
     install -d $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lua*  $HOME/$ARCH/include/disabled-lua && mv $HOME/$ARCH/include/lauxlib.h $HOME/$ARCH/include/disabled-lua
     # git submodule update --init --recursive
     install -d build
     sed -e "s|/usr/share/Surge|$PREFIX/share/Surge|" -i src/common/SurgeStorage.cpp
-grep share/Surge src/common/SurgeStorage.cpp
+    grep share/Surge src/common/SurgeStorage.cpp
       LDFLAGS="${LDFLAGS},-z,noexecstack" cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
         -DCMAKE_BUILD_TYPE='None' \
         -W no-dev \
         -B build \
         -S .  || exit 1
-      #FIXME
       mv $HOME/$ARCH/include/tinyxml.h $HOME/$ARCH/include/tinyxml-disabled.h
       cd build
       make || exit 1
@@ -614,9 +615,9 @@ grep share/Surge src/common/SurgeStorage.cpp
       install -d $PREFIX/share/Surge
       cp -av resources/data/* $PREFIX/share/Surge || exit 222
       echo "Install VST3"
-      cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 1
+      cp -fR build/surge_xt_products/*.vst3 $PREFIX/lib/vst3 || exit 223
       echo "Install Standalone"
-      cp build/surge_xt_products/* $PREFIX/bin
+      cp build/surge_xt_products/* $PREFIX/bin || exit 224
     touch buildok-$ARCH
     exit 0
   fi
