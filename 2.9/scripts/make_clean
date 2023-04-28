@@ -14,3 +14,8 @@
 	rm -fR ${HOME}/ydfs/build-wine32
 	rm -fR ${HOME}/linuxconsole
 	rm -fR ${HOME}/ydfs/build/busybox*
+        [ -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz
+        [ -e $HOME/iso/$YDFS-multilib.tar.gz ] && rm $HOME/iso/$YDFS-multilib.tar.gz
+        [ -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/$YDFS-$ARCH.tar.gz
+        [ -e $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-$YDFS-$ARCH.tar.gz
+        rm -fR $HOME/ydfs/build/linux-*
