@@ -300,7 +300,7 @@ https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v13.0.0/spirv-llvm
 https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/libclc-13.0.0.src.tar.xz #SKIP-x86#
 https://mesa.freedesktop.org/archive/mesa-21.3.9.tar.xz 
 https://github.com/anholt/libepoxy/releases/download/1.5.4/libepoxy-1.5.4.tar.xz
-https://gitlab.freedesktop.org/virgl/virglrenderer.git
+https://gitlab.freedesktop.org/virgl/virglrenderer.git#tag=0.10.4
 https://xorg.freedesktop.org//releases/individual/lib/libdmx-1.1.4.tar.bz2
 https://cairographics.org/snapshots/cairo-1.17.4.tar.xz
 # Graphviz need cairo for png
@@ -494,7 +494,7 @@ https://download.gnome.org/sources/gcr/3.41/gcr-3.41.1.tar.xz
 https://github.com/sahlberg/libnfs/archive/libnfs-2.0.0.tar.gz
 https://download.gnome.org/sources/gsettings-desktop-schemas/41/gsettings-desktop-schemas-41.0.tar.xz
 https://github.com/libfuse/libfuse/releases/download/fuse-3.9.3/fuse-3.9.3.tar.xz
-pip::Cython
+pip::Cython==0.29.36
 git://github.com/libimobiledevice/libplist#commit=c5a30e9267068436a75b5d00fcbf95cb9c1f4dcd
 git://github.com/libimobiledevice/libusbmuxd.git#commit=ce98c346b7c1dc2a21faea4fd3f32c88e27ca2af
 git://github.com/libimobiledevice/libimobiledevice#commit=15f8652126664e3a4b980e5d1c039b9053ce8566
