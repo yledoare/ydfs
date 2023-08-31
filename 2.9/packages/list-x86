@@ -425,8 +425,7 @@ https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_58_RTM/src/nss-3.58.tar.
 https://releases.pagure.org/volume_key/volume_key-0.3.12.tar.xz
 git://github.com/Distrotech/dmraid.git
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
-http://pyyaml.org/download/libyaml/yaml-0.1.7.tar.gz
-https://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz
+pip::PyYAML
 libblockdev-2.26.tar.gz::https://github.com/rhinstaller/libblockdev/archive/2.26-1.tar.gz
 http://0pointer.de/public/libatasmart-0.19.tar.xz
 https://github.com/storaged-project/udisks/archive/udisks-2.9.4.tar.gz
