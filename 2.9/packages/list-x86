@@ -426,7 +426,8 @@ https://releases.pagure.org/volume_key/volume_key-0.3.12.tar.xz
 git://github.com/Distrotech/dmraid.git
 https://github.com/rhinstaller/libbytesize/archive/2.2.tar.gz
 pip::PyYAML
-libblockdev-2.26.tar.gz::https://github.com/rhinstaller/libblockdev/archive/2.26-1.tar.gz
+https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
+libblockdev-2.28.tar.gz::https://github.com/rhinstaller/libblockdev/archive/2.28-1.tar.gz
 http://0pointer.de/public/libatasmart-0.19.tar.xz
 https://github.com/storaged-project/udisks/archive/udisks-2.9.4.tar.gz
 https://github.com/acoustid/chromaprint/archive/v1.5.1/chromaprint-1.5.1.tar.gz
