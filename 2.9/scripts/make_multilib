@@ -192,8 +192,8 @@ unset MAKE
     -D tests=true \
     -D introspection=false || exit 1
         ;;
-    curl )
-	./configure --prefix=$HOME/multilib --with-ssl --without-gnutls
+    kmod )
+	./configure --prefix=$HOME/multilib --disable-manpages
 	;;
     pixman )
 	./configure --prefix=$HOME/multilib --disable-gtk
