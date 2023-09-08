@@ -92,7 +92,7 @@ BOOT=NAND
       else
         if [ "$arch" = "x86" ]
 	    then
-              echo "KERNEL3=5.4.240" >> config.ini
+              echo "KERNEL3=5.4.256" >> config.ini
 	      echo "BUSYBOX=1.24.2" >> config.ini
 	    else
 	      if [ "$KERNEL3" = "latest" ]
@@ -103,7 +103,7 @@ BOOT=NAND
 	        echo "Latest kernel is $LATEST"
                 echo "KERNEL3=$LATEST" >> config.ini
 	      else
-                echo "KERNEL3=6.1.23" >> config.ini
+                echo "KERNEL3=6.1.52" >> config.ini
 	      fi
 	      echo "BUSYBOX=1.31.1" >> config.ini
 	    fi
