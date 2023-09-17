@@ -1,23 +1,31 @@
 if [ -e programs/winecfg ] && [ "$ARCH" == "x86_64" ]
 then
+	echo "First Multilib build"
 	bash $HOME_DIBAB/scripts/make_multilib 
 	# FIXME !
 	# Why references to x86_86/lib instead of multilib/lib for libz.o ??
+	echo "Clean mesa build-32"
 	rm -fR  $HOME/ydfs/src/mesa-*/build-32/
 
+	echo "2nd Multilib build"
 	bash $HOME_DIBAB/scripts/make_multilib 
 	# FIXME again !
 	# ?? rm -fR $HOME/ydfs/src/libsoup-2.*/build-32
  	# ?? rm -fR $HOME/ydfs/src/glib-networking-2.*/build-32/
   	# ?? rm -fR $HOME/ydfs/src/glib-networking-2.*/ydfs-multilib-buildt
+	echo "Clean zst build-32"
 	rm $HOME/ydfs/src/zstd-1.5.2/ydfs-multilib-buildt
 	
 	# FIXME again !
 
+	echo "Clean libcap-2"
 	rm $HOME/ydfs/src/libcap-2.*/ydfs-multilib-buildt
+	echo "Clean gstreamer"
   	rm -fR $HOME/ydfs/src/gstreamer-1.*/build-32
+	echo "3nd Multilib build"
 	bash $HOME_DIBAB/scripts/make_multilib 
 
+	echo "4nd Multilib build"
 	bash $HOME_DIBAB/scripts/make_multilib || exit 1
 	WINEBUILD=$PWD
 
