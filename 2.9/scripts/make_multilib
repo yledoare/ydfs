@@ -98,7 +98,7 @@ do
   [ "$1" != "force" ] && [ -e unix/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e source/ydfs-multilib-buildt ] && cd .. && continue
   [ "$1" != "force" ] && [ -e ncurses-build/ydfs-multilib-buildt ] && cd .. && continue
-  pwd
+  pwd && echo "Start build" && sleep 2
   case $PKG in
     acl )
 	cp -fR $HOME/x86_64/include/attr $HOME/multilib/include
@@ -203,6 +203,9 @@ unset MAKE
 	;;
     elfutils )
 	./configure --prefix=$HOME/multilib --disable-debuginfod
+	;;
+    curl )
+	./configure --prefix=$HOME/multilib --with-ssl --without-gnutls
 	;;
     libxslt )
 	./configure --prefix=$HOME/multilib --without-python
