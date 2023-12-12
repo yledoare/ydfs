@@ -1,9 +1,9 @@
-install -d $HOME/.config/autostart
-for app in mate-power-manager.desktop blueman.desktop
-do
-  cp /usr/etc/xdg/autostart/$app $HOME/.config/autostart/$app
-  echo "Hidden=true" >> $HOME/.config/autostart/$app
-done
+#install -d $HOME/.config/autostart
+#for app in mate-power-manager.desktop blueman.desktop
+#do
+#  cp /usr/etc/xdg/autostart/$app $HOME/.config/autostart/$app
+#  echo "Hidden=true" >> $HOME/.config/autostart/$app
+#done
 
 # dconf dump / > dconf.txt
 # dconf load / < dconf.txt
@@ -197,6 +197,8 @@ ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [org/blueman/general]
-window-properties=[500, 350, 552, 345] " | dconf load /
+window-properties=[500, 350, 552, 345] " > $HOME/.dconf # | dconf load /
+
+dconf load / $HOME/.dconf
 
 # dconf load / < dconf.txt

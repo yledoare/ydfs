@@ -1930,7 +1930,7 @@ libusbmuxd.pc.in libuv.pc.in NetworkManager-pptp.doap elfutils.spec src/a52dec.c
     [ "$MODULE" != "$ARCH" ] && [ ! -e "programs/winecfg" ] && [ ! -e gdb/gdb.c ] && SKIP_DIR=""
     MYPREFIX="--prefix=$PREFIX"
     [ -e src/doxygen.pro ] && MYPREFIX="--prefix $PREFIX" 
-    [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
+    # [ -e $SOURCEDIR/mate-volume-control/gvc-mixer-dialog.h ] && MYPREFIX="--prefix $HOME/$ARCH"  && echo $MYPREFIX && sleep 5
     if [ "$SKIP_DIR" != "" ]
     then
       install -d $BUILD_DIR

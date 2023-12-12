@@ -45,5 +45,6 @@ do
   [ -e /ydfs/modules/$MODULE/lib/ladspa ] && echo 'export LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/$MODULE/lib/ladspa >> /etc/env.dyn
   [ -e /ydfs/modules/$MODULE/lib/lv2 ] && echo 'export LV2_PATH=$LV2_PATH:'$HOME_DIBAB/$MODULE/lib/lv2 >> /etc/env.dyn
   [ -e /ydfs/modules/$MODULE/lib/lxvst ] && echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE/lib/lxvst >> /etc/env.dyn
+  [ -e /ydfs/modules/$MODULE/lib/vst3 ] && echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/$MODULE/lib/vst3 >> /etc/env.dyn
   [ -e /ydfs/modules/$MODULE/lib/dssi ] && echo 'export DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/$MODULE/lib/dssi >> /etc/env.dyn
 done

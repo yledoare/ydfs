@@ -289,6 +289,12 @@ ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/strip_module music
 	./scripts/make_module music
 
+vst: ${LCMBUILD}/vst-${ARCH}.squashfs
+${LCMBUILD}/vst-${ARCH}.squashfs : packages/list-vst
+	./scripts/make_packages vst
+	./scripts/strip_module vst
+	./scripts/make_module vst
+
 mate: ${LCMBUILD}/mate-${ARCH}.squashfs
 ${LCMBUILD}/mate-${ARCH}.squashfs : packages/list-mate
 	./scripts/make_packages mate
