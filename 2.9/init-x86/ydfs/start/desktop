@@ -76,7 +76,7 @@ function start_XBMC
  then
    $HOME/ydfs/mysession
  else
-   count_session=$(ls /ydfs/modules/*/share/xsessions |grep -v openbox|wc|cut -d' ' -f7)
+   count_session=$(ls /ydfs/modules/*/share/xsessions/*.desktop |grep -v openbox|wc|cut -d' ' -f7)
    if [ $count_session = 1 ]
    then
      start_mate
