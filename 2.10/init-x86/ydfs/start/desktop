@@ -27,8 +27,8 @@ update-mime-database /usr/share/mime
 
 function start_mate
 {
-	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2023/mate/share 
-	export XDG_CONFIG_DIRS=/home/linuxconsole2023/mate/etc/xdg
+	export XDG_DATA_DIRS=$XDG_DATA_DIRS:$HOME_DIBAB/mate/share 
+	export XDG_CONFIG_DIRS=$HOME_DIBAB/mate/etc/xdg
 	export XDG_MENU_PREFIX="mate-"
 	/ydfs/start/plogoff  &
 	/usr/libexec/bluetooth/obexd &
@@ -46,8 +46,8 @@ function start_pantheon
 
 function start_XFCE
 {
-	export XDG_DATA_DIRS=$XDG_DATA_DIRS:/home/linuxconsole2023/xfce/share
-	export XDG_CONFIG_DIRS=/home/linuxconsole2023/xfce/etc/xdg
+	export XDG_DATA_DIRS=$XDG_DATA_DIRS:$HOME_DIBAB/xfce/share
+	export XDG_CONFIG_DIRS=$HOME_DIBAB/xfce/etc/xdg
 	export XDG_MENU_PREFIX="xfce-"
  	dbus-launch startxfce4  1>$HOME/.xfce-log 2>$HOME/.xfce-err
 }
