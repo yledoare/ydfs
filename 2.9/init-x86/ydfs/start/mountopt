@@ -39,6 +39,13 @@ done
 
 [ -e /etc/env.dyn ] && rm /etc/env.dyn
 
+echo 'export VST_PATH=$VST_PATH:'$HOME_DIBAB/opkg/lib/vst >> /etc/env.dyn
+echo 'export LADSPA_PATH=$LADSPA_PATH:'$HOME_DIBAB/opkg/lib/ladspa >> /etc/env.dyn
+echo 'export LV2_PATH=$LV2_PATH:'$HOME_DIBAB/opkg/lib/lv2 >> /etc/env.dyn
+echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/opkg/lib/lxvst >> /etc/env.dyn
+echo 'export LXVST_PATH=$LXVST_PATH:'$HOME_DIBAB/opkg/lib/vst3 >> /etc/env.dyn
+echo 'export DSSI_PATH=$DSSI_PATH:'$HOME_DIBAB/opkg/lib/dssi >> /etc/env.dyn
+
 ls /ydfs/modules/ | while read MODULE
 do
   [ -e /ydfs/modules/$MODULE/lib/vst ] && echo 'export VST_PATH=$VST_PATH:'$HOME_DIBAB/$MODULE/lib/vst >> /etc/env.dyn

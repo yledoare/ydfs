@@ -2111,6 +2111,7 @@ ac_cv_file__dev_ptc=no' >  config.site
     [ -e setup.py ] && echo "Run $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX"
     [ -e setup.py ] && $PYTHON setup.py install  --root="$HOME/ydfs/packages-$ARCH/$MYDIR" --prefix=$PREFIX 
     [ -e chessx.pro ] && qmake
+    [ -e cool-retro-term.pro ] &&  git submodule update --init --recursive && qmake -set prefix $PREFIX && qmake
     if [ -e qtwebengine.pro ] 
     then
 	echo "Build QtWebEngine"
@@ -2435,6 +2436,16 @@ echo "At BUILDPERL"
                         --ptformat \
                         --lxvst \
                         --no-phone-home"
+
+       pwd | grep ardour-tracker &&  LC_CONFIGURE_OPTS=" --with-backends=jack,alsa,dummy,pulseaudio \
+      			--with-tracker-editor
+                        --libjack=weak \
+                        --optimize \
+                        --cxx11 \
+                        --freedesktop \
+                        --ptformat \
+                        --no-phone-home"
+
       [ "$ARCH" = "x86" ] && pwd | grep ardour &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --dist-target=i686"
       echo "Run ./waf  $LC_CONFIGURE_OPTS "
 	 if [ -e src/plugins/avcodec ]
@@ -2461,6 +2472,12 @@ echo "At BUILDPERL"
             "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}7.png" || exit 1
           done
           touch buildok-$ARCH
+  	  if [ "$MODULE" = "opkg" ]
+  	  then
+	    ./waf install --destdir $HOME/ydfs/packages-$ARCH/$MYDIR
+     	    cd $HOME/ydfs/packages-$ARCH/$MYDIR
+    	    $HOME_DIBAB/scripts/make_opkg || exit $?
+  	  fi
        exit 0
      fi
      touch buildok-$ARCH
