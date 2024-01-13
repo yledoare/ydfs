@@ -456,7 +456,7 @@ unset MAKE
 	mkdir build-32
 	cd build-32
 	echo "Pulse audio needs libtool32"
-	wget https://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz && tar xzvf libtool-2.4.6.tar.gz && cd libtool-2.4.6 && ./configure --prefix=$HOME/multilib && make && make install && cd ..
+	wget https://ftp.gnu.org/gnu/libtool/libtool/libtool-2.4.6.tar.gz && tar xzvf libtool-2.4.6.tar.gz && cd libtool-2.4.6 && ./configure --prefix=$HOME/multilib && make && make install && cd ..
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dudevrulesdir=$HOME/$ARCH/lib/udev/rules.d -Dgtk=disabled -Djack=disabled -Dorc=disabled -Dfftw=disabled -Dbluez5=false -Dlirc=disabled -Delogind=disabled -Ddatabase=simple -Davahi=disabled -Dsystemd=disabled --libdir=$HOME/multilib/lib32 || exit 1
 	;;
      wayland-1 )
