@@ -17,10 +17,11 @@ export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
 install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
-find -name '*.ko' -exec modinfo {} \; | awk '$1 == "firmware:" { print $2}' > list-firmwares
-GIT_SSL_NO_VERIFY=1 git clone --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+[ ! -e list-firmwares ] && "Generale list-firmwares" && find -name '*.ko' -exec modinfo {} \; | awk '$1 == "firmware:" { print $2}' > list-firmwares
+[ ! -e linux-firmware ] && echo "git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"  && GIT_SSL_NO_VERIFY=1 git clone --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
 cd linux-firmware
-make DESTDIR="$HOME/firmware" FIRMWAREDIR=/lib/firmware install
+echo "Install"
+PATH=$PATH:$HOME/$ARCH/bin make DESTDIR="$HOME/firmware" FIRMWAREDIR=/lib/firmware install
 # cp -fR linux-firmware lib/firmware || exit 3
 ls $HOME/firmware/lib/firmware/radeon/R600* || exit 1
 $HOME/$ARCH/bin/mksquashfs $HOME/firmware/lib/firmware $LCMBUILD/firmware-$ARCH.squashfs

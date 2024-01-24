@@ -1,6 +1,6 @@
 function install_docker_engine
 {
-  TARBALL=https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz
+  TARBALL=https://download.docker.com/linux/static/stable/x86_64/docker-20.10.12.tgz
   cd $HOME
   [ ! -e `basename $TARBALL` ] && wget $TARBALL 
   [ ! -e docker ] && tar xzvf `basename $TARBALL`
