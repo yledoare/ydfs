@@ -1,0 +1,285 @@
+From 3f5cde0c90a155765914750962922e7444084158 Mon Sep 17 00:00:00 2001
+From: Miklos Vajna <vmiklos@collabora.com>
+Date: Mon, 27 Nov 2023 08:02:59 +0100
+Subject: [PATCH] tdf#158302 fix build against system-libxml-2.12
+
+Seen in a fedora:40 container, using --with-system-libcmis,
+--with-system-liblangtag and --with-system-xmlsec.
+
+Change-Id: I9d748d3dc0b70dbfdfcb6b99c9ce8440bda6f326
+Reviewed-on: https://gerrit.libreoffice.org/c/core/+/159980
+Tested-by: Jenkins
+Reviewed-by: Miklos Vajna <vmiklos@collabora.com>
+(cherry picked from commit c8f7408db73d2f2ccacb25a2b4fef8dfebdfc6cb)
+Reviewed-on: https://gerrit.libreoffice.org/c/core/+/161563
+Tested-by: Jenkins CollaboraOffice <jenkinscollaboraoffice@gmail.com>
+Reviewed-by: Paris Oplopoios <parisoplop@gmail.com>
+---
+
+diff --git a/drawinglayer/source/tools/primitive2dxmldump.cxx b/drawinglayer/source/tools/primitive2dxmldump.cxx
+index 08f585a..4759038 100644
+--- a/drawinglayer/source/tools/primitive2dxmldump.cxx
++++ b/drawinglayer/source/tools/primitive2dxmldump.cxx
+@@ -15,6 +15,7 @@
+ 
+ #include <math.h>
+ #include <memory>
++#include <libxml/parser.h>
+ #include <sal/log.hxx>
+ 
+ #include <drawinglayer/primitive2d/bitmapprimitive2d.hxx>
+diff --git a/filter/source/xsltfilter/LibXSLTTransformer.cxx b/filter/source/xsltfilter/LibXSLTTransformer.cxx
+index 1a7c348..5e9a7c4 100644
+--- a/filter/source/xsltfilter/LibXSLTTransformer.cxx
++++ b/filter/source/xsltfilter/LibXSLTTransformer.cxx
+@@ -333,7 +333,7 @@
+         }
+         else
+         {
+-            xmlErrorPtr lastErr = xmlGetLastError();
++            const xmlError* lastErr = xmlGetLastError();
+             OUString msg;
+             if (lastErr)
+                 msg = OStringToOUString(lastErr->message, RTL_TEXTENCODING_UTF8);
+diff --git a/helpcompiler/source/HelpLinker.cxx b/helpcompiler/source/HelpLinker.cxx
+index e95b916..beae12a 100644
+--- a/helpcompiler/source/HelpLinker.cxx
++++ b/helpcompiler/source/HelpLinker.cxx
+@@ -815,7 +815,11 @@
+ 
+ extern "C" {
+ 
++#if LIBXML_VERSION >= 21200
++static void StructuredXMLErrorFunction(SAL_UNUSED_PARAMETER void *, const xmlError* error)
++#else
+ static void StructuredXMLErrorFunction(SAL_UNUSED_PARAMETER void *, xmlErrorPtr error)
++#endif
+ {
+     std::string aErrorMsg = error->message;
+     std::string aXMLParsingFile;
+diff --git a/include/xmloff/xmltoken.hxx b/include/xmloff/xmltoken.hxx
+index ae2864f..6227047 100644
+--- a/include/xmloff/xmltoken.hxx
++++ b/include/xmloff/xmltoken.hxx
+@@ -742,7 +742,7 @@
+         XML_EMBEDDED_VISIBLE_AREA,
+         XML_EMBOSSED,
+         XML_EMISSIVE_COLOR,
+-        XML_EMPTY,
++        XML_TOKEN_EMPTY,
+         XML_EMPTY_LINE_REFRESH,
+         XML_ENABLE_NUMBERING,
+         XML_ENABLED,
+diff --git a/sax/source/fastparser/fastparser.cxx b/sax/source/fastparser/fastparser.cxx
+index aae3c11..93b6b04 100644
+--- a/sax/source/fastparser/fastparser.cxx
++++ b/sax/source/fastparser/fastparser.cxx
+@@ -579,7 +579,7 @@
+ OUString lclGetErrorMessage( xmlParserCtxtPtr ctxt, std::u16string_view sSystemId, sal_Int32 nLine )
+ {
+     const char* pMessage;
+-    xmlErrorPtr error = xmlCtxtGetLastError( ctxt );
++    const xmlError* error = xmlCtxtGetLastError( ctxt );
+     if( error && error->message )
+         pMessage = error->message;
+     else
+diff --git a/sc/source/core/tool/interpr7.cxx b/sc/source/core/tool/interpr7.cxx
+index 352c7cf..ecb4ea3 100644
+--- a/sc/source/core/tool/interpr7.cxx
++++ b/sc/source/core/tool/interpr7.cxx
+@@ -31,6 +31,7 @@
+ #include <cstring>
+ #include <memory>
+ #include <string_view>
++#include <libxml/parser.h>
+ 
+ using namespace com::sun::star;
+ 
+diff --git a/sc/source/filter/xml/XMLExportDataPilot.cxx b/sc/source/filter/xml/XMLExportDataPilot.cxx
+index da65bec..bd5f16d 100644
+--- a/sc/source/filter/xml/XMLExportDataPilot.cxx
++++ b/sc/source/filter/xml/XMLExportDataPilot.cxx
+@@ -123,7 +123,7 @@
+ 
+     if (aQueryEntry.IsQueryByEmpty())
+     {
+-        rExport.AddAttribute(XML_NAMESPACE_TABLE, XML_OPERATOR, GetXMLToken(XML_EMPTY));
++        rExport.AddAttribute(XML_NAMESPACE_TABLE, XML_OPERATOR, GetXMLToken(XML_TOKEN_EMPTY));
+     }
+     else if (aQueryEntry.IsQueryByNonEmpty())
+     {
+diff --git a/sc/source/filter/xml/XMLExportDatabaseRanges.cxx b/sc/source/filter/xml/XMLExportDatabaseRanges.cxx
+index 61c01d2..9c78f60 100644
+--- a/sc/source/filter/xml/XMLExportDatabaseRanges.cxx
++++ b/sc/source/filter/xml/XMLExportDatabaseRanges.cxx
+@@ -376,7 +376,7 @@
+             case SC_EQUAL:
+             {
+                 if (rEntry.IsQueryByEmpty())
+-                    return GetXMLToken(XML_EMPTY);
++                    return GetXMLToken(XML_TOKEN_EMPTY);
+                 else if (rEntry.IsQueryByNonEmpty())
+                     return GetXMLToken(XML_NOEMPTY);
+ 
+diff --git a/sc/source/filter/xml/xmlfilti.cxx b/sc/source/filter/xml/xmlfilti.cxx
+index 7585ce0..61f7cfe 100644
+--- a/sc/source/filter/xml/xmlfilti.cxx
++++ b/sc/source/filter/xml/xmlfilti.cxx
+@@ -370,7 +370,7 @@
+         rEntry.eOp = SC_BOTPERC;
+     else if (IsXMLToken(aOpStr, XML_BOTTOM_VALUES))
+         rEntry.eOp = SC_BOTVAL;
+-    else if (IsXMLToken(aOpStr, XML_EMPTY))
++    else if (IsXMLToken(aOpStr, XML_TOKEN_EMPTY))
+         rEntry.SetQueryByEmpty();
+     else if (aOpStr == u">")
+         rEntry.eOp = SC_GREATER;
+@@ -422,7 +422,7 @@
+     if (maQueryItems.empty())
+     {
+         ScQueryEntry::Item& rItem = rEntry.GetQueryItem();
+-        if (IsXMLToken(sOperator, XML_EMPTY))
++        if (IsXMLToken(sOperator, XML_TOKEN_EMPTY))
+             return;
+         if (IsXMLToken(sDataType, XML_NUMBER))
+         {
+@@ -753,7 +753,7 @@
+     else
+         aFilterField.eConnect = SC_AND;
+     pFilterContext->SetIsCaseSensitive(bIsCaseSensitive);
+-    if (IsXMLToken(sOperator, XML_EMPTY))
++    if (IsXMLToken(sOperator, XML_TOKEN_EMPTY))
+         aFilterField.SetQueryByEmpty();
+     else if (IsXMLToken(sOperator, XML_NOEMPTY))
+         aFilterField.SetQueryByNonEmpty();
+diff --git a/unoxml/source/dom/attr.cxx b/unoxml/source/dom/attr.cxx
+index 4988aa4..9d9179c 100644
+--- a/unoxml/source/dom/attr.cxx
++++ b/unoxml/source/dom/attr.cxx
+@@ -22,6 +22,7 @@
+ #include <string.h>
+ 
+ #include <memory>
++#include <libxml/entities.h>
+ 
+ #include <osl/diagnose.h>
+ #include <sal/log.hxx>
+diff --git a/unoxml/source/dom/document.cxx b/unoxml/source/dom/document.cxx
+index 413f764..5784c74 100644
+--- a/unoxml/source/dom/document.cxx
++++ b/unoxml/source/dom/document.cxx
+@@ -41,6 +41,7 @@
+ #include <eventdispatcher.hxx>
+ 
+ #include <string.h>
++#include <libxml/xmlIO.h>
+ 
+ #include <osl/diagnose.h>
+ 
+diff --git a/unoxml/source/dom/documentbuilder.cxx b/unoxml/source/dom/documentbuilder.cxx
+index a7cc288..e8d5ef4 100644
+--- a/unoxml/source/dom/documentbuilder.cxx
++++ b/unoxml/source/dom/documentbuilder.cxx
+@@ -22,6 +22,7 @@
+ #include <string.h>
+ 
+ #include <libxml/xmlerror.h>
++#include <libxml/parser.h>
+ 
+ #include <memory>
+ 
+diff --git a/unoxml/source/dom/entity.cxx b/unoxml/source/dom/entity.cxx
+index ccc8a08..98909df 100644
+--- a/unoxml/source/dom/entity.cxx
++++ b/unoxml/source/dom/entity.cxx
+@@ -22,6 +22,7 @@
+ #include <osl/diagnose.h>
+ 
+ #include <string.h>
++#include <libxml/entities.h>
+ 
+ using namespace css::uno;
+ using namespace css::xml::dom;
+diff --git a/unoxml/source/xpath/xpathapi.cxx b/unoxml/source/xpath/xpathapi.cxx
+index f1968c2..2945017 100644
+--- a/unoxml/source/xpath/xpathapi.cxx
++++ b/unoxml/source/xpath/xpathapi.cxx
+@@ -26,6 +26,7 @@
+ #include <libxml/xmlerror.h>
+ #include <libxml/xpath.h>
+ #include <libxml/xpathInternals.h>
++#include <libxml/xmlIO.h>
+ 
+ #include <com/sun/star/xml/xpath/XPathException.hpp>
+ 
+@@ -217,7 +218,7 @@
+         return selectSingleNode(contextNode, expr);
+     }
+ 
+-    static OUString make_error_message(xmlErrorPtr pError)
++    static OUString make_error_message(const xmlError* pError)
+     {
+         OUStringBuffer buf;
+         if (pError) {
+@@ -263,7 +264,11 @@
+             SAL_WARN("unoxml", "libxml2 error: " << str);
+         }
+ 
++#if LIBXML_VERSION >= 21200
++        static void structured_error_func(void *, const xmlError* error)
++#else
+         static void structured_error_func(void *, xmlErrorPtr error)
++#endif
+         {
+             SAL_WARN("unoxml", "libxml2 error: " << make_error_message(error));
+         }
+diff --git a/xmloff/source/core/xmltoken.cxx b/xmloff/source/core/xmltoken.cxx
+index 6958717..8a3f982 100644
+--- a/xmloff/source/core/xmltoken.cxx
++++ b/xmloff/source/core/xmltoken.cxx
+@@ -754,7 +754,7 @@
+         TOKEN( "embedded-visible-area",           XML_EMBEDDED_VISIBLE_AREA ),
+         TOKEN( "embossed",                        XML_EMBOSSED ),
+         TOKEN( "emissive-color",                  XML_EMISSIVE_COLOR ),
+-        TOKEN( "empty",                           XML_EMPTY ),
++        TOKEN( "empty",                           XML_TOKEN_EMPTY ),
+         TOKEN( "empty-line-refresh",              XML_EMPTY_LINE_REFRESH ),
+         TOKEN( "enable-numbering",                XML_ENABLE_NUMBERING ),
+         TOKEN( "enabled",                         XML_ENABLED ),
+diff --git a/xmloff/source/style/PageMasterStyleMap.cxx b/xmloff/source/style/PageMasterStyleMap.cxx
+index 7b2cab4..6f63128 100644
+--- a/xmloff/source/style/PageMasterStyleMap.cxx
++++ b/xmloff/source/style/PageMasterStyleMap.cxx
+@@ -157,7 +157,7 @@
+     PLMAP( PROP_FootnoteLineRelativeWidth, XML_NAMESPACE_STYLE,    XML__EMPTY,     XML_TYPE_PERCENT8|MID_FLAG_SPECIAL_ITEM,    CTF_PM_FTN_LINE_WIDTH ),
+     PLMAP( PROP_FootnoteLineTextDistance, XML_NAMESPACE_STYLE,    XML__EMPTY,     XML_TYPE_MEASURE|MID_FLAG_SPECIAL_ITEM,    CTF_PM_FTN_LINE_DISTANCE ),
+     PLMAP( PROP_FootnoteLineWeight,        XML_NAMESPACE_STYLE,    XML_FOOTNOTE_SEP,    XML_TYPE_MEASURE16|MID_FLAG_ELEMENT_ITEM,    CTF_PM_FTN_LINE_WEIGHT ),
+-    PLMAP( PROP_FootnoteLineStyle,     XML_NAMESPACE_STYLE,    XML_EMPTY,  XML_TYPE_STRING|MID_FLAG_ELEMENT_ITEM,  CTF_PM_FTN_LINE_STYLE ),
++    PLMAP( PROP_FootnoteLineStyle,     XML_NAMESPACE_STYLE,    XML_TOKEN_EMPTY,  XML_TYPE_STRING|MID_FLAG_ELEMENT_ITEM,  CTF_PM_FTN_LINE_STYLE ),
+     PLMAP_EXT(PROP_GutterMargin, XML_NAMESPACE_LO_EXT, XML_MARGIN_GUTTER, XML_TYPE_MEASURE, CTF_PM_MARGINGUTTER),
+ 
+     //////////////////////////////////////////////////////////////////////////
+diff --git a/xmlsecurity/inc/xmlsec-wrapper.h b/xmlsecurity/inc/xmlsec-wrapper.h
+index e4048de..1dc5941 100644
+--- a/xmlsecurity/inc/xmlsec-wrapper.h
++++ b/xmlsecurity/inc/xmlsec-wrapper.h
+@@ -28,6 +28,7 @@
+ #define XMLSEC_NO_SIZE_T
+ #endif
+ 
++#include <libxml/parser.h>
+ #include <xmlsec/base64.h>
+ #include <xmlsec/bn.h>
+ #include <xmlsec/errors.h>
+diff --git a/xmlsecurity/inc/xmlsec/saxhelper.hxx b/xmlsecurity/inc/xmlsec/saxhelper.hxx
+index a49ccef..a5863ff 100644
+--- a/xmlsecurity/inc/xmlsec/saxhelper.hxx
++++ b/xmlsecurity/inc/xmlsec/saxhelper.hxx
+@@ -23,6 +23,7 @@
+ 
+ #include <string_view>
+ 
++#include <libxml/parser.h>
+ #include <libxml/tree.h>
+ 
+ #include <rtl/ustring.hxx>
