@@ -1,0 +1,26 @@
+diff --git a/xmloff/source/draw/sdpropls.cxx b/xmloff/source/draw/sdpropls.cxx
+index c554b24..89350ca 100644
+--- a/xmloff/source/draw/sdpropls.cxx
++++ b/xmloff/source/draw/sdpropls.cxx
+@@ -76,7 +76,7 @@ using namespace ::xmloff::token;
+ #define DPMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_DRAWING_PAGE,context)
+ #define TMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_TEXT,context)
+ #define PMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_PARAGRAPH,context)
+-#define MAP_END() { nullptr, 0, XML_EMPTY, 0 ,0, SvtSaveOptions::ODFSVER_010, false }
++#define MAP_END() { nullptr, 0, XML_TOKEN_EMPTY, 0 ,0, SvtSaveOptions::ODFSVER_010, false }
+ 
+ // entry list for graphic properties
+ 
+diff --git a/xmloff/source/table/XMLTableExport.cxx b/xmloff/source/table/XMLTableExport.cxx
+index c9e306f..46164c3 100644
+--- a/xmloff/source/table/XMLTableExport.cxx
++++ b/xmloff/source/table/XMLTableExport.cxx
+@@ -60,7 +60,7 @@ using namespace ::com::sun::star::style;
+ #define CMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_TABLE_COLUMN,context)
+ #define RMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_TABLE_ROW,context)
+ #define CELLMAP(name,prefix,token,type,context) MAP_(name,prefix,token,type|XML_TYPE_PROP_TABLE_CELL,context)
+-#define MAP_END { nullptr, 0, XML_EMPTY, 0, 0, SvtSaveOptions::ODFSVER_010, false }
++#define MAP_END { nullptr, 0, XML_TOKEN_EMPTY, 0, 0, SvtSaveOptions::ODFSVER_010, false }
+ 
+ const XMLPropertyMapEntry* getColumnPropertiesMap()
+ {
