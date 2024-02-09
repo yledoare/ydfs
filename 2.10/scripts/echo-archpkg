@@ -5,6 +5,7 @@ install -d $HOME/archpkg
 cd $HOME/archpkg
 URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
 URL1=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD
+URL1=https://gitlab.archlinux.org/archlinux/packaging/packages/$1/-/raw/main/PKGBUILD?ref_type=heads
 URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=
 URL6=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
 URL7=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
