@@ -31,7 +31,7 @@ echo "SKIPOPKG=$SKIPOPKG" >> config.ini
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
 echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> config.ini
 
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} xfce-${ARCH} lxde-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> config.ini
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> config.ini
 
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then

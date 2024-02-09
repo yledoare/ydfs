@@ -572,6 +572,13 @@ CMAKEOPTIONS="--debug-output -DOPUSFILE_LIBRARY=$HOME/$ARCH/lib/libopus.so.0 -DO
 	exit 0
   fi
 
+  if [ -e glib.doap ] && [ -e .git ]
+  then
+    echo "Git submodule init for glib.doap"
+    git submodule init
+    git -c protocol.file.allow=always submodule update
+  fi
+
   if [ -e src/avldrums.c ]
   then
     wget https://raw.githubusercontent.com/archlinux/svntogit-community/packages/avldrums.lv2/trunk/avldrums.lv2-0.4.2-use-system-fluidsynth.patch
@@ -2223,7 +2230,7 @@ ln -sf $PREFIX/bin/2H4U .
 	mkdir build
 	cd build
 	echo "Gvfs"
-	PYTHONPATH="" meson --prefix=$PREFIX --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
+	PYTHONPATH="" meson --prefix=$PREFIX -Dlibdir=$PREFIX/lib --sysconfdir=$PREFIX/etc -Dsystemduserunitdir=no -Dtmpfilesdir=no -Dgoogle=false -Dgoa=false -Dlogind=false ../
 	PYTHONPATH="" ninja || exit $?
 	PYTHONPATH="" ninja install || exit $?
 	cd ..

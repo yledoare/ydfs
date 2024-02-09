@@ -39,7 +39,7 @@ https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz
 https://www.sqlite.org/2020/sqlite-src-3330000.zip
 https://deac-ams.dl.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.gz
 https://github.com/PhilipHazel/pcre2/releases/download/pcre2-10.39/pcre2-10.39.tar.bz2
-https://download-fallback.gnome.org/sources/glib/2.70/glib-2.70.4.tar.xz
+https://download-fallback.gnome.org/sources/glib/2.78/glib-2.78.4.tar.xz
 https://download.savannah.gnu.org/releases/libunwind/libunwind-1.6.2.tar.gz
 https://github.com/libfuse/libfuse/releases/download/fuse-2.9.9/fuse-2.9.9.tar.gz
 ftp://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz
@@ -306,7 +306,7 @@ https://cairographics.org/snapshots/cairo-1.17.4.tar.xz
 # Graphviz need cairo for png
 https://gitlab.com/graphviz/graphviz/-/archive/5.0.0/graphviz-5.0.0.tar.gz
 https://github.com/silnrsi/graphite/releases/download/1.3.13/graphite2-1.3.13.tgz
-https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-2.6.4.tar.xz
+https://github.com/harfbuzz/harfbuzz/releases/download/7.3.0/harfbuzz-7.3.0.tar.xz
 https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2
 https://download.gnome.org/sources/pango/1.48/pango-1.48.11.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.9.tar.xz
@@ -515,7 +515,8 @@ pip::conan
 #https://gitlab.gnome.org/GNOME/librest/-/archive/0.9.0/librest-0.9.0.tar.bz2
 ftp://ftp.acc.umu.se/pub/gnome/sources/rest/0.8/rest-0.8.1.tar.xz
 https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/archive/3.40.1/gnome-online-accounts-3.40.1.tar.bz2 #SKIP-x86#
-http://ftp.acc.umu.se/pub/gnome/sources/gvfs/1.48/gvfs-1.48.1.tar.xz
+https://download.gnome.org/sources/libsoup/3.4/libsoup-3.4.4.tar.xz
+http://ftp.acc.umu.se/pub/gnome/sources/gvfs/1.52/gvfs-1.52.2.tar.xz
 https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.3p1.tar.gz
 https://ftp.gnu.org/gnu/inetutils/inetutils-2.2.tar.xz
 https://www.lua.org/ftp/lua-5.4.1.tar.gz
@@ -616,7 +617,7 @@ http://taglib.github.io/releases/taglib-1.12.tar.gz
 https://www.libssh.org/files/0.8/libssh-0.8.3.tar.xz
 ftp://ftp.unixodbc.org/pub/unixODBC/unixODBC-2.3.7.tar.gz
 pip::lxml
-https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.33.tar.gz
+https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.39.tar.gz
 http://downloads.sourceforge.net/project/soxr/soxr-0.1.3-Source.tar.xz
 http://downloads.sourceforge.net/sox/sox-14.4.2.tar.bz2
 https://prdownloads.sourceforge.net/lirc/lirc-0.10.1.tar.bz2
@@ -795,17 +796,17 @@ https://sourceforge.net/projects/libepubgen/files/libepubgen-0.1.1/libepubgen-0.
 https://downloads.sourceforge.net/sourceforge/libwpd/libwpd-0.10.2.tar.xz
 https://downloads.sourceforge.net/libwpg/libwpg-0.3.2.tar.xz
 http://downloads.sourceforge.net/project/libwps/libwps/libwps-0.4.10/libwps-0.4.10.tar.xz
-https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.14/libmwaw-0.3.14.tar.xz
+https://sourceforge.net/projects/libmwaw/files/libmwaw/libmwaw-0.3.22/libmwaw-0.3.22.tar.xz
 https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
-https://kohei.us/files/mdds/src/mdds-2.0.2.tar.xz
+https://kohei.us/files/mdds/src/mdds-2.1.1.tar.xz
 https://dev-www.libreoffice.org/src/libetonyek/libetonyek-0.1.10.tar.xz
 https://dev-www.libreoffice.org/src/libabw/libabw-0.1.3.tar.xz
 https://dev-www.libreoffice.org/src/libzmf/libzmf-0.0.2.tar.xz
 https://github.com/fosnola/libstaroffice/releases/download/0.0.7/libstaroffice-0.0.7.tar.xz
-https://github.com/tdf/libcmis/releases/download/v0.5.2/libcmis-0.5.2.tar.gz
+https://github.com/tdf/libcmis/releases/download/v0.6.2/libcmis-0.6.2.tar.xz
 spdlog-1.8.1.tar.gz::https://github.com/gabime/spdlog/archive/v1.8.1.tar.gz
-https://kohei.us/files/ixion/src/libixion-0.17.0.tar.xz
-https://kohei.us/files/orcus/src/liborcus-0.17.2.tar.xz
+https://kohei.us/files/ixion/src/libixion-0.19.0.tar.xz
+https://kohei.us/files/orcus/src/liborcus-0.19.2.tar.xz
 https://dev-www.libreoffice.org/src/libexttextcat/libexttextcat-3.4.5.tar.xz
 https://github.com/Numbertext/libnumbertext/archive/1.0.6.tar.gz
 https://github.com/nu-book/zxing-cpp/archive/v1.2.0/zxing-cpp-1.2.0.tar.gz
