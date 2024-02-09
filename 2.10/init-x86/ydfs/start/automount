@@ -20,7 +20,7 @@ ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
 ENV{ID_FS_LABEL}=="", ENV{dir_name}="usbhd-%k"
 
 ENV{ID_FS_TYPE}=="vfat", ENV{mount_options}="-o user,umask=0000"
-ENV{ID_FS_TYPE}=="exfat", ENV{mount_options}="-o umask=0000"
+ENV{ID_FS_TYPE}=="exfat", ENV{mount_options}="-o users,exec,rw,suid,dev,atime,diratime,uid=1000,gid=1000,umask=000"
 
 # Global mount options
 # ACTION=="add", ENV{mount_options}="relatime"
