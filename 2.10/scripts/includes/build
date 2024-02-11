@@ -1,6 +1,10 @@
 
 build_ydfs_package()
 {  
+  if [ "$SEND_BUILD_LOG" = "YES" ]
+  then
+	echo "Send log"
+  fi
   echo $PWD/ydfs-error > $HOME/ydfs/.last-error
   echo $PWD/ydfs-log > $HOME/ydfs/.last-log
   if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
@@ -37,6 +41,17 @@ build_ydfs_package()
   END=`date '+%s'`
   DURATION=$((($END - $START)/60))
   SDURATION=$((($END - $START)%60))
+  if [ "$SEND_BUILD_LOG" = "YES" ]
+  then
+	echo "Send log"
+	cp ydfs-log $PKGNAME.log.txt
+  	echo -e "$PKGNAME build in $SDURATION " >> $PKGNAME.log.txt
+	cpuinfo >> $PKGNAME.log.txt
+	cat /sys/devices/virtual/dmi/id/board_name >> $PKGNAME.log.txt
+	cp ydfs-err $PKGNAME.err.txt
+	curl -F "uploadedfile=@$PKGNAME.log.txt" http://jukebox.linuxconsole.org/upload-logs.php 
+	curl -F "uploadedfile=@$PKGNAME.err" http://jukebox.linuxconsole.org/upload-logs.php 
+  fi
   if [ "$DURATION" != "0" ]
     then
   	echo -e "$PKGNAME build in \e[94m$DURATION:$SDURATION\e[0m " 

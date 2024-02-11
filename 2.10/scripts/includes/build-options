@@ -178,8 +178,7 @@ echo $ARCHIVE | grep dolphin &&  LC_CONFIGURE_OPTS="-DCMAKE_CXX_FLAGS='-fPIC' \
     -DUSE_SHARED_ENET='TRUE' \
     -DDISTRIBUTOR='linuxconsole.org'"
 echo $ARCHIVE | grep cifs-utils &&  LC_CONFIGURE_OPTS="--sbindir=$DIBAB_PREFIX/$MODULE/sbin " && export ROOTSBINDIR=$DIBAB_PREFIX/$MODULE/sbin
-echo $ARCHIVE | grep vte-0.5 &&  LC_CONFIGURE_OPTS="--enable-vala=no"
-echo $ARCHIVE | grep vte-0.6 &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
+echo $ARCHIVE | grep vte-0.7 &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
 echo $ARCHIVE | grep vte.git &&  LC_CONFIGURE_OPTS="-Dfribidi=false -D_systemd=false"
 echo $ARCHIVE | grep gnome-settings-daemon &&  LC_CONFIGURE_OPTS=" -Dsystemd=false"
 

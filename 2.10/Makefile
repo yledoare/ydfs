@@ -19,6 +19,7 @@ export BUILD_DESKTOP
 export DISTRONAME
 export SLEEPTIME
 export SKIPOPKG
+export SEND_BUILD_LOG
 export TOOLCHAIN
 export HOME_DIBAB
 export YDFS=$(shell basename ${PWD})

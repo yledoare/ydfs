@@ -24,6 +24,9 @@ echo "DISTRONAME=$DISTRONAME" >> config.ini
 [ "$SLEEPTIME" = "" ] && SLEEPTIME=3600
 echo "SLEEPTIME=$SLEEPTIME" >> config.ini
 
+[ "$SEND_BUILD_LOG" = "" ] && SEND_BUILD_LOG=NO
+echo "SEND_BUILD_LOG=$SEND_BUILD_LOG" >> config.ini
+
 [ "$SKIPOPKG" = "" ] && SKIPOPKG=NO
 echo "SKIPOPKG=$SKIPOPKG" >> config.ini
 
