@@ -1,13 +1,14 @@
 #!/bin/bash
 install -d $HOME/archpkg
 cd $HOME/archpkg
-URL=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/
+URL=https://gitlab.archlinux.org/archlinux/packaging/packages/$1/-/raw/main/PKGBUILD?ref_type=heads
+URL2=https://gitlab.archlinux.org/archlinux/packaging/packages/$1/-/raw/main
 PKG=$1
 SHORT=${PKG:0:2}
 #[ -e $PKG ] && rm $PKG
 if [ ! -e $HOME/archpkg/$PKG ]
 then
-wget --no-check-certificate -q "$URL""/""$1""/trunk/PKGBUILD" -O $HOME/archpkg/$PKG || ERROR=1
+wget --no-check-certificate -q "$URL""/""$1""/-/raw/main/PKGBUILD?ref_type=heads" -O $HOME/archpkg/$PKG || ERROR=1
 fi
 
 . $HOME/archpkg/$PKG
@@ -16,8 +17,8 @@ for i in ${!source[*]}
 do 
  if [ $i -gt 0 ]
  then
-#	echo ${source[i]}
-	echo $URL/$PKG/trunk/${source[i]} >> $HOME/.archpatches
+	echo ${source[i]}
+	echo 'https://gitlab.archlinux.org/archlinux/packaging/packages/cinnamon-desktop/-/raw/main/config.patch?ref_type=heads' > $HOME/.archpatches
+	echo $URL2/${source[i]}?ref_type=heads >> $HOME/.archpatches
  fi
- #break
 done

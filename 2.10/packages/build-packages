@@ -256,6 +256,8 @@ fi
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/xorg/driver/xf86-video-ati'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.freedesktop.org/geoclue'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/vala.git'`" ] \
+	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libgnomekbd.git'`" ] \
+	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libgsf.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/mutter.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/libgweather.git'`" ] \
 	  || [  -n "`echo $ARCHIVE | grep 'https://gitlab.gnome.org/GNOME/orca.git'`" ] \
