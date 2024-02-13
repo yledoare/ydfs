@@ -1,0 +1,10 @@
+diff --git a/Makefile.am b/Makefile.am
+index d72e0f7..dd9368c 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
++#ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libgsf-1.pc

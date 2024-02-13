@@ -70,6 +70,7 @@ export UIC=`which uic`
 # boucle sur l'ensemble des modules 
 for MODULE in $MODULE_LIST
 do
+[ "$MODULE" = "updates" ] && MODULE=$ARCH
 # echo "PATH is $PATH"
 export ACLOCAL_FLAGS=" -I $HOME/$MODULE/share/aclocal/  -I $HOME/$ARCH/share/aclocal/ -I $HOME/opkg/share/aclocal/"
 #echo "ACLOCAL_FLAGS is $ACLOCAL_FLAGS"

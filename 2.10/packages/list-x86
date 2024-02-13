@@ -945,6 +945,16 @@ https://github.com/zeux/pugixml/releases/download/v1.12.1/pugixml-1.12.1.tar.gz
 https://github.com/NilsBrause/waylandpp/archive/1.0.0.zip
 https://people.freedesktop.org/~hughsient/releases/fwupd-1.8.7.tar.xz
 https://downloads.sourceforge.net/project/freeimage/Source%20Distribution/3.18.0/FreeImage3180.zip
+#Cinnamon
+https://gitlab.gnome.org/GNOME/libgnomekbd.git#commit=1ca55e9f3644eb20ccee1042a7fa4158465f4aef
+#dbusmenu16.10-r498.tar.gz::https://bazaar.launchpad.net/~dbusmenu-team/libdbusmenu/trunk.16.10/tarball/498
+http://jukebox.linuxconsole.org/sources/libdbusmenu.tar.gz
+https://github.com/linuxmint/xapp/archive/2.8.2/xapp-2.8.2.tar.gz
+https://libopenraw.freedesktop.org/download/exempi-2.6.5.tar.xz
+https://gitlab.gnome.org/GNOME/libgsf.git#commit=ea9d8cd1369661bf62d0476474700a9e0887c812
+git://github.com/CanonicalLtd/lightdm.git#tag=9e72b5b3072ff9990211f35aa2a48e971ff710c7
+lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz
+https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-3.20211022.1.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-15.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
@@ -952,49 +962,3 @@ git://github.com/falkTX/Carla.git#tag=v2.5.0 #SKIP-x86#
 #Warning, unset LDFLAGS for building grub
 ftp://ftp.gnu.org/gnu/grub/grub-2.06.tar.xz
 #END-linuxconsole
-[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;57r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[57;1H"scripts/includes/build" 63L, 2087B[1;1Hbuild_ydfs_package()
-{
-  if [ "$SEND_BUILD_LOG" = "YES" ]
-  then[5;9Hecho "Send log"
-  fi
-  echo $PWD/ydfs-error > $HOME/ydfs/.last-error
-  echo $PWD/ydfs-log > $HOME/ydfs/.last-log
-  if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
-  then
-  export LC_CONFIGURE_OPTS
-  echo "db-autobuild from build_ydfs_package - verbose"
-  db-autobuild $MYPREFIX
-  EXITCODE=$?
-  if [ "$EXITCODE" != "0" ]
-  then[17;6H[ "$NOTEXIT" != "OK" ] && echo "Exit 1" && exit 1
-  fi
-  else
-  PKGNAME=`basename $PWD`
-  echo -n "Building $PKGNAME in progress, "
-  echo "LOG: $PWD/ydfs-log ... "
-#  echo "Err : $PWD/ydfs-error "
-  TIME=`date "+%H:%M"`
-  TIME2=`date "+%d/%m/%Y" `
-  echo -n "Start at"
-  echo -e " \e[91m$TIME\e[0m - $TIME2 "
-  START=`date '+%s'`
-  [ -e ydfs-log ] && [ ! -e ydfs-log.1rst ] && cp ydfs-log ydfs-log.1rst
-#echo "Run build_ydfs_package from scripts/includes/build"
-  echo "db-autobuild from build_ydfs_package - logfile"
-  db-autobuild $MYPREFIX 2>ydfs-error 1>ydfs-log
-  EXITCODE=$?
-#echo "Exit code is $EXITCODE"
-  if [ "$EXITCODE" != "0" ]
-  then[37;6HLOGERROR=`tail ydfs-error` && echo -n -e "\n \e[31mFAILED $PWD\e[0m \n" && echo -n -e "\n\n \e[31m$LOGERROR\e[0m \n" && echo -e "\n Error log at $PWD/ydfs-error \n\n"[38;6H[ "$NOTEXIT" != "OK" ] && echo "Exit 1" && exit 1
-  fi
-  END=`date '+%s'`
-  DURATION=$((($END - $START)/60))
-  SDURATION=$((($END - $START)%60))
-  if [ "$SEND_BUILD_LOG" = "YES" ]
-  then[45;9Hecho "Send log"[46;9Hcp ydfs-log $PKGNAME.log.txt[47;9Hecho -e "$PKGNAME build in $SDURATION " >> $PKGNAME.log.txt[48;9Hcpuinfo >> $PKGNAME.log.txt[49;9Hcat /sys/devices/virtual/dmi/id/board_name >> $PKGNAME.log.txt[50;9Hcp ydfs-err $PKGNAME.err.txt[51;9Hcurl -F "uploadedfile=@$PKGNAME.log.txt" http://jukebox.linuxconsole.org/upload-logs.php[52;9Hcurl -F "uploadedfile=@$PKGNAME.err" http://jukebox.linuxconsole.org/upload-logs.php
-  fi
-  if [ "$DURATION" != "0" ]
-    then[56;9Hecho -e "$PKGNAME build in \e[94m$DURATION:$SDURATION\e[0m "[57;221H52,40-47      14%[51;47H[?25h[?25l[57;1HTapez  :qa  puis <Entré[57;24He> pour quitter Vim[57;221H[K[57;221H52,40-47      14%[51;47H[?25h[?25l[57;211H^M[51;47H[57;211H  [51;9H[1;56r[56;1H
-[1;57r[56;5Helse[57;1H[K[57;221H53,2-9[8C28%[51;9H[?25h[?25l[57;211H:[51;9H[57;211H[K[57;1H:[?25h:[?25l[51;9H[57;221H53,2-9[8C28%[51;9H[?25h[?25l[57;211H<20>[51;9H[57;211H    [51;10H[57;224H3-10[51;10H[?25h[?25l[57;211H<20>[51;10H[57;211H    [51;11H[57;224H4-11[51;11H[?25h[?25l[57;211H<20>[51;11H[57;211H    [51;12H[57;224H5-12[51;12H[?25h[?25l[57;211H^M[51;12H[57;211H  [51;3H[1;56r[56;1H
-[1;57r[56;9Hecho -e "$PKGNAME build in \e[92m$DURATION:$SDURATION\e[0m "[57;1H[K[57;221H54,3[10C42%[51;3H[?25h[?25l[57;211H^M[51;3H[57;211H  [51;3H[1;56r[56;1H
-[1;57r[56;5Hfi[57;221H[K[57;221H55,3[10C57%[51;3H[?25h[?25l[57;1HTapez  :qa  puis <Entré[57;24He> pour quitter Vim[57;221H[K[57;221H55,3[10C57%[51;3H[?25h[?25l[57;211H:[51;3H[57;1H[K[57;1H:[?25hq![?25l[?2004l[>4;m[23;2t[23;1t[57;1H[K[57;1H[?1004l[?2004l[?1l>[?25h[>4;m[?1049l[23;0;0t

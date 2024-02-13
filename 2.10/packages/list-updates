@@ -1,11 +1,2 @@
 #cool-retro-term-1.2.0.tar.gz::https://github.com/Swordfish90/cool-retro-term/archive/1.2.0.tar.gz
-https://gitlab.gnome.org/GNOME/vte/-/archive/0.72.4/vte-0.72.4.tar.bz2
 https://gitlab.archlinux.org/archlinux/devtools/-/releases/v1.1.0/downloads/devtools-1.1.0.tar.gz
-https://gitlab.gnome.org/GNOME/libgnomekbd.git#commit=1ca55e9f3644eb20ccee1042a7fa4158465f4aef
-#dbusmenu16.10-r498.tar.gz::https://bazaar.launchpad.net/~dbusmenu-team/libdbusmenu/trunk.16.10/tarball/498
-http://jukebox.linuxconsole.org/sources/libdbusmenu.tar.gz
-https://github.com/linuxmint/xapp/archive/2.8.2/xapp-2.8.2.tar.gz
-https://libopenraw.freedesktop.org/download/exempi-2.6.5.tar.xz
-https://gitlab.gnome.org/GNOME/libgsf.git#commit=ea9d8cd1369661bf62d0476474700a9e0887c812
-git://github.com/CanonicalLtd/lightdm.git?signed#tag=9e72b5b3072ff9990211f35aa2a48e971ff710c7
-lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz

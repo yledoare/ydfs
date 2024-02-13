@@ -950,6 +950,11 @@ fi
 	echo "Move $PREFIX/include/SFML into $PREFIX/include/SFML-1"
 	mv $PREFIX/include/SFML $PREFIX/include/SFML-1
   fi
+  if [ -e po-export/cinnamon/cinnamon-fr.po ]
+  then 
+    cp -r usr/* $PREFIX/
+    exit 0
+  fi
 
   if [ -e src/core/CLucene.h ]
   then
