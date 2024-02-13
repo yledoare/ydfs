@@ -1,0 +1,13 @@
+diff --git a/gsearchtool/help/Makefile.in b/gsearchtool/help/Makefile.in
+index 1f92550..8b427d2 100644
+--- a/gsearchtool/help/Makefile.in
++++ b/gsearchtool/help/Makefile.in
+@@ -353,7 +353,7 @@ HELP_FILES = index.docbook legal.xml
+ HELP_MEDIA = figures/mate-search-tool_window.png
+ 
+ # Add linguas to be ignored, e.g. IGNORE_HELP_LINGUAS = pt ca de es fr
+-@USE_NLS_TRUE@IGNORE_HELP_LINGUAS = pt
++@USE_NLS_TRUE@IGNORE_HELP_LINGUAS = pt uk
+ @USE_NLS_FALSE@HELP_LINGUAS = 
+ @USE_NLS_TRUE@HELP_LINGUAS = $(if $(IGNORE_HELP_LINGUAS), \
+ @USE_NLS_TRUE@	$(filter-out $(IGNORE_HELP_LINGUAS),$(subst /,,$(dir $(wildcard */*.po)))), \

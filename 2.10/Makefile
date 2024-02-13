@@ -290,6 +290,12 @@ ${LCMBUILD}/music-${ARCH}.squashfs : packages/list-music
 	./scripts/strip_module music
 	./scripts/make_module music
 
+cinnamon: ${LCMBUILD}/cinnamon-${ARCH}.squashfs
+${LCMBUILD}/cinnamon-${ARCH}.squashfs : packages/list-cinnamon
+	./scripts/make_packages cinnamon
+	./scripts/strip_module cinnamon
+	./scripts/make_module cinnamon
+
 vst: ${LCMBUILD}/vst-${ARCH}.squashfs
 ${LCMBUILD}/vst-${ARCH}.squashfs : packages/list-vst
 	./scripts/make_packages vst
