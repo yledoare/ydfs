@@ -2,7 +2,8 @@
 MEM=32
 MEM=128
 . ./config.ini
-
+export PATH=/home/linuxconsole2024/vm/bin/:$PATH
+export LD_LIBRARY_PATH=/home/linuxconsole2024/x86_64/lib/:$LD_LIBRARY_PATH
 which qemu-system-x86_64 && EMULATOR="QEMU"
 #which VBoxManage && EMULATOR="VBOX"
 [ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu to make tests !" && exit 1
@@ -27,8 +28,8 @@ fi
 if [ "$DISPLAY" = "" ] || [ "$EMULATOR" = "QEMU" ]
 then
   echo "Run Qemu"
-  [ "$DISPLAY" = "" ] && DISPLAY_OPT="-curses"
-  [ "$1" = "curses" ] && DISPLAY_OPT="-curses"
+  [ "$DISPLAY" = "" ] && DISPLAY_OPT="-display curses"
+  [ "$1" = "curses" ] && DISPLAY_OPT="-display curses"
   # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cdrom $ISO
   if [ -e myfix ]
   then

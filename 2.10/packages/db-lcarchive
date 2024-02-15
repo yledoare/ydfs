@@ -106,6 +106,7 @@ echo "$FILE" |grep  "tcl8.6.1" && DIR2=tcl8.6.1 && FORCED=1
 echo "$FILE" |grep  "cups-1.7.1" && DIR2=cups-1.7.1 && FORCED=1
 echo "$FILE" |grep  "cups-2.0.2" && DIR2=cups-2.0.2 && FORCED=1
 echo "$FILE" |grep  "firefox-65.0.1.source" && DIR2=firefox-65.0.1 && FORCED=1
+echo "$FILE" |grep  "firefox-102.15.0esr.source" && DIR2=firefox-102.15.0 && FORCED=1
 echo "$FILE" |grep  "jpegsrc" && DIR2=jpeg-8 && FORCED=1
 echo "$FILE" |grep  "libpaper_1.1.24+nmu2" && DIR2=libpaper-1.1.24+nmu2 && FORCED=1
 echo "$FILE" |grep  "pa_stable" && DIR2=portaudio && FORCED=1

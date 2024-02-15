@@ -1,3 +1,4 @@
+#echo -n " Looking for a build option for $ARCHIVE in $0 "
 echo $ARCHIVE | grep mozjs && . $HOME/ydfs/firstenv 
 # echo $ARCHIVE | grep jack && . $HOME/ydfs/firstenv 
 echo $ARCHIVE | grep pcre-8 && . $HOME/ydfs/firstenv 
@@ -18,6 +19,7 @@ echo $ARCHIVE | grep Vulkan-Tools &&  LC_CONFIGURE_OPTS="  -DCMAKE_SKIP_RPATH=Tr
     -DGLSLANG_INSTALL_DIR=$HOME/$ARCH \
     -DCMAKE_BUILD_TYPE=Release "
 
+echo $ARCHIVE | grep linuxmint/cjs &&  LC_CONFIGURE_OPTS="  -Dbuildtype=plain -Dinstalled_tests=false "
 echo $ARCHIVE | grep freecell-solver &&  LC_CONFIGURE_OPTS="  -DFCS_WITH_TEST_SUITE=OFF "
 echo $ARCHIVE | grep flatbuffers &&  LC_CONFIGURE_OPTS=" -DFLATBUFFERS_BUILD_FLATLIB=OFF -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
 echo $ARCHIVE | grep iptables &&  LC_CONFIGURE_OPTS=" --disable-nftables "
@@ -792,6 +794,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
 	echo $ARCHIVE | grep libappindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3"
 	echo $ARCHIVE | grep libindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3 \
+
       --disable-static \
       --disable-tests"
 	if [ "$ARCH" = "arm" ] 

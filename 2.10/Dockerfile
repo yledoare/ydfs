@@ -36,10 +36,12 @@ RUN apt-get update && apt-get install -y vim ack wget openjdk-17-jdk-headless li
 RUN apt-get install -y cpio kmod xorriso
 
 # To build firefox
-# RUN apt-get install lld-10
+RUN apt-get install lld-13
 RUN apt-get install cbindgen
 # Cross compile for raspbery 
 RUN apt-get install lib32z1
+# Build kernel 
+RUN apt-get install zstd
 
 #libclc
 #RUN apt-get install -y clang-11
