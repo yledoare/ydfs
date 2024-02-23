@@ -181,6 +181,8 @@ test:
 	./scripts/make_test
 fast_files:
 	./scripts/make_fast_files
+test-liveusb:
+	./scripts/make_test bootusb
 test2:
 	./scripts/make_test curses
 cleanmultilib:
