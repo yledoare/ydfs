@@ -36,7 +36,14 @@ then
   qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
   else
     [ -e $ISO ] && OPTION="-cdrom $ISO" 
-    qemu-system-x86_64 $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    APPEND="rdinit=/init2 nofcc livecd debug1 quiet text"
+    [ "$1" = "bootusb" ] && OPTION=" -drive if=none,id=usbstick,format=raw,file=$ISO   \
+    -usb                                                        \
+    -device usb-ehci,id=ehci                                    \
+    -device usb-tablet,bus=usb-bus.0                            \
+    -device usb-storage,bus=ehci.0,drive=usbstick" && APPEND="liveusb quiet"
+    qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    #qemu-system-x86_64  -device qemu-xhci $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
   fi
   exit 0
