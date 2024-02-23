@@ -264,7 +264,7 @@ git://github.com/json-c/json-c#commit=985c46fec39d1d3043f98e8d8cdb9d040131b3bb
 http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz 
 https://mirrors.edge.kernel.org/pub/linux/bluetooth/sbc-1.5.tar.xz
 https://www.kernel.org/pub/linux/bluetooth/bluez-5.65.tar.xz
-http://xorg.freedesktop.org//releases/individual/lib/libxshmfence-1.1.tar.bz2
+https://xorg.freedesktop.org//archive/individual/lib/libxshmfence-1.3.2.tar.xz
 http://people.freedesktop.org/~aplattner/vdpau/libvdpau-1.1.1.tar.bz2
 http://downloads.sourceforge.net/project/omxil/omxil/Bellagio%200.9.3/libomxil-bellagio-0.9.3.tar.gz
 http://xcb.freedesktop.org/dist/xcb-util-image-0.4.0.tar.bz2
@@ -723,7 +723,7 @@ http://code.breakfastquay.com/attachments/download/34/rubberband-1.8.1.tar.bz2
 http://fltk.org/pub/fltk/1.3.4/fltk-1.3.4-source.tar.gz
 https://github.com/michaelrsweet/mxml/releases/download/release-2.10/mxml-2.10.tar.gz
 https://github.com/protocolbuffers/protobuf/releases/download/v3.15.8/protobuf-all-3.15.8.tar.gz
-https://github.com/openjdk/jdk17u/archive/jdk-17.0.2-ga.tar.gz
+https://github.com/openjdk/jdk21u/archive/jdk-21.0.2+13.tar.gz
 http://plib.sourceforge.net/dist/plib-1.8.5.tar.gz
 https://ftp.gnu.org/pub/gnu/guile/guile-2.2.6.tar.gz
 git://gitlab.gnome.org/GNOME/gcab.git#commit=d8054af4381dcef17ae691775c96a60116823047
