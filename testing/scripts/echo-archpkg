@@ -1,6 +1,7 @@
 #!/bin/bash
 PKG=$1
 SHORT=${PKG:0:2}
+echo "1 $1 PKG $PKG SHORT $SHORT"
 install -d $HOME/archpkg
 cd $HOME/archpkg
 URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
@@ -23,6 +24,7 @@ wget $OPTION "$URL1" -O $HOME/archpkg/$PKG || \
 	ERROR=1
 fi
 
+ls -l $HOME/archpkg/$PKG
 test -s $HOME/archpkg/$PKG
 if [ $? = 1 ]
 then

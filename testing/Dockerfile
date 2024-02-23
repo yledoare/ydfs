@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
 
 # Locale
@@ -31,7 +31,9 @@ RUN apt-get install -y xz-utils bzip2
 RUN apt-get install -y meson
 
 RUN useradd ydfs3 --create-home
+RUN useradd build-ydfs3 --create-home
 COPY ./build /home/ydfs3/build
-
-USER ydfs3
-CMD /home/ydfs3/build
+#USER ydfs3
+#CMD /home/ydfs3/build
+CMD tail -f /dev/null 
+#CMD echo "Ready" && tail -f /dev/null

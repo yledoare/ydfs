@@ -1,2 +1,11 @@
+archlastbuild:systemd
+archlinux:m4
+archlinux:texinfo
+archlinux:autoconf
+archlinux:automake
+archlinux:help2man
+archlinux:libtool
 archlinux:xorgproto
+archlinux:pkg-config
+archlastbuild:systemd
 archlastbuild:pluma

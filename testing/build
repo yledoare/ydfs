@@ -1,7 +1,8 @@
-install -d ~/src
-cd ~/src
-[ ! -e ydfs ] && git clone https://github.com/yledoare/ydfs.git
-cd ydfs 
-cd testing
-git pull
-make || make || make || make || make || tail -f /dev/null
+#install -d ~/src
+#cd ~/src
+#[ ! -e ydfs ] && git clone https://github.com/yledoare/ydfs.git
+#cd ydfs 
+#cd testing
+#git pull
+# make || make || make || make || make || tail -f /dev/null
+make || bash

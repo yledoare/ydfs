@@ -37,28 +37,9 @@ function build_from_url
   export PKGSRC=$PKGURL
   # echo " $PKGURL "
   export PREFIX=$DIBAB_PREFIX/$MODULE/
-  if [  -n "`echo $PKGURL | grep 'svn://'`" ] 
-  then
-    cd $HOME/ydfs/src
-    SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1`
-    [ ! -e $SOURCE_DIR ] && svn co $PKGURL
-    cd $SOURCE_DIR
-    [ -e libc ] && cd libc # eglibc
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || exit $?
-    continue
-  fi
-  if [  -n "`echo $PKGURL | grep 'lp:'`" ] 
-  then
-    cd $HOME/ydfs/src
-    SOURCE_DIR=`echo $PKGURL | cut -d':' -f2`
-    [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $PKGURL
-    cd $SOURCE_DIR
-    $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
-  fi
   if [  -n "`echo $PKGURL | grep 'git://'`" ] || [  -n "`echo $PKGURL | grep 'opkg-gtk2.git'`" ] || [  -n "`echo $PKGURL | grep 'git+https://'`" ]  
   then
+    PKGURL=`echo $PKGURL |cut -d'?' -f1`
     cd $HOME/ydfs/src
     SOURCE_DIR=`basename $PKGURL | cut -d'.' -f1 | cut -d'#' -f1`
     [ ! -e $SOURCE_DIR ] && git clone `echo $PKGURL | sed "s/git+https/https/" | cut -d'#' -f1` 
@@ -68,12 +49,13 @@ function build_from_url
     COMMIT=`echo $ARCHIVE | grep '#commit' | cut -d'=' -f2`
     if [ "$TAG" != "" ]
     then
+	echo "Tag is $TAG"
 	git checkout tags/$TAG || exit 1
     fi
     [ "$COMMIT" != "" ] && echo "At commit $COMMIT" &&  git checkout  $COMMIT && sleep 5
     $HOME_DIBAB/scripts/build_from_source $DIBAB_PREFIX/$MODULE || touch $HOME/ydfs-error
-    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
+    [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && cat $HOME/ydfs-error && exit 1 
+    return 0
   fi
   if [  -n "`echo $PKGURL | grep 'pip::'`" ] 
   then
@@ -82,7 +64,7 @@ function build_from_url
 #    python3.8 -m pip install --upgrade pip setuptools wheel
 	  pip3 install $modpython || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
+    return 0
   fi
   if [  -n "`echo $PKGURL | grep 'CPAN:/'`" ] 
   then
@@ -90,7 +72,7 @@ function build_from_url
     echo "Run  db-build-modperl $modperl" 
     SDL_INC=$HOME/$CARCH/include SDL_LIB=$HOME/$CARCH/lib db-build-modperl $modperl || touch $HOME/ydfs-error
     [ -e $HOME/ydfs-error ] && echo "Exit $PKGURL " && break
-    continue
+    return 0
   fi
   if [ -e $HOME/ydfs/tarballs/`basename $PKGURL` ]
   then

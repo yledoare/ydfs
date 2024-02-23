@@ -7,6 +7,22 @@ docker build -f Dockerfile -t ydfs3 .
 
 # Build ydfs ISO
 
+docker run -ti --rm --security-opt seccomp=unconfined -w="$(pwd)" -v "$(pwd):$(pwd)" --user="ydfs3:`id -g`" ydfs3 /bin/bash /home/ydfs3/build
+
+## END
+
+
+docker run -ti --rm --security-opt seccomp=unconfined \
+	-w="$(pwd)" \
+	-v "$(pwd):$(pwd)" \
+	-v "${PWD}/dl:/share/dl" \
+	-v "${PWD}/host:/share/host" \
+	--user="`id -u`:`id -g`" \
+	ydfs3 bash
+
+# docker run -ti --rm --security-opt seccomp=unconfined -w="$(pwd)" -v "$(pwd):$(pwd)" --user="ydfs3:`id -g`" ydfs3 bash /home/ydfs3/build
+# docker run -ti --rm --security-opt seccomp=unconfined -w="$(pwd)" -v "$(pwd):$(pwd)" -v "${PWD}/tarballs:/home/ydfs3/ydfs/tarballs" -v "${PWD}/host:/share/host" --user="ydfs3:`id -g`" ydfs3 bash
+
 (from docker, Linux terminal or Windows powershell)
 
 * mkdir iso
