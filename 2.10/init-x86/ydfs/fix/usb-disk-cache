@@ -1,0 +1,3 @@
+echo 52428800 > /proc/sys/vm/dirty_bytes
+echo 20971520 > /proc/sys/vm/dirty_background_bytes
+

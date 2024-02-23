@@ -58,4 +58,6 @@ chmod +x /fix/lubuntu-logout
 
 /usr/libexec/bluetooth/bluetoothd &
 
+/ydfs/fix/usb-disk-cache
+
 [ -e /dev/kmsg ] && mv /dev/kmsg /dev/kmsg.udev
