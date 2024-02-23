@@ -31,6 +31,7 @@ echo -n "Detect media"
 echo -n "Mount ydfs modules"
 . /ydfs/detect/modules
 
+[ -e /ydfs/boot/options/logger  ] && logger debug04
 [ -e /ydfs/boot/options/debug04  ] && sh
 
 # [ ! -e /ydfs/boot/options/nofcc ] && echo -n "Start font cache .. " && /ydfs/enable/fonts && echo "ok"
@@ -38,17 +39,21 @@ echo -n "Mount ydfs modules"
 
 . /ydfs/start/fixydfs
 
+[ -e /ydfs/boot/options/logger  ] && logger automount
 [ -e /ydfs/boot/options/debug1  ] && sh
 . /ydfs/start/automount
 [ -e /ydfs/boot/options/debug05  ] && sh
 echo "Detect hardware"
+[ -e /ydfs/boot/options/logger  ] && logger hardware
 . /ydfs/detect/hardware
 [ -e /ydfs/boot/options/debug06  ] && sh
 echo "Detect Network"
+[ -e /ydfs/boot/options/logger  ] && logger network
 . /ydfs/detect/network & #> /dev/tty2 2>/dev/tty2
 
 # echo "Set up sound mixer"
 
+[ -e /ydfs/boot/options/logger  ] && logger  mixer
 . /ydfs/detect/mixer &
 . /ydfs/enable/swap &
 . /ydfs/detect/cups &
@@ -72,6 +77,7 @@ fi
 
 /ydfs/start/mountopt
 
+[ -e /ydfs/boot/options/logger  ] && logger virtualbox
 . /ydfs/enable/virtualbox # &
 
 /fix/libs
@@ -80,6 +86,7 @@ fi
 
 date > /tmp/xorg-start-date
 
+[ -e /ydfs/boot/options/logger  ] && logger start-xorg
 if [ -e /ydfs/boot/options/text  ]; then
   echo "You can now start /ydfs/start/xorg"
   sh
