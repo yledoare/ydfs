@@ -1,26 +1,19 @@
 #!/bin/bash
 PKG=$1
 SHORT=${PKG:0:2}
-echo "1 $1 PKG $PKG SHORT $SHORT"
+#echo "1 $1 PKG $PKG SHORT $SHORT"
 install -d $HOME/archpkg
 cd $HOME/archpkg
 URL2=https://raw.githubusercontent.com/archlinux/svntogit-packages/packages/$1/trunk/PKGBUILD
 URL1=https://raw.githubusercontent.com/archlinux/svntogit-community/packages/$1/trunk/PKGBUILD
-URL4=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=
-URL6=https://aur.archlinux.org/packages/$SHORT/$1/PKGBUILD
-URL7=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
-URL8=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
 
 OPTION=" --no-check-certificate" 
 OPTION=" -q --no-check-certificate" 
 if [ ! -e $HOME/archpkg/$PKG ]
 then
+	echo "Get $PKG"
 wget $OPTION "$URL1" -O $HOME/archpkg/$PKG || \
 	wget $OPTION "$URL2" -O $HOME/archpkg/$PKG || \
-	wget $OPTION "$URL3" -O $HOME/archpkg/$PKG || \
-	wget $OPTION "$URL4" -O $HOME/archpkg/$PKG || \
-	wget $OPTION "$URL6" -O $HOME/archpkg/$PKG || \
-	wget $OPTION "$URL7" -O $HOME/archpkg/$PKG || \
 	ERROR=1
 fi
 
@@ -33,7 +26,11 @@ then
  exit 1
 fi
 
+
+echo "DBG source $HOME/archpkg/$PKG"
 source $HOME/archpkg/$PKG
+
+bash
 
 for i in ${!source[*]}
 do 
