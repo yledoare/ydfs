@@ -470,7 +470,7 @@ https://samba.org/ftp/tdb/tdb-1.4.6.tar.gz
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-14.99.2.tar.xz
 http://0pointer.de/lennart/projects/libcanberra/libcanberra-0.30.tar.xz
 http://freedesktop.org/software/pulseaudio/pavucontrol/pavucontrol-5.0.tar.xz
-http://ftp.gnome.org/pub/GNOME/sources/glade/3.20/glade-3.20.2.tar.xz
+https://github.com/GNOME/glade/archive/refs/tags/GLADE_3_40_0.tar.gz
 http://ftp.gnome.org/pub/gnome/sources/gtksourceview/3.22/gtksourceview-3.22.0.tar.xz
 #https://git.yoctoproject.org/cgit/cgit.cgi/opkg/snapshot/opkg-0.3.6.tar.gz
 https://downloads.yoctoproject.org/releases/opkg/opkg-0.2.0.tar.gz
@@ -737,7 +737,7 @@ ftp://ftp.mars.org/pub/mpeg/libid3tag-0.15.1b.tar.gz
 https://downloads.xiph.org/releases/libshout/libshout-2.4.3.tar.gz
 https://people.redhat.com/sgrubb/audit/audit-3.0.7.tar.gz
 #Wine
-https://dl.winehq.org/wine/source/8.x/wine-8.8.tar.xz
+https://dl.winehq.org/wine/source/9.x/wine-9.3.tar.xz
 https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
 http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.tar.xz
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2

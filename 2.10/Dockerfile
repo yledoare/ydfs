@@ -45,6 +45,8 @@ RUN apt-get install zstd
 
 #libclc
 #RUN apt-get install -y clang-11
+#send logs
+RUN apt-get install curl cpuinfo
 
 RUN apt-get install -y rsync
 USER linuxconsole2024
