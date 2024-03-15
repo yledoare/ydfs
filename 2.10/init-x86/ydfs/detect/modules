@@ -142,3 +142,7 @@ ln -s $HOME/$ARCH/lib32 $HOME/multilib/lib
 ln -s $HOME/$ARCH/etc $HOME/multilib
 ln -s $HOME/$ARCH/share $HOME/multilib
 
+touch /var/run/ConsoleKit/database
+chown polkitd /var/run/ConsoleKit/database
+chown polkitd $HOME/$ARCH/etc/polkit-1/rules.d
+ln -s /var/run/dbus/ /run/
