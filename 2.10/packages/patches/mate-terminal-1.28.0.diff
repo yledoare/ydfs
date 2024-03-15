@@ -26,3 +26,16 @@ index 2ab3d7e..933bdb6 100644
        <summary>Whether to use the colors from the theme for the terminal widget</summary>
        <description>If true, the theme color scheme used for text entry boxes will be used for the terminal, instead of colors provided by the user.</description>
      </key>
+diff --git a/help/Makefile.am b/help/Makefile.am
+index 057cdff..04177ed 100644
+--- a/help/Makefile.am
++++ b/help/Makefile.am
+@@ -30,7 +30,7 @@ HELP_MEDIA = figures/mate-terminal-default.png \
+ #	      figures/terminal-window.png   This image is not used.
+ 
+ # Add linguas to be ignored, e.g. IGNORE_HELP_LINGUAS = ca de es fr
+-IGNORE_HELP_LINGUAS =
++IGNORE_HELP_LINGUAS = ja
+ HELP_LINGUAS = $(if $(IGNORE_HELP_LINGUAS), \
+ 	$(filter-out $(IGNORE_HELP_LINGUAS),$(subst /,,$(dir $(wildcard */*.po)))), \
+ 	$(subst /,,$(dir $(wildcard */*.po))) )
