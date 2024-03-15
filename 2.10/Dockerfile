@@ -48,6 +48,7 @@ RUN apt-get install zstd
 #send logs
 RUN apt-get install curl cpuinfo
 
+RUN apt-get install -y rdfind
 RUN apt-get install -y rsync
 USER linuxconsole2024
 CMD /build-lc2024

@@ -956,7 +956,7 @@ git://github.com/CanonicalLtd/lightdm.git#tag=9e72b5b3072ff9990211f35aa2a48e971f
 lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz
 https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-3.20211022.1.tar.gz
 #Last build
-https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-15.0.tar.xz
+https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
 git://github.com/falkTX/Carla.git#tag=v2.5.0 #SKIP-x86#
 #Warning, unset LDFLAGS for building grub
