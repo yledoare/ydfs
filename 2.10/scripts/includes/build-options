@@ -248,6 +248,14 @@ echo $ARCHIVE | grep virglrenderer && LC_CONFIGURE_OPTS="  -Dvenus-experimental=
         echo $ARCHIVE | grep gnome-software-3 && LC_CONFIGURE_OPTS="--disable-gnome-desktop"
         echo $ARCHIVE | grep polkit-0.1 && LC_CONFIGURE_OPTS="--with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind"
         echo $ARCHIVE | grep polkit-dev-duktape && LC_CONFIGURE_OPTS="--with-duktape --with-os-type=lfs --enable-libsystemd-login=no --disable-libsystemd-login --disable-libelogind "
+        echo $ARCHIVE | grep polkit-1 && LC_CONFIGURE_OPTS="-D systemdsystemunitdir=foo \
+      -D session_tracking=ConsoleKit "
+        echo $ARCHIVE | grep ConsoleKit2 && LC_CONFIGURE_OPTS=" --enable-polkit \
+        --enable-pam-module \
+        --enable-udev-acl \
+        --with-dbus-services=$PREFIX/share/dbus-1/services \
+        --without-systemdsystemunitdir \
+        --disable-cgroups "
 	echo $ARCHIVE | grep pcre2- && export LC_CONFIGURE_OPTS="  --enable-pcre2-16 \
     --enable-pcre2-32 \
     --enable-jit \
