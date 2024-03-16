@@ -1233,7 +1233,7 @@ pwd && sleep 5
     echo "Run autogen.sh with PATH:$PATH ACLOCAL:$ACLOCAL ACLOCAL_FLAGS:$ACLOCAL_FLAGS" 
     export ACLOCAL_PATH="$HOME/$ARCH/share/aclocal:$HOME/opkg/share/aclocal:$HOME/opkg/share/aclocal"
     NOCONFIGURE=1 bash autogen.sh # || exit 3
-    gettextize -f
+    #gettextize -f
     make distclean && sleep 5
   fi
 
@@ -2658,6 +2658,7 @@ Cflags: -I${includedir}' > lua.pc
 
 
   [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
+  [ -e libconsolekit/libconsolekit.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
 
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
