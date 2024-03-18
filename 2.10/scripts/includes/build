@@ -48,9 +48,9 @@ build_ydfs_package()
   	echo -e "$PKGNAME build in $SDURATION " >> $PKGNAME.log.txt
 	cpu-info >> $PKGNAME.log.txt
 	cat /sys/devices/virtual/dmi/id/board_name >> $PKGNAME.log.txt
-	cp ydfs-errror $PKGNAME.error.txt
-	/usr/bin/curl -F "uploadedfile=@$PKGNAME.log.txt" http://jukebox.linuxconsole.org/upload-logs.php 
-	/usr/bin/curl -F "uploadedfile=@$PKGNAME.error.txt" http://jukebox.linuxconsole.org/upload-logs.php 
+	cp ydfs-error $PKGNAME.error.txt
+	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.log.txt" http://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
+	/usr/bin/curl -s -F "uploadedfile=@$PKGNAME.error.txt" http://jukebox.linuxconsole.org/upload-logs.php?hostname=$HOSTNAME
   fi
   if [ "$DURATION" != "0" ]
     then
