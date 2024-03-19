@@ -953,7 +953,7 @@ https://github.com/linuxmint/xapp/archive/2.8.2/xapp-2.8.2.tar.gz
 https://libopenraw.freedesktop.org/download/exempi-2.6.5.tar.xz
 https://gitlab.gnome.org/GNOME/libgsf.git#commit=ea9d8cd1369661bf62d0476474700a9e0887c812
 git://github.com/CanonicalLtd/lightdm.git#tag=9e72b5b3072ff9990211f35aa2a48e971ff710c7
-lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz
+#lightdm-slick-greeter-2.0.3.tar.gz::https://github.com/linuxmint/slick-greeter/archive/2.0.3.tar.gz
 https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-3.20211022.1.tar.gz
 #Last build
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
