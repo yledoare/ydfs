@@ -1928,6 +1928,7 @@ Cflags: -I${includedir}' > glm.pc
   then
     [ "$ARCH" != "arm" ] && export PATH=$PREFIX/bin:$PATH
     for SKIP_DIR in \
+libconsolekit/libconsolekit.c \
 nm-l2tp-service.name.in \
 neon.pc.in \
 asciidoc.py \
@@ -2658,7 +2659,7 @@ Cflags: -I${includedir}' > lua.pc
 
 
   [ -e src/udisksata.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
-  #[ -e libconsolekit/libconsolekit.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
+  [ -e libconsolekit/libconsolekit.c ] && sed -e 's/GETTEXT_MACRO_VERSION = 0.19/GETTEXT_MACRO_VERSION = 0.20/' -i po/Makefile.in.in
 
   [ -e src/node.cc ] && [ -e deps/cares ] && [ ! -e $HOME/$ARCH/include/cares ] && echo "Disable deps/cares for NodeJs" && install -d $HOME/$ARCH/include/cares && mv $HOME/$ARCH/include/ares*.h $HOME/$ARCH/include/cares  && sleep 3
   [ -e src/node.cc ] && [ ! -e $HOME/$ARCH/include/uv/uv.h ] && echo "Disable uv.h for NodeJs" && install -d $HOME/$ARCH/include/uv && mv $HOME/$ARCH/include/uv.h $HOME/$ARCH/include/uv  && sleep 3
