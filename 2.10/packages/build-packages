@@ -244,7 +244,9 @@ fi
     [ ! -e $SOURCE_DIR ] && bzr checkout --lightweight $ARCHIVE
     cd $SOURCE_DIR
     echo "db-autobuild for lp"
-    db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
+    #db-autobuild $DIBAB_PREFIX/$MODULE 2>ydfs-error 1>ydfs-log || touch $HOME/ydfs-error
+    . $HOME_DIBAB/scripts/includes/build-options
+    build_ydfs_package
     [ -e $HOME/ydfs-error ] && echo "Exit $ARCHIVE " && break
     [ -e $HOME/ydfs-error ] && tail ydfs-error && echo "Exit $ARCHIVE " && break
     continue

@@ -89,8 +89,8 @@ su - linuxconsole2024 $PWD/build-lc2024
 
 # Troubleshooting :
 
-Error when build QT ?
-Add "--security-opt seccomp:unconfined" option on Debian Strech
+Error when build Mate ?
+Add "--security-opt seccomp:unconfined" option
 https://stackoverflow.com/questions/52705124/why-qdirexists-do-not-work-in-docker-container
 
 # Features 
