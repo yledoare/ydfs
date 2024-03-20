@@ -39,6 +39,8 @@ https://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz
 https://www.sqlite.org/2020/sqlite-src-3330000.zip
 https://deac-ams.dl.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.gz
 https://github.com/PhilipHazel/pcre2/releases/download/pcre2-10.39/pcre2-10.39.tar.bz2
+https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
+https://github.com/mesonbuild/meson/releases/download/0.63.0/meson-0.63.0.tar.gz
 https://download-fallback.gnome.org/sources/glib/2.78/glib-2.78.4.tar.xz
 https://download.savannah.gnu.org/releases/libunwind/libunwind-1.6.2.tar.gz
 https://github.com/libfuse/libfuse/releases/download/fuse-2.9.9/fuse-2.9.9.tar.gz
@@ -57,8 +59,6 @@ https://libzip.org/download/libzip-1.7.3.tar.xz
 https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
 https://github.com/unicode-org/icu/releases/download/release-70-1/icu4c-70_1-src.tgz #SKIP-x86#
 https://github.com/unicode-org/icu/releases/download/release-67-1/icu4c-67_1-src.tgz #SKIP-x86_64#
-https://www.python.org/ftp/python/3.10.2/Python-3.10.2.tar.xz
-https://github.com/mesonbuild/meson/releases/download/0.63.0/meson-0.63.0.tar.gz
 http://ftp.acc.umu.se/pub/gnome/sources/gobject-introspection/1.71/gobject-introspection-1.71.0.tar.xz
 https://download.gimp.org/pub/babl/0.1/babl-0.1.92.tar.xz
 http://ftp.gnome.org/pub/gnome/sources/json-glib/1.4/json-glib-1.4.4.tar.xz
