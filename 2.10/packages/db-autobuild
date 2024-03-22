@@ -2449,6 +2449,16 @@ echo "At BUILDPERL"
                         --ptformat \
                         --lxvst \
                         --no-phone-home"
+
+        pwd | grep ardour-tracker &&  LC_CONFIGURE_OPTS=" --with-backends=jack,alsa,dummy,pulseaudio \
+                        --with-tracker-editor
+                        --libjack=weak \
+                        --optimize \
+                        --cxx11 \
+                        --freedesktop \
+                        --ptformat \
+                        --no-phone-home"
+
       [ "$ARCH" = "x86" ] && pwd | grep ardour &&  LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --dist-target=i686"
       echo "Run ./waf  $LC_CONFIGURE_OPTS "
 	 if [ -e src/plugins/avcodec ]
@@ -2475,6 +2485,7 @@ echo "At BUILDPERL"
             "${pkgdir}/share/icons/hicolor/${size}x${size}/apps/${pkgname}7.png" || exit 1
           done
           touch buildok-$ARCH
+    	  ydfs-install-package
        exit 0
      fi
      touch buildok-$ARCH
