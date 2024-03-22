@@ -17,8 +17,9 @@ https://github.com/mate-desktop/mate-notification-daemon/releases/download/v1.28
 https://github.com/mate-desktop/mate-session-manager/releases/download/v1.28.0/mate-session-manager-1.28.0.tar.xz
 https://github.com/mate-desktop/mate-media/releases/download/v1.28.0/mate-media-1.28.0.tar.xz
 https://github.com/mate-desktop/mate-backgrounds/releases/download/v1.28.0/mate-backgrounds-1.28.0.tar.xz
-https://github.com/mate-desktop/mate-terminal/releases/download/v1.28.0/mate-terminal-1.28.0.tar.xz
-https://github.com/mate-desktop/eom/releases/download/v1.28.0/eom-1.28.0.tar.xz
+https://pub.mate-desktop.org/releases/1.27/mate-terminal-1.27.1.tar.xz  #SKIP-x86_64#
+https://github.com/mate-desktop/mate-terminal/releases/download/v1.28.0/mate-terminal-1.28.0.tar.xz  #SKIP-x86#
+https://github.com/mate-desktop/eom/releases/download/v1.28.0/eom-1.28.0.tar.xz 
 https://github.com/mate-desktop/pluma/releases/download/v1.28.0/pluma-1.28.0.tar.xz
 https://github.com/mate-desktop/pluma-plugins/releases/download/v1.28.0/pluma-plugins-1.28.0.tar.xz
 https://github.com/mate-desktop/engrampa/releases/download/v1.28.0/engrampa-1.28.0.tar.xz

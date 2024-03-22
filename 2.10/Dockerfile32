@@ -36,8 +36,12 @@ RUN apt-get update && apt-get install -y vim ack wget openjdk-17-jdk-headless li
 
 RUN apt-get install -y cpio kmod xorriso
 RUN apt-get install -y rsync
+RUN apt-get install -y rdfind
+# lightdm
+RUN apt-get install -y yelp-tools
 RUN apt-get update
 RUN apt-get upgrade -y
+
 
 USER linuxconsole2024
 CMD /build-lc2024
