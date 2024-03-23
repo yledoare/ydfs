@@ -27,7 +27,7 @@ ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN useradd linuxconsole2024 --create-home
-COPY ./build-lc2024 /build-lc2024
+COPY build-lc2024 /build-lc2024
 
 RUN apt-get update && apt-get install -y  apt-utils
 RUN apt-get update && apt-get install -y  llvm llvm-dev

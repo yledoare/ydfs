@@ -1,0 +1,17 @@
+install -d ~/src
+cd ~/src
+[ ! -e ydfs ] && git clone https://github.com/yledoare/ydfs.git
+cd ydfs 
+git pull
+git checkout 2.10
+if [ -n "$DISTRONAME" ] && [ -e "$DISTRONAME" ] 
+then
+  cd $DISTRONAME
+else
+  cd 2.10
+fi
+# make || make || make || make || make || tail -f /dev/null
+make iso || tail -f /dev/null
+make opkg || tail -f /dev/null
+make modules || tail -f /dev/null
+make sleep 

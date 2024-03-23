@@ -1,0 +1,12 @@
+version: '3'
+services:
+    linuxconsole64:
+        build: ./
+        environment:
+            BUILDYDFS: "fast"
+            SLEEPTIME: 1
+    linuxconsole32:
+        build: ./32/
+        environment:
+            BUILDYDFS: "fast"
+            SLEEPTIME: 1
