@@ -54,3 +54,8 @@ grep RUN Dockerfile | sed s'/RUN//' > install.sh
 bash install.sh
 useradd -m linuxconsole2024
 su - linuxconsole2024 $PWD/build-lc2024
+
+# Verbose Build, without sharing output ISO on host :
+
+* docker run --name linuxconsole2024 -e DIBAB_VERBOSE_BUILD=YES ydfs64-2.10
+
