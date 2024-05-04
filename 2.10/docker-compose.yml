@@ -1,7 +1,7 @@
 version: '3'
 services:
-    linuxconsole64-2024:
-        image: yledoare/ydfs-2.10
+    linuxconsole32-2024:
+        image: yledoare/ydfs-2.10:32-bits
         volumes:
             - $HOME/iso:/home/linuxconsole2024/iso
         environment:
