@@ -7,3 +7,5 @@ services:
         environment:
             BUILDYDFS: "fast"
             SLEEPTIME: 1
+        security_opt:
+            - seccomp:unconfined

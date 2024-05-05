@@ -3,7 +3,7 @@ cd ~/src
 [ ! -e ydfs ] && git clone https://github.com/yledoare/ydfs.git
 cd ydfs 
 git pull
-git checkout 2.10
+git checkout 2.10-32bits
 if [ -n "$DISTRONAME" ] && [ -e "$DISTRONAME" ] 
 then
   cd $DISTRONAME
