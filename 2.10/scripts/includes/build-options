@@ -845,4 +845,4 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
 		echo $ARCHIVE | grep gtkglext && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 		echo $ARCHIVE | grep libjpeg-turbo && [ "$ARCH" = "x86" ] && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --host=i686-linux-gnu"
 	fi
-	echo "LC_CONFIGURE_OPTS: $LC_CONFIGURE_OPTS"
+	# echo "LC_CONFIGURE_OPTS: $LC_CONFIGURE_OPTS"

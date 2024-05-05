@@ -1,6 +1,8 @@
 
 build_ydfs_package()
 {  
+  export LC_CONFIGURE_OPTS
+
   if [ "$SEND_BUILD_LOG" = "YES" ]
   then
 	echo "Send log"
@@ -9,7 +11,6 @@ build_ydfs_package()
   echo $PWD/ydfs-log > $HOME/ydfs/.last-log
   if [ "$BUILDME" = "OK" ] || [ "$DIBAB_VERBOSE_BUILD" = "YES" ] || echo $PWD | grep x11-xserver-utils
   then
-  export LC_CONFIGURE_OPTS
   echo "db-autobuild from build_ydfs_package - verbose"
   db-autobuild $MYPREFIX 
   EXITCODE=$?
