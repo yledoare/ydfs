@@ -189,7 +189,7 @@ Cflags: ' > $PREFIX/lib/pkgconfig/id3tag.pc
   git checkout tags/1.9.0mt4
   cd  ../..
 
-  [ ! -e LuaJIT-2.1.0-beta3 ] && wget https://luajit.org/download/LuaJIT-2.1.0-beta3.tar.gz && tar xzvf LuaJIT-2.1.0-beta3.tar.gz
+  [ ! -e LuaJIT-2.1.0-beta3 ] && wget https://github.com/LuaJIT/LuaJIT/archive/refs/tags/v2.1.0-beta3.tar.gz && tar xzvf v2.1.0-beta3.tar.gz
 
   cd build-client
   CXX="g++   -I$PWD/../LuaJIT-2.1.0-beta3/src -I$PWD/../lib/lua/src $CXXFLAGS" cmake -G Ninja ../ \
