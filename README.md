@@ -2,6 +2,10 @@
 
 (Your Distro From Scratch) is a tool to build your own linux distribution 
 
+To build 32 bits ISO, you must switch to 2.10-32bits branch :
+
+* git checkout 2.10-32bits
+
 # Fast Build (32 & 64 bits)
 
 * cd 2.10
