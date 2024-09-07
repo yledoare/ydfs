@@ -5,7 +5,7 @@ services:
         volumes:
             - $HOME/iso:/home/linuxconsole2024/iso
         environment:
-            BUILDYDFS: "fast"
+            BUILDYDFS: "$BUILDYDFS"
             SLEEPTIME: 1
         security_opt:
             - seccomp:unconfined
