@@ -1,0 +1,30 @@
+diff --git a/grub-core/Makefile.am b/grub-core/Makefile.am
+index f18550c..fc9fc6a 100644
+--- a/grub-core/Makefile.am
++++ b/grub-core/Makefile.am
+@@ -454,8 +454,8 @@ crypto.lst: $(srcdir)/lib/libgcrypt-grub/cipher/crypto.lst
+ platform_DATA += crypto.lst
+ CLEANFILES += crypto.lst
+ 
+-syminfo.lst: gensyminfo.sh kernel_syms.lst $(top_srcdir)/grub-core/extra_deps.lst $(MODULE_FILES)
+-	cat kernel_syms.lst $(top_srcdir)/grub-core/extra_deps.lst > $@.new
++syminfo.lst: gensyminfo.sh kernel_syms.lst $(MODULE_FILES)
++	cat kernel_syms.lst > $@.new
+ 	for m in $(MODULE_FILES); do \
+ 	  sh $< $$m >> $@.new || exit 1; \
+ 	done
+diff --git a/grub-core/Makefile.in b/grub-core/Makefile.in
+index ce6601f..feaf196 100644
+--- a/grub-core/Makefile.in
++++ b/grub-core/Makefile.in
+@@ -49018,8 +49018,8 @@ video.lst: $(MARKER_FILES)
+ crypto.lst: $(srcdir)/lib/libgcrypt-grub/cipher/crypto.lst
+ 	cp $^ $@
+ 
+-syminfo.lst: gensyminfo.sh kernel_syms.lst $(top_srcdir)/grub-core/extra_deps.lst $(MODULE_FILES)
+-	cat kernel_syms.lst $(top_srcdir)/grub-core/extra_deps.lst > $@.new
++syminfo.lst: gensyminfo.sh kernel_syms.lst $(MODULE_FILES)
++	cat kernel_syms.lst > $@.new
+ 	for m in $(MODULE_FILES); do \
+ 	  sh $< $$m >> $@.new || exit 1; \
+ 	done
