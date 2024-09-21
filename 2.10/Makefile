@@ -13,7 +13,13 @@ export DIBAB_ARCH=${ARCH}
 export ARCH
 export KERNEL3
 export MEDIA
-export YDFS_MODULES
+export BUILDMODULES
+ifeq ($(BUILDMODULES),YES)
+  export YDFS_MODULES
+else
+  YDFS_MODULES=""
+endif
+
 export SUBARCH
 export BUILD_DESKTOP
 export DISTRONAME
@@ -387,12 +393,12 @@ fixopkg:
 	./scripts/make_opkg_filelist opkg
 opkg: ${HOME}/ydfs/opkg/Packages
 ${HOME}/ydfs/opkg/Packages : packages/list-opkg-${DISTRONAME}
-ifeq ($(SKIPOPKG),OK)
-	echo "Skip opkg"
-else
+ifeq ($(BUILDOPKG),YES)
 	cp packages/list-opkg-${DISTRONAME} packages/list-opkg
 	./scripts/make_packages opkg
 	./scripts/make_opkg_filelist opkg
+else
+	echo "Skip opkg"
 endif
    
 ${DISTRONAME}: ${LCMBUILD}${DISTRONAME}-${ARCH}.squashfs
