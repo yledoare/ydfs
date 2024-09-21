@@ -20,7 +20,7 @@ install -d /media/ydfs
 if [ ! -e /ydfs/boot/options/livecd ] # look only on cdrom drive
 then
 echo "Search into hard/usb disks .. "
-mkdir /disk
+[ ! -e /disk ] && mkdir /disk
 for device in `ls /sys/class/block/`
 do
 	if [ ! -e /dev/$device ]
@@ -38,6 +38,8 @@ do
 	/ntfs-3g -o remove_hiberfile /dev/$device /disk 2>/dev/null || mount /dev/$device /disk -o rw 2>/dev/null || continue
 	# Wubi
 	[ -e /disk/$DISTRONAME/install/installation.iso ] && mount /disk/$DISTRONAME/install/installation.iso /media/ydfs && break
+	# MultiOS-USB
+	[ -e /disk/$ISOPATH ] && mount /disk/$ISOPATH /media/ydfs && break
 	# live usb mount read write
 	if [ -e /disk/modules/$ARCH.squashfs ]
         then
@@ -57,21 +59,38 @@ then
 	done
 fi
 
-if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
-then
-  echo -n "Network ? "
-  ifconfig `/ydfs/detect/eth0` up
-	sleep 1
-  ifconfig `/ydfs/detect/eth0` 192.168.1.243
-	sleep 1
-  busybox mount -t cifs //192.168.1.25/ydfs-squashfs /media/ydfs/modules -o username=guest
-fi
+#if [ ! -e /media/ydfs/modules/$ARCH.squashfs ]
+#then
+#  echo -n "Network ? "
+#  ifconfig `/ydfs/detect/eth0` up
+#	sleep 1
+#  ifconfig `/ydfs/detect/eth0` 192.168.1.243
+#	sleep 1
+#  busybox mount -t cifs //192.168.1.25/ydfs-squashfs /media/ydfs/modules -o username=guest
+#fi
 
 if [ ! -e /media/ydfs/modules/$ARCH.squashfs ] && [ ! -e /tmp/waitusb ]
 then
-	rmdir /ydfs/boot/options/livecd
+
+	if [ -e /tmp-count ]
+	then
+  		COUNT=`cat /tmp-count`
+	else
+  		COUNT=0
+	fi
+
+	echo $(( $COUNT + 1)) > /tmp-count
+	echo "$COUNT / 10"
+
+	[ $COUNT = 10 ] && echo "Failed" && ash
+
+	[ -e /ydfs/boot/options/livecd ] && rmdir /ydfs/boot/options/livecd
 	# sleep 10
 	touch /ydfs/boot/options/liveusb
-	touch /tmp/waitusb
+	# touch /tmp/waitusb
+	echo
+	echo "Restarting /ydfs/detect/media"
+	echo
 	ash /ydfs/detect/media
 fi
+

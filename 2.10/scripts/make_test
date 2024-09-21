@@ -6,14 +6,17 @@ export PATH=/home/linuxconsole2024/vm/bin/:$PATH
 export LD_LIBRARY_PATH=/home/linuxconsole2024/x86_64/lib/:$LD_LIBRARY_PATH
 which qemu-system-x86_64 && EMULATOR="QEMU"
 #which VBoxManage && EMULATOR="VBOX"
-[ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu to make tests !" && exit 1
+[ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu (qemu-system-x86) to make tests !" && exit 1
 
 KERNEL36="$KERNEL_PREFIX""`echo $KERNEL3 | tr -d '.'`"
 INITRD26="`echo $KERNEL3 | tr -d '.'`"
 # INITRD26="custom-`echo $KERNEL3 | tr -d '.'`"
 if [ "$ARCH" = "x86" ] ||[ "$ARCH" = "x86_64" ]
 then
+KERNEL_FILE=$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86_64/boot/bzImage
+[ "$ARCH" = "x86" ] && KERNEL_FILE=$HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage
 ISO=$ISOTMP/linuxconsole"$NUM"."$LCBUILD"-"$ARCH".iso
+[ ! -e $ISO ] && echo "No $ISO" && sleep 10
 NAME="ydfs-test"
 
 if [ -e myfix ]
@@ -33,7 +36,7 @@ then
   # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cdrom $ISO
   if [ -e myfix ]
   then
-  qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $INITRD26 -cdrom $ISO -m 256
+  qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $KERNEL_FILE -initrd $INITRD26 -cdrom $ISO -m 256
   else
     [ -e $ISO ] && OPTION="-cdrom $ISO" 
     APPEND="rdinit=/init2 nofcc livecd debug1 quiet text"
@@ -42,7 +45,7 @@ then
     -device usb-ehci,id=ehci                                    \
     -device usb-tablet,bus=usb-bus.0                            \
     -device usb-storage,bus=ehci.0,drive=usbstick" && APPEND="liveusb quiet"
-    qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     #qemu-system-x86_64  -device qemu-xhci $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
   fi
