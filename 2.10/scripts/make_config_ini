@@ -18,6 +18,9 @@ HOME_DIBAB=${PWD}
 # MENUCONFIG=YES
 ' > config.ini
 
+echo "#BUILDYDFS=fast" >> config.ini
+echo "BUILDYDFS=$BUILDYDFS" >> config.ini
+
 [ "$DISTRONAME" = "" ] && DISTRONAME=linuxconsole
 echo "DISTRONAME=$DISTRONAME" >> config.ini
 

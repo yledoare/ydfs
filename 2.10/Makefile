@@ -20,6 +20,7 @@ else
   YDFS_MODULES=""
 endif
 
+export BUILDYDFS
 export SUBARCH
 export BUILD_DESKTOP
 export DISTRONAME

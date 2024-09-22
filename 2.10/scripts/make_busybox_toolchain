@@ -11,7 +11,7 @@ then
     cd $HOME/ydfs/x-tools/
     [ -e i386-unknown-linux-uclibc.tar.gz ] && rm i386-unknown-linux-uclibc.tar.gz
     wget jukebox.linuxconsole.org/toolchains/i386-unknown-linux-uclibc.tar.gz
-    tar xzvf i386-unknown-linux-uclibc.tar.gz
+    tar xzf i386-unknown-linux-uclibc.tar.gz
     exit 0
     #NOT WORKING FROM DEBIAN 8
     $HOME_DIBAB/scripts/make_crosstool-ng

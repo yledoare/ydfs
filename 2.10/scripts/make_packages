@@ -17,7 +17,8 @@ then
     [ ! -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && wget -O $HOME/iso/$YDFS-$ARCH.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-$ARCH.tar.gz
     [ "$ARCH" = "x86_64" ] && [ ! -e $HOME/iso/$YDFS-multilib.tar.gz ] && wget -O $HOME/iso/$YDFS-multilib.tar.gz http://jukebox.linuxconsole.org/fast/$YDFS-multilib.tar.gz
     cd $HOME
-    [ ! -e $ARCH ] && tar xzvf $HOME/iso/$YDFS-$ARCH.tar.gz
+    [ ! -e $ARCH ] && echo "Untar $HOME/iso/$YDFS-$ARCH.tar.gz, please wait..."
+    [ ! -e $ARCH ] && tar xzf $HOME/iso/$YDFS-$ARCH.tar.gz
     touch $HOME/$ARCH/buildenv
   fi
 else
