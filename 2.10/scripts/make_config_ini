@@ -39,6 +39,13 @@ echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> config.ini
 
 echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> config.ini
 
+if [ "$BUILDMODULES" = "YES" ]
+then
+  echo 'BUILDMODULES=YES' >> config.ini
+else
+  echo '#BUILDMODULES=YES' >> config.ini
+fi
+
 if [ "$DIBAB_VERBOSE_BUILD" = "YES" ]
 then
   echo 'DIBAB_VERBOSE_BUILD=YES' >> config.ini
