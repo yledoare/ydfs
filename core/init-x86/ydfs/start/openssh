@@ -1,7 +1,7 @@
 chown root $HOME_DIBAB
 install -d /usr/etc/ssh
 install -d /usr/lib/empty
-if [ ! -e /usr/etc/ssh/ssh_host_key ] 
+if [ ! -e /usr/etc/ssh/ssh_host_rsa_key ] 
 then
 ssh-keygen -t rsa1 -f /usr/etc/ssh/ssh_host_key -N ""
 ssh-keygen -t rsa -f /usr/etc/ssh/ssh_host_rsa_key -N ""
