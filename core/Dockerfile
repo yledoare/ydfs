@@ -27,11 +27,10 @@ ENV LANG fr_FR.utf8
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN apt-get update 
 RUN useradd linuxconsole2025 --create-home
 
-RUN apt-get update 
-
-RUN apt-get install -y ack 
+RUN apt-get install -y ack
 RUN apt-get install -y ant 
 RUN apt-get install -y apt-utils 
 RUN apt-get install -y autoconf 
@@ -135,9 +134,7 @@ RUN apt-get install -y valac
 RUN apt-get install -y gi-docgen
 RUN apt-get install -y libclang-cpp-dev
 RUN apt-get install -y libclang-18-dev
-RUN apt-get install -y bindgen
-RUN apt-get install -y strace
-RUN apt-get install -y help2man
+RUN apt-get install -y bindgen strace help2man
 
 USER linuxconsole2025
 #CMD /build-lc2025
