@@ -47,9 +47,12 @@ mkdir:
 	chmod 777 ${HOME}/${ARCH}
 	cp archpkg/* ${HOME}/archpkg
 
+force-docker-image-64: core/Dockerfile
+	cd core && docker build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
+
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
-	cd core && docker build -f Dockerfile -t ydfs64-${YDFS} .
+	cd core && docker build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 endif
 
 docker-64: docker-image-64 mkdir
