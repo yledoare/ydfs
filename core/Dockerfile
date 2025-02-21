@@ -1,5 +1,6 @@
 FROM ubuntu:noble
 MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Locale
 RUN apt-get update && apt-get install -y locales 
@@ -25,116 +26,38 @@ ENV LANG fr_FR.utf8
 
 # Timezone
 ENV TZ=Europe/Paris
+ENV TERM=linux
+
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update 
 RUN useradd linuxconsole2025 --create-home
 
-RUN apt-get install -y ack
-RUN apt-get install -y ant 
-RUN apt-get install -y apt-utils 
-RUN apt-get install -y autoconf 
-RUN apt-get install -y automake 
-RUN apt-get install -y bam 
-RUN apt-get install -y bc 
-RUN apt-get install -y bison 
-RUN apt-get install -y bzip2 
-RUN apt-get install -y bzr 
-RUN apt-get install -y cargo 
-RUN apt-get install -y cbindgen 
-RUN apt-get install -y clang-18 
-RUN apt-get install -y cmake 
-RUN apt-get install -y cpio 
-RUN apt-get install -y cpuinfo 
-RUN apt-get install -y curl 
-RUN apt-get install -y cvs 
-RUN apt-get install -y docbook-xsl 
-RUN apt-get install -y doxygen 
+RUN apt-get install -y ack ant apt-utils autoconf automake 
+RUN apt-get install -y bam bc bison bzip2 bzr bindgen 
+RUN apt-get install -y cargo cbindgen clang-18 cmake cpio cpuinfo curl cvs 
+RUN apt-get install -y docbook-xsl doxygen 
 RUN apt-get install -y flex 
 RUN apt-get install -y fontforge 
-RUN apt-get install -y g++ 
-RUN apt-get install -y gawk 
-RUN apt-get install -y gcc-multilib 
-RUN apt-get install -y genisoimage 
-RUN apt-get install -y gettext 
-RUN apt-get install -y ghc 
-RUN apt-get install -y git 
-RUN apt-get install -y g++-multilib 
-RUN apt-get install -y gperf 
-RUN apt-get install -y gsoap 
-RUN apt-get install -y iasl 
-RUN apt-get install -y imagemagick 
+RUN apt-get install -y g++ gawk gcc-multilib genisoimage gettext ghc git g++-multilib gperf gsoap google-mock googletest gi-docgen
+RUN apt-get install -y help2man
+RUN apt-get install -y iasl imagemagick 
 RUN apt-get install -y kmod 
-RUN apt-get install -y lib32z1 
-RUN apt-get install -y libatomic-ops-dev 
-RUN apt-get install -y libbabeltrace-ctf1 
-RUN apt-get install -y libboost-all-dev 
-RUN apt-get install -y libboost-dev 
-RUN apt-get install -y libclc-18-dev 
-RUN apt-get install -y libelf-dev 
-RUN apt-get install -y libghc-base-dev 
-RUN apt-get install -y libghc-entropy-dev 
-RUN apt-get install -y libghc-hslogger-dev 
-RUN apt-get install -y libghc-network-dev 
-RUN apt-get install -y libghc-random-dev 
-RUN apt-get install -y libghc-regex-tdfa-dev 
-RUN apt-get install -y libghc-sandi-dev 
-RUN apt-get install -y libghc-sha-dev 
-RUN apt-get install -y libghc-utf8-string-dev 
-RUN apt-get install -y libghc-vector-dev 
-RUN apt-get install -y libghc-zlib-dev 
-RUN apt-get install -y libmpfr-dev 
-RUN apt-get install -y libncurses5-dev 
-RUN apt-get install -y libssl-dev 
-RUN apt-get install -y libtool 
-RUN apt-get install -y libtool-bin 
-RUN apt-get install -y libunwind8 
-RUN apt-get install -y libwrap0 
-RUN apt-get install -y libxml-parser-perl 
-RUN apt-get install -y lld-18 
-RUN apt-get install -y llvm-18 
-RUN apt-get install -y locales 
-RUN apt-get install -y lynx 
-RUN apt-get install -y lzma 
-RUN apt-get install -y make 
-RUN apt-get install -y makeself 
-RUN apt-get install -y meson 
-RUN apt-get install -y mtd-utils 
+RUN apt-get install -y lib32z1 libatomic-ops-dev libbabeltrace-ctf1 libboost-all-dev libboost-dev libclc-18-dev libelf-dev libghc-base-dev libghc-entropy-dev libghc-hslogger-dev libghc-network-dev libghc-random-dev libghc-regex-tdfa-dev libghc-sandi-dev libghc-sha-dev libghc-utf8-string-dev libghc-vector-dev libghc-zlib-dev libmpfr-dev libncurses5-dev libssl-dev libtool libtool-bin libunwind8 libwrap0 libxml-parser-perl lld-18 llvm-18 locales lynx lzma libgtest-dev libgmock-dev libclang-cpp-dev libclang-18-dev
+RUN apt-get install -y make makeself meson mtd-utils 
 RUN apt-get install -y nasm 
 RUN apt-get install -y openjdk-21-jdk-headless 
-RUN apt-get install -y p7zip-full 
-RUN apt-get install -y patch 
-RUN apt-get install -y pciutils 
-RUN apt-get install -y python3-mako 
-RUN apt-get install -y rdfind 
-RUN apt-get install -y rsync 
+RUN apt-get install -y p7zip-full patch pciutils python3-mako 
+RUN apt-get install -y rdfind rsync 
 RUN apt-get install -y ruby 
-RUN apt-get install -y rustc 
-RUN apt-get install -y subversion 
-RUN apt-get install -y syslinux-utils 
+RUN apt-get install -y rustc strace subversion syslinux-utils 
 RUN apt-get install -y texinfo 
-RUN apt-get install -y unicode-data 
-RUN apt-get install -y unzip 
-RUN apt-get install -y vim 
+RUN apt-get install -y unicode-data unzip 
+RUN apt-get install -y vim valac
 RUN apt-get install -y wget 
 RUN apt-get install -y xfonts-utils 
-RUN apt-get install -y xmlto 
-RUN apt-get install -y xorriso 
-RUN apt-get install -y xsltproc 
-RUN apt-get install -y xutils-dev 
-RUN apt-get install -y xz-utils 
-RUN apt-get install -y zlib1g-dev 
-RUN apt-get install -y zstd 
-
-RUN apt-get install -y libgtest-dev
-RUN apt-get install -y google-mock
-RUN apt-get install -y libgmock-dev
-RUN apt-get install -y googletest
-RUN apt-get install -y valac
-RUN apt-get install -y gi-docgen
-RUN apt-get install -y libclang-cpp-dev
-RUN apt-get install -y libclang-18-dev
-RUN apt-get install -y bindgen strace help2man
+RUN apt-get install -y xmlto xorriso xsltproc xutils-dev xz-utils 
+RUN apt-get install -y zlib1g-dev zstd 
 
 USER linuxconsole2025
 #CMD /build-lc2025
