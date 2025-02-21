@@ -1,5 +1,5 @@
 FROM ubuntu:noble
-MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
+LABEL maintainer="Yann Le Doaré <yann@linuxconsole.org>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Locale
@@ -22,7 +22,7 @@ RUN echo "ru_RU.UTF-8 UTF-8">> /etc/locale.gen
 RUN echo "uk_UA.UTF-8 UTF-8">> /etc/locale.gen
 RUN echo "zh_CN.UTF-8 UTF-8">> /etc/locale.gen
 RUN locale-gen
-ENV LANG fr_FR.utf8
+ENV LANG=fr_FR.utf8
 
 # Timezone
 ENV TZ=Europe/Paris
