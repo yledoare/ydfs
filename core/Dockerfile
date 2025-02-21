@@ -33,7 +33,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update 
 RUN useradd linuxconsole2025 --create-home
 
-RUN apt-get install -y ack ant apt-utils autoconf automake 
+RUN apt-get install -y ack ant apt-utils autoconf automake python3-blinker
 RUN apt-get install -y bam bc bison bzip2 bzr bindgen 
 RUN apt-get install -y cargo cbindgen clang-18 cmake cpio cpuinfo curl cvs 
 RUN apt-get install -y docbook-xsl doxygen 
