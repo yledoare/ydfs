@@ -79,8 +79,10 @@ cd $INITRAMFS
 
  echo "Custom init2"
  echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "/busybox/bin/dmesg | /busybox/bin/grep -i keyb" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "/busybox/bin/dmesg" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "echo INIT OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ echo "echo INIT2 OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  # echo "/etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init
  chmod +x $HOME/ydfs/tmp/initramfs-$ARCH/init2
@@ -101,9 +103,13 @@ install -d $ROOTFS/sys
 install -d $ROOTFS/etc
 
 
-if [ "$ARCH" = "x86" ] || [ "$ARCH" = "x86_64" ]
+if [ "$ARCH" = "x86_64" ]
 then
-  #echo $HOME/ydfs/x-tools/i386-unknown-linux-uclibc/i386-unknown-linux-uclibc/sysroot/lib/
+  ldd $INITRAMFS/busybox/bin/busybox | grep libc.so.6 && for LIB in ld-linux-x86-64.so.2  libc.so.6  libm.so.6  libresolv.so.2 
+  do
+      cp /lib/x86_64-linux-gnu/$LIB $INITRAMFS/lib
+  done
+  ln -s /lib $INITRAMFS/lib64
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/media
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/etc/profile
   sed -i "s@\$HOME@$HOME@g" $HOME/ydfs/tmp/initramfs-$ARCH/ydfs/detect/modules
