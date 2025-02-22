@@ -7,11 +7,24 @@
 	  [ ! -e $pkgdir/etc/pam.d/$file ] && exit 1
 	done
 
-	install -d build-meson
-	cd build-meson
-	   meson .. --prefix=$PREFIX -Dlogind=enabled -Deconf=disabled -Dselinux=disabled -Dpam_userdb=disabled  || exit 1
-	   ninja || exit 2
-	   ninja install || exit 3
+	if [ -e meson.build ]
+        then 
+	  install -d build-meson
+	  cd build-meson
+	  if [ -e $PREFIX/sbin/pam_namespace_helper ]
+	  then
+	     # second build, enable systemD
+	     meson .. --prefix=$PREFIX -Dlogind=enabled -Deconf=disabled -Dselinux=disabled -Dpam_userdb=disabled  || exit 1
+          else
+	     meson .. --prefix=$PREFIX -Deconf=disabled -Dselinux=disabled -Dpam_userdb=disabled  || exit 1
+	  fi
+	  ninja || exit 2
+	  ninja install || exit 3
+	else
+          ./configure --prefix=$PREFIX --libdir=$PREFIX/lib --sbindir=$PREFIX/bin --disable-db || exit 1
+	  make || exit 1
+          make SCONFIGDIR=$PREFIX/etc/security install || exit 1
+        fi
 
   # add the realtime permissions for audio users
   sed -i 's|# End of file||' $pkgdir/etc/security/limits.conf
