@@ -45,6 +45,7 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/iso:/home/linuxconsole2025/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
+	--platform=linux/amd64 \
 	-e HOME_DIBAB=/ydfs-src/core \
 #	--user $(shell id -u):$(shell id -g) \
 	-e SEND_BUILD_LOG=YES
