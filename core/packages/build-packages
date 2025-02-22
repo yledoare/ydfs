@@ -302,6 +302,7 @@ fi
     ARCHIVE=$(echo $ARCHIVE | sed "s/git+https/https/")
     #echo "$ARCHIVE"
     #exit 1
+    install -d $HOME/ydfs/src
     cd $HOME/ydfs/src
     # echo $ARCHIVE | grep '#' && REVISION=$(echo $ARCHIVE | cut -d'#' -f2| cut -d= -f2) && ARCHIVE=$(echo $ARCHIVE | cut -d'#' -f1)
     echo $ARCHIVE | grep 'SKIP' && ARCHIVE=$(echo $ARCHIVE | cut -d' ' -f1)

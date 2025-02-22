@@ -29,7 +29,7 @@ endif
 
 
 ISTTY = $(shell tty -s || echo NOTTY)
-DOCKERIMAGE64 = $(shell ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
+DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
 
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
@@ -54,7 +54,10 @@ all: docker-64
 
 clean:
 	rm -fR ${HOME}/ydfs
+	rm -fR ${HOME}/multilib
+	rm -fR ${HOME}/archpkg
 	rm -fR ${HOME}/${ARCH}
+
 prepare:
 	@echo "DOCKER_BUILD_CLI is $(DOCKER_BUILD_CLI) ${DOCKER_BUILD_CLI_OPTION}"
 	@echo "Arch is ${ARCH}"
