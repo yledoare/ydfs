@@ -47,7 +47,8 @@ echo "BUILD_TOOLCHAIN=$BUILD_TOOLCHAIN" >> $CONFIGINI
 # echo "DEBUG YDFS_MODULES=$YDFS_MODULES"
 echo "YDFS_MODULES=\"$YDFS_MODULES\"" >> $CONFIGINI
 
-echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> $CONFIGINI
+# echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} mate-${ARCH} firmware-${ARCH}"' >> $CONFIGINI
+echo 'MODULES="${ARCH} '"$DISTRONAME"'-${ARCH} drivers-${ARCH} firmware-${ARCH}"' >> $CONFIGINI
 
 if [ "$BUILDMODULES" = "YES" ]
 then
