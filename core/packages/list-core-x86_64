@@ -23,13 +23,13 @@ archlinux:sqlite
 archlinux:readline
 archlinux:ncurses
 #archlinux:pam
-https://github.com/linux-pam/linux-pam/releases/download/v1.6.1/Linux-PAM-1.6.1.tar.xz
+https://github.com/linux-pam/linux-pam/releases/download/v1.7.0/Linux-PAM-1.7.0.tar.xz
 archlinux:util-linux
 archlinux:mpdecimal
 https://www.python.org/ftp/python/3.12.8/Python-3.12.8.tar.xz
 pip::jinja2
 archlinux:systemd
-https://github.com/linux-pam/linux-pam/releases/download/v1.7.0/Linux-PAM-1.7.0.tar.xz
+https://github.com/linux-pam/linux-pam/releases/download/v1.6.1/Linux-PAM-1.6.1.tar.xz
 archlinux:libxcrypt
 archlinux:apr
 archlinux:e2fsprogs
