@@ -1,12 +1,35 @@
 export YDFS = $(shell git rev-parse --abbrev-ref HEAD)
-ARCH := $(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
+
+UNAME  = $(shell uname)
+
+DOCKER_BUILDX  = $(shell docker --help |grep buildx)
+ifeq ($(DOCKER_BUILDX),)
+  DOCKER_BUILDX = $(shell which buildx-v0.21.1.linux-amd64)
+  ifeq ($(DOCKER_BUILDX),)
+  else
+    #Used to build YDFS2.11 from LinuxConsole 2024
+    DOCKER_BUILD_CLI = buildx-v0.21.1.linux-amd64
+  endif
+else
+  DOCKER_BUILD_CLI = docker
+  DOCKER_BUILD_CLI_OPTION = buildx
+endif
+
+DOCKER_CLI = docker
+
+ifeq ($(UNAME),Darwin)
+ARCH=x86_64
+else
+ARCH=$(shell uname -m | sed -e s/i.86/x86/ -e s/sun4u/sparc64/ \
 				  -e s/arm.*/arm/ -e s/sa110/arm/ \
 				  -e s/s390x/s390/ -e s/parisc64/parisc/ \
 				  -e s/ppc.*/powerpc/ -e s/mips.*/mips/ \
 				  -e s/sh[234].*/sh/ )
+endif
+
 
 ISTTY = $(shell tty -s || echo NOTTY)
-DOCKERIMAGE64 = $(shell docker image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
+DOCKERIMAGE64 = $(shell ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
 
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
@@ -14,7 +37,7 @@ else
 	OPTION=-ti
 endif
 
-DOCKER=docker run ${OPTION} --rm --security-opt seccomp=unconfined \
+DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/ydfs:/home/linuxconsole2025/ydfs \
 	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
 	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
@@ -32,8 +55,10 @@ all: docker-64
 clean:
 	rm -fR ${HOME}/ydfs
 	rm -fR ${HOME}/${ARCH}
-mkdir:
-	@echo mkdir
+prepare:
+	@echo "DOCKER_BUILD_CLI is $(DOCKER_BUILD_CLI) ${DOCKER_BUILD_CLI_OPTION}"
+	@echo "Arch is ${ARCH}"
+	@echo prepare
 	install -d ${HOME}/ydfs
 	install -d ${HOME}/multilib
 	install -d ${HOME}/archpkg
@@ -43,19 +68,19 @@ mkdir:
 	chmod 777 ${HOME}/ydfs
 	chmod 777 ${HOME}/multilib
 	chmod 777 ${HOME}/archpkg
+	test -z "$( ls -A '${HOME}/archpkg' )" && echo "Init ${HOME}/archpkg" && cp archpkg/* ${HOME}/archpkg
 	chmod 777 ${HOME}/iso
 	chmod 777 ${HOME}/${ARCH}
-	cp archpkg/* ${HOME}/archpkg
 
 force-docker-image-64: core/Dockerfile
-	cd core && docker build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
+	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
-	cd core && docker build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
+	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 endif
 
-docker-64: docker-image-64 mkdir
+docker-64: docker-image-64 prepare
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 buildme:
@@ -75,17 +100,17 @@ busybox:
 uninstall:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package util-linux'
 
-bash: mkdir
+bash: prepare
 	${DOCKER} ydfs64-${YDFS} bash
 
-root: mkdir
+root: prepare
 	${DOCKER} -u root ydfs64-${YDFS} bash
 
-fast-kernel64: mkdir
+fast-kernel64: prepare
 	#${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/bash
 	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make linux'
 
-fast-64: mkdir
+fast-64: prepare
 	${DOCKER} -e BUILDYDFS=fast ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 initramfs:
