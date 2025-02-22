@@ -59,5 +59,7 @@ RUN apt-get install -y xfonts-utils
 RUN apt-get install -y xmlto xorriso xsltproc xutils-dev xz-utils 
 RUN apt-get install -y zlib1g-dev zstd 
 
+RUN apt-get install -y lzip
+
 USER linuxconsole2025
 #CMD /build-lc2025
