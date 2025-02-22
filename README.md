@@ -6,7 +6,11 @@
 
 * make
 
-# Docker  Fast Build (64 bits) - TODO
+# Docker Fast kernel Build (64 bits)
+
+* make fast-kernel64
+
+# Docker Fast Build (64 bits) - TODO
 
 * make fast
 

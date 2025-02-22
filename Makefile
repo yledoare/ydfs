@@ -93,8 +93,8 @@ test:
 	cd core && make test
 live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
-fast-kernel:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
+#fast-kernel:
+#	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
 updates:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
 
