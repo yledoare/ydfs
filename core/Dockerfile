@@ -1,5 +1,5 @@
 FROM ubuntu:noble
-MAINTAINER Yann Le Doaré <yann@linuxconsole.org>
+LABEL maintainer="Yann Le Doaré <yann@linuxconsole.org>"
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Locale
@@ -22,7 +22,7 @@ RUN echo "ru_RU.UTF-8 UTF-8">> /etc/locale.gen
 RUN echo "uk_UA.UTF-8 UTF-8">> /etc/locale.gen
 RUN echo "zh_CN.UTF-8 UTF-8">> /etc/locale.gen
 RUN locale-gen
-ENV LANG fr_FR.utf8
+ENV LANG=fr_FR.utf8
 
 # Timezone
 ENV TZ=Europe/Paris
@@ -33,7 +33,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update 
 RUN useradd linuxconsole2025 --create-home
 
-RUN apt-get install -y ack ant apt-utils autoconf automake 
+RUN apt-get install -y ack ant apt-utils autoconf automake python3-blinker
 RUN apt-get install -y bam bc bison bzip2 bzr bindgen 
 RUN apt-get install -y cargo cbindgen clang-18 cmake cpio cpuinfo curl cvs 
 RUN apt-get install -y docbook-xsl doxygen 
