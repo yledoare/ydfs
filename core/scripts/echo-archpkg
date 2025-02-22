@@ -1,7 +1,7 @@
 #!/bin/bash
 PKG=$1
 SHORT=${PKG:0:2}
-install -d $HOME/archpkg
+[ ! -e $HOME/archpkg ] && install -d $HOME/archpkg
 cd $HOME/archpkg
 URL1=https://gitlab.archlinux.org/archlinux/packaging/packages/$1/-/raw/main/PKGBUILD?ref_type=heads
 URL3=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$PKG
