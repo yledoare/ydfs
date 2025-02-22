@@ -649,6 +649,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
     -Dbuild-mesg=enabled \
     -Dbuild-newgrp=enabled \
     -Dbuild-vipw=enabled \
+    -Dbuild-su=enabled \
     -Dbuild-write=enabled
 "
 	#echo $ARCHIVE | grep fftw-3.3.3 && LC_CONFIGURE_OPTS="--enable-float --enable-shared --enable-threads"
