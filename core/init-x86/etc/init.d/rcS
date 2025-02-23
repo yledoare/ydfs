@@ -1,5 +1,10 @@
 #!/busybox/bin/ash
 
+echo -n "Load early modules"
+
+/busybox/bin/cat /modules/load-early-modules
+/busybox/bin/ash /modules/load-early-modules
+
 /busybox/bin/mount /proc proc -t proc
 
 . /ydfs/detect/boot_options
