@@ -155,7 +155,6 @@ archlinux:adwaita-icon-theme
 archlinux:libyaml
 archlinux:psautohint
 #archlinux:pacman
-archlinux:appstream-glib
 pip::cffsubr
 pip::statmake
 pip::ufo2ft
@@ -165,6 +164,7 @@ archlinux:desktop-file-utils
 archlinux:libcloudproviders
 #archlinux:tinysparql
 archlinux:gtk3
+archlinux:appstream-glib
 archlinux:mtdev
 archlinux:libevdev
 pip::libevdev
