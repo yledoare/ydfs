@@ -87,6 +87,9 @@ ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 endif
 
+force-iso:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; touch core/packages/list-x86_64;  make iso'
+
 docker-64: docker-image-64 prepare
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
