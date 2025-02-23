@@ -98,8 +98,13 @@ test:
 	cd core && make test
 live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
-#fast-kernel:
-#	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
+
+dist: fast-kernel
+	${DOCKER} -e ydfs64-${YDFS} /bin/sh -c 'cd core; make dist'
+
+fast-kernel:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
+
 updates:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
 
@@ -115,8 +120,10 @@ bash: prepare
 root: prepare
 	${DOCKER} -u root ydfs64-${YDFS} bash
 
+clean-kernel:
+	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make clean-kernel'
+
 fast-kernel64: prepare
-	#${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/bash
 	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make linux'
 
 fast-64: prepare

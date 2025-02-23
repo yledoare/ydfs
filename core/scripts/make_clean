@@ -1,3 +1,5 @@
+if [ $1 != "kernel" ]
+then
 	[ -e ${HOME}/${ARCH}/share/doc/p7zip ] && chmod -R 777 ${HOME}/${ARCH}/share/doc/p7zip
 	rm -fR ${HOME}/${ARCH}
 	rm -fR ${HOME}/ydfs/build-${ARCH}/*
@@ -14,9 +16,11 @@
 	rm -fR ${HOME}/ydfs/build-wine32
 	rm -fR ${HOME}/linuxconsole
 	rm -fR ${HOME}/ydfs/build/busybox*
-        [ -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz
-        [ -e $HOME/iso/$YDFS-multilib.tar.gz ] && rm $HOME/iso/$YDFS-multilib.tar.gz
         [ -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/$YDFS-$ARCH.tar.gz
-        [ -e $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-$YDFS-$ARCH.tar.gz
-        rm -fR $HOME/ydfs/build/linux-*
-	rm -fR $HOME/ydfs/kernel-$ARCH/modules/
+        [ -e $HOME/iso/$YDFS-multilib.tar.gz ] && rm $HOME/iso/$YDFS-multilib.tar.gz
+fi
+
+[ -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz
+[ -e $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-$YDFS-$ARCH.tar.gz
+rm -fR $HOME/ydfs/build/linux-*
+rm -fR $HOME/ydfs/kernel-$ARCH/modules/

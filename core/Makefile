@@ -173,7 +173,7 @@ crosstool-ng-x86_64:
 ${GCCPATH}: 
 	./scripts/make_toolchain
 toolchain: ${GCCPATH}
-iso: isodep wineprogs ${ISOPATH} # sleep
+iso: isodep ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
@@ -209,6 +209,8 @@ distclean:
 	./scripts/make_distclean
 clean-opkg:
 	./scripts/make_clean_opkg
+clean-kernel:
+	./scripts/make_clean kernel
 clean:
 	./scripts/make_clean
 ifeq ($(ARCH),x86)
