@@ -171,4 +171,4 @@ archlinux:bluez
 archlinux:libpcap
 archlinux:ppp
 archlinux:wget
-#END-linuxconsole
+#END-core

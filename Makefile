@@ -88,9 +88,9 @@ ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
 endif
 
 force-iso:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; touch core/packages/list-x86_64;  make iso'
+	@touch core/packages/list-x86_64
 
-docker-64: docker-image-64 prepare
+docker-64: docker-image-64 prepare core/packages/list-x86_64
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 buildme:
@@ -147,8 +147,8 @@ core/packages/list-x86_64: core/packages/list-misclibs-x86_64 core/packages/list
 	cat core/packages/list-xorg2-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-guilibs-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-wine-x86_64 >> core/packages/list-x86_64
-	cat core/packages/list-misclibs-x86_64 >> core/packages/list-x86_64
-	cat core/packages/list-mate-x86_64 >> core/packages/list-x86_64
-	cat core/packages/list-libreoffice-x86_64 >> core/packages/list-x86_64
-	cat core/packages/list-kde-x86_64 >> core/packages/list-x86_64
-	cat core/packages/list-misc-x86_64 >> core/packages/list-x86_64
+#	cat core/packages/list-misclibs-x86_64 >> core/packages/list-x86_64
+#	cat core/packages/list-mate-x86_64 >> core/packages/list-x86_64
+#	cat core/packages/list-libreoffice-x86_64 >> core/packages/list-x86_64
+#	cat core/packages/list-kde-x86_64 >> core/packages/list-x86_64
+#	cat core/packages/list-misc-x86_64 >> core/packages/list-x86_64

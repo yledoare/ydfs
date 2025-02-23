@@ -56,3 +56,4 @@ archlinux:libb2
 archlinux:openldap
 archlinux:krb5
 archlinux:qt5-base
+#END-xorg2

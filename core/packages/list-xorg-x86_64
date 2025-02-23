@@ -1,7 +1,6 @@
 #archlinux:groff
 ftp://ftp.gnu.org/gnu/groff/groff-1.23.0.tar.gz
 archlinux:coreutils
-#END-linuxconsole
 archlinux:swig
 archlinux:audit
 archlinux:shadow
@@ -196,3 +195,4 @@ archlinux:pciutils
 archlinux:xorg-xinit
 archlinux:xorg-xdriinfo
 archlinux:xorg-xlsfonts
+#END-xorg

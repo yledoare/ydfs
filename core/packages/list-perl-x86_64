@@ -16,3 +16,4 @@ archlinux:perl-xml-filter-buffertext
 archlinux:perl-xml-writer
 archlinux:perl-extutils-depends
 archlinux:perl-extutils-pkgconfig
+#END-perl

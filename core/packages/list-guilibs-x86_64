@@ -19,3 +19,4 @@ archlinux:lvm2
 #archlinux:thin-provisioning-tools
 archlinux:parted
 https://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
+#END-guilibs
