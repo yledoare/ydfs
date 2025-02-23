@@ -74,7 +74,7 @@ prepare:
 	@chmod 777 ${HOME}/ydfs
 	@chmod 777 ${HOME}/multilib
 	@chmod 777 ${HOME}/archpkg
-	@test -z "$(shell ls -A ${HOME}/archpkg )" || cp archpkg/* ${HOME}/archpkg
+	@test -z "$(shell ls -A ${HOME}/archpkg )" || cp archpkg/* ${HOME}/archpkg || echo "Fixme"
 	@chmod 777 ${HOME}/iso
 	@chmod 777 ${HOME}/${ARCH}
 	@echo done 
