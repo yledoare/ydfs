@@ -93,6 +93,9 @@ force-iso:
 verbose:
 	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
+multilib:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make multilib'
+
 docker-64: docker-image-64 prepare core/packages/list-x86_64
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 

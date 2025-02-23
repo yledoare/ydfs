@@ -56,8 +56,8 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm libxml libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 expat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
-unixODBC libtheora libcap-2 at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc libnsl Linux-PAM duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
+libxshmfence-1 pixman cairo-1 libdrm libxml libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 libexpat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+unixODBC libtheora libcap at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc Linux-PAM-1.7 duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 
 for PKG in $PKGMULTILIB
 do
@@ -170,7 +170,7 @@ unset MAKE
     zstd )
 	sed -i "s@$HOME/$ARCH@$HOME/multilib@g" */Makefile
         ;;
-    libcap-2 )
+    libcap )
 	sed -i 's@$(HOME)/$(ARCH)@$(HOME)/multilib@g' Make.Rules
 	sed -i 's@LIBDIR=$(lib_prefix)/$(lib)@LIBDIR=$(lib_prefix)/lib32@g' Make.Rules
 	sed -i 's@$(HOME)/$(ARCH)@$(HOME)/multilib@g' libcap/Makefile
