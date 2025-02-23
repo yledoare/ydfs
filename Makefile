@@ -1,4 +1,5 @@
 export YDFS = $(shell git rev-parse --abbrev-ref HEAD)
+export YDFS_GIT_ID = $(shell git log -n1 --format="%h")
 
 UNAME  = $(shell uname)
 
@@ -69,6 +70,7 @@ prepare:
 	install -d ${HOME}/iso
 	install -d ${HOME}/${ARCH}
 	@echo $(YDFS) > ydfs
+	@echo $(YDFS_GIT_ID) > ydfs-git-id
 	chmod 777 ${HOME}/ydfs
 	chmod 777 ${HOME}/multilib
 	chmod 777 ${HOME}/archpkg

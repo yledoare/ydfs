@@ -31,8 +31,10 @@ export TOOLCHAIN
 export HOME_DIBAB
 ifeq (,$(wildcard ../ydfs))
  	export YDFS ?= $(shell git rev-parse --abbrev-ref HEAD)
+	export YDFS_GIT_ID ?= $(shell git log -n1 --format="%h")
 else
 	export YDFS ?= $(shell cat ../ydfs)
+	export YDFS_GIT_ID ?= $(shell cat ../ydfs-git-id)
 endif
 export DIBAB_VERBOSE_BUILD
 export SEND_OPKG
@@ -156,7 +158,7 @@ ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME}: scripts/
 
 linux: ${HOME}/ydfs/build/linux-${ARCH}-${KERNEL3}/arch/${ARCH}/boot/${KNAME} 
 
-${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: ${HOME}/ydfs/config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
+${HOME}/ydfs/build-${ARCH}/${INITRAMFS}: ${HOME}/ydfs/config.ini init-${ARCH}/ydfs/detect/media init-${ARCH}/etc/init.d/tty1 init-${ARCH}/ydfs/detect/hardware init-${ARCH}/ydfs/detect/modules init-${ARCH} init-${ARCH}/etc/init.d/rcS init-${ARCH}/etc/profile scripts/make_initramfs
 	./scripts/make_initramfs
 	# ./scripts/make_initramfs_systemd
 
