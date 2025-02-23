@@ -106,7 +106,8 @@ archlinux:wayland-protocols
 pip::six
 pip::appdirs
 pip::packaging
-archlinux:pyparsing2
+#archlinux:python-pyparsing
+#https://github.com/pyparsing/pyparsing/releases/download/3.2.1/pyparsing-3.2.1.tar.gz
 pip::setuptools
 pip::Mako
 pip::scons

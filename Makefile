@@ -90,6 +90,9 @@ endif
 force-iso:
 	@touch core/packages/list-x86_64
 
+verbose:
+	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+
 docker-64: docker-image-64 prepare core/packages/list-x86_64
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
@@ -113,7 +116,7 @@ fast-kernel:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
 
 updates:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
+	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
 
 busybox:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
