@@ -86,6 +86,7 @@ cd $INITRAMFS
 
  for MODULE_TO_LOAD in input/serio/i8042.ko.xz input/keyboard/atkbd.ko.xz \
 	ata/ata_piix.ko.xz scsi/sr_mod.ko.xz cdrom/cdrom.ko.xz \
+	usb/host/ehci-platform.ko.xz usb/storage/usb-storage.ko.xz \
 	block/loop.ko.xz
  do
    grep "$MODULE_TO_LOAD"":" $KERNEL_MODULES/modules.dep |cut -d':' -f2 | tr ' ' '\n' | while read DEP
