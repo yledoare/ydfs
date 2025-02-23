@@ -82,7 +82,7 @@ then
 	echo $(( $COUNT + 1)) > /tmp-count
 	echo "$COUNT / 10"
 
-	[ $COUNT = 10 ] && echo "Failed" && ash
+	[ $COUNT = 10 ] && echo "Failed" && echo "Cannot find media, you can open a terminal on tty2" > /dev/tty1 && ash
 
 	[ -e /ydfs/boot/options/livecd ] && rmdir /ydfs/boot/options/livecd
 	# sleep 10

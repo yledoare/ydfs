@@ -52,7 +52,7 @@ then
     -device usb-storage,bus=ehci.0,drive=usbstick" && APPEND="liveusb quiet"
     echo Starting qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     sleep 5
-    qemu-system-x86_64 -serial file:serial -curses  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    qemu-system-x86_64 -serial file:serial $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     #qemu-system-x86_64  -device qemu-xhci $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64 -serial file:serial -curses $DISPLAY_OPT -append "console=ttyS0 quiet debug1 debug03 text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
