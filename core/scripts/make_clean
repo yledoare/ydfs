@@ -19,8 +19,10 @@ then
         [ -e $HOME/iso/$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/$YDFS-$ARCH.tar.gz
         [ -e $HOME/iso/$YDFS-multilib.tar.gz ] && rm $HOME/iso/$YDFS-multilib.tar.gz
 fi
+echo "Clean OK"
 
 [ -e $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-modules-$YDFS-$ARCH.tar.gz
 [ -e $HOME/iso/kernel-$YDFS-$ARCH.tar.gz ] && rm $HOME/iso/kernel-$YDFS-$ARCH.tar.gz
 rm -fR $HOME/ydfs/build/linux-*
 rm -fR $HOME/ydfs/kernel-$ARCH/modules/
+echo "Clean kernel OK"
