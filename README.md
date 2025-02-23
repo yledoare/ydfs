@@ -13,7 +13,7 @@
 
 # Docker Fast Build (64 bits) - TODO
 
-* ~~ make fast
+* ~ make fast ~
 
 # Manual build (Ubuntu Noble / Mint Wilma 22)
 
