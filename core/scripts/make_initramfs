@@ -77,10 +77,34 @@ KERNEL=$KERNEL3
 install -d $INITRAMFS/lib
 cd $INITRAMFS
 
+ KERNEL_MODULES=$HOME/ydfs/kernel-x86_64/modules/$KERNEL/lib/modules/$KERNEL
+ echo "Modules from $KERNEL_MODULES"
  echo "Custom init2"
  echo "#!/busybox/bin/ash" > $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "/busybox/bin/dmesg | /busybox/bin/grep -i keyb" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
- echo "/busybox/bin/dmesg" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+
+ install -d $HOME/ydfs/tmp/initramfs-$ARCH/modules
+
+ for MODULE_TO_LOAD in input/serio/i8042.ko.xz input/keyboard/atkbd.ko.xz \
+	ata/ata_piix.ko.xz scsi/sr_mod.ko.xz cdrom/cdrom.ko.xz \
+	block/loop.ko.xz
+ do
+   grep "$MODULE_TO_LOAD"":" $KERNEL_MODULES/modules.dep |cut -d':' -f2 | tr ' ' '\n' | while read DEP
+   do 
+     [ "$DEP" = "" ] && continue
+     DEP_FILE=$(basename $DEP)
+     echo "Dep $DEP : $DEP_FILE"
+     cp $KERNEL_MODULES/$DEP $HOME/ydfs/tmp/initramfs-$ARCH/modules
+     echo "/busybox/sbin/insmod /modules/$DEP_FILE" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+   done
+   cp $KERNEL_MODULES/kernel/drivers/$MODULE_TO_LOAD $HOME/ydfs/tmp/initramfs-$ARCH/modules
+   MODULE_FILE=$(basename $MODULE_TO_LOAD)
+   echo "/busybox/sbin/insmod /modules/$MODULE_FILE" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+ done
+   
+# echo "/busybox/bin/mount /proc proc -t proc" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+# echo "/busybox/sbin/lsmod" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+# echo "/busybox/bin/dmesg | /busybox/bin/grep -i keyb" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
+
  echo "export PATH=/busybox/bin/" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  echo "echo INIT2 OK, run /etc/init.d/rcS" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
  echo "/busybox/bin/ash" >> $HOME/ydfs/tmp/initramfs-$ARCH/init2
