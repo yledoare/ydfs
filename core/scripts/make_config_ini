@@ -128,7 +128,7 @@ BOOT=NAND
 	        echo "Latest kernel is $LATEST"
                 echo "KERNEL3=$LATEST" >> $CONFIGINI
 	      else
-                echo "KERNEL3=6.12.9" >> $CONFIGINI
+                echo "KERNEL3=6.12.16" >> $CONFIGINI
 	      fi
 	      echo "BUSYBOX=1.36.1" >> $CONFIGINI
 	    fi
