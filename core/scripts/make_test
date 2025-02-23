@@ -33,21 +33,25 @@ then
   echo "Run Qemu"
   [ "$DISPLAY" = "" ] && DISPLAY_OPT="-display curses"
   [ "$1" = "curses" ] && DISPLAY_OPT="-display curses"
+  [ "$2" = "init2" ] && APPEND="rdinit=/init2 livecd text"
+  [ "$3" = "debug01" ] && APPEND="$APPEND debug01"
+  APPEND="$APPEND quiet"
   # qemu -serial file:serial -curses -append "init=/busybox/bin/sh console=ttyS0" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage # -initrd $HOME/ydfs/build-$ARCH/$INITRD26 -cdrom $ISO
   if [ -e myfix ]
   then
   qemu-system-x86_64 $DISPLAY_OPT -append "" -kernel $KERNEL_FILE -initrd $INITRD26 -cdrom $ISO -m 256
   else
     [ -e $ISO ] && OPTION="-cdrom $ISO" 
-    APPEND="init=/busybox/bin/ash"
-    APPEND="init=/busybox/bin/ash rdinit=/init2 nofcc livecd debug1 text"
+    # APPEND="init=/busybox/bin/ash"
+    # APPEND="init=/busybox/bin/ash rdinit=/init2 nofcc livecd debug1 text"
+    # APPEND="init=/busybox/bin/ash rdinit=/init2 nofcc livecd text"
     [ "$1" = "bootusb" ] && OPTION=" -drive if=none,id=usbstick,format=raw,file=$ISO   \
     -usb                                                        \
     -device usb-ehci,id=ehci                                    \
     -device usb-tablet,bus=usb-bus.0                            \
     -device usb-storage,bus=ehci.0,drive=usbstick" && APPEND="liveusb quiet"
-    echo Starting qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $core/packagesON
-    sleep 10
+    echo Starting qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
+    sleep 5
     qemu-system-x86_64 -serial file:serial -curses  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     # qemu-system-x86_64  $DISPLAY_OPT -append "$APPEND" -kernel $KERNEL_FILE -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
     #qemu-system-x86_64  -device qemu-xhci $DISPLAY_OPT -append "rdinit=/init2 nofcc livecd debug1 quiet text" -kernel $HOME/ydfs/build/linux-$ARCH-$KERNEL3/arch/x86/boot/bzImage -initrd $HOME/ydfs/build-$ARCH/$INITRD26 $OPTION
