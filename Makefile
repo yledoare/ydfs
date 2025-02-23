@@ -99,8 +99,12 @@ test:
 live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
 
-dist: fast-kernel
-	${DOCKER} -e ydfs64-${YDFS} /bin/sh -c 'cd core; make dist'
+dist-opkg: 
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make dist'
+
+dist-fast-kernel: fast-kernel
+	scp ${HOME}/iso/kernel-modules-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-modules-${YDFS}-${ARCH}.tar.gz
+	scp ${HOME}/iso/kernel-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-${YDFS}-${ARCH}.tar.gz
 
 fast-kernel:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
