@@ -122,7 +122,7 @@ busybox:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package util-linux'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package coreutils'
 
 bash: prepare
 	${DOCKER} ydfs64-${YDFS} bash
