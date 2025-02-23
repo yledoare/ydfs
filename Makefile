@@ -63,20 +63,21 @@ clean:
 prepare:
 	@echo "DOCKER_BUILD_CLI is $(DOCKER_BUILD_CLI) ${DOCKER_BUILD_CLI_OPTION}"
 	@echo "Arch is ${ARCH}"
-	@echo prepare
-	install -d ${HOME}/ydfs
-	install -d ${HOME}/multilib
-	install -d ${HOME}/archpkg
-	install -d ${HOME}/iso
-	install -d ${HOME}/${ARCH}
+	@echo -n prepare ..
+	@install -d ${HOME}/ydfs
+	@install -d ${HOME}/multilib
+	@install -d ${HOME}/archpkg
+	@install -d ${HOME}/iso
+	@install -d ${HOME}/${ARCH}
 	@echo $(YDFS) > ydfs
 	@echo $(YDFS_GIT_ID) > ydfs-git-id
-	chmod 777 ${HOME}/ydfs
-	chmod 777 ${HOME}/multilib
-	chmod 777 ${HOME}/archpkg
-	test -z "$( ls -A '${HOME}/archpkg' )" && echo "Init ${HOME}/archpkg" && cp archpkg/* ${HOME}/archpkg
-	chmod 777 ${HOME}/iso
-	chmod 777 ${HOME}/${ARCH}
+	@chmod 777 ${HOME}/ydfs
+	@chmod 777 ${HOME}/multilib
+	@chmod 777 ${HOME}/archpkg
+	@test -z "$(shell ls -A ${HOME}/archpkg )" || cp archpkg/* ${HOME}/archpkg
+	@chmod 777 ${HOME}/iso
+	@chmod 777 ${HOME}/${ARCH}
+	@echo done 
 
 force-docker-image-64: core/Dockerfile
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
