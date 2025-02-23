@@ -200,7 +200,7 @@ fast-files:
 test-liveusb:
 	./scripts/make_test bootusb
 test2:
-	./scripts/make_test curses
+	./scripts/make_test curses init2
 cleanmultilib:
 	./scripts/make_clean_multilib
 distclean:

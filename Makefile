@@ -89,6 +89,8 @@ docker-64: docker-image-64 prepare
 
 buildme:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+test2:
+	cd core && make test2
 test:
 	cd core && make test
 live-test:
