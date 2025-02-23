@@ -813,7 +813,7 @@ echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-ch
         -DLLVM_INCLUDE_TESTS=ON \
         -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=$HOME/$ARCH/include/spirv/ \
         -Wno-dev "
-#	echo $ARCHIVE | grep libcl && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-18"
+	echo $ARCHIVE | grep libclc-18 && LC_CONFIGURE_OPTS="-DLLVM_SPIRV=$HOME/$ARCH/bin/llvm-spirv -DLLVM_CONFIG=/usr/bin/llvm-config-18"
 	echo $ARCHIVE | grep opkg && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --disable-openssl"
 	echo $ARCHIVE | grep libappindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3"
 	echo $ARCHIVE | grep libindicator && LC_CONFIGURE_OPTS="$LC_CONFIGURE_OPTS --with-gtk=3 \
