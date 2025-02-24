@@ -18,6 +18,7 @@ then
 
 AMD=""
 lspci | grep VGA | grep AMD && AMD=OK
+AMD=DISABLED
 
 if [ "$AMD" == "OK" ]
 then
@@ -25,14 +26,6 @@ then
 Xorg -configure
 grep amdgpu /xorg.conf.new && AMD=amdgpu
 grep radeon /xorg.conf.new && AMD=radeon
-
-#[ "$AMD" == "amdgpu" ] && [ ! -e /etc/X11/xorg.conf.d/amdgpu.conf ] && echo '
-#Section "Device"
-#    Option "DRI3" "False"
-#    Identifier "Card0"
-#    Driver "amdgpu"
-#EndSection
-#' > /etc/X11/xorg.conf.d/amdgpu.conf
 
 [ "$AMD" = "radeon" ] && [ ! -e /etc/X11/xorg.conf.d/radeon.conf ] && echo '
 Section "Device"
@@ -87,7 +80,6 @@ fi
 chmod +x /etc/X11/Xsession
 
 /ydfs/fix/r128
-#/ydfs/fix/chromium
 /ydfs/install/desktop-install-menus &
 
 
@@ -98,9 +90,6 @@ chmod 775 /tmp
 test -s /etc/shadow
 if [ $? = 0 ]
 then
-  #chmod 777 /dev/*
-  #chmod 777 /dev/*/*
-  # /ydfs/config/dev
   [ -e $HOME/.config/ydfs/lang ] && . $HOME/.config/ydfs/lang
   [ "$lang" = "french" ] && export LC_ALL=fr_FR.UTF8 && export LANG=fr_FR.UTF8
   lxdm
