@@ -1,0 +1,4 @@
+archlinux2:systemd
+#Warning, unset LDFLAGS for building grub
+ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz
+#END-linuxconsole

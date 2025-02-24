@@ -349,7 +349,6 @@ archlinux:adwaita-icon-theme
 archlinux:libyaml
 archlinux:psautohint
 #archlinux:pacman
-archlinux:appstream-glib
 pip::cffsubr
 pip::statmake
 pip::ufo2ft
@@ -359,6 +358,7 @@ archlinux:desktop-file-utils
 archlinux:libcloudproviders
 #archlinux:tinysparql
 archlinux:gtk3
+archlinux:appstream-glib
 archlinux:mtdev
 archlinux:libevdev
 pip::libevdev
@@ -472,22 +472,7 @@ archlinux:lvm2
 archlinux:parted
 https://ftp.gnome.org/pub/gnome/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
 #END-guilibs
-#Wine
-#STOP-HERE for the moment
-https://gstreamer.freedesktop.org//src/gstreamer/gstreamer-1.18.5.tar.xz
-http://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.18.5.tar.xz 
-http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.18.5.tar.xz 
-http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.18.5.tar.xz 
-http://gstreamer.freedesktop.org//src/gstreamer-vaapi/gstreamer-vaapi-1.18.5.tar.xz
-archlinux:wine
-#https://dl.winehq.org/wine/source/9.x/wine-9.3.tar.xz
-https://github.com/Winetricks/winetricks/archive/20160724.tar.gz
-http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.tar.xz
-http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
-https://tls.mbed.org/download/mbedtls-2.16.0-gpl.tgz
-git://github.com/Aorimn/dislocker.git
-http://downloads.sourceforge.net/strace/strace-4.20.tar.xz
-pip::sip
-https://github.com/SFML/SFML/archive/2.5.1.tar.gz
-http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz
-https://download.gnome.org/sources/brasero/3.12/brasero-3.12.2.tar.xz
+archlinux2:systemd
+#Warning, unset LDFLAGS for building grub
+ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz
+#END-linuxconsole

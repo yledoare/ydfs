@@ -93,7 +93,3 @@ https://github.com/jordansissel/xdotool/releases/download/v3.20211022.1/xdotool-
 https://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-17.0.tar.xz
 git://github.com/falkTX/Carla.git#tag=v2.4.3 #SKIP-x86_64#
 git://github.com/falkTX/Carla.git#tag=v2.5.0 #SKIP-x86#
-archlinux2:systemd
-#Warning, unset LDFLAGS for building grub
-ftp://ftp.gnu.org/gnu/grub/grub-2.12.tar.xz
-#END-linuxconsole
