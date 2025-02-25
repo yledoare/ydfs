@@ -169,6 +169,7 @@ unset MAKE
         ;;
     zstd )
 	sed -i "s@$HOME/$ARCH@$HOME/multilib@g" */Makefile
+	sed -i "s@/usr/local@$HOME/multilib@g" */Makefile
         ;;
     libcap )
 	sed -i 's@$(HOME)/$(ARCH)@$(HOME)/multilib@g' Make.Rules
