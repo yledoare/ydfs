@@ -27,7 +27,10 @@ install -d $HOME/multilib/include
 [ -e $HOME/ydfs/src/atk ] && [ ! -e $HOME/ydfs/src/atk-2 ] && ln -s $HOME/ydfs/src/atk $HOME/ydfs/src/atk-2
 [ -e $HOME/ydfs/src/libva ] && [ ! -e $HOME/ydfs/src/libva-2 ] && ln -s $HOME/ydfs/src/libva $HOME/ydfs/src/libva-2
 
-PKGMULTILIB="zlib-1 libunwind libunistring libtasn1 libidn gmp nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-3 curl elfutils dbus-1 glib-2 freetype-2 icu harfbuzz freetype-2 json-c fontconfig-2 \
+PKGMULTILIB="zlib-1 libunwind libunistring libtasn1 libidn gmp nettle xorgproto alsa-lib ncurses readline libxcrypt pcre- pcre2 tcl8 sqlite libpng-1.2 libpng-1.6 libffi p11-kit zstd gnutls openssl-3 \
+libpsl \
+curl \
+json-c libxml libarchive elfutils libexpat dbus-1 util-linux glib-2 freetype-2 icu harfbuzz freetype-2 fontconfig \
 xtrans libXau xcb-proto libxcb \
 libX11-1 \
 libXext-1 \
@@ -56,7 +59,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess-0 \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm libxml libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 libexpat glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman cairo-1 libdrm libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc Linux-PAM-1.7 duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 
 for PKG in $PKGMULTILIB
@@ -76,6 +79,8 @@ do
 
   echo -n "$PKG " # && sleep 1
   cd $HOME/ydfs/src/$PKG* || exit $?
+
+  [ -e expat ] && cd expat
 
   if [ ! -L $HOME/multilib/lib32 ]
   then
@@ -276,21 +281,18 @@ unset MAKE
 
   cd ncursesw-build
   ../configure --prefix=$HOME/multilib \
-     --with-shared --with-normal --without-debug --without-ada \
+     --with-shared --with-normal --without-debug --without-ada --enable-pc-files \
      --enable-widec
-  make
-  make install
+  make || exit 1
+  make install || exit 2
 	cd ..
   cd ncurses-build
   ../configure --prefix=$HOME/multilib \
-    --with-shared --with-normal --without-debug --without-ada 
+    --with-shared --with-normal --without-debug --without-ada --enable-pc-files --disable-widec
     ;;
     tcl8* )
 	cd unix
   	./configure --prefix=$HOME/multilib || exit $?
-    ;;
-    fontconfig* )
-	./configure --prefix=$HOME/multilib --disable-docs || exit $?
     ;;
     pcre-* )
 	./configure --prefix=$HOME/multilib --enable-unicode-properties || exit $?
@@ -300,7 +302,16 @@ unset MAKE
   	./configure --prefix=$HOME/multilib || exit $?
     ;;
     dbus-1 )
-  	./configure --prefix=$HOME/multilib  --disable-verbose-mode --disable-static --disable-tests --disable-asserts --disable-systemd || exit $?
+	mkdir build32
+	cd build32
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+	mv /home/linuxconsole2025/x86_64/lib/pkgconfig /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled
+  	LD_LIBRARY_PATH="" cmake .. \
+	 -D apparmor=disabled     -D dbus_user=dbus     -D doxygen_docs=disabled     -D ducktype_docs=disabled     -D kqueue=disabled     -D launchd=disabled     -D libaudit=disabled     -D message_bus=false     -D qt_help=disabled     -D relocation=disabled     -D selinux=disabled     -D tools=false     -D x11_autolaunch=disabled     -D xml_docs=disabled -DCMAKE_INSTALL_PREFIX=$HOME/multilib 
+	mv /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled /home/linuxconsole2025/x86_64/lib/pkgconfig
+	bash
+        touch ../ydfs-multilib-buildt
     ;;
     freetype-2* )
 	if [ -e $HOME/multilib/lib/libharfbuzz.so ]
@@ -309,9 +320,6 @@ unset MAKE
 	else
   	  ./configure --prefix=$HOME/multilib --with-harfbuzz=no || exit $?
 	fi
-    ;;
-    harfbuzz* )
-	./configure --prefix=$HOME/multilib -disable-silent-rules --with-graphite2=no --without-cairo || exit $?
     ;;
     readline )
 	sed -i 's|-Wl,-rpath,$(libdir) ||g' support/shobj-conf
@@ -350,13 +358,12 @@ unset MAKE
     gtk+-3 )
   	./configure --prefix=$HOME/multilib --disable-cups || exit $?
     ;;
-    check | libjpeg-turbo )
-  	# ./configure --prefix=$HOME/multilib --without-simd || exit $?
+    check | libjpeg-turbo | json-c | harfbuzz )
 	mkdir build32
 	 cd build32
 	export CC="gcc -m32 -mstackrealign"
   	export CXX="g++ -m32 -mstackrealign"
-  	cmake .. \
+  	LD_LIBRARY_PATH="" cmake .. \
     	-DCMAKE_INSTALL_PREFIX=$HOME/multilib 
         touch ../ydfs-multilib-buildt
 	;;
@@ -379,17 +386,18 @@ unset MAKE
   	cmake .. \
 	;;
     glib-2)
-	patch -p1 < $HOME_DIBAB/packages/patches/lib32-glib2.diff
-	patch -p1 < $HOME_DIBAB/packages/patches/glib2-multilib.diff
-	export CC="gcc -m32 -mstackrealign"
-  	export CXX="g++ -m32 -mstackrealign"
-	sleep 5
+	sed -i "s@${pcfiledir}/\.\./\.\.@${original_prefix}@g" $HOME/multilib/lib/pkgconfig/dbus-1.pc
+	sed -i "s@pcfiledir@original_prefix@g" $HOME/multilib/lib/pkgconfig/dbus-1.pc
+	#git revert -n 4e6dc4dee0e1c6407113597180d9616b4f275f94 
+	#git submodule init
 	mkdir build-32
 	cd build-32
-        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 -D b_lto=false \
-    -D b_pie=false \
-    -D selinux=disabled \
-     || exit 1
+	export CC="gcc -m32 -mstackrealign"
+  	export CXX="g++ -m32 -mstackrealign"
+	mv /home/linuxconsole2025/x86_64/lib/pkgconfig /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled
+	CFLAGS="$CFLAGS -g3" CXXFLAGS="$CXXFLAGS -g3" CFLAGS="$CFLAGS -mstackrealign" CXXFLAGS="$CXXFLAGS -mstackrealign" PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 \
+	-D documentation=false     -D dtrace=disabled     -D glib_debug=disabled     -D introspection=disabled     -D man-pages=disabled     -D selinux=disabled     -D sysprof=disabled     -D systemtap=disabled # || exit 1
+	mv /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled /home/linuxconsole2025/x86_64/lib/pkgconfig
 	;;
     libglvnd)
 	mkdir build-32
@@ -477,7 +485,13 @@ unset MAKE
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dintrospection=false --libdir=$HOME/multilib/lib32 || exit 1
 	;;
-     util-linux | glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
+     util-linux )
+  	export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" 
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --libexecdir=$HOME/multilib/lib32 --auto-features disabled -Dbuild-libblkid=enabled -Dbuild-libuuid=enabled -Dbuild-libmount=enabled -Dbuild-libsmartcols=enabled -Dbuild-libfdisk=enabled -Dncursesw=disabled -Dncurses=enabled || exit 1
+	;;
+     fontconfig | glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -514,7 +528,7 @@ unset MAKE
   esac
 
   echo "Run make clean" 
-  make clean
+  LD_LIBRARY_PATH="" make clean
   case $PKG in
     libxslt )
 	touch doc/xsltproc.1
@@ -540,7 +554,7 @@ unset MAKE
 	;;
     * )
   	echo "Run make "
-  	make || exit $?
+  	LD_LIBRARY_PATH="" make || exit $?
 	;;
   esac
 
@@ -556,7 +570,7 @@ unset MAKE
 	;;
     * )
   	echo "Make 2 for $PKG"
-  	make || exit $?
+  	LD_LIBRARY_PATH="" make || exit $?
 	;;
   esac
 
@@ -590,7 +604,7 @@ unset MAKE
 	;;
     * )
   	echo "Run make install "
-  	VERBOSE=1 make install || exit $?
+  	LD_LIBRARY_PATH="" VERBOSE=1 make install || exit $?
         [ -e getfacl/getfacl.c ] && make install-lib install-dev
 	[ -e getfattr/getfattr.c ] && make install-lib install-dev
 	;;
