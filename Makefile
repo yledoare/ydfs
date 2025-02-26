@@ -48,17 +48,17 @@ else
 endif
 
 DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
-	-v ${HOME}/ydfs:/home/linuxconsole2025/ydfs \
-	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
-	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
-	-v ${HOME}/multilib:/home/linuxconsole2025/multilib \
-	-v ${HOME}/linuxconsole:/home/linuxconsole2025/linuxconsole \
-	-v ${HOME}/iso:/home/linuxconsole2025/iso \
+	-v ${HOME}/ydfs-build/ydfs:${HOME}/ydfs \
+	-v ${HOME}/ydfs-build/${ARCH}:${HOME}/${ARCH} \
+	-v ${HOME}/ydfs-build/archpkg:${HOME}/archpkg \
+	-v ${HOME}/ydfs-build/multilib:${HOME}/multilib \
+	-v ${HOME}/ydfs-build/linuxconsole:${HOME}/linuxconsole \
+	-v ${HOME}/ydfs-build/iso:${HOME}/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	--platform=linux/amd64 \
 	-e HOME_DIBAB=/ydfs-src/core \
-	-e SEND_BUILD_LOG=YES
+	-e SEND_BUILD_LOG=YES #\
 #	--user $(shell id -u):$(shell id -g)
 
 all:
@@ -69,37 +69,37 @@ all:
 linuxconsole: iso
 
 clean:
-	rm -fR ${HOME}/ydfs
-	rm -fR ${HOME}/multilib
-	rm -fR ${HOME}/archpkg
-	rm -fR ${HOME}/linuxconsole
-	rm -fR ${HOME}/${ARCH}
+	rm -fR ${HOME}/ydfs-build
 
 prepare:
 	@echo "DOCKER_BUILD_CLI is $(DOCKER_BUILD_CLI) ${DOCKER_BUILD_CLI_OPTION}"
 	@echo "Arch is ${ARCH}"
 	@echo -n prepare ..
-	@install -d ${HOME}/ydfs
-	@install -d ${HOME}/multilib
-	@install -d ${HOME}/linuxconsole
-	@install -d ${HOME}/archpkg
-	@install -d ${HOME}/iso
-	@install -d ${HOME}/${ARCH}
+	@install -d ${HOME}/ydfs-build/ydfs
+	@install -d ${HOME}/ydfs-build/multilib
+	@install -d ${HOME}/ydfs-build/linuxconsole
+	@install -d ${HOME}/ydfs-build/archpkg
+	@install -d ${HOME}/ydfs-build/iso
+	@install -d ${HOME}/ydfs-build/${ARCH}
 	@echo $(YDFS) > ydfs
 	@echo $(YDFS_GIT_ID) > ydfs-git-id
-	@chmod 777 ${HOME}/ydfs
-	@chmod 777 ${HOME}/multilib
-	@chmod 777 ${HOME}/archpkg
-	@test -z "$(shell ls -A ${HOME}/archpkg )" || cp archpkg/* ${HOME}/archpkg || echo "Fixme"
-	@chmod 777 ${HOME}/iso
-	@chmod 777 ${HOME}/${ARCH}
+	@chmod 777 ${HOME}/ydfs-build/ydfs
+	@chmod 777 ${HOME}/ydfs-build/multilib
+	@chmod 777 ${HOME}/ydfs-build/archpkg
+	@test -z "$(shell ls -A ${HOME}/ydfs-build/archpkg )" || cp archpkg/* ${HOME}/ydfs-build/archpkg || echo "Fixme"
+	@chmod 777 ${HOME}/ydfs-build/iso
+	@chmod 777 ${HOME}/ydfs-build/${ARCH}
 	@echo done 
 
 force-docker-image-64: core/Dockerfile
+	grep useradd core/Dockerfile || echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile
+	grep USER core/Dockerfile || echo USER $(shell whoami) >> core/Dockerfile
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
+	grep useradd core/Dockerfile || echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile
+	grep USER core/Dockerfile || echo USER $(shell whoami) >> core/Dockerfile
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
 endif
 

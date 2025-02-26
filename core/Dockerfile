@@ -29,9 +29,8 @@ ENV TZ=Europe/Paris
 ENV TERM=linux
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+RUN echo apt-get update
 RUN apt-get update 
-RUN useradd linuxconsole2025 --create-home
 
 RUN apt-get install -y ack ant apt-utils autoconf automake python3-blinker
 RUN apt-get install -y bam bc bison bzip2 bzr bindgen 
@@ -62,5 +61,5 @@ RUN apt-get install -y zlib1g-dev zstd
 RUN apt-get install -y lzip
 #RUN dpkg -L libselinux1-dev | while read file; do echo $file; done
 #RUN dpkg -L libselinux1-dev | while read file; do rm $file; done
-USER linuxconsole2025
-#CMD /build-lc2025
+# https://www.overleaf.com/latex/templates
+#RUN apt-get install -y texlive-fonts-extra texlive-xetex
