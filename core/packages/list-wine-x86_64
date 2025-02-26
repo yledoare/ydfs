@@ -12,7 +12,6 @@ http://packages.linuxmint.com/pool/main/w/wine-installer/wine-installer_4.0.5.ta
 http://breakfastquay.com/files/releases/10/dssi-vst-0.9.2.tar.bz2
 https://tls.mbed.org/download/mbedtls-2.16.0-gpl.tgz
 git://github.com/Aorimn/dislocker.git
-http://downloads.sourceforge.net/strace/strace-4.20.tar.xz
 pip::sip
 https://github.com/SFML/SFML/archive/2.5.1.tar.gz
 http://http.debian.net/debian/pool/main/c/cdrkit/cdrkit_1.1.11.orig.tar.gz

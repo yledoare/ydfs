@@ -54,14 +54,15 @@ echo "Detect hardware"
 [ -e /ydfs/boot/options/debug06  ] && sh
 echo "Detect Network"
 [ -e /ydfs/boot/options/logger  ] && logger network
-. /ydfs/detect/network & #> /dev/tty2 2>/dev/tty2
+[ ! -e /ydfs/boot/options/nonetwork  ] && . /ydfs/detect/network & #> /dev/tty2 2>/dev/tty2
 
 # echo "Set up sound mixer"
 
 [ -e /ydfs/boot/options/logger  ] && logger  mixer
-. /ydfs/detect/mixer &
-. /ydfs/enable/swap &
-. /ydfs/detect/cups &
+
+[ ! -e /ydfs/boot/options/nomixer  ] && . /ydfs/detect/mixer &
+[ ! -e /ydfs/boot/options/noswap  ] && . /ydfs/enable/swap &
+[ ! -e /ydfs/boot/options/nocups  ] && . /ydfs/detect/cups &
 
 [ -e /ydfs/boot/options/debug2  ] && sh
 

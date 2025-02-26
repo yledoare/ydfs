@@ -1,5 +1,5 @@
 #https://ftp.postgresql.org/pub/source/v16.6/postgresql-16.6.tar.bz2
-archlinux:coreutils
+archlinux:openssh
 #archlinux:startup-notification
 #archlinux:xcb-util-xrm
 #archlinux:i3-wm

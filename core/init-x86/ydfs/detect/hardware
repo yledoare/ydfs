@@ -56,7 +56,7 @@ echo "killall Xorg" > /fix/lubuntu-logout
 echo "killall lxdm-binary" >> /fix/lubuntu-logout
 chmod +x /fix/lubuntu-logout
 
-/usr/libexec/bluetooth/bluetoothd &
+grep nobluetoothd /proc/cmdline || /usr/libexec/bluetooth/bluetoothd &
 
 /ydfs/fix/usb-disk-cache
 

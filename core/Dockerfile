@@ -60,6 +60,7 @@ RUN apt-get install -y xmlto xorriso xsltproc xutils-dev xz-utils
 RUN apt-get install -y zlib1g-dev zstd 
 
 RUN apt-get install -y lzip
-
+#RUN dpkg -L libselinux1-dev | while read file; do echo $file; done
+#RUN dpkg -L libselinux1-dev | while read file; do rm $file; done
 USER linuxconsole2025
 #CMD /build-lc2025

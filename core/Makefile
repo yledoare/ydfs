@@ -177,7 +177,7 @@ iso: isodep ${ISOPATH} # sleep
 metalink:
 	./scripts/iso_to_metalink
 
-${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${HOME}/ydfs/config.ini #  ${LCMBUILD}
+${ISOPATH}: ${HOME}/ydfs/build-${ARCH}/${INITRAMFS} ${LCMBUILD}/${ARCH}.squashfs ${LCMBUILD}${DISTRONAME}.squashfs ${HOME}/ydfs/config.ini #  ${LCMBUILD}
 	./scripts/make_iso
 
 ${HOME}/ydfs/config.ini:
@@ -252,6 +252,9 @@ hackerOS: packages/list-hackerOS
 	./scripts/make_module hackerOS
 
 modules: $(shell echo ${YDFS_MODULES})
+
+${LCMBUILD}${DISTRONAME}.squashfs:
+	./scripts/make_module ${DISTRONAME}
 
 kde: ${LCMBUILD}/kde-${ARCH}.squashfs
 ${LCMBUILD}/kde-${ARCH}.squashfs : packages/list-kde
@@ -460,8 +463,6 @@ ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
 	./scripts/make_packages antivirus
 	./scripts/make_module antivirus
 
-
-
-archive:
-	cd ..
-	tar czvf linuxconsole-2.4.tar.gz --exclude ydfs/config.ini --exclude .git 2.4
+touch:
+	touch ${HOME}/x86_64/buildenv
+	touch ${HOME}/ydfs/build/modules/x86_64.squashfs

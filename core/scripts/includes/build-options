@@ -31,6 +31,7 @@ echo $ARCHIVE | grep GNOME/dconf &&  LC_CONFIGURE_OPTS=" -Dvapi=false "
 echo $ARCHIVE | grep libnotify &&  LC_CONFIGURE_OPTS=" -Dman=false -Ddocbook_docs=disabled -Dgtk_doc=false "
 echo $ARCHIVE | grep json-glib &&  LC_CONFIGURE_OPTS="-Ddocumentation=disabled "
 echo $ARCHIVE | grep coreutils &&  LC_CONFIGURE_OPTS=" --disable-gcc-warnings --without-selinux "
+echo $ARCHIVE | grep strace &&  LC_CONFIGURE_OPTS="  --without-libselinux "
 echo $ARCHIVE | grep glslang &&  LC_CONFIGURE_OPTS=" -DALLOW_EXTERNAL_SPIRV_TOOLS=ON "
 echo $ARCHIVE | grep shadow &&  LC_CONFIGURE_OPTS=" --disable-account-tools-setuid  --enable-man   --with-audit     --without-fcaps  --with-group-name-max-length=32     --with-libpam  --with-yescrypt     --without-bcrypt     --without-libbsd  --without-nscd  --without-selinux  --without-su  "
 echo $ARCHIVE | grep audit-userspace &&  LC_CONFIGURE_OPTS=" --disable-zos-remote "
@@ -542,7 +543,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
     --enable-shared \
     --enable-vdpau \
     --enable-version3 "
-echo $ARCHIVE | grep openssh-8 && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
+echo $ARCHIVE | grep openssh && LC_CONFIGURE_OPTS="--without-openssl-header-check --with-privsep-path=$DIBAB_PREFIX"
 #WRITE HERE NEW RULES
 	echo $ARCHIVE | grep clamav && LC_CONFIGURE_OPTS="--with-user=root --with-group=root "
 	echo $ARCHIVE | grep vlc- && LC_CONFIGURE_OPTS="--enable-run-as-root               --disable-rpath \

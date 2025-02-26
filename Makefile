@@ -1,3 +1,12 @@
+# If the first argument is "run"...
+ifeq (docker,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "run"
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  RUN_ARGS2 := -e $(wordlist 3,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(RUN_ARGS):;@:)
+endif
+
 export YDFS = $(shell git rev-parse --abbrev-ref HEAD)
 export YDFS_GIT_ID = $(shell git log -n1 --format="%h")
 
@@ -43,6 +52,7 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-v ${HOME}/${ARCH}:/home/linuxconsole2025/${ARCH} \
 	-v ${HOME}/archpkg:/home/linuxconsole2025/archpkg \
 	-v ${HOME}/multilib:/home/linuxconsole2025/multilib \
+	-v ${HOME}/linuxconsole:/home/linuxconsole2025/linuxconsole \
 	-v ${HOME}/iso:/home/linuxconsole2025/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
@@ -51,13 +61,18 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-e SEND_BUILD_LOG=YES
 #	--user $(shell id -u):$(shell id -g)
 
+all:
+	@echo "make linuxconsole"
+	@echo "make test"
+	@echo "make docker updates DIBAB_VERBOSE_BUILD=YES"
 
-all: docker-64
+linuxconsole: iso
 
 clean:
 	rm -fR ${HOME}/ydfs
 	rm -fR ${HOME}/multilib
 	rm -fR ${HOME}/archpkg
+	rm -fR ${HOME}/linuxconsole
 	rm -fR ${HOME}/${ARCH}
 
 prepare:
@@ -66,6 +81,7 @@ prepare:
 	@echo -n prepare ..
 	@install -d ${HOME}/ydfs
 	@install -d ${HOME}/multilib
+	@install -d ${HOME}/linuxconsole
 	@install -d ${HOME}/archpkg
 	@install -d ${HOME}/iso
 	@install -d ${HOME}/${ARCH}
@@ -94,12 +110,9 @@ verbose:
 	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 cleanmultilib:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make cleanmultilib'
-
 multilib:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make multilib'
 
-docker-64: docker-image-64 prepare core/packages/list-x86_64
+iso: docker-image-64 prepare core/packages/list-x86_64
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 buildme:
@@ -118,17 +131,14 @@ dist-fast-kernel: fast-kernel
 	scp ${HOME}/iso/kernel-modules-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-modules-${YDFS}-${ARCH}.tar.gz
 	scp ${HOME}/iso/kernel-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-${YDFS}-${ARCH}.tar.gz
 
-fast-kernel:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make fast-kernel'
-
+# make docker fast-kernel
+# make docker busybox
+# make docker clean-kernel
+# make docker initramfs
 updates:
-	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
-
-busybox:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make busybox'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package coreutils'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package strace-6.13'
 
 bash: prepare
 	${DOCKER} ydfs64-${YDFS} bash
@@ -136,8 +146,6 @@ bash: prepare
 root: prepare
 	${DOCKER} -u root ydfs64-${YDFS} bash
 
-clean-kernel:
-	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make clean-kernel'
 
 fast-kernel64: prepare
 	${DOCKER} -e BUILDYDFS=fast_kernel ydfs64-${YDFS} /bin/sh -c 'cd core; make linux'
@@ -145,8 +153,6 @@ fast-kernel64: prepare
 fast-64: prepare
 	${DOCKER} -e BUILDYDFS=fast ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
-initramfs:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
 
 core/packages/list-x86_64: core/packages/list-misclibs-x86_64 core/packages/list-guilibs-x86_64 core/packages/list-xorg2-x86_64 core/packages/list-core-x86_64 core/packages/list-perl-x86_64 core/packages/list-xorg-x86_64 core/packages/list-mate-x86_64 core/packages/list-wine-x86_64 core/packages/list-libreoffice-x86_64 core/packages/list-kde-x86_64 core/packages/list-misc-x86_64
 	echo "#DO NOT WRITE HERE, GERNERATED FROM MAKEFILE" > core/packages/list-x86_64
@@ -162,3 +168,18 @@ core/packages/list-x86_64: core/packages/list-misclibs-x86_64 core/packages/list
 #	cat core/packages/list-kde-x86_64 >> core/packages/list-x86_64
 #	cat core/packages/list-misc-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-end-x86_64 >> core/packages/list-x86_64
+#%::
+#	@echo "Run docker $(RUN_ARGS)"
+#	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make $(RUN_ARGS)'
+initramfs:
+	@echo "Run docker iso "
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
+iso:
+	@echo "Run docker iso "
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+
+verbose-iso:
+	@echo "Run docker iso "
+	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+touch:
+	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make touch'
