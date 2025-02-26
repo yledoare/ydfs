@@ -59,7 +59,7 @@ libXxf86dga-1 \
 libXxf86vm-1 \
 libpciaccess \
 libxkbfile-1 \
-libxshmfence-1 pixman cairo-1 libdrm libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
+libxshmfence-1 pixman lzo-2 cairo libdrm libgpg-error libgcrypt libxslt llvm elfutils libvdpau kmod eudev tiff-4 libjpeg-turbo gdk-pixbuf flac libsndfile speex opus-1 opusfile sbc check libglvnd wayland-1 lm-sensors Vulkan-Loader mesa-2 glu libsamplerate SDL2-2 openal-soft fribidi pango-1 atk-2 \
 unixODBC libtheora libcap at-spi2-core at-spi2-atk libepoxy libxkbcommon libgudev lcms2 libusb-1 libgusb libtirpc Linux-PAM-1.7 duktape polkit-1 colord glib-networking libpsl brotli e2fsprogs krb5 libsoup-2 rest json-glib gtk+-3 gstreamer-1 libgudev bzip2 libva-2 gst-plugins-base" 
 
 for PKG in $PKGMULTILIB
@@ -338,14 +338,6 @@ unset MAKE
 	tar xzvhf llvm11-multilib.tar.gz
 	#	$HOME_DIBAB/scripts/build-llvm-clang
     ;;
-    cairo-1* )
-	# echo "Disable Test .." && sleep 2
-  	sed -i "s| test perf| perf|g" Makefile.am
-	# echo "Done" && sleep 2
-  	# ./configure --prefix=$HOME/multilib --enable-pdf=no --disable-pdf --disable-full-testing --disable-static --disable-test-suite || exit $?
-	autoreconf
-  	./configure --prefix=$HOME/multilib --disable-full-testing --disable-static --disable-test-suite || exit $?
-    ;;
     poppler )
   	./configure --prefix=$HOME/multilib --disable-poppler-qt4 --disable-cairo-output || exit $?
     ;;
@@ -467,6 +459,16 @@ unset MAKE
 	cd build-32
         PYTHONPATH="" meson ../ -Dbuildtype=release -Ddocumentation=false --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
 	;;
+     cairo )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib     -D dwrite=disabled     -D gtk_doc=false     -D spectre=disabled     -D symbol-lookup=disabled     -D tests=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	;;
+     pixman )
+	mkdir build-32
+	cd build-32
+        PYTHONPATH="" meson ../ --prefix=$HOME/multilib -Dgtk=disabled -Dtests=disabled -Ddemos=disabled --libdir=$HOME/multilib/lib32 || exit 1
+	;;
      at-spi2-core )
 	mkdir build-32
 	cd build-32
@@ -488,7 +490,7 @@ unset MAKE
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 --libexecdir=$HOME/multilib/lib32 --auto-features disabled -Dbuild-libblkid=enabled -Dbuild-libuuid=enabled -Dbuild-libmount=enabled -Dbuild-libsmartcols=enabled -Dbuild-libfdisk=enabled -Dncursesw=disabled -Dncurses=enabled || exit 1
 	;;
-     pixman | libpciaccess | fontconfig | glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
+     libpciaccess | fontconfig | glib-networking | gst-plugins-base | at-spi2-core | at-spi2-atk | libxkbcommon | libepoxy | libdrm)
 	mkdir build-32
 	cd build-32
         PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 || exit 1
@@ -536,7 +538,7 @@ unset MAKE
 	cp libbz2.so.1.0 $HOME/multilib/lib
 	ln -s libbz2.so.1.0 $HOME/multilib/lib/libbz2.so
 	;;
-    pixman | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    pixman | cairo | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk | libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | mesa-2 | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
   echo "Run Ninja" 
         PYTHONPATH="" ninja || exit 1
 	;;
@@ -562,7 +564,7 @@ unset MAKE
 	;;
    llvm )
 	;;
-   pixman | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
+   pixman | cairo | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|+-3|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | mesa-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf )
   	echo "Do nothing for $PKG"
 	;;
     * )
@@ -594,7 +596,7 @@ unset MAKE
 
 	cd ..
 	;;
-    pixman | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
+    pixman | cairo | libpciaccess | fontconfig | util-linux | json-glib | libgudev | glib-networking | libsoup-2 | polkit-1 | wayland-1 | pulseaudio-14 | p11-kit | gst-plugins-base|polkit-0|libgusb|colord|at-spi2-core|at-spi2-atk|libxkbcommon | libepoxy | gstreamer-1 | glib-2 | libdrm | libglvnd | pango-1 | atk-2 | gdk-pixbuf)
   	echo "Run ninja install "
         PYTHONPATH="" ninja install || exit 1
 	cd ..

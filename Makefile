@@ -93,6 +93,9 @@ force-iso:
 verbose:
 	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
+cleanmultilib:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make cleanmultilib'
+
 multilib:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make multilib'
 
