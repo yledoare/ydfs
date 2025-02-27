@@ -224,7 +224,7 @@ echo $ARCHIVE | grep sqlite-src &&  LC_CONFIGURE_OPTS="	--disable-static \
 	--enable-fts4 \
 	--enable-fts5 \
 	--enable-rtree \
-	--enable-json1" && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
+	--enable-json" && export CPPFLAGS="$CPPFLAGS -DSQLITE_ENABLE_COLUMN_METADATA=1 \
                              -DSQLITE_ENABLE_UNLOCK_NOTIFY \
                              -DSQLITE_ENABLE_DBSTAT_VTAB=1 \
                              -DSQLITE_ENABLE_FTS3_TOKENIZER=1 \

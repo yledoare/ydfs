@@ -61,10 +61,7 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 	-e SEND_BUILD_LOG=YES #\
 #	--user $(shell id -u):$(shell id -g)
 
-all:
-	@echo "make linuxconsole"
-	@echo "make test"
-	@echo "make docker updates DIBAB_VERBOSE_BUILD=YES"
+all: linuxconsole
 
 linuxconsole: iso
 
@@ -110,7 +107,9 @@ verbose:
 	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 cleanmultilib:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make cleanmultilib'
 multilib:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make multilib'
 
 iso: docker-image-64 prepare core/packages/list-x86_64
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
@@ -174,9 +173,6 @@ core/packages/list-x86_64: core/packages/list-misclibs-x86_64 core/packages/list
 initramfs:
 	@echo "Run docker iso "
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'
-iso:
-	@echo "Run docker iso "
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 verbose-iso:
 	@echo "Run docker iso "
