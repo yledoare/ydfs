@@ -89,15 +89,16 @@ prepare:
 	@echo done 
 
 force-docker-image-64: core/Dockerfile
-	grep useradd core/Dockerfile || echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile
-	grep USER core/Dockerfile || echo USER $(shell whoami) >> core/Dockerfile
-	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
+	cp core/Dockerfile core/Dockerfile-with-user
+	echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user
+	echo USER $(shell whoami) >> core/Dockerfile-with-user
+	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
-	grep useradd core/Dockerfile || echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile
-	grep USER core/Dockerfile || echo USER $(shell whoami) >> core/Dockerfile
-	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile -t ydfs64-${YDFS} .
+	echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user
+	echo USER $(shell whoami) >> core/Dockerfile-with-user
+	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 endif
 
 force-iso:
