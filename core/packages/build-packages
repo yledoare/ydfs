@@ -223,6 +223,7 @@ then
   fi
   $HOME_DIBAB/scripts/echo-archpkg $PKG || exit $?
   ARCHIVE=`$HOME_DIBAB/scripts/echo-archpkg $PKG`
+	#echo  $ARCHIVE "OK" && exit 1
   echo "Arch linux source for $PKG : $ARCHIVE_URL"
 fi
   DIRNAME=`basename $ARCHIVE_URL |sed "s/.tar.xz//" | sed "s/.tar.bz2//" | sed "s/.tar.gz//"`

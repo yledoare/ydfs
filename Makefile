@@ -83,7 +83,7 @@ prepare:
 	@chmod 777 ${HOME}/ydfs-build/ydfs
 	@chmod 777 ${HOME}/ydfs-build/multilib
 	@chmod 777 ${HOME}/ydfs-build/archpkg
-	@test -z "$(shell ls -A ${HOME}/ydfs-build/archpkg )" || cp archpkg/* ${HOME}/ydfs-build/archpkg || echo "Fixme"
+	@test -f ${HOME}/ydfs-dbuild/archpkg/tcl || cp archpkg/* ${HOME}/ydfs-build/archpkg
 	@chmod 777 ${HOME}/ydfs-build/iso
 	@chmod 777 ${HOME}/ydfs-build/${ARCH}
 	@echo done 
