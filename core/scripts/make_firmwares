@@ -17,7 +17,7 @@ export LD_LIBRARY_PATH=$HOME/x86/lib
 fi
 install -d $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
 cd $HOME/ydfs/kernel-$ARCH/modules/$KERNEL3
-[ ! -e list-firmwares ] && "Generale list-firmwares" && find -name '*.ko' -exec modinfo {} \; | awk '$1 == "firmware:" { print $2}' > list-firmwares
+[ ! -e list-firmwares ] && echo "Generale list-firmwares" && find -name '*.ko' -exec modinfo {} \; | awk '$1 == "firmware:" { print $2}' > list-firmwares
 [ ! -e linux-firmware ] && echo "git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"  && GIT_SSL_NO_VERIFY=1 git clone --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
 cd linux-firmware
 echo "Install"
