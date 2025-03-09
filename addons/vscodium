@@ -1,0 +1,13 @@
+if [ ! -e $HOME/.local/bin/vscodium ]
+then
+  install -d $HOME/.local/vscodium 
+  cd $HOME/.local/vscodium 
+  wget https://github.com/VSCodium/vscodium/releases/download/1.97.2.25045/VSCodium-linux-x64-1.97.2.25045.tar.gz
+  tar xzvf VSCodium-linux-x64-1.97.2.25045.tar.gz
+  ln -s $HOME/.local/vscodium/codium $HOME/.local/bin/codium
+  rm VSCodium-linux-x64-1.97.2.25045.tar.gz
+  wget https://aur.archlinux.org/cgit/aur.git/plain/vscodium.desktop?h=vscodium -O $HOME/.local/share/applications/vscodium.desktop
+  sed -i "s@/usr/bin@$HOME/.local/bin@g" $HOME/.local/share/applications/vscodium.desktop
+fi
+
+$HOME/.local/bin/vscodium
