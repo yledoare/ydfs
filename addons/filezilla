@@ -1,5 +1,6 @@
 install -d $HOME/filezilla
 cd $HOME/filezilla
-[ ! -e FileZilla3 ] && [ ! -e FileZilla_3.68.1_x86_64-linux-gnu.tar.xz ] && wget "https://dl2.cdn.filezilla-project.org/client/FileZilla_3.68.1_x86_64-linux-gnu.tar.xz?h=cepRVFCURo-_rzohbrkf8g&x=1736841198" -O FileZilla_3.68.1_x86_64-linux-gnu.tar.xz && tar xJvf FileZilla_3.68.1_x86_64-linux-gnu.tar.xz && rm FileZilla_3.68.1_x86_64-linux-gnu.tar.xz
+TARBALL="https://dl3.cdn.filezilla-project.org/client/FileZilla_3.68.1_x86_64-linux-gnu.tar.xz?h=m84_Msvhns4St0ZteB6nzQ&x=1742118889"
+[ ! -e FileZilla3 ] && [ ! -e FileZilla_3.68.1_x86_64-linux-gnu.tar.xz ] && wget "$TARBALL" -O FileZilla_3.68.1_x86_64-linux-gnu.tar.xz && tar xJvf FileZilla_3.68.1_x86_64-linux-gnu.tar.xz && rm FileZilla_3.68.1_x86_64-linux-gnu.tar.xz
 export LD_LIBRARY_PATH=$HOME/filezilla/FileZilla3/lib:$LD_LIBRARY_PATH
 $HOME/filezilla/FileZilla3/bin/filezilla
