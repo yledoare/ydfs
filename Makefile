@@ -121,6 +121,9 @@ test2:
 	cd core && make test2
 test:
 	cd core && make test
+xbmc:
+	${DOCKER} -e DIBAB_VERBOSE_BUILD=YES ydfs64-${YDFS} /bin/sh -c 'cd core; make xbmc'
+
 live-test:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make live-test'
 
@@ -136,9 +139,10 @@ dist-fast-kernel: fast-kernel
 # make docker clean-kernel
 # make docker initramfs
 updates:
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
 
 uninstall:
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package strace-6.13'
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; scripts/uninstall-package giflib-5.2.2'
 
 bash: prepare
 	${DOCKER} ydfs64-${YDFS} bash

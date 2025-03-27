@@ -1,4 +1,7 @@
 #https://ftp.postgresql.org/pub/source/v16.6/postgresql-16.6.tar.bz2
+archlinux:giflib
+archlinux:rapidjson
+kodi-21.2-Omega.tar.gz::https://github.com/xbmc/xbmc/archive/21.2-Omega.tar.gz
 archlinux:openssh
 #archlinux:startup-notification
 #archlinux:xcb-util-xrm

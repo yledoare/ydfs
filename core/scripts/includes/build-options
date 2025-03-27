@@ -27,6 +27,7 @@ echo $ARCHIVE | grep jasper &&  LC_CONFIGURE_OPTS=" -D CMAKE_INSTALL_PREFIX=/usr
 echo $ARCHIVE | grep sane-project/backends &&  LC_CONFIGURE_OPTS="    --disable-locking     --disable-rpath     --enable-pthread     --with-avahi     --with-libcurl     --with-pic     --with-poppler-glib     --with-systemd     --with-usb "
 echo $ARCHIVE | grep ftgl &&  LC_CONFIGURE_OPTS="--with-pic --disable-static " && export CXXFLAGS+=' -fpermissive'
 
+echo $ARCHIVE | grep rapidjson &&  LC_CONFIGURE_OPTS=" -DRAPIDJSON_BUILD_TESTS=OFF "
 echo $ARCHIVE | grep GNOME/dconf &&  LC_CONFIGURE_OPTS=" -Dvapi=false "
 echo $ARCHIVE | grep libnotify &&  LC_CONFIGURE_OPTS=" -Dman=false -Ddocbook_docs=disabled -Dgtk_doc=false "
 echo $ARCHIVE | grep json-glib &&  LC_CONFIGURE_OPTS="-Ddocumentation=disabled "
