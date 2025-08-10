@@ -1,5 +1,5 @@
-git://github.com/kmatheussen/radium.git#tag=7.4.76
-git://github.com/ardour/ardour.git#tag=7.4
-https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.6.tar.gz 
+#git://github.com/kmatheussen/radium.git#tag=7.4.76
+git://github.com/ardour/ardour.git#tag=8.12
+#https://github.com/mixxxdj/mixxx/archive/refs/tags/2.3.6.tar.gz 
 #https://github.com/hydrogen-music/hydrogen/archive/1.2.0/hydrogen-1.2.0.tar.gz
-http://www.xwax.co.uk/releases/xwax-1.9.tar.gz
+#http://www.xwax.co.uk/releases/xwax-1.9.tar.gz
