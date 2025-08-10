@@ -1,3 +1,9 @@
+# Get all remote branches
+
+git fetch
+git branch -v -a
+
+# Put tags
 # git pull --rebase --autostash
 
 git remote set-url origin git@github.com:linuxconsole-org/ydfs.git
