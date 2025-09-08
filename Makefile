@@ -90,14 +90,14 @@ prepare:
 
 force-docker-image-64: core/Dockerfile
 	cp core/Dockerfile core/Dockerfile-with-user
-	echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user
+	$(shell(echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user)
 	echo USER $(shell whoami) >> core/Dockerfile-with-user
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
-	echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user
-	echo USER $(shell whoami) >> core/Dockerfile-with-user
+	$(shell(echo RUN useradd $(shell whoami) --create-home >> core/Dockerfile-with-user)
+	$(shell(echo USER $(shell whoami) >> core/Dockerfile-with-user)
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 endif
 
