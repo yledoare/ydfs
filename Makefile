@@ -16,6 +16,7 @@ DOCKER_BUILDX  = $(shell docker --help |grep buildx)
 ifeq ($(DOCKER_BUILDX),)
   DOCKER_BUILDX = $(shell which buildx-v0.21.1.linux-amd64)
   ifeq ($(DOCKER_BUILDX),)
+    DOCKER_BUILD_CLI = docker
   else
     #Used to build YDFS2.11 from LinuxConsole 2024
     DOCKER_BUILD_CLI = buildx-v0.21.1.linux-amd64
