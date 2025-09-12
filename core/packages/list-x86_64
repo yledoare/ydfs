@@ -466,7 +466,8 @@ archlinux:upower
 archlinux:talloc
 archlinux:cracklib
 archlinux:libpwquality
-archlinux:ntfs-3g
+#archlinux:ntfs-3g
+http://jukebox.linuxconsole.org/sources/ntfs-3g_ntfsprogs-2021.8.22.tgz
 archlinux:libaio
 archlinux:lvm2
 #archlinux:thin-provisioning-tools
