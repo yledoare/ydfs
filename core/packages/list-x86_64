@@ -194,7 +194,8 @@ archlinux:perl-extutils-pkgconfig
 #END-perl
 #archlinux:groff
 ftp://ftp.gnu.org/gnu/groff/groff-1.23.0.tar.gz
-archlinux:coreutils
+#archlinux:coreutils
+https://ftp.gnu.org/gnu/coreutils/coreutils-9.7.tar.xz
 archlinux:swig
 archlinux:audit
 archlinux:shadow
