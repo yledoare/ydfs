@@ -842,7 +842,7 @@ grep share/Surge src/common/SurgeStorage.cpp
       -D nobody-group=nogroup \
       -D sysupdate=disabled   \
       -D ukify=disabled       \
-      -D docdir=$PREFIX/share/doc/systemd
+      -D docdir=$PREFIX/share/doc/systemd \
       ..
 	LANG=en_US.UTF-8 PYTHONPATH="" ninja -v  || exit 1
 	DESTDIR="$HOME/ydfs/packages-$ARCH/systemd" PYTHONPATH="" ninja install || exit 1 
