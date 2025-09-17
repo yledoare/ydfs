@@ -27,6 +27,7 @@ else
 endif
 
 DOCKER_CLI = docker
+HOME_DOCKER = /ydfs${YDFS}/linuxconsole2025
 
 ifeq ($(UNAME),Darwin)
 ARCH=x86_64
@@ -49,12 +50,12 @@ else
 endif
 
 DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
-	-v ${HOME}/ydfs-build/ydfs:${HOME}/ydfs \
-	-v ${HOME}/ydfs-build/${ARCH}:${HOME}/${ARCH} \
-	-v ${HOME}/ydfs-build/archpkg:${HOME}/archpkg \
-	-v ${HOME}/ydfs-build/multilib:${HOME}/multilib \
-	-v ${HOME}/ydfs-build/linuxconsole:${HOME}/linuxconsole \
-	-v ${HOME}/ydfs-build/iso:${HOME}/iso \
+	-v ${HOME}/ydfs-build/ydfs:${HOME_DOCKER}/ydfs \
+	-v ${HOME}/ydfs-build/${ARCH}:${HOME_DOCKER}/${ARCH} \
+	-v ${HOME}/ydfs-build/archpkg:${HOME_DOCKER}/archpkg \
+	-v ${HOME}/ydfs-build/multilib:${HOME_DOCKER}/multilib \
+	-v ${HOME}/ydfs-build/linuxconsole:${HOME_DOCKER}/linuxconsole \
+	-v ${HOME}/ydfs-build/iso:${HOME_DOCKER}/iso \
 	-v ${PWD}:/ydfs-src \
 	-w=/ydfs-src \
 	--platform=linux/amd64 \
@@ -98,8 +99,9 @@ force-docker-image-64: core/Dockerfile
 docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
 	cp core/Dockerfile core/Dockerfile-with-user
-	echo "RUN useradd $(shell whoami) --create-home" >> core/Dockerfile-with-user
-	echo "USER $(shell whoami)" >> core/Dockerfile-with-user
+	echo "RUN install -d /ydfs${YDFS}" >> core/Dockerfile-with-user 
+	echo "RUN useradd linuxconsole2025 --home-dir  ${HOME_DOCKER}  --create-home " >> core/Dockerfile-with-user
+	echo "USER linuxconsole2025" >> core/Dockerfile-with-user
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 endif
 
