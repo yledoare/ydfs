@@ -6,8 +6,9 @@ then
  exit 1
 fi
 
-[ -e $HOME/.local/tmp/$2 ] && zenity --info --text="$2 already installed" && exit 1
-zenity --info --text="Installing $2, if it fails, look at https://github.com/yledoare/apt-get"
+# [ -e $HOME/.local/tmp/$2 ] && zenity --info --text="$2 already installed" && exit 1
+[ -e $HOME/.local/tmp/$2 ] && echo "$2 already installed" && exit 1
+zenity --info --text="Installing $2, if it fails, update from https://github.com/linuxconsole-org/ydfs/blob/2.11/addons/apt-get"
 
 cd $HOME
 install -d .local/bin
@@ -59,9 +60,10 @@ else
   done
 fi
 
-# look for dep
-
 install -d $HOME/.local/tmp/$2
+# look for dep
+[ "$SKIP_DEP" == "ON" ] && exit 1
+
 cd $HOME/.local/tmp/$2
 [ -e control.tar.xz ] && rm control.tar.xz
 ar -x $HOME/.local/$DEB control.tar.xz
