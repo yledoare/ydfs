@@ -20,4 +20,4 @@ Options:
   -q            quiet mode
   -h            print this help msg
  
-### Test : qemu-system-x86_64 -curses -cpu max  -m 4096M -kernel /boot/vmlinuz-5.15.0-76-generic  -initrd initrd-5.15.0-76-generic.img  -append init=/bin/bash
+### Test : qemu-system-x86_64 -cpu max  -m 4096M -kernel /boot/vmlinuz-6.8.0-79-generic  -initrd initrd-6.8.0-79-generic.img -append init=/bin/bash

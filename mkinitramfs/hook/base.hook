@@ -14,6 +14,7 @@ build_hook() {
 	
 	for bin in bash sh cat mv cp killall ls mkdir mount find xargs grep fgrep \
 		umount sed sleep ln rm uname chroot chmod \
+		ps more cat \
 		readlink basename modprobe blkid switch_root \
 		kmod lsmod insmod setsid awk; do
 		add_binary $bin
