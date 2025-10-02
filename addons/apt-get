@@ -14,12 +14,15 @@ cd $HOME
 install -d .local/bin
 cd .local
 
+DEBIAN_RELEASE=bookworm
+[ $FORCE_DEBIAN_RELEASE != "" ] && $DEBIAN_RELEASE="$FORCE_DEBIAN_RELEASE"
+
 [ -e download ] && rm download
 if [ "$ARCH" = "x86" ]
 then
-  wget https://packages.debian.org/bookworm/i386/$2/download  
+  wget https://packages.debian.org/$DEBIAN_RELEASE/i386/$2/download  
 else
-  wget https://packages.debian.org/bookworm/amd64/$2/download  
+  wget https://packages.debian.org/$DEBIAN_RELEASE/amd64/$2/download  
 fi
 
 URL=$(grep ftp.fr.debian.org download | cut -d '"' -f2)
