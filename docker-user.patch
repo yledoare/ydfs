@@ -1,0 +1,90 @@
+diff --git a/2.10/Makefile b/2.10/Makefile
+index cff20f0b..16eac83d 100644
+--- a/2.10/Makefile
++++ b/2.10/Makefile
+@@ -427,8 +427,31 @@ ${LCMBUILD}antivirus-${ARCH}.squashfs : packages/list-antivirus
+ 	./scripts/make_packages antivirus
+ 	./scripts/make_module antivirus
+ 
+-
+-
+ archive:
+ 	cd ..
+ 	tar czvf linuxconsole-2.4.tar.gz --exclude config.ini --exclude .git 2.4
++
++THEUSER=$(shell whoami) 
++THEUSERID=$(shell id -u|tr -d '[:space:]') 
++THEGROUPID=$(shell id -g|tr -d '[:space:]') 
++Dockerfile-user:
++	echo "FROM yledoare/ydfs-2.10" > Dockerfile-user
++	echo "USER root" >> Dockerfile-user
++	echo "RUN groupadd -g ${THEUSERID} ${THEUSER}" >> Dockerfile-user
++#	echo "RUN useradd ${THEUSER} -u ${THEUSERID} -g ${THEGROUPID} -m -s /bin/bash" >> Dockerfile-user
++	echo "RUN usermod -a -G ${THEUSER} linuxconsole2024" >> Dockerfile-user
++	echo "USER linuxconsole2024" >> Dockerfile-user
++	docker build -f Dockerfile-user -t yledoare/ydfs-2.10-userid .
++
++DOCKERCOMPOSE=$(shell which docker-compose)
++ifeq ($(DOCKERCOMPOSE),"")
++	DOCKERCOMPOSE="docker compose"
++endif
++build-docker: Dockerfile-user
++	#echo "USER :$(shell id -u|tr -d '[:space:]'):"
++	echo "USER :$(shell id -u):"
++	# docker compose run hackerOS-2024-fast bash -c 'cp -a /2.10/ $HOME;cd $HOME/2.10;DIBAB_VERBOSE_BUILD="YES" DISTRONAME="hackerOS" make iso'
++	# ${DOCKERCOMPOSE} run --remove-orphans hackerOS-2024-fast bash -c 'cp -a /2.10/ /tmp;cd /tmp/2.10;DISTRONAME="hackerOS" make iso'
++	# ${DOCKERCOMPOSE} run --user $(shell id -u):$(shell id -g) --remove-orphans hackerOS-2024-fast bash
++	# USER_ID=$(shell id -u) GROUP_ID=$(shell id -g) ${DOCKERCOMPOSE} run hackerOS-2024-fast bash
++	USER_ID=$(shell id -u) GROUP_ID=$(shell id -g) ${DOCKERCOMPOSE} run hackerOS-2024-fast bash -c 'cp -a /2.10/ /tmp;cd /tmp/2.10;DISTRONAME="hackerOS" make iso'
+diff --git a/2.10/docker-compose.yml b/2.10/docker-compose.yml
+index 5c255709..beb5c8e5 100644
+--- a/2.10/docker-compose.yml
++++ b/2.10/docker-compose.yml
+@@ -1,8 +1,16 @@
+ services:
+-
+-    hackerOS-2024-fast:
+-      #user: "${USER_ID}:${GROUP_ID}"
++    change-vol-ownership:
+         image: yledoare/ydfs-2.10
++        user: "root"
++        group_add:
++           - '${GROUP_ID}'
++        volumes:
++           - $HOME/hackerOS:/home/linuxconsole2024/hackerOS
++        command: chown -R 1000:${GROUP_ID} /home/linuxconsole2024/hackerOS
++    hackerOS-2024-fast:
++        user: "1000:1001"
++        image: yledoare/ydfs-2.10-userid
++          # image: yledoare/ydfs-2.10
+         volumes:
+             - $HOME/hackerOS/ydfs:/home/linuxconsole2024/ydfs
+             - $HOME/iso:/home/linuxconsole2024/iso
+@@ -16,15 +24,6 @@ services:
+             SLEEPTIME: 1
+         security_opt:
+             - seccomp:unconfined
+-
+-    hackerOS-2024:
+-        image: yledoare/ydfs-2.10
+-        volumes:
+-            - $HOME/hackerOS/ydfs:/home/linuxconsole2024/ydfs
+-            - $HOME/iso:/home/linuxconsole2024/iso
+-            - $HOME/hackerOS/x86_64:/home/linuxconsole2024/x86_64
+-            - ${PWD}:/2.10
+-        environment:
+-            SLEEPTIME: 1
+-        security_opt:
+-            - seccomp:unconfined
++        depends_on:
++             change-vol-ownership:
++                 condition: service_completed_successfully
+diff --git a/Makefile b/Makefile
+index 182325be..e1d3da6a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,2 +1,3 @@
+ all:
+-	make -C 2.10 Dockerfile-user
++	make -C 2.10 build-docker
++	make -C 2.10 iso
