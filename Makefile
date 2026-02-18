@@ -41,8 +41,8 @@ endif
 
 
 ISTTY = $(shell tty -s || echo NOTTY)
-DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
-
+#DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
+DOCKERIMAGE64="yledoare/ydfs-2.11"
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
 else
@@ -66,6 +66,10 @@ DOCKER=${DOCKER_CLI} run ${OPTION} --rm --security-opt seccomp=unconfined \
 all: linuxconsole
 
 linuxconsole: iso
+
+#iso: docker-image-64 prepare core/packages/list-x86_64
+iso: prepare core/packages/list-x86_64
+	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 
 clean:
 	rm -fR ${HOME}/ydfs-build
@@ -116,9 +120,6 @@ cleanmultilib:
 multilib:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make multilib'
 
-iso: docker-image-64 prepare core/packages/list-x86_64
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
-
 buildme:
 	${DOCKER} -e BUILDME=OK ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
 test2:
@@ -138,10 +139,6 @@ dist-fast-kernel: fast-kernel
 	scp ${HOME}/iso/kernel-modules-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-modules-${YDFS}-${ARCH}.tar.gz
 	scp ${HOME}/iso/kernel-${YDFS}-${ARCH}.tar.gz jukebox.linuxconsole.org@jukebox.linuxconsole.org:/home/jukebox.linuxconsole.org/www/fast/kernel-${YDFS}-${ARCH}.tar.gz
 
-# make docker fast-kernel
-# make docker busybox
-# make docker clean-kernel
-# make docker initramfs
 updates:
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make updates'
 
