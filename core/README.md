@@ -1,4 +1,4 @@
-
+::
 # Build and test
 
 # Manual Docker build : Read doc/docker.txt
@@ -10,7 +10,7 @@
 # Live Gui test 
 
 * xhost +
-* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole2025/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-core 
+* docker run --name ydfs-test -d --mount type=bind,source="$HOME"/iso,target=/home/linuxconsole3/iso -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix  ydfs64-core 
 * docker exec -ti ydfs-test c 'cd $HOME/src/ydfs/core ; make live-test'
 
 

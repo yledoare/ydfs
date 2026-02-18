@@ -1,12 +1,3 @@
-# If the first argument is "run"...
-ifeq (docker,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  RUN_ARGS2 := -e $(wordlist 3,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  # ...and turn them into do-nothing targets
-  $(eval $(RUN_ARGS):;@:)
-endif
-
 export YDFS = $(shell git rev-parse --abbrev-ref HEAD)
 export YDFS_GIT_ID = $(shell git log -n1 --format="%h")
 
@@ -27,7 +18,7 @@ else
 endif
 
 DOCKER_CLI = docker
-HOME_DOCKER = /ydfs${YDFS}/linuxconsole2025
+HOME_DOCKER = /ydfs${YDFS}/linuxconsole3
 
 ifeq ($(UNAME),Darwin)
 ARCH=x86_64
@@ -41,8 +32,10 @@ endif
 
 
 ISTTY = $(shell tty -s || echo NOTTY)
-#DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
-DOCKERIMAGE64="yledoare/ydfs-2.11"
+
+DOCKERIMAGE64 = $(shell ${DOCKER_CLI} image ls | grep ydfs64-${YDFS} | cut -d' ' -f1)
+#DOCKERIMAGE64="yledoare/ydfs-2.11"
+
 ifeq ($(ISTTY),NOTTY)
 	OPTION=
 else
@@ -69,7 +62,7 @@ linuxconsole: iso
 
 #iso: docker-image-64 prepare core/packages/list-x86_64
 iso: prepare core/packages/list-x86_64
-	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make iso'
+	${DOCKER} yledoare/ydfs-${YDFS} /bin/sh -c 'cd core; make iso'
 
 clean:
 	rm -fR ${HOME}/ydfs-build
@@ -104,8 +97,8 @@ docker-image-64: core/Dockerfile
 ifneq ($(DOCKERIMAGE64),ydfs64-${YDFS})
 	cp core/Dockerfile core/Dockerfile-with-user
 	echo "RUN install -d /ydfs${YDFS}" >> core/Dockerfile-with-user 
-	echo "RUN useradd linuxconsole2025 --home-dir  ${HOME_DOCKER}  --create-home " >> core/Dockerfile-with-user
-	echo "USER linuxconsole2025" >> core/Dockerfile-with-user
+	echo "RUN useradd linuxconsole3 --home-dir  ${HOME_DOCKER}  --create-home " >> core/Dockerfile-with-user
+	echo "USER linuxconsole3" >> core/Dockerfile-with-user
 	cd core && ${DOCKER_BUILD_CLI} ${DOCKER_BUILD_CLI_OPTION} build --platform=linux/amd64 -f Dockerfile-with-user -t ydfs64-${YDFS} .
 endif
 
@@ -173,9 +166,6 @@ core/packages/list-x86_64: core/packages/list-misclibs-x86_64 core/packages/list
 #	cat core/packages/list-kde-x86_64 >> core/packages/list-x86_64
 #	cat core/packages/list-misc-x86_64 >> core/packages/list-x86_64
 	cat core/packages/list-end-x86_64 >> core/packages/list-x86_64
-#%::
-#	@echo "Run docker $(RUN_ARGS)"
-#	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make $(RUN_ARGS)'
 initramfs:
 	@echo "Run docker iso "
 	${DOCKER} ydfs64-${YDFS} /bin/sh -c 'cd core; make initramfs'

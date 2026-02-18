@@ -303,10 +303,10 @@ unset MAKE
 	cd build32
 	export CC="gcc -m32 -mstackrealign"
   	export CXX="g++ -m32 -mstackrealign"
-	mv /home/linuxconsole2025/x86_64/lib/pkgconfig /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled
+	mv /home/linuxconsole3/x86_64/lib/pkgconfig /home/linuxconsole3/x86_64/lib/pkgconfig-disabled
   	LD_LIBRARY_PATH="" cmake .. \
 	 -D apparmor=disabled     -D dbus_user=dbus     -D doxygen_docs=disabled     -D ducktype_docs=disabled     -D kqueue=disabled     -D launchd=disabled     -D libaudit=disabled     -D message_bus=false     -D qt_help=disabled     -D relocation=disabled     -D selinux=disabled     -D tools=false     -D x11_autolaunch=disabled     -D xml_docs=disabled -DCMAKE_INSTALL_PREFIX=$HOME/multilib 
-	mv /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled /home/linuxconsole2025/x86_64/lib/pkgconfig
+	mv /home/linuxconsole3/x86_64/lib/pkgconfig-disabled /home/linuxconsole3/x86_64/lib/pkgconfig
         touch ../ydfs-multilib-buildt
     ;;
     freetype-2* )
@@ -382,10 +382,10 @@ unset MAKE
 	cd build-32
 	export CC="gcc -m32 -mstackrealign"
   	export CXX="g++ -m32 -mstackrealign"
-	mv /home/linuxconsole2025/x86_64/lib/pkgconfig /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled
+	mv /home/linuxconsole3/x86_64/lib/pkgconfig /home/linuxconsole3/x86_64/lib/pkgconfig-disabled
 	CFLAGS="$CFLAGS -g3" CXXFLAGS="$CXXFLAGS -g3" CFLAGS="$CFLAGS -mstackrealign" CXXFLAGS="$CXXFLAGS -mstackrealign" PYTHONPATH="" meson ../ --prefix=$HOME/multilib --libdir=$HOME/multilib/lib32 \
 	-D documentation=false     -D dtrace=disabled     -D glib_debug=disabled     -D introspection=disabled     -D man-pages=disabled     -D selinux=disabled     -D sysprof=disabled     -D systemtap=disabled # || exit 1
-	mv /home/linuxconsole2025/x86_64/lib/pkgconfig-disabled /home/linuxconsole2025/x86_64/lib/pkgconfig
+	mv /home/linuxconsole3/x86_64/lib/pkgconfig-disabled /home/linuxconsole3/x86_64/lib/pkgconfig
 	;;
     libglvnd)
 	mkdir build-32

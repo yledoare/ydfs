@@ -2,8 +2,8 @@
 MEM=32
 MEM=128
 . $HOME/ydfs/config.ini
-export PATH=/home/linuxconsole2025/vm/bin/:$PATH
-export LD_LIBRARY_PATH=/home/linuxconsole2025/x86_64/lib/:$LD_LIBRARY_PATH
+export PATH=/home/linuxconsole3/vm/bin/:$PATH
+export LD_LIBRARY_PATH=/home/linuxconsole3/x86_64/lib/:$LD_LIBRARY_PATH
 which qemu-system-x86_64 && EMULATOR="QEMU"
 #which VBoxManage && EMULATOR="VBOX"
 [ "$EMULATOR" = "" ] && echo "Please install Virtualbox or Qemu (qemu-system-x86) to make tests !" && exit 1
